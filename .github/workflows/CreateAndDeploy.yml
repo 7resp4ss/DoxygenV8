@@ -1,0 +1,92 @@
+name: Create and Deploy V8Docs
+
+on:
+  workflow_dispatch:
+    inputs:
+      V8Version:
+        description: Version or Commit
+        type: string
+        required: true
+  schedule:
+    - cron: '0 0 1 * *'  # Run at 00:00 UTC on the 1st of every month
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+
+      - name: Set V8Version for Scheduled Run
+        id: set-v8-version
+        if: github.event_name == 'schedule'
+        run: |
+          LATEST_TAG=$(curl -s https://api.github.com/repos/v8/v8/releases/latest | jq -r '.tag_name')
+          echo "V8_VERSION=$LATEST_TAG" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download doxygen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz
+
+      - name: Download V8 Source Code
+        run: |
+          mkdir /tmp/V8SourceCode
+          V8_VERSION=${{ github.event_name == 'workflow_dispatch' && inputs.V8Version || steps.set-v8-version.outputs.V8_VERSION }}
+          echo "Using V8 version: $V8_VERSION"
+          git clone --depth 1 --branch "$V8_VERSION" https://github.com/v8/v8 /tmp/V8SourceCode || { echo "Failed to clone V8 with version $V8_VERSION"; exit 1; }
+          ls -la /tmp/V8SourceCode
+
+      - name: Create V8Docs
+        run: |
+          mkdir -p /tmp/V8Docs
+          doxygen Doxyfile 2>&1 | tee doxygen.log
+          if [ ! -d "/tmp/V8Docs/html" ] || [ -z "$(ls -A /tmp/V8Docs/html)" ]; then
+            echo "Error: /tmp/V8Docs/html not found or empty. Doxygen failed."
+            cat doxygen.log
+            exit 1
+          fi
+          ls -la /tmp/V8Docs/html
+
+      - name: Delete Existing V8Docs and Commit New V8Docs
+        run: |
+          rm -rf $GITHUB_WORKSPACE/V8Docs
+          mkdir -p $GITHUB_WORKSPACE/V8Docs
+          cp -r /tmp/V8Docs/* $GITHUB_WORKSPACE/V8Docs/ || { echo "Error: No files found in /tmp/V8Docs"; exit 1; }
+          git config --global user.name '7resp4ss'
+          git config --global user.email '81899344+7resp4ss@users.noreply.github.com'
+          V8_VERSION=${{ github.event_name == 'workflow_dispatch' && inputs.V8Version || steps.set-v8-version.outputs.V8_VERSION }}
+          git add -A V8Docs/
+          git commit -m "Update V8Docs for V8 version $V8_VERSION" || echo "No changes to commit"
+          git push https://x:${{ secrets.REPO_ACCESS_TOKEN }}@github.com/7resp4ss/DoxygenV8.git HEAD:${{ github.ref_name }}
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+        with:
+          static_site_generator: false
+        continue-on-error: true  # Allow workflow to proceed if Pages not enabled
+
+      - name: Upload Artifact
+        if: steps.pages.outcome == 'success'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: $GITHUB_WORKSPACE/V8Docs/html
+
+      - name: Deploy to GitHub Pages
+        if: steps.pages.outcome == 'success'
+        uses: actions/deploy-pages@v4
+        with:
+          environment: github-pages
