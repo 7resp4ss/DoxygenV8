@@ -18,6 +18,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}  # Use PAT for checkout
 
       - name: Download doxygen
         run: |
@@ -34,16 +36,21 @@ jobs:
           mkdir /tmp/V8Docs
           doxygen Doxyfile
 
-      - name: Commit and Push V8Docs
+      - name: Delete Existing V8Docs and Commit New V8Docs
         run: |
+          # Remove existing V8Docs folder if it exists
+          rm -rf $GITHUB_WORKSPACE/V8Docs
+
+          # Copy new V8Docs content
           mkdir -p $GITHUB_WORKSPACE/V8Docs
           cp -r /tmp/V8Docs/* $GITHUB_WORKSPACE/V8Docs/
 
           git config --global user.name '7resp4ss'
           git config --global user.email '81899344+7resp4ss@users.noreply.github.com'
 
-          git add V8Docs/
-          git commit -m "Add V8Docs for V8 version ${{ inputs.V8Version }}"
+          # Stage all changes (including deletions)
+          git add -A V8Docs/
+          git commit -m "Update V8Docs for V8 version ${{ inputs.V8Version }}"
 
-          # Use PAT for authentication
+          # Push changes using PAT
           git push https://x:${{ secrets.REPO_ACCESS_TOKEN }}@github.com/7resp4ss/DoxygenV8.git HEAD:${{ github.ref_name }}
