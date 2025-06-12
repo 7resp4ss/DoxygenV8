@@ -25,6 +25,12 @@ jobs:
 
       - name: Check initial disk space
         run: df -h
+        
+      - name: Check /mnt permissions
+        run: |
+          ls -ld /mnt
+          sudo chown runner:runner /mnt
+          sudo chmod u+rwX /mnt
 
       - name: Download doxygen
         run: |
@@ -43,27 +49,27 @@ jobs:
 
       - name: Download V8 Source Code
         run: |
-          mkdir /tmp/V8SourceCode
-          git clone --branch ${{ steps.v8-version.outputs.version }} --depth 1 https://github.com/v8/v8 /tmp/V8SourceCode
-          du -sh /tmp/V8SourceCode
+          mkdir -p /mnt/V8SourceCode
+          git clone --branch ${{ steps.v8-version.outputs.version }} --depth 1 https://github.com/v8/v8 /mnt/V8SourceCode
+          du -sh /mnt/V8SourceCode
 
       - name: Create V8Docs
         run: |
-          mkdir /tmp/V8Docs
+          mkdir -p /mnt/V8Docs
           doxygen Doxyfile
-          du -sh /tmp/V8Docs
+          du -sh /mnt/V8Docs
 
       - name: Clean up temporary files
         run: |
-          rm -rf /tmp/V8SourceCode
-          du -sh /tmp/*
+          rm -rf /mnt/V8SourceCode
+          du -sh /mnt/*
 
       - name: Delete Existing V8Docs and Commit New V8Docs
         run: |
           rm -rf $GITHUB_WORKSPACE/V8Docs
           mkdir -p $GITHUB_WORKSPACE/V8Docs
-          cp -r /tmp/V8Docs/* $GITHUB_WORKSPACE/V8Docs/
-          rm -rf /tmp/V8Docs
+          cp -r /mnt/V8Docs/* $GITHUB_WORKSPACE/V8Docs/
+          rm -rf /mnt/V8Docs
           git config --global user.name '7resp4ss'
           git config --global user.email '81899344+7resp4ss@users.noreply.github.com'
           git add -A V8Docs/
