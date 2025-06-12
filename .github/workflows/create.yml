@@ -8,7 +8,7 @@ on:
         type: string
         required: true
   schedule:
-    - cron: '0 0 1 * *'  # Runs at 00:00 UTC on the 1st of every month
+    - cron: '0 0 1 * *'
 
 concurrency:
   group: ${{ github.ref }}
@@ -16,12 +16,15 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest-16-cores
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}  # Use PAT for checkout
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+
+      - name: Check initial disk space
+        run: df -h
 
       - name: Download doxygen
         run: |
@@ -31,11 +34,9 @@ jobs:
       - name: Determine V8 Version
         id: v8-version
         run: |
-          # Use provided V8Version for workflow_dispatch, or fetch latest tag for scheduled run
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             echo "version=${{ inputs.V8Version }}" >> $GITHUB_OUTPUT
           else
-            # Fetch the latest V8 tag from the V8 repository
             latest_tag=$(git ls-remote --tags https://github.com/v8/v8 | sort -t '/' -k 3 -V | tail -n 1 | awk -F/ '{print $NF}')
             echo "version=$latest_tag" >> $GITHUB_OUTPUT
           fi
@@ -44,29 +45,30 @@ jobs:
         run: |
           mkdir /tmp/V8SourceCode
           git clone --branch ${{ steps.v8-version.outputs.version }} --depth 1 https://github.com/v8/v8 /tmp/V8SourceCode
+          du -sh /tmp/V8SourceCode
 
       - name: Create V8Docs
         run: |
           mkdir /tmp/V8Docs
           doxygen Doxyfile
+          du -sh /tmp/V8Docs
+
+      - name: Clean up temporary files
+        run: |
+          rm -rf /tmp/V8SourceCode
+          du -sh /tmp/*
 
       - name: Delete Existing V8Docs and Commit New V8Docs
         run: |
-          # Remove existing V8Docs folder if it exists
           rm -rf $GITHUB_WORKSPACE/V8Docs
-
-          # Copy new V8Docs content
           mkdir -p $GITHUB_WORKSPACE/V8Docs
           cp -r /tmp/V8Docs/* $GITHUB_WORKSPACE/V8Docs/
-          rm -rf /tmp/V8Docs/
-          rm -rf /tmp/V8SourceCode
-
+          rm -rf /tmp/V8Docs
           git config --global user.name '7resp4ss'
           git config --global user.email '81899344+7resp4ss@users.noreply.github.com'
-
-          # Stage all changes (including deletions)
           git add -A V8Docs/
           git commit -m "Update V8Docs for V8 version ${{ steps.v8-version.outputs.version }}"
-
-          # Push changes using PAT
           git push https://x:${{ secrets.REPO_ACCESS_TOKEN }}@github.com/7resp4ss/DoxygenV8.git HEAD:${{ github.ref_name }}
+
+      - name: Check final disk space
+        run: df -h
