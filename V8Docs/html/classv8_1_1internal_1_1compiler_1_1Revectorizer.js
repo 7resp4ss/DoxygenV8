@@ -1,6 +1,28 @@
 var classv8_1_1internal_1_1compiler_1_1Revectorizer =
 [
     [ "Revectorizer", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a38f547116760995ed442064a6c289668", null ],
+    [ "CollectSeeds", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#aa7ee1adcb7069701be194784f0888a00", null ],
+    [ "DecideVectorize", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a5cfb6d8f6cc795d60f448e74087f6a04", null ],
     [ "DetectCPUFeatures", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a0888535b3cd02849a1d6611c3dd991bc", null ],
-    [ "TryRevectorize", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#abd68e137f9e281989fbb7e6508d8e77e", null ]
+    [ "GetPackNode", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a979ed97ccf596d0f9cbe87927f3eb850", null ],
+    [ "graph", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a28411ec0f48d842e893c150428a150b6", null ],
+    [ "mcgraph", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a8b2e7c49ecd6a18db7a62669e38644e7", null ],
+    [ "PrintStores", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a0f9bc39d5ba033805e86168d0334b977", null ],
+    [ "ReduceStoreChain", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#aaec132d9479ba4f584a24a3020c67bae", null ],
+    [ "ReduceStoreChains", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a7d8ac7edd131cd5d18a8d3f66a9c1b8a", null ],
+    [ "SetEffectInput", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#aa890c3403c472800007dd4162d0d228b", null ],
+    [ "SetMemoryOpInputs", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#aea306d18e8de371f591c36e30db8d9ea", null ],
+    [ "TryRevectorize", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#abd68e137f9e281989fbb7e6508d8e77e", null ],
+    [ "UpdateSources", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a7dce167cec37adba7cb62d2c28db15da", null ],
+    [ "VectorizeTree", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#ad02e27f8b865e41f0c9d0432e93d8097", null ],
+    [ "zone", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a72eeb96e5f20ad9e8ce8db6cdf1e3762", null ],
+    [ "graph_", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#aef80134fb5fe5d726de31bf1b0a8a931", null ],
+    [ "group_of_stores_", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a9619a8aa2e28e1c0b31bde1365c69223", null ],
+    [ "mcgraph_", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a7504595a19dabe32040c54b573c9ba91", null ],
+    [ "node_observer_for_test_", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#ab26184751f1558e65f29cf732c2ae644", null ],
+    [ "slp_tree_", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a758778038d8e21261698524a0f097027", null ],
+    [ "source_positions_", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a7d69769a68d4146c66e16ca95c688c27", null ],
+    [ "sources_", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a52eea7885f7a0e8575ebf16acf063e82", null ],
+    [ "support_simd256_", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#a9e7a2ffab52b9a32c78cbb86cb2bf46b", null ],
+    [ "zone_", "classv8_1_1internal_1_1compiler_1_1Revectorizer.html#aac4d45e27130fb2382ae0c4ad97ee090", null ]
 ];

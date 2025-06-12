@@ -11,7 +11,7 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Pipeline\+Statistics\+Ba
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=343pt]{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats__coll__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -42,6 +42,13 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Zo
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 45 of file pipeline-\/statistics.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a4e8c65137d4c1515145c0ebd64e6b920}\label{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a4e8c65137d4c1515145c0ebd64e6b920}} 
 \index{v8::internal::compiler::PipelineStatisticsBase::CommonStats@{v8::internal::compiler::PipelineStatisticsBase::CommonStats}!CommonStats@{CommonStats}}
@@ -49,6 +56,15 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Zo
 \doxysubsubsection{\texorpdfstring{CommonStats()}{CommonStats()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+Common\+Stats\+::\+Common\+Stats (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 47 of file pipeline-\/statistics.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{47 : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a69277a67f96567e811c67802a14057ca}{outer\_zone\_initial\_size\_}}(0) \{\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a0b986217077c866b4abcd0536209642f}\label{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a0b986217077c866b4abcd0536209642f}} 
 \index{v8::internal::compiler::PipelineStatisticsBase::CommonStats@{v8::internal::compiler::PipelineStatisticsBase::CommonStats}!CommonStats@{CommonStats}}
 \index{CommonStats@{CommonStats}!v8::internal::compiler::PipelineStatisticsBase::CommonStats@{v8::internal::compiler::PipelineStatisticsBase::CommonStats}}
@@ -64,12 +80,118 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Zo
 \doxysubsubsection{\texorpdfstring{Begin()}{Begin()}}
 {\footnotesize\ttfamily void v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+Common\+Stats\+::\+Begin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase}{Pipeline\+Statistics\+Base}} $\ast$}]{pipeline\+\_\+stats }\end{DoxyParamCaption})}
 
+
+
+Definition at line 18 of file pipeline-\/statistics.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19                                             \{}
+\DoxyCodeLine{20   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_aa081f2fd74dd27bedadc988fd826303f}{scope\_}});}
+\DoxyCodeLine{21   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_aa081f2fd74dd27bedadc988fd826303f}{scope\_}}.reset(\textcolor{keyword}{new} ZoneStats::StatsScope(pipeline\_stats-\/>zone\_stats\_));}
+\DoxyCodeLine{22   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a69277a67f96567e811c67802a14057ca}{outer\_zone\_initial\_size\_}} = pipeline\_stats-\/>OuterZoneSize();}
+\DoxyCodeLine{23   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a438296a2941284286432bd70aef72ffe}{allocated\_bytes\_at\_start\_}} =}
+\DoxyCodeLine{24       \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a69277a67f96567e811c67802a14057ca}{outer\_zone\_initial\_size\_}} -\/}
+\DoxyCodeLine{25       pipeline\_stats-\/>total\_stats\_.outer\_zone\_initial\_size\_ +}
+\DoxyCodeLine{26       pipeline\_stats-\/>zone\_stats\_-\/>GetCurrentAllocatedBytes();}
+\DoxyCodeLine{27   \textcolor{comment}{// TODO(pthier): Move turboshaft specifics out of common class.}}
+\DoxyCodeLine{28   \textcolor{comment}{// TODO(nicohartmann): This is a bit more difficult to do cleanly here without}}
+\DoxyCodeLine{29   \textcolor{comment}{// the use of contextual variables. Add proper Turboshaft statistics in a}}
+\DoxyCodeLine{30   \textcolor{comment}{// follow up CL.}}
+\DoxyCodeLine{31   \textcolor{comment}{//}}
+\DoxyCodeLine{32   \textcolor{comment}{// if (turboshaft::PipelineData::HasScope()) \{}}
+\DoxyCodeLine{33   \textcolor{comment}{//   graph\_size\_at\_start\_ =}}
+\DoxyCodeLine{34   \textcolor{comment}{//       turboshaft::PipelineData::Get().graph().number\_of\_operations();}}
+\DoxyCodeLine{35   \textcolor{comment}{// \}}}
+\DoxyCodeLine{36   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_ade2df13f1b0736b4646735e7c2e8706b}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_a451f6e2636acacce40e1dad13fbf7a20}{Start}}();}
+\DoxyCodeLine{37 \}}
+
+\end{DoxyCode}
+
+
+References allocated\+\_\+bytes\+\_\+at\+\_\+start\+\_\+, v8\+::internal\+::\+DCHECK(), v8\+::internal\+::compiler\+::\+Zone\+Stats\+::\+Get\+Current\+Allocated\+Bytes(), outer\+\_\+zone\+\_\+initial\+\_\+size\+\_\+, v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+Outer\+Zone\+Size(), scope\+\_\+, v8\+::base\+::\+Elapsed\+Timer\+::\+Start(), timer\+\_\+, v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::total\+\_\+stats\+\_\+, and v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::zone\+\_\+stats\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+Begin\+Phase(), v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+Begin\+Phase\+Kind(), and v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+Pipeline\+Statistics\+Base().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a259811e5715ee81217178c19ca152e2a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a259811e5715ee81217178c19ca152e2a_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a9ebf564b662e95a619f09f9575bcc5b4}\label{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a9ebf564b662e95a619f09f9575bcc5b4}} 
 \index{v8::internal::compiler::PipelineStatisticsBase::CommonStats@{v8::internal::compiler::PipelineStatisticsBase::CommonStats}!End@{End}}
 \index{End@{End}!v8::internal::compiler::PipelineStatisticsBase::CommonStats@{v8::internal::compiler::PipelineStatisticsBase::CommonStats}}
 \doxysubsubsection{\texorpdfstring{End()}{End()}}
 {\footnotesize\ttfamily void v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+Common\+Stats\+::\+End (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase}{Pipeline\+Statistics\+Base}} $\ast$}]{pipeline\+\_\+stats,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1CompilationStatistics_1_1BasicStats}{Compilation\+Statistics\+::\+Basic\+Stats}} $\ast$}]{diff }\end{DoxyParamCaption})}
 
+
+
+Definition at line 39 of file pipeline-\/statistics.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{41                                            \{}
+\DoxyCodeLine{42   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_aa081f2fd74dd27bedadc988fd826303f}{scope\_}});}
+\DoxyCodeLine{43   diff-\/>function\_name\_ = pipeline\_stats-\/>function\_name\_;}
+\DoxyCodeLine{44   diff-\/>delta\_ = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_ade2df13f1b0736b4646735e7c2e8706b}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_a322a9d18bf9a1a89a232fc014639207b}{Elapsed}}();}
+\DoxyCodeLine{45   \textcolor{keywordtype}{size\_t} outer\_zone\_diff =}
+\DoxyCodeLine{46       pipeline\_stats-\/>OuterZoneSize() -\/ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a69277a67f96567e811c67802a14057ca}{outer\_zone\_initial\_size\_}};}
+\DoxyCodeLine{47   diff-\/>max\_allocated\_bytes\_ = outer\_zone\_diff + \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_aa081f2fd74dd27bedadc988fd826303f}{scope\_}}-\/>GetMaxAllocatedBytes();}
+\DoxyCodeLine{48   diff-\/>absolute\_max\_allocated\_bytes\_ =}
+\DoxyCodeLine{49       diff-\/>max\_allocated\_bytes\_ + \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a438296a2941284286432bd70aef72ffe}{allocated\_bytes\_at\_start\_}};}
+\DoxyCodeLine{50   diff-\/>total\_allocated\_bytes\_ =}
+\DoxyCodeLine{51       outer\_zone\_diff + \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_aa081f2fd74dd27bedadc988fd826303f}{scope\_}}-\/>GetTotalAllocatedBytes();}
+\DoxyCodeLine{52   diff-\/>input\_graph\_size\_ = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a0e5b98c827aa04c39b46a3d00cc26d70}{graph\_size\_at\_start\_}};}
+\DoxyCodeLine{53   \textcolor{comment}{// TODO(nicohartmann): This is a bit more difficult to do cleanly here without}}
+\DoxyCodeLine{54   \textcolor{comment}{// the use of contextual variables. Add proper Turboshaft statistics in a}}
+\DoxyCodeLine{55   \textcolor{comment}{// follow up CL.}}
+\DoxyCodeLine{56   \textcolor{comment}{//}}
+\DoxyCodeLine{57   \textcolor{comment}{// if (turboshaft::PipelineData::HasScope()) \{}}
+\DoxyCodeLine{58   \textcolor{comment}{//   diff-\/>output\_graph\_size\_ =}}
+\DoxyCodeLine{59   \textcolor{comment}{//       turboshaft::PipelineData::Get().graph().number\_of\_operations();}}
+\DoxyCodeLine{60   \textcolor{comment}{// \}}}
+\DoxyCodeLine{61   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_aa081f2fd74dd27bedadc988fd826303f}{scope\_}}.reset();}
+\DoxyCodeLine{62   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_ade2df13f1b0736b4646735e7c2e8706b}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_ae6991b8f7a97d66db8a05fc4b36b6c98}{Stop}}();}
+\DoxyCodeLine{63 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Compilation\+Statistics\+::\+Basic\+Stats\+::absolute\+\_\+max\+\_\+allocated\+\_\+bytes\+\_\+, v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Compilation\+Statistics\+::\+Basic\+Stats\+::delta\+\_\+, v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::function\+\_\+name\+\_\+, v8\+::internal\+::\+Compilation\+Statistics\+::\+Basic\+Stats\+::function\+\_\+name\+\_\+, v8\+::internal\+::\+Compilation\+Statistics\+::\+Basic\+Stats\+::input\+\_\+graph\+\_\+size\+\_\+, v8\+::internal\+::\+Compilation\+Statistics\+::\+Basic\+Stats\+::max\+\_\+allocated\+\_\+bytes\+\_\+, v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+Outer\+Zone\+Size(), and v8\+::internal\+::\+Compilation\+Statistics\+::\+Basic\+Stats\+::total\+\_\+allocated\+\_\+bytes\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+End\+Phase(), v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+End\+Phase\+Kind(), and v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::$\sim$\+Pipeline\+Statistics\+Base().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a9ebf564b662e95a619f09f9575bcc5b4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a9ebf564b662e95a619f09f9575bcc5b4_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a00c9b94091c4018fd604d1b878c235cf}\label{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a00c9b94091c4018fd604d1b878c235cf}} 
 \index{v8::internal::compiler::PipelineStatisticsBase::CommonStats@{v8::internal::compiler::PipelineStatisticsBase::CommonStats}!operator=@{operator=}}
 \index{operator=@{operator=}!v8::internal::compiler::PipelineStatisticsBase::CommonStats@{v8::internal::compiler::PipelineStatisticsBase::CommonStats}}
@@ -85,11 +207,23 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Zo
 \doxysubsubsection{\texorpdfstring{allocated\_bytes\_at\_start\_}{allocated\_bytes\_at\_start\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+Common\+Stats\+::allocated\+\_\+bytes\+\_\+at\+\_\+start\+\_\+}
 
+
+
+Definition at line 58 of file pipeline-\/statistics.\+h.
+
+
+
+Referenced by Begin().
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a0e5b98c827aa04c39b46a3d00cc26d70}\label{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a0e5b98c827aa04c39b46a3d00cc26d70}} 
 \index{v8::internal::compiler::PipelineStatisticsBase::CommonStats@{v8::internal::compiler::PipelineStatisticsBase::CommonStats}!graph\_size\_at\_start\_@{graph\_size\_at\_start\_}}
 \index{graph\_size\_at\_start\_@{graph\_size\_at\_start\_}!v8::internal::compiler::PipelineStatisticsBase::CommonStats@{v8::internal::compiler::PipelineStatisticsBase::CommonStats}}
 \doxysubsubsection{\texorpdfstring{graph\_size\_at\_start\_}{graph\_size\_at\_start\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+Common\+Stats\+::graph\+\_\+size\+\_\+at\+\_\+start\+\_\+ = 0}
+
+
+
+Definition at line 59 of file pipeline-\/statistics.\+h.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a69277a67f96567e811c67802a14057ca}\label{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_a69277a67f96567e811c67802a14057ca}} 
 \index{v8::internal::compiler::PipelineStatisticsBase::CommonStats@{v8::internal::compiler::PipelineStatisticsBase::CommonStats}!outer\_zone\_initial\_size\_@{outer\_zone\_initial\_size\_}}
@@ -97,11 +231,27 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Zo
 \doxysubsubsection{\texorpdfstring{outer\_zone\_initial\_size\_}{outer\_zone\_initial\_size\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+Common\+Stats\+::outer\+\_\+zone\+\_\+initial\+\_\+size\+\_\+}
 
+
+
+Definition at line 57 of file pipeline-\/statistics.\+h.
+
+
+
+Referenced by Begin().
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_aa081f2fd74dd27bedadc988fd826303f}\label{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_aa081f2fd74dd27bedadc988fd826303f}} 
 \index{v8::internal::compiler::PipelineStatisticsBase::CommonStats@{v8::internal::compiler::PipelineStatisticsBase::CommonStats}!scope\_@{scope\_}}
 \index{scope\_@{scope\_}!v8::internal::compiler::PipelineStatisticsBase::CommonStats@{v8::internal::compiler::PipelineStatisticsBase::CommonStats}}
 \doxysubsubsection{\texorpdfstring{scope\_}{scope\_}}
 {\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ZoneStats_1_1StatsScope}{Zone\+Stats\+::\+Stats\+Scope}}$>$ v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+Common\+Stats\+::scope\+\_\+}
+
+
+
+Definition at line 55 of file pipeline-\/statistics.\+h.
+
+
+
+Referenced by Begin(), v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+In\+Phase(), and v8\+::internal\+::compiler\+::\+Pipeline\+Statistics\+Base\+::\+In\+Phase\+Kind().
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_ade2df13f1b0736b4646735e7c2e8706b}\label{classv8_1_1internal_1_1compiler_1_1PipelineStatisticsBase_1_1CommonStats_ade2df13f1b0736b4646735e7c2e8706b}} 
 \index{v8::internal::compiler::PipelineStatisticsBase::CommonStats@{v8::internal::compiler::PipelineStatisticsBase::CommonStats}!timer\_@{timer\_}}
@@ -111,7 +261,15 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Zo
 
 
 
+Definition at line 56 of file pipeline-\/statistics.\+h.
+
+
+
+Referenced by Begin().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pipeline-statistics_8h}{pipeline-\/statistics.\+h}}\item 
-\mbox{\hyperlink{pipeline-statistics_8cc}{pipeline-\/statistics.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{pipeline-statistics_8h}{pipeline-\/statistics.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{pipeline-statistics_8cc}{pipeline-\/statistics.\+cc}}\end{DoxyCompactItemize}

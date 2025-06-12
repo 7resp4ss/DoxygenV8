@@ -15,5 +15,6 @@ var classv8_1_1ValueSerializer =
     [ "WriteRawBytes", "classv8_1_1ValueSerializer.html#ae01d5c86517fad7ad1c191b9ff6c30e7", null ],
     [ "WriteUint32", "classv8_1_1ValueSerializer.html#a8345af97eb58727384cab6a2738924d1", null ],
     [ "WriteUint64", "classv8_1_1ValueSerializer.html#a48a33b02dc8dd383be655e5627c0a070", null ],
-    [ "WriteValue", "classv8_1_1ValueSerializer.html#abaaf71649f106af23c1c43f12e6a8394", null ]
+    [ "WriteValue", "classv8_1_1ValueSerializer.html#abaaf71649f106af23c1c43f12e6a8394", null ],
+    [ "private_", "classv8_1_1ValueSerializer.html#af5846a067a3068e2aece688a003d65e4", null ]
 ];

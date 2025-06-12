@@ -1,8 +1,23 @@
 var runtime_wasm_8cc =
 [
     [ "RuntimeArgumentsWithoutHandles", "classv8_1_1internal_1_1RuntimeArgumentsWithoutHandles.html", "classv8_1_1internal_1_1RuntimeArgumentsWithoutHandles" ],
+    [ "FrameFinder", "classv8_1_1internal_1_1anonymous__namespace_02runtime-wasm_8cc_03_1_1FrameFinder.html", "classv8_1_1internal_1_1anonymous__namespace_02runtime-wasm_8cc_03_1_1FrameFinder" ],
+    [ "ClearThreadInWasmScope", "classv8_1_1internal_1_1anonymous__namespace_02runtime-wasm_8cc_03_1_1ClearThreadInWasmScope.html", "classv8_1_1internal_1_1anonymous__namespace_02runtime-wasm_8cc_03_1_1ClearThreadInWasmScope" ],
     [ "RETURN_RESULT_OR_TRAP", "runtime-wasm_8cc.html#a16cae18dd347391aab4a875304db1357", null ],
     [ "RuntimeArguments", "runtime-wasm_8cc.html#ad17036e0d6f2946f374a23991d097d81", null ],
+    [ "AllocateFeedbackVector", "runtime-wasm_8cc.html#acf542041241880515a58f3298ce06abe", null ],
+    [ "EncodeWtf8", "runtime-wasm_8cc.html#a5fd5e9e3d9674130b72b2f680aaa3459", null ],
+    [ "EncodeWtf8", "runtime-wasm_8cc.html#a7efab2aa93102558d9e4dfe2bc5dc5d3", null ],
+    [ "ExecuteWasmDebugBreaks", "runtime-wasm_8cc.html#a244ed2ad6bdf7827d1fc4c42e69dfb2f", null ],
+    [ "GetNativeContextFromWasmInstanceOnStackTop", "runtime-wasm_8cc.html#a91d69493dde3063996c16f6b5e8d7b90", null ],
+    [ "GetWasmInstanceDataOnStackTop", "runtime-wasm_8cc.html#afffb0fd4e34492a5284b3455ea3fd0b3", null ],
+    [ "HasUnpairedSurrogate", "runtime-wasm_8cc.html#a2f948163dfe85ae955af951a64d4690a", null ],
+    [ "HasUnpairedSurrogate", "runtime-wasm_8cc.html#aaa99577bd621fcacd7b4edcf707181ff", null ],
+    [ "MaxEncodedSize", "runtime-wasm_8cc.html#aa44fd5b10a8a98ef975ddebb11d2f6e6", null ],
+    [ "MaxEncodedSize", "runtime-wasm_8cc.html#a51d21e1fd8e8cc566203aa01a4edb33a", null ],
+    [ "MeasureWtf8", "runtime-wasm_8cc.html#ae5d92efbde0a759684712bbafce47e1c", null ],
+    [ "MeasureWtf8", "runtime-wasm_8cc.html#acb752bcb6f3ce858f98cdc63e936fa2d", null ],
+    [ "ReplaceJSToWasmWrapper", "runtime-wasm_8cc.html#ac2601d341585c807ae1c41b6cd8de95d", null ],
     [ "RUNTIME_FUNCTION", "runtime-wasm_8cc.html#a1adf0384864c9464f2ed628352deabee", null ],
     [ "RUNTIME_FUNCTION", "runtime-wasm_8cc.html#a13fc3573c4055d05d79b003e8e981905", null ],
     [ "RUNTIME_FUNCTION", "runtime-wasm_8cc.html#a4c31d132c3ab45aa2503a0764de55990", null ],
@@ -61,8 +76,8 @@ var runtime_wasm_8cc =
     [ "RUNTIME_FUNCTION", "runtime-wasm_8cc.html#ade179f99b1b2124e25feaa34dd885b33", null ],
     [ "RUNTIME_FUNCTION", "runtime-wasm_8cc.html#a37fc85bac005249f09980b40186eb4c0", null ],
     [ "RUNTIME_FUNCTION", "runtime-wasm_8cc.html#a92dc95198085755e79acfbabfc23d48d", null ],
-    [ "ToUtf8Lossy", "runtime-wasm_8cc.html#aaf5b0233c8e9bc00c2dd924e6e652187", null ],
-    [ "frame_iterator_", "runtime-wasm_8cc.html#a02fea9b950a84476952ad4ed58f40b4b", null ],
-    [ "is_thread_in_wasm_", "runtime-wasm_8cc.html#a4191a550f7ef3f3b5a95320c16257836", null ],
-    [ "isolate_", "runtime-wasm_8cc.html#a68072bca3fef7bd8b0d3cbac971cbf4b", null ]
+    [ "ThrowTableOutOfBounds", "runtime-wasm_8cc.html#a1ef1e4fe4b221522968cae09eedb1698", null ],
+    [ "ThrowWasmError", "runtime-wasm_8cc.html#a51ea94027f43d4557e6bf268f730de68", null ],
+    [ "ThrowWasmSuspendError", "runtime-wasm_8cc.html#ae1e6124be30b8dacefdd21adc65e2bb0", null ],
+    [ "ToUtf8Lossy", "runtime-wasm_8cc.html#aaf5b0233c8e9bc00c2dd924e6e652187", null ]
 ];

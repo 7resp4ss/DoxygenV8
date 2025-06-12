@@ -1,6 +1,6 @@
 var frames_8h =
 [
-    [ "StackHandlerConstants", "classv8_1_1internal_1_1StackHandlerConstants.html", null ],
+    [ "StackHandlerConstants", "classv8_1_1internal_1_1StackHandlerConstants.html", "classv8_1_1internal_1_1StackHandlerConstants" ],
     [ "StackHandler", "classv8_1_1internal_1_1StackHandler.html", "classv8_1_1internal_1_1StackHandler" ],
     [ "StackFrame", "classv8_1_1internal_1_1StackFrame.html", "classv8_1_1internal_1_1StackFrame" ],
     [ "State", "structv8_1_1internal_1_1StackFrame_1_1State.html", "structv8_1_1internal_1_1StackFrame_1_1State" ],

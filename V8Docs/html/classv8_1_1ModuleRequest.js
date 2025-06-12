@@ -1,5 +1,7 @@
 var classv8_1_1ModuleRequest =
 [
+    [ "Cast", "classv8_1_1ModuleRequest.html#a100813d9210bd33849441939dd7f65c8", null ],
+    [ "CheckCast", "classv8_1_1ModuleRequest.html#ad116f439c21700fc56e009921fea5602", null ],
     [ "GetImportAssertions", "classv8_1_1ModuleRequest.html#aedfc1d73e39c7f70adf31c1156a74b26", null ],
     [ "GetImportAttributes", "classv8_1_1ModuleRequest.html#a619f8b47705c915325ffa5c47a2305d8", null ],
     [ "GetPhase", "classv8_1_1ModuleRequest.html#aa3ca478c9f50d0580b8ee48db9e1a6df", null ],

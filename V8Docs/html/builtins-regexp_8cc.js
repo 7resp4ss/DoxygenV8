@@ -9,5 +9,10 @@ var builtins_regexp_8cc =
     [ "BUILTIN", "builtins-regexp_8cc.html#a36ec08986e9e256ab956bff23f1b9fdc", null ],
     [ "BUILTIN", "builtins-regexp_8cc.html#a218cbc2c0f91de4b483c661a6222d399", null ],
     [ "BUILTIN", "builtins-regexp_8cc.html#a68af2aab40cda4a2168b45fa63bd6640", null ],
-    [ "BUILTIN", "builtins-regexp_8cc.html#ae3968e6e037f719cfbf9596f0c49bfc0", null ]
+    [ "BUILTIN", "builtins-regexp_8cc.html#ae3968e6e037f719cfbf9596f0c49bfc0", null ],
+    [ "GetAsciiEscape", "builtins-regexp_8cc.html#a2178f38f0b382c6bace1f4e2761b79bd", null ],
+    [ "RegExpEscapeImpl", "builtins-regexp_8cc.html#ad02e1fc4fe5ffb6aa5f70823083f20c6", null ],
+    [ "kAsciiEscapes", "builtins-regexp_8cc.html#ae5e7a052bbbf628f1c492c7c84ca9f55", null ],
+    [ "kEscapeToHex", "builtins-regexp_8cc.html#aa2398c684fb2f3faf64db134d1bf9a51", null ],
+    [ "kNoEscape", "builtins-regexp_8cc.html#ac52e24dbadc7fc0a1ec158e517e88e8d", null ]
 ];

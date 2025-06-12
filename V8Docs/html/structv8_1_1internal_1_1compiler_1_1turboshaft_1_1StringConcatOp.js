@@ -6,5 +6,6 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringConcatOp =
     [ "length", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringConcatOp.html#af06d359701c317a2387870b8c7f95600", null ],
     [ "options", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringConcatOp.html#a36afa501a25e86db9bbd1b74015488b7", null ],
     [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringConcatOp.html#a816e2253c4af1659f99a20b8cd2d9a39", null ],
-    [ "right", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringConcatOp.html#a301d69300c64e9c4f7b9452cfcee952c", null ]
+    [ "right", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringConcatOp.html#a301d69300c64e9c4f7b9452cfcee952c", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringConcatOp.html#ac504672d2e0a852168c263b4a4000687", null ]
 ];

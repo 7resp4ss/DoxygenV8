@@ -1,5 +1,5 @@
 var code_pointer_8h =
 [
-    [ "ReadCodeEntrypointViaCodePointerField", "code-pointer_8h.html#a04d743ea948fb729f8c300d4869d28c3", null ],
-    [ "WriteCodeEntrypointViaCodePointerField", "code-pointer_8h.html#aee39a846458c39dc2bd21f765ab374b1", null ]
+    [ "ReadCodeEntrypointViaCodePointerField", "code-pointer_8h.html#a5ed609beaeabd8958edc30d696a17b17", null ],
+    [ "WriteCodeEntrypointViaCodePointerField", "code-pointer_8h.html#a67046aba7ea5ba5393a1750233c95b75", null ]
 ];

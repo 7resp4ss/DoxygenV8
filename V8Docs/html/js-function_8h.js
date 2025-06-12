@@ -1,8 +1,8 @@
 var js_function_8h =
 [
-    [ "JSFunctionOrBoundFunctionOrWrappedFunction", "classv8_1_1internal_1_1JSFunctionOrBoundFunctionOrWrappedFunction.html", null ],
-    [ "JSBoundFunction", "classv8_1_1internal_1_1JSBoundFunction.html", null ],
-    [ "JSWrappedFunction", "classv8_1_1internal_1_1JSWrappedFunction.html", null ],
+    [ "JSFunctionOrBoundFunctionOrWrappedFunction", "classv8_1_1internal_1_1JSFunctionOrBoundFunctionOrWrappedFunction.html", "classv8_1_1internal_1_1JSFunctionOrBoundFunctionOrWrappedFunction" ],
+    [ "JSBoundFunction", "classv8_1_1internal_1_1JSBoundFunction.html", "classv8_1_1internal_1_1JSBoundFunction" ],
+    [ "JSWrappedFunction", "classv8_1_1internal_1_1JSWrappedFunction.html", "classv8_1_1internal_1_1JSWrappedFunction" ],
     [ "JSFunction", "classv8_1_1internal_1_1JSFunction.html", "classv8_1_1internal_1_1JSFunction" ],
     [ "BudgetModification", "js-function_8h.html#ae1290056b3472a1bb475139c13e2efdb", [
       [ "kReduce", "js-function_8h.html#ae1290056b3472a1bb475139c13e2efdba7774eadbb2e71085823eb37476c181f0", null ],

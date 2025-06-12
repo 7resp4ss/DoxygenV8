@@ -3,7 +3,7 @@
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-double \mbox{\hyperlink{namespacev8_1_1base_1_1ieee754_1_1legacy_a38ce2f0948bf7d73347a9920cbdc0208}{pow}} (double \mbox{\hyperlink{liveedit-diff_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}}, double \mbox{\hyperlink{liveedit-diff_8cc_a0a2f84ed7838f07779ae24c5a9086d33}{y}})
+double \mbox{\hyperlink{namespacev8_1_1base_1_1ieee754_1_1legacy_a38ce2f0948bf7d73347a9920cbdc0208}{pow}} (double x, double y)
 \end{DoxyCompactItemize}
 
 
@@ -14,3 +14,297 @@ double \mbox{\hyperlink{namespacev8_1_1base_1_1ieee754_1_1legacy_a38ce2f0948bf7d
 \doxysubsubsection{\texorpdfstring{pow()}{pow()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{base-export_8h_aa4fedc3c9e2b5fc6f324138ab21c6e64}{V8\+\_\+\+BASE\+\_\+\+EXPORT}} double v8\+::base\+::ieee754\+::legacy\+::pow (\begin{DoxyParamCaption}\item[{double}]{x,  }\item[{double}]{y }\end{DoxyParamCaption})}
 
+
+
+Definition at line 2646 of file ieee754.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2646                                \{}
+\DoxyCodeLine{2647   \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{double}}
+\DoxyCodeLine{2648       bp[] = \{1.0, 1.5\},}
+\DoxyCodeLine{2649       dp\_h[] = \{0.0, 5.84962487220764160156e-\/01\},  \textcolor{comment}{// 0x3FE2B803, 0x40000000}}
+\DoxyCodeLine{2650       dp\_l[] = \{0.0, 1.35003920212974897128e-\/08\},  \textcolor{comment}{// 0x3E4CFDEB, 0x43CFD006}}
+\DoxyCodeLine{2651       \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3}{zero}} = 0.0, \mbox{\hyperlink{base_2ieee754_8cc_a7cf126dbeb6f30c606e3b42fea65cfef}{one}} = 1.0, two = 2.0,}
+\DoxyCodeLine{2652       two53 = 9007199254740992.0,  \textcolor{comment}{// 0x43400000, 0x00000000}}
+\DoxyCodeLine{2653       huge = 1.0e300, tiny = 1.0e-\/300,}
+\DoxyCodeLine{2654       \textcolor{comment}{// poly coefs for (3/2)*(log(x)-\/2s-\/2/3*s**3}}
+\DoxyCodeLine{2655       L1 = 5.99999999999994648725e-\/01,      \textcolor{comment}{// 0x3FE33333, 0x33333303}}
+\DoxyCodeLine{2656       L2 = 4.28571428578550184252e-\/01,      \textcolor{comment}{// 0x3FDB6DB6, 0xDB6FABFF}}
+\DoxyCodeLine{2657       L3 = 3.33333329818377432918e-\/01,      \textcolor{comment}{// 0x3FD55555, 0x518F264D}}
+\DoxyCodeLine{2658       L4 = 2.72728123808534006489e-\/01,      \textcolor{comment}{// 0x3FD17460, 0xA91D4101}}
+\DoxyCodeLine{2659       L5 = 2.30660745775561754067e-\/01,      \textcolor{comment}{// 0x3FCD864A, 0x93C9DB65}}
+\DoxyCodeLine{2660       L6 = 2.06975017800338417784e-\/01,      \textcolor{comment}{// 0x3FCA7E28, 0x4A454EEF}}
+\DoxyCodeLine{2661       P1 = 1.66666666666666019037e-\/01,      \textcolor{comment}{// 0x3FC55555, 0x5555553E}}
+\DoxyCodeLine{2662       P2 = -\/2.77777777770155933842e-\/03,     \textcolor{comment}{// 0xBF66C16C, 0x16BEBD93}}
+\DoxyCodeLine{2663       P3 = 6.61375632143793436117e-\/05,      \textcolor{comment}{// 0x3F11566A, 0xAF25DE2C}}
+\DoxyCodeLine{2664       P4 = -\/1.65339022054652515390e-\/06,     \textcolor{comment}{// 0xBEBBBD41, 0xC5D26BF1}}
+\DoxyCodeLine{2665       P5 = 4.13813679705723846039e-\/08,      \textcolor{comment}{// 0x3E663769, 0x72BEA4D0}}
+\DoxyCodeLine{2666       lg2 = 6.93147180559945286227e-\/01,     \textcolor{comment}{// 0x3FE62E42, 0xFEFA39EF}}
+\DoxyCodeLine{2667       lg2\_h = 6.93147182464599609375e-\/01,   \textcolor{comment}{// 0x3FE62E43, 0x00000000}}
+\DoxyCodeLine{2668       lg2\_l = -\/1.90465429995776804525e-\/09,  \textcolor{comment}{// 0xBE205C61, 0x0CA86C39}}
+\DoxyCodeLine{2669       ovt = 8.0085662595372944372e-\/0017,    \textcolor{comment}{// -\/(1024-\/log2(ovfl+.5ulp))}}
+\DoxyCodeLine{2670       \mbox{\hyperlink{namespacev8_1_1internal_acf7181c6ad0cb44fba9ad483652c01c9}{cp}} = 9.61796693925975554329e-\/01,      \textcolor{comment}{// 0x3FEEC709, 0xDC3A03FD =2/(3ln2)}}
+\DoxyCodeLine{2671       cp\_h = 9.61796700954437255859e-\/01,    \textcolor{comment}{// 0x3FEEC709, 0xE0000000 =(float)cp}}
+\DoxyCodeLine{2672       cp\_l = -\/7.02846165095275826516e-\/09,   \textcolor{comment}{// 0xBE3E2FE0, 0x145B01F5 =tail cp\_h}}
+\DoxyCodeLine{2673       ivln2 = 1.44269504088896338700e+00,   \textcolor{comment}{// 0x3FF71547, 0x652B82FE =1/ln2}}
+\DoxyCodeLine{2674       ivln2\_h =}
+\DoxyCodeLine{2675           1.44269502162933349609e+00,  \textcolor{comment}{// 0x3FF71547, 0x60000000 =24b 1/ln2}}
+\DoxyCodeLine{2676       ivln2\_l =}
+\DoxyCodeLine{2677           1.92596299112661746887e-\/08;  \textcolor{comment}{// 0x3E54AE0B, 0xF85DDF44 =1/ln2 tail}}
+\DoxyCodeLine{2678 }
+\DoxyCodeLine{2679   \textcolor{keywordtype}{double} z, ax, z\_h, z\_l, p\_h, p\_l;}
+\DoxyCodeLine{2680   \textcolor{keywordtype}{double} y1, t1, t2, r, s, t, u, v, w;}
+\DoxyCodeLine{2681   \textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}, j, k, yisint, n;}
+\DoxyCodeLine{2682   \textcolor{keywordtype}{int} hx, hy, ix, iy;}
+\DoxyCodeLine{2683   \textcolor{keywordtype}{unsigned} lx, ly;}
+\DoxyCodeLine{2684 }
+\DoxyCodeLine{2685   \mbox{\hyperlink{base_2ieee754_8cc_a6dadc713499e14ba3088a55409a18983}{EXTRACT\_WORDS}}(hx, lx, x);}
+\DoxyCodeLine{2686   \mbox{\hyperlink{base_2ieee754_8cc_a6dadc713499e14ba3088a55409a18983}{EXTRACT\_WORDS}}(hy, ly, \mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}});}
+\DoxyCodeLine{2687   ix = hx \& 0x7fffffff;}
+\DoxyCodeLine{2688   iy = hy \& 0x7fffffff;}
+\DoxyCodeLine{2689 }
+\DoxyCodeLine{2690   \textcolor{comment}{/* y==zero: x**0 = 1 */}}
+\DoxyCodeLine{2691   \textcolor{keywordflow}{if} ((iy | ly) == 0) \textcolor{keywordflow}{return} \mbox{\hyperlink{base_2ieee754_8cc_a7cf126dbeb6f30c606e3b42fea65cfef}{one}};}
+\DoxyCodeLine{2692 }
+\DoxyCodeLine{2693   \textcolor{comment}{/* +-\/NaN return x+y */}}
+\DoxyCodeLine{2694   \textcolor{keywordflow}{if} (ix > 0x7ff00000 || ((ix == 0x7ff00000) \&\& (lx != 0)) || iy > 0x7ff00000 ||}
+\DoxyCodeLine{2695       ((iy == 0x7ff00000) \&\& (ly != 0))) \{}
+\DoxyCodeLine{2696     \textcolor{keywordflow}{return} x + \mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}};}
+\DoxyCodeLine{2697   \}}
+\DoxyCodeLine{2698 }
+\DoxyCodeLine{2699   \textcolor{comment}{/* determine if y is an odd int when x < 0}}
+\DoxyCodeLine{2700 \textcolor{comment}{   * yisint = 0 ... y is not an integer}}
+\DoxyCodeLine{2701 \textcolor{comment}{   * yisint = 1 ... y is an odd int}}
+\DoxyCodeLine{2702 \textcolor{comment}{   * yisint = 2 ... y is an even int}}
+\DoxyCodeLine{2703 \textcolor{comment}{   */}}
+\DoxyCodeLine{2704   yisint = 0;}
+\DoxyCodeLine{2705   \textcolor{keywordflow}{if} (hx < 0) \{}
+\DoxyCodeLine{2706     \textcolor{keywordflow}{if} (iy >= 0x43400000) \{}
+\DoxyCodeLine{2707       yisint = 2; \textcolor{comment}{/* even integer y */}}
+\DoxyCodeLine{2708     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (iy >= 0x3ff00000) \{}
+\DoxyCodeLine{2709       k = (iy >> 20) -\/ 0x3ff; \textcolor{comment}{/* exponent */}}
+\DoxyCodeLine{2710       \textcolor{keywordflow}{if} (k > 20) \{}
+\DoxyCodeLine{2711         j = ly >> (52 -\/ k);}
+\DoxyCodeLine{2712         \textcolor{keywordflow}{if} ((j << (52 -\/ k)) == \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(ly)) yisint = 2 -\/ (j \& 1);}
+\DoxyCodeLine{2713       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ly == 0) \{}
+\DoxyCodeLine{2714         j = iy >> (20 -\/ k);}
+\DoxyCodeLine{2715         \textcolor{keywordflow}{if} ((j << (20 -\/ k)) == iy) yisint = 2 -\/ (j \& 1);}
+\DoxyCodeLine{2716       \}}
+\DoxyCodeLine{2717     \}}
+\DoxyCodeLine{2718   \}}
+\DoxyCodeLine{2719 }
+\DoxyCodeLine{2720   \textcolor{comment}{/* special value of y */}}
+\DoxyCodeLine{2721   \textcolor{keywordflow}{if} (ly == 0) \{}
+\DoxyCodeLine{2722     \textcolor{keywordflow}{if} (iy == 0x7ff00000) \{ \textcolor{comment}{/* y is +-\/inf */}}
+\DoxyCodeLine{2723       \textcolor{keywordflow}{if} (((ix -\/ 0x3ff00000) | lx) == 0) \{}
+\DoxyCodeLine{2724         \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}} -\/ \mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}};                \textcolor{comment}{/* inf**+-\/1 is NaN */}}
+\DoxyCodeLine{2725       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ix >= 0x3ff00000) \{ \textcolor{comment}{/* (|x|>1)**+-\/inf = inf,0 */}}
+\DoxyCodeLine{2726         \textcolor{keywordflow}{return} (hy >= 0) ? \mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}} : \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3}{zero}};}
+\DoxyCodeLine{2727       \} \textcolor{keywordflow}{else} \{ \textcolor{comment}{/* (|x|<1)**-\/,+inf = inf,0 */}}
+\DoxyCodeLine{2728         \textcolor{keywordflow}{return} (hy < 0) ? -\/\mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}} : \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3}{zero}};}
+\DoxyCodeLine{2729       \}}
+\DoxyCodeLine{2730     \}}
+\DoxyCodeLine{2731     \textcolor{keywordflow}{if} (iy == 0x3ff00000) \{ \textcolor{comment}{/* y is  +-\/1 */}}
+\DoxyCodeLine{2732       \textcolor{keywordflow}{if} (hy < 0) \{}
+\DoxyCodeLine{2733         \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_ad5a29771622da6f7889b7c4b08e6bc20}{base::Divide}}(\mbox{\hyperlink{base_2ieee754_8cc_a7cf126dbeb6f30c606e3b42fea65cfef}{one}}, x);}
+\DoxyCodeLine{2734       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{2735         \textcolor{keywordflow}{return} x;}
+\DoxyCodeLine{2736       \}}
+\DoxyCodeLine{2737     \}}
+\DoxyCodeLine{2738     \textcolor{keywordflow}{if} (hy == 0x40000000) \textcolor{keywordflow}{return} x * x; \textcolor{comment}{/* y is  2 */}}
+\DoxyCodeLine{2739     \textcolor{keywordflow}{if} (hy == 0x3fe00000) \{             \textcolor{comment}{/* y is  0.5 */}}
+\DoxyCodeLine{2740       \textcolor{keywordflow}{if} (hx >= 0) \{                    \textcolor{comment}{/* x >= +0 */}}
+\DoxyCodeLine{2741         \textcolor{keywordflow}{return} sqrt(x);}
+\DoxyCodeLine{2742       \}}
+\DoxyCodeLine{2743     \}}
+\DoxyCodeLine{2744   \}}
+\DoxyCodeLine{2745 }
+\DoxyCodeLine{2746   ax = fabs(x);}
+\DoxyCodeLine{2747   \textcolor{comment}{/* special value of x */}}
+\DoxyCodeLine{2748   \textcolor{keywordflow}{if} (lx == 0) \{}
+\DoxyCodeLine{2749     \textcolor{keywordflow}{if} (ix == 0x7ff00000 || ix == 0 || ix == 0x3ff00000) \{}
+\DoxyCodeLine{2750       z = ax;                               \textcolor{comment}{/*x is +-\/0,+-\/inf,+-\/1*/}}
+\DoxyCodeLine{2751       \textcolor{keywordflow}{if} (hy < 0) z = \mbox{\hyperlink{namespacev8_1_1base_ad5a29771622da6f7889b7c4b08e6bc20}{base::Divide}}(\mbox{\hyperlink{base_2ieee754_8cc_a7cf126dbeb6f30c606e3b42fea65cfef}{one}}, z); \textcolor{comment}{/* z = (1/|x|) */}}
+\DoxyCodeLine{2752       \textcolor{keywordflow}{if} (hx < 0) \{}
+\DoxyCodeLine{2753         \textcolor{keywordflow}{if} (((ix -\/ 0x3ff00000) | yisint) == 0) \{}
+\DoxyCodeLine{2754           \textcolor{comment}{/* (-\/1)**non-\/int is NaN */}}
+\DoxyCodeLine{2755           z = std::numeric\_limits<double>::signaling\_NaN();}
+\DoxyCodeLine{2756         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (yisint == 1) \{}
+\DoxyCodeLine{2757           z = -\/z; \textcolor{comment}{/* (x<0)**odd = -\/(|x|**odd) */}}
+\DoxyCodeLine{2758         \}}
+\DoxyCodeLine{2759       \}}
+\DoxyCodeLine{2760       \textcolor{keywordflow}{return} z;}
+\DoxyCodeLine{2761     \}}
+\DoxyCodeLine{2762   \}}
+\DoxyCodeLine{2763 }
+\DoxyCodeLine{2764   n = (hx >> 31) + 1;}
+\DoxyCodeLine{2765 }
+\DoxyCodeLine{2766   \textcolor{comment}{/* (x<0)**(non-\/int) is NaN */}}
+\DoxyCodeLine{2767   \textcolor{keywordflow}{if} ((n | yisint) == 0) \{}
+\DoxyCodeLine{2768     \textcolor{keywordflow}{return} std::numeric\_limits<double>::signaling\_NaN();}
+\DoxyCodeLine{2769   \}}
+\DoxyCodeLine{2770 }
+\DoxyCodeLine{2771   s = \mbox{\hyperlink{base_2ieee754_8cc_a7cf126dbeb6f30c606e3b42fea65cfef}{one}}; \textcolor{comment}{/* s (sign of result -\/ve**odd) = -\/1 else = 1 */}}
+\DoxyCodeLine{2772   \textcolor{keywordflow}{if} ((n | (yisint -\/ 1)) == 0) s = -\/\mbox{\hyperlink{base_2ieee754_8cc_a7cf126dbeb6f30c606e3b42fea65cfef}{one}}; \textcolor{comment}{/* (-\/ve)**(odd int) */}}
+\DoxyCodeLine{2773 }
+\DoxyCodeLine{2774   \textcolor{comment}{/* |y| is huge */}}
+\DoxyCodeLine{2775   \textcolor{keywordflow}{if} (iy > 0x41e00000) \{   \textcolor{comment}{/* if |y| > 2**31 */}}
+\DoxyCodeLine{2776     \textcolor{keywordflow}{if} (iy > 0x43f00000) \{ \textcolor{comment}{/* if |y| > 2**64, must o/uflow */}}
+\DoxyCodeLine{2777       \textcolor{keywordflow}{if} (ix <= 0x3fefffff) \textcolor{keywordflow}{return} (hy < 0) ? huge * huge : tiny * tiny;}
+\DoxyCodeLine{2778       \textcolor{keywordflow}{if} (ix >= 0x3ff00000) \textcolor{keywordflow}{return} (hy > 0) ? huge * huge : tiny * tiny;}
+\DoxyCodeLine{2779     \}}
+\DoxyCodeLine{2780     \textcolor{comment}{/* over/underflow if x is not close to one */}}
+\DoxyCodeLine{2781     \textcolor{keywordflow}{if} (ix < 0x3fefffff) \textcolor{keywordflow}{return} (hy < 0) ? s * huge * huge : s * tiny * tiny;}
+\DoxyCodeLine{2782     \textcolor{keywordflow}{if} (ix > 0x3ff00000) \textcolor{keywordflow}{return} (hy > 0) ? s * huge * huge : s * tiny * tiny;}
+\DoxyCodeLine{2783     \textcolor{comment}{/* now |1-\/x| is tiny <= 2**-\/20, suffice to compute}}
+\DoxyCodeLine{2784 \textcolor{comment}{       log(x) by x-\/x\string^2/2+x\string^3/3-\/x\string^4/4 */}}
+\DoxyCodeLine{2785     t = ax -\/ \mbox{\hyperlink{base_2ieee754_8cc_a7cf126dbeb6f30c606e3b42fea65cfef}{one}}; \textcolor{comment}{/* t has 20 trailing zeros */}}
+\DoxyCodeLine{2786     w = (t * t) * (0.5 -\/ t * (0.3333333333333333333333 -\/ t * 0.25));}
+\DoxyCodeLine{2787     u = ivln2\_h * t; \textcolor{comment}{/* ivln2\_h has 21 sig. bits */}}
+\DoxyCodeLine{2788     v = t * ivln2\_l -\/ w * ivln2;}
+\DoxyCodeLine{2789     t1 = u + v;}
+\DoxyCodeLine{2790     SET\_LOW\_WORD(t1, 0);}
+\DoxyCodeLine{2791     t2 = v -\/ (t1 -\/ u);}
+\DoxyCodeLine{2792   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{2793     \textcolor{keywordtype}{double} ss, s2, s\_h, s\_l, t\_h, t\_l;}
+\DoxyCodeLine{2794     n = 0;}
+\DoxyCodeLine{2795     \textcolor{comment}{/* take care subnormal number */}}
+\DoxyCodeLine{2796     \textcolor{keywordflow}{if} (ix < 0x00100000) \{}
+\DoxyCodeLine{2797       ax *= two53;}
+\DoxyCodeLine{2798       n -\/= 53;}
+\DoxyCodeLine{2799       \mbox{\hyperlink{base_2ieee754_8cc_ae62ee08d06ab4cc06d61dc1246b73195}{GET\_HIGH\_WORD}}(ix, ax);}
+\DoxyCodeLine{2800     \}}
+\DoxyCodeLine{2801     n += ((ix) >> 20) -\/ 0x3ff;}
+\DoxyCodeLine{2802     j = ix \& 0x000fffff;}
+\DoxyCodeLine{2803     \textcolor{comment}{/* determine interval */}}
+\DoxyCodeLine{2804     ix = j | 0x3ff00000; \textcolor{comment}{/* normalize ix */}}
+\DoxyCodeLine{2805     \textcolor{keywordflow}{if} (j <= 0x3988E) \{}
+\DoxyCodeLine{2806       k = 0; \textcolor{comment}{/* |x|<sqrt(3/2) */}}
+\DoxyCodeLine{2807     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (j < 0xBB67A) \{}
+\DoxyCodeLine{2808       k = 1; \textcolor{comment}{/* |x|<sqrt(3)   */}}
+\DoxyCodeLine{2809     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{2810       k = 0;}
+\DoxyCodeLine{2811       n += 1;}
+\DoxyCodeLine{2812       ix -\/= 0x00100000;}
+\DoxyCodeLine{2813     \}}
+\DoxyCodeLine{2814     \mbox{\hyperlink{base_2ieee754_8cc_a6ca54776127e20149f84c290bf52f89e}{SET\_HIGH\_WORD}}(ax, ix);}
+\DoxyCodeLine{2815 }
+\DoxyCodeLine{2816     \textcolor{comment}{/* compute ss = s\_h+s\_l = (x-\/1)/(x+1) or (x-\/1.5)/(x+1.5) */}}
+\DoxyCodeLine{2817     u = ax -\/ bp[k]; \textcolor{comment}{/* bp[0]=1.0, bp[1]=1.5 */}}
+\DoxyCodeLine{2818     v = \mbox{\hyperlink{namespacev8_1_1base_ad5a29771622da6f7889b7c4b08e6bc20}{base::Divide}}(\mbox{\hyperlink{base_2ieee754_8cc_a7cf126dbeb6f30c606e3b42fea65cfef}{one}}, ax + bp[k]);}
+\DoxyCodeLine{2819     ss = u * v;}
+\DoxyCodeLine{2820     s\_h = ss;}
+\DoxyCodeLine{2821     SET\_LOW\_WORD(s\_h, 0);}
+\DoxyCodeLine{2822     \textcolor{comment}{/* t\_h=ax+bp[k] High */}}
+\DoxyCodeLine{2823     t\_h = \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3}{zero}};}
+\DoxyCodeLine{2824     \mbox{\hyperlink{base_2ieee754_8cc_a6ca54776127e20149f84c290bf52f89e}{SET\_HIGH\_WORD}}(t\_h, ((ix >> 1) | 0x20000000) + 0x00080000 + (k << 18));}
+\DoxyCodeLine{2825     t\_l = ax -\/ (t\_h -\/ bp[k]);}
+\DoxyCodeLine{2826     s\_l = v * ((u -\/ s\_h * t\_h) -\/ s\_h * t\_l);}
+\DoxyCodeLine{2827     \textcolor{comment}{/* compute log(ax) */}}
+\DoxyCodeLine{2828     s2 = ss * ss;}
+\DoxyCodeLine{2829     r = s2 * s2 *}
+\DoxyCodeLine{2830         (L1 + s2 * (L2 + s2 * (L3 + s2 * (L4 + s2 * (L5 + s2 * L6)))));}
+\DoxyCodeLine{2831     r += s\_l * (s\_h + ss);}
+\DoxyCodeLine{2832     s2 = s\_h * s\_h;}
+\DoxyCodeLine{2833     t\_h = 3.0 + s2 + r;}
+\DoxyCodeLine{2834     SET\_LOW\_WORD(t\_h, 0);}
+\DoxyCodeLine{2835     t\_l = r -\/ ((t\_h -\/ 3.0) -\/ s2);}
+\DoxyCodeLine{2836     \textcolor{comment}{/* u+v = ss*(1+...) */}}
+\DoxyCodeLine{2837     u = s\_h * t\_h;}
+\DoxyCodeLine{2838     v = s\_l * t\_h + t\_l * ss;}
+\DoxyCodeLine{2839     \textcolor{comment}{/* 2/(3log2)*(ss+...) */}}
+\DoxyCodeLine{2840     p\_h = u + v;}
+\DoxyCodeLine{2841     SET\_LOW\_WORD(p\_h, 0);}
+\DoxyCodeLine{2842     p\_l = v -\/ (p\_h -\/ u);}
+\DoxyCodeLine{2843     z\_h = cp\_h * p\_h; \textcolor{comment}{/* cp\_h+cp\_l = 2/(3*log2) */}}
+\DoxyCodeLine{2844     z\_l = cp\_l * p\_h + p\_l * \mbox{\hyperlink{namespacev8_1_1internal_acf7181c6ad0cb44fba9ad483652c01c9}{cp}} + dp\_l[k];}
+\DoxyCodeLine{2845     \textcolor{comment}{/* log2(ax) = (ss+..)*2/(3*log2) = n + dp\_h + z\_h + z\_l */}}
+\DoxyCodeLine{2846     t = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(n);}
+\DoxyCodeLine{2847     t1 = (((z\_h + z\_l) + dp\_h[k]) + t);}
+\DoxyCodeLine{2848     SET\_LOW\_WORD(t1, 0);}
+\DoxyCodeLine{2849     t2 = z\_l -\/ (((t1 -\/ t) -\/ dp\_h[k]) -\/ z\_h);}
+\DoxyCodeLine{2850   \}}
+\DoxyCodeLine{2851 }
+\DoxyCodeLine{2852   \textcolor{comment}{/* split up y into y1+y2 and compute (y1+y2)*(t1+t2) */}}
+\DoxyCodeLine{2853   y1 = \mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}};}
+\DoxyCodeLine{2854   SET\_LOW\_WORD(y1, 0);}
+\DoxyCodeLine{2855   p\_l = (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}} -\/ y1) * t1 + \mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}} * t2;}
+\DoxyCodeLine{2856   p\_h = y1 * t1;}
+\DoxyCodeLine{2857   z = p\_l + p\_h;}
+\DoxyCodeLine{2858   \mbox{\hyperlink{base_2ieee754_8cc_a6dadc713499e14ba3088a55409a18983}{EXTRACT\_WORDS}}(j, \mbox{\hyperlink{namespacev8_1_1internal}{i}}, z);}
+\DoxyCodeLine{2859   \textcolor{keywordflow}{if} (j >= 0x40900000) \{               \textcolor{comment}{/* z >= 1024 */}}
+\DoxyCodeLine{2860     \textcolor{keywordflow}{if} (((j -\/ 0x40900000) | \mbox{\hyperlink{namespacev8_1_1internal}{i}}) != 0) \{ \textcolor{comment}{/* if z > 1024 */}}
+\DoxyCodeLine{2861       \textcolor{keywordflow}{return} s * huge * huge;          \textcolor{comment}{/* overflow */}}
+\DoxyCodeLine{2862     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{2863       \textcolor{keywordflow}{if} (p\_l + ovt > z -\/ p\_h) \textcolor{keywordflow}{return} s * huge * huge; \textcolor{comment}{/* overflow */}}
+\DoxyCodeLine{2864     \}}
+\DoxyCodeLine{2865   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((j \& 0x7fffffff) >= 0x4090cc00) \{ \textcolor{comment}{/* z <= -\/1075 */}}
+\DoxyCodeLine{2866     \textcolor{keywordflow}{if} (((j -\/ 0xc090cc00) | \mbox{\hyperlink{namespacev8_1_1internal}{i}}) != 0) \{         \textcolor{comment}{/* z < -\/1075 */}}
+\DoxyCodeLine{2867       \textcolor{keywordflow}{return} s * tiny * tiny;                  \textcolor{comment}{/* underflow */}}
+\DoxyCodeLine{2868     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{2869       \textcolor{keywordflow}{if} (p\_l <= z -\/ p\_h) \textcolor{keywordflow}{return} s * tiny * tiny; \textcolor{comment}{/* underflow */}}
+\DoxyCodeLine{2870     \}}
+\DoxyCodeLine{2871   \}}
+\DoxyCodeLine{2872   \textcolor{comment}{/*}}
+\DoxyCodeLine{2873 \textcolor{comment}{   * compute 2**(p\_h+p\_l)}}
+\DoxyCodeLine{2874 \textcolor{comment}{   */}}
+\DoxyCodeLine{2875   \mbox{\hyperlink{namespacev8_1_1internal}{i}} = j \& 0x7fffffff;}
+\DoxyCodeLine{2876   k = (\mbox{\hyperlink{namespacev8_1_1internal}{i}} >> 20) -\/ 0x3ff;}
+\DoxyCodeLine{2877   n = 0;}
+\DoxyCodeLine{2878   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal}{i}} > 0x3fe00000) \{ \textcolor{comment}{/* if |z| > 0.5, set n = [z+0.5] */}}
+\DoxyCodeLine{2879     n = j + (0x00100000 >> (k + 1));}
+\DoxyCodeLine{2880     k = ((n \& 0x7fffffff) >> 20) -\/ 0x3ff; \textcolor{comment}{/* new k for n */}}
+\DoxyCodeLine{2881     t = \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3}{zero}};}
+\DoxyCodeLine{2882     \mbox{\hyperlink{base_2ieee754_8cc_a6ca54776127e20149f84c290bf52f89e}{SET\_HIGH\_WORD}}(t, n \& \string~(0x000fffff >> k));}
+\DoxyCodeLine{2883     n = ((n \& 0x000fffff) | 0x00100000) >> (20 -\/ k);}
+\DoxyCodeLine{2884     \textcolor{keywordflow}{if} (j < 0) n = -\/n;}
+\DoxyCodeLine{2885     p\_h -\/= t;}
+\DoxyCodeLine{2886   \}}
+\DoxyCodeLine{2887   t = p\_l + p\_h;}
+\DoxyCodeLine{2888   SET\_LOW\_WORD(t, 0);}
+\DoxyCodeLine{2889   u = t * lg2\_h;}
+\DoxyCodeLine{2890   v = (p\_l -\/ (t -\/ p\_h)) * lg2 + t * lg2\_l;}
+\DoxyCodeLine{2891   z = u + v;}
+\DoxyCodeLine{2892   w = v -\/ (z -\/ u);}
+\DoxyCodeLine{2893   t = z * z;}
+\DoxyCodeLine{2894   t1 = z -\/ t * (P1 + t * (P2 + t * (P3 + t * (P4 + t * P5))));}
+\DoxyCodeLine{2895   r = \mbox{\hyperlink{namespacev8_1_1base_ad5a29771622da6f7889b7c4b08e6bc20}{base::Divide}}(z * t1, (t1 -\/ two) -\/ (w + z * w));}
+\DoxyCodeLine{2896   z = \mbox{\hyperlink{base_2ieee754_8cc_a7cf126dbeb6f30c606e3b42fea65cfef}{one}} -\/ (r -\/ z);}
+\DoxyCodeLine{2897   \mbox{\hyperlink{base_2ieee754_8cc_ae62ee08d06ab4cc06d61dc1246b73195}{GET\_HIGH\_WORD}}(j, z);}
+\DoxyCodeLine{2898   j += \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(n) << 20);}
+\DoxyCodeLine{2899   \textcolor{keywordflow}{if} ((j >> 20) <= 0) \{}
+\DoxyCodeLine{2900     z = scalbn(z, n); \textcolor{comment}{/* subnormal output */}}
+\DoxyCodeLine{2901   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{2902     \textcolor{keywordtype}{int} tmp;}
+\DoxyCodeLine{2903     \mbox{\hyperlink{base_2ieee754_8cc_ae62ee08d06ab4cc06d61dc1246b73195}{GET\_HIGH\_WORD}}(tmp, z);}
+\DoxyCodeLine{2904     \mbox{\hyperlink{base_2ieee754_8cc_a6ca54776127e20149f84c290bf52f89e}{SET\_HIGH\_WORD}}(z, tmp + \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(n) << 20));}
+\DoxyCodeLine{2905   \}}
+\DoxyCodeLine{2906   \textcolor{keywordflow}{return} s * z;}
+\DoxyCodeLine{2907 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::cp, v8\+::base\+::\+Divide(), EXTRACT\+\_\+\+WORDS, GET\+\_\+\+HIGH\+\_\+\+WORD, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, one, SET\+\_\+\+HIGH\+\_\+\+WORD, v8\+::base\+::internal\+::y, and v8\+::internal\+::zero.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Code\+Generator\+::\+Assemble\+Arch\+Instruction(), v8\+::internal\+::math\+::pow(), and v8\+::internal\+::compiler\+::turboshaft\+::\+Float\+Operation\+Typer$<$ Bits $>$\+::\+Power().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{namespacev8_1_1base_1_1ieee754_1_1legacy_a38ce2f0948bf7d73347a9920cbdc0208_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1base_1_1ieee754_1_1legacy_a38ce2f0948bf7d73347a9920cbdc0208_icgraph}
+\end{center}
+\end{figure}

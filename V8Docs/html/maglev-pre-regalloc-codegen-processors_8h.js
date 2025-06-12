@@ -4,5 +4,7 @@ var maglev_pre_regalloc_codegen_processors_8h =
     [ "DecompressedUseMarkingProcessor", "classv8_1_1internal_1_1maglev_1_1DecompressedUseMarkingProcessor.html", "classv8_1_1internal_1_1maglev_1_1DecompressedUseMarkingProcessor" ],
     [ "MaxCallDepthProcessor", "classv8_1_1internal_1_1maglev_1_1MaxCallDepthProcessor.html", "classv8_1_1internal_1_1maglev_1_1MaxCallDepthProcessor" ],
     [ "LiveRangeAndNextUseProcessor", "classv8_1_1internal_1_1maglev_1_1LiveRangeAndNextUseProcessor.html", "classv8_1_1internal_1_1maglev_1_1LiveRangeAndNextUseProcessor" ],
+    [ "NodeUse", "structv8_1_1internal_1_1maglev_1_1LiveRangeAndNextUseProcessor_1_1NodeUse.html", "structv8_1_1internal_1_1maglev_1_1LiveRangeAndNextUseProcessor_1_1NodeUse" ],
+    [ "LoopUsedNodes", "structv8_1_1internal_1_1maglev_1_1LiveRangeAndNextUseProcessor_1_1LoopUsedNodes.html", "structv8_1_1internal_1_1maglev_1_1LiveRangeAndNextUseProcessor_1_1LoopUsedNodes" ],
     [ "DEF_PROCESS_NODE", "maglev-pre-regalloc-codegen-processors_8h.html#aa31c9e29667797ec55fd272ef852a395", null ]
 ];

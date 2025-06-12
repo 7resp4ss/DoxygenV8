@@ -1,0 +1,4 @@
+var classv8_1_1internal_1_1anonymous__namespace_02stack_guard_8cc_03_1_1ShouldBeZeroOnReturnScope =
+[
+    [ "ShouldBeZeroOnReturnScope", "classv8_1_1internal_1_1anonymous__namespace_02stack-guard_8cc_03_1_1ShouldBeZeroOnReturnScope.html#ae87de66edb23c0c96081991ef061e367", null ]
+];

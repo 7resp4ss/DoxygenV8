@@ -11,7 +11,7 @@ Collaboration diagram for v8\+::internal\+::wasm\+::Type\+Feedback\+Storage\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=333pt]{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage__coll__graph}
+\includegraphics[width=350pt]{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -32,6 +32,13 @@ std\+::unordered\+\_\+map$<$ uint32\+\_\+t, uint32\+\_\+t $>$ \mbox{\hyperlink{s
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 626 of file wasm-\/module.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_ab65649f3c237cda954bdb9ceb71e412a}\label{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_ab65649f3c237cda954bdb9ceb71e412a}} 
 \index{v8::internal::wasm::TypeFeedbackStorage@{v8::internal::wasm::TypeFeedbackStorage}!EstimateCurrentMemoryConsumption@{EstimateCurrentMemoryConsumption}}
@@ -41,6 +48,44 @@ std\+::unordered\+\_\+map$<$ uint32\+\_\+t, uint32\+\_\+t $>$ \mbox{\hyperlink{s
 
 
 
+Definition at line 782 of file wasm-\/module.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{782                                                                    \{}
+\DoxyCodeLine{783   \mbox{\hyperlink{std-object-sizes_8h_a56caa02a4280c4f0c82adab429400770}{UPDATE\_WHEN\_CLASS\_CHANGES}}(TypeFeedbackStorage, 112);}
+\DoxyCodeLine{784   \mbox{\hyperlink{std-object-sizes_8h_a56caa02a4280c4f0c82adab429400770}{UPDATE\_WHEN\_CLASS\_CHANGES}}(FunctionTypeFeedback, 40);}
+\DoxyCodeLine{785   \textcolor{comment}{// Not including sizeof(TFS) because that's contained in sizeof(WasmModule).}}
+\DoxyCodeLine{786   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_a978ef852d135cebd5dc2629bc8692090}{mutex}});}
+\DoxyCodeLine{787   \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_aa122591443234c1d0b597dadc9d55c5e}{ContentSize}}(\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_a430d975fff82d80bbbbdd0cf3b5eafd8}{feedback\_for\_function}});}
+\DoxyCodeLine{788   \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& [func\_idx, feedback] : \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_a430d975fff82d80bbbbdd0cf3b5eafd8}{feedback\_for\_function}}) \{}
+\DoxyCodeLine{789     \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} += \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_aa122591443234c1d0b597dadc9d55c5e}{ContentSize}}(feedback.feedback\_vector);}
+\DoxyCodeLine{790     \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} += feedback.call\_targets.size() * \textcolor{keyword}{sizeof}(uint32\_t);}
+\DoxyCodeLine{791   \}}
+\DoxyCodeLine{792   \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} += \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_aa122591443234c1d0b597dadc9d55c5e}{ContentSize}}(\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_af2800771d87f85c940c36108a8cf47f5}{deopt\_count\_for\_function}});}
+\DoxyCodeLine{793   \textcolor{comment}{// The size of \{well\_known\_imports\} can only be estimated at the WasmModule}}
+\DoxyCodeLine{794   \textcolor{comment}{// level.}}
+\DoxyCodeLine{795   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_wasm\_offheap\_memory) \{}
+\DoxyCodeLine{796     \mbox{\hyperlink{namespacev8_1_1internal_a3430752cde9f29d73e97ceed1bce0856}{PrintF}}(\textcolor{stringliteral}{"{}TypeFeedback: \%zu\(\backslash\)n"{}}, \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}});}
+\DoxyCodeLine{797   \}}
+\DoxyCodeLine{798   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{799 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::wasm\+::\+Content\+Size(), v8\+::internal\+::\+Print\+F(), v8\+::base\+::internal\+::result, UPDATE\+\_\+\+WHEN\+\_\+\+CLASS\+\_\+\+CHANGES, and v8\+::internal\+::v8\+\_\+flags.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_ab65649f3c237cda954bdb9ceb71e412a_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_af2800771d87f85c940c36108a8cf47f5}\label{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_af2800771d87f85c940c36108a8cf47f5}} 
 \index{v8::internal::wasm::TypeFeedbackStorage@{v8::internal::wasm::TypeFeedbackStorage}!deopt\_count\_for\_function@{deopt\_count\_for\_function}}
@@ -48,17 +93,41 @@ std\+::unordered\+\_\+map$<$ uint32\+\_\+t, uint32\+\_\+t $>$ \mbox{\hyperlink{s
 \doxysubsubsection{\texorpdfstring{deopt\_count\_for\_function}{deopt\_count\_for\_function}}
 {\footnotesize\ttfamily std\+::unordered\+\_\+map$<$uint32\+\_\+t, uint32\+\_\+t$>$ v8\+::internal\+::wasm\+::\+Type\+Feedback\+Storage\+::deopt\+\_\+count\+\_\+for\+\_\+function}
 
+
+
+Definition at line 628 of file wasm-\/module.\+h.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Turboshaft\+Graph\+Building\+Interface\+::deopts\+\_\+enabled(), and v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION().
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_a430d975fff82d80bbbbdd0cf3b5eafd8}\label{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_a430d975fff82d80bbbbdd0cf3b5eafd8}} 
 \index{v8::internal::wasm::TypeFeedbackStorage@{v8::internal::wasm::TypeFeedbackStorage}!feedback\_for\_function@{feedback\_for\_function}}
 \index{feedback\_for\_function@{feedback\_for\_function}!v8::internal::wasm::TypeFeedbackStorage@{v8::internal::wasm::TypeFeedbackStorage}}
 \doxysubsubsection{\texorpdfstring{feedback\_for\_function}{feedback\_for\_function}}
 {\footnotesize\ttfamily std\+::unordered\+\_\+map$<$uint32\+\_\+t, \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1FunctionTypeFeedback}{Function\+Type\+Feedback}}$>$ v8\+::internal\+::wasm\+::\+Type\+Feedback\+Storage\+::feedback\+\_\+for\+\_\+function}
 
+
+
+Definition at line 627 of file wasm-\/module.\+h.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::anonymous\+\_\+namespace\{module-\/compiler.\+cc\}\+::\+Compilation\+State\+Impl\+::\+Allow\+Another\+Top\+Tier\+Job(), v8\+::internal\+::wasm\+::anonymous\+\_\+namespace\{module-\/compiler.\+cc\}\+::\+Compilation\+State\+Impl\+::\+Allow\+Another\+Top\+Tier\+Job\+For\+All\+Functions(), v8\+::internal\+::wasm\+::\+Deserialize\+Type\+Feedback(), v8\+::internal\+::wasm\+::anonymous\+\_\+namespace\{liftoff-\/compiler.\+cc\}\+::\+Liftoff\+Compiler\+::\+Finish\+Function(), v8\+::internal\+::wasm\+::\+Turboshaft\+Graph\+Building\+Interface\+::\+Get\+Liftoff\+Frame\+Size(), v8\+::internal\+::wasm\+::\+Inlining\+Tree\+::\+Inline(), v8\+::internal\+::wasm\+::\+Num\+Feedback\+Slots(), v8\+::internal\+::wasm\+::\+Transitive\+Type\+Feedback\+Processor\+::\+Process\+Function(), v8\+::internal\+::wasm\+::\+Profile\+Generator\+::\+Serialize\+Tiering\+Info(), v8\+::internal\+::wasm\+::\+Profile\+Generator\+::\+Serialize\+Type\+Feedback(), v8\+::internal\+::wasm\+::\+Turboshaft\+Graph\+Building\+Interface\+::\+Start\+Function(), and v8\+::internal\+::wasm\+::\+Trigger\+Tier\+Up().
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_a978ef852d135cebd5dc2629bc8692090}\label{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_a978ef852d135cebd5dc2629bc8692090}} 
 \index{v8::internal::wasm::TypeFeedbackStorage@{v8::internal::wasm::TypeFeedbackStorage}!mutex@{mutex}}
 \index{mutex@{mutex}!v8::internal::wasm::TypeFeedbackStorage@{v8::internal::wasm::TypeFeedbackStorage}}
 \doxysubsubsection{\texorpdfstring{mutex}{mutex}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} v8\+::internal\+::wasm\+::\+Type\+Feedback\+Storage\+::mutex\hspace{0.3cm}{\ttfamily [mutable]}}
+
+
+
+Definition at line 642 of file wasm-\/module.\+h.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::anonymous\+\_\+namespace\{module-\/compiler.\+cc\}\+::\+Compilation\+State\+Impl\+::\+Allow\+Another\+Top\+Tier\+Job(), v8\+::internal\+::wasm\+::anonymous\+\_\+namespace\{module-\/compiler.\+cc\}\+::\+Compilation\+State\+Impl\+::\+Allow\+Another\+Top\+Tier\+Job\+For\+All\+Functions(), v8\+::internal\+::wasm\+::\+Turboshaft\+Graph\+Building\+Interface\+::deopts\+\_\+enabled(), v8\+::internal\+::wasm\+::\+Deserialize\+Type\+Feedback(), v8\+::internal\+::wasm\+::anonymous\+\_\+namespace\{liftoff-\/compiler.\+cc\}\+::\+Liftoff\+Compiler\+::\+Finish\+Function(), v8\+::internal\+::wasm\+::\+Inlining\+Tree\+::\+Fully\+Expand(), v8\+::internal\+::wasm\+::\+Turboshaft\+Graph\+Building\+Interface\+::\+Get\+Liftoff\+Frame\+Size(), v8\+::internal\+::wasm\+::\+Num\+Feedback\+Slots(), v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION(), v8\+::internal\+::wasm\+::\+Turboshaft\+Graph\+Building\+Interface\+::\+Start\+Function(), and v8\+::internal\+::wasm\+::\+Trigger\+Tier\+Up().
 
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_a2f59640a40aae70550d8eda5f0f89c5f}\label{structv8_1_1internal_1_1wasm_1_1TypeFeedbackStorage_a2f59640a40aae70550d8eda5f0f89c5f}} 
 \index{v8::internal::wasm::TypeFeedbackStorage@{v8::internal::wasm::TypeFeedbackStorage}!well\_known\_imports@{well\_known\_imports}}
@@ -68,7 +137,15 @@ std\+::unordered\+\_\+map$<$ uint32\+\_\+t, uint32\+\_\+t $>$ \mbox{\hyperlink{s
 
 
 
+Definition at line 644 of file wasm-\/module.\+h.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Get\+Imports(), v8\+::internal\+::wasm\+::\+Turboshaft\+Graph\+Building\+Interface\+::\+Handle\+Well\+Known\+Import(), v8\+::internal\+::wasm\+::\+Instance\+Builder\+::\+Process\+Imports(), v8\+::internal\+::wasm\+::\+Native\+Module\+Deserializer\+::\+Read\+Header(), v8\+::internal\+::wasm\+::\+Instance\+Builder\+::\+Sanitize\+Imports(), and v8\+::internal\+::wasm\+::\+Validate\+And\+Set\+Builtin\+Imports().
+
+
+
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{wasm-module_8h}{wasm-\/module.\+h}}\item 
-\mbox{\hyperlink{wasm-module_8cc}{wasm-\/module.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{wasm-module_8h}{wasm-\/module.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{wasm-module_8cc}{wasm-\/module.\+cc}}\end{DoxyCompactItemize}

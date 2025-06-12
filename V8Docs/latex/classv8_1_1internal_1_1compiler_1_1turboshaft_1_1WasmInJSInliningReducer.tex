@@ -29,6 +29,21 @@ Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Wasm\+In\+
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1Any}{Any}} $>$ \mbox{\hyperlink{uniform-reducer-adapter_8h_ac243a1f9603cd0a9e0c3ad8cf9843c16}{REDUCE}}() \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJSInliningReducer_a1bba63211223d698f1492cbe4897302b}{Call}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_aeb9581c8d0cfaedb6011276dc6580beb}{Call\+Target}} $>$ callee, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OptionalV}{OptionalV}}$<$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FrameState}{turboshaft\+::\+Frame\+State}} $>$ frame\+\_\+state, \mbox{\hyperlink{classv8_1_1base_1_1Vector}{base\+::\+Vector}}$<$ const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpIndex}{Op\+Index}} $>$ arguments, const \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1TSCallDescriptor}{TSCall\+Descriptor}} $\ast$descriptor, \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpEffects}{Op\+Effects}} effects)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1Any}{Any}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJSInliningReducer_a8a00371ab712e79723458468c5962768}{Try\+Inline\+Wasm\+Call}} (const \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1WasmModule}{wasm\+::\+Wasm\+Module}} $\ast$module, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModule}{wasm\+::\+Native\+Module}} $\ast$native\+\_\+module, uint32\+\_\+t func\+\_\+idx, \mbox{\hyperlink{classv8_1_1base_1_1Vector}{base\+::\+Vector}}$<$ const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpIndex}{Op\+Index}} $>$ arguments)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class Next$>$\newline
+class v8\+::internal\+::compiler\+::turboshaft\+::\+Wasm\+In\+JSInlining\+Reducer$<$ Next $>$}
+
+
+
+Definition at line 37 of file wasm-\/in-\/js-\/inlining-\/reducer-\/inl.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -41,6 +56,197 @@ Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Wasm\+In\+
 
 
 
+Definition at line 41 of file wasm-\/in-\/js-\/inlining-\/reducer-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{44                                                                              \{}
+\DoxyCodeLine{45     \textcolor{keywordflow}{if} (!descriptor-\/>js\_wasm\_call\_parameters) \{}
+\DoxyCodeLine{46       \textcolor{comment}{// Regular call, nothing to do with Wasm or inlining. Proceed untouched...}}
+\DoxyCodeLine{47       \textcolor{keywordflow}{return} Next::ReduceCall(callee, frame\_state, arguments, descriptor,}
+\DoxyCodeLine{48                               effects);}
+\DoxyCodeLine{49     \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51     \textcolor{comment}{// We shouldn't have attached `JSWasmCallParameters` at this call, unless}}
+\DoxyCodeLine{52     \textcolor{comment}{// we have TS Wasm-\/in-\/JS inlining enabled.}}
+\DoxyCodeLine{53     \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.turboshaft\_wasm\_in\_js\_inlining);}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55     \textcolor{keyword}{const} \mbox{\hyperlink{namespacev8_1_1internal_a09dbf9baefb793fd78912d6ef89f9dde}{wasm::WasmModule}}* module =}
+\DoxyCodeLine{56         descriptor-\/>js\_wasm\_call\_parameters-\/>module();}
+\DoxyCodeLine{57     wasm::NativeModule* native\_module =}
+\DoxyCodeLine{58         descriptor-\/>js\_wasm\_call\_parameters-\/>native\_module();}
+\DoxyCodeLine{59     uint32\_t func\_idx = descriptor-\/>js\_wasm\_call\_parameters-\/>function\_index();}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61     V<Any> \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} =}
+\DoxyCodeLine{62         \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJSInliningReducer_a8a00371ab712e79723458468c5962768}{TryInlineWasmCall}}(module, native\_module, func\_idx, arguments);}
+\DoxyCodeLine{63     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.valid()) \{}
+\DoxyCodeLine{64       \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{65     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{66       \textcolor{comment}{// The JS-\/to-\/Wasm wrapper was already inlined by the earlier TurboFan}}
+\DoxyCodeLine{67       \textcolor{comment}{// phase, specifically `JSInliner::ReduceJSWasmCall`. However, it did}}
+\DoxyCodeLine{68       \textcolor{comment}{// not toggle the thread-\/in-\/Wasm flag, since we don't want to set it}}
+\DoxyCodeLine{69       \textcolor{comment}{// in the inline case above.}}
+\DoxyCodeLine{70       \textcolor{comment}{// For the non-\/inline case, we need to toggle the flag now.}}
+\DoxyCodeLine{71       \textcolor{comment}{// TODO(dlehmann,353475584): Reuse the code from}}
+\DoxyCodeLine{72       \textcolor{comment}{// `WasmGraphBuilderBase::BuildModifyThreadInWasmFlag`, but that}}
+\DoxyCodeLine{73       \textcolor{comment}{// requires a different assembler stack...}}
+\DoxyCodeLine{74       \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} isolate\_root = \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} LoadRootRegister();}
+\DoxyCodeLine{75       V<WordPtr> thread\_in\_wasm\_flag\_address =}
+\DoxyCodeLine{76           \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} \mbox{\hyperlink{namespacev8_afba0b7d3427abb6bfb7e3cd115579e51}{Load}}(isolate\_root, \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoadOp_1_1Kind_a239cb10c87eb74583c2a7d586f0d2dd9}{LoadOp::Kind::RawAligned}}().Immutable(),}
+\DoxyCodeLine{77                   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1MemoryRepresentation_ad00e9066a2db273c907546a88ce96a76}{MemoryRepresentation::UintPtr}}(),}
+\DoxyCodeLine{78                   \mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a0777d7ca5e7146e8ca28f1de79c66507}{Isolate::thread\_in\_wasm\_flag\_address\_offset}}());}
+\DoxyCodeLine{79       \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_1_1liftoff_a0ecba5b44024d8add4d50d38bd3bb8af}{Store}}(thread\_in\_wasm\_flag\_address, \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} Word32Constant(1),}
+\DoxyCodeLine{80                \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoadOp_1_1Kind_a239cb10c87eb74583c2a7d586f0d2dd9}{LoadOp::Kind::RawAligned}}(), \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1MemoryRepresentation_a80d2fbb91533fbcf3575b041f2ab9cfc}{MemoryRepresentation::Int32}}(),}
+\DoxyCodeLine{81                \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a1ee0d1fd80275438925bc568ec289797a3cb0f5f3b0a3f679f11bec177e0cdd98}{compiler::kNoWriteBarrier}});}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83       \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} =}
+\DoxyCodeLine{84           Next::ReduceCall(callee, frame\_state, arguments, descriptor, effects);}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86       \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_1_1liftoff_a0ecba5b44024d8add4d50d38bd3bb8af}{Store}}(thread\_in\_wasm\_flag\_address, \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} Word32Constant(0),}
+\DoxyCodeLine{87                \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoadOp_1_1Kind_a239cb10c87eb74583c2a7d586f0d2dd9}{LoadOp::Kind::RawAligned}}(), \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1MemoryRepresentation_a80d2fbb91533fbcf3575b041f2ab9cfc}{MemoryRepresentation::Int32}}(),}
+\DoxyCodeLine{88                \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a1ee0d1fd80275438925bc568ec289797a3cb0f5f3b0a3f679f11bec177e0cdd98}{compiler::kNoWriteBarrier}});}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90       \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{91     \}}
+\DoxyCodeLine{92   \}}
+
+\end{DoxyCode}
+
+
+References \+\_\+\+\_\+, CHECK, v8\+::internal\+::compiler\+::turboshaft\+::\+Memory\+Representation\+::\+Int32(), v8\+::internal\+::compiler\+::k\+No\+Write\+Barrier, v8\+::\+Load(), v8\+::internal\+::compiler\+::turboshaft\+::\+Load\+Op\+::\+Kind\+::\+Raw\+Aligned(), v8\+::base\+::internal\+::result, v8\+::internal\+::wasm\+::liftoff\+::\+Store(), v8\+::internal\+::\+Isolate\+::thread\+\_\+in\+\_\+wasm\+\_\+flag\+\_\+address\+\_\+offset(), v8\+::internal\+::compiler\+::turboshaft\+::\+Wasm\+In\+JSInlining\+Reducer$<$ Next $>$\+::\+Try\+Inline\+Wasm\+Call(), v8\+::internal\+::compiler\+::turboshaft\+::\+Memory\+Representation\+::\+Uint\+Ptr(), and v8\+::internal\+::v8\+\_\+flags.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJSInliningReducer_a1bba63211223d698f1492cbe4897302b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJSInliningReducer_a8a00371ab712e79723458468c5962768}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJSInliningReducer_a8a00371ab712e79723458468c5962768}} 
+\index{v8::internal::compiler::turboshaft::WasmInJSInliningReducer$<$ Next $>$@{v8::internal::compiler::turboshaft::WasmInJSInliningReducer$<$ Next $>$}!TryInlineWasmCall@{TryInlineWasmCall}}
+\index{TryInlineWasmCall@{TryInlineWasmCall}!v8::internal::compiler::turboshaft::WasmInJSInliningReducer$<$ Next $>$@{v8::internal::compiler::turboshaft::WasmInJSInliningReducer$<$ Next $>$}}
+\doxysubsubsection{\texorpdfstring{TryInlineWasmCall()}{TryInlineWasmCall()}}
+{\footnotesize\ttfamily template$<$class Next $>$ \\
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1Any}{Any}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJSInliningReducer}{v8\+::internal\+::compiler\+::turboshaft\+::\+Wasm\+In\+JSInlining\+Reducer}}$<$ Next $>$\+::Try\+Inline\+Wasm\+Call (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1WasmModule}{wasm\+::\+Wasm\+Module}} $\ast$}]{module,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModule}{wasm\+::\+Native\+Module}} $\ast$}]{native\+\_\+module,  }\item[{uint32\+\_\+t}]{func\+\_\+idx,  }\item[{\mbox{\hyperlink{classv8_1_1base_1_1Vector}{base\+::\+Vector}}$<$ const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpIndex}{Op\+Index}} $>$}]{arguments }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 1258 of file wasm-\/in-\/js-\/inlining-\/reducer-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1260                                                             \{}
+\DoxyCodeLine{1261   \textcolor{keyword}{const} \mbox{\hyperlink{namespacev8_1_1internal_aee315e6fdfed61d0c5a8b4d88d9e85b6}{wasm::WasmFunction}}\& func = module-\/>functions[func\_idx];}
+\DoxyCodeLine{1262 }
+\DoxyCodeLine{1263   \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}Considering wasm function ["{}}}
+\DoxyCodeLine{1264         << func\_idx << \textcolor{stringliteral}{"{}] "{}}}
+\DoxyCodeLine{1265         << JSInliner::WasmFunctionNameForTrace(native\_module, func\_idx)}
+\DoxyCodeLine{1266         << \textcolor{stringliteral}{"{} of module "{}} << module << \textcolor{stringliteral}{"{} for inlining"{}});}
+\DoxyCodeLine{1267 }
+\DoxyCodeLine{1268   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a70bbfcab50b20ba5da8696e0373a8af4}{wasm::is\_asmjs\_module}}(module)) \{}
+\DoxyCodeLine{1269     \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}-\/ not inlining: asm.js-\/in-\/JS inlining is not supported"{}});}
+\DoxyCodeLine{1270     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpIndex_a19b67749ed68fc8a4883e936589372cc}{OpIndex::Invalid}}();}
+\DoxyCodeLine{1271   \}}
+\DoxyCodeLine{1272 }
+\DoxyCodeLine{1273   \textcolor{keywordflow}{if} (func\_idx < module-\/>num\_imported\_functions) \{}
+\DoxyCodeLine{1274     \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}-\/ not inlining: call to an imported function"{}});}
+\DoxyCodeLine{1275     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpIndex_a19b67749ed68fc8a4883e936589372cc}{OpIndex::Invalid}}();}
+\DoxyCodeLine{1276   \}}
+\DoxyCodeLine{1277   \mbox{\hyperlink{src_2base_2logging_8h_af1a711c8d5520dff78858ddefd2ad668}{DCHECK\_LT}}(func\_idx -\/ module-\/>num\_imported\_functions,}
+\DoxyCodeLine{1278             module-\/>num\_declared\_functions);}
+\DoxyCodeLine{1279 }
+\DoxyCodeLine{1280   \textcolor{comment}{// TODO(42204563): Support shared-\/everything proposal (at some point, or}}
+\DoxyCodeLine{1281   \textcolor{comment}{// possibly never).}}
+\DoxyCodeLine{1282   \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacev8_1_1internal_adee95482032a93e07f59341fed5c909f}{is\_shared}} = module-\/>type(func.sig\_index).is\_shared;}
+\DoxyCodeLine{1283   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_adee95482032a93e07f59341fed5c909f}{is\_shared}}) \{}
+\DoxyCodeLine{1284     \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}-\/ not inlining: shared everything is not supported"{}});}
+\DoxyCodeLine{1285     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpIndex_a19b67749ed68fc8a4883e936589372cc}{OpIndex::Invalid}}();}
+\DoxyCodeLine{1286   \}}
+\DoxyCodeLine{1287 }
+\DoxyCodeLine{1288   base::Vector<const uint8\_t> module\_bytes = native\_module-\/>wire\_bytes();}
+\DoxyCodeLine{1289   \textcolor{keyword}{const} uint8\_t* start = module\_bytes.begin() + func.code.offset();}
+\DoxyCodeLine{1290   \textcolor{keyword}{const} uint8\_t* \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}} = module\_bytes.begin() + func.code.end\_offset();}
+\DoxyCodeLine{1291 }
+\DoxyCodeLine{1292   wasm::FunctionBody func\_body\{func.sig, func.code.offset(), start, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}},}
+\DoxyCodeLine{1293                                \mbox{\hyperlink{namespacev8_1_1internal_adee95482032a93e07f59341fed5c909f}{is\_shared}}\};}
+\DoxyCodeLine{1294 }
+\DoxyCodeLine{1295   \textcolor{keyword}{auto} env = \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1CompilationEnv_a82326dba2957af291922c647638d924c}{wasm::CompilationEnv::ForModule}}(native\_module);}
+\DoxyCodeLine{1296   wasm::WasmDetectedFeatures detected\{\};}
+\DoxyCodeLine{1297 }
+\DoxyCodeLine{1298   \textcolor{comment}{// JS-\/to-\/Wasm wrapper inlining doesn't support multi-\/value at the moment,}}
+\DoxyCodeLine{1299   \textcolor{comment}{// so we should never reach here with more than 1 return value.}}
+\DoxyCodeLine{1300   \mbox{\hyperlink{src_2base_2logging_8h_a16b382527f19b805fc8f856668f2270b}{DCHECK\_LE}}(func.sig-\/>return\_count(), 1);}
+\DoxyCodeLine{1301   base::Vector<const OpIndex> arguments\_without\_instance =}
+\DoxyCodeLine{1302       arguments.SubVectorFrom(1);}
+\DoxyCodeLine{1303   V<WasmTrustedInstanceData> trusted\_instance\_data =}
+\DoxyCodeLine{1304       arguments[\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a358f08231a20b80ed2d1b6b18d1388f9}{wasm::kWasmInstanceDataParameterIndex}}];}
+\DoxyCodeLine{1305 }
+\DoxyCodeLine{1306   Block* inlinee\_body\_and\_rest = \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} NewBlock();}
+\DoxyCodeLine{1307   \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} Goto(inlinee\_body\_and\_rest);}
+\DoxyCodeLine{1308 }
+\DoxyCodeLine{1309   \textcolor{comment}{// First pass: Decode Wasm body to see if we could inline or would bail out.}}
+\DoxyCodeLine{1310   \textcolor{comment}{// Emit into an unreachable block. We are not interested in the operations at}}
+\DoxyCodeLine{1311   \textcolor{comment}{// this point, only in the decoder status afterwards.}}
+\DoxyCodeLine{1312   Block* unreachable = \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} NewBlock();}
+\DoxyCodeLine{1313   \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} Bind(unreachable);}
+\DoxyCodeLine{1314 }
+\DoxyCodeLine{1315   \textcolor{keyword}{using} Interface = WasmInJsInliningInterface<Assembler<ReducerList>>;}
+\DoxyCodeLine{1316   \textcolor{keyword}{using} Decoder =}
+\DoxyCodeLine{1317       wasm::WasmFullDecoder<typename Interface::ValidationTag, Interface>;}
+\DoxyCodeLine{1318   Decoder can\_inline\_decoder(Asm().phase\_zone(), env.module,}
+\DoxyCodeLine{1319                              env.enabled\_features, \&detected, func\_body, Asm(),}
+\DoxyCodeLine{1320                              arguments\_without\_instance, trusted\_instance\_data);}
+\DoxyCodeLine{1321   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(env.module-\/>function\_was\_validated(func\_idx));}
+\DoxyCodeLine{1322   can\_inline\_decoder.Decode();}
+\DoxyCodeLine{1323 }
+\DoxyCodeLine{1324   \textcolor{comment}{// The function was already validated, so decoding can only fail if we bailed}}
+\DoxyCodeLine{1325   \textcolor{comment}{// out due to an unsupported instruction.}}
+\DoxyCodeLine{1326   \textcolor{keywordflow}{if} (!can\_inline\_decoder.ok()) \{}
+\DoxyCodeLine{1327     \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}-\/ not inlining: "{}} << can\_inline\_decoder.error().message());}
+\DoxyCodeLine{1328     \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} Bind(inlinee\_body\_and\_rest);}
+\DoxyCodeLine{1329     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpIndex_a19b67749ed68fc8a4883e936589372cc}{OpIndex::Invalid}}();}
+\DoxyCodeLine{1330   \}}
+\DoxyCodeLine{1331 }
+\DoxyCodeLine{1332   \textcolor{comment}{// Second pass: Actually emit the inlinee instructions now.}}
+\DoxyCodeLine{1333   \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} Bind(inlinee\_body\_and\_rest);}
+\DoxyCodeLine{1334   Decoder emitting\_decoder(Asm().phase\_zone(), env.module, env.enabled\_features,}
+\DoxyCodeLine{1335                            \&detected, func\_body, Asm(),}
+\DoxyCodeLine{1336                            arguments\_without\_instance, trusted\_instance\_data);}
+\DoxyCodeLine{1337   emitting\_decoder.Decode();}
+\DoxyCodeLine{1338   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(emitting\_decoder.ok());}
+\DoxyCodeLine{1339   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(emitting\_decoder.interface().Result().valid());}
+\DoxyCodeLine{1340   \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}-\/ inlining"{}});}
+\DoxyCodeLine{1341   \textcolor{keywordflow}{return} emitting\_decoder.interface().Result();}
+\DoxyCodeLine{1342 \}}
+
+\end{DoxyCode}
+
+
+References \+\_\+\+\_\+, v8\+::base\+::\+Vector$<$ T $>$\+::begin(), v8\+::internal\+::wasm\+::\+Wasm\+Function\+::code, v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+LE, DCHECK\+\_\+\+LT, v8\+::internal\+::\+Decoder$<$ V $>$\+::\+Decode(), v8\+::internal\+::compiler\+::end(), v8\+::internal\+::wasm\+::\+Wire\+Bytes\+Ref\+::end\+\_\+offset(), v8\+::internal\+::wasm\+::\+Compilation\+Env\+::\+For\+Module(), v8\+::internal\+::wasm\+::\+Wasm\+Module\+::functions, v8\+::internal\+::compiler\+::turboshaft\+::\+Op\+Index\+::\+Invalid(), v8\+::internal\+::wasm\+::is\+\_\+asmjs\+\_\+module(), v8\+::internal\+::is\+\_\+shared, v8\+::internal\+::wasm\+::\+Type\+Definition\+::is\+\_\+shared, v8\+::internal\+::wasm\+::k\+Wasm\+Instance\+Data\+Parameter\+Index, v8\+::internal\+::wasm\+::\+Wasm\+Module\+::num\+\_\+declared\+\_\+functions, v8\+::internal\+::wasm\+::\+Wasm\+Module\+::num\+\_\+imported\+\_\+functions, v8\+::internal\+::wasm\+::\+Wire\+Bytes\+Ref\+::offset(), v8\+::internal\+::\+Signature$<$ T $>$\+::return\+\_\+count(), v8\+::internal\+::wasm\+::\+Wasm\+Function\+::sig, v8\+::internal\+::wasm\+::\+Wasm\+Function\+::sig\+\_\+index, v8\+::base\+::\+Vector$<$ T $>$\+::\+Sub\+Vector\+From(), v8\+::internal\+::\+TRACE(), v8\+::internal\+::wasm\+::\+Wasm\+Module\+::type(), v8\+::internal\+::compiler\+::turboshaft\+::\+Op\+Index\+::valid(), and v8\+::internal\+::wasm\+::\+Native\+Module\+::wire\+\_\+bytes().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::turboshaft\+::\+Wasm\+In\+JSInlining\+Reducer$<$ Next $>$\+::\+Call().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJSInliningReducer_a8a00371ab712e79723458468c5962768_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJSInliningReducer_a8a00371ab712e79723458468c5962768_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{wasm-in-js-inlining-reducer-inl_8h}{wasm-\/in-\/js-\/inlining-\/reducer-\/inl.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{wasm-in-js-inlining-reducer-inl_8h}{wasm-\/in-\/js-\/inlining-\/reducer-\/inl.\+h}}\end{DoxyCompactItemize}

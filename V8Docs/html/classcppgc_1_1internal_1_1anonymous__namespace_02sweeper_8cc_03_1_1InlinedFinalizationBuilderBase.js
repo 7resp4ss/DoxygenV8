@@ -1,0 +1,5 @@
+var classcppgc_1_1internal_1_1anonymous__namespace_02sweeper_8cc_03_1_1InlinedFinalizationBuilderBase =
+[
+    [ "ResultType", "structcppgc_1_1internal_1_1anonymous__namespace_02sweeper_8cc_03_1_1InlinedFinalizationBuilderBase_1_1ResultType.html", "structcppgc_1_1internal_1_1anonymous__namespace_02sweeper_8cc_03_1_1InlinedFinalizationBuilderBase_1_1ResultType" ],
+    [ "result_", "classcppgc_1_1internal_1_1anonymous__namespace_02sweeper_8cc_03_1_1InlinedFinalizationBuilderBase.html#a72baf16247cdb2f96fe3f84a5af6197e", null ]
+];

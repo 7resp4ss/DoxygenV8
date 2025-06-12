@@ -9,5 +9,6 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1DoubleArrayMinMaxOp =
     [ "inputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1DoubleArrayMinMaxOp.html#a9121565855b3151f6a769da11c1bca64", null ],
     [ "options", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1DoubleArrayMinMaxOp.html#a52c6ff867e58ec44f11e6dbdd428fdd9", null ],
     [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1DoubleArrayMinMaxOp.html#aa6e131997ad4950f2d57141ad1178c79", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1DoubleArrayMinMaxOp.html#add584e06ae33f831457c5a8493514d05", null ],
     [ "kind", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1DoubleArrayMinMaxOp.html#a3a0ebead8d60a0e0bddc3586e31f6aa0", null ]
 ];

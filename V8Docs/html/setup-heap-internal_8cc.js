@@ -1,5 +1,8 @@
 var setup_heap_internal_8cc =
 [
+    [ "ConstantStringInit", "structv8_1_1internal_1_1anonymous__namespace_02setup-heap-internal_8cc_03_1_1ConstantStringInit.html", "structv8_1_1internal_1_1anonymous__namespace_02setup-heap-internal_8cc_03_1_1ConstantStringInit" ],
+    [ "StringTypeInit", "structv8_1_1internal_1_1anonymous__namespace_02setup-heap-internal_8cc_03_1_1StringTypeInit.html", "structv8_1_1internal_1_1anonymous__namespace_02setup-heap-internal_8cc_03_1_1StringTypeInit" ],
+    [ "StructInit", "structv8_1_1internal_1_1anonymous__namespace_02setup-heap-internal_8cc_03_1_1StructInit.html", "structv8_1_1internal_1_1anonymous__namespace_02setup-heap-internal_8cc_03_1_1StructInit" ],
     [ "ALLOCATE_ALWAYS_SHARED_SPACE_JSOBJECT_MAP", "setup-heap-internal_8cc.html#a521eaeff28c8a958d06e97f0bdf19ffa", null ],
     [ "ALLOCATE_AND_SET_ROOT", "setup-heap-internal_8cc.html#ad2c5e0c7749ca8b539c9c0a6f5a256ab", null ],
     [ "ALLOCATE_MAP", "setup-heap-internal_8cc.html#a9e1ec44327003c00f208951e2e9ab7b7", null ],
@@ -22,8 +25,13 @@ var setup_heap_internal_8cc =
     [ "TORQUE_ALLOCATE_MAP", "setup-heap-internal_8cc.html#a9618d90e02ee5232d561dc5034b35b6f", null ],
     [ "TORQUE_ALLOCATE_VARSIZE_MAP", "setup-heap-internal_8cc.html#a98fba23dc4dfecf614a0668591023c2f", null ],
     [ "WELL_KNOWN_SYMBOL_INIT", "setup-heap-internal_8cc.html#a64da6abca3b1361e4d0f092a01f46fdb", null ],
-    [ "contents", "setup-heap-internal_8cc.html#a406cee442705ca569078ed37710ed52f", null ],
-    [ "index", "setup-heap-internal_8cc.html#a7ab5748be54eea54406db1bf18a6f527", null ],
-    [ "size", "setup-heap-internal_8cc.html#a439227feff9d7f55384e8780cfc2eb82", null ],
-    [ "type", "setup-heap-internal_8cc.html#a4754b4211b55b853393de424f2515f17", null ]
+    [ "AllocationSiteWithoutWeakNext", "setup-heap-internal_8cc.html#ae1b0148c32e942444487bdec14fe03fd", null ],
+    [ "CreateSharedFunctionInfo", "setup-heap-internal_8cc.html#ab91c7a6ef4191c829ba97d3afbc1411d", null ],
+    [ "InitializePartialMap", "setup-heap-internal_8cc.html#a22c15b78fe4fe0e42d26e2e009613a24", null ],
+    [ "is_important_struct", "setup-heap-internal_8cc.html#a6347a166557035421e26179a64473874", null ],
+    [ "StructSize", "setup-heap-internal_8cc.html#ae281559448fd2b76411c5821eed7fc72", null ],
+    [ "kImportantConstantStringTable", "setup-heap-internal_8cc.html#a32609683b000c09bdd0905c69974e5cc", null ],
+    [ "kNotImportantConstantStringTable", "setup-heap-internal_8cc.html#ac50121c8a3f42582bde10ae936c42034", null ],
+    [ "kStringTypeTable", "setup-heap-internal_8cc.html#a5ea909220590c320859aa8ced05340fe", null ],
+    [ "kStructTable", "setup-heap-internal_8cc.html#a98e98ffc3e33dd758547c14f549d0b42", null ]
 ];

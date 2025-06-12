@@ -9,6 +9,7 @@ var regexp_compiler_8h =
     [ "FixedLengthLoopState", "classv8_1_1internal_1_1FixedLengthLoopState.html", "classv8_1_1internal_1_1FixedLengthLoopState" ],
     [ "PreloadState", "structv8_1_1internal_1_1PreloadState.html", "structv8_1_1internal_1_1PreloadState" ],
     [ "FrequencyCollator", "classv8_1_1internal_1_1FrequencyCollator.html", "classv8_1_1internal_1_1FrequencyCollator" ],
+    [ "CharacterFrequency", "classv8_1_1internal_1_1FrequencyCollator_1_1CharacterFrequency.html", "classv8_1_1internal_1_1FrequencyCollator_1_1CharacterFrequency" ],
     [ "RegExpCompiler", "classv8_1_1internal_1_1RegExpCompiler.html", "classv8_1_1internal_1_1RegExpCompiler" ],
     [ "CompilationResult", "structv8_1_1internal_1_1RegExpCompiler_1_1CompilationResult.html", "structv8_1_1internal_1_1RegExpCompiler_1_1CompilationResult" ],
     [ "UnicodeRangeSplitter", "classv8_1_1internal_1_1UnicodeRangeSplitter.html", "classv8_1_1internal_1_1UnicodeRangeSplitter" ],

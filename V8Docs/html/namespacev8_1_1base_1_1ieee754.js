@@ -1,5 +1,12 @@
 var namespacev8_1_1base_1_1ieee754 =
 [
+    [ "anonymous_namespace{ieee754.cc}", "namespacev8_1_1base_1_1ieee754_1_1anonymous__namespace_02ieee754_8cc_03.html", [
+      [ "__ieee754_rem_pio2", "namespacev8_1_1base_1_1ieee754_1_1anonymous__namespace_02ieee754_8cc_03.html#aaeabdd63ce2211f5104605429c63bb9e", null ],
+      [ "__kernel_cos", "namespacev8_1_1base_1_1ieee754_1_1anonymous__namespace_02ieee754_8cc_03.html#a16f1c647fefb83ff82a460c66969e7ed", null ],
+      [ "__kernel_rem_pio2", "namespacev8_1_1base_1_1ieee754_1_1anonymous__namespace_02ieee754_8cc_03.html#ae5bb8bcf46f531e8dc519c573990735d", null ],
+      [ "__kernel_sin", "namespacev8_1_1base_1_1ieee754_1_1anonymous__namespace_02ieee754_8cc_03.html#ad52af500b807ded428c0fb503a1e2c9e", null ],
+      [ "__kernel_tan", "namespacev8_1_1base_1_1ieee754_1_1anonymous__namespace_02ieee754_8cc_03.html#a7d229688701396ca94196399ccb66a00", null ]
+    ] ],
     [ "legacy", "namespacev8_1_1base_1_1ieee754_1_1legacy.html", [
       [ "pow", "namespacev8_1_1base_1_1ieee754_1_1legacy.html#a38ce2f0948bf7d73347a9920cbdc0208", null ]
     ] ],
@@ -15,6 +22,7 @@ var namespacev8_1_1base_1_1ieee754 =
     [ "cosh", "namespacev8_1_1base_1_1ieee754.html#a598803c3cbc13914a04ddff2f9467943", null ],
     [ "exp", "namespacev8_1_1base_1_1ieee754.html#a6933d652f26a01529c4fc7d747981cc5", null ],
     [ "expm1", "namespacev8_1_1base_1_1ieee754.html#aadf0cef9f17d3d4c3b0945f4b593f5c5", null ],
+    [ "k_log1p", "namespacev8_1_1base_1_1ieee754.html#a19da41f8f1d2b250f224306ff5fe0721", null ],
     [ "log", "namespacev8_1_1base_1_1ieee754.html#a3266ea29ca1587b1d68bbfe6872ffff6", null ],
     [ "log10", "namespacev8_1_1base_1_1ieee754.html#a6eca5c3a9d5003646d470b4ac658d8ad", null ],
     [ "log1p", "namespacev8_1_1base_1_1ieee754.html#a93a9aae6ad9669a8d355c0cfc704f18b", null ],
@@ -22,5 +30,12 @@ var namespacev8_1_1base_1_1ieee754 =
     [ "sin", "namespacev8_1_1base_1_1ieee754.html#a6220acee5cae2ef3fcd2ea7b0f8ce388", null ],
     [ "sinh", "namespacev8_1_1base_1_1ieee754.html#a4bae845cca99223e9dc03a268cd967eb", null ],
     [ "tan", "namespacev8_1_1base_1_1ieee754.html#a1ba853e593d8716f210d26adabee40da", null ],
-    [ "tanh", "namespacev8_1_1base_1_1ieee754.html#ab01c75ad07cdfdaf753a222a17eb3828", null ]
+    [ "tanh", "namespacev8_1_1base_1_1ieee754.html#ab01c75ad07cdfdaf753a222a17eb3828", null ],
+    [ "Lg1", "namespacev8_1_1base_1_1ieee754.html#a7d197d4effc41146a043a0588252d387", null ],
+    [ "Lg2", "namespacev8_1_1base_1_1ieee754.html#a5a3f85a01dff3ddf82317f974806b5ba", null ],
+    [ "Lg3", "namespacev8_1_1base_1_1ieee754.html#a9b9c5887f1bcef64c4b80d85c9d611e1", null ],
+    [ "Lg4", "namespacev8_1_1base_1_1ieee754.html#aff8ec0ea665af0342860cfe67eb69fcb", null ],
+    [ "Lg5", "namespacev8_1_1base_1_1ieee754.html#a42efb39cc11372593932f9963b51f9a6", null ],
+    [ "Lg6", "namespacev8_1_1base_1_1ieee754.html#acf83b1ba33a3c5eb91e17af55da23a9f", null ],
+    [ "Lg7", "namespacev8_1_1base_1_1ieee754.html#ae6e6d75408ab6e0d2967eb926fc1a9de", null ]
 ];

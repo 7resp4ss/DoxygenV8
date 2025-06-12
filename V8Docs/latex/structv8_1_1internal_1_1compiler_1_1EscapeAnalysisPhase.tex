@@ -1,10 +1,27 @@
 \hypertarget{structv8_1_1internal_1_1compiler_1_1EscapeAnalysisPhase}{}\doxysection{v8\+::internal\+::compiler\+::Escape\+Analysis\+Phase Struct Reference}
 \label{structv8_1_1internal_1_1compiler_1_1EscapeAnalysisPhase}\index{v8::internal::compiler::EscapeAnalysisPhase@{v8::internal::compiler::EscapeAnalysisPhase}}
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Escape\+Analysis\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{structv8_1_1internal_1_1compiler_1_1EscapeAnalysisPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1EscapeAnalysisPhase_a6a289bf355e79737fd8f39ac1d35b1ce}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
+void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1EscapeAnalysisPhase_a6a289bf355e79737fd8f39ac1d35b1ce}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1144 of file pipeline.\+cc.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -16,6 +33,48 @@ void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1EscapeAnalysisPhase_a6
 
 
 
+Definition at line 1147 of file pipeline.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1147                                                   \{}
+\DoxyCodeLine{1148     EscapeAnalysis escape\_analysis(data-\/>jsgraph(),}
+\DoxyCodeLine{1149                                    \&data-\/>info()-\/>tick\_counter(), temp\_zone);}
+\DoxyCodeLine{1150     escape\_analysis.ReduceGraph();}
+\DoxyCodeLine{1151 }
+\DoxyCodeLine{1152     GraphReducer reducer(temp\_zone, data-\/>graph(),}
+\DoxyCodeLine{1153                          \&data-\/>info()-\/>tick\_counter(), data-\/>broker(),}
+\DoxyCodeLine{1154                          data-\/>jsgraph()-\/>Dead(), data-\/>observe\_node\_manager());}
+\DoxyCodeLine{1155     EscapeAnalysisReducer escape\_reducer(}
+\DoxyCodeLine{1156         \&reducer, data-\/>jsgraph(), data-\/>broker(),}
+\DoxyCodeLine{1157         escape\_analysis.analysis\_result(), temp\_zone);}
+\DoxyCodeLine{1158 }
+\DoxyCodeLine{1159     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&reducer, \&escape\_reducer);}
+\DoxyCodeLine{1160 }
+\DoxyCodeLine{1161     \textcolor{comment}{// EscapeAnalysisReducer accesses the heap.}}
+\DoxyCodeLine{1162     UnparkedScopeIfNeeded scope(data-\/>broker());}
+\DoxyCodeLine{1163 }
+\DoxyCodeLine{1164     reducer.ReduceGraph();}
+\DoxyCodeLine{1165     \textcolor{comment}{// TODO(turbofan): Turn this into a debug mode check once we have}}
+\DoxyCodeLine{1166     \textcolor{comment}{// confidence.}}
+\DoxyCodeLine{1167     escape\_reducer.VerifyReplacement();}
+\DoxyCodeLine{1168   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{pipeline.\+cc\}\+::\+Add\+Reducer(), v8\+::internal\+::compiler\+::\+Escape\+Analysis\+::analysis\+\_\+result(), v8\+::internal\+::compiler\+::\+Graph\+Reducer\+::\+Reduce\+Graph(), and v8\+::internal\+::compiler\+::\+Escape\+Analysis\+Reducer\+::\+Verify\+Replacement().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1EscapeAnalysisPhase_a6a289bf355e79737fd8f39ac1d35b1ce_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}

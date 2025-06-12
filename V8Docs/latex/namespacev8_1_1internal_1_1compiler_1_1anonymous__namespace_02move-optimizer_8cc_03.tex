@@ -1,0 +1,224 @@
+\hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03}{}\doxysection{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{move-\/optimizer.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03}\index{v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_1_1MoveKey}{Move\+Key}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_1_1OperandSet}{Operand\+Set}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a83b583d434a9bbfec2fcbc2bbfeec7f0}{Find\+First\+Non\+Empty\+Slot}} (const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Instruction}{Instruction}} $\ast$instr)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a45d0393eda325b5d0ba6ebd21270bf56}{Is\+Slot}} (const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionOperand}{Instruction\+Operand}} \&op)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a2737abbd1b1b547a7a71770b8b66ec46}{Is64\+Bits\+Wide}} (const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionOperand}{Instruction\+Operand}} \&op)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a0ba692274b7bbed4ae6f02eb3c4821bf}{Load\+Compare}} (const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MoveOperands}{Move\+Operands}} $\ast$a, const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MoveOperands}{Move\+Operands}} $\ast$b)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a83b583d434a9bbfec2fcbc2bbfeec7f0}\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a83b583d434a9bbfec2fcbc2bbfeec7f0}} 
+\index{v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}}!FindFirstNonEmptySlot@{FindFirstNonEmptySlot}}
+\index{FindFirstNonEmptySlot@{FindFirstNonEmptySlot}!v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{FindFirstNonEmptySlot()}{FindFirstNonEmptySlot()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{move-\/optimizer.\+cc\}\+::Find\+First\+Non\+Empty\+Slot (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Instruction}{Instruction}} $\ast$}]{instr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 111 of file move-\/optimizer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{111                                                     \{}
+\DoxyCodeLine{112   \textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = Instruction::FIRST\_GAP\_POSITION;}
+\DoxyCodeLine{113   \textcolor{keywordflow}{for} (; \mbox{\hyperlink{namespacev8_1_1internal}{i}} <= Instruction::LAST\_GAP\_POSITION; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{114     ParallelMove* moves = instr-\/>parallel\_moves()[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}];}
+\DoxyCodeLine{115     \textcolor{keywordflow}{if} (moves == \textcolor{keyword}{nullptr}) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{116     \textcolor{keywordflow}{for} (MoveOperands* move : *moves) \{}
+\DoxyCodeLine{117       \textcolor{keywordflow}{if} (!move-\/>IsRedundant()) \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}};}
+\DoxyCodeLine{118       move-\/>Eliminate();}
+\DoxyCodeLine{119     \}}
+\DoxyCodeLine{120     moves-\/>clear();  \textcolor{comment}{// Clear this redundant move.}}
+\DoxyCodeLine{121   \}}
+\DoxyCodeLine{122   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}};}
+\DoxyCodeLine{123 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Instruction\+::\+FIRST\+\_\+\+GAP\+\_\+\+POSITION, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::compiler\+::\+Instruction\+::\+LAST\+\_\+\+GAP\+\_\+\+POSITION, and v8\+::internal\+::compiler\+::\+Instruction\+::parallel\+\_\+moves().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Move\+Optimizer\+::\+Compress\+Gaps().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a83b583d434a9bbfec2fcbc2bbfeec7f0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a83b583d434a9bbfec2fcbc2bbfeec7f0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a2737abbd1b1b547a7a71770b8b66ec46}\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a2737abbd1b1b547a7a71770b8b66ec46}} 
+\index{v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}}!Is64BitsWide@{Is64BitsWide}}
+\index{Is64BitsWide@{Is64BitsWide}!v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{Is64BitsWide()}{Is64BitsWide()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{move-\/optimizer.\+cc\}\+::Is64\+Bits\+Wide (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionOperand}{Instruction\+Operand}} \&}]{op }\end{DoxyParamCaption})}
+
+
+
+Definition at line 512 of file move-\/optimizer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{512                                                 \{}
+\DoxyCodeLine{513   \mbox{\hyperlink{namespacev8_1_1internal_abe5419355372f787c28119c509343410}{MachineRepresentation}} rep = LocationOperand::cast(\&op)-\/>representation();}
+\DoxyCodeLine{514 \textcolor{preprocessor}{\#if V8\_COMPRESS\_POINTERS}}
+\DoxyCodeLine{515   \textcolor{comment}{// We can't use \{ElementSizeInBytes\} because it's made for on-\/heap object}}
+\DoxyCodeLine{516   \textcolor{comment}{// slots and assumes that kTagged == kCompressed, whereas for the purpose}}
+\DoxyCodeLine{517   \textcolor{comment}{// here we specifically need to distinguish those cases.}}
+\DoxyCodeLine{518   \textcolor{keywordflow}{return} (rep == MachineRepresentation::kTagged ||}
+\DoxyCodeLine{519           rep == MachineRepresentation::kTaggedPointer ||}
+\DoxyCodeLine{520           rep == MachineRepresentation::kWord64);}
+\DoxyCodeLine{521 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{522   \textcolor{keywordflow}{return} rep == MachineRepresentation::kWord64;}
+\DoxyCodeLine{523 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{524 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Location\+Operand\+::cast(), v8\+::internal\+::k\+Tagged, v8\+::internal\+::k\+Tagged\+Pointer, v8\+::internal\+::k\+Word64, and v8\+::internal\+::compiler\+::\+Location\+Operand\+::representation().
+
+
+
+Referenced by Load\+Compare().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a2737abbd1b1b547a7a71770b8b66ec46_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a2737abbd1b1b547a7a71770b8b66ec46_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a45d0393eda325b5d0ba6ebd21270bf56}\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a45d0393eda325b5d0ba6ebd21270bf56}} 
+\index{v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}}!IsSlot@{IsSlot}}
+\index{IsSlot@{IsSlot}!v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{IsSlot()}{IsSlot()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{move-\/optimizer.\+cc\}\+::Is\+Slot (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionOperand}{Instruction\+Operand}} \&}]{op }\end{DoxyParamCaption})}
+
+
+
+Definition at line 508 of file move-\/optimizer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{508                                           \{}
+\DoxyCodeLine{509   \textcolor{keywordflow}{return} op.IsStackSlot() || op.IsFPStackSlot();}
+\DoxyCodeLine{510 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Instruction\+Operand\+::\+Is\+FPStack\+Slot(), and v8\+::internal\+::compiler\+::\+Instruction\+Operand\+::\+Is\+Stack\+Slot().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Move\+Optimizer\+::\+Finalize\+Moves(), and Load\+Compare().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a45d0393eda325b5d0ba6ebd21270bf56_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a45d0393eda325b5d0ba6ebd21270bf56_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a0ba692274b7bbed4ae6f02eb3c4821bf}\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a0ba692274b7bbed4ae6f02eb3c4821bf}} 
+\index{v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}}!LoadCompare@{LoadCompare}}
+\index{LoadCompare@{LoadCompare}!v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}move-\/optimizer.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{LoadCompare()}{LoadCompare()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{move-\/optimizer.\+cc\}\+::Load\+Compare (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MoveOperands}{Move\+Operands}} $\ast$}]{a,  }\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MoveOperands}{Move\+Operands}} $\ast$}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 526 of file move-\/optimizer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{526                                                                \{}
+\DoxyCodeLine{527   \textcolor{keywordflow}{if} (!a-\/>source().EqualsCanonicalized(b-\/>source())) \{}
+\DoxyCodeLine{528     \textcolor{keywordflow}{return} a-\/>source().CompareCanonicalized(b-\/>source());}
+\DoxyCodeLine{529   \}}
+\DoxyCodeLine{530   \textcolor{comment}{// The replacements below are only safe if wider values are preferred.}}
+\DoxyCodeLine{531   \textcolor{comment}{// In particular, replacing an uncompressed pointer with a compressed}}
+\DoxyCodeLine{532   \textcolor{comment}{// pointer is disallowed.}}
+\DoxyCodeLine{533   \textcolor{keywordflow}{if} (a-\/>destination().IsLocationOperand() \&\&}
+\DoxyCodeLine{534       b-\/>destination().IsLocationOperand()) \{}
+\DoxyCodeLine{535     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a2737abbd1b1b547a7a71770b8b66ec46}{Is64BitsWide}}(a-\/>destination()) \&\& !\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a2737abbd1b1b547a7a71770b8b66ec46}{Is64BitsWide}}(b-\/>destination())) \{}
+\DoxyCodeLine{536       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{537     \}}
+\DoxyCodeLine{538     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a2737abbd1b1b547a7a71770b8b66ec46}{Is64BitsWide}}(a-\/>destination()) \&\& \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a2737abbd1b1b547a7a71770b8b66ec46}{Is64BitsWide}}(b-\/>destination())) \{}
+\DoxyCodeLine{539       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{540     \}}
+\DoxyCodeLine{541   \}}
+\DoxyCodeLine{542   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a45d0393eda325b5d0ba6ebd21270bf56}{IsSlot}}(a-\/>destination()) \&\& !\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a45d0393eda325b5d0ba6ebd21270bf56}{IsSlot}}(b-\/>destination())) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{543   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a45d0393eda325b5d0ba6ebd21270bf56}{IsSlot}}(a-\/>destination()) \&\& \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a45d0393eda325b5d0ba6ebd21270bf56}{IsSlot}}(b-\/>destination())) \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{544   \textcolor{keywordflow}{return} a-\/>destination().CompareCanonicalized(b-\/>destination());}
+\DoxyCodeLine{545 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Instruction\+Operand\+::\+Compare\+Canonicalized(), v8\+::internal\+::compiler\+::\+Move\+Operands\+::destination(), v8\+::internal\+::compiler\+::\+Instruction\+Operand\+::\+Equals\+Canonicalized(), Is64\+Bits\+Wide(), v8\+::internal\+::compiler\+::\+Instruction\+Operand\+::\+Is\+Location\+Operand(), Is\+Slot(), and v8\+::internal\+::compiler\+::\+Move\+Operands\+::source().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Move\+Optimizer\+::\+Finalize\+Moves().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a0ba692274b7bbed4ae6f02eb3c4821bf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_a0ba692274b7bbed4ae6f02eb3c4821bf_icgraph}
+\end{center}
+\end{figure}

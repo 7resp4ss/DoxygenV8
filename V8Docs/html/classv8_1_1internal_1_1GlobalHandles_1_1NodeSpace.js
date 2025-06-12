@@ -7,6 +7,16 @@ var classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace =
     [ "Allocate", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#a493797854e06c29748727abdee9545fa", null ],
     [ "begin", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#a7f2e1c1bd35da151f9ba72a328c607da", null ],
     [ "end", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#a210ced90c91ffffda4dfb259f06dc6ac", null ],
+    [ "Free", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#a0cb5a043f03360696d4712bb7c3b0b0a", null ],
+    [ "From", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#adfad3d224f1171924cd9ccf0830f1093", null ],
     [ "handles_count", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#a5bf7c47672c13329461eda4660824953", null ],
-    [ "TotalSize", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#a03804f65340a7ba6ceba3e940f98b2b9", null ]
+    [ "PutNodesOnFreeList", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#a41a46b2d63f53d0c1ee31f8cab15c1eb", null ],
+    [ "Release", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#a41ec22facd9279ae257e6af93bb69ab6", null ],
+    [ "TotalSize", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#a03804f65340a7ba6ceba3e940f98b2b9", null ],
+    [ "blocks_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#a5e4ed3d6fea64bfe131da176aa46b578", null ],
+    [ "first_block_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#af8190087a717d75eb7c5d61ae0bc1f85", null ],
+    [ "first_free_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#a5f15d1dece5c70484e5a2b5cef8aea30", null ],
+    [ "first_used_block_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#a377f8eb0c4e4ffb207513802bc9b2436", null ],
+    [ "global_handles_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#a89ed00442cbc36605c220d3e6fc23b2a", null ],
+    [ "handles_count_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeSpace.html#a5009fff88b69303aa5a496aad20030d9", null ]
 ];

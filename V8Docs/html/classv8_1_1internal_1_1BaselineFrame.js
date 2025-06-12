@@ -1,6 +1,8 @@
 var classv8_1_1internal_1_1BaselineFrame =
 [
     [ "BaselineFrame", "classv8_1_1internal_1_1BaselineFrame.html#ad7f16f96d115ddb4f4f7f28349a9ea06", null ],
+    [ "cast", "classv8_1_1internal_1_1BaselineFrame.html#af3676d14af4b4129c73d48bb8d584835", null ],
+    [ "cast", "classv8_1_1internal_1_1BaselineFrame.html#a529dd3bae72d1b163bf6c7ee470fab26", null ],
     [ "GetBytecodeOffset", "classv8_1_1internal_1_1BaselineFrame.html#a404eec0414426d1f2bd586237c0d02a6", null ],
     [ "GetPCForBytecodeOffset", "classv8_1_1internal_1_1BaselineFrame.html#ae22fbcee74f98fe86b699c0f844a8248", null ],
     [ "PatchContext", "classv8_1_1internal_1_1BaselineFrame.html#aae47e9f13be5197f773a42ad2241387f", null ],

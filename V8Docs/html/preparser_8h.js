@@ -16,5 +16,6 @@ var preparser_8h =
     [ "PreParserPropertyList", "classv8_1_1internal_1_1PreParserPropertyList.html", null ],
     [ "ParserTypes< PreParser >", "structv8_1_1internal_1_1ParserTypes_3_01PreParser_01_4.html", "structv8_1_1internal_1_1ParserTypes_3_01PreParser_01_4" ],
     [ "PreParser", "classv8_1_1internal_1_1PreParser.html", "classv8_1_1internal_1_1PreParser" ],
+    [ "TemplateLiteralState", "structv8_1_1internal_1_1PreParser_1_1TemplateLiteralState.html", null ],
     [ "DEFINE_RECORD_SOURCE_RANGE", "preparser_8h.html#a5d82fba388ed1e68098518a5d8fb0f78", null ]
 ];

@@ -5,5 +5,6 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1EnsureWritableFastElements
     [ "inputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1EnsureWritableFastElementsOp.html#a680131b15aa352df2e594c08b4a1ea35", null ],
     [ "object", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1EnsureWritableFastElementsOp.html#a377649bac679f32bfd523f75c0d2987f", null ],
     [ "options", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1EnsureWritableFastElementsOp.html#a64b994c7838dc4979bc202ca646c54f3", null ],
-    [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1EnsureWritableFastElementsOp.html#ac847d0eba49cdad2f2ff33463eda5a88", null ]
+    [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1EnsureWritableFastElementsOp.html#ac847d0eba49cdad2f2ff33463eda5a88", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1EnsureWritableFastElementsOp.html#a675aaf0889f4b59b3a7f5783b299ce73", null ]
 ];

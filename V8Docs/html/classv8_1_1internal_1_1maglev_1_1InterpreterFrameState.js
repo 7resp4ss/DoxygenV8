@@ -14,5 +14,8 @@ var classv8_1_1internal_1_1maglev_1_1InterpreterFrameState =
     [ "set_accumulator", "classv8_1_1internal_1_1maglev_1_1InterpreterFrameState.html#a3e4515d21429f79e11d55509531e3179", null ],
     [ "set_known_node_aspects", "classv8_1_1internal_1_1maglev_1_1InterpreterFrameState.html#a519752dbd922203cf072c537ed61ce83", null ],
     [ "set_virtual_objects", "classv8_1_1internal_1_1maglev_1_1InterpreterFrameState.html#a7b71eb1d80b5703e876eb7e37f97ebe7", null ],
-    [ "virtual_objects", "classv8_1_1internal_1_1maglev_1_1InterpreterFrameState.html#a2e35eab3a6baf104d2aa47319805665a", null ]
+    [ "virtual_objects", "classv8_1_1internal_1_1maglev_1_1InterpreterFrameState.html#a2e35eab3a6baf104d2aa47319805665a", null ],
+    [ "frame_", "classv8_1_1internal_1_1maglev_1_1InterpreterFrameState.html#ae8eca38119da8af6ea5cb544ae2e11b8", null ],
+    [ "known_node_aspects_", "classv8_1_1internal_1_1maglev_1_1InterpreterFrameState.html#a8b7b81a4621957727ca87b363311cd2d", null ],
+    [ "virtual_objects_", "classv8_1_1internal_1_1maglev_1_1InterpreterFrameState.html#a170f1dbbc5ddb71611219571f1e587bc", null ]
 ];

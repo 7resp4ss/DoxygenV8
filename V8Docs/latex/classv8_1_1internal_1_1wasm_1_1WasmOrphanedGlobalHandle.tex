@@ -1,5 +1,15 @@
 \hypertarget{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle}{}\doxysection{v8\+::internal\+::wasm\+::Wasm\+Orphaned\+Global\+Handle Class Reference}
 \label{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle}\index{v8::internal::wasm::WasmOrphanedGlobalHandle@{v8::internal::wasm::WasmOrphanedGlobalHandle}}
+
+
+Collaboration diagram for v8\+::internal\+::wasm\+::Wasm\+Orphaned\+Global\+Handle\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -12,11 +22,27 @@
 \item 
 static \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_ac81d27d6edb00aeed62a3e4745b8cba0}{void}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a28fe3c1719a26ccee7b01f54aace63c7}{Destroy}} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle}{Wasm\+Orphaned\+Global\+Handle}} $\ast$that)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle}{Wasm\+Orphaned\+Global\+Handle}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a5747ca76ce52d3a04adaf7c202cfec97}{next\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle}{Wasm\+Orphaned\+Global\+Handle}} $\ast$$\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a2b0e274ac684a87777ae24f7b142d8d9}{prev\+\_\+ptr\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_adcd4ca657f5fbce4e3e61f860761470a}{Address}} $\ast$ $>$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a5b26eb8f37c55961b58f2b7bc25993c6}{location\+\_\+}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_ae8c3f3090b503421e6e68ca9d396b62f}{Wasm\+Engine}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 86 of file wasm-\/engine.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -35,11 +61,70 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a
 \doxysubsubsection{\texorpdfstring{Destroy()}{Destroy()}}
 {\footnotesize\ttfamily static \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_ac81d27d6edb00aeed62a3e4745b8cba0}{void}} v8\+::internal\+::wasm\+::\+Wasm\+Orphaned\+Global\+Handle\+::\+Destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle}{Wasm\+Orphaned\+Global\+Handle}} $\ast$}]{that }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
+
+
+Definition at line 94 of file wasm-\/engine.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{94                                                       \{}
+\DoxyCodeLine{95     \textcolor{comment}{// Destroy the global handle if it still exists.}}
+\DoxyCodeLine{96     \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_adcd4ca657f5fbce4e3e61f860761470a}{Address}}** location = that-\/>location\_.get();}
+\DoxyCodeLine{97     \textcolor{keywordflow}{if} (location) \mbox{\hyperlink{classv8_1_1internal_1_1GlobalHandles_a1a31391c097b88af06b7e0cf673bcf00}{GlobalHandles::Destroy}}(*location);}
+\DoxyCodeLine{98     that-\/>location\_.reset();}
+\DoxyCodeLine{99     \textcolor{comment}{// Unlink and free the container.}}
+\DoxyCodeLine{100     *that-\/>prev\_ptr\_ = that-\/>next\_;}
+\DoxyCodeLine{101     \textcolor{keywordflow}{if} (that-\/>next\_ != \textcolor{keyword}{nullptr}) that-\/>next\_-\/>prev\_ptr\_ = that-\/>prev\_ptr\_;}
+\DoxyCodeLine{102     \textcolor{comment}{// This function could be a non-\/static method, but then the next line}}
+\DoxyCodeLine{103     \textcolor{comment}{// would read "{}delete this"{}, which is UB.}}
+\DoxyCodeLine{104     \textcolor{keyword}{delete} that;}
+\DoxyCodeLine{105   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Global\+Handles\+::\+Destroy(), location\+\_\+, next\+\_\+, and prev\+\_\+ptr\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::anonymous\+\_\+namespace\{wasm-\/engine.\+cc\}\+::\+Clear\+Weak\+Script\+Handle\+Task\+::\+Run\+Internal().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a28fe3c1719a26ccee7b01f54aace63c7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a28fe3c1719a26ccee7b01f54aace63c7_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a39824a24a81e630c7e443d442bd0cafe}\label{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a39824a24a81e630c7e443d442bd0cafe}} 
 \index{v8::internal::wasm::WasmOrphanedGlobalHandle@{v8::internal::wasm::WasmOrphanedGlobalHandle}!InitializeLocation@{InitializeLocation}}
 \index{InitializeLocation@{InitializeLocation}!v8::internal::wasm::WasmOrphanedGlobalHandle@{v8::internal::wasm::WasmOrphanedGlobalHandle}}
 \doxysubsubsection{\texorpdfstring{InitializeLocation()}{InitializeLocation()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_ac81d27d6edb00aeed62a3e4745b8cba0}{void}} v8\+::internal\+::wasm\+::\+Wasm\+Orphaned\+Global\+Handle\+::\+Initialize\+Location (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_adcd4ca657f5fbce4e3e61f860761470a}{Address}} $\ast$ $>$}]{location }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 90 of file wasm-\/engine.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{90                                                             \{}
+\DoxyCodeLine{91     \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a5b26eb8f37c55961b58f2b7bc25993c6}{location\_}} = std::move(location);}
+\DoxyCodeLine{92   \}}
+
+\end{DoxyCode}
+
+
+References location\+\_\+.
 
 
 
@@ -52,6 +137,55 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a
 
 
 
+Definition at line 108 of file wasm-\/engine.\+cc.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a5b26eb8f37c55961b58f2b7bc25993c6}\label{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a5b26eb8f37c55961b58f2b7bc25993c6}} 
+\index{v8::internal::wasm::WasmOrphanedGlobalHandle@{v8::internal::wasm::WasmOrphanedGlobalHandle}!location\_@{location\_}}
+\index{location\_@{location\_}!v8::internal::wasm::WasmOrphanedGlobalHandle@{v8::internal::wasm::WasmOrphanedGlobalHandle}}
+\doxysubsubsection{\texorpdfstring{location\_}{location\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_adcd4ca657f5fbce4e3e61f860761470a}{Address}}$\ast$$>$ v8\+::internal\+::wasm\+::\+Wasm\+Orphaned\+Global\+Handle\+::location\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 118 of file wasm-\/engine.\+cc.
+
+
+
+Referenced by Destroy(), and Initialize\+Location().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a5747ca76ce52d3a04adaf7c202cfec97}\label{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a5747ca76ce52d3a04adaf7c202cfec97}} 
+\index{v8::internal::wasm::WasmOrphanedGlobalHandle@{v8::internal::wasm::WasmOrphanedGlobalHandle}!next\_@{next\_}}
+\index{next\_@{next\_}!v8::internal::wasm::WasmOrphanedGlobalHandle@{v8::internal::wasm::WasmOrphanedGlobalHandle}}
+\doxysubsubsection{\texorpdfstring{next\_}{next\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle}{Wasm\+Orphaned\+Global\+Handle}}$\ast$ v8\+::internal\+::wasm\+::\+Wasm\+Orphaned\+Global\+Handle\+::next\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 116 of file wasm-\/engine.\+cc.
+
+
+
+Referenced by Destroy(), v8\+::internal\+::wasm\+::\+Wasm\+Engine\+::\+Free\+All\+Orphaned\+Global\+Handles(), and v8\+::internal\+::wasm\+::\+Wasm\+Engine\+::\+New\+Orphaned\+Global\+Handle().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a2b0e274ac684a87777ae24f7b142d8d9}\label{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle_a2b0e274ac684a87777ae24f7b142d8d9}} 
+\index{v8::internal::wasm::WasmOrphanedGlobalHandle@{v8::internal::wasm::WasmOrphanedGlobalHandle}!prev\_ptr\_@{prev\_ptr\_}}
+\index{prev\_ptr\_@{prev\_ptr\_}!v8::internal::wasm::WasmOrphanedGlobalHandle@{v8::internal::wasm::WasmOrphanedGlobalHandle}}
+\doxysubsubsection{\texorpdfstring{prev\_ptr\_}{prev\_ptr\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmOrphanedGlobalHandle}{Wasm\+Orphaned\+Global\+Handle}}$\ast$$\ast$ v8\+::internal\+::wasm\+::\+Wasm\+Orphaned\+Global\+Handle\+::prev\+\_\+ptr\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 117 of file wasm-\/engine.\+cc.
+
+
+
+Referenced by Destroy(), and v8\+::internal\+::wasm\+::\+Wasm\+Engine\+::\+New\+Orphaned\+Global\+Handle().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{wasm-engine_8cc}{wasm-\/engine.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{wasm-engine_8cc}{wasm-\/engine.\+cc}}\end{DoxyCompactItemize}

@@ -2,8 +2,23 @@
 \label{classv8_1_1EmbedderRootsHandler}\index{v8::EmbedderRootsHandler@{v8::EmbedderRootsHandler}}
 
 
+Handler for embedder roots on non-\/unified heap garbage collections.  
+
+
+
+
 {\ttfamily \#include $<$v8-\/embedder-\/heap.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::Embedder\+Roots\+Handler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{classv8_1_1EmbedderRootsHandler__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -12,9 +27,9 @@ virtual \mbox{\hyperlink{classv8_1_1EmbedderRootsHandler_a411b114c3dcd04550e1bd1
 \mbox{\hyperlink{classv8_1_1EmbedderRootsHandler_a23a247217457d15677dea63aeca7ce1e}{Embedder\+Roots\+Handler}} ()=default
 \item 
 virtual void \mbox{\hyperlink{classv8_1_1EmbedderRootsHandler_a5730f9e85460a26ca7b06fcd25b7d00b}{Reset\+Root}} (const \mbox{\hyperlink{classv8_1_1TracedReference}{v8\+::\+Traced\+Reference}}$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ \&handle)=0
-\item 
+\begin{DoxyCompactList}\small\item\em Used in combination with $\vert$\+Is\+Root$\vert$. \end{DoxyCompactList}\item 
 virtual bool \mbox{\hyperlink{classv8_1_1EmbedderRootsHandler_a9c8ce618031aaea77c67a8387e6ea5a3}{Try\+Reset\+Root}} (const \mbox{\hyperlink{classv8_1_1TracedReference}{v8\+::\+Traced\+Reference}}$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ \&handle)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Similar to $\vert$\+Reset\+Root()$\vert$, but opportunistic. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
@@ -24,6 +39,10 @@ class \mbox{\hyperlink{classv8_1_1EmbedderRootsHandler_a1648157b9f5b0bf288840250
 
 \doxysubsection{Detailed Description}
 Handler for embedder roots on non-\/unified heap garbage collections. 
+
+Definition at line 22 of file v8-\/embedder-\/heap.\+h.
+
+
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1EmbedderRootsHandler_a411b114c3dcd04550e1bd1d58188ae7e}\label{classv8_1_1EmbedderRootsHandler_a411b114c3dcd04550e1bd1d58188ae7e}} 
@@ -47,7 +66,11 @@ Handler for embedder roots on non-\/unified heap garbage collections.
 \doxysubsubsection{\texorpdfstring{ResetRoot()}{ResetRoot()}}
 {\footnotesize\ttfamily virtual void v8\+::\+Embedder\+Roots\+Handler\+::\+Reset\+Root (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1TracedReference}{v8\+::\+Traced\+Reference}}$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ \&}]{handle }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
-Used in combination with $\vert$\+Is\+Root$\vert$. Called by \mbox{\hyperlink{classv8_1_1V8}{V8}} when an object that is backed by a handle is reclaimed by a non-\/tracing garbage collection. It is up to the embedder to reset the original handle.
+
+
+Used in combination with $\vert$\+Is\+Root$\vert$. 
+
+Called by \mbox{\hyperlink{classv8_1_1V8}{V8}} when an object that is backed by a handle is reclaimed by a non-\/tracing garbage collection. It is up to the embedder to reset the original handle.
 
 Note that the $\vert$handle$\vert$ is different from the handle that the embedder holds for retaining the object. It is up to the embedder to find the original handle via the object or class id. \mbox{\Hypertarget{classv8_1_1EmbedderRootsHandler_a9c8ce618031aaea77c67a8387e6ea5a3}\label{classv8_1_1EmbedderRootsHandler_a9c8ce618031aaea77c67a8387e6ea5a3}} 
 \index{v8::EmbedderRootsHandler@{v8::EmbedderRootsHandler}!TryResetRoot@{TryResetRoot}}
@@ -55,7 +78,22 @@ Note that the $\vert$handle$\vert$ is different from the handle that the embedde
 \doxysubsubsection{\texorpdfstring{TryResetRoot()}{TryResetRoot()}}
 {\footnotesize\ttfamily virtual bool v8\+::\+Embedder\+Roots\+Handler\+::\+Try\+Reset\+Root (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1TracedReference}{v8\+::\+Traced\+Reference}}$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ \&}]{handle }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
-Similar to $\vert$\+Reset\+Root()$\vert$, but opportunistic. The function is called in parallel for different handles and as such must be thread-\/safe. In case, $\vert$false$\vert$ is returned, $\vert$\+Reset\+Root()$\vert$ will be recalled for the same handle. 
+
+
+Similar to $\vert$\+Reset\+Root()$\vert$, but opportunistic. 
+
+The function is called in parallel for different handles and as such must be thread-\/safe. In case, $\vert$false$\vert$ is returned, $\vert$\+Reset\+Root()$\vert$ will be recalled for the same handle. 
+
+Definition at line 44 of file v8-\/embedder-\/heap.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{44                                                                       \{}
+\DoxyCodeLine{45     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{46   \}}
+
+\end{DoxyCode}
+
 
 \doxysubsection{Friends And Related Function Documentation}
 \mbox{\Hypertarget{classv8_1_1EmbedderRootsHandler_a1648157b9f5b0bf2888402505e5285fc}\label{classv8_1_1EmbedderRootsHandler_a1648157b9f5b0bf2888402505e5285fc}} 
@@ -66,6 +104,10 @@ Similar to $\vert$\+Reset\+Root()$\vert$, but opportunistic. The function is cal
 
 
 
+Definition at line 49 of file v8-\/embedder-\/heap.\+h.
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-embedder-heap_8h}{v8-\/embedder-\/heap.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/\mbox{\hyperlink{v8-embedder-heap_8h}{v8-\/embedder-\/heap.\+h}}\end{DoxyCompactItemize}

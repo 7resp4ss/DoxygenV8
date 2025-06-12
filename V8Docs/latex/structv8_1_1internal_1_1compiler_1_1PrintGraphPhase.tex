@@ -1,10 +1,27 @@
 \hypertarget{structv8_1_1internal_1_1compiler_1_1PrintGraphPhase}{}\doxysection{v8\+::internal\+::compiler\+::Print\+Graph\+Phase Struct Reference}
 \label{structv8_1_1internal_1_1compiler_1_1PrintGraphPhase}\index{v8::internal::compiler::PrintGraphPhase@{v8::internal::compiler::PrintGraphPhase}}
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Print\+Graph\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{structv8_1_1internal_1_1compiler_1_1PrintGraphPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1PrintGraphPhase_aeacfab480d53cc4b1b694aba10f76c18}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone, const char $\ast$phase)
+void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1PrintGraphPhase_aeacfab480d53cc4b1b694aba10f76c18}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone, const char $\ast$phase)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1508 of file pipeline.\+cc.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -16,6 +33,63 @@ void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1PrintGraphPhase_aeacfa
 
 
 
+Definition at line 1511 of file pipeline.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1511                                                                      \{}
+\DoxyCodeLine{1512     OptimizedCompilationInfo* info = data-\/>info();}
+\DoxyCodeLine{1513     TFGraph* \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}} = data-\/>graph();}
+\DoxyCodeLine{1514     \textcolor{keywordflow}{if} (info-\/>trace\_turbo\_json()) \{  \textcolor{comment}{// Print JSON.}}
+\DoxyCodeLine{1515       UnparkedScopeIfNeeded scope(data-\/>broker());}
+\DoxyCodeLine{1516       \mbox{\hyperlink{namespacev8_1_1internal_a7e8d89d2c8014f4ff252cf22ad28c101}{AllowHandleDereference}} allow\_deref;}
+\DoxyCodeLine{1517 }
+\DoxyCodeLine{1518       TurboJsonFile json\_of(info, std::ios\_base::app);}
+\DoxyCodeLine{1519       json\_of << \textcolor{stringliteral}{"{}\{\(\backslash\)"{}name\(\backslash\)"{}:\(\backslash\)"{}"{}} << phase << \textcolor{stringliteral}{"{}\(\backslash\)"{},\(\backslash\)"{}type\(\backslash\)"{}:\(\backslash\)"{}graph\(\backslash\)"{},\(\backslash\)"{}data\(\backslash\)"{}:"{}}}
+\DoxyCodeLine{1520               << \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae1b6d9d0eb5e35bb58fa7855f221c7a0}{AsJSON}}(*\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}, data-\/>source\_positions(), data-\/>node\_origins())}
+\DoxyCodeLine{1521               << \textcolor{stringliteral}{"{}\},\(\backslash\)n"{}};}
+\DoxyCodeLine{1522     \}}
+\DoxyCodeLine{1523 }
+\DoxyCodeLine{1524     \textcolor{keywordflow}{if} (info-\/>trace\_turbo\_scheduled()) \{}
+\DoxyCodeLine{1525       AccountingAllocator allocator;}
+\DoxyCodeLine{1526       Schedule* schedule = data-\/>schedule();}
+\DoxyCodeLine{1527       \textcolor{keywordflow}{if} (schedule == \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{1528         schedule = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Scheduler_ae87e9b8caa0a8bfaa2bf294d7785c2b7}{Scheduler::ComputeSchedule}}(}
+\DoxyCodeLine{1529             temp\_zone, data-\/>graph(), \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Scheduler_a7b78d98e449aadb3548a311754b624d5aa0becce7e47e01b4eddf345744979173}{Scheduler::kNoFlags}},}
+\DoxyCodeLine{1530             \&info-\/>tick\_counter(), data-\/>profile\_data());}
+\DoxyCodeLine{1531       \}}
+\DoxyCodeLine{1532 }
+\DoxyCodeLine{1533       UnparkedScopeIfNeeded scope(data-\/>broker());}
+\DoxyCodeLine{1534       \mbox{\hyperlink{namespacev8_1_1internal_a7e8d89d2c8014f4ff252cf22ad28c101}{AllowHandleDereference}} allow\_deref;}
+\DoxyCodeLine{1535       CodeTracer::StreamScope tracing\_scope(data-\/>GetCodeTracer());}
+\DoxyCodeLine{1536       tracing\_scope.stream()}
+\DoxyCodeLine{1537           << \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/ Graph after "{}} << phase << \textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/ "{}} << std::endl}
+\DoxyCodeLine{1538           << AsScheduledGraph(schedule);}
+\DoxyCodeLine{1539     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (info-\/>trace\_turbo\_graph()) \{  \textcolor{comment}{// Simple textual RPO.}}
+\DoxyCodeLine{1540       UnparkedScopeIfNeeded scope(data-\/>broker());}
+\DoxyCodeLine{1541       \mbox{\hyperlink{namespacev8_1_1internal_a7e8d89d2c8014f4ff252cf22ad28c101}{AllowHandleDereference}} allow\_deref;}
+\DoxyCodeLine{1542       CodeTracer::StreamScope tracing\_scope(data-\/>GetCodeTracer());}
+\DoxyCodeLine{1543       tracing\_scope.stream()}
+\DoxyCodeLine{1544           << \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/ Graph after "{}} << phase << \textcolor{stringliteral}{"{} -\/-\/-\/-\/-\/ "{}} << std::endl}
+\DoxyCodeLine{1545           << AsRPO(*\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}});}
+\DoxyCodeLine{1546     \}}
+\DoxyCodeLine{1547   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+As\+JSON(), v8\+::internal\+::compiler\+::\+Scheduler\+::\+Compute\+Schedule(), graph(), v8\+::internal\+::compiler\+::\+Scheduler\+::k\+No\+Flags, v8\+::internal\+::\+Code\+Tracer\+::\+Stream\+Scope\+::stream(), and v8\+::internal\+::\+Optimized\+Compilation\+Info\+::tick\+\_\+counter().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1PrintGraphPhase_aeacfab480d53cc4b1b694aba10f76c18_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}

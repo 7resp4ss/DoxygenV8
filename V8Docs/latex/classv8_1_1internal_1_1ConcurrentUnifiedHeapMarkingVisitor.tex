@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::Concurrent\+Unified\+Heap\+Marking\+Vi
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=228pt]{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -35,10 +35,24 @@ Collaboration diagram for v8\+::internal\+::Concurrent\+Unified\+Heap\+Marking\+
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a3b0d074681c72ce4222996705269361f}{Defer\+Trace\+To\+Mutator\+Thread\+If\+Concurrent}} (const void $\ast$, \mbox{\hyperlink{namespacecppgc_a2a25603865fe3e1dae520277aea8743b}{cppgc\+::\+Trace\+Callback}}, \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}) final
-\item 
+\begin{DoxyCompactList}\small\item\em Defers tracing an object from a concurrent thread to the mutator thread. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_af813ff0fc660af359ad6c8435dd73703}{Is\+Concurrent}} () const final
+\begin{DoxyCompactList}\small\item\em Checks whether the visitor is running concurrently to the mutator or not. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1MarkingWorklists_a941d07bdea68cc187975415adc4dac79}{Marking\+Worklists\+::\+Local}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a06b8dc1f1c676da189db7074e3ceaf07}{local\+\_\+marking\+\_\+worklist\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapMarkingState}{Unified\+Heap\+Marking\+State}} \mbox{\hyperlink{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a9f159ec70b2c502b7ca629e2f9519df4}{concurrent\+\_\+unified\+\_\+heap\+\_\+marking\+\_\+state\+\_\+}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 77 of file unified-\/heap-\/marking-\/visitor.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -48,11 +62,63 @@ Collaboration diagram for v8\+::internal\+::Concurrent\+Unified\+Heap\+Marking\+
 \doxysubsubsection{\texorpdfstring{ConcurrentUnifiedHeapMarkingVisitor()}{ConcurrentUnifiedHeapMarkingVisitor()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Concurrent\+Unified\+Heap\+Marking\+Visitor\+::\+Concurrent\+Unified\+Heap\+Marking\+Visitor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}} \&}]{heap,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$}]{v8\+\_\+heap,  }\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkingState}{cppgc\+::internal\+::\+Concurrent\+Marking\+State}} \&}]{marking\+\_\+state,  }\item[{\mbox{\hyperlink{namespacecppgc_1_1internal_a9a435919d5a4a3ecfdfe20fb93896a60}{Cpp\+Heap\+::\+Collection\+Type}}}]{collection\+\_\+type }\end{DoxyParamCaption})}
 
+
+
+Definition at line 114 of file unified-\/heap-\/marking-\/visitor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{118     : \mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapMarkingVisitorBase_a019ce6e0aa18e5de690f40a9c8671493}{UnifiedHeapMarkingVisitorBase}}(\mbox{\hyperlink{namespaceheap}{heap}}, marking\_state,}
+\DoxyCodeLine{119                                     \mbox{\hyperlink{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a9f159ec70b2c502b7ca629e2f9519df4}{concurrent\_unified\_heap\_marking\_state\_}}),}
+\DoxyCodeLine{120       \mbox{\hyperlink{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a06b8dc1f1c676da189db7074e3ceaf07}{local\_marking\_worklist\_}}(\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02unified-heap-marking-visitor_8cc_03_a0b7a541bd5a844d2d3ff14467cda38f0}{GetV8MarkingWorklists}}(v8\_heap, collection\_type)),}
+\DoxyCodeLine{121       \mbox{\hyperlink{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a9f159ec70b2c502b7ca629e2f9519df4}{concurrent\_unified\_heap\_marking\_state\_}}(}
+\DoxyCodeLine{122           v8\_heap, \mbox{\hyperlink{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a06b8dc1f1c676da189db7074e3ceaf07}{local\_marking\_worklist\_}}.get(), collection\_type) \{}
+\DoxyCodeLine{123 \textcolor{preprocessor}{\#ifdef V8\_COMPRESS\_POINTERS\_IN\_MULTIPLE\_CAGES}}
+\DoxyCodeLine{124   \textcolor{comment}{// This method might be called on a thread that's not bound to any Isolate}}
+\DoxyCodeLine{125   \textcolor{comment}{// and thus IsolateGroup::current could be unset.}}
+\DoxyCodeLine{126   saved\_isolate\_group\_ = \mbox{\hyperlink{classv8_1_1internal_1_1IsolateGroup_a3ca6c5d3f2b884f5866595543d2e0fd7}{IsolateGroup::current}}();}
+\DoxyCodeLine{127   IsolateGroup::set\_current(v8\_heap-\/>isolate()-\/>isolate\_group());}
+\DoxyCodeLine{128 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{129 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+Group\+::current(), v8\+::internal\+::\+Heap\+::isolate(), and v8\+::internal\+::\+Isolate\+::isolate\+\_\+group().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_aa7ce49aa124f8776f68f55a1de10a0f0_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a37955893c17635063c063f8f35ca97f7}\label{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a37955893c17635063c063f8f35ca97f7}} 
 \index{v8::internal::ConcurrentUnifiedHeapMarkingVisitor@{v8::internal::ConcurrentUnifiedHeapMarkingVisitor}!````~ConcurrentUnifiedHeapMarkingVisitor@{$\sim$ConcurrentUnifiedHeapMarkingVisitor}}
 \index{````~ConcurrentUnifiedHeapMarkingVisitor@{$\sim$ConcurrentUnifiedHeapMarkingVisitor}!v8::internal::ConcurrentUnifiedHeapMarkingVisitor@{v8::internal::ConcurrentUnifiedHeapMarkingVisitor}}
 \doxysubsubsection{\texorpdfstring{$\sim$ConcurrentUnifiedHeapMarkingVisitor()}{~ConcurrentUnifiedHeapMarkingVisitor()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Concurrent\+Unified\+Heap\+Marking\+Visitor\+::$\sim$\+Concurrent\+Unified\+Heap\+Marking\+Visitor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line 131 of file unified-\/heap-\/marking-\/visitor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{131                                                                           \{}
+\DoxyCodeLine{132   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a06b8dc1f1c676da189db7074e3ceaf07}{local\_marking\_worklist\_}}) \{}
+\DoxyCodeLine{133     \mbox{\hyperlink{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a06b8dc1f1c676da189db7074e3ceaf07}{local\_marking\_worklist\_}}-\/>Publish();}
+\DoxyCodeLine{134   \}}
+\DoxyCodeLine{135 \textcolor{preprocessor}{\#ifdef V8\_COMPRESS\_POINTERS\_IN\_MULTIPLE\_CAGES}}
+\DoxyCodeLine{136   IsolateGroup::set\_current(saved\_isolate\_group\_);}
+\DoxyCodeLine{137 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{138 \}}
+
+\end{DoxyCode}
+
+
+References local\+\_\+marking\+\_\+worklist\+\_\+.
 
 
 
@@ -63,7 +129,11 @@ Collaboration diagram for v8\+::internal\+::Concurrent\+Unified\+Heap\+Marking\+
 \doxysubsubsection{\texorpdfstring{DeferTraceToMutatorThreadIfConcurrent()}{DeferTraceToMutatorThreadIfConcurrent()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Concurrent\+Unified\+Heap\+Marking\+Visitor\+::\+Defer\+Trace\+To\+Mutator\+Thread\+If\+Concurrent (\begin{DoxyParamCaption}\item[{const void $\ast$}]{parameter,  }\item[{\mbox{\hyperlink{namespacecppgc_a2a25603865fe3e1dae520277aea8743b}{cppgc\+::\+Trace\+Callback}}}]{callback,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{deferred\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
 
-Defers tracing an object from a concurrent thread to the mutator thread. Should be called by \mbox{\hyperlink{classv8_1_1internal_1_1Trace}{Trace}} methods of types that are not safe to trace concurrently.
+
+
+Defers tracing an object from a concurrent thread to the mutator thread. 
+
+Should be called by \mbox{\hyperlink{classv8_1_1internal_1_1Trace}{Trace}} methods of types that are not safe to trace concurrently.
 
 
 \begin{DoxyParams}{Parameters}
@@ -81,19 +151,88 @@ false if the object does not need to be deferred (i.\+e. currently traced on the
 
 Reimplemented from \mbox{\hyperlink{classcppgc_1_1Visitor_a6e6ca24a7426fbb081ce566a3961d773}{cppgc\+::\+Visitor}}.
 
+
+
+Definition at line 140 of file unified-\/heap-\/marking-\/visitor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{142                           \{}
+\DoxyCodeLine{143   \mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapMarkingVisitorBase_adde45daaf769cfa3d17f887ac6ccde91}{marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_aff56008478c53d8ef52d4b23edb17fbd}{concurrent\_marking\_bailout\_worklist}}().Push(}
+\DoxyCodeLine{144       \{parameter, callback, deferred\_size\});}
+\DoxyCodeLine{145   \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkingState}{cppgc::internal::ConcurrentMarkingState}}\&\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapMarkingVisitorBase_adde45daaf769cfa3d17f887ac6ccde91}{marking\_state\_}})}
+\DoxyCodeLine{146       .AccountDeferredMarkedBytes(}
+\DoxyCodeLine{147           \mbox{\hyperlink{classcppgc_1_1internal_1_1BasePage_aad13cafeed6c2ea494b7423b9c527b7a}{cppgc::internal::BasePage::FromPayload}}(\textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(parameter)),}
+\DoxyCodeLine{148           deferred\_size);}
+\DoxyCodeLine{149   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{150 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Basic\+Marking\+State\+::concurrent\+\_\+marking\+\_\+bailout\+\_\+worklist(), cppgc\+::internal\+::\+Base\+Page\+::\+From\+Payload(), and v8\+::internal\+::\+Unified\+Heap\+Marking\+Visitor\+Base\+::marking\+\_\+state\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a3b0d074681c72ce4222996705269361f_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_af813ff0fc660af359ad6c8435dd73703}\label{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_af813ff0fc660af359ad6c8435dd73703}} 
 \index{v8::internal::ConcurrentUnifiedHeapMarkingVisitor@{v8::internal::ConcurrentUnifiedHeapMarkingVisitor}!IsConcurrent@{IsConcurrent}}
 \index{IsConcurrent@{IsConcurrent}!v8::internal::ConcurrentUnifiedHeapMarkingVisitor@{v8::internal::ConcurrentUnifiedHeapMarkingVisitor}}
 \doxysubsubsection{\texorpdfstring{IsConcurrent()}{IsConcurrent()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Concurrent\+Unified\+Heap\+Marking\+Visitor\+::\+Is\+Concurrent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [final]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
 
+
+
 Checks whether the visitor is running concurrently to the mutator or not. 
+
+
 
 Reimplemented from \mbox{\hyperlink{classcppgc_1_1Visitor_afa90edef1eea4c11911038992183c25d}{cppgc\+::\+Visitor}}.
 
 
 
+Definition at line 88 of file unified-\/heap-\/marking-\/visitor.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{88 \{ \textcolor{keywordflow}{return} \textcolor{keyword}{true}; \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a9f159ec70b2c502b7ca629e2f9519df4}\label{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a9f159ec70b2c502b7ca629e2f9519df4}} 
+\index{v8::internal::ConcurrentUnifiedHeapMarkingVisitor@{v8::internal::ConcurrentUnifiedHeapMarkingVisitor}!concurrent\_unified\_heap\_marking\_state\_@{concurrent\_unified\_heap\_marking\_state\_}}
+\index{concurrent\_unified\_heap\_marking\_state\_@{concurrent\_unified\_heap\_marking\_state\_}!v8::internal::ConcurrentUnifiedHeapMarkingVisitor@{v8::internal::ConcurrentUnifiedHeapMarkingVisitor}}
+\doxysubsubsection{\texorpdfstring{concurrent\_unified\_heap\_marking\_state\_}{concurrent\_unified\_heap\_marking\_state\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapMarkingState}{Unified\+Heap\+Marking\+State}} v8\+::internal\+::\+Concurrent\+Unified\+Heap\+Marking\+Visitor\+::concurrent\+\_\+unified\+\_\+heap\+\_\+marking\+\_\+state\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 97 of file unified-\/heap-\/marking-\/visitor.\+h.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a06b8dc1f1c676da189db7074e3ceaf07}\label{classv8_1_1internal_1_1ConcurrentUnifiedHeapMarkingVisitor_a06b8dc1f1c676da189db7074e3ceaf07}} 
+\index{v8::internal::ConcurrentUnifiedHeapMarkingVisitor@{v8::internal::ConcurrentUnifiedHeapMarkingVisitor}!local\_marking\_worklist\_@{local\_marking\_worklist\_}}
+\index{local\_marking\_worklist\_@{local\_marking\_worklist\_}!v8::internal::ConcurrentUnifiedHeapMarkingVisitor@{v8::internal::ConcurrentUnifiedHeapMarkingVisitor}}
+\doxysubsubsection{\texorpdfstring{local\_marking\_worklist\_}{local\_marking\_worklist\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1internal_1_1MarkingWorklists_a941d07bdea68cc187975415adc4dac79}{Marking\+Worklists\+::\+Local}}$>$ v8\+::internal\+::\+Concurrent\+Unified\+Heap\+Marking\+Visitor\+::local\+\_\+marking\+\_\+worklist\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 96 of file unified-\/heap-\/marking-\/visitor.\+h.
+
+
+
+Referenced by $\sim$\+Concurrent\+Unified\+Heap\+Marking\+Visitor().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{unified-heap-marking-visitor_8h}{unified-\/heap-\/marking-\/visitor.\+h}}\item 
-\mbox{\hyperlink{unified-heap-marking-visitor_8cc}{unified-\/heap-\/marking-\/visitor.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/cppgc-\/js/\mbox{\hyperlink{unified-heap-marking-visitor_8h}{unified-\/heap-\/marking-\/visitor.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/cppgc-\/js/\mbox{\hyperlink{unified-heap-marking-visitor_8cc}{unified-\/heap-\/marking-\/visitor.\+cc}}\end{DoxyCompactItemize}

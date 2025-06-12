@@ -7,7 +7,7 @@ Inheritance diagram for v8\+::Check\+Message\+From\+Worker\+Task\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=268pt]{classv8_1_1CheckMessageFromWorkerTask__inherit__graph}
+\includegraphics[width=269pt]{classv8_1_1CheckMessageFromWorkerTask__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -17,16 +17,30 @@ Collaboration diagram for v8\+::Check\+Message\+From\+Worker\+Task\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=268pt]{classv8_1_1CheckMessageFromWorkerTask__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1CheckMessageFromWorkerTask__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1CheckMessageFromWorkerTask_a52cf9e5e68c3f5927388f5f8c30a3419}{Check\+Message\+From\+Worker\+Task}} (\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1Worker}{Worker}} $>$ worker)
+\mbox{\hyperlink{classv8_1_1CheckMessageFromWorkerTask_a52cf9e5e68c3f5927388f5f8c30a3419}{Check\+Message\+From\+Worker\+Task}} (\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$isolate, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1Worker}{Worker}} $>$ worker)
 \item 
 void \mbox{\hyperlink{classv8_1_1CheckMessageFromWorkerTask_a21f0d77ebd6622a29b7318a70e494b36}{Run}} () override
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$ \mbox{\hyperlink{classv8_1_1CheckMessageFromWorkerTask_ab38cf7af287c61dc02af1534416aba57}{isolate\+\_\+}}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1Worker}{Worker}} $>$ \mbox{\hyperlink{classv8_1_1CheckMessageFromWorkerTask_afee6655c603fe2ec6fb5d2c65bf77007}{worker\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 3510 of file d8.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -36,6 +50,15 @@ void \mbox{\hyperlink{classv8_1_1CheckMessageFromWorkerTask_a21f0d77ebd6622a29b7
 \doxysubsubsection{\texorpdfstring{CheckMessageFromWorkerTask()}{CheckMessageFromWorkerTask()}}
 {\footnotesize\ttfamily v8\+::\+Check\+Message\+From\+Worker\+Task\+::\+Check\+Message\+From\+Worker\+Task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$}]{isolate,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1Worker}{Worker}} $>$}]{worker }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 3512 of file d8.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{3514       : \mbox{\hyperlink{classv8_1_1CheckMessageFromWorkerTask_ab38cf7af287c61dc02af1534416aba57}{isolate\_}}(isolate), \mbox{\hyperlink{classv8_1_1CheckMessageFromWorkerTask_afee6655c603fe2ec6fb5d2c65bf77007}{worker\_}}(std::move(worker)) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -51,6 +74,73 @@ Implements \mbox{\hyperlink{classv8_1_1Task_a6bd5bda0e357fcc2e727bf7b0170f99a}{v
 
 
 
+Definition at line 3516 of file d8.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{3516                       \{}
+\DoxyCodeLine{3517     HandleScope scope(\mbox{\hyperlink{classv8_1_1CheckMessageFromWorkerTask_ab38cf7af287c61dc02af1534416aba57}{isolate\_}});}
+\DoxyCodeLine{3518 }
+\DoxyCodeLine{3519     \textcolor{comment}{// Get the callback for onmessage events from this worker. It's important to}}
+\DoxyCodeLine{3520     \textcolor{comment}{// do this here, and not in OnMessageFromWorkerTask, because we may get a}}
+\DoxyCodeLine{3521     \textcolor{comment}{// CleanUpWorkerTask scheduled before the posted OnMessageFromWorkerTask}}
+\DoxyCodeLine{3522     \textcolor{comment}{// executes, which will}}
+\DoxyCodeLine{3523     \textcolor{keyword}{auto} callback\_pair =}
+\DoxyCodeLine{3524         \mbox{\hyperlink{classv8_1_1PerIsolateData_adb0772e04fefdf4c51d199539b5eba5a}{PerIsolateData::Get}}(\mbox{\hyperlink{classv8_1_1CheckMessageFromWorkerTask_ab38cf7af287c61dc02af1534416aba57}{isolate\_}})-\/>\mbox{\hyperlink{classv8_1_1PerIsolateData_a1181202fed9d57f47b84969451fb2e04}{GetWorkerOnMessage}}(\mbox{\hyperlink{classv8_1_1CheckMessageFromWorkerTask_afee6655c603fe2ec6fb5d2c65bf77007}{worker\_}});}
+\DoxyCodeLine{3525     \textcolor{comment}{// Bail out if there's no callback -\/-\/ leave the message queue untouched so}}
+\DoxyCodeLine{3526     \textcolor{comment}{// that we don't lose the messages and can read them with GetMessage later.}}
+\DoxyCodeLine{3527     \textcolor{comment}{// This is slightly different to browser behaviour, where events can be}}
+\DoxyCodeLine{3528     \textcolor{comment}{// missed, but it's helpful for d8's GetMessage behaviour.}}
+\DoxyCodeLine{3529     \textcolor{keywordflow}{if} (callback\_pair.second.IsEmpty()) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{3530 }
+\DoxyCodeLine{3531     std::unique\_ptr<SerializationData> \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{3532     \textcolor{keywordflow}{while} ((\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = \mbox{\hyperlink{classv8_1_1CheckMessageFromWorkerTask_afee6655c603fe2ec6fb5d2c65bf77007}{worker\_}}-\/>TryGetMessage())) \{}
+\DoxyCodeLine{3533       \textcolor{comment}{// Each onmessage callback call is posted as a separate task.}}
+\DoxyCodeLine{3534       \mbox{\hyperlink{namespacev8_1_1anonymous__namespace_02d8_8cc_03_afddd512caaba087922f669c473b1b80b}{g\_platform}}-\/>GetForegroundTaskRunner(\mbox{\hyperlink{classv8_1_1CheckMessageFromWorkerTask_ab38cf7af287c61dc02af1534416aba57}{isolate\_}})-\/>PostTask(}
+\DoxyCodeLine{3535           std::make\_unique<OnMessageFromWorkerTask>(}
+\DoxyCodeLine{3536               \mbox{\hyperlink{classv8_1_1CheckMessageFromWorkerTask_ab38cf7af287c61dc02af1534416aba57}{isolate\_}}, callback\_pair.first, callback\_pair.second,}
+\DoxyCodeLine{3537               std::move(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}})));}
+\DoxyCodeLine{3538     \}}
+\DoxyCodeLine{3539   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::anonymous\+\_\+namespace\{d8.\+cc\}\+::g\+\_\+platform, v8\+::\+Per\+Isolate\+Data\+::\+Get(), v8\+::\+Per\+Isolate\+Data\+::\+Get\+Worker\+On\+Message(), v8\+::\+Per\+Isolate\+Data\+::isolate\+\_\+, and v8\+::base\+::internal\+::result.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1CheckMessageFromWorkerTask_a21f0d77ebd6622a29b7318a70e494b36_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1CheckMessageFromWorkerTask_ab38cf7af287c61dc02af1534416aba57}\label{classv8_1_1CheckMessageFromWorkerTask_ab38cf7af287c61dc02af1534416aba57}} 
+\index{v8::CheckMessageFromWorkerTask@{v8::CheckMessageFromWorkerTask}!isolate\_@{isolate\_}}
+\index{isolate\_@{isolate\_}!v8::CheckMessageFromWorkerTask@{v8::CheckMessageFromWorkerTask}}
+\doxysubsubsection{\texorpdfstring{isolate\_}{isolate\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}}$\ast$ v8\+::\+Check\+Message\+From\+Worker\+Task\+::isolate\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 3542 of file d8.\+cc.
+
+\mbox{\Hypertarget{classv8_1_1CheckMessageFromWorkerTask_afee6655c603fe2ec6fb5d2c65bf77007}\label{classv8_1_1CheckMessageFromWorkerTask_afee6655c603fe2ec6fb5d2c65bf77007}} 
+\index{v8::CheckMessageFromWorkerTask@{v8::CheckMessageFromWorkerTask}!worker\_@{worker\_}}
+\index{worker\_@{worker\_}!v8::CheckMessageFromWorkerTask@{v8::CheckMessageFromWorkerTask}}
+\doxysubsubsection{\texorpdfstring{worker\_}{worker\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1Worker}{Worker}}$>$ v8\+::\+Check\+Message\+From\+Worker\+Task\+::worker\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 3543 of file d8.\+cc.
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{d8_8cc}{d8.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/d8/\mbox{\hyperlink{d8_8cc}{d8.\+cc}}\end{DoxyCompactItemize}

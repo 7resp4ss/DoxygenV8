@@ -7,7 +7,7 @@ Inheritance diagram for v8\+::internal\+::Mark\+Compact\+Weak\+Object\+Retainer\
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=226pt]{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer__inherit__graph}
+\includegraphics[width=283pt]{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -17,7 +17,7 @@ Collaboration diagram for v8\+::internal\+::Mark\+Compact\+Weak\+Object\+Retaine
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=226pt]{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -27,6 +27,20 @@ Collaboration diagram for v8\+::internal\+::Mark\+Compact\+Weak\+Object\+Retaine
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer_a322a6ec1741b0c952ffcf51fb576ee59}{Retain\+As}} (\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ object) override
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$const \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer_a8708056908657e3a4fd85387383ad7ec}{heap\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1MarkingState}{Marking\+State}} $\ast$const \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer_a2c82e641ad0863c4718dea93a70ec93f}{marking\+\_\+state\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1205 of file mark-\/compact.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -36,6 +50,15 @@ Collaboration diagram for v8\+::internal\+::Mark\+Compact\+Weak\+Object\+Retaine
 \doxysubsubsection{\texorpdfstring{MarkCompactWeakObjectRetainer()}{MarkCompactWeakObjectRetainer()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Mark\+Compact\+Weak\+Object\+Retainer\+::\+Mark\+Compact\+Weak\+Object\+Retainer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$}]{heap,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MarkingState}{Marking\+State}} $\ast$}]{marking\+\_\+state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 1207 of file mark-\/compact.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1208       : \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer_a8708056908657e3a4fd85387383ad7ec}{heap\_}}(\mbox{\hyperlink{namespaceheap}{heap}}), \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer_a2c82e641ad0863c4718dea93a70ec93f}{marking\_state\_}}(marking\_state) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -51,6 +74,82 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1WeakObjectRetainer_a11519fc23
 
 
 
+Definition at line 1210 of file mark-\/compact.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1210                                                           \{}
+\DoxyCodeLine{1211     \mbox{\hyperlink{namespacev8_1_1internal_a57f5ecf71b9a2757b0555b2be4c640b8}{Tagged<HeapObject>}} heap\_object = Cast<HeapObject>(\textcolor{keywordtype}{object});}
+\DoxyCodeLine{1212     \textcolor{keywordflow}{if} (\mbox{\hyperlink{structv8_1_1internal_1_1MarkingHelper_a526aa3d8b3fa085271b2f23137766544}{MarkingHelper::IsMarkedOrAlwaysLive}}(\mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer_a8708056908657e3a4fd85387383ad7ec}{heap\_}}, \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer_a2c82e641ad0863c4718dea93a70ec93f}{marking\_state\_}},}
+\DoxyCodeLine{1213                                             heap\_object)) \{}
+\DoxyCodeLine{1214       \textcolor{keywordflow}{return} object;}
+\DoxyCodeLine{1215     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (IsAllocationSite(heap\_object) \&\&}
+\DoxyCodeLine{1216                !Cast<AllocationSite>(\textcolor{keywordtype}{object})-\/>IsZombie()) \{}
+\DoxyCodeLine{1217       \textcolor{comment}{// "{}dead"{} AllocationSites need to live long enough for a traversal of new}}
+\DoxyCodeLine{1218       \textcolor{comment}{// space. These sites get a one-\/time reprieve.}}
+\DoxyCodeLine{1219 }
+\DoxyCodeLine{1220       \mbox{\hyperlink{namespacev8_1_1internal_a5297fd2c72981b2220e6b9a831570fb3}{Tagged<Object>}} nested = object;}
+\DoxyCodeLine{1221       \textcolor{keywordflow}{while} (IsAllocationSite(nested)) \{}
+\DoxyCodeLine{1222         Tagged<AllocationSite> current\_site = Cast<AllocationSite>(nested);}
+\DoxyCodeLine{1223         \textcolor{comment}{// MarkZombie will override the nested\_site, read it first before}}
+\DoxyCodeLine{1224         \textcolor{comment}{// marking}}
+\DoxyCodeLine{1225         nested = current\_site-\/>nested\_site();}
+\DoxyCodeLine{1226         current\_site-\/>MarkZombie();}
+\DoxyCodeLine{1227         \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer_a2c82e641ad0863c4718dea93a70ec93f}{marking\_state\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1MarkingStateBase_a25369a80f635ffb368937574c7a4e6a6}{TryMarkAndAccountLiveBytes}}(current\_site);}
+\DoxyCodeLine{1228       \}}
+\DoxyCodeLine{1229 }
+\DoxyCodeLine{1230       \textcolor{keywordflow}{return} object;}
+\DoxyCodeLine{1231     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{1232       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1Smi_a5386e0cc44bcfd6a13c8481b95f5652f}{Smi::zero}}();}
+\DoxyCodeLine{1233     \}}
+\DoxyCodeLine{1234   \}}
+
+\end{DoxyCode}
+
+
+References heap\+\_\+, v8\+::internal\+::\+Marking\+Helper\+::\+Is\+Marked\+Or\+Always\+Live(), marking\+\_\+state\+\_\+, v8\+::internal\+::\+Marking\+State\+Base$<$ Concrete\+State, access\+\_\+mode $>$\+::\+Try\+Mark\+And\+Account\+Live\+Bytes(), and v8\+::internal\+::\+Smi\+::zero().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer_a322a6ec1741b0c952ffcf51fb576ee59_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer_a8708056908657e3a4fd85387383ad7ec}\label{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer_a8708056908657e3a4fd85387383ad7ec}} 
+\index{v8::internal::MarkCompactWeakObjectRetainer@{v8::internal::MarkCompactWeakObjectRetainer}!heap\_@{heap\_}}
+\index{heap\_@{heap\_}!v8::internal::MarkCompactWeakObjectRetainer@{v8::internal::MarkCompactWeakObjectRetainer}}
+\doxysubsubsection{\texorpdfstring{heap\_}{heap\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}}$\ast$ const v8\+::internal\+::\+Mark\+Compact\+Weak\+Object\+Retainer\+::heap\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 1237 of file mark-\/compact.\+cc.
+
+
+
+Referenced by Retain\+As().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer_a2c82e641ad0863c4718dea93a70ec93f}\label{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer_a2c82e641ad0863c4718dea93a70ec93f}} 
+\index{v8::internal::MarkCompactWeakObjectRetainer@{v8::internal::MarkCompactWeakObjectRetainer}!marking\_state\_@{marking\_state\_}}
+\index{marking\_state\_@{marking\_state\_}!v8::internal::MarkCompactWeakObjectRetainer@{v8::internal::MarkCompactWeakObjectRetainer}}
+\doxysubsubsection{\texorpdfstring{marking\_state\_}{marking\_state\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MarkingState}{Marking\+State}}$\ast$ const v8\+::internal\+::\+Mark\+Compact\+Weak\+Object\+Retainer\+::marking\+\_\+state\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 1238 of file mark-\/compact.\+cc.
+
+
+
+Referenced by Retain\+As().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{mark-compact_8cc}{mark-\/compact.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{mark-compact_8cc}{mark-\/compact.\+cc}}\end{DoxyCompactItemize}

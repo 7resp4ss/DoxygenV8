@@ -1,0 +1,225 @@
+\hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03}{}\doxysection{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{redundancy-\/elimination.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03}\index{v8::internal::compiler::anonymous\_namespace\lcurly{}redundancy-\/elimination.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}redundancy-\/elimination.cc\rcurly{}}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03_1_1Subsumption}{Subsumption}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03_1_1Subsumption}{Subsumption}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03_ad4e687dbfe90477ba57764bc6a066256}{Check\+Subsumes}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} const $\ast$a, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} const $\ast$b, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineOperatorBuilder}{Machine\+Operator\+Builder}} $\ast$machine)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03_a710b289926ed0165b4c186153bf31e99}{Type\+Subsumes}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$node, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$replacement)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03_ad4e687dbfe90477ba57764bc6a066256}\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03_ad4e687dbfe90477ba57764bc6a066256}} 
+\index{v8::internal::compiler::anonymous\_namespace\lcurly{}redundancy-\/elimination.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}redundancy-\/elimination.cc\rcurly{}}!CheckSubsumes@{CheckSubsumes}}
+\index{CheckSubsumes@{CheckSubsumes}!v8::internal::compiler::anonymous\_namespace\lcurly{}redundancy-\/elimination.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}redundancy-\/elimination.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{CheckSubsumes()}{CheckSubsumes()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03_1_1Subsumption}{Subsumption}} v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{redundancy-\/elimination.\+cc\}\+::Check\+Subsumes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} const $\ast$}]{a,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} const $\ast$}]{b,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineOperatorBuilder}{Machine\+Operator\+Builder}} $\ast$}]{machine }\end{DoxyParamCaption})}
+
+
+
+Definition at line 181 of file redundancy-\/elimination.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{182                                                            \{}
+\DoxyCodeLine{183   Subsumption subsumption = Subsumption::Implicit();}
+\DoxyCodeLine{184   \textcolor{keywordflow}{if} (a-\/>op() != b-\/>op()) \{}
+\DoxyCodeLine{185     \textcolor{keywordflow}{if} (a-\/>opcode() == IrOpcode::kCheckInternalizedString \&\&}
+\DoxyCodeLine{186         b-\/>opcode() == IrOpcode::kCheckString) \{}
+\DoxyCodeLine{187       \textcolor{comment}{// CheckInternalizedString(node) implies CheckString(node)}}
+\DoxyCodeLine{188     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (a-\/>opcode() == IrOpcode::kCheckString \&\&}
+\DoxyCodeLine{189                b-\/>opcode() == IrOpcode::kCheckStringOrStringWrapper) \{}
+\DoxyCodeLine{190       \textcolor{comment}{// CheckString(node) implies CheckStringOrStringWrapper(node)}}
+\DoxyCodeLine{191     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (a-\/>opcode() == IrOpcode::kCheckInternalizedString \&\&}
+\DoxyCodeLine{192                b-\/>opcode() == IrOpcode::kCheckStringOrStringWrapper) \{}
+\DoxyCodeLine{193       \textcolor{comment}{// CheckInteralizedString(node) implies CheckStringOrStringWrapper(node)}}
+\DoxyCodeLine{194     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (a-\/>opcode() == IrOpcode::kCheckSmi \&\&}
+\DoxyCodeLine{195                b-\/>opcode() == IrOpcode::kCheckNumber) \{}
+\DoxyCodeLine{196       \textcolor{comment}{// CheckSmi(node) implies CheckNumber(node)}}
+\DoxyCodeLine{197     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (a-\/>opcode() == IrOpcode::kCheckSmi \&\&}
+\DoxyCodeLine{198                b-\/>opcode() == IrOpcode::kCheckNumberFitsInt32) \{}
+\DoxyCodeLine{199       \textcolor{comment}{// CheckSmi(node) implies CheckNumberFitsInt32(node)}}
+\DoxyCodeLine{200     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (a-\/>opcode() == IrOpcode::kCheckNumberFitsInt32 \&\&}
+\DoxyCodeLine{201                b-\/>opcode() == IrOpcode::kCheckNumber) \{}
+\DoxyCodeLine{202       \textcolor{comment}{// CheckNumberFitsInt32(node) implies CheckNumber(node)}}
+\DoxyCodeLine{203     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (a-\/>opcode() == IrOpcode::kCheckedTaggedSignedToInt32 \&\&}
+\DoxyCodeLine{204                b-\/>opcode() == IrOpcode::kCheckedTaggedToInt32) \{}
+\DoxyCodeLine{205       \textcolor{comment}{// CheckedTaggedSignedToInt32(node) implies CheckedTaggedToInt32(node)}}
+\DoxyCodeLine{206     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (a-\/>opcode() == IrOpcode::kCheckedTaggedSignedToInt32 \&\&}
+\DoxyCodeLine{207                b-\/>opcode() == IrOpcode::kCheckedTaggedToArrayIndex) \{}
+\DoxyCodeLine{208       \textcolor{comment}{// CheckedTaggedSignedToInt32(node) implies}}
+\DoxyCodeLine{209       \textcolor{comment}{// CheckedTaggedToArrayIndex(node)}}
+\DoxyCodeLine{210       \textcolor{keywordflow}{if} (machine-\/>Is64()) \{}
+\DoxyCodeLine{211         \textcolor{comment}{// On 64 bit architectures, ArrayIndex is 64 bit.}}
+\DoxyCodeLine{212         subsumption =}
+\DoxyCodeLine{213             Subsumption::WithConversion(machine-\/>ChangeInt32ToInt64());}
+\DoxyCodeLine{214       \}}
+\DoxyCodeLine{215     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (a-\/>opcode() == IrOpcode::kCheckedTaggedToInt32 \&\&}
+\DoxyCodeLine{216                b-\/>opcode() == IrOpcode::kCheckedTaggedToArrayIndex) \{}
+\DoxyCodeLine{217       \textcolor{comment}{// CheckedTaggedToInt32(node) implies CheckedTaggedToArrayIndex(node)}}
+\DoxyCodeLine{218       \textcolor{keywordflow}{if} (machine-\/>Is64()) \{}
+\DoxyCodeLine{219         \textcolor{comment}{// On 64 bit architectures, ArrayIndex is 64 bit.}}
+\DoxyCodeLine{220         subsumption =}
+\DoxyCodeLine{221             Subsumption::WithConversion(machine-\/>ChangeInt32ToInt64());}
+\DoxyCodeLine{222       \}}
+\DoxyCodeLine{223     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (a-\/>opcode() == IrOpcode::kCheckReceiver \&\&}
+\DoxyCodeLine{224                b-\/>opcode() == IrOpcode::kCheckReceiverOrNullOrUndefined) \{}
+\DoxyCodeLine{225       \textcolor{comment}{// CheckReceiver(node) implies CheckReceiverOrNullOrUndefined(node)}}
+\DoxyCodeLine{226     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (a-\/>opcode() != b-\/>opcode()) \{}
+\DoxyCodeLine{227       \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_a05f25f935e108a1ea2d150e274602b87a7ab4d58719c33b3ea2dfaefa29b111df}{Subsumption::None}}();}
+\DoxyCodeLine{228     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{229       \textcolor{keywordflow}{switch} (a-\/>opcode()) \{}
+\DoxyCodeLine{230         \textcolor{keywordflow}{case} IrOpcode::kCheckBounds:}
+\DoxyCodeLine{231         \textcolor{keywordflow}{case} IrOpcode::kCheckSmi:}
+\DoxyCodeLine{232         \textcolor{keywordflow}{case} IrOpcode::kCheckString:}
+\DoxyCodeLine{233         \textcolor{keywordflow}{case} IrOpcode::kCheckStringOrStringWrapper:}
+\DoxyCodeLine{234         \textcolor{keywordflow}{case} IrOpcode::kCheckNumber:}
+\DoxyCodeLine{235         \textcolor{keywordflow}{case} IrOpcode::kCheckNumberFitsInt32:}
+\DoxyCodeLine{236         \textcolor{keywordflow}{case} IrOpcode::kCheckBigInt:}
+\DoxyCodeLine{237         \textcolor{keywordflow}{case} IrOpcode::kCheckedBigIntToBigInt64:}
+\DoxyCodeLine{238           \textcolor{keywordflow}{break};}
+\DoxyCodeLine{239         \textcolor{keywordflow}{case} IrOpcode::kTypeGuard: \{}
+\DoxyCodeLine{240           \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02js-display-names_8cc_03_a169d0b07e82f46d628050c890a0dacbe}{Type}} at = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a9a69d0536048a5288b5d7c8767cc23b7}{TypeGuardTypeOf}}(a-\/>op());}
+\DoxyCodeLine{241           \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02js-display-names_8cc_03_a169d0b07e82f46d628050c890a0dacbe}{Type}} bt = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a9a69d0536048a5288b5d7c8767cc23b7}{TypeGuardTypeOf}}(b-\/>op());}
+\DoxyCodeLine{242           \textcolor{comment}{// \{a\}.type has to be narrower than (or equal to) \{b\}.type for}}
+\DoxyCodeLine{243           \textcolor{comment}{// \{b\}.type to be a redundant check.}}
+\DoxyCodeLine{244           \textcolor{keywordflow}{if} (!at.Is(bt)) \{}
+\DoxyCodeLine{245             \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_a05f25f935e108a1ea2d150e274602b87a7ab4d58719c33b3ea2dfaefa29b111df}{Subsumption::None}}();}
+\DoxyCodeLine{246           \}}
+\DoxyCodeLine{247           \textcolor{keywordflow}{break};}
+\DoxyCodeLine{248         \}}
+\DoxyCodeLine{249         \textcolor{keywordflow}{case} IrOpcode::kCheckedInt32ToTaggedSigned:}
+\DoxyCodeLine{250         \textcolor{keywordflow}{case} IrOpcode::kCheckedInt64ToInt32:}
+\DoxyCodeLine{251         \textcolor{keywordflow}{case} IrOpcode::kCheckedInt64ToAdditiveSafeInteger:}
+\DoxyCodeLine{252         \textcolor{keywordflow}{case} IrOpcode::kCheckedInt64ToTaggedSigned:}
+\DoxyCodeLine{253         \textcolor{keywordflow}{case} IrOpcode::kCheckedTaggedSignedToInt32:}
+\DoxyCodeLine{254         \textcolor{keywordflow}{case} IrOpcode::kCheckedTaggedToTaggedPointer:}
+\DoxyCodeLine{255         \textcolor{keywordflow}{case} IrOpcode::kCheckedTaggedToTaggedSigned:}
+\DoxyCodeLine{256         \textcolor{keywordflow}{case} IrOpcode::kCheckedTaggedToArrayIndex:}
+\DoxyCodeLine{257         \textcolor{keywordflow}{case} IrOpcode::kCheckedUint32Bounds:}
+\DoxyCodeLine{258         \textcolor{keywordflow}{case} IrOpcode::kCheckedUint32ToInt32:}
+\DoxyCodeLine{259         \textcolor{keywordflow}{case} IrOpcode::kCheckedUint32ToTaggedSigned:}
+\DoxyCodeLine{260         \textcolor{keywordflow}{case} IrOpcode::kCheckedUint64Bounds:}
+\DoxyCodeLine{261         \textcolor{keywordflow}{case} IrOpcode::kCheckedUint64ToInt32:}
+\DoxyCodeLine{262         \textcolor{keywordflow}{case} IrOpcode::kCheckedUint64ToTaggedSigned:}
+\DoxyCodeLine{263           \textcolor{keywordflow}{break};}
+\DoxyCodeLine{264         \textcolor{keywordflow}{case} IrOpcode::kCheckedFloat64ToInt32:}
+\DoxyCodeLine{265         \textcolor{keywordflow}{case} IrOpcode::kCheckedFloat64ToAdditiveSafeInteger:}
+\DoxyCodeLine{266         \textcolor{keywordflow}{case} IrOpcode::kCheckedFloat64ToInt64:}
+\DoxyCodeLine{267         \textcolor{keywordflow}{case} IrOpcode::kCheckedTaggedToInt32:}
+\DoxyCodeLine{268         \textcolor{keywordflow}{case} IrOpcode::kCheckedTaggedToAdditiveSafeInteger:}
+\DoxyCodeLine{269         \textcolor{keywordflow}{case} IrOpcode::kCheckedTaggedToInt64: \{}
+\DoxyCodeLine{270           \textcolor{keyword}{const} CheckMinusZeroParameters\& ap =}
+\DoxyCodeLine{271               \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a4ee57d1b512e269977a2fa843e7935ae}{CheckMinusZeroParametersOf}}(a-\/>op());}
+\DoxyCodeLine{272           \textcolor{keyword}{const} CheckMinusZeroParameters\& bp =}
+\DoxyCodeLine{273               \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a4ee57d1b512e269977a2fa843e7935ae}{CheckMinusZeroParametersOf}}(b-\/>op());}
+\DoxyCodeLine{274           \textcolor{keywordflow}{if} (ap.mode() != bp.mode()) \{}
+\DoxyCodeLine{275             \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_a05f25f935e108a1ea2d150e274602b87a7ab4d58719c33b3ea2dfaefa29b111df}{Subsumption::None}}();}
+\DoxyCodeLine{276           \}}
+\DoxyCodeLine{277           \textcolor{keywordflow}{break};}
+\DoxyCodeLine{278         \}}
+\DoxyCodeLine{279         \textcolor{keywordflow}{case} IrOpcode::kCheckedTaggedToFloat64:}
+\DoxyCodeLine{280         \textcolor{keywordflow}{case} IrOpcode::kCheckedTruncateTaggedToWord32: \{}
+\DoxyCodeLine{281           CheckTaggedInputParameters \textcolor{keyword}{const}\& ap =}
+\DoxyCodeLine{282               \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a352fa82c1aa95b4c4423709588f76fa7}{CheckTaggedInputParametersOf}}(a-\/>op());}
+\DoxyCodeLine{283           CheckTaggedInputParameters \textcolor{keyword}{const}\& bp =}
+\DoxyCodeLine{284               \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a352fa82c1aa95b4c4423709588f76fa7}{CheckTaggedInputParametersOf}}(b-\/>op());}
+\DoxyCodeLine{285           \textcolor{comment}{// \{a\} subsumes \{b\} if the modes are either the same, or \{a\} checks}}
+\DoxyCodeLine{286           \textcolor{comment}{// for Number, in which case \{b\} will be subsumed no matter what.}}
+\DoxyCodeLine{287           \textcolor{keywordflow}{if} (ap.mode() != bp.mode() \&\&}
+\DoxyCodeLine{288               ap.mode() != CheckTaggedInputMode::kNumber) \{}
+\DoxyCodeLine{289             \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_a05f25f935e108a1ea2d150e274602b87a7ab4d58719c33b3ea2dfaefa29b111df}{Subsumption::None}}();}
+\DoxyCodeLine{290           \}}
+\DoxyCodeLine{291           \textcolor{keywordflow}{break};}
+\DoxyCodeLine{292         \}}
+\DoxyCodeLine{293         \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{294           \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_add0a420ae75b5c394b699d4edfb6b139}{IsCheckedWithFeedback}}(a-\/>op()));}
+\DoxyCodeLine{295           \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_a05f25f935e108a1ea2d150e274602b87a7ab4d58719c33b3ea2dfaefa29b111df}{Subsumption::None}}();}
+\DoxyCodeLine{296       \}}
+\DoxyCodeLine{297     \}}
+\DoxyCodeLine{298   \}}
+\DoxyCodeLine{299   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = a-\/>op()-\/>ValueInputCount(); -\/-\/\mbox{\hyperlink{namespacev8_1_1internal}{i}} >= 0;) \{}
+\DoxyCodeLine{300     \textcolor{keywordflow}{if} (a-\/>InputAt(\mbox{\hyperlink{namespacev8_1_1internal}{i}}) != b-\/>InputAt(\mbox{\hyperlink{namespacev8_1_1internal}{i}})) \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_a05f25f935e108a1ea2d150e274602b87a7ab4d58719c33b3ea2dfaefa29b111df}{Subsumption::None}}();}
+\DoxyCodeLine{301   \}}
+\DoxyCodeLine{302   \textcolor{keywordflow}{return} subsumption;}
+\DoxyCodeLine{303 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Machine\+Operator\+Builder\+::\+Change\+Int32\+To\+Int64(), v8\+::internal\+::compiler\+::\+Check\+Minus\+Zero\+Parameters\+Of(), v8\+::internal\+::compiler\+::\+Check\+Tagged\+Input\+Parameters\+Of(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::compiler\+::\+Node\+::\+Input\+At(), v8\+::internal\+::compiler\+::\+Type\+::\+Is(), v8\+::internal\+::compiler\+::\+Machine\+Operator\+Builder\+::\+Is64(), v8\+::internal\+::compiler\+::\+Is\+Checked\+With\+Feedback(), v8\+::internal\+::compiler\+::k\+Number, v8\+::internal\+::compiler\+::\+Check\+Tagged\+Input\+Parameters\+::mode(), v8\+::internal\+::compiler\+::\+Check\+Minus\+Zero\+Parameters\+::mode(), v8\+::\+None, v8\+::internal\+::compiler\+::\+Node\+::op(), v8\+::internal\+::compiler\+::\+Node\+::opcode(), v8\+::internal\+::compiler\+::\+Type\+Guard\+Type\+Of(), and v8\+::internal\+::compiler\+::\+Operator\+::\+Value\+Input\+Count().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Redundancy\+Elimination\+::\+Effect\+Path\+Checks\+::\+Lookup\+Check().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03_ad4e687dbfe90477ba57764bc6a066256_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03_ad4e687dbfe90477ba57764bc6a066256_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03_a710b289926ed0165b4c186153bf31e99}\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03_a710b289926ed0165b4c186153bf31e99}} 
+\index{v8::internal::compiler::anonymous\_namespace\lcurly{}redundancy-\/elimination.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}redundancy-\/elimination.cc\rcurly{}}!TypeSubsumes@{TypeSubsumes}}
+\index{TypeSubsumes@{TypeSubsumes}!v8::internal::compiler::anonymous\_namespace\lcurly{}redundancy-\/elimination.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}redundancy-\/elimination.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{TypeSubsumes()}{TypeSubsumes()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{redundancy-\/elimination.\+cc\}\+::Type\+Subsumes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$}]{node,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$}]{replacement }\end{DoxyParamCaption})}
+
+
+
+Definition at line 305 of file redundancy-\/elimination.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{305                                                  \{}
+\DoxyCodeLine{306   \textcolor{keywordflow}{if} (!NodeProperties::IsTyped(node) || !NodeProperties::IsTyped(replacement)) \{}
+\DoxyCodeLine{307     \textcolor{comment}{// If either node is untyped, we are running during an untyped optimization}}
+\DoxyCodeLine{308     \textcolor{comment}{// phase, and replacement is OK.}}
+\DoxyCodeLine{309     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{310   \}}
+\DoxyCodeLine{311   \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02js-display-names_8cc_03_a169d0b07e82f46d628050c890a0dacbe}{Type}} node\_type = NodeProperties::GetType(node);}
+\DoxyCodeLine{312   \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02js-display-names_8cc_03_a169d0b07e82f46d628050c890a0dacbe}{Type}} replacement\_type = NodeProperties::GetType(replacement);}
+\DoxyCodeLine{313   \textcolor{keywordflow}{return} replacement\_type.Is(node\_type);}
+\DoxyCodeLine{314 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Get\+Type(), v8\+::internal\+::compiler\+::\+Type\+::\+Is(), and v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Is\+Typed().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Redundancy\+Elimination\+::\+Effect\+Path\+Checks\+::\+Lookup\+Bounds\+Check\+For(), and v8\+::internal\+::compiler\+::\+Redundancy\+Elimination\+::\+Effect\+Path\+Checks\+::\+Lookup\+Check().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03_a710b289926ed0165b4c186153bf31e99_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02redundancy-elimination_8cc_03_a710b289926ed0165b4c186153bf31e99_icgraph}
+\end{center}
+\end{figure}

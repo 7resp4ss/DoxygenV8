@@ -1,5 +1,7 @@
 var regexp_interpreter_8cc =
 [
+    [ "BacktrackStack", "classv8_1_1internal_1_1anonymous__namespace_02regexp-interpreter_8cc_03_1_1BacktrackStack.html", "classv8_1_1internal_1_1anonymous__namespace_02regexp-interpreter_8cc_03_1_1BacktrackStack" ],
+    [ "InterpreterRegisters", "classv8_1_1internal_1_1anonymous__namespace_02regexp-interpreter_8cc_03_1_1InterpreterRegisters.html", "classv8_1_1internal_1_1anonymous__namespace_02regexp-interpreter_8cc_03_1_1InterpreterRegisters" ],
     [ "ADVANCE", "regexp-interpreter_8cc.html#ab3ccbbe0327a5ecf1be793ccad1bcd83", null ],
     [ "ADVANCE_CURRENT_POSITION", "regexp-interpreter_8cc.html#ad4ebf9ef7340df8f413f479cb8378e08", null ],
     [ "BC_LABEL", "regexp-interpreter_8cc.html#a225fa3bbf6cf3be11c09e98bcb9ccc1a", null ],
@@ -8,9 +10,18 @@ var regexp_interpreter_8cc =
     [ "DISPATCH", "regexp-interpreter_8cc.html#a8297cddbebf50a1736914db65c5724ae", null ],
     [ "SET_CURRENT_POSITION", "regexp-interpreter_8cc.html#a9995dc4082d562c492f179fadc0f901e", null ],
     [ "SET_PC_FROM_OFFSET", "regexp-interpreter_8cc.html#a165c09c6bb2f565601d88bb58cfd9cd4", null ],
-    [ "data_", "regexp-interpreter_8cc.html#ad8222f32af50b88a311378110b554280", null ],
-    [ "output_register_count_", "regexp-interpreter_8cc.html#adb1e447ddc9a8e2eb222f78e63f17ceb", null ],
-    [ "output_registers_", "regexp-interpreter_8cc.html#a597f9d2e663fc594c89079f63e23f444", null ],
-    [ "registers_", "regexp-interpreter_8cc.html#a147ef59429460248dd4522a17ab6602a", null ],
-    [ "total_register_count_", "regexp-interpreter_8cc.html#a7ba637659053fff27cce2b759d6ae2fc", null ]
+    [ "BackRefMatchesNoCase", "regexp-interpreter_8cc.html#ad32bfd1f102b73e22c7d498d9352d400", null ],
+    [ "BackRefMatchesNoCase", "regexp-interpreter_8cc.html#a13d79ac4b72eadd1ea1dafa10fde0d7b", null ],
+    [ "CheckBitInTable", "regexp-interpreter_8cc.html#a4b6ce87bad3584873d0e9454dd530ab4", null ],
+    [ "HandleInterrupts", "regexp-interpreter_8cc.html#a30d2a5a13ab08b3854341b33b991d853", null ],
+    [ "IndexIsInBounds", "regexp-interpreter_8cc.html#a4413bc156baac0c4ec7d78d398c0fa86", null ],
+    [ "Load16AlignedSigned", "regexp-interpreter_8cc.html#a12a3a344fb868590c2def538ce9f4bf4", null ],
+    [ "Load16AlignedUnsigned", "regexp-interpreter_8cc.html#a80f0f1fee46f3bdfbbb13da8ba22c3c5", null ],
+    [ "Load32Aligned", "regexp-interpreter_8cc.html#a8e8d5abd2f1670ba45872d8690d2605d", null ],
+    [ "LoadPacked24Signed", "regexp-interpreter_8cc.html#ae265534e035b90a42adaadc73f230dfe", null ],
+    [ "LoadPacked24Unsigned", "regexp-interpreter_8cc.html#a04eef20adcb5cb44747fdc19a59e92ae", null ],
+    [ "MaybeThrowStackOverflow", "regexp-interpreter_8cc.html#abc46f4768370b242e38418f20dcd73ef", null ],
+    [ "RawMatch", "regexp-interpreter_8cc.html#a33a6307727f2521ae4fb375d725cae69", null ],
+    [ "ThrowStackOverflow", "regexp-interpreter_8cc.html#a094716ef77e1dde9c1ab4d5839e7f1bc", null ],
+    [ "UpdateCodeAndSubjectReferences", "regexp-interpreter_8cc.html#abb67d52a072f8a4d7a324280001f6daf", null ]
 ];

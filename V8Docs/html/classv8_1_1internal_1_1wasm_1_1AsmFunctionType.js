@@ -6,6 +6,12 @@ var classv8_1_1internal_1_1wasm_1_1AsmFunctionType =
     [ "Arguments", "classv8_1_1internal_1_1wasm_1_1AsmFunctionType.html#ae91ccdf4a8626ed093ac0805361ab629", null ],
     [ "AsFunctionType", "classv8_1_1internal_1_1wasm_1_1AsmFunctionType.html#a765ea31e183ab447cec9a8a4551ca439", null ],
     [ "CanBeInvokedWith", "classv8_1_1internal_1_1wasm_1_1AsmFunctionType.html#a7dc5a41217ad406ccca504aea9c51d49", null ],
+    [ "IsA", "classv8_1_1internal_1_1wasm_1_1AsmFunctionType.html#ae39bc011bf9a8d2938955f0c234b3f24", null ],
+    [ "Name", "classv8_1_1internal_1_1wasm_1_1AsmFunctionType.html#ae809e873b181ddb0781cc2272b53715c", null ],
     [ "operator=", "classv8_1_1internal_1_1wasm_1_1AsmFunctionType.html#a877a07f296440fe408896289cddb98ef", null ],
-    [ "ReturnType", "classv8_1_1internal_1_1wasm_1_1AsmFunctionType.html#a31072e786f860c2d0770f46d222dfa64", null ]
+    [ "ReturnType", "classv8_1_1internal_1_1wasm_1_1AsmFunctionType.html#a31072e786f860c2d0770f46d222dfa64", null ],
+    [ "args_", "classv8_1_1internal_1_1wasm_1_1AsmFunctionType.html#a6010819a75bc958a86d22a639e61ac23", null ],
+    [ "AsmType", "classv8_1_1internal_1_1wasm_1_1AsmFunctionType.html#a88cc20920582826502d187429969a6a4", null ],
+    [ "return_type_", "classv8_1_1internal_1_1wasm_1_1AsmFunctionType.html#a56315e6cddda376ddb7d3cf0fe83c192", null ],
+    [ "Zone", "classv8_1_1internal_1_1wasm_1_1AsmFunctionType.html#a72ff1b6e2b44766549ff1fc8a08e8444", null ]
 ];

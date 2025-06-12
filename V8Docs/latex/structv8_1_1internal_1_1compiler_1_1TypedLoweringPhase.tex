@@ -1,10 +1,27 @@
 \hypertarget{structv8_1_1internal_1_1compiler_1_1TypedLoweringPhase}{}\doxysection{v8\+::internal\+::compiler\+::Typed\+Lowering\+Phase Struct Reference}
 \label{structv8_1_1internal_1_1compiler_1_1TypedLoweringPhase}\index{v8::internal::compiler::TypedLoweringPhase@{v8::internal::compiler::TypedLoweringPhase}}
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Typed\+Lowering\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{structv8_1_1internal_1_1compiler_1_1TypedLoweringPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1TypedLoweringPhase_afd7d88d7855716f11622046144ef81a3}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
+void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1TypedLoweringPhase_afd7d88d7855716f11622046144ef81a3}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1103 of file pipeline.\+cc.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -16,6 +33,62 @@ void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1TypedLoweringPhase_afd
 
 
 
+Definition at line 1106 of file pipeline.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1106                                                   \{}
+\DoxyCodeLine{1107     GraphReducer graph\_reducer(}
+\DoxyCodeLine{1108         temp\_zone, data-\/>graph(), \&data-\/>info()-\/>tick\_counter(), data-\/>broker(),}
+\DoxyCodeLine{1109         data-\/>jsgraph()-\/>Dead(), data-\/>observe\_node\_manager());}
+\DoxyCodeLine{1110     DeadCodeElimination dead\_code\_elimination(\&graph\_reducer, data-\/>graph(),}
+\DoxyCodeLine{1111                                               data-\/>common(), temp\_zone);}
+\DoxyCodeLine{1112     JSCreateLowering create\_lowering(\&graph\_reducer, data-\/>jsgraph(),}
+\DoxyCodeLine{1113                                      data-\/>broker(), temp\_zone);}
+\DoxyCodeLine{1114     JSTypedLowering typed\_lowering(\&graph\_reducer, data-\/>jsgraph(),}
+\DoxyCodeLine{1115                                    data-\/>broker(), temp\_zone);}
+\DoxyCodeLine{1116     ConstantFoldingReducer constant\_folding\_reducer(}
+\DoxyCodeLine{1117         \&graph\_reducer, data-\/>jsgraph(), data-\/>broker());}
+\DoxyCodeLine{1118     TypedOptimization typed\_optimization(\&graph\_reducer, data-\/>dependencies(),}
+\DoxyCodeLine{1119                                          data-\/>jsgraph(), data-\/>broker());}
+\DoxyCodeLine{1120     SimplifiedOperatorReducer simple\_reducer(}
+\DoxyCodeLine{1121         \&graph\_reducer, data-\/>jsgraph(), data-\/>broker(), \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac1e15b9d73fa3e3885616519e20c2bfbaf402aae992d64600a4d2086c1eb0c7bf}{BranchSemantics::kJS}});}
+\DoxyCodeLine{1122     CheckpointElimination checkpoint\_elimination(\&graph\_reducer);}
+\DoxyCodeLine{1123     CommonOperatorReducer common\_reducer(}
+\DoxyCodeLine{1124         \&graph\_reducer, data-\/>graph(), data-\/>broker(), data-\/>common(),}
+\DoxyCodeLine{1125         data-\/>machine(), temp\_zone, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac1e15b9d73fa3e3885616519e20c2bfbaf402aae992d64600a4d2086c1eb0c7bf}{BranchSemantics::kJS}});}
+\DoxyCodeLine{1126     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&dead\_code\_elimination);}
+\DoxyCodeLine{1127 }
+\DoxyCodeLine{1128     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&create\_lowering);}
+\DoxyCodeLine{1129     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&constant\_folding\_reducer);}
+\DoxyCodeLine{1130     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&typed\_lowering);}
+\DoxyCodeLine{1131     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&typed\_optimization);}
+\DoxyCodeLine{1132     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&simple\_reducer);}
+\DoxyCodeLine{1133     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&checkpoint\_elimination);}
+\DoxyCodeLine{1134     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&common\_reducer);}
+\DoxyCodeLine{1135 }
+\DoxyCodeLine{1136     \textcolor{comment}{// ConstantFoldingReducer, JSCreateLowering, JSTypedLowering, and}}
+\DoxyCodeLine{1137     \textcolor{comment}{// TypedOptimization access the heap.}}
+\DoxyCodeLine{1138     UnparkedScopeIfNeeded scope(data-\/>broker());}
+\DoxyCodeLine{1139 }
+\DoxyCodeLine{1140     graph\_reducer.ReduceGraph();}
+\DoxyCodeLine{1141   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{pipeline.\+cc\}\+::\+Add\+Reducer(), v8\+::internal\+::compiler\+::\+Graph\+Reducer\+::graph(), v8\+::internal\+::compiler\+::k\+JS, and v8\+::internal\+::compiler\+::\+Graph\+Reducer\+::\+Reduce\+Graph().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1TypedLoweringPhase_afd7d88d7855716f11622046144ef81a3_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}

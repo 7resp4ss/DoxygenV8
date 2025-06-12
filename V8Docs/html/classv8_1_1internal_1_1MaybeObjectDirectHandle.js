@@ -9,11 +9,17 @@ var classv8_1_1internal_1_1MaybeObjectDirectHandle =
     [ "MaybeObjectDirectHandle", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#a0487ce1d286df1766c3d85986a96fcd1", null ],
     [ "MaybeObjectDirectHandle", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#ac7ffa18fe1eefe83554046c86ec0f95a", null ],
     [ "MaybeObjectDirectHandle", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#a545712f7336bf3b19ab81f53fd801d9f", null ],
+    [ "MaybeObjectDirectHandle", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#a48d49e126dce76936068fb29380d871c", null ],
+    [ "MaybeObjectDirectHandle", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#acc9f5a3b9347801c9b0f5002ca303f72", null ],
     [ "is_identical_to", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#a10260b84ad74cca51a76c5113789a0a9", null ],
     [ "is_identical_to", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#a1dfe8a8d7a0807eeee072f90a9028e49", null ],
     [ "is_null", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#a437faa300f0163d133a8c2ec2697dc0f", null ],
     [ "object", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#a69f8685cf9617c7c589e03beace26c1b", null ],
     [ "operator*", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#a48623f5d5e4dcaf1c74ff97d1e4bc7fb", null ],
     [ "operator->", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#ae47fbfef0deb5c0500204edf7f78824e", null ],
-    [ "reference_type", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#ace34a87bb9e82c25d8a1785461f16ec3", null ]
+    [ "reference_type", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#ace34a87bb9e82c25d8a1785461f16ec3", null ],
+    [ "Weak", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#a7f1970c9aeb60ce92ee37cd5edbdc245", null ],
+    [ "Weak", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#af39f668bdaaf25432eb7cdbc4066f4d6", null ],
+    [ "handle_", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#a2e10f50109efdb57f011479b32ed19d7", null ],
+    [ "reference_type_", "classv8_1_1internal_1_1MaybeObjectDirectHandle.html#aa25e821719e53f632801046491c317da", null ]
 ];

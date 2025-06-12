@@ -1,0 +1,304 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{accessors.\+cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSObject}{JSObject}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_a83281cea9cc0f8bb2a32962c2d4cae50}{Arguments\+From\+Deopt\+Info}} (\mbox{\hyperlink{classv8_1_1internal_1_1JavaScriptFrame}{Java\+Script\+Frame}} $\ast$frame, \mbox{\hyperlink{classint}{int}} inlined\+\_\+frame\+\_\+index)
+\item 
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_ab84542284e310a440cfdb1778f77a0d0}{Find\+Function\+In\+Frame}} (\mbox{\hyperlink{classv8_1_1internal_1_1JavaScriptFrame}{Java\+Script\+Frame}} $\ast$frame, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSFunction}{JSFunction}} $>$ function)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSObject}{JSObject}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_aaad7b332d96196586d9c3f56a5b1d30c}{Get\+Frame\+Arguments}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1JavaScriptStackFrameIterator}{Java\+Script\+Stack\+Frame\+Iterator}} $\ast$it, \mbox{\hyperlink{classint}{int}} function\+\_\+index)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1MaybeDirectHandle}{Maybe\+Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSFunction}{JSFunction}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_a2b86a043ba0532a21dc9227cd713f104}{Find\+Caller}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSFunction}{JSFunction}} $>$ function)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_a83281cea9cc0f8bb2a32962c2d4cae50}\label{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_a83281cea9cc0f8bb2a32962c2d4cae50}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}}!ArgumentsFromDeoptInfo@{ArgumentsFromDeoptInfo}}
+\index{ArgumentsFromDeoptInfo@{ArgumentsFromDeoptInfo}!v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ArgumentsFromDeoptInfo()}{ArgumentsFromDeoptInfo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1JSObject}{JSObject}}$>$ v8\+::internal\+::anonymous\+\_\+namespace\{accessors.\+cc\}\+::Arguments\+From\+Deopt\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1JavaScriptFrame}{Java\+Script\+Frame}} $\ast$}]{frame,  }\item[{\mbox{\hyperlink{classint}{int}}}]{inlined\+\_\+frame\+\_\+index }\end{DoxyParamCaption})}
+
+
+
+Definition at line 398 of file accessors.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{399                                                                  \{}
+\DoxyCodeLine{400   Isolate* isolate = frame-\/>isolate();}
+\DoxyCodeLine{401   Factory* factory = isolate-\/>factory();}
+\DoxyCodeLine{402 }
+\DoxyCodeLine{403   TranslatedState translated\_values(frame);}
+\DoxyCodeLine{404   translated\_values.Prepare(frame-\/>fp());}
+\DoxyCodeLine{405 }
+\DoxyCodeLine{406   \textcolor{keywordtype}{int} argument\_count = 0;}
+\DoxyCodeLine{407   TranslatedFrame* translated\_frame =}
+\DoxyCodeLine{408       translated\_values.GetArgumentsInfoFromJSFrameIndex(inlined\_frame\_index,}
+\DoxyCodeLine{409                                                          \&argument\_count);}
+\DoxyCodeLine{410   TranslatedFrame::iterator iter = translated\_frame-\/>begin();}
+\DoxyCodeLine{411 }
+\DoxyCodeLine{412   \textcolor{comment}{// Materialize the function.}}
+\DoxyCodeLine{413   \textcolor{keywordtype}{bool} should\_deoptimize = iter-\/>IsMaterializedObject();}
+\DoxyCodeLine{414   DirectHandle<JSFunction> \textcolor{keyword}{function} = Cast<JSFunction>(iter-\/>GetValue());}
+\DoxyCodeLine{415   iter++;}
+\DoxyCodeLine{416 }
+\DoxyCodeLine{417   \textcolor{comment}{// Skip the receiver.}}
+\DoxyCodeLine{418   iter++;}
+\DoxyCodeLine{419   argument\_count-\/-\/;}
+\DoxyCodeLine{420 }
+\DoxyCodeLine{421   Handle<JSObject> arguments =}
+\DoxyCodeLine{422       factory-\/>NewArgumentsObject(\textcolor{keyword}{function}, argument\_count);}
+\DoxyCodeLine{423   DirectHandle<FixedArray> array = factory-\/>NewFixedArray(argument\_count);}
+\DoxyCodeLine{424   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < argument\_count; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{425     \textcolor{comment}{// If we materialize any object, we should deoptimize the frame because we}}
+\DoxyCodeLine{426     \textcolor{comment}{// might alias an object that was eliminated by escape analysis.}}
+\DoxyCodeLine{427     should\_deoptimize = should\_deoptimize || iter-\/>IsMaterializedObject();}
+\DoxyCodeLine{428     DirectHandle<Object> \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = iter-\/>GetValue();}
+\DoxyCodeLine{429     array-\/>set(\mbox{\hyperlink{namespacev8_1_1internal}{i}}, *\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});}
+\DoxyCodeLine{430     iter++;}
+\DoxyCodeLine{431   \}}
+\DoxyCodeLine{432   arguments-\/>set\_elements(*array);}
+\DoxyCodeLine{433 }
+\DoxyCodeLine{434   \textcolor{keywordflow}{if} (should\_deoptimize) \{}
+\DoxyCodeLine{435     translated\_values.StoreMaterializedValuesAndDeopt(frame);}
+\DoxyCodeLine{436   \}}
+\DoxyCodeLine{437 }
+\DoxyCodeLine{438   \textcolor{comment}{// Return the freshly allocated arguments object.}}
+\DoxyCodeLine{439   \textcolor{keywordflow}{return} arguments;}
+\DoxyCodeLine{440 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Translated\+Frame\+::begin(), v8\+::internal\+::\+Isolate\+::factory(), v8\+::internal\+::\+Stack\+Frame\+::fp(), v8\+::internal\+::\+Translated\+State\+::\+Get\+Arguments\+Info\+From\+JSFrame\+Index(), v8\+::internal\+::\+Translated\+Value\+::\+Get\+Value(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::\+Translated\+Value\+::\+Is\+Materialized\+Object(), v8\+::internal\+::\+Stack\+Frame\+::isolate(), v8\+::internal\+::\+Factory\+::\+New\+Arguments\+Object(), v8\+::internal\+::\+Factory\+Base$<$ Impl $>$\+::\+New\+Fixed\+Array(), v8\+::internal\+::\+Translated\+State\+::\+Prepare(), v8\+::internal\+::\+Translated\+State\+::\+Store\+Materialized\+Values\+And\+Deopt(), and v8\+::internal\+::value.
+
+
+
+Referenced by Get\+Frame\+Arguments().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_a83281cea9cc0f8bb2a32962c2d4cae50_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_a83281cea9cc0f8bb2a32962c2d4cae50_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_a2b86a043ba0532a21dc9227cd713f104}\label{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_a2b86a043ba0532a21dc9227cd713f104}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}}!FindCaller@{FindCaller}}
+\index{FindCaller@{FindCaller}!v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{FindCaller()}{FindCaller()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MaybeDirectHandle}{Maybe\+Direct\+Handle}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1JSFunction}{JSFunction}}$>$ v8\+::internal\+::anonymous\+\_\+namespace\{accessors.\+cc\}\+::Find\+Caller (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSFunction}{JSFunction}} $>$}]{function }\end{DoxyParamCaption})}
+
+
+
+Definition at line 661 of file accessors.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{662                                                                             \{}
+\DoxyCodeLine{663   FrameFunctionIterator it(isolate);}
+\DoxyCodeLine{664   \textcolor{keywordflow}{if} (function-\/>shared()-\/>native()) \{}
+\DoxyCodeLine{665     \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{666   \}}
+\DoxyCodeLine{667   \textcolor{comment}{// Find the function from the frames. Return null in case no frame}}
+\DoxyCodeLine{668   \textcolor{comment}{// corresponding to the given function was found.}}
+\DoxyCodeLine{669   \textcolor{keywordflow}{if} (!it.Find(\textcolor{keyword}{function})) \{}
+\DoxyCodeLine{670     \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{671   \}}
+\DoxyCodeLine{672   \textcolor{comment}{// Find previously called non-\/toplevel function that is also a user-\/land}}
+\DoxyCodeLine{673   \textcolor{comment}{// JavaScript function (or the entry point into native JavaScript builtins}}
+\DoxyCodeLine{674   \textcolor{comment}{// in case such a builtin was the caller).}}
+\DoxyCodeLine{675   \textcolor{keywordflow}{if} (!it.FindNextNonTopLevelNativeOrUserJavaScript()) \{}
+\DoxyCodeLine{676     \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{677   \}}
+\DoxyCodeLine{678 }
+\DoxyCodeLine{679   \textcolor{comment}{// Materialize the function that the iterator is currently sitting on. Note}}
+\DoxyCodeLine{680   \textcolor{comment}{// that this might trigger deoptimization in case the function was actually}}
+\DoxyCodeLine{681   \textcolor{comment}{// materialized. Identity of the function must be preserved because we are}}
+\DoxyCodeLine{682   \textcolor{comment}{// going to return it to JavaScript after this point.}}
+\DoxyCodeLine{683   DirectHandle<JSFunction> caller = it.MaterializeFunction();}
+\DoxyCodeLine{684 }
+\DoxyCodeLine{685   \textcolor{comment}{// Censor if the caller is not a sloppy mode function.}}
+\DoxyCodeLine{686   \textcolor{comment}{// Change from ES5, which used to throw, see:}}
+\DoxyCodeLine{687   \textcolor{comment}{// https://bugs.ecmascript.org/show\_bug.cgi?id=310}}
+\DoxyCodeLine{688   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_a9ebbf4895776d2d1a5befc970fbe4b0d}{is\_strict}}(caller-\/>shared()-\/>language\_mode())) \{}
+\DoxyCodeLine{689     \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{690   \}}
+\DoxyCodeLine{691   \textcolor{comment}{// Don't return caller from another security context.}}
+\DoxyCodeLine{692   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_a4e3737a8f797e455cdc4c57f536a99e4}{AllowAccessToFunction}}(isolate-\/>context(), *caller)) \{}
+\DoxyCodeLine{693     \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{694   \}}
+\DoxyCodeLine{695   \textcolor{keywordflow}{return} caller;}
+\DoxyCodeLine{696 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Allow\+Access\+To\+Function(), v8\+::internal\+::\+Isolate\+::context(), v8\+::internal\+::\+Frame\+Function\+Iterator\+::\+Find(), v8\+::internal\+::\+Frame\+Function\+Iterator\+::\+Find\+Next\+Non\+Top\+Level\+Native\+Or\+User\+Java\+Script(), v8\+::internal\+::is\+\_\+strict(), and v8\+::internal\+::\+Frame\+Function\+Iterator\+::\+Materialize\+Function().
+
+
+
+Referenced by v8\+::internal\+::\+Accessors\+::\+Get\+Legacy\+Function\+Caller().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_a2b86a043ba0532a21dc9227cd713f104_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_a2b86a043ba0532a21dc9227cd713f104_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_ab84542284e310a440cfdb1778f77a0d0}\label{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_ab84542284e310a440cfdb1778f77a0d0}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}}!FindFunctionInFrame@{FindFunctionInFrame}}
+\index{FindFunctionInFrame@{FindFunctionInFrame}!v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{FindFunctionInFrame()}{FindFunctionInFrame()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::anonymous\+\_\+namespace\{accessors.\+cc\}\+::Find\+Function\+In\+Frame (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1JavaScriptFrame}{Java\+Script\+Frame}} $\ast$}]{frame,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSFunction}{JSFunction}} $>$}]{function }\end{DoxyParamCaption})}
+
+
+
+Definition at line 442 of file accessors.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{443                                                            \{}
+\DoxyCodeLine{444   FrameSummaries summaries = frame-\/>Summarize();}
+\DoxyCodeLine{445   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = summaries.size(); \mbox{\hyperlink{namespacev8_1_1internal}{i}} != 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}}-\/-\/) \{}
+\DoxyCodeLine{446     \textcolor{keywordflow}{if} (*summaries.frames[\mbox{\hyperlink{namespacev8_1_1internal}{i}} -\/ 1].AsJavaScript().function() == *\textcolor{keyword}{function}) \{}
+\DoxyCodeLine{447       \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) -\/ 1;}
+\DoxyCodeLine{448     \}}
+\DoxyCodeLine{449   \}}
+\DoxyCodeLine{450   \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{451 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Frame\+Summaries\+::frames, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::\+Frame\+Summaries\+::size(), and v8\+::internal\+::\+Common\+Frame\+With\+JSLinkage\+::\+Summarize().
+
+
+
+Referenced by v8\+::internal\+::\+Accessors\+::\+Get\+Legacy\+Function\+Arguments().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_ab84542284e310a440cfdb1778f77a0d0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_ab84542284e310a440cfdb1778f77a0d0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_aaad7b332d96196586d9c3f56a5b1d30c}\label{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_aaad7b332d96196586d9c3f56a5b1d30c}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}}!GetFrameArguments@{GetFrameArguments}}
+\index{GetFrameArguments@{GetFrameArguments}!v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}accessors.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{GetFrameArguments()}{GetFrameArguments()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1JSObject}{JSObject}}$>$ v8\+::internal\+::anonymous\+\_\+namespace\{accessors.\+cc\}\+::Get\+Frame\+Arguments (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1JavaScriptStackFrameIterator}{Java\+Script\+Stack\+Frame\+Iterator}} $\ast$}]{it,  }\item[{\mbox{\hyperlink{classint}{int}}}]{function\+\_\+index }\end{DoxyParamCaption})}
+
+
+
+Definition at line 453 of file accessors.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{455                                                        \{}
+\DoxyCodeLine{456   JavaScriptFrame* frame = it-\/>frame();}
+\DoxyCodeLine{457 }
+\DoxyCodeLine{458   \textcolor{keywordflow}{if} (function\_index > 0) \{}
+\DoxyCodeLine{459     \textcolor{comment}{// The function in question was inlined.  Inlined functions have the}}
+\DoxyCodeLine{460     \textcolor{comment}{// correct number of arguments and no allocated arguments object, so}}
+\DoxyCodeLine{461     \textcolor{comment}{// we can construct a fresh one by interpreting the function's}}
+\DoxyCodeLine{462     \textcolor{comment}{// deoptimization input data.}}
+\DoxyCodeLine{463     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_a83281cea9cc0f8bb2a32962c2d4cae50}{ArgumentsFromDeoptInfo}}(frame, function\_index);}
+\DoxyCodeLine{464   \}}
+\DoxyCodeLine{465 }
+\DoxyCodeLine{466   \textcolor{comment}{// Construct an arguments object mirror for the right frame and the underlying}}
+\DoxyCodeLine{467   \textcolor{comment}{// function.}}
+\DoxyCodeLine{468   \textcolor{keyword}{const} \textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}} = frame-\/>GetActualArgumentCount();}
+\DoxyCodeLine{469   DirectHandle<JSFunction> \textcolor{keyword}{function}(frame-\/>function(), isolate);}
+\DoxyCodeLine{470   Handle<JSObject> arguments =}
+\DoxyCodeLine{471       isolate-\/>factory()-\/>NewArgumentsObject(\textcolor{keyword}{function}, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}});}
+\DoxyCodeLine{472   DirectHandle<FixedArray> array = isolate-\/>factory()-\/>NewFixedArray(\mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}});}
+\DoxyCodeLine{473 }
+\DoxyCodeLine{474   \textcolor{comment}{// Copy the parameters to the arguments object.}}
+\DoxyCodeLine{475   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(array-\/>length() == \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}});}
+\DoxyCodeLine{476   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}}; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{477     \mbox{\hyperlink{namespacev8_1_1internal_a5297fd2c72981b2220e6b9a831570fb3}{Tagged<Object>}} \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = frame-\/>GetParameter(\mbox{\hyperlink{namespacev8_1_1internal}{i}});}
+\DoxyCodeLine{478     \textcolor{keywordflow}{if} (IsTheHole(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, isolate)) \{}
+\DoxyCodeLine{479       \textcolor{comment}{// Generators currently use holes as dummy arguments when resuming.  We}}
+\DoxyCodeLine{480       \textcolor{comment}{// must not leak those.}}
+\DoxyCodeLine{481       \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_a4e45fa90a2eb51c71116e979bc3bcb07}{IsResumableFunction}}(function-\/>shared()-\/>kind()));}
+\DoxyCodeLine{482       \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = ReadOnlyRoots(isolate).undefined\_value();}
+\DoxyCodeLine{483     \}}
+\DoxyCodeLine{484     array-\/>set(\mbox{\hyperlink{namespacev8_1_1internal}{i}}, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});}
+\DoxyCodeLine{485   \}}
+\DoxyCodeLine{486   arguments-\/>set\_elements(*array);}
+\DoxyCodeLine{487 }
+\DoxyCodeLine{488   \textcolor{comment}{// For optimized functions, the frame arguments may be outdated, so we should}}
+\DoxyCodeLine{489   \textcolor{comment}{// update them with the deopt info, while keeping the length and extra}}
+\DoxyCodeLine{490   \textcolor{comment}{// arguments from the actual frame.}}
+\DoxyCodeLine{491   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_af99e82892963b7932b8865a9c6f400bc}{CodeKindCanDeoptimize}}(frame-\/>LookupCode()-\/>kind()) \&\& \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}} > 0) \{}
+\DoxyCodeLine{492     DirectHandle<JSObject> arguments\_from\_deopt\_info =}
+\DoxyCodeLine{493         \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_a83281cea9cc0f8bb2a32962c2d4cae50}{ArgumentsFromDeoptInfo}}(frame, function\_index);}
+\DoxyCodeLine{494     DirectHandle<FixedArray> elements\_from\_deopt\_info(}
+\DoxyCodeLine{495         Cast<FixedArray>(arguments\_from\_deopt\_info-\/>elements()), isolate);}
+\DoxyCodeLine{496     \textcolor{keywordtype}{int} common\_length = std::min(\mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}}, elements\_from\_deopt\_info-\/>length());}
+\DoxyCodeLine{497     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < common\_length; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{498       array-\/>set(\mbox{\hyperlink{namespacev8_1_1internal}{i}}, elements\_from\_deopt\_info-\/>get(\mbox{\hyperlink{namespacev8_1_1internal}{i}}));}
+\DoxyCodeLine{499     \}}
+\DoxyCodeLine{500   \}}
+\DoxyCodeLine{501 }
+\DoxyCodeLine{502   \textcolor{comment}{// Return the freshly allocated arguments object.}}
+\DoxyCodeLine{503   \textcolor{keywordflow}{return} arguments;}
+\DoxyCodeLine{504 \}}
+
+\end{DoxyCode}
+
+
+References Arguments\+From\+Deopt\+Info(), v8\+::internal\+::\+Code\+Kind\+Can\+Deoptimize(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Isolate\+::factory(), v8\+::internal\+::\+Java\+Script\+Stack\+Frame\+Iterator\+::frame(), v8\+::internal\+::\+Java\+Script\+Frame\+::function(), v8\+::internal\+::\+Java\+Script\+Frame\+::\+Get\+Actual\+Argument\+Count(), v8\+::internal\+::\+Common\+Frame\+With\+JSLinkage\+::\+Get\+Parameter(), v8\+::internal\+::\+Is\+Resumable\+Function(), v8\+::internal\+::length, v8\+::internal\+::\+Stack\+Frame\+::\+Lookup\+Code(), v8\+::internal\+::\+Factory\+::\+New\+Arguments\+Object(), v8\+::internal\+::\+Factory\+Base$<$ Impl $>$\+::\+New\+Fixed\+Array(), and v8\+::internal\+::value.
+
+
+
+Referenced by v8\+::internal\+::\+Accessors\+::\+Function\+Get\+Arguments(), and v8\+::internal\+::\+Accessors\+::\+Get\+Legacy\+Function\+Arguments().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_aaad7b332d96196586d9c3f56a5b1d30c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02accessors_8cc_03_aaad7b332d96196586d9c3f56a5b1d30c_icgraph}
+\end{center}
+\end{figure}

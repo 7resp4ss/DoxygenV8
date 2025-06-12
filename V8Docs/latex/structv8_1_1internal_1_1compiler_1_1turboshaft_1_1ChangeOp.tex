@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::compiler\+::turboshaft\+::Change\+Op\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=255pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp__inherit__graph}
+\includegraphics[height=550pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Change\+Op
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp__coll__graph}
+\includegraphics[height=550pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Types}
@@ -93,6 +93,13 @@ static constexpr \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft
 \doxysubsection*{Additional Inherited Members}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 2144 of file operations.\+h.
+
+
+
 \doxysubsection{Member Enumeration Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1164c4351eb2febe0afa2038c603a669}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1164c4351eb2febe0afa2038c603a669}} 
 \index{v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}!Assumption@{Assumption}}
@@ -114,6 +121,23 @@ k\+Reversible&\\
 \hline
 
 \end{DoxyEnumFields}
+
+
+Definition at line 2177 of file operations.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2177                         : uint8\_t \{}
+\DoxyCodeLine{2178     kNoAssumption,}
+\DoxyCodeLine{2179     \textcolor{comment}{// Used for conversions from floating-\/point to integer, assumes that the}}
+\DoxyCodeLine{2180     \textcolor{comment}{// value doesn't exceed the integer range.}}
+\DoxyCodeLine{2181     \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a186513f6dd735ea09990864991dea2e6}{kNoOverflow}},}
+\DoxyCodeLine{2182     \textcolor{comment}{// Assume that the original value can be recovered by a corresponding}}
+\DoxyCodeLine{2183     \textcolor{comment}{// reverse transformation.}}
+\DoxyCodeLine{2184     kReversible,}
+\DoxyCodeLine{2185   \};}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3}} 
 \index{v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}!Kind@{Kind}}
 \index{Kind@{Kind}!v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}}
@@ -180,6 +204,45 @@ k\+Bitcast&\\
 \end{DoxyEnumFields}
 
 
+Definition at line 2145 of file operations.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2145                   : uint8\_t \{}
+\DoxyCodeLine{2146     \textcolor{comment}{// convert between different floating-\/point types. Note that the}}
+\DoxyCodeLine{2147     \textcolor{comment}{// Float64-\/>Float32 conversion is truncating.}}
+\DoxyCodeLine{2148     kFloatConversion,}
+\DoxyCodeLine{2149     \textcolor{comment}{// overflow guaranteed to result in the minimal integer}}
+\DoxyCodeLine{2150     kSignedFloatTruncateOverflowToMin,}
+\DoxyCodeLine{2151     kUnsignedFloatTruncateOverflowToMin,}
+\DoxyCodeLine{2152     \textcolor{comment}{// JS semantics float64 to word32 truncation}}
+\DoxyCodeLine{2153     \textcolor{comment}{// https://tc39.es/ecma262/\#sec-\/touint32}}
+\DoxyCodeLine{2154     kJSFloatTruncate,}
+\DoxyCodeLine{2155     \textcolor{comment}{// convert float64 to float16, then bitcast word32. Used for storing into}}
+\DoxyCodeLine{2156     \textcolor{comment}{// Float16Array and Math.fround16.}}
+\DoxyCodeLine{2157     kJSFloat16TruncateWithBitcast,}
+\DoxyCodeLine{2158     \textcolor{comment}{// bitcast word32 to float16 and convert to float64. Used for loading from}}
+\DoxyCodeLine{2159     \textcolor{comment}{// Float16Array and Math.fround16.}}
+\DoxyCodeLine{2160     kJSFloat16ChangeWithBitcast,}
+\DoxyCodeLine{2161     \textcolor{comment}{// convert (un)signed integer to floating-\/point value}}
+\DoxyCodeLine{2162     kSignedToFloat,}
+\DoxyCodeLine{2163     kUnsignedToFloat,}
+\DoxyCodeLine{2164     \textcolor{comment}{// extract half of a float64 value}}
+\DoxyCodeLine{2165     kExtractHighHalf,}
+\DoxyCodeLine{2166     kExtractLowHalf,}
+\DoxyCodeLine{2167     \textcolor{comment}{// increase bit-\/width for unsigned integer values}}
+\DoxyCodeLine{2168     \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a7d1bc826b8b055dc643c61c30234bad8aaf181c208ec950608edf809d3d7ee70d}{kZeroExtend}},}
+\DoxyCodeLine{2169     \textcolor{comment}{// increase bid-\/width for signed integer values}}
+\DoxyCodeLine{2170     kSignExtend,}
+\DoxyCodeLine{2171     \textcolor{comment}{// truncate word64 to word32}}
+\DoxyCodeLine{2172     kTruncate,}
+\DoxyCodeLine{2173     \textcolor{comment}{// preserve bits, change meaning}}
+\DoxyCodeLine{2174     kBitcast}
+\DoxyCodeLine{2175   \};}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a06d83c5b8d707d45b6964393b4323eea}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a06d83c5b8d707d45b6964393b4323eea}} 
 \index{v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}!ChangeOp@{ChangeOp}}
@@ -187,6 +250,15 @@ k\+Bitcast&\\
 \doxysubsubsection{\texorpdfstring{ChangeOp()}{ChangeOp()}}
 {\footnotesize\ttfamily v8\+::internal\+::compiler\+::turboshaft\+::\+Change\+Op\+::\+Change\+Op (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ad444130aef3962f80b3bf9b9b82e09ea}{Untagged}} $>$}]{input,  }\item[{\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3}{Kind}}}]{kind,  }\item[{\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1164c4351eb2febe0afa2038c603a669}{Assumption}}}]{assumption,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation}{Register\+Representation}}}]{from,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation}{Register\+Representation}}}]{to }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 2277 of file operations.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2279       : \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FixedArityOperationT_aca480a625d752dc22928f11d34478ddd}{Base}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac4326ac8c72a26992ea70ecb690e1c00}{input}}), \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a25a751cd28714edda4b9881327778d14}{kind}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a25a751cd28714edda4b9881327778d14}{kind}}), \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ae792ba1867c78b3561a83335f80d9dea}{assumption}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ae792ba1867c78b3561a83335f80d9dea}{assumption}}), \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ad2a655cfcab136a89301bae0c279c521}{from}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ad2a655cfcab136a89301bae0c279c521}{from}}), \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1bb3ac9ce162b10502a38a4d0c2f3268}{to}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1bb3ac9ce162b10502a38a4d0c2f3268}{to}}) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -197,42 +269,246 @@ k\+Bitcast&\\
 {\footnotesize\ttfamily template$<$typename Type  = Untagged$>$ \\
 \mbox{\hyperlink{namespacev8_1_1internal_a36a7038a14420f718296215cbf007ed9}{requires}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ad2ed9473c775a23e5f21eae7023616da}{Is\+Untagged}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Type}{Type}}$>$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Type}{Type}}$>$ v8\+::internal\+::compiler\+::turboshaft\+::\+Change\+Op\+::input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 2272 of file operations.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2272                         \{}
+\DoxyCodeLine{2273     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(IsValidTypeFor<Type>(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ad2a655cfcab136a89301bae0c279c521}{from}}));}
+\DoxyCodeLine{2274     \textcolor{keywordflow}{return} Base::input<Type>(0);}
+\DoxyCodeLine{2275   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::turboshaft\+::\+Instruction\+Selection\+Normalization\+Reducer$<$ Next $>$\+::\+Is\+Complex\+Constant(), v8\+::internal\+::compiler\+::turboshaft\+::\+Is\+Int32\+Truncated\+Load\+Pattern(), v8\+::internal\+::compiler\+::turboshaft\+::\+Late\+Load\+Elimination\+Analyzer\+::\+Process\+Change(), and v8\+::internal\+::compiler\+::turboshaft\+::\+SLPTree\+::\+Try\+Get\+Extend\+Int\+To\+F32x4\+Info().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac4326ac8c72a26992ea70ecb690e1c00_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac4326ac8c72a26992ea70ecb690e1c00_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ae3fc5080cb29d23cb679fe2dd610145d}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ae3fc5080cb29d23cb679fe2dd610145d}} 
 \index{v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}!inputs\_rep@{inputs\_rep}}
 \index{inputs\_rep@{inputs\_rep}!v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}}
 \doxysubsubsection{\texorpdfstring{inputs\_rep()}{inputs\_rep()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Vector}{base\+::\+Vector}}$<$const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1MaybeRegisterRepresentation}{Maybe\+Register\+Representation}}$>$ v8\+::internal\+::compiler\+::turboshaft\+::\+Change\+Op\+::inputs\+\_\+rep (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector}{Zone\+Vector}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1MaybeRegisterRepresentation}{Maybe\+Register\+Representation}} $>$ \&}]{storage }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 2265 of file operations.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2266                                                               \{}
+\DoxyCodeLine{2267     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1InputsRepFactory_a46434b6a074760f5fb6e8c924e6e19f3}{InputsRepFactory::SingleRep}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ad2a655cfcab136a89301bae0c279c521}{from}});}
+\DoxyCodeLine{2268   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::turboshaft\+::\+Inputs\+Rep\+Factory\+::\+Single\+Rep().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ae3fc5080cb29d23cb679fe2dd610145d_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a4e4f7d84a4d659647231d7e0ee7875ea}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a4e4f7d84a4d659647231d7e0ee7875ea}} 
 \index{v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}!IsReversible@{IsReversible}}
 \index{IsReversible@{IsReversible}!v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}}
 \doxysubsubsection{\texorpdfstring{IsReversible()}{IsReversible()}}
 {\footnotesize\ttfamily static \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::turboshaft\+::\+Change\+Op\+::\+Is\+Reversible (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3}{Kind}}}]{kind,  }\item[{\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1164c4351eb2febe0afa2038c603a669}{Assumption}}}]{assumption,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation}{Register\+Representation}}}]{from,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation}{Register\+Representation}}}]{to,  }\item[{\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3}{Kind}}}]{reverse\+\_\+kind,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}}}]{signalling\+\_\+nan\+\_\+possible }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
+
+
+Definition at line 2197 of file operations.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2200                                                          \{}
+\DoxyCodeLine{2201     \textcolor{keywordflow}{switch} (\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a25a751cd28714edda4b9881327778d14}{kind}}) \{}
+\DoxyCodeLine{2202       \textcolor{keywordflow}{case} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3acf9767dae3dc86f6c2443fe7d3f7e861}{Kind::kFloatConversion}}:}
+\DoxyCodeLine{2203         \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ad2a655cfcab136a89301bae0c279c521}{from}} == \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_a7ae7f282bc7ad4593320bb849a73b4e4}{RegisterRepresentation::Float32}}() \&\&}
+\DoxyCodeLine{2204                \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1bb3ac9ce162b10502a38a4d0c2f3268}{to}} == \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_a5d222e67f5f7187fd20bb3c2cc7bc110}{RegisterRepresentation::Float64}}() \&\&}
+\DoxyCodeLine{2205                reverse\_kind == \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3acf9767dae3dc86f6c2443fe7d3f7e861}{Kind::kFloatConversion}} \&\&}
+\DoxyCodeLine{2206                !signalling\_nan\_possible;}
+\DoxyCodeLine{2207       \textcolor{keywordflow}{case} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a81f1568727f95658a1c136ecb614c5b0}{Kind::kSignedFloatTruncateOverflowToMin}}:}
+\DoxyCodeLine{2208         \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ae792ba1867c78b3561a83335f80d9dea}{assumption}} == \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1164c4351eb2febe0afa2038c603a669ab1d4383a196d179cc20b223d9ec148f2}{Assumption::kReversible}} \&\&}
+\DoxyCodeLine{2209                reverse\_kind == \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a787faa5d57a84929a466f1784c7ae8bc}{Kind::kSignedToFloat}};}
+\DoxyCodeLine{2210       \textcolor{keywordflow}{case} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3ae1e762181e2808f33675a645078eb743}{Kind::kUnsignedFloatTruncateOverflowToMin}}:}
+\DoxyCodeLine{2211         \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ae792ba1867c78b3561a83335f80d9dea}{assumption}} == \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1164c4351eb2febe0afa2038c603a669ab1d4383a196d179cc20b223d9ec148f2}{Assumption::kReversible}} \&\&}
+\DoxyCodeLine{2212                reverse\_kind == \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a5c16fb50e7a5e01001cfefd813ea5b95}{Kind::kUnsignedToFloat}};}
+\DoxyCodeLine{2213       \textcolor{keywordflow}{case} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a1cb4fb5b00f4c525e37290b411e87c4c}{Kind::kJSFloatTruncate}}:}
+\DoxyCodeLine{2214         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{2215       \textcolor{keywordflow}{case} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3ac4669d968c272c5e32fcb4d41205f058}{Kind::kJSFloat16TruncateWithBitcast}}:}
+\DoxyCodeLine{2216       \textcolor{keywordflow}{case} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a8bbbb5559819ff1339356a0d0bc7c908}{Kind::kJSFloat16ChangeWithBitcast}}:}
+\DoxyCodeLine{2217         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{2218       \textcolor{keywordflow}{case} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a787faa5d57a84929a466f1784c7ae8bc}{Kind::kSignedToFloat}}:}
+\DoxyCodeLine{2219         \textcolor{keywordflow}{if} (\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ad2a655cfcab136a89301bae0c279c521}{from}} == \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_a598694a7b6b5c3ceffe89a31a8fdde8b}{RegisterRepresentation::Word32}}() \&\&}
+\DoxyCodeLine{2220             \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1bb3ac9ce162b10502a38a4d0c2f3268}{to}} == \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_a5d222e67f5f7187fd20bb3c2cc7bc110}{RegisterRepresentation::Float64}}()) \{}
+\DoxyCodeLine{2221           \textcolor{keywordflow}{return} reverse\_kind == \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a2cbce91371c0abc5265685f2bf0f7c27}{any\_of}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a81f1568727f95658a1c136ecb614c5b0}{Kind::kSignedFloatTruncateOverflowToMin}},}
+\DoxyCodeLine{2222                                         \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a1cb4fb5b00f4c525e37290b411e87c4c}{Kind::kJSFloatTruncate}});}
+\DoxyCodeLine{2223         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{2224           \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ae792ba1867c78b3561a83335f80d9dea}{assumption}} == \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1164c4351eb2febe0afa2038c603a669ab1d4383a196d179cc20b223d9ec148f2}{Assumption::kReversible}} \&\&}
+\DoxyCodeLine{2225                  reverse\_kind ==}
+\DoxyCodeLine{2226                      \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a2cbce91371c0abc5265685f2bf0f7c27}{any\_of}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a81f1568727f95658a1c136ecb614c5b0}{Kind::kSignedFloatTruncateOverflowToMin}});}
+\DoxyCodeLine{2227         \}}
+\DoxyCodeLine{2228       \textcolor{keywordflow}{case} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a5c16fb50e7a5e01001cfefd813ea5b95}{Kind::kUnsignedToFloat}}:}
+\DoxyCodeLine{2229         \textcolor{keywordflow}{if} (\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ad2a655cfcab136a89301bae0c279c521}{from}} == \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_a598694a7b6b5c3ceffe89a31a8fdde8b}{RegisterRepresentation::Word32}}() \&\&}
+\DoxyCodeLine{2230             \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1bb3ac9ce162b10502a38a4d0c2f3268}{to}} == \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_a5d222e67f5f7187fd20bb3c2cc7bc110}{RegisterRepresentation::Float64}}()) \{}
+\DoxyCodeLine{2231           \textcolor{keywordflow}{return} reverse\_kind ==}
+\DoxyCodeLine{2232                  \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a2cbce91371c0abc5265685f2bf0f7c27}{any\_of}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3ae1e762181e2808f33675a645078eb743}{Kind::kUnsignedFloatTruncateOverflowToMin}},}
+\DoxyCodeLine{2233                         \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a1cb4fb5b00f4c525e37290b411e87c4c}{Kind::kJSFloatTruncate}});}
+\DoxyCodeLine{2234         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{2235           \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ae792ba1867c78b3561a83335f80d9dea}{assumption}} == \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1164c4351eb2febe0afa2038c603a669ab1d4383a196d179cc20b223d9ec148f2}{Assumption::kReversible}} \&\&}
+\DoxyCodeLine{2236                  reverse\_kind == \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3ae1e762181e2808f33675a645078eb743}{Kind::kUnsignedFloatTruncateOverflowToMin}};}
+\DoxyCodeLine{2237         \}}
+\DoxyCodeLine{2238       \textcolor{keywordflow}{case} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3ae59e908c98b55c44ee59e1aaeb4379e2}{Kind::kExtractHighHalf}}:}
+\DoxyCodeLine{2239       \textcolor{keywordflow}{case} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a3ecebdc724601f3b9c16a62276367553}{Kind::kExtractLowHalf}}:}
+\DoxyCodeLine{2240         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{2241       \textcolor{keywordflow}{case} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3aaf181c208ec950608edf809d3d7ee70d}{Kind::kZeroExtend}}:}
+\DoxyCodeLine{2242       \textcolor{keywordflow}{case} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3aaf284d7ff5f39f47ab4fe890175e2666}{Kind::kSignExtend}}:}
+\DoxyCodeLine{2243         \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ad2a655cfcab136a89301bae0c279c521}{from}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_a598694a7b6b5c3ceffe89a31a8fdde8b}{RegisterRepresentation::Word32}}());}
+\DoxyCodeLine{2244         \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1bb3ac9ce162b10502a38a4d0c2f3268}{to}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_ab5e3c653af2621026db9a5ebf587d368}{RegisterRepresentation::Word64}}());}
+\DoxyCodeLine{2245         \textcolor{keywordflow}{return} reverse\_kind == \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a6393f5467404a20b7754c5032eb69bfd}{Kind::kTruncate}};}
+\DoxyCodeLine{2246       \textcolor{keywordflow}{case} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a6393f5467404a20b7754c5032eb69bfd}{Kind::kTruncate}}:}
+\DoxyCodeLine{2247         \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ad2a655cfcab136a89301bae0c279c521}{from}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_ab5e3c653af2621026db9a5ebf587d368}{RegisterRepresentation::Word64}}());}
+\DoxyCodeLine{2248         \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1bb3ac9ce162b10502a38a4d0c2f3268}{to}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_a598694a7b6b5c3ceffe89a31a8fdde8b}{RegisterRepresentation::Word32}}());}
+\DoxyCodeLine{2249         \textcolor{keywordflow}{return} reverse\_kind == \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3aa1ce62cf921ee2ff957f3ff135c3dd35}{Kind::kBitcast}};}
+\DoxyCodeLine{2250       \textcolor{keywordflow}{case} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3aa1ce62cf921ee2ff957f3ff135c3dd35}{Kind::kBitcast}}:}
+\DoxyCodeLine{2251         \textcolor{keywordflow}{return} reverse\_kind == \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3aa1ce62cf921ee2ff957f3ff135c3dd35}{Kind::kBitcast}};}
+\DoxyCodeLine{2252     \}}
+\DoxyCodeLine{2253   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::any\+\_\+of(), DCHECK\+\_\+\+EQ, v8\+::internal\+::compiler\+::turboshaft\+::\+Register\+Representation\+::\+Float32(), v8\+::internal\+::compiler\+::turboshaft\+::\+Register\+Representation\+::\+Float64(), v8\+::internal\+::compiler\+::turboshaft\+::\+Register\+Representation\+::\+Word32(), and v8\+::internal\+::compiler\+::turboshaft\+::\+Register\+Representation\+::\+Word64().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a4e4f7d84a4d659647231d7e0ee7875ea_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a5287703b2fd9a7f97cd7485839c942df}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a5287703b2fd9a7f97cd7485839c942df}} 
 \index{v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}!IsReversibleBy@{IsReversibleBy}}
 \index{IsReversibleBy@{IsReversibleBy}!v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}}
 \doxysubsubsection{\texorpdfstring{IsReversibleBy()}{IsReversibleBy()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::turboshaft\+::\+Change\+Op\+::\+Is\+Reversible\+By (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3}{Kind}}}]{reverse\+\_\+kind,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}}}]{signalling\+\_\+nan\+\_\+possible }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 2255 of file operations.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2255                                                                              \{}
+\DoxyCodeLine{2256     \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a4e4f7d84a4d659647231d7e0ee7875ea}{IsReversible}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a25a751cd28714edda4b9881327778d14}{kind}}, \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ae792ba1867c78b3561a83335f80d9dea}{assumption}}, \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ad2a655cfcab136a89301bae0c279c521}{from}}, \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1bb3ac9ce162b10502a38a4d0c2f3268}{to}}, reverse\_kind,}
+\DoxyCodeLine{2257                         signalling\_nan\_possible);}
+\DoxyCodeLine{2258   \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a7e64aa100495bf0480a890aaabf83628}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a7e64aa100495bf0480a890aaabf83628}} 
 \index{v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}!options@{options}}
 \index{options@{options}!v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}}
 \doxysubsubsection{\texorpdfstring{options()}{options()}}
 {\footnotesize\ttfamily auto v8\+::internal\+::compiler\+::turboshaft\+::\+Change\+Op\+::options (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 2288 of file operations.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2288 \{ \textcolor{keywordflow}{return} std::tuple\{\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a25a751cd28714edda4b9881327778d14}{kind}}, \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ae792ba1867c78b3561a83335f80d9dea}{assumption}}, \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ad2a655cfcab136a89301bae0c279c521}{from}}, \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1bb3ac9ce162b10502a38a4d0c2f3268}{to}}\}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a8e865927d77c9d567654b4c9f054c593}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a8e865927d77c9d567654b4c9f054c593}} 
 \index{v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}!outputs\_rep@{outputs\_rep}}
 \index{outputs\_rep@{outputs\_rep}!v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}}
 \doxysubsubsection{\texorpdfstring{outputs\_rep()}{outputs\_rep()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Vector}{base\+::\+Vector}}$<$const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation}{Register\+Representation}}$>$ v8\+::internal\+::compiler\+::turboshaft\+::\+Change\+Op\+::outputs\+\_\+rep (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 2261 of file operations.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2261                                                                \{}
+\DoxyCodeLine{2262     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_a5bfc65f27076e49eb7752a4fb4d45acb}{base::VectorOf}}(\&\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1bb3ac9ce162b10502a38a4d0c2f3268}{to}}, 1);}
+\DoxyCodeLine{2263   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Vector\+Of().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a8e865927d77c9d567654b4c9f054c593_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a3c54b5e8fa933499a7d0f8be488dfb28}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a3c54b5e8fa933499a7d0f8be488dfb28}} 
 \index{v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}!Validate@{Validate}}
 \index{Validate@{Validate}!v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}}
 \doxysubsubsection{\texorpdfstring{Validate()}{Validate()}}
 {\footnotesize\ttfamily void v8\+::internal\+::compiler\+::turboshaft\+::\+Change\+Op\+::\+Validate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Graph}{Graph}} \&}]{graph }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 2281 of file operations.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2281                                           \{}
+\DoxyCodeLine{2282     \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ad2a655cfcab136a89301bae0c279c521}{from}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_af4dcbabd802a274e26ec8f5a1af68b1b}{RegisterRepresentation::Tagged}}());}
+\DoxyCodeLine{2283     \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1bb3ac9ce162b10502a38a4d0c2f3268}{to}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_af4dcbabd802a274e26ec8f5a1af68b1b}{RegisterRepresentation::Tagged}}());}
+\DoxyCodeLine{2284     \textcolor{comment}{// Bitcasts from and to Tagged should use a TaggedBitcast instead (which has}}
+\DoxyCodeLine{2285     \textcolor{comment}{// different effects, since it's unsafe to reorder such bitcasts accross}}
+\DoxyCodeLine{2286     \textcolor{comment}{// GCs).}}
+\DoxyCodeLine{2287   \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+NE, and v8\+::internal\+::compiler\+::turboshaft\+::\+Register\+Representation\+::\+Tagged().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a3c54b5e8fa933499a7d0f8be488dfb28_cgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Data Documentation}
@@ -242,11 +518,23 @@ k\+Bitcast&\\
 \doxysubsubsection{\texorpdfstring{assumption}{assumption}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1164c4351eb2febe0afa2038c603a669}{Assumption}} v8\+::internal\+::compiler\+::turboshaft\+::\+Change\+Op\+::assumption}
 
+
+
+Definition at line 2189 of file operations.\+h.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Visit\+Node().
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1eb822f16667aa50ded158565d3ef8a4}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1eb822f16667aa50ded158565d3ef8a4}} 
 \index{v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}!effects@{effects}}
 \index{effects@{effects}!v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}}
 \doxysubsubsection{\texorpdfstring{effects}{effects}}
 {\footnotesize\ttfamily constexpr \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpEffects}{Op\+Effects}} v8\+::internal\+::compiler\+::turboshaft\+::\+Change\+Op\+::effects = \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpEffects}{Op\+Effects}}()\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line 2260 of file operations.\+h.
 
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ad2a655cfcab136a89301bae0c279c521}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ad2a655cfcab136a89301bae0c279c521}} 
 \index{v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}!from@{from}}
@@ -254,11 +542,27 @@ k\+Bitcast&\\
 \doxysubsubsection{\texorpdfstring{from}{from}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation}{Register\+Representation}} v8\+::internal\+::compiler\+::turboshaft\+::\+Change\+Op\+::from}
 
+
+
+Definition at line 2190 of file operations.\+h.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Visit\+Node().
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a25a751cd28714edda4b9881327778d14}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a25a751cd28714edda4b9881327778d14}} 
 \index{v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}!kind@{kind}}
 \index{kind@{kind}!v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}}
 \doxysubsubsection{\texorpdfstring{kind}{kind}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3}{Kind}} v8\+::internal\+::compiler\+::turboshaft\+::\+Change\+Op\+::kind}
+
+
+
+Definition at line 2186 of file operations.\+h.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::turboshaft\+::\+SLPTree\+::\+Try\+Get\+Extend\+Int\+To\+F32x4\+Info(), and v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Visit\+Node().
 
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1bb3ac9ce162b10502a38a4d0c2f3268}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1bb3ac9ce162b10502a38a4d0c2f3268}} 
 \index{v8::internal::compiler::turboshaft::ChangeOp@{v8::internal::compiler::turboshaft::ChangeOp}!to@{to}}
@@ -268,6 +572,14 @@ k\+Bitcast&\\
 
 
 
+Definition at line 2191 of file operations.\+h.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Visit\+Node().
+
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{operations_8h}{operations.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{operations_8h}{operations.\+h}}\end{DoxyCompactItemize}

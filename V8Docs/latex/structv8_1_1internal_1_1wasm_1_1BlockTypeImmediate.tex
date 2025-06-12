@@ -25,7 +25,7 @@ Collaboration diagram for v8\+::internal\+::wasm\+::Block\+Type\+Immediate\+:
 \item 
 \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate}{Block\+Type\+Immediate}} \& \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a477f2260ccfbe4671be6b6b4c35d7b68}{operator=}} (\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate}{Block\+Type\+Immediate}} \&\&)=delete
 \item 
-{\footnotesize template$<$typename Validation\+Tag $>$ }\\\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a08b62a44e3a235a2e59941e95fe4be6e}{Block\+Type\+Immediate}} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmEnabledFeatures}{Wasm\+Enabled\+Features}} enabled, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmDetectedFeatures}{Wasm\+Detected\+Features}} $\ast$detected, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1Decoder}{Decoder}} $\ast$decoder, const uint8\+\_\+t $\ast$\mbox{\hyperlink{experimental-interpreter_8cc_ac8c81e61335635fa4709d82412b31f06}{pc}}, Validation\+Tag=\{\})
+{\footnotesize template$<$typename Validation\+Tag $>$ }\\\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a08b62a44e3a235a2e59941e95fe4be6e}{Block\+Type\+Immediate}} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmEnabledFeatures}{Wasm\+Enabled\+Features}} enabled, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmDetectedFeatures}{Wasm\+Detected\+Features}} $\ast$detected, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1Decoder}{Decoder}} $\ast$decoder, const uint8\+\_\+t $\ast$pc, Validation\+Tag=\{\})
 \item 
 uint32\+\_\+t \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a83572e27f2bdec326bdb8887f89a02d6}{in\+\_\+arity}} () const
 \item 
@@ -46,6 +46,13 @@ uint32\+\_\+t \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediat
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1ValueType}{Value\+Type}} \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a9728b4addfd77f897a4ffc17bbfc8e85}{single\+\_\+return\+\_\+sig\+\_\+storage}} \mbox{[}1\mbox{]}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 765 of file function-\/body-\/decoder-\/impl.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -70,6 +77,38 @@ v8\+::internal\+::wasm\+::\+Block\+Type\+Immediate\+::\+Block\+Type\+Immediate (
 
 
 
+Definition at line 782 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{784                                                         \{\}) \{}
+\DoxyCodeLine{785     int64\_t block\_type;}
+\DoxyCodeLine{786     std::tie(block\_type, \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a8efcbc8a8132d74f160a61b6b98264d8}{length}}) =}
+\DoxyCodeLine{787         decoder-\/>read\_i33v<ValidationTag>(pc, \textcolor{stringliteral}{"{}block type"{}});}
+\DoxyCodeLine{788     \textcolor{keywordflow}{if} (block\_type < 0) \{}
+\DoxyCodeLine{789       \textcolor{comment}{// All valid negative types are 1 byte in length, so we check against the}}
+\DoxyCodeLine{790       \textcolor{comment}{// minimum 1-\/byte LEB128 value.}}
+\DoxyCodeLine{791       constexpr int64\_t min\_1\_byte\_leb128 = -\/64;}
+\DoxyCodeLine{792       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{function-body-decoder-impl_8h_a58180ad1df577b04696516c2feca595c}{VALIDATE}}(block\_type >= min\_1\_byte\_leb128)) \{}
+\DoxyCodeLine{793         DecodeError<ValidationTag>(decoder, pc, \textcolor{stringliteral}{"{}invalid block type \%"{}} PRId64,}
+\DoxyCodeLine{794                                    block\_type);}
+\DoxyCodeLine{795         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{796       \}}
+\DoxyCodeLine{797       \textcolor{keywordflow}{if} (\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_af0a29b526eb7f8cbb8ffbd9e2c8f1a81}{ValueTypeCode}}\textcolor{keyword}{>}(block\_type \& 0x7F) != \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_af0a29b526eb7f8cbb8ffbd9e2c8f1a81aabf1be23147a89c1ee4625923eb30849}{kVoidCode}}) \{}
+\DoxyCodeLine{798         \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a24aec3421422877b3918935ade5f9e79}{sig}} = \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a1a17c60bc1e8b8ad11208d7b0d3ec5a9}{FunctionSig}}\{1, 0, \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a9728b4addfd77f897a4ffc17bbfc8e85}{single\_return\_sig\_storage}}\};}
+\DoxyCodeLine{799         std::tie(\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a9728b4addfd77f897a4ffc17bbfc8e85}{single\_return\_sig\_storage}}[0], \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a8efcbc8a8132d74f160a61b6b98264d8}{length}}) =}
+\DoxyCodeLine{800             value\_type\_reader::read\_value\_type<ValidationTag>(}
+\DoxyCodeLine{801                 decoder, pc, enabled, detected);}
+\DoxyCodeLine{802       \}}
+\DoxyCodeLine{803     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{804       \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a24aec3421422877b3918935ade5f9e79}{sig}} = \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a1a17c60bc1e8b8ad11208d7b0d3ec5a9}{FunctionSig}}\{0, 0, \textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{805       \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a33ff1d3e88ab3894452eed3255174529}{sig\_index}} = ModuleTypeIndex\{\textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(block\_type)\};}
+\DoxyCodeLine{806     \}}
+\DoxyCodeLine{807   \}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a83572e27f2bdec326bdb8887f89a02d6}\label{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a83572e27f2bdec326bdb8887f89a02d6}} 
 \index{v8::internal::wasm::BlockTypeImmediate@{v8::internal::wasm::BlockTypeImmediate}!in\_arity@{in\_arity}}
@@ -77,12 +116,68 @@ v8\+::internal\+::wasm\+::\+Block\+Type\+Immediate\+::\+Block\+Type\+Immediate (
 \doxysubsubsection{\texorpdfstring{in\_arity()}{in\_arity()}}
 {\footnotesize\ttfamily uint32\+\_\+t v8\+::internal\+::wasm\+::\+Block\+Type\+Immediate\+::in\+\_\+arity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 809 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{809                             \{}
+\DoxyCodeLine{810     \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a24aec3421422877b3918935ade5f9e79}{sig}}.\mbox{\hyperlink{classv8_1_1internal_1_1Signature_aa5b367ebd335ce254de638fba4b4dc15}{parameter\_count}}());}
+\DoxyCodeLine{811   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Signature$<$ T $>$\+::parameter\+\_\+count(), and sig.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a83572e27f2bdec326bdb8887f89a02d6_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a11837b048849951fc7ce7a1637e665fb}\label{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a11837b048849951fc7ce7a1637e665fb}} 
 \index{v8::internal::wasm::BlockTypeImmediate@{v8::internal::wasm::BlockTypeImmediate}!in\_type@{in\_type}}
 \index{in\_type@{in\_type}!v8::internal::wasm::BlockTypeImmediate@{v8::internal::wasm::BlockTypeImmediate}}
 \doxysubsubsection{\texorpdfstring{in\_type()}{in\_type()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1ValueType}{Value\+Type}} v8\+::internal\+::wasm\+::\+Block\+Type\+Immediate\+::in\+\_\+type (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 815 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{815 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a24aec3421422877b3918935ade5f9e79}{sig}}.\mbox{\hyperlink{classv8_1_1internal_1_1Signature_abe633f42bde09ec454bef04dceac5af7}{GetParam}}(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}); \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Signature$<$ T $>$\+::\+Get\+Param(), v8\+::internal\+::index, and sig.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Full\+Decoder$<$ Validation\+Tag, Interface, decoding\+\_\+mode $>$\+::\+Push\+Control().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a11837b048849951fc7ce7a1637e665fb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a11837b048849951fc7ce7a1637e665fb_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a477f2260ccfbe4671be6b6b4c35d7b68}\label{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a477f2260ccfbe4671be6b6b4c35d7b68}} 
 \index{v8::internal::wasm::BlockTypeImmediate@{v8::internal::wasm::BlockTypeImmediate}!operator=@{operator=}}
 \index{operator=@{operator=}!v8::internal::wasm::BlockTypeImmediate@{v8::internal::wasm::BlockTypeImmediate}}
@@ -101,12 +196,68 @@ v8\+::internal\+::wasm\+::\+Block\+Type\+Immediate\+::\+Block\+Type\+Immediate (
 \doxysubsubsection{\texorpdfstring{out\_arity()}{out\_arity()}}
 {\footnotesize\ttfamily uint32\+\_\+t v8\+::internal\+::wasm\+::\+Block\+Type\+Immediate\+::out\+\_\+arity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 812 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{812                              \{}
+\DoxyCodeLine{813     \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a24aec3421422877b3918935ade5f9e79}{sig}}.\mbox{\hyperlink{classv8_1_1internal_1_1Signature_a0a102d5d64b769e3c24a8f13b8703483}{return\_count}}());}
+\DoxyCodeLine{814   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Signature$<$ T $>$\+::return\+\_\+count(), and sig.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Full\+Decoder$<$ Validation\+Tag, Interface, decoding\+\_\+mode $>$\+::\+Push\+Control().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a1d475b6d6f6001fdefbe602e1225c176_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a1d475b6d6f6001fdefbe602e1225c176_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a00349a700db53cff7a4e6157203c9248}\label{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a00349a700db53cff7a4e6157203c9248}} 
 \index{v8::internal::wasm::BlockTypeImmediate@{v8::internal::wasm::BlockTypeImmediate}!out\_type@{out\_type}}
 \index{out\_type@{out\_type}!v8::internal::wasm::BlockTypeImmediate@{v8::internal::wasm::BlockTypeImmediate}}
 \doxysubsubsection{\texorpdfstring{out\_type()}{out\_type()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1ValueType}{Value\+Type}} v8\+::internal\+::wasm\+::\+Block\+Type\+Immediate\+::out\+\_\+type (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 816 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{816 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a24aec3421422877b3918935ade5f9e79}{sig}}.\mbox{\hyperlink{classv8_1_1internal_1_1Signature_a7f9eb8441e21966a9d5d7e6be84c81c5}{GetReturn}}(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}); \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Signature$<$ T $>$\+::\+Get\+Return(), v8\+::internal\+::index, and sig.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a00349a700db53cff7a4e6157203c9248_cgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Data Documentation}
@@ -116,17 +267,41 @@ v8\+::internal\+::wasm\+::\+Block\+Type\+Immediate\+::\+Block\+Type\+Immediate (
 \doxysubsubsection{\texorpdfstring{length}{length}}
 {\footnotesize\ttfamily uint32\+\_\+t v8\+::internal\+::wasm\+::\+Block\+Type\+Immediate\+::length = 1}
 
+
+
+Definition at line 766 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Full\+Decoder$<$ Validation\+Tag, Interface, decoding\+\_\+mode $>$\+::\+DECODE(), v8\+::internal\+::wasm\+::\+Wasm\+Bytecode\+Generator\+::\+Decode\+Instruction(), and v8\+::internal\+::wasm\+::\+Wasm\+Decoder$<$ Validation\+Tag, decoding\+\_\+mode $>$\+::\+Opcode\+Length().
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a24aec3421422877b3918935ade5f9e79}\label{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a24aec3421422877b3918935ade5f9e79}} 
 \index{v8::internal::wasm::BlockTypeImmediate@{v8::internal::wasm::BlockTypeImmediate}!sig@{sig}}
 \index{sig@{sig}!v8::internal::wasm::BlockTypeImmediate@{v8::internal::wasm::BlockTypeImmediate}}
 \doxysubsubsection{\texorpdfstring{sig}{sig}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a1a17c60bc1e8b8ad11208d7b0d3ec5a9}{Function\+Sig}} v8\+::internal\+::wasm\+::\+Block\+Type\+Immediate\+::sig \{0, 0, \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a9728b4addfd77f897a4ffc17bbfc8e85}{single\+\_\+return\+\_\+sig\+\_\+storage}}\}}
 
+
+
+Definition at line 770 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Immediates\+Printer$<$ Validation\+Tag $>$\+::\+Block\+Type(), v8\+::internal\+::wasm\+::\+Wasm\+Bytecode\+Generator\+::\+Decode\+Instruction(), in\+\_\+arity(), in\+\_\+type(), out\+\_\+arity(), out\+\_\+type(), v8\+::internal\+::wasm\+::\+Wasm\+Full\+Decoder$<$ Validation\+Tag, Interface, decoding\+\_\+mode $>$\+::\+Push\+Control(), and v8\+::internal\+::wasm\+::\+Wasm\+Decoder$<$ Validation\+Tag, decoding\+\_\+mode $>$\+::\+Validate().
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a33ff1d3e88ab3894452eed3255174529}\label{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a33ff1d3e88ab3894452eed3255174529}} 
 \index{v8::internal::wasm::BlockTypeImmediate@{v8::internal::wasm::BlockTypeImmediate}!sig\_index@{sig\_index}}
 \index{sig\_index@{sig\_index}!v8::internal::wasm::BlockTypeImmediate@{v8::internal::wasm::BlockTypeImmediate}}
 \doxysubsubsection{\texorpdfstring{sig\_index}{sig\_index}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1ModuleTypeIndex}{Module\+Type\+Index}} v8\+::internal\+::wasm\+::\+Block\+Type\+Immediate\+::sig\+\_\+index = \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1ModuleTypeIndex_a0f84ce35fd08770e768fa100ef0a2e3b}{Module\+Type\+Index\+::\+Invalid}}()}
+
+
+
+Definition at line 769 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Immediates\+Printer$<$ Validation\+Tag $>$\+::\+Block\+Type(), v8\+::internal\+::wasm\+::\+Wasm\+Bytecode\+Generator\+::\+Decode\+Instruction(), and v8\+::internal\+::wasm\+::\+Wasm\+Decoder$<$ Validation\+Tag, decoding\+\_\+mode $>$\+::\+Validate().
 
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a9728b4addfd77f897a4ffc17bbfc8e85}\label{structv8_1_1internal_1_1wasm_1_1BlockTypeImmediate_a9728b4addfd77f897a4ffc17bbfc8e85}} 
 \index{v8::internal::wasm::BlockTypeImmediate@{v8::internal::wasm::BlockTypeImmediate}!single\_return\_sig\_storage@{single\_return\_sig\_storage}}
@@ -136,6 +311,14 @@ v8\+::internal\+::wasm\+::\+Block\+Type\+Immediate\+::\+Block\+Type\+Immediate (
 
 
 
+Definition at line 772 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Decoder$<$ Validation\+Tag, decoding\+\_\+mode $>$\+::\+Validate().
+
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{function-body-decoder-impl_8h}{function-\/body-\/decoder-\/impl.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{function-body-decoder-impl_8h}{function-\/body-\/decoder-\/impl.\+h}}\end{DoxyCompactItemize}

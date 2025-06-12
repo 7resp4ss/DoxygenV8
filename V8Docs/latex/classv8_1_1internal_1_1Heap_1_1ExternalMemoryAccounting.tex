@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$heap.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Heap\+::External\+Memory\+Accounting\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -28,6 +38,31 @@ uint64\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAcco
 \item 
 static constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a1fc79ca46d9bd8e3ab1076d81935ca6e}{k\+External\+Allocation\+Limit\+For\+Interrupt}} = 128 $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_a93b2e7c72fa0878021b495b6f3cec820}{KB}}
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_ade5ca8f13984384f522ac9455196dcd9}{set\+\_\+total}} (uint64\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a21b077c102c9c6c186e6a5eb030c5cce}{set\+\_\+limit\+\_\+for\+\_\+interrupt}} (uint64\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a1396fcadb8bf64b7a63853b7336ecc6c}{set\+\_\+low\+\_\+since\+\_\+mark\+\_\+compact}} (uint64\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::atomic$<$ uint64\+\_\+t $>$ \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_abd911fda2410b8aa88d97affb844cbc0}{total\+\_\+}} \{0\}
+\item 
+std\+::atomic$<$ uint64\+\_\+t $>$ \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a1014f931c6ea2b755d0fe828698cfd72}{limit\+\_\+for\+\_\+interrupt\+\_\+}}
+\item 
+std\+::atomic$<$ uint64\+\_\+t $>$ \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_aff9d57bdc7acf51171deb88654e02966}{low\+\_\+since\+\_\+mark\+\_\+compact\+\_\+}} \{0\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 236 of file heap.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -37,17 +72,155 @@ static constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871c
 \doxysubsubsection{\texorpdfstring{AllocatedSinceMarkCompact()}{AllocatedSinceMarkCompact()}}
 {\footnotesize\ttfamily uint64\+\_\+t v8\+::internal\+::\+Heap\+::\+External\+Memory\+Accounting\+::\+Allocated\+Since\+Mark\+Compact (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 267 of file heap.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{267                                                \{}
+\DoxyCodeLine{268       uint64\_t total\_bytes = \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_ada0c3a6bcc681a6d3fcdd31a295169db}{total}}();}
+\DoxyCodeLine{269       uint64\_t low\_since\_mark\_compact\_bytes = \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a95b8013ff944537f1ff6b4472d216070}{low\_since\_mark\_compact}}();}
+\DoxyCodeLine{270 }
+\DoxyCodeLine{271       \textcolor{keywordflow}{if} (total\_bytes <= low\_since\_mark\_compact\_bytes) \{}
+\DoxyCodeLine{272         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{273       \}}
+\DoxyCodeLine{274       \textcolor{keywordflow}{return} total\_bytes -\/ low\_since\_mark\_compact\_bytes;}
+\DoxyCodeLine{275     \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+Heap\+::\+Allocated\+External\+Memory\+Since\+Mark\+Compact().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a96ff8ee3788a4dfbf58bb2f09e842827_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a912e540392c1d1ec10c1100ffe2c40e1}\label{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a912e540392c1d1ec10c1100ffe2c40e1}} 
 \index{v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}!limit\_for\_interrupt@{limit\_for\_interrupt}}
 \index{limit\_for\_interrupt@{limit\_for\_interrupt}!v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}}
 \doxysubsubsection{\texorpdfstring{limit\_for\_interrupt()}{limit\_for\_interrupt()}}
 {\footnotesize\ttfamily uint64\+\_\+t v8\+::internal\+::\+Heap\+::\+External\+Memory\+Accounting\+::limit\+\_\+for\+\_\+interrupt (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 241 of file heap.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{241                                          \{}
+\DoxyCodeLine{242       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a1014f931c6ea2b755d0fe828698cfd72}{limit\_for\_interrupt\_}}.load(std::memory\_order\_relaxed);}
+\DoxyCodeLine{243     \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+Heap\+::external\+\_\+memory\+\_\+limit\+\_\+for\+\_\+interrupt().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a912e540392c1d1ec10c1100ffe2c40e1_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a95b8013ff944537f1ff6b4472d216070}\label{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a95b8013ff944537f1ff6b4472d216070}} 
 \index{v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}!low\_since\_mark\_compact@{low\_since\_mark\_compact}}
 \index{low\_since\_mark\_compact@{low\_since\_mark\_compact}!v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}}
 \doxysubsubsection{\texorpdfstring{low\_since\_mark\_compact()}{low\_since\_mark\_compact()}}
 {\footnotesize\ttfamily uint64\+\_\+t v8\+::internal\+::\+Heap\+::\+External\+Memory\+Accounting\+::low\+\_\+since\+\_\+mark\+\_\+compact (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 247 of file heap.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{247                                             \{}
+\DoxyCodeLine{248       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_aff9d57bdc7acf51171deb88654e02966}{low\_since\_mark\_compact\_}}.load(std::memory\_order\_relaxed);}
+\DoxyCodeLine{249     \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+Heap\+::\+Global\+Consumed\+Bytes\+At\+Last\+GC(), and v8\+::internal\+::\+Heap\+::\+Update\+External\+Memory().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a95b8013ff944537f1ff6b4472d216070_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a21b077c102c9c6c186e6a5eb030c5cce}\label{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a21b077c102c9c6c186e6a5eb030c5cce}} 
+\index{v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}!set\_limit\_for\_interrupt@{set\_limit\_for\_interrupt}}
+\index{set\_limit\_for\_interrupt@{set\_limit\_for\_interrupt}!v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}}
+\doxysubsubsection{\texorpdfstring{set\_limit\_for\_interrupt()}{set\_limit\_for\_interrupt()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Heap\+::\+External\+Memory\+Accounting\+::set\+\_\+limit\+\_\+for\+\_\+interrupt (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 282 of file heap.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{282                                                  \{}
+\DoxyCodeLine{283       \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a1014f931c6ea2b755d0fe828698cfd72}{limit\_for\_interrupt\_}}.store(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, std::memory\_order\_relaxed);}
+\DoxyCodeLine{284     \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::value.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a1396fcadb8bf64b7a63853b7336ecc6c}\label{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a1396fcadb8bf64b7a63853b7336ecc6c}} 
+\index{v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}!set\_low\_since\_mark\_compact@{set\_low\_since\_mark\_compact}}
+\index{set\_low\_since\_mark\_compact@{set\_low\_since\_mark\_compact}!v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}}
+\doxysubsubsection{\texorpdfstring{set\_low\_since\_mark\_compact()}{set\_low\_since\_mark\_compact()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Heap\+::\+External\+Memory\+Accounting\+::set\+\_\+low\+\_\+since\+\_\+mark\+\_\+compact (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 286 of file heap.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{286                                                     \{}
+\DoxyCodeLine{287       \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_aff9d57bdc7acf51171deb88654e02966}{low\_since\_mark\_compact\_}}.store(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, std::memory\_order\_relaxed);}
+\DoxyCodeLine{288     \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::value.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_ade5ca8f13984384f522ac9455196dcd9}\label{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_ade5ca8f13984384f522ac9455196dcd9}} 
+\index{v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}!set\_total@{set\_total}}
+\index{set\_total@{set\_total}!v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}}
+\doxysubsubsection{\texorpdfstring{set\_total()}{set\_total()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Heap\+::\+External\+Memory\+Accounting\+::set\+\_\+total (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 278 of file heap.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{278                                    \{}
+\DoxyCodeLine{279       \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_abd911fda2410b8aa88d97affb844cbc0}{total\_}}.store(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, std::memory\_order\_relaxed);}
+\DoxyCodeLine{280     \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::value.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a99d001bc3e80608460281d64851c57a1}\label{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a99d001bc3e80608460281d64851c57a1}} 
 \index{v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}!soft\_limit@{soft\_limit}}
@@ -55,30 +228,155 @@ static constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871c
 \doxysubsubsection{\texorpdfstring{soft\_limit()}{soft\_limit()}}
 {\footnotesize\ttfamily uint64\+\_\+t v8\+::internal\+::\+Heap\+::\+External\+Memory\+Accounting\+::soft\+\_\+limit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 244 of file heap.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{244                                 \{}
+\DoxyCodeLine{245       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a95b8013ff944537f1ff6b4472d216070}{low\_since\_mark\_compact}}() + \mbox{\hyperlink{namespacev8_1_1internal_ae6bafef041db18172f27dfa4d647827f}{kExternalAllocationSoftLimit}};}
+\DoxyCodeLine{246     \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::k\+External\+Allocation\+Soft\+Limit.
+
+
+
+Referenced by v8\+::internal\+::\+Heap\+::external\+\_\+memory\+\_\+soft\+\_\+limit(), and v8\+::internal\+::\+Heap\+::\+Handle\+External\+Memory\+Interrupt().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a99d001bc3e80608460281d64851c57a1_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_ada0c3a6bcc681a6d3fcdd31a295169db}\label{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_ada0c3a6bcc681a6d3fcdd31a295169db}} 
 \index{v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}!total@{total}}
 \index{total@{total}!v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}}
 \doxysubsubsection{\texorpdfstring{total()}{total()}}
 {\footnotesize\ttfamily uint64\+\_\+t v8\+::internal\+::\+Heap\+::\+External\+Memory\+Accounting\+::total (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 240 of file heap.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{240 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_abd911fda2410b8aa88d97affb844cbc0}{total\_}}.load(std::memory\_order\_relaxed); \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+Heap\+::external\+\_\+memory(), v8\+::internal\+::\+Heap\+::\+Mark\+Compact(), and v8\+::internal\+::\+Heap\+::\+Recompute\+Limits\+After\+Loading\+If\+Needed().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_ada0c3a6bcc681a6d3fcdd31a295169db_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a2046ff16097c53e84b438f485d2ee97c}\label{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a2046ff16097c53e84b438f485d2ee97c}} 
 \index{v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}!UpdateAmount@{UpdateAmount}}
 \index{UpdateAmount@{UpdateAmount}!v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}}
 \doxysubsubsection{\texorpdfstring{UpdateAmount()}{UpdateAmount()}}
 {\footnotesize\ttfamily uint64\+\_\+t v8\+::internal\+::\+Heap\+::\+External\+Memory\+Accounting\+::\+Update\+Amount (\begin{DoxyParamCaption}\item[{int64\+\_\+t}]{delta }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 251 of file heap.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{251                                          \{}
+\DoxyCodeLine{252       \textcolor{keyword}{const} uint64\_t amount\_before =}
+\DoxyCodeLine{253           \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_abd911fda2410b8aa88d97affb844cbc0}{total\_}}.fetch\_add(delta, std::memory\_order\_relaxed);}
+\DoxyCodeLine{254       \mbox{\hyperlink{src_2base_2logging_8h_a1c7c9b7f14b9a33ea69cbe4578016a19}{CHECK\_GE}}(\textcolor{keyword}{static\_cast<}int64\_t\textcolor{keyword}{>}(amount\_before), -\/delta);}
+\DoxyCodeLine{255       \textcolor{keywordflow}{return} amount\_before + delta;}
+\DoxyCodeLine{256     \}}
+
+\end{DoxyCode}
+
+
+References CHECK\+\_\+\+GE.
+
+
+
+Referenced by v8\+::internal\+::\+Heap\+::\+Update\+External\+Memory().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a2046ff16097c53e84b438f485d2ee97c_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a9092f5fcd34e49f9aea5303444451675}\label{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a9092f5fcd34e49f9aea5303444451675}} 
 \index{v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}!UpdateLimitForInterrupt@{UpdateLimitForInterrupt}}
 \index{UpdateLimitForInterrupt@{UpdateLimitForInterrupt}!v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}}
 \doxysubsubsection{\texorpdfstring{UpdateLimitForInterrupt()}{UpdateLimitForInterrupt()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Heap\+::\+External\+Memory\+Accounting\+::\+Update\+Limit\+For\+Interrupt (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{amount }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 258 of file heap.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{258                                                   \{}
+\DoxyCodeLine{259       \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a21b077c102c9c6c186e6a5eb030c5cce}{set\_limit\_for\_interrupt}}(amount + \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a1fc79ca46d9bd8e3ab1076d81935ca6e}{kExternalAllocationLimitForInterrupt}});}
+\DoxyCodeLine{260     \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+Heap\+::\+Handle\+External\+Memory\+Interrupt().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a9092f5fcd34e49f9aea5303444451675_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a7d3d5e04091ae0fbb0cae9464f6a40c8}\label{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a7d3d5e04091ae0fbb0cae9464f6a40c8}} 
 \index{v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}!UpdateLowSinceMarkCompact@{UpdateLowSinceMarkCompact}}
 \index{UpdateLowSinceMarkCompact@{UpdateLowSinceMarkCompact}!v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}}
 \doxysubsubsection{\texorpdfstring{UpdateLowSinceMarkCompact()}{UpdateLowSinceMarkCompact()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Heap\+::\+External\+Memory\+Accounting\+::\+Update\+Low\+Since\+Mark\+Compact (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{amount }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 262 of file heap.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{262                                                     \{}
+\DoxyCodeLine{263       \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a1396fcadb8bf64b7a63853b7336ecc6c}{set\_low\_since\_mark\_compact}}(amount);}
+\DoxyCodeLine{264       \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a9092f5fcd34e49f9aea5303444451675}{UpdateLimitForInterrupt}}(amount);}
+\DoxyCodeLine{265     \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+Heap\+::\+Mark\+Compact(), v8\+::internal\+::\+Heap\+::\+Recompute\+Limits\+After\+Loading\+If\+Needed(), and v8\+::internal\+::\+Heap\+::\+Update\+External\+Memory().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a7d3d5e04091ae0fbb0cae9464f6a40c8_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Data Documentation}
@@ -90,6 +388,46 @@ static constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871c
 
 
 
+Definition at line 238 of file heap.\+h.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a1014f931c6ea2b755d0fe828698cfd72}\label{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a1014f931c6ea2b755d0fe828698cfd72}} 
+\index{v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}!limit\_for\_interrupt\_@{limit\_for\_interrupt\_}}
+\index{limit\_for\_interrupt\_@{limit\_for\_interrupt\_}!v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}}
+\doxysubsubsection{\texorpdfstring{limit\_for\_interrupt\_}{limit\_for\_interrupt\_}}
+{\footnotesize\ttfamily std\+::atomic$<$uint64\+\_\+t$>$ v8\+::internal\+::\+Heap\+::\+External\+Memory\+Accounting\+::limit\+\_\+for\+\_\+interrupt\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{        \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_a1fc79ca46d9bd8e3ab1076d81935ca6e}{kExternalAllocationLimitForInterrupt}}\}}
+
+\end{DoxyCode}
+
+
+Definition at line 294 of file heap.\+h.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_aff9d57bdc7acf51171deb88654e02966}\label{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_aff9d57bdc7acf51171deb88654e02966}} 
+\index{v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}!low\_since\_mark\_compact\_@{low\_since\_mark\_compact\_}}
+\index{low\_since\_mark\_compact\_@{low\_since\_mark\_compact\_}!v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}}
+\doxysubsubsection{\texorpdfstring{low\_since\_mark\_compact\_}{low\_since\_mark\_compact\_}}
+{\footnotesize\ttfamily std\+::atomic$<$uint64\+\_\+t$>$ v8\+::internal\+::\+Heap\+::\+External\+Memory\+Accounting\+::low\+\_\+since\+\_\+mark\+\_\+compact\+\_\+ \{0\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 298 of file heap.\+h.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_abd911fda2410b8aa88d97affb844cbc0}\label{classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting_abd911fda2410b8aa88d97affb844cbc0}} 
+\index{v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}!total\_@{total\_}}
+\index{total\_@{total\_}!v8::internal::Heap::ExternalMemoryAccounting@{v8::internal::Heap::ExternalMemoryAccounting}}
+\doxysubsubsection{\texorpdfstring{total\_}{total\_}}
+{\footnotesize\ttfamily std\+::atomic$<$uint64\+\_\+t$>$ v8\+::internal\+::\+Heap\+::\+External\+Memory\+Accounting\+::total\+\_\+ \{0\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 291 of file heap.\+h.
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{src_2heap_2heap_8h}{src/heap/heap.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{src_2heap_2heap_8h}{heap.\+h}}\end{DoxyCompactItemize}

@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$perfetto-\/utils.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Perfetto\+V8\+String\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1PerfettoV8String__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -30,6 +40,22 @@ struct \mbox{\hyperlink{structv8_1_1internal_1_1PerfettoV8String_1_1Hasher}{Hash
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a1904a39d8f58d068c55591f70146081c}{operator!=}} (const \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String}{Perfetto\+V8\+String}} \&o) const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a8685d1997989daeddcc717b03b5aa12a}{is\+\_\+one\+\_\+byte\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a58de72a64794ff418485729de3d46a38}{size\+\_\+}}
+\item 
+std\+::unique\+\_\+ptr$<$ uint8\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a6ac96eef6a046aa7d0a9966f097df3b8}{buffer\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 23 of file perfetto-\/utils.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -39,6 +65,41 @@ struct \mbox{\hyperlink{structv8_1_1internal_1_1PerfettoV8String_1_1Hasher}{Hash
 \doxysubsubsection{\texorpdfstring{PerfettoV8String()}{PerfettoV8String()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Perfetto\+V8\+String\+::\+Perfetto\+V8\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$}]{string }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
+
+
+Definition at line 15 of file perfetto-\/utils.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16     : \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a8685d1997989daeddcc717b03b5aa12a}{is\_one\_byte\_}}(\mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{string}}-\/>IsOneByteRepresentation()), \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a58de72a64794ff418485729de3d46a38}{size\_}}(0) \{}
+\DoxyCodeLine{17   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{string}}-\/>length() <= 0) \{}
+\DoxyCodeLine{18     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{19   \}}
+\DoxyCodeLine{20   \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a58de72a64794ff418485729de3d46a38}{size\_}} = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\textcolor{keywordtype}{string}-\/>length()) *}
+\DoxyCodeLine{21           (\mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{string}}-\/>IsOneByteRepresentation() ? \textcolor{keyword}{sizeof}(uint8\_t)}
+\DoxyCodeLine{22                                              : \textcolor{keyword}{sizeof}(\mbox{\hyperlink{namespacev8_1_1base_a1961a4852ced3c23f4d43de6f91d18d6}{base::uc16}}));}
+\DoxyCodeLine{23   \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a6ac96eef6a046aa7d0a9966f097df3b8}{buffer\_}}.reset(\textcolor{keyword}{new} uint8\_t[\mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a58de72a64794ff418485729de3d46a38}{size\_}}]);}
+\DoxyCodeLine{24   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a8685d1997989daeddcc717b03b5aa12a}{is\_one\_byte\_}}) \{}
+\DoxyCodeLine{25     \mbox{\hyperlink{classv8_1_1internal_1_1String_a0a659043aaf2322e3ee5e8fcba625cde}{String::WriteToFlat}}(\textcolor{keywordtype}{string}, \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a6ac96eef6a046aa7d0a9966f097df3b8}{buffer\_}}.get(), 0, \mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{string}}-\/>length());}
+\DoxyCodeLine{26   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{27     \mbox{\hyperlink{classv8_1_1internal_1_1String_a0a659043aaf2322e3ee5e8fcba625cde}{String::WriteToFlat}}(\textcolor{keywordtype}{string}, \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacev8_1_1base_a1961a4852ced3c23f4d43de6f91d18d6}{base::uc16}}*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a6ac96eef6a046aa7d0a9966f097df3b8}{buffer\_}}.get()), 0,}
+\DoxyCodeLine{28                         \mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{string}}-\/>length());}
+\DoxyCodeLine{29   \}}
+\DoxyCodeLine{30 \}}
+
+\end{DoxyCode}
+
+
+References buffer\+\_\+, is\+\_\+one\+\_\+byte\+\_\+, size\+\_\+, v8\+::internal\+::string, and v8\+::internal\+::\+String\+::\+Write\+To\+Flat().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1PerfettoV8String_a15ca9f6778132978827e3dd59dfe94ff_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1PerfettoV8String_ac5c4dbe13d400ee65a2de7e3f953f352}\label{classv8_1_1internal_1_1PerfettoV8String_ac5c4dbe13d400ee65a2de7e3f953f352}} 
 \index{v8::internal::PerfettoV8String@{v8::internal::PerfettoV8String}!PerfettoV8String@{PerfettoV8String}}
 \index{PerfettoV8String@{PerfettoV8String}!v8::internal::PerfettoV8String@{v8::internal::PerfettoV8String}}
@@ -60,12 +121,46 @@ struct \mbox{\hyperlink{structv8_1_1internal_1_1PerfettoV8String_1_1Hasher}{Hash
 \doxysubsubsection{\texorpdfstring{is\_one\_byte()}{is\_one\_byte()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Perfetto\+V8\+String\+::is\+\_\+one\+\_\+byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 33 of file perfetto-\/utils.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{33 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a8685d1997989daeddcc717b03b5aa12a}{is\_one\_byte\_}}; \}}
+
+\end{DoxyCode}
+
+
+References is\+\_\+one\+\_\+byte\+\_\+.
+
+
+
+Referenced by Write\+To\+Proto().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1PerfettoV8String_a0be3d6ebf71f17975036b39aa211ad79_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1PerfettoV8String_a1904a39d8f58d068c55591f70146081c}\label{classv8_1_1internal_1_1PerfettoV8String_a1904a39d8f58d068c55591f70146081c}} 
 \index{v8::internal::PerfettoV8String@{v8::internal::PerfettoV8String}!operator"!=@{operator"!=}}
 \index{operator"!=@{operator"!=}!v8::internal::PerfettoV8String@{v8::internal::PerfettoV8String}}
 \doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Perfetto\+V8\+String\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String}{Perfetto\+V8\+String}} \&}]{o }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 52 of file perfetto-\/utils.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{52 \{ \textcolor{keywordflow}{return} !(*\textcolor{keyword}{this} == o); \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1PerfettoV8String_af790f8075f6c1ae8736bebe96496ba03}\label{classv8_1_1internal_1_1PerfettoV8String_af790f8075f6c1ae8736bebe96496ba03}} 
 \index{v8::internal::PerfettoV8String@{v8::internal::PerfettoV8String}!operator=@{operator=}}
 \index{operator=@{operator=}!v8::internal::PerfettoV8String@{v8::internal::PerfettoV8String}}
@@ -84,6 +179,22 @@ struct \mbox{\hyperlink{structv8_1_1internal_1_1PerfettoV8String_1_1Hasher}{Hash
 \doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Perfetto\+V8\+String\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String}{Perfetto\+V8\+String}} \&}]{o }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 47 of file perfetto-\/utils.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{47                                                    \{}
+\DoxyCodeLine{48     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a8685d1997989daeddcc717b03b5aa12a}{is\_one\_byte\_}} == o.is\_one\_byte\_ \&\& \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a58de72a64794ff418485729de3d46a38}{size\_}} == o.size\_ \&\&}
+\DoxyCodeLine{49            memcmp(\mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a6ac96eef6a046aa7d0a9966f097df3b8}{buffer\_}}.get(), o.buffer\_.get(), \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a58de72a64794ff418485729de3d46a38}{size\_}}) == 0;}
+\DoxyCodeLine{50   \}}
+
+\end{DoxyCode}
+
+
+References buffer\+\_\+, is\+\_\+one\+\_\+byte\+\_\+, and size\+\_\+.
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1PerfettoV8String_a03e83dc3e9af4cc5533031ef9eb76093}\label{classv8_1_1internal_1_1PerfettoV8String_a03e83dc3e9af4cc5533031ef9eb76093}} 
 \index{v8::internal::PerfettoV8String@{v8::internal::PerfettoV8String}!WriteToProto@{WriteToProto}}
 \index{WriteToProto@{WriteToProto}!v8::internal::PerfettoV8String@{v8::internal::PerfettoV8String}}
@@ -93,7 +204,95 @@ void v8\+::internal\+::\+Perfetto\+V8\+String\+::\+Write\+To\+Proto (\begin{Doxy
 
 
 
+Definition at line 35 of file perfetto-\/utils.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{35                                         \{}
+\DoxyCodeLine{36     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a0be3d6ebf71f17975036b39aa211ad79}{is\_one\_byte}}()) \{}
+\DoxyCodeLine{37       proto.set\_latin1(\mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a6ac96eef6a046aa7d0a9966f097df3b8}{buffer\_}}.get(), \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a58de72a64794ff418485729de3d46a38}{size\_}});}
+\DoxyCodeLine{38     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#if defined(V8\_TARGET\_BIG\_ENDIAN)}}
+\DoxyCodeLine{40       proto.set\_utf16\_be(\mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a6ac96eef6a046aa7d0a9966f097df3b8}{buffer\_}}.get(), \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a58de72a64794ff418485729de3d46a38}{size\_}});}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{42       proto.set\_utf16\_le(\mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a6ac96eef6a046aa7d0a9966f097df3b8}{buffer\_}}.get(), \mbox{\hyperlink{classv8_1_1internal_1_1PerfettoV8String_a58de72a64794ff418485729de3d46a38}{size\_}});}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{44     \}}
+\DoxyCodeLine{45   \}}
+
+\end{DoxyCode}
+
+
+References buffer\+\_\+, is\+\_\+one\+\_\+byte(), and size\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Code\+Data\+Source\+Incremental\+State\+::\+Intern\+Js\+Script(), and v8\+::internal\+::\+Perfetto\+Logger\+::\+Reg\+Exp\+Code\+Create\+Event().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1PerfettoV8String_a03e83dc3e9af4cc5533031ef9eb76093_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1PerfettoV8String_a03e83dc3e9af4cc5533031ef9eb76093_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1PerfettoV8String_a6ac96eef6a046aa7d0a9966f097df3b8}\label{classv8_1_1internal_1_1PerfettoV8String_a6ac96eef6a046aa7d0a9966f097df3b8}} 
+\index{v8::internal::PerfettoV8String@{v8::internal::PerfettoV8String}!buffer\_@{buffer\_}}
+\index{buffer\_@{buffer\_}!v8::internal::PerfettoV8String@{v8::internal::PerfettoV8String}}
+\doxysubsubsection{\texorpdfstring{buffer\_}{buffer\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$uint8\+\_\+t\mbox{[}$\,$\mbox{]}$>$ v8\+::internal\+::\+Perfetto\+V8\+String\+::buffer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 66 of file perfetto-\/utils.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Perfetto\+V8\+String\+::\+Hasher\+::operator()(), operator==(), Perfetto\+V8\+String(), and Write\+To\+Proto().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1PerfettoV8String_a8685d1997989daeddcc717b03b5aa12a}\label{classv8_1_1internal_1_1PerfettoV8String_a8685d1997989daeddcc717b03b5aa12a}} 
+\index{v8::internal::PerfettoV8String@{v8::internal::PerfettoV8String}!is\_one\_byte\_@{is\_one\_byte\_}}
+\index{is\_one\_byte\_@{is\_one\_byte\_}!v8::internal::PerfettoV8String@{v8::internal::PerfettoV8String}}
+\doxysubsubsection{\texorpdfstring{is\_one\_byte\_}{is\_one\_byte\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Perfetto\+V8\+String\+::is\+\_\+one\+\_\+byte\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 64 of file perfetto-\/utils.\+h.
+
+
+
+Referenced by is\+\_\+one\+\_\+byte(), v8\+::internal\+::\+Perfetto\+V8\+String\+::\+Hasher\+::operator()(), operator==(), and Perfetto\+V8\+String().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1PerfettoV8String_a58de72a64794ff418485729de3d46a38}\label{classv8_1_1internal_1_1PerfettoV8String_a58de72a64794ff418485729de3d46a38}} 
+\index{v8::internal::PerfettoV8String@{v8::internal::PerfettoV8String}!size\_@{size\_}}
+\index{size\_@{size\_}!v8::internal::PerfettoV8String@{v8::internal::PerfettoV8String}}
+\doxysubsubsection{\texorpdfstring{size\_}{size\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Perfetto\+V8\+String\+::size\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 65 of file perfetto-\/utils.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Perfetto\+V8\+String\+::\+Hasher\+::operator()(), operator==(), Perfetto\+V8\+String(), and Write\+To\+Proto().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{perfetto-utils_8h}{perfetto-\/utils.\+h}}\item 
-\mbox{\hyperlink{perfetto-utils_8cc}{perfetto-\/utils.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/tracing/\mbox{\hyperlink{perfetto-utils_8h}{perfetto-\/utils.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/tracing/\mbox{\hyperlink{perfetto-utils_8cc}{perfetto-\/utils.\+cc}}\end{DoxyCompactItemize}

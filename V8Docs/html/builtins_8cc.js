@@ -1,5 +1,8 @@
 var builtins_8cc =
 [
+    [ "BuiltinMetadata", "structv8_1_1internal_1_1anonymous__namespace_02builtins_8cc_03_1_1BuiltinMetadata.html", "structv8_1_1internal_1_1anonymous__namespace_02builtins_8cc_03_1_1BuiltinMetadata" ],
+    [ "BytecodeAndScale", "structv8_1_1internal_1_1anonymous__namespace_02builtins_8cc_03_1_1BuiltinMetadata_1_1BytecodeAndScale.html", "structv8_1_1internal_1_1anonymous__namespace_02builtins_8cc_03_1_1BuiltinMetadata_1_1BytecodeAndScale" ],
+    [ "KindSpecificData", "unionv8_1_1internal_1_1anonymous__namespace_02builtins_8cc_03_1_1BuiltinMetadata_1_1KindSpecificData.html", "unionv8_1_1internal_1_1anonymous__namespace_02builtins_8cc_03_1_1BuiltinMetadata_1_1KindSpecificData" ],
     [ "CASE_OTHER", "builtins_8cc.html#a063977c1263ce558a961b64d2a1195ae", null ],
     [ "DECL_ASM", "builtins_8cc.html#a3f45aeb32f5b7ab87cf978f5bbc8fb8a", null ],
     [ "DECL_BCH", "builtins_8cc.html#ad86a53c84a1ff51ccfb8c96afdbee8de", null ],
@@ -13,12 +16,5 @@ var builtins_8cc =
     [ "FORWARD_DECLARE", "builtins_8cc.html#aeed576336af5fc9c00ce909e57bdb9cd", null ],
     [ "FUNCTION_POINTER_ID_CASE", "builtins_8cc.html#a7f2cc563360299a875a29f8d40e6fb22", null ],
     [ "ExampleBuiltinForTorqueFunctionPointerType", "builtins_8cc.html#ad904382c7f2bdfd901c1d5fa38108488", null ],
-    [ "bytecode", "builtins_8cc.html#a59f2d17923fb62a98f88c328a8afe526", null ],
-    [ "bytecode_and_scale", "builtins_8cc.html#a0479b979295564c3037e9959b0f25c5f", null ],
-    [ "cpp_entry", "builtins_8cc.html#af44096ab28172ed7080b370716aee47d", null ],
-    [ "data", "builtins_8cc.html#ad2a98ce8e8b889a9843d6839653a11a1", null ],
-    [ "kind", "builtins_8cc.html#adc156a864d6037c4df1b276073ae7277", null ],
-    [ "name", "builtins_8cc.html#a8f8f80d37794cde9472343e4487ba3eb", null ],
-    [ "parameter_count", "builtins_8cc.html#a34a6b28885d79bbc20d4110313cb28be", null ],
-    [ "scale", "builtins_8cc.html#ab2fa087aa122aad9dd986bff83486a1b", null ]
+    [ "builtin_metadata", "builtins_8cc.html#adc71f59810c768b953d2810fa278206c", null ]
 ];

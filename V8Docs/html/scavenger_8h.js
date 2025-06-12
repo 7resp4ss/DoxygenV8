@@ -5,6 +5,9 @@ var scavenger_8h =
     [ "RootScavengeVisitor", "classv8_1_1internal_1_1RootScavengeVisitor.html", "classv8_1_1internal_1_1RootScavengeVisitor" ],
     [ "ScavengerCollector", "classv8_1_1internal_1_1ScavengerCollector.html", "classv8_1_1internal_1_1ScavengerCollector" ],
     [ "PinnedObjectEntry", "structv8_1_1internal_1_1ScavengerCollector_1_1PinnedObjectEntry.html", "structv8_1_1internal_1_1ScavengerCollector_1_1PinnedObjectEntry" ],
+    [ "JobTask", "classv8_1_1internal_1_1ScavengerCollector_1_1JobTask.html", "classv8_1_1internal_1_1ScavengerCollector_1_1JobTask" ],
+    [ "QuarantinedPageSweeper", "classv8_1_1internal_1_1ScavengerCollector_1_1QuarantinedPageSweeper.html", "classv8_1_1internal_1_1ScavengerCollector_1_1QuarantinedPageSweeper" ],
+    [ "JobTask", "classv8_1_1internal_1_1ScavengerCollector_1_1QuarantinedPageSweeper_1_1JobTask.html", "classv8_1_1internal_1_1ScavengerCollector_1_1QuarantinedPageSweeper_1_1JobTask" ],
     [ "SurvivingNewLargeObjectMapEntry", "scavenger_8h.html#a8f43ae3300cc59d418658509dfb9d0cf", null ],
     [ "SurvivingNewLargeObjectsMap", "scavenger_8h.html#a7569eb2d9de22d92017f797f20d959d4", null ],
     [ "CopyAndForwardResult", "scavenger_8h.html#ad0be9dd7fc0ca100a8341fb131891bfb", [

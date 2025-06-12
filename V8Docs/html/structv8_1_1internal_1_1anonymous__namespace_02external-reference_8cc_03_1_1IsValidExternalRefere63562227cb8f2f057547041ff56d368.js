@@ -1,0 +1,4 @@
+var structv8_1_1internal_1_1anonymous__namespace_02external_reference_8cc_03_1_1IsValidExternalRefere63562227cb8f2f057547041ff56d368 =
+[
+    [ "value", "structv8_1_1internal_1_1anonymous__namespace_02external-reference_8cc_03_1_1IsValidExternalRefere63562227cb8f2f057547041ff56d368.html#abcc64d04bc1cdf9f73c8bd0b854a7a7e", null ]
+];

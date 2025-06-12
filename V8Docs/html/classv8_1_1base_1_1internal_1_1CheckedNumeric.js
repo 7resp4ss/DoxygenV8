@@ -1,13 +1,19 @@
 var classv8_1_1base_1_1internal_1_1CheckedNumeric =
 [
+    [ "Wrapper", "structv8_1_1base_1_1internal_1_1CheckedNumeric_1_1Wrapper.html", "structv8_1_1base_1_1internal_1_1CheckedNumeric_1_1Wrapper" ],
+    [ "Wrapper< CheckedNumeric< Src > >", "structv8_1_1base_1_1internal_1_1CheckedNumeric_1_1Wrapper_3_01CheckedNumeric_3_01Src_01_4_01_4.html", "structv8_1_1base_1_1internal_1_1CheckedNumeric_1_1Wrapper_3_01CheckedNumeric_3_01Src_01_4_01_4" ],
+    [ "Wrapper< StrictNumeric< Src > >", "structv8_1_1base_1_1internal_1_1CheckedNumeric_1_1Wrapper_3_01StrictNumeric_3_01Src_01_4_01_4.html", "structv8_1_1base_1_1internal_1_1CheckedNumeric_1_1Wrapper_3_01StrictNumeric_3_01Src_01_4_01_4" ],
     [ "type", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#a9edc69c3c8eb56e1858ecfc8dd22cf7e", null ],
     [ "CheckedNumeric", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#aedb0c76a60ee85846417a0ac1431b4c5", null ],
     [ "CheckedNumeric", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#a194b1968f8ca0783168f57a27f673426", null ],
     [ "CheckedNumeric", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#a97ad5a4788d4f6b80a5b044e10e21832", null ],
+    [ "CheckedNumeric", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#a4eb91f0e554b9eb725a69b62e2a11c2e", null ],
     [ "Abs", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#ae677aa6f36ca966bb05c4785febcae79", null ],
     [ "AssignIfValid", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#a5d9b310d7282794f279659c4b3d165a6", null ],
     [ "Cast", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#a97e86eb74122577a6d1773ccbddeb7f7", null ],
+    [ "FastRuntimeNegate", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#a16e6be59c5d5c90c70d769f79afef738", null ],
     [ "IsValid", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#a522911707d20b3c6f154d74dbdebd2c2", null ],
+    [ "MathOp", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#ac230158f1b61f5d0714175d248101407", null ],
     [ "MathOp", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#aa52b49ece0cefa663741baed5b6a5ce2", null ],
     [ "Max", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#a506c3a11c04cd9d9ba20484ccdaeb849", null ],
     [ "Min", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#a08a87191f23192f406ccada17f75c36a", null ],
@@ -31,5 +37,7 @@ var classv8_1_1base_1_1internal_1_1CheckedNumeric =
     [ "UnsignedAbs", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#a11aac75ea411d04b09925edc152d47ad", null ],
     [ "ValueOrDefault", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#a92c7bf9666237423fb4e9c180572a571", null ],
     [ "ValueOrDie", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#aa03a26bbd83da0d1642c5bfda4ef8e1f", null ],
-    [ "GetNumericValueForTest", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#ab4f079a6499231ca7edfd7ebb1267ea8", null ]
+    [ "GetNumericValueForTest", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#ab4f079a6499231ca7edfd7ebb1267ea8", null ],
+    [ "CheckedNumeric", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#a26e217a21739d79944cf079fe3485fba", null ],
+    [ "state_", "classv8_1_1base_1_1internal_1_1CheckedNumeric.html#ac8509b05a46f119f1add0f54059134ca", null ]
 ];

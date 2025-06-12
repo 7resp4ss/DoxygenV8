@@ -1,0 +1,4 @@
+var namespacev8_1_1internal_1_1anonymous__namespace_02startup_serializer_8cc_03 =
+[
+    [ "SanitizeIsolateScope", "classv8_1_1internal_1_1anonymous__namespace_02startup-serializer_8cc_03_1_1SanitizeIsolateScope.html", "classv8_1_1internal_1_1anonymous__namespace_02startup-serializer_8cc_03_1_1SanitizeIsolateScope" ]
+];

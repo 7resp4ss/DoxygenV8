@@ -32,6 +32,7 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ObjectIsOp =
     [ "inputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ObjectIsOp.html#ae71fa9c9b7f676bfc85c78c7f2b2bfa7", null ],
     [ "options", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ObjectIsOp.html#a2f5f4375d0c67df271e66ae36ce33374", null ],
     [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ObjectIsOp.html#a38231936e602e6f61db3d6ac15ca1f07", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ObjectIsOp.html#a14ebee42e0cc5b5fcd2fb8249fe8585d", null ],
     [ "input_assumptions", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ObjectIsOp.html#ae6d4e4a108d41ef8d7251b249bba70f5", null ],
     [ "kind", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ObjectIsOp.html#acc02b44ef4bc959b00f2ece5a74dbd81", null ]
 ];

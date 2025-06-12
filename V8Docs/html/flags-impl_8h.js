@@ -1,6 +1,6 @@
 var flags_impl_8h =
 [
-    [ "FlagHelpers", "classv8_1_1internal_1_1FlagHelpers.html", null ],
+    [ "FlagHelpers", "classv8_1_1internal_1_1FlagHelpers.html", "classv8_1_1internal_1_1FlagHelpers" ],
     [ "FlagName", "structv8_1_1internal_1_1FlagName.html", "structv8_1_1internal_1_1FlagName" ],
     [ "Flag", "structv8_1_1internal_1_1Flag.html", "structv8_1_1internal_1_1Flag" ],
     [ "FindFlagByName", "flags-impl_8h.html#a0f79c7f32f7f5b8ac9a61c8df175a013", null ],

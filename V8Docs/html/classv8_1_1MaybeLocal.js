@@ -1,12 +1,14 @@
 var classv8_1_1MaybeLocal =
 [
-    [ "MaybeLocal", "classv8_1_1MaybeLocal.html#adc3e447dde9c5d685f4e33de1f1b8e88", null ],
-    [ "MaybeLocal", "classv8_1_1MaybeLocal.html#ae83e276b42eeb77166d0e81cd621926d", null ],
-    [ "MaybeLocal", "classv8_1_1MaybeLocal.html#ab46852615576d3a118b856ce30f525e4", null ],
-    [ "As", "classv8_1_1MaybeLocal.html#a5d0e9d94be557bef635e09f662304f78", null ],
-    [ "FromMaybe", "classv8_1_1MaybeLocal.html#ad99cb1e7ac1a4eac34c144faa4262407", null ],
-    [ "IsEmpty", "classv8_1_1MaybeLocal.html#aa321cd3ec18e64d893bc14b21e4624f4", null ],
-    [ "ToLocal", "classv8_1_1MaybeLocal.html#aa12fc83adccbf02f502a2aaeed9c32ab", null ],
-    [ "ToLocalChecked", "classv8_1_1MaybeLocal.html#a77e8ed1b8461a27c7865ee2da53756a9", null ],
-    [ "MaybeLocal", "classv8_1_1MaybeLocal.html#a8c1dab86fc095fca89075da411a82209", null ]
+    [ "MaybeLocal", "classv8_1_1MaybeLocal.html#ac463a4fe1b4433aa521fd595f82cebf7", null ],
+    [ "MaybeLocal", "classv8_1_1MaybeLocal.html#afa0e4687d6e659e767f25e09d53f8f09", null ],
+    [ "MaybeLocal", "classv8_1_1MaybeLocal.html#ab3cac6417e550e9bce59b2ce02fa52d8", null ],
+    [ "As", "classv8_1_1MaybeLocal.html#a26240db062fc1dabd6d3cbe28256d38d", null ],
+    [ "Cast", "classv8_1_1MaybeLocal.html#aec77e91ba9cd4c7a2611ae131c4f38a3", null ],
+    [ "FromMaybe", "classv8_1_1MaybeLocal.html#ab0a3cc3dada965f5f6f602fb9b0893d2", null ],
+    [ "IsEmpty", "classv8_1_1MaybeLocal.html#ac976c78900f2f8f5b92c7e5ded195277", null ],
+    [ "ToLocal", "classv8_1_1MaybeLocal.html#adcbf09f789c51def0e48e859d5b8da57", null ],
+    [ "ToLocalChecked", "classv8_1_1MaybeLocal.html#a2877fe9d5892dd5d182353ea9bbfff07", null ],
+    [ "MaybeLocal", "classv8_1_1MaybeLocal.html#a8c1dab86fc095fca89075da411a82209", null ],
+    [ "local_", "classv8_1_1MaybeLocal.html#ac648afbfa1777e3cf41efb059c712613", null ]
 ];

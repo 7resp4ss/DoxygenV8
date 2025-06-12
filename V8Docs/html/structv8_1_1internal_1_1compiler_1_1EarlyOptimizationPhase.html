@@ -88,13 +88,24 @@ $(document).ready(function(){initNavTree('structv8_1_1internal_1_1compiler_1_1Ea
 <div class="title">v8::internal::compiler::EarlyOptimizationPhase Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for v8::internal::compiler::EarlyOptimizationPhase:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structv8_1_1internal_1_1compiler_1_1EarlyOptimizationPhase__coll__graph.svg" width="198" height="103"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a851bb04c46db670a2b62be62eaaf63ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structv8_1_1internal_1_1compiler_1_1EarlyOptimizationPhase.html#a851bb04c46db670a2b62be62eaaf63ef">Run</a> (<a class="el" href="classv8_1_1internal_1_1compiler_1_1TFPipelineData.html">TFPipelineData</a> *<a class="el" href="builtins_8cc.html#ad2a98ce8e8b889a9843d6839653a11a1">data</a>, <a class="el" href="classv8_1_1internal_1_1Zone.html">Zone</a> *temp_zone)</td></tr>
+<tr class="memitem:a851bb04c46db670a2b62be62eaaf63ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structv8_1_1internal_1_1compiler_1_1EarlyOptimizationPhase.html#a851bb04c46db670a2b62be62eaaf63ef">Run</a> (<a class="el" href="classv8_1_1internal_1_1compiler_1_1TFPipelineData.html">TFPipelineData</a> *data, <a class="el" href="classv8_1_1internal_1_1Zone.html">Zone</a> *temp_zone)</td></tr>
 <tr class="separator:a851bb04c46db670a2b62be62eaaf63ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="pipeline_8cc_source.html#l01249">1249</a> of file <a class="el" href="pipeline_8cc_source.html">pipeline.cc</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a851bb04c46db670a2b62be62eaaf63ef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a851bb04c46db670a2b62be62eaaf63ef">&#9670;&nbsp;</a></span>Run()</h2>
 
@@ -129,10 +140,51 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="pipeline_8cc_source.html#l01252">1252</a> of file <a class="el" href="pipeline_8cc_source.html">pipeline.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l01252"></a><span class="lineno"> 1252</span>&#160;                                                  {</div>
+<div class="line"><a name="l01253"></a><span class="lineno"> 1253</span>&#160;    GraphReducer graph_reducer(</div>
+<div class="line"><a name="l01254"></a><span class="lineno"> 1254</span>&#160;        temp_zone, data-&gt;graph(), &amp;data-&gt;info()-&gt;tick_counter(), data-&gt;broker(),</div>
+<div class="line"><a name="l01255"></a><span class="lineno"> 1255</span>&#160;        data-&gt;jsgraph()-&gt;Dead(), data-&gt;observe_node_manager());</div>
+<div class="line"><a name="l01256"></a><span class="lineno"> 1256</span>&#160;    DeadCodeElimination dead_code_elimination(&amp;graph_reducer, data-&gt;graph(),</div>
+<div class="line"><a name="l01257"></a><span class="lineno"> 1257</span>&#160;                                              data-&gt;common(), temp_zone);</div>
+<div class="line"><a name="l01258"></a><span class="lineno"> 1258</span>&#160;    SimplifiedOperatorReducer simple_reducer(&amp;graph_reducer, data-&gt;jsgraph(),</div>
+<div class="line"><a name="l01259"></a><span class="lineno"> 1259</span>&#160;                                             data-&gt;broker(),</div>
+<div class="line"><a name="l01260"></a><span class="lineno"> 1260</span>&#160;                                             <a class="code" href="namespacev8_1_1internal_1_1compiler.html#ac1e15b9d73fa3e3885616519e20c2bfba3a016828bd447a6d33f9e45c238f3b69">BranchSemantics::kMachine</a>);</div>
+<div class="line"><a name="l01261"></a><span class="lineno"> 1261</span>&#160;    RedundancyElimination redundancy_elimination(&amp;graph_reducer,</div>
+<div class="line"><a name="l01262"></a><span class="lineno"> 1262</span>&#160;                                                 data-&gt;jsgraph(), temp_zone);</div>
+<div class="line"><a name="l01263"></a><span class="lineno"> 1263</span>&#160;    ValueNumberingReducer value_numbering(temp_zone, data-&gt;graph()-&gt;zone());</div>
+<div class="line"><a name="l01264"></a><span class="lineno"> 1264</span>&#160;    MachineOperatorReducer machine_reducer(</div>
+<div class="line"><a name="l01265"></a><span class="lineno"> 1265</span>&#160;        &amp;graph_reducer, data-&gt;jsgraph(),</div>
+<div class="line"><a name="l01266"></a><span class="lineno"> 1266</span>&#160;        <a class="code" href="classv8_1_1internal_1_1compiler_1_1MachineOperatorReducer.html#adf89c8ea97169e24b59f40d84d5943f8afce1f23856323d2dca3994b27b18cd7b">MachineOperatorReducer::kPropagateSignallingNan</a>);</div>
+<div class="line"><a name="l01267"></a><span class="lineno"> 1267</span>&#160;    CommonOperatorReducer common_reducer(</div>
+<div class="line"><a name="l01268"></a><span class="lineno"> 1268</span>&#160;        &amp;graph_reducer, data-&gt;graph(), data-&gt;broker(), data-&gt;common(),</div>
+<div class="line"><a name="l01269"></a><span class="lineno"> 1269</span>&#160;        data-&gt;machine(), temp_zone, <a class="code" href="namespacev8_1_1internal_1_1compiler.html#ac1e15b9d73fa3e3885616519e20c2bfba3a016828bd447a6d33f9e45c238f3b69">BranchSemantics::kMachine</a>);</div>
+<div class="line"><a name="l01270"></a><span class="lineno"> 1270</span>&#160;    <a class="code" href="namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03.html#aea97682e6bc248b1b8e60a26eb8614ea">AddReducer</a>(data, &amp;graph_reducer, &amp;dead_code_elimination);</div>
+<div class="line"><a name="l01271"></a><span class="lineno"> 1271</span>&#160;    <a class="code" href="namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03.html#aea97682e6bc248b1b8e60a26eb8614ea">AddReducer</a>(data, &amp;graph_reducer, &amp;simple_reducer);</div>
+<div class="line"><a name="l01272"></a><span class="lineno"> 1272</span>&#160;    <a class="code" href="namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03.html#aea97682e6bc248b1b8e60a26eb8614ea">AddReducer</a>(data, &amp;graph_reducer, &amp;redundancy_elimination);</div>
+<div class="line"><a name="l01273"></a><span class="lineno"> 1273</span>&#160;    <a class="code" href="namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03.html#aea97682e6bc248b1b8e60a26eb8614ea">AddReducer</a>(data, &amp;graph_reducer, &amp;machine_reducer);</div>
+<div class="line"><a name="l01274"></a><span class="lineno"> 1274</span>&#160;    <a class="code" href="namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03.html#aea97682e6bc248b1b8e60a26eb8614ea">AddReducer</a>(data, &amp;graph_reducer, &amp;common_reducer);</div>
+<div class="line"><a name="l01275"></a><span class="lineno"> 1275</span>&#160;    <a class="code" href="namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03.html#aea97682e6bc248b1b8e60a26eb8614ea">AddReducer</a>(data, &amp;graph_reducer, &amp;value_numbering);</div>
+<div class="line"><a name="l01276"></a><span class="lineno"> 1276</span>&#160;    graph_reducer.ReduceGraph();</div>
+<div class="line"><a name="l01277"></a><span class="lineno"> 1277</span>&#160;  }</div>
+<div class="ttc" id="aclassv8_1_1internal_1_1compiler_1_1MachineOperatorReducer_html_adf89c8ea97169e24b59f40d84d5943f8afce1f23856323d2dca3994b27b18cd7b"><div class="ttname"><a href="classv8_1_1internal_1_1compiler_1_1MachineOperatorReducer.html#adf89c8ea97169e24b59f40d84d5943f8afce1f23856323d2dca3994b27b18cd7b">v8::internal::compiler::MachineOperatorReducer::kPropagateSignallingNan</a></div><div class="ttdeci">@ kPropagateSignallingNan</div><div class="ttdef"><b>Definition:</b> <a href="machine-operator-reducer_8h_source.html#l00033">machine-operator-reducer.h:32</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_html_aea97682e6bc248b1b8e60a26eb8614ea"><div class="ttname"><a href="namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03.html#aea97682e6bc248b1b8e60a26eb8614ea">v8::internal::compiler::anonymous_namespace{pipeline.cc}::AddReducer</a></div><div class="ttdeci">void AddReducer(TFPipelineData *data, GraphReducer *graph_reducer, Reducer *reducer)</div><div class="ttdef"><b>Definition:</b> <a href="pipeline_8cc_source.html#l00388">pipeline.cc:388</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_1_1compiler_html_ac1e15b9d73fa3e3885616519e20c2bfba3a016828bd447a6d33f9e45c238f3b69"><div class="ttname"><a href="namespacev8_1_1internal_1_1compiler.html#ac1e15b9d73fa3e3885616519e20c2bfba3a016828bd447a6d33f9e45c238f3b69">v8::internal::compiler::BranchSemantics::kMachine</a></div><div class="ttdeci">@ kMachine</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="pipeline_8cc_source.html#l00388">v8::internal::compiler::anonymous_namespace{pipeline.cc}::AddReducer()</a>, <a class="el" href="graph-reducer_8h_source.html#l00161">v8::internal::compiler::GraphReducer::graph()</a>, <a class="el" href="namespacev8_1_1internal_1_1compiler.html#ac1e15b9d73fa3e3885616519e20c2bfba3a016828bd447a6d33f9e45c238f3b69">v8::internal::compiler::kMachine</a>, <a class="el" href="machine-operator-reducer_8h_source.html#l00032">v8::internal::compiler::MachineOperatorReducer::kPropagateSignallingNan</a>, and <a class="el" href="graph-reducer_8cc_source.html#l00097">v8::internal::compiler::GraphReducer::ReduceGraph()</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structv8_1_1internal_1_1compiler_1_1EarlyOptimizationPhase_a851bb04c46db670a2b62be62eaaf63ef_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="pipeline_8cc.html">pipeline.cc</a></li>
+<li>/mnt/V8SourceCode/src/compiler/<a class="el" href="pipeline_8cc_source.html">pipeline.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -140,7 +192,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacev8.html">v8</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal.html">internal</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal_1_1compiler.html">compiler</a></li><li class="navelem"><a class="el" href="structv8_1_1internal_1_1compiler_1_1EarlyOptimizationPhase.html">EarlyOptimizationPhase</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:46:06 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jun 12 2025 16:10:07 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V8 Project: v8-locker.h Source File</title>
+<title>V8 Project: /mnt/V8SourceCode/include/v8-locker.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -101,64 +101,152 @@ $(document).ready(function(){initNavTree('v8-locker_8h_source.html',''); initRes
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}  <span class="comment">// namespace internal</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>Isolate;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">/**</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * Multiple threads in V8 are allowed, but only one thread at a time is allowed</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * to use any given V8 isolate, see the comments in the Isolate class. The</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * definition of &#39;using a V8 isolate&#39; includes accessing handles or holding onto</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * object pointers obtained from V8 handles while in the particular V8 isolate.</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * It is up to the user of V8 to ensure, perhaps with locking, that this</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * constraint is not violated. In addition to any other synchronization</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * mechanism that may be used, the v8::Locker and v8::Unlocker classes must be</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * used to signal thread switches to V8.</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * v8::Locker is a scoped lock object. While it&#39;s active, i.e. between its</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * construction and destruction, the current thread is allowed to use the locked</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * isolate. V8 guarantees that an isolate can be locked by at most one thread at</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * any time. In other words, the scope of a v8::Locker is a critical section.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * Sample usage:</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> * \code</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * ...</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> * {</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment"> *   v8::Locker locker(isolate);</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"> *   v8::Isolate::Scope isolate_scope(isolate);</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"> *   ...</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> *   // Code using V8 and isolate goes here.</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> *   ...</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"> * } // Destructor called here</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * \endcode</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> * If you wish to stop using V8 in a thread A you can do this either by</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> * destroying the v8::Locker object as above or by constructing a v8::Unlocker</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> * object:</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> * \code</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"> * {</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> *   isolate-&gt;Exit();</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> *   v8::Unlocker unlocker(isolate);</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"> *   ...</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment"> *   // Code not using V8 goes here while V8 can run in another thread.</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment"> *   ...</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment"> * } // Destructor called here.</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment"> * isolate-&gt;Enter();</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment"> * \endcode</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment"> * The Unlocker object is intended for use in a long-running callback from V8,</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment"> * where you want to release the V8 lock for other threads to use.</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment"> * The v8::Locker is a recursive lock, i.e. you can lock more than once in a</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment"> * given thread. This can be useful if you have code that can be called either</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment"> * from code that holds the lock or from code that does not. The Unlocker is</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"> * not recursive so you can not have several Unlockers on the stack at once, and</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment"> * you cannot use an Unlocker in a thread that is not inside a Locker&#39;s scope.</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment"> * An unlocker will unlock several lockers if it has to and reinstate the</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment"> * correct depth of locking on its destruction, e.g.:</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment"> * \code</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment"> * // V8 not locked.</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment"> * {</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment"> *   v8::Locker locker(isolate);</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment"> *   Isolate::Scope isolate_scope(isolate);</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment"> *   // V8 locked.</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment"> *   {</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment"> *     v8::Locker another_locker(isolate);</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment"> *     // V8 still locked (2 levels).</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment"> *     {</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment"> *       isolate-&gt;Exit();</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment"> *       v8::Unlocker unlocker(isolate);</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment"> *       // V8 not locked.</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment"> *     }</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment"> *     isolate-&gt;Enter();</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment"> *     // V8 locked again (2 levels).</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment"> *   }</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment"> *   // V8 still locked (1 level).</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment"> * }</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment"> * // V8 Now no longer locked.</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment"> * \endcode</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="classv8_1_1Unlocker.html">   94</a></span>&#160;<span class="keyword">class </span><a class="code" href="v8config_8h.html#a18b08424f4be6fab745092c7c5dad9f5">V8_EXPORT</a> <a class="code" href="classv8_1_1Unlocker.html">Unlocker</a> {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classv8_1_1Unlocker.html#a2faeb117d7308b65ac85fdad390e4c1f">   99</a></span>&#160;  <a class="code" href="v8config_8h.html#a24a5c8b6c341efc8dc6de3e6d0d73a50">V8_INLINE</a> <span class="keyword">explicit</span> <a class="code" href="classv8_1_1Unlocker.html#a2faeb117d7308b65ac85fdad390e4c1f">Unlocker</a>(<a class="code" href="classv8_1_1Isolate.html">Isolate</a>* <a class="code" href="graph-builder_8cc.html#a9990dda08de44f6aee0aaf44c50da7d9">isolate</a>) { Initialize(<a class="code" href="graph-builder_8cc.html#a9990dda08de44f6aee0aaf44c50da7d9">isolate</a>); }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; <span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">  /**</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">   * Initialize Unlocker for a given Isolate.</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classv8_1_1Unlocker.html#aa6789fe804cc059d9554c7ae7958c440">   99</a></span>&#160;  <a class="code" href="v8config_8h.html#a24a5c8b6c341efc8dc6de3e6d0d73a50">V8_INLINE</a> <span class="keyword">explicit</span> <a class="code" href="classv8_1_1Unlocker.html#aa6789fe804cc059d9554c7ae7958c440">Unlocker</a>(<a class="code" href="classv8_1_1Isolate.html">Isolate</a>* isolate) { Initialize(isolate); }</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  ~<a class="code" href="classv8_1_1Unlocker.html">Unlocker</a>();</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keywordtype">void</span> Initialize(<a class="code" href="classv8_1_1Isolate.html">Isolate</a>* <a class="code" href="graph-builder_8cc.html#a9990dda08de44f6aee0aaf44c50da7d9">isolate</a>);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keywordtype">void</span> Initialize(<a class="code" href="classv8_1_1Isolate.html">Isolate</a>* isolate);</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <a class="code" href="classv8_1_1internal_1_1Isolate.html">internal::Isolate</a>* <a class="code" href="compilation-cache-table_8cc.html#a68072bca3fef7bd8b0d3cbac971cbf4b">isolate_</a>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classv8_1_1Unlocker.html#a209c97250a5a400c3efaf125735cdea3">  106</a></span>&#160;  <a class="code" href="classv8_1_1internal_1_1Isolate.html">internal::Isolate</a>* <a class="code" href="classv8_1_1Unlocker.html#a209c97250a5a400c3efaf125735cdea3">isolate_</a>;</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;};</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
 <div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="classv8_1_1Locker.html">  109</a></span>&#160;<span class="keyword">class </span><a class="code" href="v8config_8h.html#a18b08424f4be6fab745092c7c5dad9f5">V8_EXPORT</a> <a class="code" href="classv8_1_1Locker.html">Locker</a> {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classv8_1_1Locker.html#a9f41151c92493a27d6724676fc774b51">  114</a></span>&#160;  <a class="code" href="v8config_8h.html#a24a5c8b6c341efc8dc6de3e6d0d73a50">V8_INLINE</a> <span class="keyword">explicit</span> <a class="code" href="classv8_1_1Locker.html#a9f41151c92493a27d6724676fc774b51">Locker</a>(<a class="code" href="classv8_1_1Isolate.html">Isolate</a>* <a class="code" href="graph-builder_8cc.html#a9990dda08de44f6aee0aaf44c50da7d9">isolate</a>) { Initialize(<a class="code" href="graph-builder_8cc.html#a9990dda08de44f6aee0aaf44c50da7d9">isolate</a>); }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; <span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">  /**</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">   * Initialize Locker for a given Isolate.</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classv8_1_1Locker.html#a40299c4c4c5b3c6808249c70b81c0ad1">  114</a></span>&#160;  <a class="code" href="v8config_8h.html#a24a5c8b6c341efc8dc6de3e6d0d73a50">V8_INLINE</a> <span class="keyword">explicit</span> <a class="code" href="classv8_1_1Locker.html#a40299c4c4c5b3c6808249c70b81c0ad1">Locker</a>(<a class="code" href="classv8_1_1Isolate.html">Isolate</a>* isolate) { Initialize(isolate); }</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  ~<a class="code" href="classv8_1_1Locker.html">Locker</a>();</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> IsLocked(<a class="code" href="classv8_1_1Isolate.html">Isolate</a>* <a class="code" href="graph-builder_8cc.html#a9990dda08de44f6aee0aaf44c50da7d9">isolate</a>);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">  /**</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">   * Returns whether or not the locker for a given isolate, is locked by the</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">   * current thread.</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> IsLocked(<a class="code" href="classv8_1_1Isolate.html">Isolate</a>* isolate);</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <span class="comment">// Disallow copying and assigning.</span></div>
 <div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="classv8_1_1Locker.html#aa9afe5a3dc3d28bcfe3f418c3a5a8d1e">  125</a></span>&#160;  <a class="code" href="classv8_1_1Locker.html#aa9afe5a3dc3d28bcfe3f418c3a5a8d1e">Locker</a>(<span class="keyword">const</span> <a class="code" href="classv8_1_1Locker.html">Locker</a>&amp;) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="classv8_1_1Locker.html#ad7ef23dade8390e16891ed5cec0e8692">  126</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classv8_1_1Locker.html#ad7ef23dade8390e16891ed5cec0e8692">operator=</a>(<span class="keyword">const</span> <a class="code" href="classv8_1_1Locker.html">Locker</a>&amp;) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="keywordtype">void</span> Initialize(<a class="code" href="classv8_1_1Isolate.html">Isolate</a>* <a class="code" href="graph-builder_8cc.html#a9990dda08de44f6aee0aaf44c50da7d9">isolate</a>);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="keywordtype">void</span> Initialize(<a class="code" href="classv8_1_1Isolate.html">Isolate</a>* isolate);</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <span class="keywordtype">bool</span> has_lock_;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <span class="keywordtype">bool</span> top_level_;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  <a class="code" href="classv8_1_1internal_1_1Isolate.html">internal::Isolate</a>* <a class="code" href="compilation-cache-table_8cc.html#a68072bca3fef7bd8b0d3cbac971cbf4b">isolate_</a>;</div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="classv8_1_1Locker.html#a7825a82e9214102f59eb0d8d5c75981f">  131</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classv8_1_1Locker.html#a7825a82e9214102f59eb0d8d5c75981f">has_lock_</a>;</div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="classv8_1_1Locker.html#a0eb64e2524976c530ba265e1eba4854a">  132</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classv8_1_1Locker.html#a0eb64e2524976c530ba265e1eba4854a">top_level_</a>;</div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="classv8_1_1Locker.html#ab7dd4eb2a63dcfe6a67a5ec2512cf56d">  133</a></span>&#160;  <a class="code" href="classv8_1_1internal_1_1Isolate.html">internal::Isolate</a>* <a class="code" href="classv8_1_1Locker.html#ab7dd4eb2a63dcfe6a67a5ec2512cf56d">isolate_</a>;</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;};</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}  <span class="comment">// namespace v8</span></div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// INCLUDE_V8_LOCKER_H_</span></div>
-<div class="ttc" id="aclassv8_1_1Isolate_html"><div class="ttname"><a href="classv8_1_1Isolate.html">v8::Isolate</a></div><div class="ttdef"><b>Definition:</b> v8-isolate.h:285</div></div>
-<div class="ttc" id="aclassv8_1_1Locker_html"><div class="ttname"><a href="classv8_1_1Locker.html">v8::Locker</a></div><div class="ttdef"><b>Definition:</b> v8-locker.h:109</div></div>
-<div class="ttc" id="aclassv8_1_1Locker_html_a9f41151c92493a27d6724676fc774b51"><div class="ttname"><a href="classv8_1_1Locker.html#a9f41151c92493a27d6724676fc774b51">v8::Locker::Locker</a></div><div class="ttdeci">V8_INLINE Locker(Isolate *isolate)</div><div class="ttdef"><b>Definition:</b> v8-locker.h:114</div></div>
+<div class="ttc" id="aclassv8_1_1Isolate_html"><div class="ttname"><a href="classv8_1_1Isolate.html">v8::Isolate</a></div><div class="ttdoc">Isolate represents an isolated instance of the V8 engine.</div><div class="ttdef"><b>Definition:</b> <a href="v8-isolate_8h_source.html#l00285">v8-isolate.h:285</a></div></div>
+<div class="ttc" id="aclassv8_1_1Locker_html"><div class="ttname"><a href="classv8_1_1Locker.html">v8::Locker</a></div><div class="ttdef"><b>Definition:</b> <a href="v8-locker_8h_source.html#l00109">v8-locker.h:109</a></div></div>
+<div class="ttc" id="aclassv8_1_1Locker_html_a0eb64e2524976c530ba265e1eba4854a"><div class="ttname"><a href="classv8_1_1Locker.html#a0eb64e2524976c530ba265e1eba4854a">v8::Locker::top_level_</a></div><div class="ttdeci">bool top_level_</div><div class="ttdef"><b>Definition:</b> <a href="v8-locker_8h_source.html#l00132">v8-locker.h:132</a></div></div>
+<div class="ttc" id="aclassv8_1_1Locker_html_a40299c4c4c5b3c6808249c70b81c0ad1"><div class="ttname"><a href="classv8_1_1Locker.html#a40299c4c4c5b3c6808249c70b81c0ad1">v8::Locker::Locker</a></div><div class="ttdeci">Locker(Isolate *isolate)</div><div class="ttdoc">Initialize Locker for a given Isolate.</div><div class="ttdef"><b>Definition:</b> <a href="v8-locker_8h_source.html#l00114">v8-locker.h:114</a></div></div>
+<div class="ttc" id="aclassv8_1_1Locker_html_a7825a82e9214102f59eb0d8d5c75981f"><div class="ttname"><a href="classv8_1_1Locker.html#a7825a82e9214102f59eb0d8d5c75981f">v8::Locker::has_lock_</a></div><div class="ttdeci">bool has_lock_</div><div class="ttdef"><b>Definition:</b> <a href="v8-locker_8h_source.html#l00131">v8-locker.h:131</a></div></div>
 <div class="ttc" id="aclassv8_1_1Locker_html_aa9afe5a3dc3d28bcfe3f418c3a5a8d1e"><div class="ttname"><a href="classv8_1_1Locker.html#aa9afe5a3dc3d28bcfe3f418c3a5a8d1e">v8::Locker::Locker</a></div><div class="ttdeci">Locker(const Locker &amp;)=delete</div></div>
+<div class="ttc" id="aclassv8_1_1Locker_html_ab7dd4eb2a63dcfe6a67a5ec2512cf56d"><div class="ttname"><a href="classv8_1_1Locker.html#ab7dd4eb2a63dcfe6a67a5ec2512cf56d">v8::Locker::isolate_</a></div><div class="ttdeci">internal::Isolate * isolate_</div><div class="ttdef"><b>Definition:</b> <a href="v8-locker_8h_source.html#l00133">v8-locker.h:133</a></div></div>
 <div class="ttc" id="aclassv8_1_1Locker_html_ad7ef23dade8390e16891ed5cec0e8692"><div class="ttname"><a href="classv8_1_1Locker.html#ad7ef23dade8390e16891ed5cec0e8692">v8::Locker::operator=</a></div><div class="ttdeci">void operator=(const Locker &amp;)=delete</div></div>
-<div class="ttc" id="aclassv8_1_1Unlocker_html"><div class="ttname"><a href="classv8_1_1Unlocker.html">v8::Unlocker</a></div><div class="ttdef"><b>Definition:</b> v8-locker.h:94</div></div>
-<div class="ttc" id="aclassv8_1_1Unlocker_html_a2faeb117d7308b65ac85fdad390e4c1f"><div class="ttname"><a href="classv8_1_1Unlocker.html#a2faeb117d7308b65ac85fdad390e4c1f">v8::Unlocker::Unlocker</a></div><div class="ttdeci">V8_INLINE Unlocker(Isolate *isolate)</div><div class="ttdef"><b>Definition:</b> v8-locker.h:99</div></div>
-<div class="ttc" id="aclassv8_1_1internal_1_1Isolate_html"><div class="ttname"><a href="classv8_1_1internal_1_1Isolate.html">v8::internal::Isolate</a></div><div class="ttdef"><b>Definition:</b> execution/isolate.h:595</div></div>
-<div class="ttc" id="acompilation-cache-table_8cc_html_a68072bca3fef7bd8b0d3cbac971cbf4b"><div class="ttname"><a href="compilation-cache-table_8cc.html#a68072bca3fef7bd8b0d3cbac971cbf4b">isolate_</a></div><div class="ttdeci">Isolate * isolate_</div><div class="ttdef"><b>Definition:</b> compilation-cache-table.cc:171</div></div>
-<div class="ttc" id="agraph-builder_8cc_html_a9990dda08de44f6aee0aaf44c50da7d9"><div class="ttname"><a href="graph-builder_8cc.html#a9990dda08de44f6aee0aaf44c50da7d9">isolate</a></div><div class="ttdeci">Isolate * isolate</div><div class="ttdef"><b>Definition:</b> graph-builder.cc:67</div></div>
-<div class="ttc" id="anamespacev8_1_1internal_html_a5031451934208565c827c86d9eb86c5a"><div class="ttname"><a href="namespacev8_1_1internal.html#a5031451934208565c827c86d9eb86c5a">v8::internal::internal</a></div><div class="ttdeci">internal</div><div class="ttdef"><b>Definition:</b> wasm-objects-inl.h:453</div></div>
-<div class="ttc" id="anamespacev8_html"><div class="ttname"><a href="namespacev8.html">v8</a></div><div class="ttdef"><b>Definition:</b> api-arguments-inl.h:19</div></div>
+<div class="ttc" id="aclassv8_1_1Unlocker_html"><div class="ttname"><a href="classv8_1_1Unlocker.html">v8::Unlocker</a></div><div class="ttdoc">Multiple threads in V8 are allowed, but only one thread at a time is allowed to use any given V8 isol...</div><div class="ttdef"><b>Definition:</b> <a href="v8-locker_8h_source.html#l00094">v8-locker.h:94</a></div></div>
+<div class="ttc" id="aclassv8_1_1Unlocker_html_a209c97250a5a400c3efaf125735cdea3"><div class="ttname"><a href="classv8_1_1Unlocker.html#a209c97250a5a400c3efaf125735cdea3">v8::Unlocker::isolate_</a></div><div class="ttdeci">internal::Isolate * isolate_</div><div class="ttdef"><b>Definition:</b> <a href="v8-locker_8h_source.html#l00106">v8-locker.h:106</a></div></div>
+<div class="ttc" id="aclassv8_1_1Unlocker_html_aa6789fe804cc059d9554c7ae7958c440"><div class="ttname"><a href="classv8_1_1Unlocker.html#aa6789fe804cc059d9554c7ae7958c440">v8::Unlocker::Unlocker</a></div><div class="ttdeci">Unlocker(Isolate *isolate)</div><div class="ttdoc">Initialize Unlocker for a given Isolate.</div><div class="ttdef"><b>Definition:</b> <a href="v8-locker_8h_source.html#l00099">v8-locker.h:99</a></div></div>
+<div class="ttc" id="aclassv8_1_1internal_1_1Isolate_html"><div class="ttname"><a href="classv8_1_1internal_1_1Isolate.html">v8::internal::Isolate</a></div><div class="ttdef"><b>Definition:</b> <a href="execution_2isolate_8h_source.html#l00595">isolate.h:595</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_html_a5031451934208565c827c86d9eb86c5a"><div class="ttname"><a href="namespacev8_1_1internal.html#a5031451934208565c827c86d9eb86c5a">v8::internal::internal</a></div><div class="ttdeci">internal</div><div class="ttdef"><b>Definition:</b> <a href="wasm-objects-inl_8h_source.html#l00453">wasm-objects-inl.h:453</a></div></div>
+<div class="ttc" id="anamespacev8_html"><div class="ttname"><a href="namespacev8.html">v8</a></div><div class="ttdoc">This file provides additional API on top of the default one for making API calls, which come from emb...</div><div class="ttdef"><b>Definition:</b> <a href="api-arguments-inl_8h_source.html#l00019">api-arguments-inl.h:19</a></div></div>
 <div class="ttc" id="av8config_8h_html"><div class="ttname"><a href="v8config_8h.html">v8config.h</a></div></div>
-<div class="ttc" id="av8config_8h_html_a18b08424f4be6fab745092c7c5dad9f5"><div class="ttname"><a href="v8config_8h.html#a18b08424f4be6fab745092c7c5dad9f5">V8_EXPORT</a></div><div class="ttdeci">#define V8_EXPORT</div><div class="ttdef"><b>Definition:</b> v8config.h:800</div></div>
-<div class="ttc" id="av8config_8h_html_a24a5c8b6c341efc8dc6de3e6d0d73a50"><div class="ttname"><a href="v8config_8h.html#a24a5c8b6c341efc8dc6de3e6d0d73a50">V8_INLINE</a></div><div class="ttdeci">#define V8_INLINE</div><div class="ttdef"><b>Definition:</b> v8config.h:500</div></div>
+<div class="ttc" id="av8config_8h_html_a18b08424f4be6fab745092c7c5dad9f5"><div class="ttname"><a href="v8config_8h.html#a18b08424f4be6fab745092c7c5dad9f5">V8_EXPORT</a></div><div class="ttdeci">#define V8_EXPORT</div><div class="ttdef"><b>Definition:</b> <a href="v8config_8h_source.html#l00800">v8config.h:800</a></div></div>
+<div class="ttc" id="av8config_8h_html_a24a5c8b6c341efc8dc6de3e6d0d73a50"><div class="ttname"><a href="v8config_8h.html#a24a5c8b6c341efc8dc6de3e6d0d73a50">V8_INLINE</a></div><div class="ttdeci">#define V8_INLINE</div><div class="ttdef"><b>Definition:</b> <a href="v8config_8h_source.html#l00500">v8config.h:500</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_8af83c0dc83a45a35ca6968cdc29a7af.html">tmp</a></li><li class="navelem"><a class="el" href="dir_71ee8ddd0c9f64e069464bdef6fc22a8.html">V8SourceCode</a></li><li class="navelem"><a class="el" href="dir_4483e65e018ac50231950c4b23e76194.html">include</a></li><li class="navelem"><a class="el" href="v8-locker_8h.html">v8-locker.h</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:42:10 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="navelem"><a class="el" href="dir_19225156eb7ba052e31d1a736469917a.html">mnt</a></li><li class="navelem"><a class="el" href="dir_3536f6d353061322e9ef91134b76e9ed.html">V8SourceCode</a></li><li class="navelem"><a class="el" href="dir_b9872d1f3a2ee817aaa33ebd0513511d.html">include</a></li><li class="navelem"><a class="el" href="v8-locker_8h.html">v8-locker.h</a></li>
+    <li class="footer">Generated on Thu Jun 12 2025 15:50:29 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

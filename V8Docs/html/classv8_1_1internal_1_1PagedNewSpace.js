@@ -18,6 +18,7 @@ var classv8_1_1internal_1_1PagedNewSpace =
     [ "first_allocatable_address", "classv8_1_1internal_1_1PagedNewSpace.html#aedc142bd6c5932e9a544729f3fcd7545", null ],
     [ "first_page", "classv8_1_1internal_1_1PagedNewSpace.html#a4af01e47aae1146e44a93a791fbf8884", null ],
     [ "first_page", "classv8_1_1internal_1_1PagedNewSpace.html#ae2f4843e12f10f287e0896be23700665", null ],
+    [ "From", "classv8_1_1internal_1_1PagedNewSpace.html#a92f245da42fe0a7f7385138e4ad491cd", null ],
     [ "GarbageCollectionEpilogue", "classv8_1_1internal_1_1PagedNewSpace.html#a3044cd0a5a837ab4ea8e222d023c77eb", null ],
     [ "GetObjectIterator", "classv8_1_1internal_1_1PagedNewSpace.html#a857e6ec0fa9c721b5693931a9d2661fa", null ],
     [ "Grow", "classv8_1_1internal_1_1PagedNewSpace.html#a75038cc86675d95d3058e8c1355ea260", null ],
@@ -32,9 +33,11 @@ var classv8_1_1internal_1_1PagedNewSpace =
     [ "MinimumCapacity", "classv8_1_1internal_1_1PagedNewSpace.html#af9f97011d4550bd19fa6e98d9bc64af6", null ],
     [ "paged_space", "classv8_1_1internal_1_1PagedNewSpace.html#ad0dd111dc068ebfadba6491a35652691", null ],
     [ "paged_space", "classv8_1_1internal_1_1PagedNewSpace.html#a5cdf6838b9bb1376da4b3cc7aaf18c0f", null ],
+    [ "RemovePage", "classv8_1_1internal_1_1PagedNewSpace.html#a23c87a43c1dedcdeca6d4730e21a958d", null ],
     [ "ShouldReleaseEmptyPage", "classv8_1_1internal_1_1PagedNewSpace.html#a058a0a804c4fcd246ab1284e10f396ff", null ],
     [ "Size", "classv8_1_1internal_1_1PagedNewSpace.html#a6dc53d4443fcc767a3fcd1fbf16cd1f0", null ],
     [ "SizeOfObjects", "classv8_1_1internal_1_1PagedNewSpace.html#a8758a2b2502a1a7b3d5bd24813345fdb", null ],
     [ "StartShrinking", "classv8_1_1internal_1_1PagedNewSpace.html#a8ebb6d8471bc709092792fffd68cd466", null ],
-    [ "TotalCapacity", "classv8_1_1internal_1_1PagedNewSpace.html#abc12b8308cf107e9d20a38e92804a4fb", null ]
+    [ "TotalCapacity", "classv8_1_1internal_1_1PagedNewSpace.html#abc12b8308cf107e9d20a38e92804a4fb", null ],
+    [ "paged_space_", "classv8_1_1internal_1_1PagedNewSpace.html#af202df8e6490216bd2a7a958047c867f", null ]
 ];

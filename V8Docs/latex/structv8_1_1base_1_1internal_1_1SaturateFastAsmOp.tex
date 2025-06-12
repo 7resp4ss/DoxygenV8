@@ -4,10 +4,20 @@
 
 {\ttfamily \#include $<$safe\+\_\+conversions.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::base\+::internal\+::Saturate\+Fast\+Asm\+Op$<$ Dst, Src $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{structv8_1_1base_1_1internal_1_1SaturateFastAsmOp__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structv8_1_1base_1_1internal_1_1SaturateFastAsmOp_a502814dd747c8e817c986013f6715e89}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((always\+\_\+inline)) static Dst \mbox{\hyperlink{structv8_1_1base_1_1internal_1_1SaturateFastAsmOp_a9fd57990dfa322a4790c9981c9d2d8a0}{Do}}(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a8921e87be2d8dbb6dea1b0d5e6e36d7c}{Src}} \mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\mbox{\hyperlink{structv8_1_1base_1_1internal_1_1SaturateFastAsmOp_a502814dd747c8e817c986013f6715e89}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((always\+\_\+inline)) static Dst \mbox{\hyperlink{structv8_1_1base_1_1internal_1_1SaturateFastAsmOp_a9fd57990dfa322a4790c9981c9d2d8a0}{Do}}(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a8921e87be2d8dbb6dea1b0d5e6e36d7c}{Src}} value)
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -21,6 +31,16 @@ static constexpr bool \mbox{\hyperlink{structv8_1_1base_1_1internal_1_1SaturateF
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Dst, typename Src$>$\newline
+struct v8\+::base\+::internal\+::\+Saturate\+Fast\+Asm\+Op$<$ Dst, Src $>$}
+
+
+
+Definition at line 32 of file safe\+\_\+conversions.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{structv8_1_1base_1_1internal_1_1SaturateFastAsmOp_a502814dd747c8e817c986013f6715e89}\label{structv8_1_1base_1_1internal_1_1SaturateFastAsmOp_a502814dd747c8e817c986013f6715e89}} 
 \index{v8::base::internal::SaturateFastAsmOp$<$ Dst, Src $>$@{v8::base::internal::SaturateFastAsmOp$<$ Dst, Src $>$}!\_\_attribute\_\_@{\_\_attribute\_\_}}
@@ -29,6 +49,36 @@ static constexpr bool \mbox{\hyperlink{structv8_1_1base_1_1internal_1_1SaturateF
 {\footnotesize\ttfamily template$<$typename Dst , typename Src $>$ \\
 \mbox{\hyperlink{structv8_1_1base_1_1internal_1_1SaturateFastAsmOp}{v8\+::base\+::internal\+::\+Saturate\+Fast\+Asm\+Op}}$<$ Dst, \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a8921e87be2d8dbb6dea1b0d5e6e36d7c}{Src}} $>$\+::\+\_\+\+\_\+attribute\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{(always\+\_\+inline)}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 33 of file safe\+\_\+conversions\+\_\+arm\+\_\+impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{33                                                           \{}
+\DoxyCodeLine{34     \mbox{\hyperlink{namespaceunibrow_ab0275d47f9778d486eafe88b18c5851d}{int32\_t}} src = \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}};}
+\DoxyCodeLine{35     \textcolor{keywordflow}{if} constexpr (std::is\_signed\_v<Dst>) \{}
+\DoxyCodeLine{36       \mbox{\hyperlink{namespaceunibrow_ab0275d47f9778d486eafe88b18c5851d}{int32\_t}} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{37       \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}ssat \%[dst], \%[shift], \%[src]"{}}}
+\DoxyCodeLine{38           : [dst] \textcolor{stringliteral}{"{}=r"{}}(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}})}
+\DoxyCodeLine{39           : [src] \textcolor{stringliteral}{"{}r"{}}(src), [shift] \textcolor{stringliteral}{"{}n"{}}(}
+\DoxyCodeLine{40                                 std::min(kIntegerBitsPlusSign<Dst>, 32)));}
+\DoxyCodeLine{41       \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}Dst\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}});}
+\DoxyCodeLine{42     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{43       uint32\_t \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{44       \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}usat \%[dst], \%[shift], \%[src]"{}}}
+\DoxyCodeLine{45           : [dst] \textcolor{stringliteral}{"{}=r"{}}(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}})}
+\DoxyCodeLine{46           : [src] \textcolor{stringliteral}{"{}r"{}}(src), [shift] \textcolor{stringliteral}{"{}n"{}}(}
+\DoxyCodeLine{47                                 std::min(kIntegerBitsPlusSign<Dst>, 31)));}
+\DoxyCodeLine{48       \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}Dst\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}});}
+\DoxyCodeLine{49     \}}
+\DoxyCodeLine{50   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::internal\+::result, and v8\+::internal\+::value.
+
 \mbox{\Hypertarget{structv8_1_1base_1_1internal_1_1SaturateFastAsmOp_a9fd57990dfa322a4790c9981c9d2d8a0}\label{structv8_1_1base_1_1internal_1_1SaturateFastAsmOp_a9fd57990dfa322a4790c9981c9d2d8a0}} 
 \index{v8::base::internal::SaturateFastAsmOp$<$ Dst, Src $>$@{v8::base::internal::SaturateFastAsmOp$<$ Dst, Src $>$}!Do@{Do}}
 \index{Do@{Do}!v8::base::internal::SaturateFastAsmOp$<$ Dst, Src $>$@{v8::base::internal::SaturateFastAsmOp$<$ Dst, Src $>$}}
@@ -36,6 +86,30 @@ static constexpr bool \mbox{\hyperlink{structv8_1_1base_1_1internal_1_1SaturateF
 {\footnotesize\ttfamily template$<$typename Dst , typename Src $>$ \\
 static constexpr Dst \mbox{\hyperlink{structv8_1_1base_1_1internal_1_1SaturateFastAsmOp}{v8\+::base\+::internal\+::\+Saturate\+Fast\+Asm\+Op}}$<$ Dst, \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a8921e87be2d8dbb6dea1b0d5e6e36d7c}{Src}} $>$\+::Do (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a8921e87be2d8dbb6dea1b0d5e6e36d7c}{Src}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}}
 
+
+
+Definition at line 34 of file safe\+\_\+conversions.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34                                \{}
+\DoxyCodeLine{35     \textcolor{comment}{// Force a compile failure if instantiated.}}
+\DoxyCodeLine{36     \textcolor{keywordflow}{return} CheckOnFailure::template HandleFailure<Dst>();}
+\DoxyCodeLine{37   \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::base\+::internal\+::requires().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1base_1_1internal_1_1SaturateFastAsmOp_a9fd57990dfa322a4790c9981c9d2d8a0_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Data Documentation}
@@ -48,7 +122,11 @@ static constexpr bool \mbox{\hyperlink{structv8_1_1base_1_1internal_1_1SaturateF
 
 
 
+Definition at line 33 of file safe\+\_\+conversions.\+h.
+
+
+
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{safe__conversions_8h}{safe\+\_\+conversions.\+h}}\item 
-\mbox{\hyperlink{safe__conversions__arm__impl_8h}{safe\+\_\+conversions\+\_\+arm\+\_\+impl.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/base/numerics/\mbox{\hyperlink{safe__conversions_8h}{safe\+\_\+conversions.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/base/numerics/\mbox{\hyperlink{safe__conversions__arm__impl_8h}{safe\+\_\+conversions\+\_\+arm\+\_\+impl.\+h}}\end{DoxyCompactItemize}

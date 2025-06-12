@@ -1,13 +1,14 @@
 var safe__conversions_8h =
 [
     [ "SaturateFastAsmOp", "structv8_1_1base_1_1internal_1_1SaturateFastAsmOp.html", "structv8_1_1base_1_1internal_1_1SaturateFastAsmOp" ],
-    [ "IsValueInRangeFastOp", "structv8_1_1base_1_1internal_1_1IsValueInRangeFastOp.html", null ],
-    [ "SaturationDefaultLimits", "structv8_1_1base_1_1internal_1_1SaturationDefaultLimits.html", null ],
-    [ "SaturateFastOp", "structv8_1_1base_1_1internal_1_1SaturateFastOp.html", null ],
+    [ "IsValueInRangeFastOp", "structv8_1_1base_1_1internal_1_1IsValueInRangeFastOp.html", "structv8_1_1base_1_1internal_1_1IsValueInRangeFastOp" ],
+    [ "SaturationDefaultLimits", "structv8_1_1base_1_1internal_1_1SaturationDefaultLimits.html", "structv8_1_1base_1_1internal_1_1SaturationDefaultLimits" ],
+    [ "SaturateFastOp", "structv8_1_1base_1_1internal_1_1SaturateFastOp.html", "structv8_1_1base_1_1internal_1_1SaturateFastOp" ],
     [ "StrictNumeric", "classv8_1_1base_1_1internal_1_1StrictNumeric.html", "classv8_1_1base_1_1internal_1_1StrictNumeric" ],
     [ "BASE_HAS_OPTIMIZED_SAFE_CONVERSIONS", "safe__conversions_8h.html#a649e3dd4945f459e3e59cab74e986559", null ],
     [ "BASE_NUMERIC_COMPARISON_OPERATORS", "safe__conversions_8h.html#af891868c29c3aeafbe96be61a0deaa38", null ],
     [ "SizeT", "safe__conversions_8h.html#a5887c0c02ef26b8a118ed24625d61ddf", null ],
+    [ "Do", "safe__conversions_8h.html#a638de499ad837c0b307d895f3b26cd64", null ],
     [ "MakeStrictNum", "safe__conversions_8h.html#a37c4734e88ec34f651efc5c3ac0d4a60", null ],
     [ "requires", "safe__conversions_8h.html#aa875219f48ee51f3369fe5b25142324f", null ],
     [ "requires", "safe__conversions_8h.html#a13c5ad05f0bc2031a55a66d8e6735ebe", null ],

@@ -57,6 +57,7 @@ var classcppgc_1_1internal_1_1MarkerBase =
     [ "incremental_marking_allocation_observer_", "classcppgc_1_1internal_1_1MarkerBase.html#ac7ca5c0b521f9c5f271baa723ce7b8ec", null ],
     [ "incremental_marking_handle_", "classcppgc_1_1internal_1_1MarkerBase.html#a436becd16a59ee95beb330893777f2ac", null ],
     [ "is_marking_", "classcppgc_1_1internal_1_1MarkerBase.html#a64ba78641c78c096683b68e92da0282d", null ],
+    [ "kMaximumIncrementalStepDuration", "classcppgc_1_1internal_1_1MarkerBase.html#a7b931b3f9541b3ca9f97798d50372383", null ],
     [ "last_bytes_marked_", "classcppgc_1_1internal_1_1MarkerBase.html#ab36c226dde726a149f04ae44a41afcc2", null ],
     [ "main_marking_disabled_for_testing_", "classcppgc_1_1internal_1_1MarkerBase.html#a1129f06fa55034b00bec6f84c4152694", null ],
     [ "marking_worklists_", "classcppgc_1_1internal_1_1MarkerBase.html#abba323146c1aed9d5cb31fe7ad83b21b", null ],

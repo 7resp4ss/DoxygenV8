@@ -37,6 +37,8 @@ var js_objects_inl_8h =
     [ "EXTERNAL_POINTER_ACCESSORS", "js-objects-inl_8h.html#a5568190dcf5a353eb4891e494d8552a9", null ],
     [ "RELEASE_ACQUIRE_ACCESSORS_CHECKED2", "js-objects-inl_8h.html#add71b697d647f1674e159f233a79bc30", null ],
     [ "requires", "js-objects-inl_8h.html#a36a7038a14420f718296215cbf007ed9", null ],
+    [ "ShouldConvertToSlowElements", "js-objects-inl_8h.html#a644962b76e64c1ddf9c34320cadd8638", null ],
+    [ "ShouldConvertToSlowElements", "js-objects-inl_8h.html#abc560d1a7c8f4e6ef61092d8c378c2d2", null ],
     [ "element_dictionary", "js-objects-inl_8h.html#aec0308cf105cf1a69ad99e1b624455ae", null ],
     [ "raw_properties_or_hash", "js-objects-inl_8h.html#a9542bb21a360aebe9a28bfa4e59b27d7", null ],
     [ "Tagged< NumberDictionary >", "js-objects-inl_8h.html#ac7881642155ecdbe2407d112dc199b12", null ],

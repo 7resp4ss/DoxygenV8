@@ -1,12 +1,16 @@
 var scavenger_8cc =
 [
     [ "IterateAndScavengePromotedObjectsVisitor", "classv8_1_1internal_1_1IterateAndScavengePromotedObjectsVisitor.html", "classv8_1_1internal_1_1IterateAndScavengePromotedObjectsVisitor" ],
+    [ "GlobalHandlesWeakRootsUpdatingVisitor", "classv8_1_1internal_1_1anonymous__namespace_02scavenger_8cc_03_1_1GlobalHandlesWeakRootsUpdatingVisitor.html", "classv8_1_1internal_1_1anonymous__namespace_02scavenger_8cc_03_1_1GlobalHandlesWeakRootsUpdatingVisitor" ],
     [ "ScopedFullHeapCrashKey", "classv8_1_1internal_1_1ScopedFullHeapCrashKey.html", "classv8_1_1internal_1_1ScopedFullHeapCrashKey" ],
-    [ "heap_", "scavenger_8cc.html#a03fb199b10458593772157e5190cc561", null ],
-    [ "isolate_", "scavenger_8cc.html#a96526e432564dacb2afc9a6f82852541", null ],
-    [ "pinned_objects_", "scavenger_8cc.html#ac164106b6512b82f782801b08ed1e594", null ],
-    [ "rng_", "scavenger_8cc.html#a43586ed91f936d95ff97fd99e8625157", null ],
-    [ "scavenger_", "scavenger_8cc.html#a97fb3ae69505ec4aa0e7524aa7d90df2", null ],
-    [ "stack_visitor_", "scavenger_8cc.html#aacad96ca2f7fc276fa43dbd7cfa1ab29", null ],
-    [ "stressing_threshold_", "scavenger_8cc.html#ac55786bc6ab7fd68d2680d8cee3b319c", null ]
+    [ "YoungGenerationConservativeStackVisitor", "classv8_1_1internal_1_1anonymous__namespace_02scavenger_8cc_03_1_1YoungGenerationConservativeStackVisitor.html", "classv8_1_1internal_1_1anonymous__namespace_02scavenger_8cc_03_1_1YoungGenerationConservativeStackVisitor" ],
+    [ "ObjectPinningVisitorBase", "classv8_1_1internal_1_1anonymous__namespace_02scavenger_8cc_03_1_1ObjectPinningVisitorBase.html", "classv8_1_1internal_1_1anonymous__namespace_02scavenger_8cc_03_1_1ObjectPinningVisitorBase" ],
+    [ "ConservativeObjectPinningVisitor", "classv8_1_1internal_1_1anonymous__namespace_02scavenger_8cc_03_1_1ConservativeObjectPinningVisitor.html", "classv8_1_1internal_1_1anonymous__namespace_02scavenger_8cc_03_1_1ConservativeObjectPinningVisitor" ],
+    [ "PreciseObjectPinningVisitor", "classv8_1_1internal_1_1anonymous__namespace_02scavenger_8cc_03_1_1PreciseObjectPinningVisitor.html", "classv8_1_1internal_1_1anonymous__namespace_02scavenger_8cc_03_1_1PreciseObjectPinningVisitor" ],
+    [ "TreatConservativelyVisitor", "classv8_1_1internal_1_1anonymous__namespace_02scavenger_8cc_03_1_1TreatConservativelyVisitor.html", "classv8_1_1internal_1_1anonymous__namespace_02scavenger_8cc_03_1_1TreatConservativelyVisitor" ],
+    [ "IsUnscavengedHeapObject", "scavenger_8cc.html#a073fd37bfc949d60178f461865d49f16", null ],
+    [ "IsUnscavengedHeapObject", "scavenger_8cc.html#ae68f339204725cc426254d7d1c92a6b8", null ],
+    [ "IsUnscavengedHeapObjectSlot", "scavenger_8cc.html#a7fc0bf76b77c46e5567934e13be1639a", null ],
+    [ "QuarantinePinnedPages", "scavenger_8cc.html#a355752827c6add51ee46cf7cc1872f63", null ],
+    [ "RestorePinnedObjects", "scavenger_8cc.html#a55134593545d02d807b59da40ce8e693", null ]
 ];

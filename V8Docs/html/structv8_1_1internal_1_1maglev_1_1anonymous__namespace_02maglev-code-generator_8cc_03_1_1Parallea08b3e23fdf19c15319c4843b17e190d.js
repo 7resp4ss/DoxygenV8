@@ -1,0 +1,4 @@
+var structv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev_code_generator_8cc_03_1_1Parallea08b3e23fdf19c15319c4843b17e190d =
+[
+    [ "DummyNeedsDecompression", "structv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1Parallea08b3e23fdf19c15319c4843b17e190d.html#afbe1e7d13e9c75aa565959cc224b468d", null ]
+];

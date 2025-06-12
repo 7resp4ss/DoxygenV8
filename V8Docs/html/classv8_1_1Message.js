@@ -15,7 +15,13 @@ var classv8_1_1Message =
     [ "GetStartColumn", "classv8_1_1Message.html#af7f5aed382217f272a1385d0daeb9e6e", null ],
     [ "GetStartPosition", "classv8_1_1Message.html#a8c32ad25c164ecec1bae0293449589f4", null ],
     [ "GetWasmFunctionIndex", "classv8_1_1Message.html#a80d3039ab445ef8e63ae6baa9d658446", null ],
+    [ "Isolate::GetCurrent", "classv8_1_1Message.html#afdd70c5d1f044defb68662d3ab3f3e0b", null ],
     [ "IsOpaque", "classv8_1_1Message.html#adc719181a3b29658bb250c6f27bf60d8", null ],
     [ "IsSharedCrossOrigin", "classv8_1_1Message.html#a60e48ec814c324c443043dfaf366590a", null ],
-    [ "V8_DEPRECATE_SOON", "classv8_1_1Message.html#a63e9793d3449e07fc98b669d134eb33a", null ]
+    [ "PrintCurrentStackTrace", "classv8_1_1Message.html#a892d1b1d0bb767942c4a87200476d13a", null ],
+    [ "https", "classv8_1_1Message.html#a3e0ff7660c0986e32eb5a4a5ca2b9771", null ],
+    [ "kNoColumnInfo", "classv8_1_1Message.html#a8cb643dbf408b0fd2526b23a8202c4a6", null ],
+    [ "kNoLineNumberInfo", "classv8_1_1Message.html#a35649a6c0c813ba82c9886a2b17da124", null ],
+    [ "kNoScriptIdInfo", "classv8_1_1Message.html#a5aac643173466e88544cb1daa74553d6", null ],
+    [ "kNoWasmFunctionIndexInfo", "classv8_1_1Message.html#aa73c968530f696dd9b22cf48d5e6bc33", null ]
 ];

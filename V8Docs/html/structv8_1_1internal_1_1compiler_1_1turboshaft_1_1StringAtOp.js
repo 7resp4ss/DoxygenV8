@@ -10,5 +10,6 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringAtOp =
     [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringAtOp.html#abc3f6edf648e62ffe360a2578d7238d5", null ],
     [ "position", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringAtOp.html#aab3470112ee8a6f9a4846e843ba2f12b", null ],
     [ "string", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringAtOp.html#aa132282bc6e3c2c5cd1a961591275344", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringAtOp.html#a44153a0cc7f0d0495105caf20717f50d", null ],
     [ "kind", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringAtOp.html#afb7b6188da530fe802a7521b7213aeda", null ]
 ];

@@ -21,14 +21,29 @@ Collaboration diagram for v8\+::internal\+::Number\+Builtins\+Reducer$<$ Next $>
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=234pt]{classv8_1_1internal_1_1NumberBuiltinsReducer__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1NumberBuiltinsReducer__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1NumberBuiltinsReducer_aa8d995915e7ad3db301c2e83eb2ce1d4}{Bitwise\+Not}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Context}{Context}} $>$ \mbox{\hyperlink{js-call-reducer_8cc_a0835767fe473cead88c1afdf3175bce8}{context}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ input)
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1NumberBuiltinsReducer_aa8d995915e7ad3db301c2e83eb2ce1d4}{Bitwise\+Not}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Context}{Context}} $>$ context, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ input)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1NumberBuiltinsReducer_a02cabfdb199b3e19ace92772c7830b4c}{isolate\+\_\+}} = \mbox{\hyperlink{interpreter-builtins-x64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\+\_\+\+\_\+}} data() -\/$>$ isolate()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Next$>$\newline
+class v8\+::internal\+::\+Number\+Builtins\+Reducer$<$ Next $>$}
+
+
+
+Definition at line 17 of file number-\/builtins-\/reducer-\/inl.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -41,6 +56,74 @@ Collaboration diagram for v8\+::internal\+::Number\+Builtins\+Reducer$<$ Next $>
 
 
 
+Definition at line 21 of file number-\/builtins-\/reducer-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21                                                             \{}
+\DoxyCodeLine{22     Label<Object> done(\textcolor{keyword}{this});}
+\DoxyCodeLine{23     Label<Word32> if\_number(\textcolor{keyword}{this});}
+\DoxyCodeLine{24     Label<BigInt> if\_bigint(\textcolor{keyword}{this});}
+\DoxyCodeLine{25     \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} \textcolor{keyword}{template} TaggedToWord32OrBigIntImpl<Object::Conversion::kToNumeric>(}
+\DoxyCodeLine{26         context, input, IsKnownTaggedPointer::kNo, if\_number, \&if\_bigint,}
+\DoxyCodeLine{27         \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{comment}{// Number case.}}
+\DoxyCodeLine{30     \{}
+\DoxyCodeLine{31       BIND(if\_number, w32);}
+\DoxyCodeLine{32       V<Number> temp = \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} ConvertInt32ToNumber(\mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} Word32BitwiseNot(w32));}
+\DoxyCodeLine{33       IF (\mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} \mbox{\hyperlink{namespacev8_1_1internal_ac299e59759eecb4621f6bad64d5db952}{IsSmi}}(temp)) \{}
+\DoxyCodeLine{34         \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} CombineFeedback(\mbox{\hyperlink{classv8_1_1internal_1_1BinaryOperationFeedback_ad20cec96a62eae98f1cf1d27df5a998baacc5e37101e968f5f8c5021e539b0b3f}{BinaryOperationFeedback::kSignedSmall}});}
+\DoxyCodeLine{35       \} ELSE \{}
+\DoxyCodeLine{36         \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} CombineFeedback(\mbox{\hyperlink{classv8_1_1internal_1_1BinaryOperationFeedback_ad20cec96a62eae98f1cf1d27df5a998ba7759edcd4d226f2b1fd362bd2b08f389}{BinaryOperationFeedback::kNumber}});}
+\DoxyCodeLine{37       \}}
+\DoxyCodeLine{38       GOTO(done, temp);}
+\DoxyCodeLine{39     \}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     \textcolor{comment}{// BigInt case.}}
+\DoxyCodeLine{42     \{}
+\DoxyCodeLine{43       BIND(if\_bigint, bigint\_value);}
+\DoxyCodeLine{44       \textcolor{keywordflow}{if} (\mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} HasFeedbackCollector()) \{}
+\DoxyCodeLine{45         \textcolor{comment}{// Feedback has been set already in `TaggedToWord32OrBigIntImpl`.}}
+\DoxyCodeLine{46         TSA\_DCHECK(\textcolor{keyword}{this}, \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} FeedbackIs(\mbox{\hyperlink{classv8_1_1internal_1_1BinaryOperationFeedback_ad20cec96a62eae98f1cf1d27df5a998ba4d3dd75f64ba750c5cb0ef069f7b1635}{BinaryOperationFeedback::kBigInt}}));}
+\DoxyCodeLine{47       \}}
+\DoxyCodeLine{48       GOTO(done, \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} CallRuntime\_BigIntUnaryOp(\mbox{\hyperlink{classv8_1_1internal_1_1NumberBuiltinsReducer_a02cabfdb199b3e19ace92772c7830b4c}{isolate\_}}, context, bigint\_value,}
+\DoxyCodeLine{49                                               ::Operation::kBitwiseNot));}
+\DoxyCodeLine{50     \}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52     BIND(done, \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}});}
+\DoxyCodeLine{53     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{54   \}}
+
+\end{DoxyCode}
+
+
+References \+\_\+\+\_\+, v8\+::internal\+::\+Is\+Smi(), v8\+::internal\+::\+Binary\+Operation\+Feedback\+::k\+Big\+Int, v8\+::internal\+::\+Binary\+Operation\+Feedback\+::k\+Number, v8\+::internal\+::\+Binary\+Operation\+Feedback\+::k\+Signed\+Small, and v8\+::base\+::internal\+::result.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1NumberBuiltinsReducer_aa8d995915e7ad3db301c2e83eb2ce1d4_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1NumberBuiltinsReducer_a02cabfdb199b3e19ace92772c7830b4c}\label{classv8_1_1internal_1_1NumberBuiltinsReducer_a02cabfdb199b3e19ace92772c7830b4c}} 
+\index{v8::internal::NumberBuiltinsReducer$<$ Next $>$@{v8::internal::NumberBuiltinsReducer$<$ Next $>$}!isolate\_@{isolate\_}}
+\index{isolate\_@{isolate\_}!v8::internal::NumberBuiltinsReducer$<$ Next $>$@{v8::internal::NumberBuiltinsReducer$<$ Next $>$}}
+\doxysubsubsection{\texorpdfstring{isolate\_}{isolate\_}}
+{\footnotesize\ttfamily template$<$typename Next $>$ \\
+\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}}$\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1NumberBuiltinsReducer}{v8\+::internal\+::\+Number\+Builtins\+Reducer}}$<$ Next $>$\+::isolate\+\_\+ = \mbox{\hyperlink{interpreter-builtins-x64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\+\_\+\+\_\+}} data() -\/$>$ isolate()\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 57 of file number-\/builtins-\/reducer-\/inl.\+h.
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{number-builtins-reducer-inl_8h}{number-\/builtins-\/reducer-\/inl.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/builtins/\mbox{\hyperlink{number-builtins-reducer-inl_8h}{number-\/builtins-\/reducer-\/inl.\+h}}\end{DoxyCompactItemize}

@@ -2,10 +2,10 @@ var classv8_1_1Platform =
 [
     [ "StackTracePrinter", "classv8_1_1Platform.html#aae7b558077a24b6ce9cacfe8e9320943", null ],
     [ "~Platform", "classv8_1_1Platform.html#ab725966a93204e93ec742e1d823e1a05", null ],
-    [ "CallBlockingTaskOnWorkerThread", "classv8_1_1Platform.html#a8c914b80b90c5fcbe7f2937849be84ea", null ],
-    [ "CallDelayedOnWorkerThread", "classv8_1_1Platform.html#a71f049781eb19a3547ead1b9ffe18c04", null ],
-    [ "CallLowPriorityTaskOnWorkerThread", "classv8_1_1Platform.html#a6a8451d41ee5754431888269d574a58c", null ],
-    [ "CallOnWorkerThread", "classv8_1_1Platform.html#aab21b0b31ec4191a961cf12fa86aa8ec", null ],
+    [ "CallBlockingTaskOnWorkerThread", "classv8_1_1Platform.html#a030abddd156c7b70036de89a896849c8", null ],
+    [ "CallDelayedOnWorkerThread", "classv8_1_1Platform.html#a1622b3d802e80c7eff08b836a5dab6ec", null ],
+    [ "CallLowPriorityTaskOnWorkerThread", "classv8_1_1Platform.html#af8de89c00aa3d561c0b87d788675def8", null ],
+    [ "CallOnWorkerThread", "classv8_1_1Platform.html#a898f34be74c9247c00409b0888ae0c29", null ],
     [ "CreateBlockingScope", "classv8_1_1Platform.html#a27166c622903c3b9cba82a1ff396c3cf", null ],
     [ "CreateJob", "classv8_1_1Platform.html#a5a62780772e38f1f00317fce609ec0d4", null ],
     [ "CreateJobImpl", "classv8_1_1Platform.html#a7aec05f67d948b02c57c5348ef2e1020", null ],
@@ -28,5 +28,6 @@ var classv8_1_1Platform =
     [ "PostDelayedTaskOnWorkerThreadImpl", "classv8_1_1Platform.html#a1f3c56c242483110289fa84b616f3dab", null ],
     [ "PostJob", "classv8_1_1Platform.html#adcf8355f078499e5b32541b849a656cf", null ],
     [ "PostTaskOnWorkerThread", "classv8_1_1Platform.html#a061c7d8b981dab5da6a04a8f6f8419b6", null ],
-    [ "PostTaskOnWorkerThreadImpl", "classv8_1_1Platform.html#abea85437879089beabc43f07d963fc90", null ]
+    [ "PostTaskOnWorkerThreadImpl", "classv8_1_1Platform.html#abea85437879089beabc43f07d963fc90", null ],
+    [ "SystemClockTimeMillis", "classv8_1_1Platform.html#accf17a5dcca8d35e130a0d2e9d4fa0fc", null ]
 ];

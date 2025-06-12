@@ -4,6 +4,12 @@ var runtime_compiler_8cc =
       [ "kAsmJsInstantiateSuccess", "runtime-compiler_8cc.html#ad981dd55311cde072850ec62e3b73190af4fd5682357ad7e9ba2890341126d653", null ],
       [ "kAsmJsInstantiateFail", "runtime-compiler_8cc.html#ad981dd55311cde072850ec62e3b73190af0ec7b19e0cd8d20577e449f29ec7c35", null ]
     ] ],
+    [ "CompileGlobalEval", "runtime-compiler_8cc.html#a6e919349a5fbcb2e6fa69a6902226f27", null ],
+    [ "CompileOptimizedOSR", "runtime-compiler_8cc.html#a00b26e4aec4059d6f9be158735004597", null ],
+    [ "CompileOptimizedOSRFromMaglev", "runtime-compiler_8cc.html#a06ec134bb9aaba579a9bc7fc5ed757a9", null ],
+    [ "DeoptAllOsrLoopsContainingDeoptExit", "runtime-compiler_8cc.html#aefa5b49fcf3fbce888f8eb368b233a23", null ],
+    [ "GetOsrOffsetAndFunctionForOSR", "runtime-compiler_8cc.html#aa2062c846f6206a8253ad27723f45bd5", null ],
+    [ "LogExecution", "runtime-compiler_8cc.html#aac40510b26f5ad58b6d50e9eb2760168", null ],
     [ "RUNTIME_FUNCTION", "runtime-compiler_8cc.html#a9a9f6b861b87134d468e0138674dbcb0", null ],
     [ "RUNTIME_FUNCTION", "runtime-compiler_8cc.html#aba241cf1c046f2633b585bac6255197c", null ],
     [ "RUNTIME_FUNCTION", "runtime-compiler_8cc.html#a042dd5d7d946ad825138c202fcf7b8ac", null ],
@@ -19,5 +25,6 @@ var runtime_compiler_8cc =
     [ "RUNTIME_FUNCTION", "runtime-compiler_8cc.html#a1b52fcf5432ad3d46bbf8c3df862a46e", null ],
     [ "RUNTIME_FUNCTION", "runtime-compiler_8cc.html#a604603e755c0fdaf05758f40bb2bbf03", null ],
     [ "RUNTIME_FUNCTION", "runtime-compiler_8cc.html#acd3101e16698c6f84611a24455ccfb6e", null ],
-    [ "RUNTIME_FUNCTION", "runtime-compiler_8cc.html#aee6f1eeed4fcec6d33b7e1d799665161", null ]
+    [ "RUNTIME_FUNCTION", "runtime-compiler_8cc.html#aee6f1eeed4fcec6d33b7e1d799665161", null ],
+    [ "TryGetOptimizedOsrCode", "runtime-compiler_8cc.html#a19f185bb53b13e5e60077071a4696ffa", null ]
 ];

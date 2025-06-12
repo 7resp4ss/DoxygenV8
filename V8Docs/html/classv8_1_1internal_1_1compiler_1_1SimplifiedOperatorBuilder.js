@@ -291,5 +291,8 @@ var classv8_1_1internal_1_1compiler_1_1SimplifiedOperatorBuilder =
     [ "TypedArrayLength", "classv8_1_1internal_1_1compiler_1_1SimplifiedOperatorBuilder.html#ac72b258caf0cb0476746ae907bb3e15e", null ],
     [ "TypeOf", "classv8_1_1internal_1_1compiler_1_1SimplifiedOperatorBuilder.html#aebe892ed6194439d198a77a2d28857e4", null ],
     [ "Unsigned32Divide", "classv8_1_1internal_1_1compiler_1_1SimplifiedOperatorBuilder.html#afa6a2dca752e2d468d63791a9e6d8c03", null ],
-    [ "VerifyType", "classv8_1_1internal_1_1compiler_1_1SimplifiedOperatorBuilder.html#a13023971f7273cde902c1421a1083753", null ]
+    [ "VerifyType", "classv8_1_1internal_1_1compiler_1_1SimplifiedOperatorBuilder.html#a13023971f7273cde902c1421a1083753", null ],
+    [ "zone", "classv8_1_1internal_1_1compiler_1_1SimplifiedOperatorBuilder.html#a6fafda30d0400ba741daed937db33766", null ],
+    [ "cache_", "classv8_1_1internal_1_1compiler_1_1SimplifiedOperatorBuilder.html#ae1aa15b496e31733482e495c11c9d664", null ],
+    [ "zone_", "classv8_1_1internal_1_1compiler_1_1SimplifiedOperatorBuilder.html#a512d71394600542051f5bc036bb29935", null ]
 ];

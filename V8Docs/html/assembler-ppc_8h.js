@@ -1,11 +1,13 @@
 var assembler_ppc_8h =
 [
     [ "Operand", "classv8_1_1internal_1_1Operand.html", "classv8_1_1internal_1_1Operand" ],
+    [ "Value", "unionv8_1_1internal_1_1Operand_1_1Value.html", "unionv8_1_1internal_1_1Operand_1_1Value" ],
     [ "MemOperand", "classv8_1_1internal_1_1MemOperand.html", "classv8_1_1internal_1_1MemOperand" ],
     [ "DeferredRelocInfo", "classv8_1_1internal_1_1DeferredRelocInfo.html", "classv8_1_1internal_1_1DeferredRelocInfo" ],
     [ "Assembler", "classv8_1_1internal_1_1Assembler.html", "classv8_1_1internal_1_1Assembler" ],
     [ "BlockTrampolinePoolScope", "classv8_1_1internal_1_1Assembler_1_1BlockTrampolinePoolScope.html", "classv8_1_1internal_1_1Assembler_1_1BlockTrampolinePoolScope" ],
     [ "BlockConstantPoolEntrySharingScope", "classv8_1_1internal_1_1Assembler_1_1BlockConstantPoolEntrySharingScope.html", "classv8_1_1internal_1_1Assembler_1_1BlockConstantPoolEntrySharingScope" ],
+    [ "Trampoline", "classv8_1_1internal_1_1Assembler_1_1Trampoline.html", "classv8_1_1internal_1_1Assembler_1_1Trampoline" ],
     [ "EnsureSpace", "classv8_1_1internal_1_1EnsureSpace.html", "classv8_1_1internal_1_1EnsureSpace" ],
     [ "PatchingAssembler", "classv8_1_1internal_1_1PatchingAssembler.html", "classv8_1_1internal_1_1PatchingAssembler" ],
     [ "UseScratchRegisterScope", "classv8_1_1internal_1_1UseScratchRegisterScope.html", "classv8_1_1internal_1_1UseScratchRegisterScope" ],

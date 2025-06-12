@@ -1,0 +1,5 @@
+var structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff_compiler_8cc_03_1_1LiftoffCompiler_1_1EmitFnWithFirstArg =
+[
+    [ "first_arg", "structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompiler_1_1EmitFnWithFirstArg.html#a050ed0a61cf7bc7ba1868cff29812ea8", null ],
+    [ "fn", "structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompiler_1_1EmitFnWithFirstArg.html#a3be9a831e263f1d6759c1fe191920626", null ]
+];

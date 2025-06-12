@@ -1,11 +1,17 @@
 var classv8_1_1FunctionTemplate =
 [
+    [ "FunctionTemplate", "classv8_1_1FunctionTemplate.html#af1d47d268f14d7c399870e9f1dd296df", null ],
+    [ "Cast", "classv8_1_1FunctionTemplate.html#abd44ba8482fceb30ffa3d2f8863fac1e", null ],
+    [ "CheckCast", "classv8_1_1FunctionTemplate.html#ab6e8e68c073c8c91c34bda232fbd87cb", null ],
     [ "GetFunction", "classv8_1_1FunctionTemplate.html#a1c42747230a7d8eea8abdfc1c4180e3f", null ],
     [ "HasInstance", "classv8_1_1FunctionTemplate.html#a90d838f3456d300bd19d2a2cb98645bd", null ],
     [ "Inherit", "classv8_1_1FunctionTemplate.html#abc11c462facf11bafd541892815c5425", null ],
     [ "InstanceTemplate", "classv8_1_1FunctionTemplate.html#acc7ec612c5eb38e5f76f75eaf1efd776", null ],
     [ "IsLeafTemplateForApiObject", "classv8_1_1FunctionTemplate.html#a98a21961e8e68b0987b7ad6510c15025", null ],
+    [ "New", "classv8_1_1FunctionTemplate.html#a41c3051fd8bba064a0de7f2d16488d99", null ],
     [ "NewRemoteInstance", "classv8_1_1FunctionTemplate.html#ab648225a70140a7c4ebf4391bd917b21", null ],
+    [ "NewWithCache", "classv8_1_1FunctionTemplate.html#a2f623ce4c7b190d1eb8c3d53b546609d", null ],
+    [ "NewWithCFunctionOverloads", "classv8_1_1FunctionTemplate.html#a6afdb4449a1158184c134e229d21b443", null ],
     [ "PrototypeTemplate", "classv8_1_1FunctionTemplate.html#a086408da7fe81f69f0d3bbcb95e83cc7", null ],
     [ "ReadOnlyPrototype", "classv8_1_1FunctionTemplate.html#a91d2e0643e8c5a53ab1d75f7766c2422", null ],
     [ "RemovePrototype", "classv8_1_1FunctionTemplate.html#a4a184aca244174c7fe52d58871d3129e", null ],

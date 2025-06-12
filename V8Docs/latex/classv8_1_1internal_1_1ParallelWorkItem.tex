@@ -11,7 +11,17 @@ Inheritance diagram for v8\+::internal\+::Parallel\+Work\+Item\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=241pt]{classv8_1_1internal_1_1ParallelWorkItem__inherit__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ParallelWorkItem__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for v8\+::internal\+::Parallel\+Work\+Item\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{classv8_1_1internal_1_1ParallelWorkItem__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -23,6 +33,18 @@ Inheritance diagram for v8\+::internal\+::Parallel\+Work\+Item\+:
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1ParallelWorkItem_a140b4862d615a3aa8c92522eed68784b}{Is\+Acquired}} () const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1ParallelWorkItem_a3e6c527bd24fae4f08db024fb8d21a38}{acquire\+\_\+}} \{\mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 13 of file parallel-\/work-\/item.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -41,6 +63,34 @@ Inheritance diagram for v8\+::internal\+::Parallel\+Work\+Item\+:
 \doxysubsubsection{\texorpdfstring{IsAcquired()}{IsAcquired()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Parallel\+Work\+Item\+::\+Is\+Acquired (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 25 of file parallel-\/work-\/item.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{25                           \{}
+\DoxyCodeLine{26     \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }std::atomic<bool>*\textcolor{keyword}{>}(\&\mbox{\hyperlink{classv8_1_1internal_1_1ParallelWorkItem_a3e6c527bd24fae4f08db024fb8d21a38}{acquire\_}})-\/>load(}
+\DoxyCodeLine{27         std::memory\_order\_relaxed);}
+\DoxyCodeLine{28   \}}
+
+\end{DoxyCode}
+
+
+References acquire\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Young\+Generation\+Remembered\+Sets\+Marking\+Worklist\+::\+Marking\+Item\+::\+Merge\+And\+Delete\+Remembered\+Sets().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ParallelWorkItem_a140b4862d615a3aa8c92522eed68784b_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ParallelWorkItem_a908bddb4e625f1a1cfbbab7dba0b909e}\label{classv8_1_1internal_1_1ParallelWorkItem_a908bddb4e625f1a1cfbbab7dba0b909e}} 
 \index{v8::internal::ParallelWorkItem@{v8::internal::ParallelWorkItem}!TryAcquire@{TryAcquire}}
 \index{TryAcquire@{TryAcquire}!v8::internal::ParallelWorkItem@{v8::internal::ParallelWorkItem}}
@@ -49,6 +99,42 @@ Inheritance diagram for v8\+::internal\+::Parallel\+Work\+Item\+:
 
 
 
+Definition at line 17 of file parallel-\/work-\/item.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17                     \{}
+\DoxyCodeLine{18     \textcolor{comment}{// memory\_order\_relaxed is sufficient as the work item's state itself hasn't}}
+\DoxyCodeLine{19     \textcolor{comment}{// been modified since the beginning of its associated job. This is only}}
+\DoxyCodeLine{20     \textcolor{comment}{// atomically acquiring the right to work on it.}}
+\DoxyCodeLine{21     \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}std::atomic<bool>*\textcolor{keyword}{>}(\&\mbox{\hyperlink{classv8_1_1internal_1_1ParallelWorkItem_a3e6c527bd24fae4f08db024fb8d21a38}{acquire\_}})-\/>exchange(}
+\DoxyCodeLine{22                \textcolor{keyword}{true}, std::memory\_order\_relaxed) == \textcolor{keyword}{false};}
+\DoxyCodeLine{23   \}}
+
+\end{DoxyCode}
+
+
+References acquire\+\_\+.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ParallelWorkItem_a3e6c527bd24fae4f08db024fb8d21a38}\label{classv8_1_1internal_1_1ParallelWorkItem_a3e6c527bd24fae4f08db024fb8d21a38}} 
+\index{v8::internal::ParallelWorkItem@{v8::internal::ParallelWorkItem}!acquire\_@{acquire\_}}
+\index{acquire\_@{acquire\_}!v8::internal::ParallelWorkItem@{v8::internal::ParallelWorkItem}}
+\doxysubsubsection{\texorpdfstring{acquire\_}{acquire\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Parallel\+Work\+Item\+::acquire\+\_\+ \{\mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 31 of file parallel-\/work-\/item.\+h.
+
+
+
+Referenced by Is\+Acquired(), and Try\+Acquire().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{parallel-work-item_8h}{parallel-\/work-\/item.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{parallel-work-item_8h}{parallel-\/work-\/item.\+h}}\end{DoxyCompactItemize}

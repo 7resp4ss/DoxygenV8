@@ -4,6 +4,21 @@
 
 {\ttfamily \#include $<$page-\/memory.\+h$>$}
 
+
+
+Collaboration diagram for cppgc\+::internal\+::Normal\+Page\+Memory\+Pool\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1NormalPageMemoryPool__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcppgc_1_1internal_1_1NormalPageMemoryPool_1_1PooledPageMemoryRegion}{Pooled\+Page\+Memory\+Region}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -19,13 +34,27 @@ void \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a2c03abe8ff
 \item 
 auto \& \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a9715418faa92d650699424f4dcf539b7}{get\+\_\+raw\+\_\+pool\+\_\+for\+\_\+testing}} ()
 \item 
-void \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a34245f25193073fead59406023fa5a07}{Set\+Decommit\+Pooled\+Pages}} (bool \mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+void \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a34245f25193073fead59406023fa5a07}{Set\+Decommit\+Pooled\+Pages}} (bool value)
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 static constexpr bool \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a9738a5db184238c17449c141394dff2a}{k\+Default\+Decommit\+Pooled\+Page}} = \mbox{\hyperlink{namespacecppgc_1_1internal_a2a5dad15bdcff089a6dd4f1ab48d6433}{false}}
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structcppgc_1_1internal_1_1NormalPageMemoryPool_1_1PooledPageMemoryRegion}{Pooled\+Page\+Memory\+Region}} $>$ \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a0460238e380ac7d10f1444044131d47f}{pool\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a141ac9a26a555e01fde0b5b581bbd2e0}{decommit\+\_\+pooled\+\_\+pages\+\_\+}} = \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a9738a5db184238c17449c141394dff2a}{k\+Default\+Decommit\+Pooled\+Page}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 96 of file page-\/memory.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -35,23 +64,119 @@ static constexpr bool \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemor
 \doxysubsubsection{\texorpdfstring{Add()}{Add()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Normal\+Page\+Memory\+Pool\+::\+Add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1PageMemoryRegion}{Page\+Memory\+Region}} $\ast$}]{pmr }\end{DoxyParamCaption})}
 
+
+
+Definition at line 115 of file page-\/memory.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{115                                                     \{}
+\DoxyCodeLine{116   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(pmr);}
+\DoxyCodeLine{117   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(pmr-\/>region().size(), \mbox{\hyperlink{namespacecppgc_1_1internal_a31164e981f2a7080855c4ba02f1a910b}{kPageSize}});}
+\DoxyCodeLine{118   \textcolor{comment}{// Oilpan requires the pages to be zero-\/initialized.}}
+\DoxyCodeLine{119   \{}
+\DoxyCodeLine{120     \textcolor{keywordtype}{void}* base = pmr-\/>region().base();}
+\DoxyCodeLine{121     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} = pmr-\/>region().size();}
+\DoxyCodeLine{122     \mbox{\hyperlink{classAsanUnpoisonScope}{AsanUnpoisonScope}} unpoison\_for\_memset(base, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}});}
+\DoxyCodeLine{123     std::memset(base, 0, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}});}
+\DoxyCodeLine{124   \}}
+\DoxyCodeLine{125   \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a0460238e380ac7d10f1444044131d47f}{pool\_}}.emplace\_back(PooledPageMemoryRegion(pmr));}
+\DoxyCodeLine{126 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Memory\+Region\+::base(), DCHECK\+\_\+\+EQ, DCHECK\+\_\+\+NOT\+\_\+\+NULL, cppgc\+::internal\+::k\+Page\+Size, pool\+\_\+, cppgc\+::internal\+::\+Page\+Memory\+Region\+::region(), cppgc\+::internal\+::\+Memory\+Region\+::size(), and size().
+
+
+
+Referenced by cppgc\+::internal\+::\+Page\+Backend\+::\+Free\+Normal\+Page\+Memory().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1NormalPageMemoryPool_a03a0754fae17d45b2dd1de3343867478_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1NormalPageMemoryPool_a03a0754fae17d45b2dd1de3343867478_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1NormalPageMemoryPool_a9715418faa92d650699424f4dcf539b7}\label{classcppgc_1_1internal_1_1NormalPageMemoryPool_a9715418faa92d650699424f4dcf539b7}} 
 \index{cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}!get\_raw\_pool\_for\_testing@{get\_raw\_pool\_for\_testing}}
 \index{get\_raw\_pool\_for\_testing@{get\_raw\_pool\_for\_testing}!cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}}
 \doxysubsubsection{\texorpdfstring{get\_raw\_pool\_for\_testing()}{get\_raw\_pool\_for\_testing()}}
 {\footnotesize\ttfamily auto\& cppgc\+::internal\+::\+Normal\+Page\+Memory\+Pool\+::get\+\_\+raw\+\_\+pool\+\_\+for\+\_\+testing (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 111 of file page-\/memory.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{111 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a0460238e380ac7d10f1444044131d47f}{pool\_}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1NormalPageMemoryPool_a5eeb0a1e27cb66409bcc3be0c660fb48}\label{classcppgc_1_1internal_1_1NormalPageMemoryPool_a5eeb0a1e27cb66409bcc3be0c660fb48}} 
 \index{cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}!pooled@{pooled}}
 \index{pooled@{pooled}!cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}}
 \doxysubsubsection{\texorpdfstring{pooled()}{pooled()}}
 {\footnotesize\ttfamily size\+\_\+t cppgc\+::internal\+::\+Normal\+Page\+Memory\+Pool\+::pooled (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 104 of file page-\/memory.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{104 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a0460238e380ac7d10f1444044131d47f}{pool\_}}.size(); \}}
+
+\end{DoxyCode}
+
+
+Referenced by cppgc\+::internal\+::\+Sweeper\+::\+Sweeper\+Impl\+::\+Sweep\+For\+Normal\+Allocation().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1NormalPageMemoryPool_a5eeb0a1e27cb66409bcc3be0c660fb48_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1NormalPageMemoryPool_a1d9762a41ffeb6cf3dddc4e2126fd06b}\label{classcppgc_1_1internal_1_1NormalPageMemoryPool_a1d9762a41ffeb6cf3dddc4e2126fd06b}} 
 \index{cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}!PooledMemory@{PooledMemory}}
 \index{PooledMemory@{PooledMemory}!cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}}
 \doxysubsubsection{\texorpdfstring{PooledMemory()}{PooledMemory()}}
 {\footnotesize\ttfamily size\+\_\+t cppgc\+::internal\+::\+Normal\+Page\+Memory\+Pool\+::\+Pooled\+Memory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 163 of file page-\/memory.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{163                                                 \{}
+\DoxyCodeLine{164   \textcolor{keywordtype}{size\_t} total\_size = 0;}
+\DoxyCodeLine{165   \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& entry : \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a0460238e380ac7d10f1444044131d47f}{pool\_}}) \{}
+\DoxyCodeLine{166     \textcolor{keywordflow}{if} (entry.is\_decommitted || entry.is\_discarded) \{}
+\DoxyCodeLine{167       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{168     \}}
+\DoxyCodeLine{169     total\_size += entry.region-\/>region().size();}
+\DoxyCodeLine{170   \}}
+\DoxyCodeLine{171   \textcolor{keywordflow}{return} total\_size;}
+\DoxyCodeLine{172 \}}
+
+\end{DoxyCode}
+
+
+References pool\+\_\+.
 
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1NormalPageMemoryPool_a2c03abe8ffe2a853fe2c3a010c0f1f72}\label{classcppgc_1_1internal_1_1NormalPageMemoryPool_a2c03abe8ffe2a853fe2c3a010c0f1f72}} 
 \index{cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}!ReleasePooledPages@{ReleasePooledPages}}
@@ -59,11 +184,78 @@ static constexpr bool \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemor
 \doxysubsubsection{\texorpdfstring{ReleasePooledPages()}{ReleasePooledPages()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Normal\+Page\+Memory\+Pool\+::\+Release\+Pooled\+Pages (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacecppgc_ae7d41c486a869bec62aa1b8c9c55c142}{Page\+Allocator}} \&}]{allocator }\end{DoxyParamCaption})}
 
+
+
+Definition at line 174 of file page-\/memory.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{174                                                                            \{}
+\DoxyCodeLine{175   \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& entry : \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a0460238e380ac7d10f1444044131d47f}{pool\_}}) \{}
+\DoxyCodeLine{176     \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(entry.region);}
+\DoxyCodeLine{177     \textcolor{keywordtype}{void}* base = entry.region-\/>region().base();}
+\DoxyCodeLine{178     \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} = entry.region-\/>region().size();}
+\DoxyCodeLine{179     \textcolor{comment}{// Unpoison the memory before giving back to the OS.}}
+\DoxyCodeLine{180     \mbox{\hyperlink{asan_8h_a1bde985325c2af6ffc519c47b9092f35}{ASAN\_UNPOISON\_MEMORY\_REGION}}(base, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}});}
+\DoxyCodeLine{181     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a141ac9a26a555e01fde0b5b581bbd2e0}{decommit\_pooled\_pages\_}}) \{}
+\DoxyCodeLine{182       \textcolor{keywordflow}{if} (entry.is\_decommitted) \{}
+\DoxyCodeLine{183         \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{184       \}}
+\DoxyCodeLine{185       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(page\_allocator.DecommitPages(base, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}}));}
+\DoxyCodeLine{186       entry.is\_decommitted = \textcolor{keyword}{true};}
+\DoxyCodeLine{187     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{188       \textcolor{keywordflow}{if} (entry.is\_discarded) \{}
+\DoxyCodeLine{189         \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{190       \}}
+\DoxyCodeLine{191       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02page-memory_8cc_03_a9a5cd0ed9aa0eb56fd5e5e447f537a26}{TryDiscard}}(page\_allocator, entry.region-\/>region()));}
+\DoxyCodeLine{192       entry.is\_discarded = \textcolor{keyword}{true};}
+\DoxyCodeLine{193     \}}
+\DoxyCodeLine{194   \}}
+\DoxyCodeLine{195 \}}
+
+\end{DoxyCode}
+
+
+References ASAN\+\_\+\+UNPOISON\+\_\+\+MEMORY\+\_\+\+REGION, CHECK, DCHECK\+\_\+\+NOT\+\_\+\+NULL, decommit\+\_\+pooled\+\_\+pages\+\_\+, v8\+::\+Page\+Allocator\+::\+Decommit\+Pages(), pool\+\_\+, size(), and cppgc\+::internal\+::anonymous\+\_\+namespace\{page-\/memory.\+cc\}\+::\+Try\+Discard().
+
+
+
+Referenced by cppgc\+::internal\+::\+Page\+Backend\+::\+Release\+Pooled\+Pages().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1NormalPageMemoryPool_a2c03abe8ffe2a853fe2c3a010c0f1f72_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1NormalPageMemoryPool_a2c03abe8ffe2a853fe2c3a010c0f1f72_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1NormalPageMemoryPool_a34245f25193073fead59406023fa5a07}\label{classcppgc_1_1internal_1_1NormalPageMemoryPool_a34245f25193073fead59406023fa5a07}} 
 \index{cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}!SetDecommitPooledPages@{SetDecommitPooledPages}}
 \index{SetDecommitPooledPages@{SetDecommitPooledPages}!cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}}
 \doxysubsubsection{\texorpdfstring{SetDecommitPooledPages()}{SetDecommitPooledPages()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Normal\+Page\+Memory\+Pool\+::\+Set\+Decommit\+Pooled\+Pages (\begin{DoxyParamCaption}\item[{bool}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 113 of file page-\/memory.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{113 \{ \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a141ac9a26a555e01fde0b5b581bbd2e0}{decommit\_pooled\_pages\_}} = \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}; \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::value.
 
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1NormalPageMemoryPool_a302cf414c9dd82725c14dec642f73ac4}\label{classcppgc_1_1internal_1_1NormalPageMemoryPool_a302cf414c9dd82725c14dec642f73ac4}} 
 \index{cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}!Take@{Take}}
@@ -73,7 +265,87 @@ static constexpr bool \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemor
 
 
 
+Definition at line 128 of file page-\/memory.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{128                                              \{}
+\DoxyCodeLine{129   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a0460238e380ac7d10f1444044131d47f}{pool\_}}.empty()) \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{130   PooledPageMemoryRegion entry = \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a0460238e380ac7d10f1444044131d47f}{pool\_}}.back();}
+\DoxyCodeLine{131   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(entry.region);}
+\DoxyCodeLine{132   \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a0460238e380ac7d10f1444044131d47f}{pool\_}}.pop\_back();}
+\DoxyCodeLine{133   \textcolor{keywordtype}{void}* base = entry.region-\/>region().base();}
+\DoxyCodeLine{134   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} = entry.region-\/>region().size();}
+\DoxyCodeLine{135   \mbox{\hyperlink{asan_8h_a1bde985325c2af6ffc519c47b9092f35}{ASAN\_UNPOISON\_MEMORY\_REGION}}(base, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}});}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137   \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(!\mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a141ac9a26a555e01fde0b5b581bbd2e0}{decommit\_pooled\_pages\_}}, !entry.is\_decommitted);}
+\DoxyCodeLine{138   \textcolor{keywordflow}{if} (entry.is\_decommitted) \{}
+\DoxyCodeLine{139     \textcolor{comment}{// Also need to make the pages accessible.}}
+\DoxyCodeLine{140     \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(entry.region-\/>allocator().RecommitPages(}
+\DoxyCodeLine{141         base, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}}, \mbox{\hyperlink{classv8_1_1PageAllocator_a88f74b164fe97e053259f67a95758415abf9beddb1231fa2c23ab417197ea9f8a}{v8::PageAllocator::kReadWrite}}));}
+\DoxyCodeLine{142     \textcolor{keywordtype}{bool} ok = entry.region-\/>allocator().SetPermissions(}
+\DoxyCodeLine{143         base, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}}, \mbox{\hyperlink{classv8_1_1PageAllocator_a88f74b164fe97e053259f67a95758415abf9beddb1231fa2c23ab417197ea9f8a}{v8::PageAllocator::kReadWrite}});}
+\DoxyCodeLine{144     \textcolor{keywordflow}{if} (!ok) \{}
+\DoxyCodeLine{145 \textcolor{preprocessor}{\#if V8\_OS\_POSIX}}
+\DoxyCodeLine{146       \textcolor{comment}{// Changing permissions can return ENOMEM in several cases, including}}
+\DoxyCodeLine{147       \textcolor{comment}{// (since there is PROT\_WRITE) when it would exceed the RLIMIT\_DATA}}
+\DoxyCodeLine{148       \textcolor{comment}{// resource limit, at least on Linux. Check errno in this case, and}}
+\DoxyCodeLine{149       \textcolor{comment}{// declare that this is an OOM in this case.}}
+\DoxyCodeLine{150       \textcolor{keywordflow}{if} (errno == ENOMEM) \{}
+\DoxyCodeLine{151         \mbox{\hyperlink{namespacecppgc_1_1internal_af2de8a2a288069d21c5077af318676da}{GetGlobalOOMHandler}}()(\textcolor{stringliteral}{"{}Cannot change page permissions"{}});}
+\DoxyCodeLine{152       \}}
+\DoxyCodeLine{153 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{154       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\textcolor{keyword}{false});}
+\DoxyCodeLine{155     \}}
+\DoxyCodeLine{156   \}}
+\DoxyCodeLine{157 \textcolor{preprocessor}{\#if DEBUG}}
+\DoxyCodeLine{158   \mbox{\hyperlink{namespacecppgc_1_1internal_a1390eed715c0eead236fdbd6f1838872}{CheckMemoryIsZero}}(base, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}});}
+\DoxyCodeLine{159 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{160   \textcolor{keywordflow}{return} entry.region;}
+\DoxyCodeLine{161 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Page\+Memory\+Region\+::allocator(), ASAN\+\_\+\+UNPOISON\+\_\+\+MEMORY\+\_\+\+REGION, cppgc\+::internal\+::\+Memory\+Region\+::base(), CHECK, cppgc\+::internal\+::\+Check\+Memory\+Is\+Zero(), DCHECK\+\_\+\+IMPLIES, DCHECK\+\_\+\+NOT\+\_\+\+NULL, decommit\+\_\+pooled\+\_\+pages\+\_\+, cppgc\+::internal\+::\+Get\+Global\+OOMHandler(), cppgc\+::internal\+::\+Normal\+Page\+Memory\+Pool\+::\+Pooled\+Page\+Memory\+Region\+::is\+\_\+decommitted, v8\+::\+Page\+Allocator\+::k\+Read\+Write, pool\+\_\+, v8\+::\+Page\+Allocator\+::\+Recommit\+Pages(), cppgc\+::internal\+::\+Page\+Memory\+Region\+::region(), cppgc\+::internal\+::\+Normal\+Page\+Memory\+Pool\+::\+Pooled\+Page\+Memory\+Region\+::region, v8\+::\+Page\+Allocator\+::\+Set\+Permissions(), cppgc\+::internal\+::\+Memory\+Region\+::size(), and size().
+
+
+
+Referenced by cppgc\+::internal\+::\+Page\+Backend\+::\+Try\+Allocate\+Normal\+Page\+Memory().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1NormalPageMemoryPool_a302cf414c9dd82725c14dec642f73ac4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1NormalPageMemoryPool_a302cf414c9dd82725c14dec642f73ac4_icgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1NormalPageMemoryPool_a141ac9a26a555e01fde0b5b581bbd2e0}\label{classcppgc_1_1internal_1_1NormalPageMemoryPool_a141ac9a26a555e01fde0b5b581bbd2e0}} 
+\index{cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}!decommit\_pooled\_pages\_@{decommit\_pooled\_pages\_}}
+\index{decommit\_pooled\_pages\_@{decommit\_pooled\_pages\_}!cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}}
+\doxysubsubsection{\texorpdfstring{decommit\_pooled\_pages\_}{decommit\_pooled\_pages\_}}
+{\footnotesize\ttfamily bool cppgc\+::internal\+::\+Normal\+Page\+Memory\+Pool\+::decommit\+\_\+pooled\+\_\+pages\+\_\+ = \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemoryPool_a9738a5db184238c17449c141394dff2a}{k\+Default\+Decommit\+Pooled\+Page}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 129 of file page-\/memory.\+h.
+
+
+
+Referenced by Release\+Pooled\+Pages(), and Take().
+
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1NormalPageMemoryPool_a9738a5db184238c17449c141394dff2a}\label{classcppgc_1_1internal_1_1NormalPageMemoryPool_a9738a5db184238c17449c141394dff2a}} 
 \index{cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}!kDefaultDecommitPooledPage@{kDefaultDecommitPooledPage}}
 \index{kDefaultDecommitPooledPage@{kDefaultDecommitPooledPage}!cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}}
@@ -82,7 +354,25 @@ static constexpr bool \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageMemor
 
 
 
+Definition at line 114 of file page-\/memory.\+h.
+
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1NormalPageMemoryPool_a0460238e380ac7d10f1444044131d47f}\label{classcppgc_1_1internal_1_1NormalPageMemoryPool_a0460238e380ac7d10f1444044131d47f}} 
+\index{cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}!pool\_@{pool\_}}
+\index{pool\_@{pool\_}!cppgc::internal::NormalPageMemoryPool@{cppgc::internal::NormalPageMemoryPool}}
+\doxysubsubsection{\texorpdfstring{pool\_}{pool\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structcppgc_1_1internal_1_1NormalPageMemoryPool_1_1PooledPageMemoryRegion}{Pooled\+Page\+Memory\+Region}}$>$ cppgc\+::internal\+::\+Normal\+Page\+Memory\+Pool\+::pool\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 128 of file page-\/memory.\+h.
+
+
+
+Referenced by Add(), Pooled\+Memory(), Release\+Pooled\+Pages(), and Take().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{page-memory_8h}{page-\/memory.\+h}}\item 
-\mbox{\hyperlink{page-memory_8cc}{page-\/memory.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/cppgc/\mbox{\hyperlink{page-memory_8h}{page-\/memory.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/cppgc/\mbox{\hyperlink{page-memory_8cc}{page-\/memory.\+cc}}\end{DoxyCompactItemize}

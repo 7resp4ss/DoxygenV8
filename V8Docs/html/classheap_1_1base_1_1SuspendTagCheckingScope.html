@@ -90,6 +90,14 @@ $(document).ready(function(){initNavTree('classheap_1_1base_1_1SuspendTagCheckin
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="memory-tagging_8h_source.html">memory-tagging.h</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for heap::base::SuspendTagCheckingScope:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classheap_1_1base_1_1SuspendTagCheckingScope__coll__graph.svg" width="250" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -98,7 +106,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a43a87aefba04045aabfaeaec88bb2d28"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classheap_1_1base_1_1SuspendTagCheckingScope.html#a43a87aefba04045aabfaeaec88bb2d28">~SuspendTagCheckingScope</a> ()</td></tr>
 <tr class="separator:a43a87aefba04045aabfaeaec88bb2d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="memory-tagging_8h_source.html#l00015">15</a> of file <a class="el" href="memory-tagging_8h_source.html">memory-tagging.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4e6962a55637b297875bfa0cfba2fd8d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4e6962a55637b297875bfa0cfba2fd8d">&#9670;&nbsp;</a></span>SuspendTagCheckingScope()</h2>
 
@@ -122,6 +133,37 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="memory-tagging_8cc_source.html#l00015">15</a> of file <a class="el" href="memory-tagging_8cc_source.html">memory-tagging.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                                          {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#if SUPPORTS_MTE</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <a class="code" href="classv8_1_1base_1_1CPU.html">v8::base::CPU</a> cpu;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="v8config_8h.html#a67bd29db07c711b0fb11ff1c324ebb60">V8_UNLIKELY</a>(cpu.<a class="code" href="classv8_1_1base_1_1CPU.html#a64a6b85c817409332d95be2e008b707b">has_mte</a>())) {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    uint64_t val;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="comment">// Do a test to see if anything else has interfered with TCO.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="comment">// We expect TCO to be unset here.</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">asm</span> <span class="keyword">volatile</span>(<span class="stringliteral">&quot;.arch_extension memtag \n mrs %0, tco&quot;</span> : <span class="stringliteral">&quot;=r&quot;</span>(val));</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a>(val, 0);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="comment">// Suspend tag checks via PSTATE.TCO.</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">asm</span> <span class="keyword">volatile</span>(<span class="stringliteral">&quot;.arch_extension memtag \n msr tco, #1&quot;</span> ::: <span class="stringliteral">&quot;memory&quot;</span>);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
+<div class="ttc" id="aclassv8_1_1base_1_1CPU_html"><div class="ttname"><a href="classv8_1_1base_1_1CPU.html">v8::base::CPU</a></div><div class="ttdef"><b>Definition:</b> <a href="cpu_8h_source.html#l00032">cpu.h:32</a></div></div>
+<div class="ttc" id="aclassv8_1_1base_1_1CPU_html_a64a6b85c817409332d95be2e008b707b"><div class="ttname"><a href="classv8_1_1base_1_1CPU.html#a64a6b85c817409332d95be2e008b707b">v8::base::CPU::has_mte</a></div><div class="ttdeci">bool has_mte() const</div><div class="ttdef"><b>Definition:</b> <a href="cpu_8h_source.html#l00122">cpu.h:122</a></div></div>
+<div class="ttc" id="asrc_2base_2logging_8h_html_aca32614b4d2aea7dd9abdeb222bf02f3"><div class="ttname"><a href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a></div><div class="ttdeci">#define CHECK_EQ(lhs, rhs)</div></div>
+<div class="ttc" id="av8config_8h_html_a67bd29db07c711b0fb11ff1c324ebb60"><div class="ttname"><a href="v8config_8h.html#a67bd29db07c711b0fb11ff1c324ebb60">V8_UNLIKELY</a></div><div class="ttdeci">#define V8_UNLIKELY(condition)</div><div class="ttdef"><b>Definition:</b> <a href="v8config_8h_source.html#l00660">v8config.h:660</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a>, <a class="el" href="cpu_8h_source.html#l00122">v8::base::CPU::has_mte()</a>, and <a class="el" href="v8config_8h_source.html#l00660">V8_UNLIKELY</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classheap_1_1base_1_1SuspendTagCheckingScope_a4e6962a55637b297875bfa0cfba2fd8d_cgraph.svg" width="480" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
 </div>
 </div>
 <a id="a43a87aefba04045aabfaeaec88bb2d28"></a>
@@ -139,11 +181,37 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="memory-tagging_8cc_source.html#l00031">31</a> of file <a class="el" href="memory-tagging_8cc_source.html">memory-tagging.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                                                  {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#if SUPPORTS_MTE</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <a class="code" href="classv8_1_1base_1_1CPU.html">v8::base::CPU</a> cpu;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="v8config_8h.html#a67bd29db07c711b0fb11ff1c324ebb60">V8_UNLIKELY</a>(cpu.<a class="code" href="classv8_1_1base_1_1CPU.html#a64a6b85c817409332d95be2e008b707b">has_mte</a>())) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    uint64_t val;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="comment">// Do a test to see if anything else has interfered with TCO.</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="comment">// We expect TCO to be set here.</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">asm</span> <span class="keyword">volatile</span>(<span class="stringliteral">&quot;.arch_extension memtag \n mrs %0, tco&quot;</span> : <span class="stringliteral">&quot;=r&quot;</span>(val));</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a>(val, 1u &lt;&lt; 25);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">asm</span> <span class="keyword">volatile</span>(<span class="stringliteral">&quot;.arch_extension memtag \n msr tco, #0&quot;</span> ::: <span class="stringliteral">&quot;memory&quot;</span>);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a>, <a class="el" href="cpu_8h_source.html#l00122">v8::base::CPU::has_mte()</a>, and <a class="el" href="v8config_8h_source.html#l00660">V8_UNLIKELY</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classheap_1_1base_1_1SuspendTagCheckingScope_a43a87aefba04045aabfaeaec88bb2d28_cgraph.svg" width="491" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="memory-tagging_8h_source.html">memory-tagging.h</a></li>
-<li><a class="el" href="memory-tagging_8cc.html">memory-tagging.cc</a></li>
+<li>/mnt/V8SourceCode/src/heap/base/<a class="el" href="memory-tagging_8h_source.html">memory-tagging.h</a></li>
+<li>/mnt/V8SourceCode/src/heap/base/<a class="el" href="memory-tagging_8cc_source.html">memory-tagging.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -151,7 +219,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceheap.html">heap</a></li><li class="navelem"><a class="el" href="namespaceheap_1_1base.html">base</a></li><li class="navelem"><a class="el" href="classheap_1_1base_1_1SuspendTagCheckingScope.html">SuspendTagCheckingScope</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:42:51 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jun 12 2025 16:01:52 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

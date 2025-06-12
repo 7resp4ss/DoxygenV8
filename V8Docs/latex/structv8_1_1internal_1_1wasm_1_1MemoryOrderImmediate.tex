@@ -4,10 +4,20 @@
 
 {\ttfamily \#include $<$function-\/body-\/decoder-\/impl.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::wasm\+::Memory\+Order\+Immediate\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{structv8_1_1internal_1_1wasm_1_1MemoryOrderImmediate__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Validation\+Tag $>$ }\\\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1MemoryOrderImmediate_adfc843eb707b9e356e38f335bdccaffe}{Memory\+Order\+Immediate}} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1Decoder}{Decoder}} $\ast$decoder, const uint8\+\_\+t $\ast$\mbox{\hyperlink{experimental-interpreter_8cc_ac8c81e61335635fa4709d82412b31f06}{pc}}, Validation\+Tag validate=\{\})
+{\footnotesize template$<$typename Validation\+Tag $>$ }\\\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1MemoryOrderImmediate_adfc843eb707b9e356e38f335bdccaffe}{Memory\+Order\+Immediate}} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1Decoder}{Decoder}} $\ast$decoder, const uint8\+\_\+t $\ast$pc, Validation\+Tag validate=\{\})
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -21,6 +31,13 @@ static constexpr uint32\+\_\+t \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 844 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1MemoryOrderImmediate_adfc843eb707b9e356e38f335bdccaffe}\label{structv8_1_1internal_1_1wasm_1_1MemoryOrderImmediate_adfc843eb707b9e356e38f335bdccaffe}} 
 \index{v8::internal::wasm::MemoryOrderImmediate@{v8::internal::wasm::MemoryOrderImmediate}!MemoryOrderImmediate@{MemoryOrderImmediate}}
@@ -31,12 +48,48 @@ v8\+::internal\+::wasm\+::\+Memory\+Order\+Immediate\+::\+Memory\+Order\+Immedia
 
 
 
+Definition at line 849 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{850                                                 \{\}) \{}
+\DoxyCodeLine{851     \textcolor{keyword}{const} uint8\_t raw\_order = decoder-\/>read\_u8<ValidationTag>(pc);}
+\DoxyCodeLine{852     \textcolor{keywordflow}{switch} (raw\_order) \{}
+\DoxyCodeLine{853       \textcolor{keywordflow}{case} 0:}
+\DoxyCodeLine{854         \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1MemoryOrderImmediate_a622d50848b561c5b15cfdd54ab51dfdd}{order}} = \mbox{\hyperlink{namespacev8_1_1internal_a4e957cd49ea86dce9848b003d2d629f4adf04a0a1cf158c05673995295bf6345f}{AtomicMemoryOrder::kSeqCst}};}
+\DoxyCodeLine{855         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{856       \textcolor{keywordflow}{case} 1:}
+\DoxyCodeLine{857         \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1MemoryOrderImmediate_a622d50848b561c5b15cfdd54ab51dfdd}{order}} = \mbox{\hyperlink{namespacev8_1_1internal_a4e957cd49ea86dce9848b003d2d629f4acb89cd238f22dafa015cef4d27e416c2}{AtomicMemoryOrder::kAcqRel}};}
+\DoxyCodeLine{858         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{859       \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{860         \textcolor{comment}{// Store the decoded value. This way the disassembler can "{}restore"{} the}}
+\DoxyCodeLine{861         \textcolor{comment}{// original (invalid) value.}}
+\DoxyCodeLine{862         \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1MemoryOrderImmediate_a622d50848b561c5b15cfdd54ab51dfdd}{order}} = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_a4e957cd49ea86dce9848b003d2d629f4}{AtomicMemoryOrder}}\textcolor{keyword}{>}(raw\_order);}
+\DoxyCodeLine{863         \textcolor{keywordflow}{if} (ValidationTag::validate) \{}
+\DoxyCodeLine{864           DecodeError<ValidationTag>(decoder, pc, \textcolor{stringliteral}{"{}invalid memory ordering \%u"{}},}
+\DoxyCodeLine{865                                      raw\_order);}
+\DoxyCodeLine{866         \}}
+\DoxyCodeLine{867         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{868     \}}
+\DoxyCodeLine{869   \}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1MemoryOrderImmediate_a422177022b248d3581301c9708cf5eab}\label{structv8_1_1internal_1_1wasm_1_1MemoryOrderImmediate_a422177022b248d3581301c9708cf5eab}} 
 \index{v8::internal::wasm::MemoryOrderImmediate@{v8::internal::wasm::MemoryOrderImmediate}!length@{length}}
 \index{length@{length}!v8::internal::wasm::MemoryOrderImmediate@{v8::internal::wasm::MemoryOrderImmediate}}
 \doxysubsubsection{\texorpdfstring{length}{length}}
 {\footnotesize\ttfamily constexpr uint32\+\_\+t v8\+::internal\+::wasm\+::\+Memory\+Order\+Immediate\+::length = 1\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line 846 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Decoder$<$ Validation\+Tag, decoding\+\_\+mode $>$\+::\+Opcode\+Length().
 
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1MemoryOrderImmediate_a622d50848b561c5b15cfdd54ab51dfdd}\label{structv8_1_1internal_1_1wasm_1_1MemoryOrderImmediate_a622d50848b561c5b15cfdd54ab51dfdd}} 
 \index{v8::internal::wasm::MemoryOrderImmediate@{v8::internal::wasm::MemoryOrderImmediate}!order@{order}}
@@ -46,6 +99,14 @@ v8\+::internal\+::wasm\+::\+Memory\+Order\+Immediate\+::\+Memory\+Order\+Immedia
 
 
 
+Definition at line 845 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Immediates\+Printer$<$ Validation\+Tag $>$\+::\+Memory\+Order().
+
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{function-body-decoder-impl_8h}{function-\/body-\/decoder-\/impl.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{function-body-decoder-impl_8h}{function-\/body-\/decoder-\/impl.\+h}}\end{DoxyCompactItemize}

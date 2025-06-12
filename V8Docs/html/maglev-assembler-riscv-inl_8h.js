@@ -2,9 +2,9 @@ var maglev_assembler_riscv_inl_8h =
 [
     [ "TemporaryRegisterScope", "classv8_1_1internal_1_1maglev_1_1MaglevAssembler_1_1TemporaryRegisterScope.html", "classv8_1_1internal_1_1maglev_1_1MaglevAssembler_1_1TemporaryRegisterScope" ],
     [ "SavedData", "structv8_1_1internal_1_1maglev_1_1MaglevAssembler_1_1TemporaryRegisterScope_1_1SavedData.html", "structv8_1_1internal_1_1maglev_1_1MaglevAssembler_1_1TemporaryRegisterScope_1_1SavedData" ],
-    [ "PushAllHelper<>", "structv8_1_1internal_1_1maglev_1_1detail_1_1PushAllHelper_3_4.html", null ],
-    [ "PushAllHelper< Input, Args... >", "structv8_1_1internal_1_1maglev_1_1detail_1_1PushAllHelper_3_01Input_00_01Args_8_8_8_01_4.html", null ],
-    [ "PushAllHelper< Arg, Args... >", "structv8_1_1internal_1_1maglev_1_1detail_1_1PushAllHelper_3_01Arg_00_01Args_8_8_8_01_4.html", null ],
+    [ "PushAllHelper<>", "structv8_1_1internal_1_1maglev_1_1detail_1_1PushAllHelper_3_4.html", "structv8_1_1internal_1_1maglev_1_1detail_1_1PushAllHelper_3_4" ],
+    [ "PushAllHelper< Input, Args... >", "structv8_1_1internal_1_1maglev_1_1detail_1_1PushAllHelper_3_01Input_00_01Args_8_8_8_01_4.html", "structv8_1_1internal_1_1maglev_1_1detail_1_1PushAllHelper_3_01Input_00_01Args_8_8_8_01_4" ],
+    [ "PushAllHelper< Arg, Args... >", "structv8_1_1internal_1_1maglev_1_1detail_1_1PushAllHelper_3_01Arg_00_01Args_8_8_8_01_4.html", "structv8_1_1internal_1_1maglev_1_1detail_1_1PushAllHelper_3_01Arg_00_01Args_8_8_8_01_4" ],
     [ "AlreadyInARegister", "maglev-assembler-riscv-inl_8h.html#a822be34d600a757c687ac0fe1d6fefda", null ],
     [ "AlreadyInARegister", "maglev-assembler-riscv-inl_8h.html#a058d47fd3f5c0ed1ccdc55fd44b671be", null ],
     [ "AlreadyInARegister", "maglev-assembler-riscv-inl_8h.html#a15a18f00e7abbac867f54f316da0d66b", null ],

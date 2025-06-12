@@ -6,5 +6,7 @@ var classv8_1_1internal_1_1ImportedFunctionEntry =
     [ "maybe_callable", "classv8_1_1internal_1_1ImportedFunctionEntry.html#a63021958628904891284066b5e414b8d", null ],
     [ "SetWasmToWasm", "classv8_1_1internal_1_1ImportedFunctionEntry.html#aff58f12e21d41c7343027b995211e629", null ],
     [ "SetWasmToWrapper", "classv8_1_1internal_1_1ImportedFunctionEntry.html#ae4a858cbd25b5e257bba9fcd311ec1e7", null ],
-    [ "target", "classv8_1_1internal_1_1ImportedFunctionEntry.html#a0e747f460892159f4f39aa81962d615a", null ]
+    [ "target", "classv8_1_1internal_1_1ImportedFunctionEntry.html#a0e747f460892159f4f39aa81962d615a", null ],
+    [ "index_", "classv8_1_1internal_1_1ImportedFunctionEntry.html#a1c23f1b43dd3aaf0b10ed4a9eb758326", null ],
+    [ "instance_data_", "classv8_1_1internal_1_1ImportedFunctionEntry.html#afb0ec87eaa96b544023af6f00a5de36c", null ]
 ];

@@ -10,5 +10,6 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1SameValueOp =
     [ "options", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1SameValueOp.html#a1f5c4d38b150aadb39da34a1aa0eb5f7", null ],
     [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1SameValueOp.html#aed4f60c8c3fa1026fae6b01fb973801e", null ],
     [ "right", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1SameValueOp.html#afc484eec4546ca08365e56cfc2e5e0f3", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1SameValueOp.html#a0ad3b0064f0017d787a63002481b2569", null ],
     [ "mode", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1SameValueOp.html#a3a6eb09af142b589f895a9b191338fb2", null ]
 ];

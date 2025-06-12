@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$allocation-\/tracker.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Allocation\+Trace\+Tree\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AllocationTraceTree__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -23,6 +33,20 @@ unsigned \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceTree_aed92bbd12c
 \item 
 \mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} void \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceTree_a37ac3b1e978232c6150a1d3edf4da9ce}{Print}} (\mbox{\hyperlink{classv8_1_1internal_1_1AllocationTracker}{Allocation\+Tracker}} $\ast$tracker)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceTree_ae9d3215ae36599a252b482a526a19cae}{next\+\_\+node\+\_\+id\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceNode}{Allocation\+Trace\+Node}} \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceTree_a4a53c39a0297e768c5725c8e1c63503d}{root\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 63 of file allocation-\/tracker.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -32,6 +56,17 @@ unsigned \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceTree_aed92bbd12c
 \doxysubsubsection{\texorpdfstring{AllocationTraceTree()}{AllocationTraceTree()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Allocation\+Trace\+Tree\+::\+Allocation\+Trace\+Tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 76 of file allocation-\/tracker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{77     : \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceTree_ae9d3215ae36599a252b482a526a19cae}{next\_node\_id\_}}(1),}
+\DoxyCodeLine{78       \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceTree_a4a53c39a0297e768c5725c8e1c63503d}{root\_}}(\textcolor{keyword}{this}, 0) \{}
+\DoxyCodeLine{79 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1AllocationTraceTree_a8fc45ca77ceef0b935639fc7b4cda37a}\label{classv8_1_1internal_1_1AllocationTraceTree_a8fc45ca77ceef0b935639fc7b4cda37a}} 
 \index{v8::internal::AllocationTraceTree@{v8::internal::AllocationTraceTree}!````~AllocationTraceTree@{$\sim$AllocationTraceTree}}
 \index{````~AllocationTraceTree@{$\sim$AllocationTraceTree}!v8::internal::AllocationTraceTree@{v8::internal::AllocationTraceTree}}
@@ -53,11 +88,64 @@ unsigned \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceTree_aed92bbd12c
 \doxysubsubsection{\texorpdfstring{AddPathFromEnd()}{AddPathFromEnd()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceNode}{Allocation\+Trace\+Node}} $\ast$ v8\+::internal\+::\+Allocation\+Trace\+Tree\+::\+Add\+Path\+From\+End (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1base_1_1Vector}{base\+::\+Vector}}$<$ const unsigned $>$}]{path }\end{DoxyParamCaption})}
 
+
+
+Definition at line 81 of file allocation-\/tracker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{82                                      \{}
+\DoxyCodeLine{83   AllocationTraceNode* node = \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceTree_af36cd4ae9797ba6e8681349f3db7d0b0}{root}}();}
+\DoxyCodeLine{84   \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned}* entry = path.begin() + path.length() -\/ 1;}
+\DoxyCodeLine{85        entry != path.begin() -\/ 1; -\/-\/entry) \{}
+\DoxyCodeLine{86     node = node-\/>FindOrAddChild(*entry);}
+\DoxyCodeLine{87   \}}
+\DoxyCodeLine{88   \textcolor{keywordflow}{return} node;}
+\DoxyCodeLine{89 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Vector$<$ T $>$\+::begin(), v8\+::internal\+::\+Allocation\+Trace\+Node\+::\+Find\+Or\+Add\+Child(), v8\+::base\+::\+Vector$<$ T $>$\+::length(), and root().
+
+
+
+Referenced by v8\+::internal\+::\+Allocation\+Tracker\+::\+Allocation\+Event().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AllocationTraceTree_a187bf26d664274ac46b59789282472ee_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AllocationTraceTree_a187bf26d664274ac46b59789282472ee_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1AllocationTraceTree_aed92bbd12c4ca3ea8dfabf9f3ce16d9e}\label{classv8_1_1internal_1_1AllocationTraceTree_aed92bbd12c4ca3ea8dfabf9f3ce16d9e}} 
 \index{v8::internal::AllocationTraceTree@{v8::internal::AllocationTraceTree}!next\_node\_id@{next\_node\_id}}
 \index{next\_node\_id@{next\_node\_id}!v8::internal::AllocationTraceTree@{v8::internal::AllocationTraceTree}}
 \doxysubsubsection{\texorpdfstring{next\_node\_id()}{next\_node\_id()}}
 {\footnotesize\ttfamily unsigned v8\+::internal\+::\+Allocation\+Trace\+Tree\+::next\+\_\+node\+\_\+id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 71 of file allocation-\/tracker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{71 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceTree_ae9d3215ae36599a252b482a526a19cae}{next\_node\_id\_}}++; \}}
+
+\end{DoxyCode}
+
+
+References next\+\_\+node\+\_\+id\+\_\+.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1AllocationTraceTree_ab51646a57cab8f8fdd9a5c93e71c9854}\label{classv8_1_1internal_1_1AllocationTraceTree_ab51646a57cab8f8fdd9a5c93e71c9854}} 
 \index{v8::internal::AllocationTraceTree@{v8::internal::AllocationTraceTree}!operator=@{operator=}}
@@ -71,6 +159,31 @@ unsigned \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceTree_aed92bbd12c
 \doxysubsubsection{\texorpdfstring{Print()}{Print()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Allocation\+Trace\+Tree\+::\+Print (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1AllocationTracker}{Allocation\+Tracker}} $\ast$}]{tracker }\end{DoxyParamCaption})}
 
+
+
+Definition at line 91 of file allocation-\/tracker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{91                                                           \{}
+\DoxyCodeLine{92   \mbox{\hyperlink{namespacev8_1_1internal_a6b717bb53640adb6d9de62f718e70b3a}{base::OS::Print}}(\textcolor{stringliteral}{"{}[AllocationTraceTree:]\(\backslash\)n"{}});}
+\DoxyCodeLine{93   \mbox{\hyperlink{namespacev8_1_1internal_a6b717bb53640adb6d9de62f718e70b3a}{base::OS::Print}}(\textcolor{stringliteral}{"{}Total size | Allocation count | Function id | id\(\backslash\)n"{}});}
+\DoxyCodeLine{94   \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceTree_af36cd4ae9797ba6e8681349f3db7d0b0}{root}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceNode_acfba1229f80910c5746758f8afdff7af}{Print}}(0, tracker);}
+\DoxyCodeLine{95 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Allocation\+Trace\+Node\+::\+Print(), v8\+::internal\+::\+Print(), and root().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AllocationTraceTree_a37ac3b1e978232c6150a1d3edf4da9ce_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1AllocationTraceTree_af36cd4ae9797ba6e8681349f3db7d0b0}\label{classv8_1_1internal_1_1AllocationTraceTree_af36cd4ae9797ba6e8681349f3db7d0b0}} 
 \index{v8::internal::AllocationTraceTree@{v8::internal::AllocationTraceTree}!root@{root}}
 \index{root@{root}!v8::internal::AllocationTraceTree@{v8::internal::AllocationTraceTree}}
@@ -79,7 +192,63 @@ unsigned \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceTree_aed92bbd12c
 
 
 
+Definition at line 70 of file allocation-\/tracker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{70 \{ \textcolor{keywordflow}{return} \&\mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceTree_a4a53c39a0297e768c5725c8e1c63503d}{root\_}}; \}}
+
+\end{DoxyCode}
+
+
+References root\+\_\+.
+
+
+
+Referenced by Add\+Path\+From\+End(), Print(), and v8\+::internal\+::\+Heap\+Snapshot\+JSONSerializer\+::\+Serialize\+Trace\+Tree().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AllocationTraceTree_af36cd4ae9797ba6e8681349f3db7d0b0_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1AllocationTraceTree_ae9d3215ae36599a252b482a526a19cae}\label{classv8_1_1internal_1_1AllocationTraceTree_ae9d3215ae36599a252b482a526a19cae}} 
+\index{v8::internal::AllocationTraceTree@{v8::internal::AllocationTraceTree}!next\_node\_id\_@{next\_node\_id\_}}
+\index{next\_node\_id\_@{next\_node\_id\_}!v8::internal::AllocationTraceTree@{v8::internal::AllocationTraceTree}}
+\doxysubsubsection{\texorpdfstring{next\_node\_id\_}{next\_node\_id\_}}
+{\footnotesize\ttfamily unsigned v8\+::internal\+::\+Allocation\+Trace\+Tree\+::next\+\_\+node\+\_\+id\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 75 of file allocation-\/tracker.\+h.
+
+
+
+Referenced by next\+\_\+node\+\_\+id().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1AllocationTraceTree_a4a53c39a0297e768c5725c8e1c63503d}\label{classv8_1_1internal_1_1AllocationTraceTree_a4a53c39a0297e768c5725c8e1c63503d}} 
+\index{v8::internal::AllocationTraceTree@{v8::internal::AllocationTraceTree}!root\_@{root\_}}
+\index{root\_@{root\_}!v8::internal::AllocationTraceTree@{v8::internal::AllocationTraceTree}}
+\doxysubsubsection{\texorpdfstring{root\_}{root\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1AllocationTraceNode}{Allocation\+Trace\+Node}} v8\+::internal\+::\+Allocation\+Trace\+Tree\+::root\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 76 of file allocation-\/tracker.\+h.
+
+
+
+Referenced by root().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{allocation-tracker_8h}{allocation-\/tracker.\+h}}\item 
-\mbox{\hyperlink{allocation-tracker_8cc}{allocation-\/tracker.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/profiler/\mbox{\hyperlink{allocation-tracker_8h}{allocation-\/tracker.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/profiler/\mbox{\hyperlink{allocation-tracker_8cc}{allocation-\/tracker.\+cc}}\end{DoxyCompactItemize}

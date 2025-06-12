@@ -9,5 +9,9 @@ var classv8_1_1internal_1_1GCTracer_1_1RecordGCPhasesInfo =
     [ "mode", "classv8_1_1internal_1_1GCTracer_1_1RecordGCPhasesInfo.html#af86daba140ea65652da38a5da83488d0", null ],
     [ "trace_event_name", "classv8_1_1internal_1_1GCTracer_1_1RecordGCPhasesInfo.html#a7e729415789b4e767cd945c0ce50d630", null ],
     [ "type_priority_timer", "classv8_1_1internal_1_1GCTracer_1_1RecordGCPhasesInfo.html#a987912b78015c4c14062d134b64d65f2", null ],
-    [ "type_timer", "classv8_1_1internal_1_1GCTracer_1_1RecordGCPhasesInfo.html#a35a40507a5c23bf285326d8b358114d5", null ]
+    [ "type_timer", "classv8_1_1internal_1_1GCTracer_1_1RecordGCPhasesInfo.html#a35a40507a5c23bf285326d8b358114d5", null ],
+    [ "mode_", "classv8_1_1internal_1_1GCTracer_1_1RecordGCPhasesInfo.html#abbe2aeea3e1cb6effb82822c80e22ac0", null ],
+    [ "trace_event_name_", "classv8_1_1internal_1_1GCTracer_1_1RecordGCPhasesInfo.html#a0803819c2bffcdf0add0bc1451776ad9", null ],
+    [ "type_priority_timer_", "classv8_1_1internal_1_1GCTracer_1_1RecordGCPhasesInfo.html#a07601e57017183314ea91d57910c00f3", null ],
+    [ "type_timer_", "classv8_1_1internal_1_1GCTracer_1_1RecordGCPhasesInfo.html#a630eb8bdffc7af278632510ff6529b26", null ]
 ];

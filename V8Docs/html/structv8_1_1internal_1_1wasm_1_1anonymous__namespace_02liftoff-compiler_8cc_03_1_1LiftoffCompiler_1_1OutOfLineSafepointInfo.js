@@ -1,0 +1,6 @@
+var structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff_compiler_8cc_03_1_1LiftoffCompiler_1_1OutOfLineSafepointInfo =
+[
+    [ "OutOfLineSafepointInfo", "structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompiler_1_1OutOfLineSafepointInfo.html#ab195439cf4292dae055b7c60341cdd7e", null ],
+    [ "slots", "structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompiler_1_1OutOfLineSafepointInfo.html#a7cc4f1578f1dfb48fecf3da023653610", null ],
+    [ "spills", "structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompiler_1_1OutOfLineSafepointInfo.html#a8c9c8ed29338a9b7bcffc5436132dc9a", null ]
+];

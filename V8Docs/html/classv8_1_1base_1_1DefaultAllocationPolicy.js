@@ -1,5 +1,5 @@
 var classv8_1_1base_1_1DefaultAllocationPolicy =
 [
-    [ "AllocateArray", "classv8_1_1base_1_1DefaultAllocationPolicy.html#acd697309157a9e7cebb6c6036c8d271b", null ],
-    [ "DeleteArray", "classv8_1_1base_1_1DefaultAllocationPolicy.html#acf874ef3ec91ee6f13278635c8ae2ab5", null ]
+    [ "AllocateArray", "classv8_1_1base_1_1DefaultAllocationPolicy.html#a5a40f26267f4fa0d93c981d64b4b2edb", null ],
+    [ "DeleteArray", "classv8_1_1base_1_1DefaultAllocationPolicy.html#a297380ef1345c2048320bde6dabc7a9c", null ]
 ];

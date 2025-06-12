@@ -16,10 +16,10 @@ var libplatform_8h =
       [ "kDontApply", "libplatform_8h.html#ab5a2e78439aa380777ece667cb230a72af84ae028f1cfaed674ee907937e152fa", null ],
       [ "kApply", "libplatform_8h.html#ab5a2e78439aa380777ece667cb230a72a3a2bb7b3d33936f92948ae759fcdfac8", null ]
     ] ],
-    [ "NewDefaultJobHandle", "libplatform_8h.html#a64c53bd7b0af9effc1035121ab856748", null ],
-    [ "NewDefaultPlatform", "libplatform_8h.html#af9222cae064825ef1a2c5685b8bb62f8", null ],
-    [ "NewSingleThreadedDefaultPlatform", "libplatform_8h.html#a07b343e2f73ce9a8835608271b78ed35", null ],
+    [ "NewDefaultJobHandle", "libplatform_8h.html#ade3f8deb2db65fce45d1d7ecabb83f8c", null ],
+    [ "NewDefaultPlatform", "libplatform_8h.html#acfab14c1076e4c2cc8fa2f1d1c76f1ac", null ],
+    [ "NewSingleThreadedDefaultPlatform", "libplatform_8h.html#a7cf5c17f7b63c3dadfc009209c044d64", null ],
     [ "NotifyIsolateShutdown", "libplatform_8h.html#acc8f10da942f6a509ba5ba1e9cc19876", null ],
-    [ "PumpMessageLoop", "libplatform_8h.html#afc313cfd94bc4b18fe5019ac8abc4a20", null ],
+    [ "PumpMessageLoop", "libplatform_8h.html#a7e3e8b26667bf9246da1d2ca4d249f83", null ],
     [ "RunIdleTasks", "libplatform_8h.html#a7a2acc6effa6c08af7211fe815b95165", null ]
 ];

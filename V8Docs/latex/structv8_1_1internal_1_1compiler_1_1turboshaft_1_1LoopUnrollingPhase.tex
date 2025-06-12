@@ -4,11 +4,28 @@
 
 {\ttfamily \#include $<$loop-\/unrolling-\/phase.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Loop\+Unrolling\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=255pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoopUnrollingPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoopUnrollingPhase_aea9176957adbb5584a1becec9d74fec2}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData}{Pipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
+void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoopUnrollingPhase_aea9176957adbb5584a1becec9d74fec2}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData}{Pipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 12 of file loop-\/unrolling-\/phase.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -20,7 +37,43 @@ void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoopUnro
 
 
 
+Definition at line 19 of file loop-\/unrolling-\/phase.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19                                                                 \{}
+\DoxyCodeLine{20   LoopUnrollingAnalyzer analyzer(temp\_zone, \&data-\/>graph(), data-\/>is\_wasm());}
+\DoxyCodeLine{21   \textcolor{keywordflow}{if} (analyzer.CanUnrollAtLeastOneLoop()) \{}
+\DoxyCodeLine{22     data-\/>graph().set\_loop\_unrolling\_analyzer(\&analyzer);}
+\DoxyCodeLine{23     turboshaft::CopyingPhase<LoopStackCheckElisionReducer, LoopUnrollingReducer,}
+\DoxyCodeLine{24                              MachineOptimizationReducer,}
+\DoxyCodeLine{25                              ValueNumberingReducer>\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoopUnrollingPhase_aea9176957adbb5584a1becec9d74fec2}{::Run}}(data, temp\_zone);}
+\DoxyCodeLine{26     \textcolor{comment}{// When the CopyingPhase finishes, it calls SwapWithCompanion, which resets}}
+\DoxyCodeLine{27     \textcolor{comment}{// the current graph's LoopUnrollingAnalyzer (since the old input\_graph is}}
+\DoxyCodeLine{28     \textcolor{comment}{// now somewhat out-\/dated).}}
+\DoxyCodeLine{29     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!data-\/>graph().has\_loop\_unrolling\_analyzer());}
+\DoxyCodeLine{30     \textcolor{comment}{// The LoopUnrollingAnalyzer should not be copied to the output\_graph during}}
+\DoxyCodeLine{31     \textcolor{comment}{// CopyingPhase, since it's refering to the input\_graph.}}
+\DoxyCodeLine{32     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!data-\/>graph().GetOrCreateCompanion().has\_loop\_unrolling\_analyzer());}
+\DoxyCodeLine{33   \}}
+\DoxyCodeLine{34 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::turboshaft\+::\+Loop\+Unrolling\+Analyzer\+::\+Can\+Unroll\+At\+Least\+One\+Loop(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::compiler\+::turboshaft\+::\+Graph\+::\+Get\+Or\+Create\+Companion(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::graph(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::is\+\_\+wasm(), and v8\+::internal\+::compiler\+::turboshaft\+::\+Graph\+::set\+\_\+loop\+\_\+unrolling\+\_\+analyzer().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoopUnrollingPhase_aea9176957adbb5584a1becec9d74fec2_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{loop-unrolling-phase_8h}{loop-\/unrolling-\/phase.\+h}}\item 
-\mbox{\hyperlink{loop-unrolling-phase_8cc}{loop-\/unrolling-\/phase.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{loop-unrolling-phase_8h}{loop-\/unrolling-\/phase.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{loop-unrolling-phase_8cc}{loop-\/unrolling-\/phase.\+cc}}\end{DoxyCompactItemize}

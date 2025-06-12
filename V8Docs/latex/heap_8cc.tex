@@ -1,5 +1,5 @@
-\hypertarget{heap_8cc}{}\doxysection{heap.\+cc File Reference}
-\label{heap_8cc}\index{heap.cc@{heap.cc}}
+\hypertarget{heap_8cc}{}\doxysection{/mnt/\+V8\+Source\+Code/src/heap/heap.cc File Reference}
+\label{heap_8cc}\index{/mnt/V8SourceCode/src/heap/heap.cc@{/mnt/V8SourceCode/src/heap/heap.cc}}
 {\ttfamily \#include \char`\"{}src/heap/heap.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$algorithm$>$}\newline
 {\ttfamily \#include $<$atomic$>$}\newline
@@ -146,24 +146,28 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1CheckHandleCountVisitor}{v8\+::int
 class \mbox{\hyperlink{classv8_1_1internal_1_1HeapObjectsFilter}{v8\+::internal\+::\+Heap\+Objects\+Filter}}
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1UnreachableObjectsFilter}{v8\+::internal\+::\+Unreachable\+Objects\+Filter}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1UnreachableObjectsFilter_1_1MarkingVisitor}{v8\+::internal\+::\+Unreachable\+Objects\+Filter\+::\+Marking\+Visitor}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacev8}{v8}}
-\item 
+\begin{DoxyCompactList}\small\item\em This file provides additional API on top of the default one for making API calls, which come from embedder C++ functions. \end{DoxyCompactList}\item 
  \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{heap_8cc_aaf085c883cc00254a2f9908613586764}{DICT}}(\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}})~\char`\"{}\{\char`\"{} $<$$<$ \mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} $<$$<$ \char`\"{}\}\char`\"{}
+\#define \mbox{\hyperlink{heap_8cc_aaf085c883cc00254a2f9908613586764}{DICT}}(s)~\char`\"{}\{\char`\"{} $<$$<$ s $<$$<$ \char`\"{}\}\char`\"{}
 \item 
-\#define \mbox{\hyperlink{heap_8cc_acdaff9d13f766739085c7eed06ffac65}{LIST}}(\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}})~\char`\"{}\mbox{[}\char`\"{} $<$$<$ \mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} $<$$<$ \char`\"{}\mbox{]}\char`\"{}
+\#define \mbox{\hyperlink{heap_8cc_acdaff9d13f766739085c7eed06ffac65}{LIST}}(s)~\char`\"{}\mbox{[}\char`\"{} $<$$<$ s $<$$<$ \char`\"{}\mbox{]}\char`\"{}
 \item 
-\#define \mbox{\hyperlink{heap_8cc_ad8d5ae679a29f40d24ca0f0031f1d242}{QUOTE}}(\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}})~\char`\"{}\textbackslash{}\char`\"{}\char`\"{} $<$$<$ s $<$$<$ \char`\"{}\textbackslash{}\char`\"{}\char`\"{}
+\#define \mbox{\hyperlink{heap_8cc_ad8d5ae679a29f40d24ca0f0031f1d242}{QUOTE}}(s)~\char`\"{}\textbackslash{}\char`\"{}\char`\"{} $<$$<$ s $<$$<$ \char`\"{}\textbackslash{}\char`\"{}\char`\"{}
 \item 
-\#define \mbox{\hyperlink{heap_8cc_a574269ef7c9ceebb66f8ec8b6fee9e58}{MEMBER}}(\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}})~\mbox{\hyperlink{heap_8cc_ad8d5ae679a29f40d24ca0f0031f1d242}{QUOTE}}(\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}}) $<$$<$ \char`\"{}\+:\char`\"{}
+\#define \mbox{\hyperlink{heap_8cc_a574269ef7c9ceebb66f8ec8b6fee9e58}{MEMBER}}(s)~\mbox{\hyperlink{heap_8cc_ad8d5ae679a29f40d24ca0f0031f1d242}{QUOTE}}(s) $<$$<$ \char`\"{}\+:\char`\"{}
 \item 
 \#define \mbox{\hyperlink{heap_8cc_af146858350af9fc0cf496d48fef16650}{UPDATE\+\_\+\+COUNTERS\+\_\+\+FOR\+\_\+\+SPACE}}(\mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}})
 \item 
@@ -171,11 +175,61 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1UnreachableObjectsFilter}{v8\+::in
 \item 
 \#define \mbox{\hyperlink{heap_8cc_adda7a77e52ce585aac7a8ae6c2515c72}{UPDATE\+\_\+\+COUNTERS\+\_\+\+AND\+\_\+\+FRAGMENTATION\+\_\+\+FOR\+\_\+\+SPACE}}(\mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}})
 \item 
-\#define \mbox{\hyperlink{heap_8cc_a8ae035266dfbdbcd3ea2321c3613edba}{DEF\+\_\+\+RIGHT\+\_\+\+TRIM}}(\mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}})
+\#define \mbox{\hyperlink{heap_8cc_a8ae035266dfbdbcd3ea2321c3613edba}{DEF\+\_\+\+RIGHT\+\_\+\+TRIM}}(\mbox{\hyperlink{classT}{T}})
 \item 
-\#define \mbox{\hyperlink{heap_8cc_aa49301537070c78140f67d891cee7661}{COMPARE\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+NAME}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\#define \mbox{\hyperlink{heap_8cc_aa49301537070c78140f67d891cee7661}{COMPARE\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+NAME}}(\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}})
 \item 
-\#define \mbox{\hyperlink{heap_8cc_aa49301537070c78140f67d891cee7661}{COMPARE\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+NAME}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\#define \mbox{\hyperlink{heap_8cc_aa49301537070c78140f67d891cee7661}{COMPARE\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+NAME}}(\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_add5b4f198eb3a4b1694a2794f945430c}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Number\+Of\+Semi\+Spaces}} ()
+\item 
+static GCType \mbox{\hyperlink{namespacev8_1_1internal_aff3808eac4cead55a58c0e35f5b92cb3}{v8\+::internal\+::\+Get\+GCType\+From\+Garbage\+Collector}} (Garbage\+Collector collector)
+\item 
+size\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a8587afdc973f4479399fefa29edac235}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Minor\+MSConcurrent\+Marking\+Trigger}} (Heap $\ast$\mbox{\hyperlink{flag-definitions_8h_a761e4e5929b1553283fd6a532822bb17}{heap}})
+\item 
+intptr\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a6d8e06b03ed65af4568cb9d9cad1e557}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Compare\+Words}} (\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}}, Tagged$<$ Heap\+Object $>$ a, Tagged$<$ Heap\+Object $>$ b)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a2e751b5ac7eb0c2f5e3cdeb963a1c765}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Report\+Duplicates}} (\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}}, std\+::vector$<$ Tagged$<$ Heap\+Object $>$$>$ $\ast$objects)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_af6fac51dca96bf214e2609fb29ac7a39}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Free\+Caches\+On\+Memory\+Pressure}} (Isolate $\ast$isolate)
+\item 
+{\footnotesize template$<$typename Callback $>$ }\\void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a1cd796bdef653c41c06c870d5dbd6aff}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Invoke\+External\+Callbacks}} (Isolate $\ast$isolate, Callback callback)
+\item 
+size\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a0faa1d6c5486af7862e790694571a116}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Global\+Memory\+Size\+From\+V8\+Size}} (size\+\_\+t v8\+\_\+size)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a3888426f2454ce252bfe7e2657ead7fc}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Complete\+Array\+Buffer\+Sweeping}} (Heap $\ast$\mbox{\hyperlink{flag-definitions_8h_a761e4e5929b1553283fd6a532822bb17}{heap}})
+\item 
+{\footnotesize template$<$typename TSlot , typename Atomic\+Op , typename Non\+Atomic\+Op $>$ }\\void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a06b486870c69c4b5df9a12d9801aa4a1}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Copy\+Or\+Move\+Range\+Impl}} (Heap $\ast$\mbox{\hyperlink{flag-definitions_8h_a761e4e5929b1553283fd6a532822bb17}{heap}}, Tagged$<$ Heap\+Object $>$ dst\+\_\+object, const TSlot dst\+\_\+slot, const TSlot src\+\_\+slot, \mbox{\hyperlink{classint}{int}} len, Write\+Barrier\+Mode \mbox{\hyperlink{flag-definitions_8h_adaf90f045d5cd2710edd625b8685472a}{mode}}, Atomic\+Op atomic\+\_\+op, Non\+Atomic\+Op non\+\_\+atomic\+\_\+op)
+\item 
+GCTracer\+::\+Scope\+::\+Scope\+Id \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_acde928d466942d3475cf5f51a2a489b8}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Collector\+Scope\+Id}} (Garbage\+Collector collector)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_af75b962dd1a083e10544b77bf111442e}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Clear\+Stub\+Caches}} (Isolate $\ast$isolate)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a22c6c03a3df2e81f3ef28399956e67b2}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Create\+Filler\+Object\+At\+Impl}} (const Writable\+Free\+Space \&free\+\_\+space, Heap $\ast$\mbox{\hyperlink{flag-definitions_8h_a761e4e5929b1553283fd6a532822bb17}{heap}}, Clear\+Freed\+Memory\+Mode clear\+\_\+memory\+\_\+mode)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a5e41f47f39aa749f4e69daacfc387904}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Verify\+No\+Need\+To\+Clear\+Slots}} (Address start, Address end)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_af8bb61065a57b5e6b1541a704960d2e6}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+May\+Contain\+Recorded\+Slots}} (Tagged$<$ Heap\+Object $>$ object)
+\item 
+double \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_adadc0dc15bd14afca3aea5acda7a5e4f}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Compute\+Mutator\+Utilization\+Impl}} (double mutator\+\_\+speed, std\+::optional$<$ double $>$ gc\+\_\+speed)
+\item 
+size\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a93ef6857bb5756d322bd5382e5f37717}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Compute\+Reduced\+New\+Space\+Size}} (New\+Space $\ast$new\+\_\+space)
+\item 
+double \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a7c6f2969f4924fc2f144abf94d7f863e}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Percent\+To\+Limit}} (size\+\_\+t size\+\_\+at\+\_\+gc, size\+\_\+t size\+\_\+now, size\+\_\+t limit)
+\item 
+size\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a01f6ad1554819b5f9e92f55ae3fe12cb}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Return\+Null}} ()
+\item 
+Handle$<$ Weak\+Array\+List $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a5491233ebc32ee5bb9bb60ff56147df2}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::\+Compact\+Weak\+Array\+List}} (Heap $\ast$\mbox{\hyperlink{flag-definitions_8h_a761e4e5929b1553283fd6a532822bb17}{heap}}, Handle$<$ Weak\+Array\+List $>$ array, Allocation\+Type allocation)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a8ea0c4af10db4ae0c8f9f916e785e832}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::k\+Max\+Consecutive\+Ineffective\+Mark\+Compacts}} = 4
+\item 
+thread\+\_\+local Address \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02heap_8cc_03_a1cc7f5eba7a7d452472627a42a1365f4}{v8\+::internal\+::anonymous\+\_\+namespace\{heap.\+cc\}\+::pending\+\_\+layout\+\_\+change\+\_\+object\+\_\+address}} = k\+Null\+Address
 \end{DoxyCompactItemize}
 
 
@@ -184,12 +238,12 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1UnreachableObjectsFilter}{v8\+::in
 \index{heap.cc@{heap.cc}!COMPARE\_AND\_RETURN\_NAME@{COMPARE\_AND\_RETURN\_NAME}}
 \index{COMPARE\_AND\_RETURN\_NAME@{COMPARE\_AND\_RETURN\_NAME}!heap.cc@{heap.cc}}
 \doxysubsubsection{\texorpdfstring{COMPARE\_AND\_RETURN\_NAME}{COMPARE\_AND\_RETURN\_NAME}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \#define COMPARE\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define COMPARE\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}} }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}:                          \(\backslash\)}
-\DoxyCodeLine{    *object\_type = \#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}};             \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}}:                          \(\backslash\)}
+\DoxyCodeLine{    *object\_type = \#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}};             \(\backslash\)}
 \DoxyCodeLine{    *object\_sub\_type = \textcolor{stringliteral}{"{}"{}};            \(\backslash\)}
 \DoxyCodeLine{    return \textcolor{keyword}{true};}
 
@@ -198,13 +252,13 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1UnreachableObjectsFilter}{v8\+::in
 \index{heap.cc@{heap.cc}!COMPARE\_AND\_RETURN\_NAME@{COMPARE\_AND\_RETURN\_NAME}}
 \index{COMPARE\_AND\_RETURN\_NAME@{COMPARE\_AND\_RETURN\_NAME}!heap.cc@{heap.cc}}
 \doxysubsubsection{\texorpdfstring{COMPARE\_AND\_RETURN\_NAME}{COMPARE\_AND\_RETURN\_NAME}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \#define COMPARE\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define COMPARE\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}} }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{case} ObjectStats::FIRST\_VIRTUAL\_TYPE +                        \(\backslash\)}
-\DoxyCodeLine{      static\_cast<int>(\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{ObjectStats::VirtualInstanceType::name}}): \(\backslash\)}
-\DoxyCodeLine{    *object\_type = \#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}};                                       \(\backslash\)}
+\DoxyCodeLine{      static\_cast<int>(\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{ObjectStats::VirtualInstanceType::name}}): \(\backslash\)}
+\DoxyCodeLine{    *object\_type = \#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}};                                       \(\backslash\)}
 \DoxyCodeLine{    *object\_sub\_type = \textcolor{stringliteral}{"{}"{}};                                      \(\backslash\)}
 \DoxyCodeLine{    return \textcolor{keyword}{true};}
 
@@ -213,7 +267,7 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1UnreachableObjectsFilter}{v8\+::in
 \index{heap.cc@{heap.cc}!DEF\_RIGHT\_TRIM@{DEF\_RIGHT\_TRIM}}
 \index{DEF\_RIGHT\_TRIM@{DEF\_RIGHT\_TRIM}!heap.cc@{heap.cc}}
 \doxysubsubsection{\texorpdfstring{DEF\_RIGHT\_TRIM}{DEF\_RIGHT\_TRIM}}
-{\footnotesize\ttfamily \#define DEF\+\_\+\+RIGHT\+\_\+\+TRIM(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define DEF\+\_\+\+RIGHT\+\_\+\+TRIM(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{classT}{T}} }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
@@ -222,29 +276,33 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1UnreachableObjectsFilter}{v8\+::in
 \DoxyCodeLine{                          \textcolor{keywordtype}{int} old\_capacity);}
 
 \end{DoxyCode}
+
+
+Definition at line 3654 of file heap.\+cc.
+
 \mbox{\Hypertarget{heap_8cc_aaf085c883cc00254a2f9908613586764}\label{heap_8cc_aaf085c883cc00254a2f9908613586764}} 
 \index{heap.cc@{heap.cc}!DICT@{DICT}}
 \index{DICT@{DICT}!heap.cc@{heap.cc}}
 \doxysubsubsection{\texorpdfstring{DICT}{DICT}}
-{\footnotesize\ttfamily \#define DICT(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} }\end{DoxyParamCaption})~\char`\"{}\{\char`\"{} $<$$<$ \mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} $<$$<$ \char`\"{}\}\char`\"{}}
+{\footnotesize\ttfamily \#define DICT(\begin{DoxyParamCaption}\item[{}]{s }\end{DoxyParamCaption})~\char`\"{}\{\char`\"{} $<$$<$ s $<$$<$ \char`\"{}\}\char`\"{}}
 
 \mbox{\Hypertarget{heap_8cc_acdaff9d13f766739085c7eed06ffac65}\label{heap_8cc_acdaff9d13f766739085c7eed06ffac65}} 
 \index{heap.cc@{heap.cc}!LIST@{LIST}}
 \index{LIST@{LIST}!heap.cc@{heap.cc}}
 \doxysubsubsection{\texorpdfstring{LIST}{LIST}}
-{\footnotesize\ttfamily \#define LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} }\end{DoxyParamCaption})~\char`\"{}\mbox{[}\char`\"{} $<$$<$ \mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} $<$$<$ \char`\"{}\mbox{]}\char`\"{}}
+{\footnotesize\ttfamily \#define LIST(\begin{DoxyParamCaption}\item[{}]{s }\end{DoxyParamCaption})~\char`\"{}\mbox{[}\char`\"{} $<$$<$ s $<$$<$ \char`\"{}\mbox{]}\char`\"{}}
 
 \mbox{\Hypertarget{heap_8cc_a574269ef7c9ceebb66f8ec8b6fee9e58}\label{heap_8cc_a574269ef7c9ceebb66f8ec8b6fee9e58}} 
 \index{heap.cc@{heap.cc}!MEMBER@{MEMBER}}
 \index{MEMBER@{MEMBER}!heap.cc@{heap.cc}}
 \doxysubsubsection{\texorpdfstring{MEMBER}{MEMBER}}
-{\footnotesize\ttfamily \#define MEMBER(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} }\end{DoxyParamCaption})~\mbox{\hyperlink{heap_8cc_ad8d5ae679a29f40d24ca0f0031f1d242}{QUOTE}}(\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}}) $<$$<$ \char`\"{}\+:\char`\"{}}
+{\footnotesize\ttfamily \#define MEMBER(\begin{DoxyParamCaption}\item[{}]{s }\end{DoxyParamCaption})~\mbox{\hyperlink{heap_8cc_ad8d5ae679a29f40d24ca0f0031f1d242}{QUOTE}}(s) $<$$<$ \char`\"{}\+:\char`\"{}}
 
 \mbox{\Hypertarget{heap_8cc_ad8d5ae679a29f40d24ca0f0031f1d242}\label{heap_8cc_ad8d5ae679a29f40d24ca0f0031f1d242}} 
 \index{heap.cc@{heap.cc}!QUOTE@{QUOTE}}
 \index{QUOTE@{QUOTE}!heap.cc@{heap.cc}}
 \doxysubsubsection{\texorpdfstring{QUOTE}{QUOTE}}
-{\footnotesize\ttfamily \#define QUOTE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} }\end{DoxyParamCaption})~\char`\"{}\textbackslash{}\char`\"{}\char`\"{} $<$$<$ s $<$$<$ \char`\"{}\textbackslash{}\char`\"{}\char`\"{}}
+{\footnotesize\ttfamily \#define QUOTE(\begin{DoxyParamCaption}\item[{}]{s }\end{DoxyParamCaption})~\char`\"{}\textbackslash{}\char`\"{}\char`\"{} $<$$<$ s $<$$<$ \char`\"{}\textbackslash{}\char`\"{}\char`\"{}}
 
 \mbox{\Hypertarget{heap_8cc_adda7a77e52ce585aac7a8ae6c2515c72}\label{heap_8cc_adda7a77e52ce585aac7a8ae6c2515c72}} 
 \index{heap.cc@{heap.cc}!UPDATE\_COUNTERS\_AND\_FRAGMENTATION\_FOR\_SPACE@{UPDATE\_COUNTERS\_AND\_FRAGMENTATION\_FOR\_SPACE}}
@@ -266,7 +324,7 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1UnreachableObjectsFilter}{v8\+::in
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  \mbox{\hyperlink{compilation-cache-table_8cc_a68072bca3fef7bd8b0d3cbac971cbf4b}{isolate\_}}-\/>counters()-\/>space\#\#\_bytes\_available()-\/>Set( \(\backslash\)}
+\DoxyCodeLine{  isolate\_-\/>counters()-\/>space\#\#\_bytes\_available()-\/>Set( \(\backslash\)}
 \DoxyCodeLine{      \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}()-\/>Available()));          \(\backslash\)}
 \DoxyCodeLine{  isolate\_-\/>counters()-\/>space\#\#\_bytes\_committed()-\/>Set( \(\backslash\)}
 \DoxyCodeLine{      \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}()-\/>CommittedMemory()));    \(\backslash\)}

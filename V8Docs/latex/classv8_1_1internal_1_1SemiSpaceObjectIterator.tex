@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::Semi\+Space\+Object\+Iterator\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=244pt]{classv8_1_1internal_1_1SemiSpaceObjectIterator__coll__graph}
+\includegraphics[width=325pt]{classv8_1_1internal_1_1SemiSpaceObjectIterator__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -31,7 +31,19 @@ Collaboration diagram for v8\+::internal\+::Semi\+Space\+Object\+Iterator\+:
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1SemiSpaceObjectIterator_a471dec82b943e68cde08dfac8c24d14b}{Next}} () final
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} \mbox{\hyperlink{classv8_1_1internal_1_1SemiSpaceObjectIterator_a7f10a1ff3131df5a3f60f49716312aca}{current\+\_\+}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 178 of file new-\/spaces.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -41,6 +53,15 @@ Collaboration diagram for v8\+::internal\+::Semi\+Space\+Object\+Iterator\+:
 \doxysubsubsection{\texorpdfstring{SemiSpaceObjectIterator()}{SemiSpaceObjectIterator()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Semi\+Space\+Object\+Iterator\+::\+Semi\+Space\+Object\+Iterator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1SemiSpaceNewSpace}{Semi\+Space\+New\+Space}} $\ast$}]{space }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
+
+
+Definition at line 64 of file new-\/spaces-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{65     : \mbox{\hyperlink{classv8_1_1internal_1_1SemiSpaceObjectIterator_a7f10a1ff3131df5a3f60f49716312aca}{current\_}}(\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}-\/>first\_allocatable\_address()) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -56,7 +77,59 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1ObjectIterator_ace07e1df8cc81
 
 
 
+Definition at line 67 of file new-\/spaces-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{67                                                  \{}
+\DoxyCodeLine{68   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1SemiSpaceObjectIterator_a7f10a1ff3131df5a3f60f49716312aca}{current\_}}) \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   \textcolor{keywordflow}{while} (\textcolor{keyword}{true}) \{}
+\DoxyCodeLine{71     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1PageMetadata_aaa6fcc578ca1edd6013f0c05433a3ff2}{PageMetadata::IsAlignedToPageSize}}(\mbox{\hyperlink{classv8_1_1internal_1_1SemiSpaceObjectIterator_a7f10a1ff3131df5a3f60f49716312aca}{current\_}})) \{}
+\DoxyCodeLine{72       PageMetadata* page = \mbox{\hyperlink{classv8_1_1internal_1_1PageMetadata_a7af76f4e85c2cbc7ca5804394b1f269a}{PageMetadata::FromAllocationAreaAddress}}(\mbox{\hyperlink{classv8_1_1internal_1_1SemiSpaceObjectIterator_a7f10a1ff3131df5a3f60f49716312aca}{current\_}});}
+\DoxyCodeLine{73       page = page-\/>next\_page();}
+\DoxyCodeLine{74       \textcolor{keywordflow}{if} (page == \textcolor{keyword}{nullptr}) \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{75       \mbox{\hyperlink{classv8_1_1internal_1_1SemiSpaceObjectIterator_a7f10a1ff3131df5a3f60f49716312aca}{current\_}} = page-\/>area\_start();}
+\DoxyCodeLine{76     \}}
+\DoxyCodeLine{77     \mbox{\hyperlink{namespacev8_1_1internal_a57f5ecf71b9a2757b0555b2be4c640b8}{Tagged<HeapObject>}} \textcolor{keywordtype}{object} = \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject_aa18961d55321b920bd98b2fbcf729775}{HeapObject::FromAddress}}(\mbox{\hyperlink{classv8_1_1internal_1_1SemiSpaceObjectIterator_a7f10a1ff3131df5a3f60f49716312aca}{current\_}});}
+\DoxyCodeLine{78     \mbox{\hyperlink{classv8_1_1internal_1_1SemiSpaceObjectIterator_a7f10a1ff3131df5a3f60f49716312aca}{current\_}} += \mbox{\hyperlink{common_2globals_8h_a76f936b13cc7401de647c23963eda5c1}{ALIGN\_TO\_ALLOCATION\_ALIGNMENT}}(object-\/>Size());}
+\DoxyCodeLine{79     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_1_1InstanceTypeChecker_abbf68b3bf1ca62b0645f031cdc769188}{IsFreeSpaceOrFiller}}(\textcolor{keywordtype}{object})) \textcolor{keywordflow}{return} object;}
+\DoxyCodeLine{80   \}}
+\DoxyCodeLine{81 \}}
+
+\end{DoxyCode}
+
+
+References ALIGN\+\_\+\+TO\+\_\+\+ALLOCATION\+\_\+\+ALIGNMENT, v8\+::internal\+::\+Memory\+Chunk\+Metadata\+::area\+\_\+start(), current\+\_\+, v8\+::internal\+::\+Heap\+Object\+::\+From\+Address(), v8\+::internal\+::\+Page\+Metadata\+::\+From\+Allocation\+Area\+Address(), v8\+::internal\+::\+Page\+Metadata\+::\+Is\+Aligned\+To\+Page\+Size(), v8\+::internal\+::\+Instance\+Type\+Checker\+::\+Is\+Free\+Space\+Or\+Filler(), and v8\+::internal\+::\+Page\+Metadata\+::next\+\_\+page().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SemiSpaceObjectIterator_a471dec82b943e68cde08dfac8c24d14b_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1SemiSpaceObjectIterator_a7f10a1ff3131df5a3f60f49716312aca}\label{classv8_1_1internal_1_1SemiSpaceObjectIterator_a7f10a1ff3131df5a3f60f49716312aca}} 
+\index{v8::internal::SemiSpaceObjectIterator@{v8::internal::SemiSpaceObjectIterator}!current\_@{current\_}}
+\index{current\_@{current\_}!v8::internal::SemiSpaceObjectIterator@{v8::internal::SemiSpaceObjectIterator}}
+\doxysubsubsection{\texorpdfstring{current\_}{current\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} v8\+::internal\+::\+Semi\+Space\+Object\+Iterator\+::current\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 187 of file new-\/spaces.\+h.
+
+
+
+Referenced by Next().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{new-spaces_8h}{new-\/spaces.\+h}}\item 
-\mbox{\hyperlink{new-spaces-inl_8h}{new-\/spaces-\/inl.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{new-spaces_8h}{new-\/spaces.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{new-spaces-inl_8h}{new-\/spaces-\/inl.\+h}}\end{DoxyCompactItemize}

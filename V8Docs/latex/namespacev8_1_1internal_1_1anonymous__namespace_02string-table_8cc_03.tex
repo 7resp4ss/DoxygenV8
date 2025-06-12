@@ -1,0 +1,93 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02string-table_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{string-\/table.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02string-table_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}string-\/table.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}string-\/table.cc\rcurly{}}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02string-table_8cc_03_1_1CharBuffer}{Char\+Buffer}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02string-table_8cc_03_ad3ce734799151a3cb6a2988f9fd8a06a}{Set\+Internalized\+Reference}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{string}}, \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$ internalized)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02string-table_8cc_03_ad3ce734799151a3cb6a2988f9fd8a06a}\label{namespacev8_1_1internal_1_1anonymous__namespace_02string-table_8cc_03_ad3ce734799151a3cb6a2988f9fd8a06a}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}string-\/table.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}string-\/table.cc\rcurly{}}!SetInternalizedReference@{SetInternalizedReference}}
+\index{SetInternalizedReference@{SetInternalizedReference}!v8::internal::anonymous\_namespace\lcurly{}string-\/table.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}string-\/table.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{SetInternalizedReference()}{SetInternalizedReference()}}
+{\footnotesize\ttfamily void v8\+::internal\+::anonymous\+\_\+namespace\{\mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{string}}-\/table.\+cc\}\+::Set\+Internalized\+Reference (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$}]{string,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$}]{internalized }\end{DoxyParamCaption})}
+
+
+
+Definition at line 292 of file string-\/table.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{293                                                            \{}
+\DoxyCodeLine{294   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{namespacev8_1_1internal_1_1InstanceTypeChecker_a6f5e6ffabad6d103b853e7033c900fbe}{IsThinString}}(\textcolor{keywordtype}{string}));}
+\DoxyCodeLine{295   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{namespacev8_1_1internal_1_1InstanceTypeChecker_aa50b8d8a7e8d5da47c21d36be5b2a14d}{IsInternalizedString}}(\textcolor{keywordtype}{string}));}
+\DoxyCodeLine{296   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_1_1InstanceTypeChecker_aa50b8d8a7e8d5da47c21d36be5b2a14d}{IsInternalizedString}}(internalized));}
+\DoxyCodeLine{297   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!internalized-\/>HasInternalizedForwardingIndex(\mbox{\hyperlink{namespacev8_aee4e677b8d8a86416617b3330778b98a}{kAcquireLoad}}));}
+\DoxyCodeLine{298   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{string}}-\/>IsShared() || \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.always\_use\_string\_forwarding\_table) \{}
+\DoxyCodeLine{299     uint32\_t field = \textcolor{keywordtype}{string}-\/>raw\_hash\_field(\mbox{\hyperlink{namespacev8_aee4e677b8d8a86416617b3330778b98a}{kAcquireLoad}});}
+\DoxyCodeLine{300     \textcolor{comment}{// Don't use the forwarding table for strings that have an integer index.}}
+\DoxyCodeLine{301     \textcolor{comment}{// Using the hash field for the integer index is more beneficial than}}
+\DoxyCodeLine{302     \textcolor{comment}{// using it to store the forwarding index to the internalized string.}}
+\DoxyCodeLine{303     \textcolor{keywordflow}{if} (Name::IsIntegerIndex(field)) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{304     \textcolor{comment}{// Check one last time if we already have an internalized forwarding index}}
+\DoxyCodeLine{305     \textcolor{comment}{// to prevent too many copies of the string in the forwarding table.}}
+\DoxyCodeLine{306     \textcolor{keywordflow}{if} (Name::IsInternalizedForwardingIndex(field)) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{307 }
+\DoxyCodeLine{308     \textcolor{comment}{// If we already have an entry for an external resource in the table, update}}
+\DoxyCodeLine{309     \textcolor{comment}{// the entry instead of creating a new one. There is no guarantee that we}}
+\DoxyCodeLine{310     \textcolor{comment}{// will always update existing records instead of creating new ones, but}}
+\DoxyCodeLine{311     \textcolor{comment}{// races should be rare.}}
+\DoxyCodeLine{312     \textcolor{keywordflow}{if} (Name::IsForwardingIndex(field)) \{}
+\DoxyCodeLine{313       \textcolor{keyword}{const} \textcolor{keywordtype}{int} forwarding\_index =}
+\DoxyCodeLine{314           Name::ForwardingIndexValueBits::decode(field);}
+\DoxyCodeLine{315       isolate-\/>string\_forwarding\_table()-\/>UpdateForwardString(forwarding\_index,}
+\DoxyCodeLine{316                                                               internalized);}
+\DoxyCodeLine{317       \textcolor{comment}{// Update the forwarding index type to include internalized.}}
+\DoxyCodeLine{318       field = Name::IsInternalizedForwardingIndexBit::update(field, \textcolor{keyword}{true});}
+\DoxyCodeLine{319       \textcolor{keywordtype}{string}-\/>set\_raw\_hash\_field(field, \mbox{\hyperlink{namespacev8_a13596ed4ca024abd4790ec46b62c2097}{kReleaseStore}});}
+\DoxyCodeLine{320     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{321       \textcolor{keyword}{const} \textcolor{keywordtype}{int} forwarding\_index =}
+\DoxyCodeLine{322           isolate-\/>string\_forwarding\_table()-\/>AddForwardString(\textcolor{keywordtype}{string},}
+\DoxyCodeLine{323                                                                internalized);}
+\DoxyCodeLine{324       \textcolor{keywordtype}{string}-\/>set\_raw\_hash\_field(}
+\DoxyCodeLine{325           String::CreateInternalizedForwardingIndex(forwarding\_index),}
+\DoxyCodeLine{326           \mbox{\hyperlink{namespacev8_a13596ed4ca024abd4790ec46b62c2097}{kReleaseStore}});}
+\DoxyCodeLine{327     \}}
+\DoxyCodeLine{328   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{329     \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{string}}-\/>HasForwardingIndex(\mbox{\hyperlink{namespacev8_aee4e677b8d8a86416617b3330778b98a}{kAcquireLoad}}));}
+\DoxyCodeLine{330     \textcolor{keywordtype}{string}-\/>MakeThin(isolate, internalized);}
+\DoxyCodeLine{331   \}}
+\DoxyCodeLine{332 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+String\+Forwarding\+Table\+::\+Add\+Forward\+String(), v8\+::internal\+::\+Name\+::\+Create\+Internalized\+Forwarding\+Index(), v8\+::internal\+::\+DCHECK(), v8\+::base\+::\+Bit\+Field$<$ T, shift, size, U $>$\+::decode(), v8\+::internal\+::\+Name\+::\+Is\+Forwarding\+Index(), v8\+::internal\+::\+Name\+::\+Is\+Integer\+Index(), v8\+::internal\+::\+Name\+::\+Is\+Internalized\+Forwarding\+Index(), v8\+::internal\+::\+Instance\+Type\+Checker\+::\+Is\+Internalized\+String(), v8\+::internal\+::\+Instance\+Type\+Checker\+::\+Is\+Thin\+String(), v8\+::k\+Acquire\+Load, v8\+::k\+Release\+Store, v8\+::internal\+::string, v8\+::internal\+::\+Isolate\+::string\+\_\+forwarding\+\_\+table(), v8\+::base\+::\+Bit\+Field$<$ T, shift, size, U $>$\+::update(), v8\+::internal\+::\+String\+Forwarding\+Table\+::\+Update\+Forward\+String(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::\+String\+Table\+::\+Lookup\+String(), and v8\+::internal\+::\+String\+Table\+::\+Data\+::\+Try\+String\+To\+Index\+Or\+Lookup\+Existing().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02string-table_8cc_03_ad3ce734799151a3cb6a2988f9fd8a06a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02string-table_8cc_03_ad3ce734799151a3cb6a2988f9fd8a06a_icgraph}
+\end{center}
+\end{figure}

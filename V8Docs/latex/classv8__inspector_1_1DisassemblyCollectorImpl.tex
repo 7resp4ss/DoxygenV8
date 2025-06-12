@@ -17,7 +17,7 @@ Collaboration diagram for v8\+\_\+inspector\+::Disassembly\+Collector\+Impl\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=257pt]{classv8__inspector_1_1DisassemblyCollectorImpl__coll__graph}
+\includegraphics[width=350pt]{classv8__inspector_1_1DisassemblyCollectorImpl__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -25,9 +25,9 @@ Collaboration diagram for v8\+\_\+inspector\+::Disassembly\+Collector\+Impl\+:
 \item 
 \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a4c47fb37593758225793612e72efcb56}{Disassembly\+Collector\+Impl}} ()=default
 \item 
-void \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a9c9d247b99362b1cd3c27f0319145c83}{Reserve\+Line\+Count}} (size\+\_\+t \mbox{\hyperlink{debug-coverage_8cc_a86988a65e0d3ece7990c032c159786d6}{count}}) override
+void \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a9c9d247b99362b1cd3c27f0319145c83}{Reserve\+Line\+Count}} (size\+\_\+t count) override
 \item 
-void \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_ac45f21f32b27bd053268920f4d3df477}{Add\+Line}} (const char $\ast$src, size\+\_\+t \mbox{\hyperlink{random-module-generation_8cc_aebb70c2aab3407a9f05334c47131a43b}{length}}, uint32\+\_\+t bytecode\+\_\+offset) override
+void \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_ac45f21f32b27bd053268920f4d3df477}{Add\+Line}} (const char $\ast$src, size\+\_\+t length, uint32\+\_\+t bytecode\+\_\+offset) override
 \item 
 size\+\_\+t \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_ac2a4ba478e751d6f5771c240cdbbdcc8}{total\+\_\+number\+\_\+of\+\_\+lines}} ()
 \item 
@@ -35,6 +35,29 @@ bool \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a5bb64ccbe1
 \item 
 \mbox{\hyperlink{structv8__inspector_1_1DisassemblyChunk}{Disassembly\+Chunk}} \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a6822dc841af40f8dbde14a4d7be52d1b}{Next\+Chunk}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a6750a6ea0a5af0873b31f2ab3856fbab}{writing\+\_\+chunk\+\_\+index\+\_\+}} = 0
+\item 
+size\+\_\+t \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_af6ed37cfce47dd9b5dc4547b084a53d4}{reading\+\_\+chunk\+\_\+index\+\_\+}} = 0
+\item 
+size\+\_\+t \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a3d5ffd81a861c1561fd1373d1d8c624f}{total\+\_\+number\+\_\+of\+\_\+lines\+\_\+}} = 0
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structv8__inspector_1_1DisassemblyChunk}{Disassembly\+Chunk}} $>$ \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a637eb35f68d63ffd09d79ce31d65a139}{chunks\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr size\+\_\+t \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_ab86214350d57c75052dd525d529a8845}{k\+Lines\+Per\+Chunk}} = 200\textquotesingle{}000
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1278 of file v8-\/debugger-\/agent-\/impl.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -57,17 +80,66 @@ bool \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a5bb64ccbe1
 
 Implements \mbox{\hyperlink{classv8_1_1debug_1_1DisassemblyCollector_a36efd09f3723ab503234356002e43c2a}{v8\+::debug\+::\+Disassembly\+Collector}}.
 
+
+
+Definition at line 1295 of file v8-\/debugger-\/agent-\/impl.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1296                                                   \{}
+\DoxyCodeLine{1297     \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a637eb35f68d63ffd09d79ce31d65a139}{chunks\_}}[\mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a6750a6ea0a5af0873b31f2ab3856fbab}{writing\_chunk\_index\_}}].lines.emplace\_back(src, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}});}
+\DoxyCodeLine{1298     \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a637eb35f68d63ffd09d79ce31d65a139}{chunks\_}}[\mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a6750a6ea0a5af0873b31f2ab3856fbab}{writing\_chunk\_index\_}}].lineOffsets.push\_back(}
+\DoxyCodeLine{1299         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(bytecode\_offset));}
+\DoxyCodeLine{1300     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a637eb35f68d63ffd09d79ce31d65a139}{chunks\_}}[\mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a6750a6ea0a5af0873b31f2ab3856fbab}{writing\_chunk\_index\_}}].lines.size() == \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_ab86214350d57c75052dd525d529a8845}{kLinesPerChunk}}) \{}
+\DoxyCodeLine{1301       \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a6750a6ea0a5af0873b31f2ab3856fbab}{writing\_chunk\_index\_}}++;}
+\DoxyCodeLine{1302     \}}
+\DoxyCodeLine{1303     \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a3d5ffd81a861c1561fd1373d1d8c624f}{total\_number\_of\_lines\_}}++;}
+\DoxyCodeLine{1304   \}}
+
+\end{DoxyCode}
+
+
+References chunks\+\_\+, k\+Lines\+Per\+Chunk, v8\+::internal\+::length, total\+\_\+number\+\_\+of\+\_\+lines\+\_\+, and writing\+\_\+chunk\+\_\+index\+\_\+.
+
 \mbox{\Hypertarget{classv8__inspector_1_1DisassemblyCollectorImpl_a5bb64ccbe12676fdbb4ed2a22cd766de}\label{classv8__inspector_1_1DisassemblyCollectorImpl_a5bb64ccbe12676fdbb4ed2a22cd766de}} 
 \index{v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}!HasNextChunk@{HasNextChunk}}
 \index{HasNextChunk@{HasNextChunk}!v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}}
 \doxysubsubsection{\texorpdfstring{HasNextChunk()}{HasNextChunk()}}
 {\footnotesize\ttfamily bool v8\+\_\+inspector\+::\+Disassembly\+Collector\+Impl\+::\+Has\+Next\+Chunk (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 1308 of file v8-\/debugger-\/agent-\/impl.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1308 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_af6ed37cfce47dd9b5dc4547b084a53d4}{reading\_chunk\_index\_}} < \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a637eb35f68d63ffd09d79ce31d65a139}{chunks\_}}.size(); \}}
+
+\end{DoxyCode}
+
+
+References chunks\+\_\+, and reading\+\_\+chunk\+\_\+index\+\_\+.
+
 \mbox{\Hypertarget{classv8__inspector_1_1DisassemblyCollectorImpl_a6822dc841af40f8dbde14a4d7be52d1b}\label{classv8__inspector_1_1DisassemblyCollectorImpl_a6822dc841af40f8dbde14a4d7be52d1b}} 
 \index{v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}!NextChunk@{NextChunk}}
 \index{NextChunk@{NextChunk}!v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}}
 \doxysubsubsection{\texorpdfstring{NextChunk()}{NextChunk()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structv8__inspector_1_1DisassemblyChunk}{Disassembly\+Chunk}} v8\+\_\+inspector\+::\+Disassembly\+Collector\+Impl\+::\+Next\+Chunk (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 1309 of file v8-\/debugger-\/agent-\/impl.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1309                                \{}
+\DoxyCodeLine{1310     \textcolor{keywordflow}{return} std::move(\mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a637eb35f68d63ffd09d79ce31d65a139}{chunks\_}}[\mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_af6ed37cfce47dd9b5dc4547b084a53d4}{reading\_chunk\_index\_}}++]);}
+\DoxyCodeLine{1311   \}}
+
+\end{DoxyCode}
+
+
+References chunks\+\_\+, and reading\+\_\+chunk\+\_\+index\+\_\+.
 
 \mbox{\Hypertarget{classv8__inspector_1_1DisassemblyCollectorImpl_a9c9d247b99362b1cd3c27f0319145c83}\label{classv8__inspector_1_1DisassemblyCollectorImpl_a9c9d247b99362b1cd3c27f0319145c83}} 
 \index{v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}!ReserveLineCount@{ReserveLineCount}}
@@ -79,6 +151,30 @@ Implements \mbox{\hyperlink{classv8_1_1debug_1_1DisassemblyCollector_a36efd09f37
 
 Implements \mbox{\hyperlink{classv8_1_1debug_1_1DisassemblyCollector_a1e68229417f25847b1059142a53b55c4}{v8\+::debug\+::\+Disassembly\+Collector}}.
 
+
+
+Definition at line 1282 of file v8-\/debugger-\/agent-\/impl.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1282                                                \{}
+\DoxyCodeLine{1283     \textcolor{keywordflow}{if} (count == 0) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{1284     \textcolor{keywordtype}{size\_t} num\_chunks = (count + \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_ab86214350d57c75052dd525d529a8845}{kLinesPerChunk}} -\/ 1) / \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_ab86214350d57c75052dd525d529a8845}{kLinesPerChunk}};}
+\DoxyCodeLine{1285     \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a637eb35f68d63ffd09d79ce31d65a139}{chunks\_}}.resize(num\_chunks);}
+\DoxyCodeLine{1286     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < num\_chunks -\/ 1; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{1287       \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a637eb35f68d63ffd09d79ce31d65a139}{chunks\_}}[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}].Reserve(\mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_ab86214350d57c75052dd525d529a8845}{kLinesPerChunk}});}
+\DoxyCodeLine{1288     \}}
+\DoxyCodeLine{1289     \textcolor{keywordtype}{size\_t} last = num\_chunks -\/ 1;}
+\DoxyCodeLine{1290     \textcolor{keywordtype}{size\_t} last\_size = count \% \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_ab86214350d57c75052dd525d529a8845}{kLinesPerChunk}};}
+\DoxyCodeLine{1291     \textcolor{keywordflow}{if} (last\_size == 0) last\_size = \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_ab86214350d57c75052dd525d529a8845}{kLinesPerChunk}};}
+\DoxyCodeLine{1292     \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a637eb35f68d63ffd09d79ce31d65a139}{chunks\_}}[last].Reserve(last\_size);}
+\DoxyCodeLine{1293   \}}
+
+\end{DoxyCode}
+
+
+References chunks\+\_\+, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, and k\+Lines\+Per\+Chunk.
+
 \mbox{\Hypertarget{classv8__inspector_1_1DisassemblyCollectorImpl_ac2a4ba478e751d6f5771c240cdbbdcc8}\label{classv8__inspector_1_1DisassemblyCollectorImpl_ac2a4ba478e751d6f5771c240cdbbdcc8}} 
 \index{v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}!total\_number\_of\_lines@{total\_number\_of\_lines}}
 \index{total\_number\_of\_lines@{total\_number\_of\_lines}!v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}}
@@ -87,6 +183,92 @@ Implements \mbox{\hyperlink{classv8_1_1debug_1_1DisassemblyCollector_a1e68229417
 
 
 
+Definition at line 1306 of file v8-\/debugger-\/agent-\/impl.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1306 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8__inspector_1_1DisassemblyCollectorImpl_a3d5ffd81a861c1561fd1373d1d8c624f}{total\_number\_of\_lines\_}}; \}}
+
+\end{DoxyCode}
+
+
+References total\+\_\+number\+\_\+of\+\_\+lines\+\_\+.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8__inspector_1_1DisassemblyCollectorImpl_a637eb35f68d63ffd09d79ce31d65a139}\label{classv8__inspector_1_1DisassemblyCollectorImpl_a637eb35f68d63ffd09d79ce31d65a139}} 
+\index{v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}!chunks\_@{chunks\_}}
+\index{chunks\_@{chunks\_}!v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}}
+\doxysubsubsection{\texorpdfstring{chunks\_}{chunks\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structv8__inspector_1_1DisassemblyChunk}{Disassembly\+Chunk}}$>$ v8\+\_\+inspector\+::\+Disassembly\+Collector\+Impl\+::chunks\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 1322 of file v8-\/debugger-\/agent-\/impl.\+cc.
+
+
+
+Referenced by Add\+Line(), Has\+Next\+Chunk(), Next\+Chunk(), and Reserve\+Line\+Count().
+
+\mbox{\Hypertarget{classv8__inspector_1_1DisassemblyCollectorImpl_ab86214350d57c75052dd525d529a8845}\label{classv8__inspector_1_1DisassemblyCollectorImpl_ab86214350d57c75052dd525d529a8845}} 
+\index{v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}!kLinesPerChunk@{kLinesPerChunk}}
+\index{kLinesPerChunk@{kLinesPerChunk}!v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}}
+\doxysubsubsection{\texorpdfstring{kLinesPerChunk}{kLinesPerChunk}}
+{\footnotesize\ttfamily constexpr size\+\_\+t v8\+\_\+inspector\+::\+Disassembly\+Collector\+Impl\+::k\+Lines\+Per\+Chunk = 200\textquotesingle{}000\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [private]}}
+
+
+
+Definition at line 1317 of file v8-\/debugger-\/agent-\/impl.\+cc.
+
+
+
+Referenced by Add\+Line(), and Reserve\+Line\+Count().
+
+\mbox{\Hypertarget{classv8__inspector_1_1DisassemblyCollectorImpl_af6ed37cfce47dd9b5dc4547b084a53d4}\label{classv8__inspector_1_1DisassemblyCollectorImpl_af6ed37cfce47dd9b5dc4547b084a53d4}} 
+\index{v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}!reading\_chunk\_index\_@{reading\_chunk\_index\_}}
+\index{reading\_chunk\_index\_@{reading\_chunk\_index\_}!v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}}
+\doxysubsubsection{\texorpdfstring{reading\_chunk\_index\_}{reading\_chunk\_index\_}}
+{\footnotesize\ttfamily size\+\_\+t v8\+\_\+inspector\+::\+Disassembly\+Collector\+Impl\+::reading\+\_\+chunk\+\_\+index\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 1320 of file v8-\/debugger-\/agent-\/impl.\+cc.
+
+
+
+Referenced by Has\+Next\+Chunk(), and Next\+Chunk().
+
+\mbox{\Hypertarget{classv8__inspector_1_1DisassemblyCollectorImpl_a3d5ffd81a861c1561fd1373d1d8c624f}\label{classv8__inspector_1_1DisassemblyCollectorImpl_a3d5ffd81a861c1561fd1373d1d8c624f}} 
+\index{v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}!total\_number\_of\_lines\_@{total\_number\_of\_lines\_}}
+\index{total\_number\_of\_lines\_@{total\_number\_of\_lines\_}!v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}}
+\doxysubsubsection{\texorpdfstring{total\_number\_of\_lines\_}{total\_number\_of\_lines\_}}
+{\footnotesize\ttfamily size\+\_\+t v8\+\_\+inspector\+::\+Disassembly\+Collector\+Impl\+::total\+\_\+number\+\_\+of\+\_\+lines\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 1321 of file v8-\/debugger-\/agent-\/impl.\+cc.
+
+
+
+Referenced by Add\+Line(), and total\+\_\+number\+\_\+of\+\_\+lines().
+
+\mbox{\Hypertarget{classv8__inspector_1_1DisassemblyCollectorImpl_a6750a6ea0a5af0873b31f2ab3856fbab}\label{classv8__inspector_1_1DisassemblyCollectorImpl_a6750a6ea0a5af0873b31f2ab3856fbab}} 
+\index{v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}!writing\_chunk\_index\_@{writing\_chunk\_index\_}}
+\index{writing\_chunk\_index\_@{writing\_chunk\_index\_}!v8\_inspector::DisassemblyCollectorImpl@{v8\_inspector::DisassemblyCollectorImpl}}
+\doxysubsubsection{\texorpdfstring{writing\_chunk\_index\_}{writing\_chunk\_index\_}}
+{\footnotesize\ttfamily size\+\_\+t v8\+\_\+inspector\+::\+Disassembly\+Collector\+Impl\+::writing\+\_\+chunk\+\_\+index\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 1319 of file v8-\/debugger-\/agent-\/impl.\+cc.
+
+
+
+Referenced by Add\+Line().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-debugger-agent-impl_8cc}{v8-\/debugger-\/agent-\/impl.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/inspector/\mbox{\hyperlink{v8-debugger-agent-impl_8cc}{v8-\/debugger-\/agent-\/impl.\+cc}}\end{DoxyCompactItemize}

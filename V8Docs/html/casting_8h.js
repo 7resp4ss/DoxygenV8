@@ -1,9 +1,9 @@
 var casting_8h =
 [
-    [ "CastTraits< MaybeWeak< T > >", "structv8_1_1internal_1_1CastTraits_3_01MaybeWeak_3_01T_01_4_01_4.html", null ],
-    [ "CastTraits< Object >", "structv8_1_1internal_1_1CastTraits_3_01Object_01_4.html", null ],
-    [ "CastTraits< Smi >", "structv8_1_1internal_1_1CastTraits_3_01Smi_01_4.html", null ],
-    [ "CastTraits< HeapObject >", "structv8_1_1internal_1_1CastTraits_3_01HeapObject_01_4.html", null ],
+    [ "CastTraits< MaybeWeak< T > >", "structv8_1_1internal_1_1CastTraits_3_01MaybeWeak_3_01T_01_4_01_4.html", "structv8_1_1internal_1_1CastTraits_3_01MaybeWeak_3_01T_01_4_01_4" ],
+    [ "CastTraits< Object >", "structv8_1_1internal_1_1CastTraits_3_01Object_01_4.html", "structv8_1_1internal_1_1CastTraits_3_01Object_01_4" ],
+    [ "CastTraits< Smi >", "structv8_1_1internal_1_1CastTraits_3_01Smi_01_4.html", "structv8_1_1internal_1_1CastTraits_3_01Smi_01_4" ],
+    [ "CastTraits< HeapObject >", "structv8_1_1internal_1_1CastTraits_3_01HeapObject_01_4.html", "structv8_1_1internal_1_1CastTraits_3_01HeapObject_01_4" ],
     [ "INIT_SOURCE_LOCATION_IN_DEBUG", "casting_8h.html#a8f9da3927843d081eff03b9d76cb5ed1", null ],
     [ "Cast", "casting_8h.html#af6ec9f46f107c0cca29f2b4b1dba57cc", null ],
     [ "Cast", "casting_8h.html#a94c4a6c4ad3993b5e0e43bc2191c084b", null ],

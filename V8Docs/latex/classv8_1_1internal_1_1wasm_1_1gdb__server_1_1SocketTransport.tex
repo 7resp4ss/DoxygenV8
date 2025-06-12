@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::wasm\+::gdb\+\_\+server\+::Socket\+Tra
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=240pt]{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,13 +21,13 @@ Collaboration diagram for v8\+::internal\+::wasm\+::gdb\+\_\+server\+::Socket\+T
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=294pt]{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a3cea733c5c7a86c0548cfab66dbe32f1}{Socket\+Transport}} (\mbox{\hyperlink{transport_8h_ae6665db702f7f374879e1ccb5042c031}{Socket\+Handle}} \mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}})
+\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a3cea733c5c7a86c0548cfab66dbe32f1}{Socket\+Transport}} (\mbox{\hyperlink{transport_8h_ae6665db702f7f374879e1ccb5042c031}{Socket\+Handle}} s)
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_aac17eab5c0fa99d6a17933e9ad807cb7}{$\sim$\+Socket\+Transport}} () override
 \item 
@@ -41,7 +41,26 @@ Collaboration diagram for v8\+::internal\+::wasm\+::gdb\+\_\+server\+::Socket\+T
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a9af865f8513faecfeb0eaef0d8b54eb5}{Signal\+Thread\+Event}} () override
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a089e6ae860525a79cc1aa83c7e6ffe9f}{Read\+Some\+Data}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_ae53b837798b442f779b5e3ed11ef686b}{faulted\+\_\+thread\+\_\+fd\+\_\+read\+\_\+}}
+\item 
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_acb188a190a7e72705c7d8b4537b993c7}{faulted\+\_\+thread\+\_\+fd\+\_\+write\+\_\+}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 166 of file transport.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -51,11 +70,62 @@ Collaboration diagram for v8\+::internal\+::wasm\+::gdb\+\_\+server\+::Socket\+T
 \doxysubsubsection{\texorpdfstring{SocketTransport()}{SocketTransport()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Socket\+Transport\+::\+Socket\+Transport (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{transport_8h_ae6665db702f7f374879e1ccb5042c031}{Socket\+Handle}}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
+
+
+Definition at line 340 of file transport.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{340                                                : \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_ab66256cbf3f664b423ae9c59b3649848}{Transport}}(s) \{}
+\DoxyCodeLine{341   \textcolor{keywordtype}{int} fds[2];}
+\DoxyCodeLine{342 \textcolor{preprocessor}{\#if defined(\_\_linux\_\_)}}
+\DoxyCodeLine{343   \textcolor{keywordtype}{int} ret = pipe2(fds, O\_CLOEXEC);}
+\DoxyCodeLine{344 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{345   \textcolor{keywordtype}{int} ret = pipe(fds);}
+\DoxyCodeLine{346 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{347   \textcolor{keywordflow}{if} (ret < 0) \{}
+\DoxyCodeLine{348     \mbox{\hyperlink{gdb-remote-util_8h_af693ba8c30b0a5e9c9c0a4af63086137}{TRACE\_GDB\_REMOTE}}(}
+\DoxyCodeLine{349         \textcolor{stringliteral}{"{}SocketTransport::SocketTransport: Failed to allocate pipe for faulted "{}}}
+\DoxyCodeLine{350         \textcolor{stringliteral}{"{}thread\(\backslash\)n"{}});}
+\DoxyCodeLine{351   \}}
+\DoxyCodeLine{352   \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_ae53b837798b442f779b5e3ed11ef686b}{faulted\_thread\_fd\_read\_}} = fds[0];}
+\DoxyCodeLine{353   \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_acb188a190a7e72705c7d8b4537b993c7}{faulted\_thread\_fd\_write\_}} = fds[1];}
+\DoxyCodeLine{354 \}}
+
+\end{DoxyCode}
+
+
+References faulted\+\_\+thread\+\_\+fd\+\_\+read\+\_\+, faulted\+\_\+thread\+\_\+fd\+\_\+write\+\_\+, and TRACE\+\_\+\+GDB\+\_\+\+REMOTE.
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_aac17eab5c0fa99d6a17933e9ad807cb7}\label{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_aac17eab5c0fa99d6a17933e9ad807cb7}} 
 \index{v8::internal::wasm::gdb\_server::SocketTransport@{v8::internal::wasm::gdb\_server::SocketTransport}!````~SocketTransport@{$\sim$SocketTransport}}
 \index{````~SocketTransport@{$\sim$SocketTransport}!v8::internal::wasm::gdb\_server::SocketTransport@{v8::internal::wasm::gdb\_server::SocketTransport}}
 \doxysubsubsection{\texorpdfstring{$\sim$SocketTransport()}{~SocketTransport()}}
 {\footnotesize\ttfamily v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Socket\+Transport\+::$\sim$\+Socket\+Transport (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line 356 of file transport.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{356                                   \{}
+\DoxyCodeLine{357   \textcolor{keywordflow}{if} (close(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_ae53b837798b442f779b5e3ed11ef686b}{faulted\_thread\_fd\_read\_}}) != 0) \{}
+\DoxyCodeLine{358     \mbox{\hyperlink{gdb-remote-util_8h_af693ba8c30b0a5e9c9c0a4af63086137}{TRACE\_GDB\_REMOTE}}(}
+\DoxyCodeLine{359         \textcolor{stringliteral}{"{}SocketTransport::\string~SocketTransport: Failed to close "{}}}
+\DoxyCodeLine{360         \textcolor{stringliteral}{"{}event\(\backslash\)n"{}});}
+\DoxyCodeLine{361   \}}
+\DoxyCodeLine{362   \textcolor{keywordflow}{if} (close(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_acb188a190a7e72705c7d8b4537b993c7}{faulted\_thread\_fd\_write\_}}) != 0) \{}
+\DoxyCodeLine{363     \mbox{\hyperlink{gdb-remote-util_8h_af693ba8c30b0a5e9c9c0a4af63086137}{TRACE\_GDB\_REMOTE}}(}
+\DoxyCodeLine{364         \textcolor{stringliteral}{"{}SocketTransport::\string~SocketTransport: Failed to close "{}}}
+\DoxyCodeLine{365         \textcolor{stringliteral}{"{}event\(\backslash\)n"{}});}
+\DoxyCodeLine{366   \}}
+\DoxyCodeLine{367 \}}
+
+\end{DoxyCode}
+
+
+References faulted\+\_\+thread\+\_\+fd\+\_\+read\+\_\+, faulted\+\_\+thread\+\_\+fd\+\_\+write\+\_\+, and TRACE\+\_\+\+GDB\+\_\+\+REMOTE.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a6f9264dcc632c0d36fca3d58acc0c360}\label{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a6f9264dcc632c0d36fca3d58acc0c360}} 
 \index{v8::internal::wasm::gdb\_server::SocketTransport@{v8::internal::wasm::gdb\_server::SocketTransport}!SocketTransport@{SocketTransport}}
@@ -76,12 +146,91 @@ Collaboration diagram for v8\+::internal\+::wasm\+::gdb\+\_\+server\+::Socket\+T
 
 Implements \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1TransportBase_a9549f49c8466d0050d49c92efad46b1d}{v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Transport\+Base}}.
 
+
+
+Definition at line 369 of file transport.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{369                                        \{}
+\DoxyCodeLine{370   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_a7b8e6e3ab148e555d781eb3905ab9895}{handle\_accept\_}} == \mbox{\hyperlink{transport_8h_a659201fa9e9ae2c094563925be262d89}{InvalidSocket}});}
+\DoxyCodeLine{371   \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_a7b8e6e3ab148e555d781eb3905ab9895}{handle\_accept\_}} = ::accept(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_acf2e4f277c92086af18133386d2cbb8d}{handle\_bind\_}}, NULL, 0);}
+\DoxyCodeLine{372   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_a7b8e6e3ab148e555d781eb3905ab9895}{handle\_accept\_}} != \mbox{\hyperlink{transport_8h_a659201fa9e9ae2c094563925be262d89}{InvalidSocket}}) \{}
+\DoxyCodeLine{373     \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_1_1gdb__server_a2e9fdedfa18f69090631a5c888aaf826}{DisableNagleAlgorithm}}(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_a7b8e6e3ab148e555d781eb3905ab9895}{handle\_accept\_}});}
+\DoxyCodeLine{374     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{375   \}}
+\DoxyCodeLine{376   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{377 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Disable\+Nagle\+Algorithm(), v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Transport\+::handle\+\_\+accept\+\_\+, v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Transport\+::handle\+\_\+bind\+\_\+, and Invalid\+Socket.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a24e06c15c866ed6c09642fe30b3132dd_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_abdb4b4f369ef14ac6273d9cda573cd87}\label{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_abdb4b4f369ef14ac6273d9cda573cd87}} 
 \index{v8::internal::wasm::gdb\_server::SocketTransport@{v8::internal::wasm::gdb\_server::SocketTransport}!operator=@{operator=}}
 \index{operator=@{operator=}!v8::internal::wasm::gdb\_server::SocketTransport@{v8::internal::wasm::gdb\_server::SocketTransport}}
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport}{Socket\+Transport}}\& v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Socket\+Transport\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport}{Socket\+Transport}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a089e6ae860525a79cc1aa83c7e6ffe9f}\label{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a089e6ae860525a79cc1aa83c7e6ffe9f}} 
+\index{v8::internal::wasm::gdb\_server::SocketTransport@{v8::internal::wasm::gdb\_server::SocketTransport}!ReadSomeData@{ReadSomeData}}
+\index{ReadSomeData@{ReadSomeData}!v8::internal::wasm::gdb\_server::SocketTransport@{v8::internal::wasm::gdb\_server::SocketTransport}}
+\doxysubsubsection{\texorpdfstring{ReadSomeData()}{ReadSomeData()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Socket\+Transport\+::\+Read\+Some\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_ac6ea2940b144802a5a5315991b54bb66}{v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Transport}}.
+
+
+
+Definition at line 379 of file transport.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{379                                    \{}
+\DoxyCodeLine{380   \textcolor{keywordflow}{while} (\textcolor{keyword}{true}) \{}
+\DoxyCodeLine{381     ssize\_t \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} =}
+\DoxyCodeLine{382         ::recv(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_a7b8e6e3ab148e555d781eb3905ab9895}{handle\_accept\_}}, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_a2b2ff61a46356824de84d5056040f7bc}{buf\_}}.get() + \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_a05f589b07c15a6ced385b269322c2909}{size\_}}, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_aeb8a7833daa841026eb45e6d939a8a8f}{kBufSize}} -\/ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_a05f589b07c15a6ced385b269322c2909}{size\_}}, 0);}
+\DoxyCodeLine{383     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} > 0) \{}
+\DoxyCodeLine{384       \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_a05f589b07c15a6ced385b269322c2909}{size\_}} += \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{385       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{386     \}}
+\DoxyCodeLine{387     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} == 0) \{}
+\DoxyCodeLine{388       \textcolor{keywordflow}{return} \textcolor{keyword}{false};  \textcolor{comment}{// The connection was gracefully closed.}}
+\DoxyCodeLine{389     \}}
+\DoxyCodeLine{390     \textcolor{keywordflow}{if} (\mbox{\hyperlink{transport_8h_ac40da5428e0df1a599de0e1a7d6929b9}{SocketGetLastError}}() != \mbox{\hyperlink{transport_8h_aa0f7c179d495f1db535e1f5a0032bb10}{kErrInterrupt}}) \{}
+\DoxyCodeLine{391       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{392     \}}
+\DoxyCodeLine{393   \}}
+\DoxyCodeLine{394 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Transport\+::buf\+\_\+, v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Transport\+::handle\+\_\+accept\+\_\+, v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Transport\+::k\+Buf\+Size, k\+Err\+Interrupt, v8\+::base\+::internal\+::result, v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Transport\+::size\+\_\+, and Socket\+Get\+Last\+Error.
+
+
+
+Referenced by Wait\+For\+Debug\+Stub\+Event().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a089e6ae860525a79cc1aa83c7e6ffe9f_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a9af865f8513faecfeb0eaef0d8b54eb5}\label{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a9af865f8513faecfeb0eaef0d8b54eb5}} 
 \index{v8::internal::wasm::gdb\_server::SocketTransport@{v8::internal::wasm::gdb\_server::SocketTransport}!SignalThreadEvent@{SignalThreadEvent}}
 \index{SignalThreadEvent@{SignalThreadEvent}!v8::internal::wasm::gdb\_server::SocketTransport@{v8::internal::wasm::gdb\_server::SocketTransport}}
@@ -91,6 +240,29 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transp
 
 
 Implements \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1TransportBase_a1b642bf7ea67f83a79a67c25bc48f776}{v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Transport\+Base}}.
+
+
+
+Definition at line 439 of file transport.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{439                                         \{}
+\DoxyCodeLine{440   \textcolor{comment}{// Notify the debug stub by marking the thread as faulted.}}
+\DoxyCodeLine{441   \textcolor{keywordtype}{char} buf = 0;}
+\DoxyCodeLine{442   \textcolor{keywordflow}{if} (write(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_acb188a190a7e72705c7d8b4537b993c7}{faulted\_thread\_fd\_write\_}}, \&buf, \textcolor{keyword}{sizeof}(buf)) != \textcolor{keyword}{sizeof}(buf)) \{}
+\DoxyCodeLine{443     \mbox{\hyperlink{gdb-remote-util_8h_af693ba8c30b0a5e9c9c0a4af63086137}{TRACE\_GDB\_REMOTE}}(}
+\DoxyCodeLine{444         \textcolor{stringliteral}{"{}SocketTransport:SignalThreadEvent: Can't send debug stub "{}}}
+\DoxyCodeLine{445         \textcolor{stringliteral}{"{}event\(\backslash\)n"{}});}
+\DoxyCodeLine{446     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{447   \}}
+\DoxyCodeLine{448   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{449 \}}
+
+\end{DoxyCode}
+
+
+References faulted\+\_\+thread\+\_\+fd\+\_\+write\+\_\+, and TRACE\+\_\+\+GDB\+\_\+\+REMOTE.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a426a916e33c6bf1388a5a32da53bd1f7}\label{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a426a916e33c6bf1388a5a32da53bd1f7}} 
 \index{v8::internal::wasm::gdb\_server::SocketTransport@{v8::internal::wasm::gdb\_server::SocketTransport}!WaitForDebugStubEvent@{WaitForDebugStubEvent}}
@@ -104,7 +276,100 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transp
 
 
 
+Definition at line 396 of file transport.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{396                                             \{}
+\DoxyCodeLine{397   \textcolor{comment}{// Don't wait if we already have data to read.}}
+\DoxyCodeLine{398   \textcolor{keywordtype}{bool} wait = !(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_ab5f3135217af190da164ceda586c05b4}{pos\_}} < \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_a05f589b07c15a6ced385b269322c2909}{size\_}});}
+\DoxyCodeLine{399 }
+\DoxyCodeLine{400   fd\_set fds;}
+\DoxyCodeLine{401   FD\_ZERO(\&fds);}
+\DoxyCodeLine{402   FD\_SET(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_ae53b837798b442f779b5e3ed11ef686b}{faulted\_thread\_fd\_read\_}}, \&fds);}
+\DoxyCodeLine{403   \textcolor{keywordtype}{int} max\_fd = \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_ae53b837798b442f779b5e3ed11ef686b}{faulted\_thread\_fd\_read\_}};}
+\DoxyCodeLine{404   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_a05f589b07c15a6ced385b269322c2909}{size\_}} < \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_aeb8a7833daa841026eb45e6d939a8a8f}{kBufSize}}) \{}
+\DoxyCodeLine{405     FD\_SET(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_a7b8e6e3ab148e555d781eb3905ab9895}{handle\_accept\_}}, \&fds);}
+\DoxyCodeLine{406     max\_fd = std::max(max\_fd, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_a7b8e6e3ab148e555d781eb3905ab9895}{handle\_accept\_}});}
+\DoxyCodeLine{407   \}}
+\DoxyCodeLine{408 }
+\DoxyCodeLine{409   \textcolor{keywordtype}{int} ret;}
+\DoxyCodeLine{410   \textcolor{comment}{// We don't need sleep-\/polling on Linux now, so we set either zero or infinite}}
+\DoxyCodeLine{411   \textcolor{comment}{// timeout.}}
+\DoxyCodeLine{412   \textcolor{keywordflow}{if} (wait) \{}
+\DoxyCodeLine{413     ret = select(max\_fd + 1, \&fds, NULL, NULL, NULL);}
+\DoxyCodeLine{414   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{415     \textcolor{keyword}{struct }timeval timeout;}
+\DoxyCodeLine{416     timeout.tv\_sec = 0;}
+\DoxyCodeLine{417     timeout.tv\_usec = 0;}
+\DoxyCodeLine{418     ret = select(max\_fd + 1, \&fds, NULL, NULL, \&timeout);}
+\DoxyCodeLine{419   \}}
+\DoxyCodeLine{420   \textcolor{keywordflow}{if} (ret < 0) \{}
+\DoxyCodeLine{421     \mbox{\hyperlink{gdb-remote-util_8h_af693ba8c30b0a5e9c9c0a4af63086137}{TRACE\_GDB\_REMOTE}}(}
+\DoxyCodeLine{422         \textcolor{stringliteral}{"{}SocketTransport::WaitForDebugStubEvent: Failed to wait for "{}}}
+\DoxyCodeLine{423         \textcolor{stringliteral}{"{}debug stub event\(\backslash\)n"{}});}
+\DoxyCodeLine{424   \}}
+\DoxyCodeLine{425 }
+\DoxyCodeLine{426   \textcolor{keywordflow}{if} (ret > 0) \{}
+\DoxyCodeLine{427     \textcolor{keywordflow}{if} (FD\_ISSET(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_ae53b837798b442f779b5e3ed11ef686b}{faulted\_thread\_fd\_read\_}}, \&fds)) \{}
+\DoxyCodeLine{428       \textcolor{keywordtype}{char} buf[16];}
+\DoxyCodeLine{429       \textcolor{keywordflow}{if} (read(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_ae53b837798b442f779b5e3ed11ef686b}{faulted\_thread\_fd\_read\_}}, \&buf, \textcolor{keyword}{sizeof}(buf)) < 0) \{}
+\DoxyCodeLine{430         \mbox{\hyperlink{gdb-remote-util_8h_af693ba8c30b0a5e9c9c0a4af63086137}{TRACE\_GDB\_REMOTE}}(}
+\DoxyCodeLine{431             \textcolor{stringliteral}{"{}SocketTransport::WaitForDebugStubEvent: Failed to read from "{}}}
+\DoxyCodeLine{432             \textcolor{stringliteral}{"{}debug stub event pipe fd\(\backslash\)n"{}});}
+\DoxyCodeLine{433       \}}
+\DoxyCodeLine{434     \}}
+\DoxyCodeLine{435     \textcolor{keywordflow}{if} (FD\_ISSET(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Transport_a7b8e6e3ab148e555d781eb3905ab9895}{handle\_accept\_}}, \&fds)) \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a089e6ae860525a79cc1aa83c7e6ffe9f}{ReadSomeData}}();}
+\DoxyCodeLine{436   \}}
+\DoxyCodeLine{437 \}}
+
+\end{DoxyCode}
+
+
+References faulted\+\_\+thread\+\_\+fd\+\_\+read\+\_\+, v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Transport\+::handle\+\_\+accept\+\_\+, v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Transport\+::k\+Buf\+Size, v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Transport\+::pos\+\_\+, Read\+Some\+Data(), v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Transport\+::size\+\_\+, and TRACE\+\_\+\+GDB\+\_\+\+REMOTE.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_a426a916e33c6bf1388a5a32da53bd1f7_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_ae53b837798b442f779b5e3ed11ef686b}\label{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_ae53b837798b442f779b5e3ed11ef686b}} 
+\index{v8::internal::wasm::gdb\_server::SocketTransport@{v8::internal::wasm::gdb\_server::SocketTransport}!faulted\_thread\_fd\_read\_@{faulted\_thread\_fd\_read\_}}
+\index{faulted\_thread\_fd\_read\_@{faulted\_thread\_fd\_read\_}!v8::internal::wasm::gdb\_server::SocketTransport@{v8::internal::wasm::gdb\_server::SocketTransport}}
+\doxysubsubsection{\texorpdfstring{faulted\_thread\_fd\_read\_}{faulted\_thread\_fd\_read\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Socket\+Transport\+::faulted\+\_\+thread\+\_\+fd\+\_\+read\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 181 of file transport.\+h.
+
+
+
+Referenced by Socket\+Transport(), Wait\+For\+Debug\+Stub\+Event(), and $\sim$\+Socket\+Transport().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_acb188a190a7e72705c7d8b4537b993c7}\label{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport_acb188a190a7e72705c7d8b4537b993c7}} 
+\index{v8::internal::wasm::gdb\_server::SocketTransport@{v8::internal::wasm::gdb\_server::SocketTransport}!faulted\_thread\_fd\_write\_@{faulted\_thread\_fd\_write\_}}
+\index{faulted\_thread\_fd\_write\_@{faulted\_thread\_fd\_write\_}!v8::internal::wasm::gdb\_server::SocketTransport@{v8::internal::wasm::gdb\_server::SocketTransport}}
+\doxysubsubsection{\texorpdfstring{faulted\_thread\_fd\_write\_}{faulted\_thread\_fd\_write\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Socket\+Transport\+::faulted\+\_\+thread\+\_\+fd\+\_\+write\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 182 of file transport.\+h.
+
+
+
+Referenced by Signal\+Thread\+Event(), Socket\+Transport(), and $\sim$\+Socket\+Transport().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{transport_8h}{transport.\+h}}\item 
-\mbox{\hyperlink{transport_8cc}{transport.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/debug/wasm/gdb-\/server/\mbox{\hyperlink{transport_8h}{transport.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/debug/wasm/gdb-\/server/\mbox{\hyperlink{transport_8cc}{transport.\+cc}}\end{DoxyCompactItemize}

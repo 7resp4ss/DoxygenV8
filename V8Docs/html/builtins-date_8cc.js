@@ -26,5 +26,7 @@ var builtins_date_8cc =
     [ "BUILTIN", "builtins-date_8cc.html#a569a748493d9eaf3d2a28c704f6595ad", null ],
     [ "BUILTIN", "builtins-date_8cc.html#a9ef58abfe2dec1b66cdd907c741f52d5", null ],
     [ "BUILTIN", "builtins-date_8cc.html#a57f113cd026d8bcc6e83bf12c6f1e27a", null ],
-    [ "BUILTIN", "builtins-date_8cc.html#a6ba9f1b273b3fb43a43c1c84b5fabe8b", null ]
+    [ "BUILTIN", "builtins-date_8cc.html#a6ba9f1b273b3fb43a43c1c84b5fabe8b", null ],
+    [ "SetDateValue", "builtins-date_8cc.html#a14ea5e2795809f4f48d3a6268572ecc0", null ],
+    [ "SetLocalDateValue", "builtins-date_8cc.html#a17543f55841292455cd9b744afb5269a", null ]
 ];

@@ -1,5 +1,5 @@
-\hypertarget{v8-fast-api-calls_8h}{}\doxysection{v8-\/fast-\/api-\/calls.h File Reference}
-\label{v8-fast-api-calls_8h}\index{v8-\/fast-\/api-\/calls.h@{v8-\/fast-\/api-\/calls.h}}
+\hypertarget{v8-fast-api-calls_8h}{}\doxysection{/mnt/\+V8\+Source\+Code/include/v8-\/fast-\/api-\/calls.h File Reference}
+\label{v8-fast-api-calls_8h}\index{/mnt/V8SourceCode/include/v8-\/fast-\/api-\/calls.h@{/mnt/V8SourceCode/include/v8-\/fast-\/api-\/calls.h}}
 {\ttfamily \#include $<$stddef.\+h$>$}\newline
 {\ttfamily \#include $<$stdint.\+h$>$}\newline
 {\ttfamily \#include $<$tuple$>$}\newline
@@ -38,8 +38,12 @@ union \mbox{\hyperlink{unionv8_1_1AnyCType}{v8\+::\+Any\+CType}}
 \item 
 class \mbox{\hyperlink{classv8_1_1CFunction}{v8\+::\+CFunction}}
 \item 
-struct \mbox{\hyperlink{structv8_1_1FastApiCallbackOptions}{v8\+::\+Fast\+Api\+Callback\+Options}}
+class \mbox{\hyperlink{classv8_1_1CFunction_1_1ArgUnwrap}{v8\+::\+CFunction\+::\+Arg\+Unwrap$<$ F $>$}}
 \item 
+class \mbox{\hyperlink{classv8_1_1CFunction_1_1ArgUnwrap_3_01R_07_5_08_07Args_8_8_8_08_4}{v8\+::\+CFunction\+::\+Arg\+Unwrap$<$ R($\ast$)(\+Args...)$>$}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1FastApiCallbackOptions}{v8\+::\+Fast\+Api\+Callback\+Options}}
+\begin{DoxyCompactList}\small\item\em A struct which may be passed to a fast call callback, like so\+: \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structv8_1_1internal_1_1count}{v8\+::internal\+::count$<$ T, List $>$}}
 \item 
 struct \mbox{\hyperlink{structv8_1_1internal_1_1count_3_01T_00_01T_00_01Args_8_8_8_01_4}{v8\+::internal\+::count$<$ T, T, Args... $>$}}
@@ -60,19 +64,23 @@ class \mbox{\hyperlink{classv8_1_1CTypeInfoBuilder}{v8\+::\+CType\+Info\+Builder
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1CFunctionBuilderWithFunction}{v8\+::internal\+::\+CFunction\+Builder\+With\+Function$<$ Ret\+Builder, Arg\+Builders $>$}}
 \item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1CFunctionBuilderWithFunction_1_1GetArgBuilder_3_01false_00_01N_00_01Flags_8_8_8_01_4}{v8\+::internal\+::\+CFunction\+Builder\+With\+Function$<$ Ret\+Builder, Arg\+Builders $>$\+::\+Get\+Arg\+Builder$<$ false, N, Flags... $>$}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1CFunctionBuilderWithFunction_1_1GetArgBuilder_3_01true_00_01N_00_01Flags_8_8_8_01_4}{v8\+::internal\+::\+CFunction\+Builder\+With\+Function$<$ Ret\+Builder, Arg\+Builders $>$\+::\+Get\+Arg\+Builder$<$ true, N, Flags... $>$}}
+\item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1CFunctionBuilder}{v8\+::internal\+::\+CFunction\+Builder}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacev8}{v8}}
-\item 
+\begin{DoxyCompactList}\small\item\em This file provides additional API on top of the default one for making API calls, which come from embedder C++ functions. \end{DoxyCompactList}\item 
  \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{v8-fast-api-calls_8h_a9031608d0e398e046f55212e1b9f8a52}{SPECIALIZE\+\_\+\+GET\+\_\+\+TYPE\+\_\+\+INFO\+\_\+\+HELPER\+\_\+\+FOR}}(\mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}},  Enum)
+\#define \mbox{\hyperlink{v8-fast-api-calls_8h_a9031608d0e398e046f55212e1b9f8a52}{SPECIALIZE\+\_\+\+GET\+\_\+\+TYPE\+\_\+\+INFO\+\_\+\+HELPER\+\_\+\+FOR}}(\mbox{\hyperlink{classT}{T}},  Enum)
 \item 
 \#define \mbox{\hyperlink{v8-fast-api-calls_8h_a1b769380f394153ba359234364d75974}{DEFINE\+\_\+\+TYPE\+\_\+\+INFO\+\_\+\+TRAITS}}(CType,  Enum)
 \item 
@@ -90,7 +98,14 @@ using \mbox{\hyperlink{namespacev8_a78391790f9a8e234f8c87979de521ecd}{v8\+::\+CF
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$CType\+Info\+::\+Identifier type\+\_\+info\+\_\+id, typename T $>$ }\\bool \mbox{\hyperlink{v8config_8h_a18b08424f4be6fab745092c7c5dad9f5}{V8\+\_\+\+EXPORT}} \mbox{\hyperlink{v8config_8h_a63258e4bf5dc9fb8c78f881c8405d83b}{V8\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT}} \mbox{\hyperlink{namespacev8_a6887c90141a6aa1dd21ffefb82863559}{v8\+::\+Try\+To\+Copy\+And\+Convert\+Array\+To\+Cpp\+Buffer}} (Local$<$ Array $>$ src, \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $\ast$dst, uint32\+\_\+t max\+\_\+length)
+{\footnotesize template$<$CType\+Info\+::\+Identifier type\+\_\+info\+\_\+id, typename T $>$ }\\bool \mbox{\hyperlink{v8config_8h_a63258e4bf5dc9fb8c78f881c8405d83b}{V8\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT}} \mbox{\hyperlink{namespacev8_acfad576b00bc7c0bfc0236ae5ab52b3d}{v8\+::\+Try\+To\+Copy\+And\+Convert\+Array\+To\+Cpp\+Buffer}} (Local$<$ Array $>$ src, \mbox{\hyperlink{classT}{T}} $\ast$dst, uint32\+\_\+t max\+\_\+length)
+\begin{DoxyCompactList}\small\item\em Copies the contents of this Java\+Script array to a C++ buffer with a given max\+\_\+length. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr CType\+Info \mbox{\hyperlink{namespacev8_ace74634b9a885bd6293f53dbd50276a0}{v8\+::k\+Type\+Info\+Int32}} = CType\+Info(CType\+Info\+::\+Type\+::k\+Int32)
+\item 
+static constexpr CType\+Info \mbox{\hyperlink{namespacev8_ac1b3c726fcdbc467495c8003f1314c5e}{v8\+::k\+Type\+Info\+Float64}}
 \end{DoxyCompactItemize}
 
 
@@ -111,6 +126,10 @@ using \mbox{\hyperlink{namespacev8_a78391790f9a8e234f8c87979de521ecd}{v8\+::\+CF
 \DoxyCodeLine{  V(AnyCType, kAny)}
 
 \end{DoxyCode}
+
+
+Definition at line 591 of file v8-\/fast-\/api-\/calls.\+h.
+
 \mbox{\Hypertarget{v8-fast-api-calls_8h_a1b769380f394153ba359234364d75974}\label{v8-fast-api-calls_8h_a1b769380f394153ba359234364d75974}} 
 \index{v8-\/fast-\/api-\/calls.h@{v8-\/fast-\/api-\/calls.h}!DEFINE\_TYPE\_INFO\_TRAITS@{DEFINE\_TYPE\_INFO\_TRAITS}}
 \index{DEFINE\_TYPE\_INFO\_TRAITS@{DEFINE\_TYPE\_INFO\_TRAITS}!v8-\/fast-\/api-\/calls.h@{v8-\/fast-\/api-\/calls.h}}
@@ -125,6 +144,10 @@ using \mbox{\hyperlink{namespacev8_a78391790f9a8e234f8c87979de521ecd}{v8\+::\+CF
 \DoxyCodeLine{  \};}
 
 \end{DoxyCode}
+
+
+Definition at line 573 of file v8-\/fast-\/api-\/calls.\+h.
+
 \mbox{\Hypertarget{v8-fast-api-calls_8h_a514f55a0704bb1181282c7d2ec74791f}\label{v8-fast-api-calls_8h_a514f55a0704bb1181282c7d2ec74791f}} 
 \index{v8-\/fast-\/api-\/calls.h@{v8-\/fast-\/api-\/calls.h}!PRIMITIVE\_C\_TYPES@{PRIMITIVE\_C\_TYPES}}
 \index{PRIMITIVE\_C\_TYPES@{PRIMITIVE\_C\_TYPES}!v8-\/fast-\/api-\/calls.h@{v8-\/fast-\/api-\/calls.h}}
@@ -144,11 +167,15 @@ using \mbox{\hyperlink{namespacev8_a78391790f9a8e234f8c87979de521ecd}{v8\+::\+CF
 \DoxyCodeLine{  V(\textcolor{keywordtype}{void}*, kPointer)}
 
 \end{DoxyCode}
+
+
+Definition at line 579 of file v8-\/fast-\/api-\/calls.\+h.
+
 \mbox{\Hypertarget{v8-fast-api-calls_8h_a9031608d0e398e046f55212e1b9f8a52}\label{v8-fast-api-calls_8h_a9031608d0e398e046f55212e1b9f8a52}} 
 \index{v8-\/fast-\/api-\/calls.h@{v8-\/fast-\/api-\/calls.h}!SPECIALIZE\_GET\_TYPE\_INFO\_HELPER\_FOR@{SPECIALIZE\_GET\_TYPE\_INFO\_HELPER\_FOR}}
 \index{SPECIALIZE\_GET\_TYPE\_INFO\_HELPER\_FOR@{SPECIALIZE\_GET\_TYPE\_INFO\_HELPER\_FOR}!v8-\/fast-\/api-\/calls.h@{v8-\/fast-\/api-\/calls.h}}
 \doxysubsubsection{\texorpdfstring{SPECIALIZE\_GET\_TYPE\_INFO\_HELPER\_FOR}{SPECIALIZE\_GET\_TYPE\_INFO\_HELPER\_FOR}}
-{\footnotesize\ttfamily \#define SPECIALIZE\+\_\+\+GET\+\_\+\+TYPE\+\_\+\+INFO\+\_\+\+HELPER\+\_\+\+FOR(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}},  }\item[{}]{Enum }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define SPECIALIZE\+\_\+\+GET\+\_\+\+TYPE\+\_\+\+INFO\+\_\+\+HELPER\+\_\+\+FOR(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{classT}{T}},  }\item[{}]{Enum }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
@@ -158,13 +185,21 @@ using \mbox{\hyperlink{namespacev8_a78391790f9a8e234f8c87979de521ecd}{v8\+::\+CF
 \DoxyCodeLine{      return CTypeInfo::Flags::kNone;                                         \(\backslash\)}
 \DoxyCodeLine{    \}                                                                         \(\backslash\)}
 \DoxyCodeLine{                                                                              \(\backslash\)}
-\DoxyCodeLine{    static constexpr CTypeInfo::Type Type() \{ \textcolor{keywordflow}{return} CTypeInfo::Type::Enum; \} \(\backslash\)}
+\DoxyCodeLine{    static constexpr \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02js-display-names_8cc_03_a169d0b07e82f46d628050c890a0dacbe}{CTypeInfo::Type}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02js-display-names_8cc_03_a169d0b07e82f46d628050c890a0dacbe}{Type}}() \{ \textcolor{keywordflow}{return} CTypeInfo::Type::Enum; \} \(\backslash\)}
 \DoxyCodeLine{  \};}
 
 \end{DoxyCode}
+
+
+Definition at line 560 of file v8-\/fast-\/api-\/calls.\+h.
+
 \mbox{\Hypertarget{v8-fast-api-calls_8h_afb9be8d112a465de54a10926a762ea39}\label{v8-fast-api-calls_8h_afb9be8d112a465de54a10926a762ea39}} 
 \index{v8-\/fast-\/api-\/calls.h@{v8-\/fast-\/api-\/calls.h}!STATIC\_ASSERT\_IMPLIES@{STATIC\_ASSERT\_IMPLIES}}
 \index{STATIC\_ASSERT\_IMPLIES@{STATIC\_ASSERT\_IMPLIES}!v8-\/fast-\/api-\/calls.h@{v8-\/fast-\/api-\/calls.h}}
 \doxysubsubsection{\texorpdfstring{STATIC\_ASSERT\_IMPLIES}{STATIC\_ASSERT\_IMPLIES}}
 {\footnotesize\ttfamily \#define STATIC\+\_\+\+ASSERT\+\_\+\+IMPLIES(\begin{DoxyParamCaption}\item[{}]{COND,  }\item[{}]{ASSERTION,  }\item[{}]{MSG }\end{DoxyParamCaption})~  static\+\_\+assert(((COND) == 0) $\vert$$\vert$ (ASSERTION), MSG)}
+
+
+
+Definition at line 629 of file v8-\/fast-\/api-\/calls.\+h.
 

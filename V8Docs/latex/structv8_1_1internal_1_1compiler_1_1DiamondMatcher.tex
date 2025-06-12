@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Diamond\+Matcher\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=272pt]{structv8_1_1internal_1_1compiler_1_1DiamondMatcher__coll__graph}
+\includegraphics[height=550pt]{structv8_1_1internal_1_1compiler_1_1DiamondMatcher__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -45,6 +45,22 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Diamond\+Matcher\+:
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_aeb1936dc3b94ed223e32f485d55e8b85}{False\+Input\+Of}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$phi) const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_af226bd4394eb375ca458cd5625013775}{branch\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3dbc27e8e9c9e30bb363e9317591503f}{if\+\_\+true\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a1b50f5ced2257f8efa16e30122a9cd81}{if\+\_\+false\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 804 of file node-\/matchers.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -56,6 +72,51 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Diamond\+Matcher\+:
 
 
 
+Definition at line 31 of file node-\/matchers.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{32     : NodeMatcher(merge),}
+\DoxyCodeLine{33       \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_af226bd4394eb375ca458cd5625013775}{branch\_}}(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{34       \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3dbc27e8e9c9e30bb363e9317591503f}{if\_true\_}}(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{35       \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a1b50f5ced2257f8efa16e30122a9cd81}{if\_false\_}}(\textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{36   \textcolor{keywordflow}{if} (merge-\/>InputCount() != 2) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{37   \textcolor{keywordflow}{if} (merge-\/>opcode() != IrOpcode::kMerge) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{38   Node* input0 = merge-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node_a01f11c63a02469daba1e55c2bba16f05}{InputAt}}(0);}
+\DoxyCodeLine{39   \textcolor{keywordflow}{if} (input0-\/>InputCount() != 1) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{40   Node* input1 = merge-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node_a01f11c63a02469daba1e55c2bba16f05}{InputAt}}(1);}
+\DoxyCodeLine{41   \textcolor{keywordflow}{if} (input1-\/>InputCount() != 1) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{42   Node* branch = input0-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node_a01f11c63a02469daba1e55c2bba16f05}{InputAt}}(0);}
+\DoxyCodeLine{43   \textcolor{keywordflow}{if} (branch != input1-\/>InputAt(0)) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{44   \textcolor{keywordflow}{if} (branch-\/>opcode() != \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a1de7e1dbb8fccce9f24212ad1cd9487aa4112acb0669c771b5a3f76ac046f521e}{IrOpcode::kBranch}}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{45   \textcolor{keywordflow}{if} (input0-\/>opcode() == IrOpcode::kIfTrue \&\&}
+\DoxyCodeLine{46       input1-\/>opcode() == IrOpcode::kIfFalse) \{}
+\DoxyCodeLine{47     \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_af226bd4394eb375ca458cd5625013775}{branch\_}} = branch;}
+\DoxyCodeLine{48     \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3dbc27e8e9c9e30bb363e9317591503f}{if\_true\_}} = input0;}
+\DoxyCodeLine{49     \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a1b50f5ced2257f8efa16e30122a9cd81}{if\_false\_}} = input1;}
+\DoxyCodeLine{50   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (input0-\/>opcode() == IrOpcode::kIfFalse \&\&}
+\DoxyCodeLine{51              input1-\/>opcode() == IrOpcode::kIfTrue) \{}
+\DoxyCodeLine{52     \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_af226bd4394eb375ca458cd5625013775}{branch\_}} = branch;}
+\DoxyCodeLine{53     \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3dbc27e8e9c9e30bb363e9317591503f}{if\_true\_}} = input1;}
+\DoxyCodeLine{54     \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a1b50f5ced2257f8efa16e30122a9cd81}{if\_false\_}} = input0;}
+\DoxyCodeLine{55   \}}
+\DoxyCodeLine{56 \}}
+
+\end{DoxyCode}
+
+
+References branch\+\_\+, if\+\_\+false\+\_\+, if\+\_\+true\+\_\+, v8\+::internal\+::compiler\+::\+Node\+::\+Input\+At(), v8\+::internal\+::compiler\+::\+Node\+::\+Input\+Count(), v8\+::internal\+::compiler\+::turboshaft\+::k\+Branch, and v8\+::internal\+::compiler\+::\+Node\+::opcode().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a0e8d084eba551929d80468a515af198f_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a5b5a84613d1c55ba249ed15a2a0bf96f}\label{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a5b5a84613d1c55ba249ed15a2a0bf96f}} 
 \index{v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}!Branch@{Branch}}
@@ -63,42 +124,124 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Diamond\+Matcher\+:
 \doxysubsubsection{\texorpdfstring{Branch()}{Branch()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}}$\ast$ v8\+::internal\+::compiler\+::\+Diamond\+Matcher\+::\+Branch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 813 of file node-\/matchers.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{813 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_af226bd4394eb375ca458cd5625013775}{branch\_}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_aeb1936dc3b94ed223e32f485d55e8b85}\label{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_aeb1936dc3b94ed223e32f485d55e8b85}} 
 \index{v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}!FalseInputOf@{FalseInputOf}}
 \index{FalseInputOf@{FalseInputOf}!v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}}
 \doxysubsubsection{\texorpdfstring{FalseInputOf()}{FalseInputOf()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}}$\ast$ v8\+::internal\+::compiler\+::\+Diamond\+Matcher\+::\+False\+Input\+Of (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$}]{phi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 825 of file node-\/matchers.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{825                                       \{}
+\DoxyCodeLine{826     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1IrOpcode_a75e2c3c0cc8d9d5c9e69f4d2f83c6937}{IrOpcode::IsPhiOpcode}}(phi-\/>opcode()));}
+\DoxyCodeLine{827     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(3, phi-\/>InputCount());}
+\DoxyCodeLine{828     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_ae4cc757ffbcc3ca0509465f9f5b59b77}{Merge}}(), phi-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node_a01f11c63a02469daba1e55c2bba16f05}{InputAt}}(2));}
+\DoxyCodeLine{829     \textcolor{keywordflow}{return} phi-\/>InputAt(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3dbc27e8e9c9e30bb363e9317591503f}{if\_true\_}} == \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_ae4cc757ffbcc3ca0509465f9f5b59b77}{Merge}}()-\/>InputAt(0) ? 1 : 0);}
+\DoxyCodeLine{830   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, v8\+::internal\+::compiler\+::\+Node\+::\+Input\+At(), v8\+::internal\+::compiler\+::\+Node\+::\+Input\+Count(), v8\+::internal\+::compiler\+::\+Ir\+Opcode\+::\+Is\+Phi\+Opcode(), and v8\+::internal\+::compiler\+::\+Node\+::opcode().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_aeb1936dc3b94ed223e32f485d55e8b85_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_aa875fb28bf2c08b0a22a7b41280c3cda}\label{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_aa875fb28bf2c08b0a22a7b41280c3cda}} 
 \index{v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}!IfFalse@{IfFalse}}
 \index{IfFalse@{IfFalse}!v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}}
 \doxysubsubsection{\texorpdfstring{IfFalse()}{IfFalse()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}}$\ast$ v8\+::internal\+::compiler\+::\+Diamond\+Matcher\+::\+If\+False (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 815 of file node-\/matchers.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{815 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a1b50f5ced2257f8efa16e30122a9cd81}{if\_false\_}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3d9d19ea91f5f11d4e4945ff1ec2f09e}\label{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3d9d19ea91f5f11d4e4945ff1ec2f09e}} 
 \index{v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}!IfProjectionsAreOwned@{IfProjectionsAreOwned}}
 \index{IfProjectionsAreOwned@{IfProjectionsAreOwned}!v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}}
 \doxysubsubsection{\texorpdfstring{IfProjectionsAreOwned()}{IfProjectionsAreOwned()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::\+Diamond\+Matcher\+::\+If\+Projections\+Are\+Owned (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 809 of file node-\/matchers.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{809                                      \{}
+\DoxyCodeLine{810     \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3dbc27e8e9c9e30bb363e9317591503f}{if\_true\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node_ac7ffa9e64e8e5e6c59f0564954f96fb9}{OwnedBy}}(node()) \&\& \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a1b50f5ced2257f8efa16e30122a9cd81}{if\_false\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node_ac7ffa9e64e8e5e6c59f0564954f96fb9}{OwnedBy}}(node());}
+\DoxyCodeLine{811   \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a753a5df743441ffa53e878828cb6eaa2}\label{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a753a5df743441ffa53e878828cb6eaa2}} 
 \index{v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}!IfTrue@{IfTrue}}
 \index{IfTrue@{IfTrue}!v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}}
 \doxysubsubsection{\texorpdfstring{IfTrue()}{IfTrue()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}}$\ast$ v8\+::internal\+::compiler\+::\+Diamond\+Matcher\+::\+If\+True (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 814 of file node-\/matchers.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{814 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3dbc27e8e9c9e30bb363e9317591503f}{if\_true\_}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a8bd0a2ad14e09c58ed322b6599b4ce06}\label{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a8bd0a2ad14e09c58ed322b6599b4ce06}} 
 \index{v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}!Matched@{Matched}}
 \index{Matched@{Matched}!v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}}
 \doxysubsubsection{\texorpdfstring{Matched()}{Matched()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::\+Diamond\+Matcher\+::\+Matched (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 808 of file node-\/matchers.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{808 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_af226bd4394eb375ca458cd5625013775}{branch\_}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_ae4cc757ffbcc3ca0509465f9f5b59b77}\label{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_ae4cc757ffbcc3ca0509465f9f5b59b77}} 
 \index{v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}!Merge@{Merge}}
 \index{Merge@{Merge}!v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}}
 \doxysubsubsection{\texorpdfstring{Merge()}{Merge()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}}$\ast$ v8\+::internal\+::compiler\+::\+Diamond\+Matcher\+::\+Merge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 816 of file node-\/matchers.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{816 \{ \textcolor{keywordflow}{return} node(); \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3818c7c97dce2d86e9c9092bce94753a}\label{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3818c7c97dce2d86e9c9092bce94753a}} 
 \index{v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}!TrueInputOf@{TrueInputOf}}
 \index{TrueInputOf@{TrueInputOf}!v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}}
@@ -107,7 +250,78 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Diamond\+Matcher\+:
 
 
 
+Definition at line 818 of file node-\/matchers.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{818                                      \{}
+\DoxyCodeLine{819     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1IrOpcode_a75e2c3c0cc8d9d5c9e69f4d2f83c6937}{IrOpcode::IsPhiOpcode}}(phi-\/>opcode()));}
+\DoxyCodeLine{820     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(3, phi-\/>InputCount());}
+\DoxyCodeLine{821     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_ae4cc757ffbcc3ca0509465f9f5b59b77}{Merge}}(), phi-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node_a01f11c63a02469daba1e55c2bba16f05}{InputAt}}(2));}
+\DoxyCodeLine{822     \textcolor{keywordflow}{return} phi-\/>InputAt(\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3dbc27e8e9c9e30bb363e9317591503f}{if\_true\_}} == \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_ae4cc757ffbcc3ca0509465f9f5b59b77}{Merge}}()-\/>InputAt(0) ? 0 : 1);}
+\DoxyCodeLine{823   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, v8\+::internal\+::compiler\+::\+Node\+::\+Input\+At(), v8\+::internal\+::compiler\+::\+Node\+::\+Input\+Count(), v8\+::internal\+::compiler\+::\+Ir\+Opcode\+::\+Is\+Phi\+Opcode(), and v8\+::internal\+::compiler\+::\+Node\+::opcode().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3818c7c97dce2d86e9c9092bce94753a_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_af226bd4394eb375ca458cd5625013775}\label{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_af226bd4394eb375ca458cd5625013775}} 
+\index{v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}!branch\_@{branch\_}}
+\index{branch\_@{branch\_}!v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}}
+\doxysubsubsection{\texorpdfstring{branch\_}{branch\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}}$\ast$ v8\+::internal\+::compiler\+::\+Diamond\+Matcher\+::branch\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 833 of file node-\/matchers.\+h.
+
+
+
+Referenced by Diamond\+Matcher().
+
+\mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a1b50f5ced2257f8efa16e30122a9cd81}\label{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a1b50f5ced2257f8efa16e30122a9cd81}} 
+\index{v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}!if\_false\_@{if\_false\_}}
+\index{if\_false\_@{if\_false\_}!v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}}
+\doxysubsubsection{\texorpdfstring{if\_false\_}{if\_false\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}}$\ast$ v8\+::internal\+::compiler\+::\+Diamond\+Matcher\+::if\+\_\+false\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 835 of file node-\/matchers.\+h.
+
+
+
+Referenced by Diamond\+Matcher().
+
+\mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3dbc27e8e9c9e30bb363e9317591503f}\label{structv8_1_1internal_1_1compiler_1_1DiamondMatcher_a3dbc27e8e9c9e30bb363e9317591503f}} 
+\index{v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}!if\_true\_@{if\_true\_}}
+\index{if\_true\_@{if\_true\_}!v8::internal::compiler::DiamondMatcher@{v8::internal::compiler::DiamondMatcher}}
+\doxysubsubsection{\texorpdfstring{if\_true\_}{if\_true\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}}$\ast$ v8\+::internal\+::compiler\+::\+Diamond\+Matcher\+::if\+\_\+true\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 834 of file node-\/matchers.\+h.
+
+
+
+Referenced by Diamond\+Matcher().
+
+
+
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{node-matchers_8h}{node-\/matchers.\+h}}\item 
-\mbox{\hyperlink{node-matchers_8cc}{node-\/matchers.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{node-matchers_8h}{node-\/matchers.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{node-matchers_8cc}{node-\/matchers.\+cc}}\end{DoxyCompactItemize}

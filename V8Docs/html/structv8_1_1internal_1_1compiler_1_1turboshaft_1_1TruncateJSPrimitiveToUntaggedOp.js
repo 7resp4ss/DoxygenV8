@@ -16,6 +16,7 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1TruncateJSPrimitiveToUntag
     [ "inputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1TruncateJSPrimitiveToUntaggedOp.html#af7a95f019b21443fc345a28ee32b88bb", null ],
     [ "options", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1TruncateJSPrimitiveToUntaggedOp.html#affe29676d14254f1070f5913f817f35f", null ],
     [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1TruncateJSPrimitiveToUntaggedOp.html#a1b461dbf86aa39661b7051ff6efc1d30", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1TruncateJSPrimitiveToUntaggedOp.html#a4b6bb5ba42ed4db9bcff6ca730fe497c", null ],
     [ "input_assumptions", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1TruncateJSPrimitiveToUntaggedOp.html#a8332fd0e52b6b4a41efd5bcfe614c278", null ],
     [ "kind", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1TruncateJSPrimitiveToUntaggedOp.html#ae1189e33a0cf3698580e21ca3a1160e8", null ]
 ];

@@ -31,6 +31,12 @@ var classv8_1_1internal_1_1JSDurationFormat =
       [ "kDigital", "classv8_1_1internal_1_1JSDurationFormat.html#aa5e5bdbcd77dc076135a358e61c6d824a14468290e79c3ed093fc07297c43627c", null ],
       [ "kMax", "classv8_1_1internal_1_1JSDurationFormat.html#aa5e5bdbcd77dc076135a358e61c6d824aa0b1ac8aae6b1cfbbe89085c642b3b4b", null ]
     ] ],
+    [ "Format", "classv8_1_1internal_1_1JSDurationFormat.html#a944543527fc15482aaa6f09bfdfb35b0", null ],
+    [ "FormatToParts", "classv8_1_1internal_1_1JSDurationFormat.html#a535b8d568887986d103e36fc8efaf5f8", null ],
     [ "fractional_digits", "classv8_1_1internal_1_1JSDurationFormat.html#a23774f92358220c21ae70f9276129561", null ],
-    [ "set_fractional_digits", "classv8_1_1internal_1_1JSDurationFormat.html#aa3686c92aa42687858f3245b6b31e46a", null ]
+    [ "GetAvailableLocales", "classv8_1_1internal_1_1JSDurationFormat.html#a665e2229d65c036fa239bb88cf91b250", null ],
+    [ "New", "classv8_1_1internal_1_1JSDurationFormat.html#ace17ddca63b716a8e096bc5d4fe463f1", null ],
+    [ "ResolvedOptions", "classv8_1_1internal_1_1JSDurationFormat.html#afa2dbe2de62b5671654cb42e82c3ef53", null ],
+    [ "set_fractional_digits", "classv8_1_1internal_1_1JSDurationFormat.html#aa3686c92aa42687858f3245b6b31e46a", null ],
+    [ "kUndefinedFractionalDigits", "classv8_1_1internal_1_1JSDurationFormat.html#a79c99a576be4d1313784df88d7560b5b", null ]
 ];

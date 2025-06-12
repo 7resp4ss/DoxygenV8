@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$allocation.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Virtual\+Memory\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -51,6 +61,20 @@ const \mbox{\hyperlink{classv8_1_1base_1_1AddressRegion}{base\+::\+Address\+Regi
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a542c7054638b691fae28789948b94b65}{In\+VM}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}}, \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}{size}}) const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1PageAllocator}{v8\+::\+Page\+Allocator}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\+\_\+allocator\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion}{base\+::\+Address\+Region}} \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 193 of file allocation.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -72,24 +96,115 @@ const \mbox{\hyperlink{classv8_1_1base_1_1AddressRegion}{base\+::\+Address\+Regi
 \doxysubsubsection{\texorpdfstring{VirtualMemory()}{VirtualMemory()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Virtual\+Memory\+::\+Virtual\+Memory (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1PageAllocator}{v8\+::\+Page\+Allocator}} $\ast$}]{page\+\_\+allocator,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{size,  }\item[{\mbox{\hyperlink{classv8_1_1PageAllocator_1_1AllocationHint}{Page\+Allocator\+::\+Allocation\+Hint}}}]{hint = {\ttfamily \{\}},  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{alignment = {\ttfamily 1},  }\item[{\mbox{\hyperlink{classv8_1_1PageAllocator_a88f74b164fe97e053259f67a95758415}{Page\+Allocator\+::\+Permission}}}]{permissions = {\ttfamily \mbox{\hyperlink{classv8_1_1PageAllocator_a88f74b164fe97e053259f67a95758415a501acdacad072f7d6e5737159141301d}{Page\+Allocator\+::k\+No\+Access}}} }\end{DoxyParamCaption})}
 
+
+
+Definition at line 213 of file allocation.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{217     : \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a9c7beaf13c4ed4a1e87eeddc83577d09}{page\_allocator}}) \{}
+\DoxyCodeLine{218   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a9c7beaf13c4ed4a1e87eeddc83577d09}{page\_allocator}});}
+\DoxyCodeLine{219   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{src_2base_2macros_8h_ab7a19c1f785f31f2b190afc19875368a}{IsAligned}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}{size}}, \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}}-\/>\mbox{\hyperlink{classv8_1_1PageAllocator_ad817d87004151e3824997415f2dc57e9}{CommitPageSize}}()));}
+\DoxyCodeLine{220   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} page\_size = \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}}-\/>\mbox{\hyperlink{classv8_1_1PageAllocator_a92c2f6dbb3afa6c47dafd4c12ab4641f}{AllocatePageSize}}();}
+\DoxyCodeLine{221   alignment = \mbox{\hyperlink{src_2base_2macros_8h_a5113f5db9eec9c30ecea57b8d4175f2d}{RoundUp}}(alignment, page\_size);}
+\DoxyCodeLine{222   \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}} = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1internal_a3ce652c7cf886797e12fd8404dca14c0}{AllocatePages}}(}
+\DoxyCodeLine{223       \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}}, \mbox{\hyperlink{src_2base_2macros_8h_a5113f5db9eec9c30ecea57b8d4175f2d}{RoundUp}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}{size}}, page\_size), alignment, permissions, hint));}
+\DoxyCodeLine{224   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}} != \mbox{\hyperlink{namespacev8_1_1internal_acf6bafb5b8483a580f375393c413ee02}{kNullAddress}}) \{}
+\DoxyCodeLine{225     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{src_2base_2macros_8h_ab7a19c1f785f31f2b190afc19875368a}{IsAligned}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}}, alignment));}
+\DoxyCodeLine{226     \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}} = base::AddressRegion(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}}, \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}{size}});}
+\DoxyCodeLine{227   \}}
+\DoxyCodeLine{228 \}}
+
+\end{DoxyCode}
+
+
+References address(), v8\+::internal\+::\+Allocate\+Pages(), v8\+::\+Page\+Allocator\+::\+Allocate\+Page\+Size(), v8\+::\+Page\+Allocator\+::\+Commit\+Page\+Size(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+NOT\+\_\+\+NULL, Is\+Aligned(), v8\+::internal\+::k\+Null\+Address, page\+\_\+allocator(), page\+\_\+allocator\+\_\+, region\+\_\+, Round\+Up(), and size().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a9289e841d5db1453369c6e7f2b3a4a15_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_a58073a6248c11e807ceffc8c56efb4ec}\label{classv8_1_1internal_1_1VirtualMemory_a58073a6248c11e807ceffc8c56efb4ec}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!VirtualMemory@{VirtualMemory}}
 \index{VirtualMemory@{VirtualMemory}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{VirtualMemory()}{VirtualMemory()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Virtual\+Memory\+::\+Virtual\+Memory (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1PageAllocator}{v8\+::\+Page\+Allocator}} $\ast$}]{page\+\_\+allocator,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{address,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 212 of file allocation.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{213       : \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a9c7beaf13c4ed4a1e87eeddc83577d09}{page\_allocator}}), \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}}, \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}{size}}) \{}
+\DoxyCodeLine{214     \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a9c7beaf13c4ed4a1e87eeddc83577d09}{page\_allocator}});}
+\DoxyCodeLine{215     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{src_2base_2macros_8h_ab7a19c1f785f31f2b190afc19875368a}{IsAligned}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}}, \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a9c7beaf13c4ed4a1e87eeddc83577d09}{page\_allocator}}-\/>\mbox{\hyperlink{classv8_1_1PageAllocator_a92c2f6dbb3afa6c47dafd4c12ab4641f}{AllocatePageSize}}()));}
+\DoxyCodeLine{216     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{src_2base_2macros_8h_ab7a19c1f785f31f2b190afc19875368a}{IsAligned}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}{size}}, \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a9c7beaf13c4ed4a1e87eeddc83577d09}{page\_allocator}}-\/>\mbox{\hyperlink{classv8_1_1PageAllocator_ad817d87004151e3824997415f2dc57e9}{CommitPageSize}}()));}
+\DoxyCodeLine{217   \}}
+
+\end{DoxyCode}
+
+
+References address(), v8\+::\+Page\+Allocator\+::\+Allocate\+Page\+Size(), v8\+::\+Page\+Allocator\+::\+Commit\+Page\+Size(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+NOT\+\_\+\+NULL, Is\+Aligned(), page\+\_\+allocator(), and size().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a58073a6248c11e807ceffc8c56efb4ec_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_a3978bb187e01f91624a5235ea00f0b94}\label{classv8_1_1internal_1_1VirtualMemory_a3978bb187e01f91624a5235ea00f0b94}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!````~VirtualMemory@{$\sim$VirtualMemory}}
 \index{````~VirtualMemory@{$\sim$VirtualMemory}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{$\sim$VirtualMemory()}{~VirtualMemory()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Virtual\+Memory\+::$\sim$\+Virtual\+Memory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 230 of file allocation.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{230                               \{}
+\DoxyCodeLine{231   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a4e314fe91c3c610bb8495aa6435cba9f}{IsReserved}}()) \{}
+\DoxyCodeLine{232     \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_aa4fb97fe4e7e8e388986c1a8b55da893}{Free}}();}
+\DoxyCodeLine{233   \}}
+\DoxyCodeLine{234 \}}
+
+\end{DoxyCode}
+
+
+References Free(), and Is\+Reserved().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a3978bb187e01f91624a5235ea00f0b94_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_a406bd7297b3ea0403108e0961aef7d9a}\label{classv8_1_1internal_1_1VirtualMemory_a406bd7297b3ea0403108e0961aef7d9a}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!VirtualMemory@{VirtualMemory}}
 \index{VirtualMemory@{VirtualMemory}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{VirtualMemory()}{VirtualMemory()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Virtual\+Memory\+::\+Virtual\+Memory (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory}{Virtual\+Memory}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 224 of file allocation.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{224 \{ *\textcolor{keyword}{this} = std::move(other); \}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -99,36 +214,259 @@ const \mbox{\hyperlink{classv8_1_1base_1_1AddressRegion}{base\+::\+Address\+Regi
 \doxysubsubsection{\texorpdfstring{address()}{address()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} v8\+::internal\+::\+Virtual\+Memory\+::address (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 249 of file allocation.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{249                           \{}
+\DoxyCodeLine{250     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a4e314fe91c3c610bb8495aa6435cba9f}{IsReserved}}());}
+\DoxyCodeLine{251     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_a94a15b5dca8bef88c66880c9b00281ea}{begin}}();}
+\DoxyCodeLine{252   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Address\+Region\+::begin(), v8\+::internal\+::\+DCHECK(), Is\+Reserved(), and region\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Memory\+Allocator\+::\+Allocate\+Aligned\+Memory(), v8\+::internal\+::anonymous\+\_\+namespace\{accounting-\/allocator.\+cc\}\+::\+Managed\+Zones\+::\+Allocate\+Segment(), Discard\+System\+Pages(), v8\+::internal\+::anonymous\+\_\+namespace\{accounting-\/allocator.\+cc\}\+::\+Managed\+Zones\+::\+Get\+Or\+Create\+Memory\+For\+Segment(), v8\+::internal\+::\+Virtual\+Memory\+Cage\+::\+Init\+Reservation(), In\+VM(), Recommit\+Pages(), Resize(), Set\+Permissions(), v8\+::internal\+::wasm\+::\+Wasm\+Code\+Manager\+::\+Try\+Allocate(), and Virtual\+Memory().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_a4d7a89d63bbc0eb7d7f4c16991d6a2c0}\label{classv8_1_1internal_1_1VirtualMemory_a4d7a89d63bbc0eb7d7f4c16991d6a2c0}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!DiscardSystemPages@{DiscardSystemPages}}
 \index{DiscardSystemPages@{DiscardSystemPages}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{DiscardSystemPages()}{DiscardSystemPages()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Virtual\+Memory\+::\+Discard\+System\+Pages (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{address,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{size }\end{DoxyParamCaption})}
 
+
+
+Definition at line 269 of file allocation.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{269                                                                    \{}
+\DoxyCodeLine{270   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a542c7054638b691fae28789948b94b65}{InVM}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}}, \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}{size}}));}
+\DoxyCodeLine{271   \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}}-\/>\mbox{\hyperlink{classv8_1_1PageAllocator_ad0de847c922e25f63d82494d997f441d}{DiscardSystemPages}}(}
+\DoxyCodeLine{272       \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}}), \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}{size}});}
+\DoxyCodeLine{273   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}});}
+\DoxyCodeLine{274   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{275 \}}
+
+\end{DoxyCode}
+
+
+References address(), CHECK, v8\+::internal\+::\+DCHECK(), v8\+::\+Page\+Allocator\+::\+Discard\+System\+Pages(), In\+VM(), page\+\_\+allocator\+\_\+, v8\+::base\+::internal\+::result, and size().
+
+
+
+Referenced by v8\+::internal\+::\+Memory\+Allocator\+::\+Partial\+Free\+Memory().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a4d7a89d63bbc0eb7d7f4c16991d6a2c0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a4d7a89d63bbc0eb7d7f4c16991d6a2c0_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_a5dd4e21fcfe750201d1d054d088c1368}\label{classv8_1_1internal_1_1VirtualMemory_a5dd4e21fcfe750201d1d054d088c1368}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!end@{end}}
 \index{end@{end}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{end()}{end()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} v8\+::internal\+::\+Virtual\+Memory\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 254 of file allocation.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{254                       \{}
+\DoxyCodeLine{255     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a4e314fe91c3c610bb8495aa6435cba9f}{IsReserved}}());}
+\DoxyCodeLine{256     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_a13bbde71869b71658a03746941a13f69}{end}}();}
+\DoxyCodeLine{257   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), v8\+::base\+::\+Address\+Region\+::end(), Is\+Reserved(), and region\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Memory\+Allocator\+::\+Resize\+Large\+Page(), and v8\+::internal\+::wasm\+::\+Wasm\+Code\+Manager\+::\+Try\+Allocate().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a5dd4e21fcfe750201d1d054d088c1368_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a5dd4e21fcfe750201d1d054d088c1368_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_aa4fb97fe4e7e8e388986c1a8b55da893}\label{classv8_1_1internal_1_1VirtualMemory_aa4fb97fe4e7e8e388986c1a8b55da893}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!Free@{Free}}
 \index{Free@{Free}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{Free()}{Free()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Virtual\+Memory\+::\+Free (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 292 of file allocation.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{292                          \{}
+\DoxyCodeLine{293   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a4e314fe91c3c610bb8495aa6435cba9f}{IsReserved}}());}
+\DoxyCodeLine{294   \textcolor{comment}{// Notice: Order is important here. The VirtualMemory object might live}}
+\DoxyCodeLine{295   \textcolor{comment}{// inside the allocated region.}}
+\DoxyCodeLine{296   \mbox{\hyperlink{classv8_1_1PageAllocator}{v8::PageAllocator}}* \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a9c7beaf13c4ed4a1e87eeddc83577d09}{page\_allocator}} = \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}};}
+\DoxyCodeLine{297   base::AddressRegion \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a189b2051e0b85c97fd761d87f2ee207a}{region}} = \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}};}
+\DoxyCodeLine{298   \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_aacdcb5f689db1e7346aa047b27637c00}{Reset}}();}
+\DoxyCodeLine{299   \textcolor{comment}{// FreePages expects size to be aligned to allocation granularity however}}
+\DoxyCodeLine{300   \textcolor{comment}{// ReleasePages may leave size at only commit granularity. Align it here.}}
+\DoxyCodeLine{301   \mbox{\hyperlink{namespacev8_1_1internal_af33be30dc6995646ac5a541bdf0ede03}{FreePages}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a9c7beaf13c4ed4a1e87eeddc83577d09}{page\_allocator}}, \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a189b2051e0b85c97fd761d87f2ee207a}{region}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_a94a15b5dca8bef88c66880c9b00281ea}{begin}}()),}
+\DoxyCodeLine{302             \mbox{\hyperlink{src_2base_2macros_8h_a5113f5db9eec9c30ecea57b8d4175f2d}{RoundUp}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a189b2051e0b85c97fd761d87f2ee207a}{region}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_a753daf867d9e52511d3483b211a9f0b2}{size}}(), \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a9c7beaf13c4ed4a1e87eeddc83577d09}{page\_allocator}}-\/>\mbox{\hyperlink{classv8_1_1PageAllocator_a92c2f6dbb3afa6c47dafd4c12ab4641f}{AllocatePageSize}}()));}
+\DoxyCodeLine{303 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Page\+Allocator\+::\+Allocate\+Page\+Size(), v8\+::base\+::\+Address\+Region\+::begin(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Free\+Pages(), Is\+Reserved(), page\+\_\+allocator(), page\+\_\+allocator\+\_\+, region(), region\+\_\+, Reset(), Round\+Up(), and v8\+::base\+::\+Address\+Region\+::size().
+
+
+
+Referenced by v8\+::internal\+::\+Virtual\+Memory\+Cage\+::\+Free(), v8\+::internal\+::\+Memory\+Allocator\+::\+Free\+Read\+Only\+Page(), and $\sim$\+Virtual\+Memory().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_aa4fb97fe4e7e8e388986c1a8b55da893_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_aa4fb97fe4e7e8e388986c1a8b55da893_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_a542c7054638b691fae28789948b94b65}\label{classv8_1_1internal_1_1VirtualMemory_a542c7054638b691fae28789948b94b65}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!InVM@{InVM}}
 \index{InVM@{InVM}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{InVM()}{InVM()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Virtual\+Memory\+::\+In\+VM (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{address,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 295 of file allocation.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{295                                                 \{}
+\DoxyCodeLine{296     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_ad799a0c1d53c9117b94f95e6bc742e66}{contains}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}}, \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}{size}});}
+\DoxyCodeLine{297   \}}
+
+\end{DoxyCode}
+
+
+References address(), v8\+::base\+::\+Address\+Region\+::contains(), region\+\_\+, and size().
+
+
+
+Referenced by Discard\+System\+Pages(), Recommit\+Pages(), Release(), and Set\+Permissions().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a542c7054638b691fae28789948b94b65_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a542c7054638b691fae28789948b94b65_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_a4e314fe91c3c610bb8495aa6435cba9f}\label{classv8_1_1internal_1_1VirtualMemory_a4e314fe91c3c610bb8495aa6435cba9f}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!IsReserved@{IsReserved}}
 \index{IsReserved@{IsReserved}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{IsReserved()}{IsReserved()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Virtual\+Memory\+::\+Is\+Reserved (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 236 of file allocation.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{236 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_a94a15b5dca8bef88c66880c9b00281ea}{begin}}() != \mbox{\hyperlink{namespacev8_1_1internal_acf6bafb5b8483a580f375393c413ee02}{kNullAddress}}; \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Address\+Region\+::begin(), v8\+::internal\+::k\+Null\+Address, and region\+\_\+.
+
+
+
+Referenced by address(), v8\+::internal\+::\+Memory\+Allocator\+::\+Allocate\+Aligned\+Memory(), v8\+::internal\+::wasm\+::\+Wasm\+Code\+Allocator\+::\+Allocate\+For\+Code\+In\+Region(), v8\+::internal\+::anonymous\+\_\+namespace\{accounting-\/allocator.\+cc\}\+::\+Managed\+Zones\+::\+Allocate\+Segment(), v8\+::internal\+::\+Memory\+Allocator\+::\+Delete\+Memory\+Chunk(), end(), Free(), v8\+::internal\+::\+Memory\+Allocator\+::\+Free\+Read\+Only\+Page(), v8\+::internal\+::anonymous\+\_\+namespace\{accounting-\/allocator.\+cc\}\+::\+Managed\+Zones\+::\+Get\+Or\+Create\+Memory\+For\+Segment(), v8\+::internal\+::wasm\+::\+Wasm\+Code\+Allocator\+::\+Init(), v8\+::internal\+::\+Virtual\+Memory\+Cage\+::\+Init\+Reservation(), v8\+::internal\+::\+Virtual\+Memory\+Cage\+::\+Is\+Reserved(), v8\+::internal\+::wasm\+::\+Wasm\+Import\+Wrapper\+Cache\+::\+Lazy\+Initialize(), v8\+::internal\+::wasm\+::\+Wasm\+Code\+Manager\+::\+New\+Native\+Module(), operator=(), v8\+::internal\+::\+Memory\+Allocator\+::\+Partial\+Free\+Memory(), Release(), v8\+::internal\+::wasm\+::\+Wasm\+Code\+Manager\+::\+Try\+Allocate(), v8\+::internal\+::\+Memory\+Allocator\+::\+Unregister\+Memory\+Chunk(), v8\+::internal\+::\+Memory\+Allocator\+::\+Unregister\+Shared\+Memory\+Chunk(), and $\sim$\+Virtual\+Memory().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a4e314fe91c3c610bb8495aa6435cba9f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a4e314fe91c3c610bb8495aa6435cba9f_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_af711c8a96323d1ca9447ca4826d40dd1}\label{classv8_1_1internal_1_1VirtualMemory_af711c8a96323d1ca9447ca4826d40dd1}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!operator=@{operator=}}
 \index{operator=@{operator=}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
@@ -141,48 +479,317 @@ const \mbox{\hyperlink{classv8_1_1base_1_1AddressRegion}{base\+::\+Address\+Regi
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory}{Virtual\+Memory}}\& v8\+::internal\+::\+Virtual\+Memory\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory}{Virtual\+Memory}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 227 of file allocation.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{227                                                               \{}
+\DoxyCodeLine{228     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a4e314fe91c3c610bb8495aa6435cba9f}{IsReserved}}());}
+\DoxyCodeLine{229     \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}} = other.page\_allocator\_;}
+\DoxyCodeLine{230     \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}} = other.region\_;}
+\DoxyCodeLine{231     other.Reset();}
+\DoxyCodeLine{232     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{233   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), Is\+Reserved(), page\+\_\+allocator\+\_\+, and region\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a73af6a92304a1d7123c559aaae416445_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_a9c7beaf13c4ed4a1e87eeddc83577d09}\label{classv8_1_1internal_1_1VirtualMemory_a9c7beaf13c4ed4a1e87eeddc83577d09}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!page\_allocator@{page\_allocator}}
 \index{page\_allocator@{page\_allocator}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{page\_allocator()}{page\_allocator()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1PageAllocator}{v8\+::\+Page\+Allocator}}$\ast$ v8\+::internal\+::\+Virtual\+Memory\+::page\+\_\+allocator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 241 of file allocation.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{241 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}}; \}}
+
+\end{DoxyCode}
+
+
+References page\+\_\+allocator\+\_\+.
+
+
+
+Referenced by Free(), and Virtual\+Memory().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a9c7beaf13c4ed4a1e87eeddc83577d09_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_acb4229f9eb125c5073ed3df0fdc163cc}\label{classv8_1_1internal_1_1VirtualMemory_acb4229f9eb125c5073ed3df0fdc163cc}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!RecommitPages@{RecommitPages}}
 \index{RecommitPages@{RecommitPages}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{RecommitPages()}{RecommitPages()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Virtual\+Memory\+::\+Recommit\+Pages (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{address,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{size,  }\item[{\mbox{\hyperlink{classv8_1_1PageAllocator_a88f74b164fe97e053259f67a95758415}{Page\+Allocator\+::\+Permission}}}]{access }\end{DoxyParamCaption})}
 
+
+
+Definition at line 249 of file allocation.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{250                                                                   \{}
+\DoxyCodeLine{251   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a542c7054638b691fae28789948b94b65}{InVM}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}}, \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}{size}}));}
+\DoxyCodeLine{252   \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}}-\/>\mbox{\hyperlink{classv8_1_1PageAllocator_aa05bfd415492374b712dd1d3f6f4a1f9}{RecommitPages}}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}}),}
+\DoxyCodeLine{253                                                \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}{size}}, access);}
+\DoxyCodeLine{254   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{255 \}}
+
+\end{DoxyCode}
+
+
+References address(), CHECK, In\+VM(), page\+\_\+allocator\+\_\+, v8\+::\+Page\+Allocator\+::\+Recommit\+Pages(), v8\+::base\+::internal\+::result, and size().
+
+
+
+Referenced by v8\+::internal\+::\+Memory\+Allocator\+::\+Set\+Permissions\+On\+Executable\+Memory\+Chunk().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_acb4229f9eb125c5073ed3df0fdc163cc_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_acb4229f9eb125c5073ed3df0fdc163cc_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_a189b2051e0b85c97fd761d87f2ee207a}\label{classv8_1_1internal_1_1VirtualMemory_a189b2051e0b85c97fd761d87f2ee207a}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!region@{region}}
 \index{region@{region}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{region()}{region()}}
 {\footnotesize\ttfamily const \mbox{\hyperlink{classv8_1_1base_1_1AddressRegion}{base\+::\+Address\+Region}}\& v8\+::internal\+::\+Virtual\+Memory\+::region (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 243 of file allocation.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{243 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}; \}}
+
+\end{DoxyCode}
+
+
+References region\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Code\+Allocator\+::\+Allocate\+For\+Code\+In\+Region(), Free(), v8\+::internal\+::wasm\+::\+Wasm\+Code\+Allocator\+::\+Init(), v8\+::internal\+::wasm\+::\+Wasm\+Import\+Wrapper\+Cache\+::\+Lazy\+Initialize(), v8\+::internal\+::wasm\+::\+Native\+Module\+::\+Native\+Module(), v8\+::internal\+::wasm\+::\+Wasm\+Code\+Manager\+::\+New\+Native\+Module(), and v8\+::internal\+::wasm\+::\+Wasm\+Code\+Manager\+::\+Try\+Allocate().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a189b2051e0b85c97fd761d87f2ee207a_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_ab1cc06b20f4379874b06e8c894d7e8ea}\label{classv8_1_1internal_1_1VirtualMemory_ab1cc06b20f4379874b06e8c894d7e8ea}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!Release@{Release}}
 \index{Release@{Release}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{Release()}{Release()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Virtual\+Memory\+::\+Release (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{free\+\_\+start }\end{DoxyParamCaption})}
 
+
+
+Definition at line 277 of file allocation.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{277                                                 \{}
+\DoxyCodeLine{278   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a4e314fe91c3c610bb8495aa6435cba9f}{IsReserved}}());}
+\DoxyCodeLine{279   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{src_2base_2macros_8h_ab7a19c1f785f31f2b190afc19875368a}{IsAligned}}(free\_start, \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}}-\/>\mbox{\hyperlink{classv8_1_1PageAllocator_ad817d87004151e3824997415f2dc57e9}{CommitPageSize}}()));}
+\DoxyCodeLine{280   \textcolor{comment}{// Notice: Order is important here. The VirtualMemory object might live}}
+\DoxyCodeLine{281   \textcolor{comment}{// inside the allocated region.}}
+\DoxyCodeLine{282 }
+\DoxyCodeLine{283   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} old\_size = \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_a753daf867d9e52511d3483b211a9f0b2}{size}}();}
+\DoxyCodeLine{284   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} free\_size = old\_size -\/ (free\_start -\/ \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_a94a15b5dca8bef88c66880c9b00281ea}{begin}}());}
+\DoxyCodeLine{285   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a542c7054638b691fae28789948b94b65}{InVM}}(free\_start, free\_size));}
+\DoxyCodeLine{286   \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_adc48f605d82ef43f598ce6bafcf7d4e7}{set\_size}}(old\_size -\/ free\_size);}
+\DoxyCodeLine{287   \mbox{\hyperlink{namespacev8_1_1internal_adc76212c46ca9debf901492543fa8865}{ReleasePages}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}}, \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_a94a15b5dca8bef88c66880c9b00281ea}{begin}}()),}
+\DoxyCodeLine{288                old\_size, \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_a753daf867d9e52511d3483b211a9f0b2}{size}}());}
+\DoxyCodeLine{289   \textcolor{keywordflow}{return} free\_size;}
+\DoxyCodeLine{290 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Address\+Region\+::begin(), CHECK, v8\+::\+Page\+Allocator\+::\+Commit\+Page\+Size(), v8\+::internal\+::\+DCHECK(), In\+VM(), Is\+Aligned(), Is\+Reserved(), page\+\_\+allocator\+\_\+, region\+\_\+, v8\+::internal\+::\+Release\+Pages(), v8\+::base\+::\+Address\+Region\+::set\+\_\+size(), and v8\+::base\+::\+Address\+Region\+::size().
+
+
+
+Referenced by v8\+::internal\+::\+Memory\+Allocator\+::\+Partial\+Free\+Memory().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_ab1cc06b20f4379874b06e8c894d7e8ea_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_ab1cc06b20f4379874b06e8c894d7e8ea_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_aacdcb5f689db1e7346aa047b27637c00}\label{classv8_1_1internal_1_1VirtualMemory_aacdcb5f689db1e7346aa047b27637c00}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!Reset@{Reset}}
 \index{Reset@{Reset}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{Reset()}{Reset()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Virtual\+Memory\+::\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 236 of file allocation.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{236                           \{}
+\DoxyCodeLine{237   \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{238   \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}} = base::AddressRegion();}
+\DoxyCodeLine{239 \}}
+
+\end{DoxyCode}
+
+
+References page\+\_\+allocator\+\_\+, and region\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::anonymous\+\_\+namespace\{accounting-\/allocator.\+cc\}\+::\+Managed\+Zones\+::\+Allocate\+Segment(), Free(), and v8\+::internal\+::\+Read\+Only\+Page\+Metadata\+::\+Make\+Header\+Relocatable().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_aacdcb5f689db1e7346aa047b27637c00_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_a869c1f4b525c4e11052d2ce6a7c6e7f3}\label{classv8_1_1internal_1_1VirtualMemory_a869c1f4b525c4e11052d2ce6a7c6e7f3}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!Resize@{Resize}}
 \index{Resize@{Resize}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{Resize()}{Resize()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Virtual\+Memory\+::\+Resize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{address,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{new\+\_\+size,  }\item[{\mbox{\hyperlink{classv8_1_1PageAllocator_a88f74b164fe97e053259f67a95758415}{Page\+Allocator\+::\+Permission}}}]{access }\end{DoxyParamCaption})}
 
+
+
+Definition at line 257 of file allocation.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{258                                                            \{}
+\DoxyCodeLine{259   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{src_2base_2macros_8h_ab7a19c1f785f31f2b190afc19875368a}{IsAligned}}(new\_size, \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}}-\/>\mbox{\hyperlink{classv8_1_1PageAllocator_ad817d87004151e3824997415f2dc57e9}{CommitPageSize}}()));}
+\DoxyCodeLine{260   \mbox{\hyperlink{src_2base_2logging_8h_a16b382527f19b805fc8f856668f2270b}{DCHECK\_LE}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_a753daf867d9e52511d3483b211a9f0b2}{size}}(), new\_size);}
+\DoxyCodeLine{261   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}}-\/>\mbox{\hyperlink{classv8_1_1PageAllocator_a1893e0cf450d2df73a9de74e9dd94ec5}{ResizeAllocationAt}}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}}),}
+\DoxyCodeLine{262                                            \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_a753daf867d9e52511d3483b211a9f0b2}{size}}(), new\_size, access)) \{}
+\DoxyCodeLine{263     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{264   \}}
+\DoxyCodeLine{265   \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_adc48f605d82ef43f598ce6bafcf7d4e7}{set\_size}}(new\_size);}
+\DoxyCodeLine{266   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{267 \}}
+
+\end{DoxyCode}
+
+
+References address(), v8\+::\+Page\+Allocator\+::\+Commit\+Page\+Size(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+LE, Is\+Aligned(), page\+\_\+allocator\+\_\+, region\+\_\+, v8\+::\+Page\+Allocator\+::\+Resize\+Allocation\+At(), v8\+::base\+::\+Address\+Region\+::set\+\_\+size(), and v8\+::base\+::\+Address\+Region\+::size().
+
+
+
+Referenced by v8\+::internal\+::\+Memory\+Allocator\+::\+Resize\+Large\+Page().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a869c1f4b525c4e11052d2ce6a7c6e7f3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a869c1f4b525c4e11052d2ce6a7c6e7f3_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_ab9d171acf0e9958c506fd0e7c885f529}\label{classv8_1_1internal_1_1VirtualMemory_ab9d171acf0e9958c506fd0e7c885f529}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!SetPermissions@{SetPermissions}}
 \index{SetPermissions@{SetPermissions}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
 \doxysubsubsection{\texorpdfstring{SetPermissions()}{SetPermissions()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Virtual\+Memory\+::\+Set\+Permissions (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{address,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{size,  }\item[{\mbox{\hyperlink{classv8_1_1PageAllocator_a88f74b164fe97e053259f67a95758415}{Page\+Allocator\+::\+Permission}}}]{access }\end{DoxyParamCaption})}
 
+
+
+Definition at line 241 of file allocation.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{242                                                                    \{}
+\DoxyCodeLine{243   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a542c7054638b691fae28789948b94b65}{InVM}}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}}, \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}{size}}));}
+\DoxyCodeLine{244   \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}{page\_allocator\_}}-\/>\mbox{\hyperlink{classv8_1_1PageAllocator_aa3817d5bfaba9ec280a6cfb60e6adda0}{SetPermissions}}(}
+\DoxyCodeLine{245       \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_ae9a440f195e1f00ff57e360c163d9b33}{address}}), \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}{size}}, access);}
+\DoxyCodeLine{246   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{247 \}}
+
+\end{DoxyCode}
+
+
+References address(), CHECK, In\+VM(), page\+\_\+allocator\+\_\+, v8\+::base\+::internal\+::result, v8\+::\+Page\+Allocator\+::\+Set\+Permissions(), and size().
+
+
+
+Referenced by v8\+::internal\+::\+Memory\+Allocator\+::\+Partial\+Free\+Memory(), and v8\+::internal\+::\+Memory\+Allocator\+::\+Set\+Permissions\+On\+Executable\+Memory\+Chunk().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_ab9d171acf0e9958c506fd0e7c885f529_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_ab9d171acf0e9958c506fd0e7c885f529_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}\label{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90}} 
 \index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!size@{size}}
 \index{size@{size}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
@@ -191,7 +798,71 @@ const \mbox{\hyperlink{classv8_1_1base_1_1AddressRegion}{base\+::\+Address\+Regi
 
 
 
+Definition at line 263 of file allocation.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{263 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}{region\_}}.\mbox{\hyperlink{classv8_1_1base_1_1AddressRegion_a753daf867d9e52511d3483b211a9f0b2}{size}}(); \}}
+
+\end{DoxyCode}
+
+
+References region\+\_\+, and v8\+::base\+::\+Address\+Region\+::size().
+
+
+
+Referenced by v8\+::internal\+::anonymous\+\_\+namespace\{accounting-\/allocator.\+cc\}\+::\+Managed\+Zones\+::\+Allocate\+Segment(), v8\+::internal\+::\+Memory\+Allocator\+::\+Allocate\+Uninitialized\+Chunk\+At(), Discard\+System\+Pages(), v8\+::internal\+::\+Virtual\+Memory\+Cage\+::\+Init\+Reservation(), In\+VM(), v8\+::internal\+::wasm\+::\+Wasm\+Code\+Manager\+::\+New\+Native\+Module(), Recommit\+Pages(), v8\+::internal\+::\+Memory\+Allocator\+::\+Resize\+Large\+Page(), v8\+::internal\+::anonymous\+\_\+namespace\{accounting-\/allocator.\+cc\}\+::\+Managed\+Zones\+::\+Return\+Segment(), Set\+Permissions(), v8\+::internal\+::wasm\+::\+Wasm\+Code\+Manager\+::\+Try\+Allocate(), v8\+::internal\+::\+Memory\+Allocator\+::\+Unregister\+Memory\+Chunk(), v8\+::internal\+::\+Memory\+Allocator\+::\+Unregister\+Shared\+Memory\+Chunk(), and Virtual\+Memory().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1VirtualMemory_a48f0249dbd8fb6b9fdd45b51037e9c90_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}\label{classv8_1_1internal_1_1VirtualMemory_a20c96adf72024daf6d96e023ad533e26}} 
+\index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!page\_allocator\_@{page\_allocator\_}}
+\index{page\_allocator\_@{page\_allocator\_}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
+\doxysubsubsection{\texorpdfstring{page\_allocator\_}{page\_allocator\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1PageAllocator}{v8\+::\+Page\+Allocator}}$\ast$ v8\+::internal\+::\+Virtual\+Memory\+::page\+\_\+allocator\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 301 of file allocation.\+h.
+
+
+
+Referenced by Discard\+System\+Pages(), Free(), operator=(), page\+\_\+allocator(), Recommit\+Pages(), Release(), Reset(), Resize(), Set\+Permissions(), and Virtual\+Memory().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}\label{classv8_1_1internal_1_1VirtualMemory_a77ebc8f72604155ff6b63fab260fe2e3}} 
+\index{v8::internal::VirtualMemory@{v8::internal::VirtualMemory}!region\_@{region\_}}
+\index{region\_@{region\_}!v8::internal::VirtualMemory@{v8::internal::VirtualMemory}}
+\doxysubsubsection{\texorpdfstring{region\_}{region\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1AddressRegion}{base\+::\+Address\+Region}} v8\+::internal\+::\+Virtual\+Memory\+::region\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 302 of file allocation.\+h.
+
+
+
+Referenced by address(), end(), Free(), In\+VM(), Is\+Reserved(), operator=(), region(), Release(), Reset(), Resize(), size(), and Virtual\+Memory().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{src_2utils_2allocation_8h}{src/utils/allocation.\+h}}\item 
-\mbox{\hyperlink{utils_2allocation_8cc}{utils/allocation.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/utils/\mbox{\hyperlink{src_2utils_2allocation_8h}{allocation.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/utils/\mbox{\hyperlink{utils_2allocation_8cc}{allocation.\+cc}}\end{DoxyCompactItemize}

@@ -1,0 +1,175 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02runtime-forin_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{runtime-\/forin.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02runtime-forin_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}runtime-\/forin.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}runtime-\/forin.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1MaybeDirectHandle}{Maybe\+Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02runtime-forin_8cc_03_a2a9482c9f9f951f967d042ba03be6c41}{Enumerate}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSReceiver}{JSReceiver}} $>$ receiver)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1MaybeDirectHandle}{Maybe\+Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02runtime-forin_8cc_03_ada42baca6f6ef9ff0665c228107c4d0d}{Has\+Enumerable\+Property}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSReceiver}{JSReceiver}} $>$ receiver, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02runtime-forin_8cc_03_a2a9482c9f9f951f967d042ba03be6c41}\label{namespacev8_1_1internal_1_1anonymous__namespace_02runtime-forin_8cc_03_a2a9482c9f9f951f967d042ba03be6c41}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}runtime-\/forin.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}runtime-\/forin.cc\rcurly{}}!Enumerate@{Enumerate}}
+\index{Enumerate@{Enumerate}!v8::internal::anonymous\_namespace\lcurly{}runtime-\/forin.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}runtime-\/forin.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{Enumerate()}{Enumerate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MaybeDirectHandle}{Maybe\+Direct\+Handle}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}}$>$ v8\+::internal\+::anonymous\+\_\+namespace\{runtime-\/forin.\+cc\}\+::Enumerate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSReceiver}{JSReceiver}} $>$}]{receiver }\end{DoxyParamCaption})}
+
+
+
+Definition at line 21 of file runtime-\/forin.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{22                                                                            \{}
+\DoxyCodeLine{23   JSObject::MakePrototypesFast(receiver, \mbox{\hyperlink{namespacev8_1_1internal_aeca996efa44e101da3b6e65e616b0540a1ee269ad7de95ddd6bf97e90fc751eb7}{kStartAtReceiver}}, isolate);}
+\DoxyCodeLine{24   FastKeyAccumulator accumulator(isolate, receiver,}
+\DoxyCodeLine{25                                  KeyCollectionMode::kIncludePrototypes,}
+\DoxyCodeLine{26                                  \mbox{\hyperlink{namespacev8_1_1internal_a8b74cbdcf84843aeaeb20961f4e24eafa0f9915f349b67101813707aa7a3bc603}{ENUMERABLE\_STRINGS}}, \textcolor{keyword}{true});}
+\DoxyCodeLine{27   \textcolor{comment}{// Test if we have an enum cache for \{receiver\}.}}
+\DoxyCodeLine{28   \textcolor{keywordflow}{if} (!accumulator.is\_receiver\_simple\_enum()) \{}
+\DoxyCodeLine{29     DirectHandle<FixedArray> keys;}
+\DoxyCodeLine{30     \mbox{\hyperlink{execution_2isolate_8h_a45bb81ab232e9f2663545ec92dc0b950}{ASSIGN\_RETURN\_ON\_EXCEPTION}}(}
+\DoxyCodeLine{31         isolate, keys,}
+\DoxyCodeLine{32         accumulator.GetKeys(accumulator.may\_have\_elements()}
+\DoxyCodeLine{33                                 ? GetKeysConversion::kConvertToString}
+\DoxyCodeLine{34                                 : GetKeysConversion::kNoNumbers));}
+\DoxyCodeLine{35     \textcolor{comment}{// Test again, since cache may have been built by GetKeys() calls above.}}
+\DoxyCodeLine{36     \textcolor{keywordflow}{if} (!accumulator.is\_receiver\_simple\_enum()) \textcolor{keywordflow}{return} keys;}
+\DoxyCodeLine{37   \}}
+\DoxyCodeLine{38   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!IsJSModuleNamespace(*receiver));}
+\DoxyCodeLine{39   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(receiver-\/>map(), isolate);}
+\DoxyCodeLine{40 \}}
+
+\end{DoxyCode}
+
+
+References ASSIGN\+\_\+\+RETURN\+\_\+\+ON\+\_\+\+EXCEPTION, v8\+::internal\+::\+DCHECK(), v8\+::internal\+::direct\+\_\+handle(), v8\+::internal\+::\+ENUMERABLE\+\_\+\+STRINGS, v8\+::internal\+::\+Fast\+Key\+Accumulator\+::\+Get\+Keys(), v8\+::internal\+::\+Fast\+Key\+Accumulator\+::is\+\_\+receiver\+\_\+simple\+\_\+enum(), v8\+::internal\+::k\+Convert\+To\+String, v8\+::internal\+::k\+Include\+Prototypes, v8\+::internal\+::k\+No\+Numbers, v8\+::internal\+::k\+Start\+At\+Receiver, v8\+::internal\+::\+JSObject\+::\+Make\+Prototypes\+Fast(), and v8\+::internal\+::\+Fast\+Key\+Accumulator\+::may\+\_\+have\+\_\+elements().
+
+
+
+Referenced by v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02runtime-forin_8cc_03_a2a9482c9f9f951f967d042ba03be6c41_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02runtime-forin_8cc_03_a2a9482c9f9f951f967d042ba03be6c41_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02runtime-forin_8cc_03_ada42baca6f6ef9ff0665c228107c4d0d}\label{namespacev8_1_1internal_1_1anonymous__namespace_02runtime-forin_8cc_03_ada42baca6f6ef9ff0665c228107c4d0d}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}runtime-\/forin.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}runtime-\/forin.cc\rcurly{}}!HasEnumerableProperty@{HasEnumerableProperty}}
+\index{HasEnumerableProperty@{HasEnumerableProperty}!v8::internal::anonymous\_namespace\lcurly{}runtime-\/forin.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}runtime-\/forin.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{HasEnumerableProperty()}{HasEnumerableProperty()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MaybeDirectHandle}{Maybe\+Direct\+Handle}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}}$>$ v8\+::internal\+::anonymous\+\_\+namespace\{runtime-\/forin.\+cc\}\+::Has\+Enumerable\+Property (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSReceiver}{JSReceiver}} $>$}]{receiver,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 44 of file runtime-\/forin.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{46                               \{}
+\DoxyCodeLine{47   \textcolor{keywordtype}{bool} success = \textcolor{keyword}{false};}
+\DoxyCodeLine{48   Maybe<PropertyAttributes> \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = \mbox{\hyperlink{namespacev8_a41f0e280eadfba6ac9afd833fdd540cf}{Just}}(\mbox{\hyperlink{namespacev8_1_1internal_a352f65439007f2f1b85c997c1ba11436a43a690b3bd1e2d70d77d667eebc88424}{ABSENT}});}
+\DoxyCodeLine{49   PropertyKey lookup\_key(isolate, \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}, \&success);}
+\DoxyCodeLine{50   \textcolor{keywordflow}{if} (!success) \textcolor{keywordflow}{return} isolate-\/>factory()-\/>undefined\_value();}
+\DoxyCodeLine{51   LookupIterator it(isolate, receiver, lookup\_key);}
+\DoxyCodeLine{52   \textcolor{keywordflow}{for} (;; it.Next()) \{}
+\DoxyCodeLine{53     \textcolor{keywordflow}{switch} (it.state()) \{}
+\DoxyCodeLine{54       \textcolor{keywordflow}{case} LookupIterator::TRANSITION:}
+\DoxyCodeLine{55         \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{56       \textcolor{keywordflow}{case} LookupIterator::JSPROXY: \{}
+\DoxyCodeLine{57         \textcolor{comment}{// For proxies we have to invoke the [[GetOwnProperty]] trap.}}
+\DoxyCodeLine{58         \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = JSProxy::GetPropertyAttributes(\&it);}
+\DoxyCodeLine{59         \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.IsNothing()) \textcolor{keywordflow}{return} MaybeDirectHandle<Object>();}
+\DoxyCodeLine{60         \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.FromJust() == \mbox{\hyperlink{namespacev8_1_1internal_a352f65439007f2f1b85c997c1ba11436a43a690b3bd1e2d70d77d667eebc88424}{ABSENT}}) \{}
+\DoxyCodeLine{61           \textcolor{comment}{// Continue lookup on the proxy's prototype.}}
+\DoxyCodeLine{62           DirectHandle<JSProxy> proxy = it.GetHolder<JSProxy>();}
+\DoxyCodeLine{63           DirectHandle<Object> \mbox{\hyperlink{namespacev8_1_1internal_af2d9fec01057be7bdab90bb4682717b0}{prototype}};}
+\DoxyCodeLine{64           \mbox{\hyperlink{execution_2isolate_8h_a45bb81ab232e9f2663545ec92dc0b950}{ASSIGN\_RETURN\_ON\_EXCEPTION}}(isolate, \mbox{\hyperlink{namespacev8_1_1internal_af2d9fec01057be7bdab90bb4682717b0}{prototype}},}
+\DoxyCodeLine{65                                      JSProxy::GetPrototype(proxy));}
+\DoxyCodeLine{66           \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aea9d736830d86242c4e1cb59a371d3a6}{IsNull}}(*\mbox{\hyperlink{namespacev8_1_1internal_af2d9fec01057be7bdab90bb4682717b0}{prototype}}, isolate)) \{}
+\DoxyCodeLine{67             \textcolor{keywordflow}{return} isolate-\/>factory()-\/>undefined\_value();}
+\DoxyCodeLine{68           \}}
+\DoxyCodeLine{69           \textcolor{comment}{// We already have a stack-\/check in JSProxy::GetPrototype.}}
+\DoxyCodeLine{70           \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02runtime-forin_8cc_03_ada42baca6f6ef9ff0665c228107c4d0d}{HasEnumerableProperty}}(isolate, Cast<JSReceiver>(\mbox{\hyperlink{namespacev8_1_1internal_af2d9fec01057be7bdab90bb4682717b0}{prototype}}),}
+\DoxyCodeLine{71                                        \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}});}
+\DoxyCodeLine{72         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.FromJust() \& \mbox{\hyperlink{namespacev8_1_1internal_a352f65439007f2f1b85c997c1ba11436a7a681885f7c5656b01ef8ba9f9bde868}{DONT\_ENUM}}) \{}
+\DoxyCodeLine{73           \textcolor{keywordflow}{return} isolate-\/>factory()-\/>undefined\_value();}
+\DoxyCodeLine{74         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{75           \textcolor{keywordflow}{return} it.GetName();}
+\DoxyCodeLine{76         \}}
+\DoxyCodeLine{77       \}}
+\DoxyCodeLine{78       \textcolor{keywordflow}{case} LookupIterator::STRING\_LOOKUP\_START\_OBJECT:}
+\DoxyCodeLine{79         \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{80       \textcolor{keywordflow}{case} LookupIterator::WASM\_OBJECT:}
+\DoxyCodeLine{81         \textcolor{keywordflow}{continue};  \textcolor{comment}{// Continue to the prototype, if present.}}
+\DoxyCodeLine{82       \textcolor{keywordflow}{case} LookupIterator::INTERCEPTOR: \{}
+\DoxyCodeLine{83         \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = JSObject::GetPropertyAttributesWithInterceptor(\&it);}
+\DoxyCodeLine{84         \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.IsNothing()) \textcolor{keywordflow}{return} MaybeDirectHandle<Object>();}
+\DoxyCodeLine{85         \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.FromJust() != \mbox{\hyperlink{namespacev8_1_1internal_a352f65439007f2f1b85c997c1ba11436a43a690b3bd1e2d70d77d667eebc88424}{ABSENT}}) \textcolor{keywordflow}{return} it.GetName();}
+\DoxyCodeLine{86         \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{87       \}}
+\DoxyCodeLine{88       \textcolor{keywordflow}{case} LookupIterator::ACCESS\_CHECK: \{}
+\DoxyCodeLine{89         \textcolor{keywordflow}{if} (it.HasAccess()) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{90         \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = JSObject::GetPropertyAttributesWithFailedAccessCheck(\&it);}
+\DoxyCodeLine{91         \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.IsNothing()) \textcolor{keywordflow}{return} MaybeDirectHandle<Object>();}
+\DoxyCodeLine{92         \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.FromJust() != \mbox{\hyperlink{namespacev8_1_1internal_a352f65439007f2f1b85c997c1ba11436a43a690b3bd1e2d70d77d667eebc88424}{ABSENT}}) \textcolor{keywordflow}{return} it.GetName();}
+\DoxyCodeLine{93         \textcolor{keywordflow}{return} isolate-\/>factory()-\/>undefined\_value();}
+\DoxyCodeLine{94       \}}
+\DoxyCodeLine{95       \textcolor{keywordflow}{case} LookupIterator::TYPED\_ARRAY\_INDEX\_NOT\_FOUND:}
+\DoxyCodeLine{96         \textcolor{comment}{// TypedArray out-\/of-\/bounds access.}}
+\DoxyCodeLine{97         \textcolor{keywordflow}{return} isolate-\/>factory()-\/>undefined\_value();}
+\DoxyCodeLine{98       \textcolor{keywordflow}{case} \mbox{\hyperlink{cpp-builder_8h_ad39abcaf0fca8980df81b8deafb15965}{LookupIterator::ACCESSOR}}: \{}
+\DoxyCodeLine{99         \textcolor{keywordflow}{if} (IsJSModuleNamespace(*it.GetHolder<\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae40ecf79ba420ba01bc347350bd6176f}{Object}}>())) \{}
+\DoxyCodeLine{100           \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = JSModuleNamespace::GetPropertyAttributes(\&it);}
+\DoxyCodeLine{101           \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.IsNothing()) \textcolor{keywordflow}{return} MaybeDirectHandle<Object>();}
+\DoxyCodeLine{102           \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(0, \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.FromJust() \& \mbox{\hyperlink{namespacev8_1_1internal_a352f65439007f2f1b85c997c1ba11436a7a681885f7c5656b01ef8ba9f9bde868}{DONT\_ENUM}});}
+\DoxyCodeLine{103         \}}
+\DoxyCodeLine{104         \textcolor{keywordflow}{return} it.GetName();}
+\DoxyCodeLine{105       \}}
+\DoxyCodeLine{106       \textcolor{keywordflow}{case} LookupIterator::DATA:}
+\DoxyCodeLine{107         \textcolor{keywordflow}{return} it.GetName();}
+\DoxyCodeLine{108       \textcolor{keywordflow}{case} LookupIterator::NOT\_FOUND:}
+\DoxyCodeLine{109         \textcolor{keywordflow}{return} isolate-\/>factory()-\/>undefined\_value();}
+\DoxyCodeLine{110     \}}
+\DoxyCodeLine{111     \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{112   \}}
+\DoxyCodeLine{113 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+ABSENT, v8\+::internal\+::\+Lookup\+Iterator\+::\+ACCESS\+\_\+\+CHECK, v8\+::internal\+::\+Lookup\+Iterator\+::\+ACCESSOR, ASSIGN\+\_\+\+RETURN\+\_\+\+ON\+\_\+\+EXCEPTION, v8\+::internal\+::\+Lookup\+Iterator\+::\+DATA, DCHECK\+\_\+\+EQ, v8\+::internal\+::\+DONT\+\_\+\+ENUM, v8\+::internal\+::\+Isolate\+::factory(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Holder(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Name(), v8\+::internal\+::\+JSProxy\+::\+Get\+Property\+Attributes(), v8\+::internal\+::\+JSModule\+Namespace\+::\+Get\+Property\+Attributes(), v8\+::internal\+::\+JSObject\+::\+Get\+Property\+Attributes\+With\+Failed\+Access\+Check(), v8\+::internal\+::\+JSObject\+::\+Get\+Property\+Attributes\+With\+Interceptor(), v8\+::internal\+::\+JSProxy\+::\+Get\+Prototype(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Has\+Access(), v8\+::internal\+::\+Lookup\+Iterator\+::\+INTERCEPTOR, v8\+::internal\+::\+Is\+Null(), v8\+::internal\+::\+Lookup\+Iterator\+::\+JSPROXY, v8\+::\+Just(), v8\+::internal\+::key, v8\+::internal\+::\+Lookup\+Iterator\+::\+Next(), v8\+::internal\+::\+Lookup\+Iterator\+::\+NOT\+\_\+\+FOUND, v8\+::internal\+::prototype, v8\+::base\+::internal\+::result, v8\+::internal\+::\+Lookup\+Iterator\+::state(), v8\+::internal\+::\+Lookup\+Iterator\+::\+STRING\+\_\+\+LOOKUP\+\_\+\+START\+\_\+\+OBJECT, v8\+::internal\+::\+Lookup\+Iterator\+::\+TRANSITION, v8\+::internal\+::\+Lookup\+Iterator\+::\+TYPED\+\_\+\+ARRAY\+\_\+\+INDEX\+\_\+\+NOT\+\_\+\+FOUND, v8\+::internal\+::\+UNREACHABLE(), and v8\+::internal\+::\+Lookup\+Iterator\+::\+WASM\+\_\+\+OBJECT.
+
+
+
+Referenced by v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02runtime-forin_8cc_03_ada42baca6f6ef9ff0665c228107c4d0d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02runtime-forin_8cc_03_ada42baca6f6ef9ff0665c228107c4d0d_icgraph}
+\end{center}
+\end{figure}

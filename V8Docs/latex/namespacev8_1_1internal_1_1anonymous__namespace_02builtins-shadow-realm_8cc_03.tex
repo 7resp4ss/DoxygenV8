@@ -1,0 +1,69 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-shadow-realm_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{builtins-\/shadow-\/realm.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-shadow-realm_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}builtins-\/shadow-\/realm.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}builtins-\/shadow-\/realm.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1MaybeDirectHandle}{Maybe\+Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-shadow-realm_8cc_03_a66ebf6b09fb550b95a3aa60b394aabc3}{Get\+Wrapped\+Value}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1NativeContext}{Native\+Context}} $>$ creation\+\_\+context, \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-shadow-realm_8cc_03_a66ebf6b09fb550b95a3aa60b394aabc3}\label{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-shadow-realm_8cc_03_a66ebf6b09fb550b95a3aa60b394aabc3}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}builtins-\/shadow-\/realm.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}builtins-\/shadow-\/realm.cc\rcurly{}}!GetWrappedValue@{GetWrappedValue}}
+\index{GetWrappedValue@{GetWrappedValue}!v8::internal::anonymous\_namespace\lcurly{}builtins-\/shadow-\/realm.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}builtins-\/shadow-\/realm.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{GetWrappedValue()}{GetWrappedValue()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MaybeDirectHandle}{Maybe\+Direct\+Handle}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}}$>$ v8\+::internal\+::anonymous\+\_\+namespace\{builtins-\/shadow-\/realm.\+cc\}\+::Get\+Wrapped\+Value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1NativeContext}{Native\+Context}} $>$}]{creation\+\_\+context,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 61 of file builtins-\/shadow-\/realm.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{63                           \{}
+\DoxyCodeLine{64   \textcolor{comment}{// 1. If Type(value) is Object, then}}
+\DoxyCodeLine{65   \textcolor{keywordflow}{if} (!IsJSReceiver(*\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})) \{}
+\DoxyCodeLine{66     \textcolor{comment}{// 2. Return value.}}
+\DoxyCodeLine{67     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}};}
+\DoxyCodeLine{68   \}}
+\DoxyCodeLine{69   \textcolor{comment}{// 1a. If IsCallable(value) is false, throw a TypeError exception.}}
+\DoxyCodeLine{70   \textcolor{keywordflow}{if} (!IsCallable(*\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})) \{}
+\DoxyCodeLine{71     \textcolor{comment}{// The TypeError thrown is created with creation Realm's TypeError}}
+\DoxyCodeLine{72     \textcolor{comment}{// constructor instead of the executing Realm's.}}
+\DoxyCodeLine{73     \mbox{\hyperlink{execution_2isolate_8h_a06699c63279f3987fe082aeaaab74b7e}{THROW\_NEW\_ERROR\_RETURN\_VALUE}}(}
+\DoxyCodeLine{74         isolate,}
+\DoxyCodeLine{75         \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02runtime-internal_8cc_03_a3328c26ef21bcd605833a412502b5a7d}{NewError}}(}
+\DoxyCodeLine{76             \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(creation\_context-\/>type\_error\_function(), isolate),}
+\DoxyCodeLine{77             MessageTemplate::kNotCallable, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}),}
+\DoxyCodeLine{78         \{\});}
+\DoxyCodeLine{79   \}}
+\DoxyCodeLine{80   \textcolor{comment}{// 1b. Return ? WrappedFunctionCreate(callerRealm, value).}}
+\DoxyCodeLine{81   \textcolor{keywordflow}{return} JSWrappedFunction::Create(isolate, creation\_context,}
+\DoxyCodeLine{82                                    Cast<JSReceiver>(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}));}
+\DoxyCodeLine{83 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+JSWrapped\+Function\+::\+Create(), v8\+::internal\+::direct\+\_\+handle(), v8\+::internal\+::anonymous\+\_\+namespace\{runtime-\/internal.\+cc\}\+::\+New\+Error(), THROW\+\_\+\+NEW\+\_\+\+ERROR\+\_\+\+RETURN\+\_\+\+VALUE, and v8\+::internal\+::value.
+
+
+
+Referenced by v8\+::internal\+::\+BUILTIN().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-shadow-realm_8cc_03_a66ebf6b09fb550b95a3aa60b394aabc3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-shadow-realm_8cc_03_a66ebf6b09fb550b95a3aa60b394aabc3_icgraph}
+\end{center}
+\end{figure}

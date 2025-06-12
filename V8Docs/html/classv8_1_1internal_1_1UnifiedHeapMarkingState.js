@@ -5,5 +5,9 @@ var classv8_1_1internal_1_1UnifiedHeapMarkingState =
     [ "heap", "classv8_1_1internal_1_1UnifiedHeapMarkingState.html#ab4e4acc1a5a9f0800f79b5c9102aa08e", null ],
     [ "MarkAndPush", "classv8_1_1internal_1_1UnifiedHeapMarkingState.html#a4cf62627a4a9cc454971976c82ea2321", null ],
     [ "operator=", "classv8_1_1internal_1_1UnifiedHeapMarkingState.html#aba7e2be633796a40e53d0e382d5fb20a", null ],
-    [ "Update", "classv8_1_1internal_1_1UnifiedHeapMarkingState.html#aca44045557bdde452bdeafcaabedf660", null ]
+    [ "Update", "classv8_1_1internal_1_1UnifiedHeapMarkingState.html#aca44045557bdde452bdeafcaabedf660", null ],
+    [ "heap_", "classv8_1_1internal_1_1UnifiedHeapMarkingState.html#a2ef91d956581cdb81f8a33a6c6de214a", null ],
+    [ "local_marking_worklist_", "classv8_1_1internal_1_1UnifiedHeapMarkingState.html#ab097d994c280a0684a97ed7da45927dc", null ],
+    [ "mark_mode_", "classv8_1_1internal_1_1UnifiedHeapMarkingState.html#aa9303029dae64c3643d35cb2c9347284", null ],
+    [ "marking_state_", "classv8_1_1internal_1_1UnifiedHeapMarkingState.html#ad11749a8142bc2af7433a32c6cf34489", null ]
 ];

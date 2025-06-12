@@ -2,12 +2,27 @@
 \label{classv8_1_1SealHandleScope}\index{v8::SealHandleScope@{v8::SealHandleScope}}
 
 
+A \mbox{\hyperlink{classv8_1_1SealHandleScope}{Seal\+Handle\+Scope}} acts like a handle scope in which no handle allocations are allowed.  
+
+
+
+
 {\ttfamily \#include $<$v8-\/local-\/handle.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::Seal\+Handle\+Scope\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1SealHandleScope__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1SealHandleScope_acfdab75cc53b53d3ba1a50ab5f4fe16e}{Seal\+Handle\+Scope}} (\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+\mbox{\hyperlink{classv8_1_1SealHandleScope_acfdab75cc53b53d3ba1a50ab5f4fe16e}{Seal\+Handle\+Scope}} (\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$isolate)
 \item 
 \mbox{\hyperlink{classv8_1_1SealHandleScope_a82c58c60f19674ce66a15a7c4aeef434}{$\sim$\+Seal\+Handle\+Scope}} ()
 \item 
@@ -23,10 +38,25 @@ void \mbox{\hyperlink{classv8_1_1SealHandleScope_aad9faa726103eebbd19069f619d613
 \item 
 void \mbox{\hyperlink{classv8_1_1SealHandleScope_a639205e3f86908018a6b11ec5bc74ce2}{operator delete\mbox{[}$\,$\mbox{]}}} (void $\ast$, size\+\_\+t)=delete
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{internal\+::\+Isolate}} $\ast$const \mbox{\hyperlink{classv8_1_1SealHandleScope_ac9b11cafbd216f0ede5ef8d2d4287369}{i\+\_\+isolate\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{internal\+::\+Address}} $\ast$ \mbox{\hyperlink{classv8_1_1SealHandleScope_ae6ba7186ad34674e06e8ea4fa833291b}{prev\+\_\+limit\+\_\+}}
+\item 
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1SealHandleScope_a070f75eb0735b4b0bf7b29d69e6b4e21}{prev\+\_\+sealed\+\_\+level\+\_\+}}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-A \mbox{\hyperlink{classv8_1_1SealHandleScope}{Seal\+Handle\+Scope}} acts like a handle scope in which no handle allocations are allowed. It can be useful for debugging handle leaks. Handles can be allocated within inner normal Handle\+Scopes. 
+A \mbox{\hyperlink{classv8_1_1SealHandleScope}{Seal\+Handle\+Scope}} acts like a handle scope in which no handle allocations are allowed. 
+
+It can be useful for debugging handle leaks. Handles can be allocated within inner normal Handle\+Scopes. 
+
+Definition at line 795 of file v8-\/local-\/handle.\+h.
+
+
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1SealHandleScope_acfdab75cc53b53d3ba1a50ab5f4fe16e}\label{classv8_1_1SealHandleScope_acfdab75cc53b53d3ba1a50ab5f4fe16e}} 
@@ -35,12 +65,66 @@ A \mbox{\hyperlink{classv8_1_1SealHandleScope}{Seal\+Handle\+Scope}} acts like a
 \doxysubsubsection{\texorpdfstring{SealHandleScope()}{SealHandleScope()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::\+Seal\+Handle\+Scope\+::\+Seal\+Handle\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
+
+
+Definition at line 770 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{771     : \mbox{\hyperlink{classv8_1_1SealHandleScope_ac9b11cafbd216f0ede5ef8d2d4287369}{i\_isolate\_}}(\textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{i::Isolate}}*\textcolor{keyword}{>}(v8\_isolate)) \{}
+\DoxyCodeLine{772   \mbox{\hyperlink{structv8_1_1internal_1_1HandleScopeData}{i::HandleScopeData}}* current = \mbox{\hyperlink{classv8_1_1SealHandleScope_ac9b11cafbd216f0ede5ef8d2d4287369}{i\_isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a89324c3550896825051b5db4ea1540b1}{handle\_scope\_data}}();}
+\DoxyCodeLine{773   \mbox{\hyperlink{classv8_1_1SealHandleScope_ae6ba7186ad34674e06e8ea4fa833291b}{prev\_limit\_}} = current-\/>\mbox{\hyperlink{structv8_1_1internal_1_1HandleScopeData_a5df0bca9edd36722eb4879eddd7e8731}{limit}};}
+\DoxyCodeLine{774   current-\/>\mbox{\hyperlink{structv8_1_1internal_1_1HandleScopeData_a5df0bca9edd36722eb4879eddd7e8731}{limit}} = current-\/>\mbox{\hyperlink{structv8_1_1internal_1_1HandleScopeData_a2ac3b397091d62ddb02fd586d57546fd}{next}};}
+\DoxyCodeLine{775   \mbox{\hyperlink{classv8_1_1SealHandleScope_a070f75eb0735b4b0bf7b29d69e6b4e21}{prev\_sealed\_level\_}} = current-\/>\mbox{\hyperlink{structv8_1_1internal_1_1HandleScopeData_a637cbbd70c56a059f439240782914927}{sealed\_level}};}
+\DoxyCodeLine{776   current-\/>\mbox{\hyperlink{structv8_1_1internal_1_1HandleScopeData_a637cbbd70c56a059f439240782914927}{sealed\_level}} = current-\/>\mbox{\hyperlink{structv8_1_1internal_1_1HandleScopeData_a3a33780c9478043e290d0e878ab5d485}{level}};}
+\DoxyCodeLine{777 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::handle\+\_\+scope\+\_\+data(), i\+\_\+isolate\+\_\+, v8\+::internal\+::\+Handle\+Scope\+Data\+::level, v8\+::internal\+::\+Handle\+Scope\+Data\+::limit, v8\+::internal\+::\+Handle\+Scope\+Data\+::next, prev\+\_\+limit\+\_\+, prev\+\_\+sealed\+\_\+level\+\_\+, and v8\+::internal\+::\+Handle\+Scope\+Data\+::sealed\+\_\+level.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1SealHandleScope_acfdab75cc53b53d3ba1a50ab5f4fe16e_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1SealHandleScope_a82c58c60f19674ce66a15a7c4aeef434}\label{classv8_1_1SealHandleScope_a82c58c60f19674ce66a15a7c4aeef434}} 
 \index{v8::SealHandleScope@{v8::SealHandleScope}!````~SealHandleScope@{$\sim$SealHandleScope}}
 \index{````~SealHandleScope@{$\sim$SealHandleScope}!v8::SealHandleScope@{v8::SealHandleScope}}
 \doxysubsubsection{\texorpdfstring{$\sim$SealHandleScope()}{~SealHandleScope()}}
 {\footnotesize\ttfamily v8\+::\+Seal\+Handle\+Scope\+::$\sim$\+Seal\+Handle\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 779 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{779                                   \{}
+\DoxyCodeLine{780   \mbox{\hyperlink{structv8_1_1internal_1_1HandleScopeData}{i::HandleScopeData}}* current = \mbox{\hyperlink{classv8_1_1SealHandleScope_ac9b11cafbd216f0ede5ef8d2d4287369}{i\_isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a89324c3550896825051b5db4ea1540b1}{handle\_scope\_data}}();}
+\DoxyCodeLine{781   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(current-\/>\mbox{\hyperlink{structv8_1_1internal_1_1HandleScopeData_a2ac3b397091d62ddb02fd586d57546fd}{next}}, current-\/>\mbox{\hyperlink{structv8_1_1internal_1_1HandleScopeData_a5df0bca9edd36722eb4879eddd7e8731}{limit}});}
+\DoxyCodeLine{782   current-\/>\mbox{\hyperlink{structv8_1_1internal_1_1HandleScopeData_a5df0bca9edd36722eb4879eddd7e8731}{limit}} = \mbox{\hyperlink{classv8_1_1SealHandleScope_ae6ba7186ad34674e06e8ea4fa833291b}{prev\_limit\_}};}
+\DoxyCodeLine{783   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(current-\/>\mbox{\hyperlink{structv8_1_1internal_1_1HandleScopeData_a3a33780c9478043e290d0e878ab5d485}{level}}, current-\/>\mbox{\hyperlink{structv8_1_1internal_1_1HandleScopeData_a637cbbd70c56a059f439240782914927}{sealed\_level}});}
+\DoxyCodeLine{784   current-\/>\mbox{\hyperlink{structv8_1_1internal_1_1HandleScopeData_a637cbbd70c56a059f439240782914927}{sealed\_level}} = \mbox{\hyperlink{classv8_1_1SealHandleScope_a070f75eb0735b4b0bf7b29d69e6b4e21}{prev\_sealed\_level\_}};}
+\DoxyCodeLine{785 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+EQ, v8\+::internal\+::\+Isolate\+::handle\+\_\+scope\+\_\+data(), i\+\_\+isolate\+\_\+, v8\+::internal\+::\+Handle\+Scope\+Data\+::level, v8\+::internal\+::\+Handle\+Scope\+Data\+::limit, v8\+::internal\+::\+Handle\+Scope\+Data\+::next, prev\+\_\+limit\+\_\+, prev\+\_\+sealed\+\_\+level\+\_\+, and v8\+::internal\+::\+Handle\+Scope\+Data\+::sealed\+\_\+level.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1SealHandleScope_a82c58c60f19674ce66a15a7c4aeef434_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1SealHandleScope_a5e1f6e49a9aa67bb570437fa98097e75}\label{classv8_1_1SealHandleScope_a5e1f6e49a9aa67bb570437fa98097e75}} 
 \index{v8::SealHandleScope@{v8::SealHandleScope}!SealHandleScope@{SealHandleScope}}
 \index{SealHandleScope@{SealHandleScope}!v8::SealHandleScope@{v8::SealHandleScope}}
@@ -82,7 +166,52 @@ A \mbox{\hyperlink{classv8_1_1SealHandleScope}{Seal\+Handle\+Scope}} acts like a
 
 
 
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1SealHandleScope_ac9b11cafbd216f0ede5ef8d2d4287369}\label{classv8_1_1SealHandleScope_ac9b11cafbd216f0ede5ef8d2d4287369}} 
+\index{v8::SealHandleScope@{v8::SealHandleScope}!i\_isolate\_@{i\_isolate\_}}
+\index{i\_isolate\_@{i\_isolate\_}!v8::SealHandleScope@{v8::SealHandleScope}}
+\doxysubsubsection{\texorpdfstring{i\_isolate\_}{i\_isolate\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{internal\+::\+Isolate}}$\ast$ const v8\+::\+Seal\+Handle\+Scope\+::i\+\_\+isolate\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 808 of file v8-\/local-\/handle.\+h.
+
+
+
+Referenced by Seal\+Handle\+Scope(), and $\sim$\+Seal\+Handle\+Scope().
+
+\mbox{\Hypertarget{classv8_1_1SealHandleScope_ae6ba7186ad34674e06e8ea4fa833291b}\label{classv8_1_1SealHandleScope_ae6ba7186ad34674e06e8ea4fa833291b}} 
+\index{v8::SealHandleScope@{v8::SealHandleScope}!prev\_limit\_@{prev\_limit\_}}
+\index{prev\_limit\_@{prev\_limit\_}!v8::SealHandleScope@{v8::SealHandleScope}}
+\doxysubsubsection{\texorpdfstring{prev\_limit\_}{prev\_limit\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{internal\+::\+Address}}$\ast$ v8\+::\+Seal\+Handle\+Scope\+::prev\+\_\+limit\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 809 of file v8-\/local-\/handle.\+h.
+
+
+
+Referenced by Seal\+Handle\+Scope(), and $\sim$\+Seal\+Handle\+Scope().
+
+\mbox{\Hypertarget{classv8_1_1SealHandleScope_a070f75eb0735b4b0bf7b29d69e6b4e21}\label{classv8_1_1SealHandleScope_a070f75eb0735b4b0bf7b29d69e6b4e21}} 
+\index{v8::SealHandleScope@{v8::SealHandleScope}!prev\_sealed\_level\_@{prev\_sealed\_level\_}}
+\index{prev\_sealed\_level\_@{prev\_sealed\_level\_}!v8::SealHandleScope@{v8::SealHandleScope}}
+\doxysubsubsection{\texorpdfstring{prev\_sealed\_level\_}{prev\_sealed\_level\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::\+Seal\+Handle\+Scope\+::prev\+\_\+sealed\+\_\+level\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 810 of file v8-\/local-\/handle.\+h.
+
+
+
+Referenced by Seal\+Handle\+Scope(), and $\sim$\+Seal\+Handle\+Scope().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-local-handle_8h}{v8-\/local-\/handle.\+h}}\item 
-\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/\mbox{\hyperlink{v8-local-handle_8h}{v8-\/local-\/handle.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/api/\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}

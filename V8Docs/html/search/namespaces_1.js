@@ -1,8 +1,10 @@
 var searchData=
 [
-  ['api_5fconstants_65641',['api_constants',['../namespacecppgc_1_1internal_1_1api__constants.html',1,'cppgc::internal']]],
-  ['cppgc_65642',['cppgc',['../namespacecppgc.html',1,'']]],
-  ['internal_65643',['internal',['../namespacecppgc_1_1internal.html',1,'cppgc']]],
-  ['subtle_65644',['subtle',['../namespacecppgc_1_1subtle.html',1,'cppgc']]],
-  ['testing_65645',['testing',['../namespacecppgc_1_1internal_1_1testing.html',1,'cppgc::internal::testing'],['../namespacecppgc_1_1testing.html',1,'cppgc::testing']]]
+  ['anonymous_5fnamespace_7bhandler_2doutside_2ecc_7d_86420',['anonymous_namespace{handler-outside.cc}',['../namespaceanonymous__namespace_02handler-outside_8cc_03.html',1,'']]],
+  ['anonymous_5fnamespace_7blogging_2ecc_7d_86421',['anonymous_namespace{logging.cc}',['../namespaceanonymous__namespace_02logging_8cc_03.html',1,'']]],
+  ['anonymous_5fnamespace_7bmksnapshot_2ecc_7d_86422',['anonymous_namespace{mksnapshot.cc}',['../namespaceanonymous__namespace_02mksnapshot_8cc_03.html',1,'']]],
+  ['anonymous_5fnamespace_7bobjects_2dprinter_2ecc_7d_86423',['anonymous_namespace{objects-printer.cc}',['../namespaceanonymous__namespace_02objects-printer_8cc_03.html',1,'']]],
+  ['anonymous_5fnamespace_7bplatform_2dzos_2ecc_7d_86424',['anonymous_namespace{platform-zos.cc}',['../namespaceanonymous__namespace_02platform-zos_8cc_03.html',1,'']]],
+  ['anonymous_5fnamespace_7bstack_5ftrace_5fandroid_2ecc_7d_86425',['anonymous_namespace{stack_trace_android.cc}',['../namespaceanonymous__namespace_02stack__trace__android_8cc_03.html',1,'']]],
+  ['anonymous_5fnamespace_7btime_2ecc_7d_86426',['anonymous_namespace{time.cc}',['../namespaceanonymous__namespace_02time_8cc_03.html',1,'']]]
 ];

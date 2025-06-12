@@ -18,6 +18,8 @@ var classcppgc_1_1Heap =
       [ "kIncrementalAndConcurrent", "classcppgc_1_1Heap.html#a9005da6b2685669d9b1419324e26b8a2a13b93ce70f628c016cca112357cc51b1", null ]
     ] ],
     [ "~Heap", "classcppgc_1_1Heap.html#adb70bd8ece968e9201c13985c412d562", null ],
+    [ "Heap", "classcppgc_1_1Heap.html#ad5b1633ccc2d393c9e57ea830a9fb6ac", null ],
+    [ "Create", "classcppgc_1_1Heap.html#ae70ae70a49fe0af30a8878515cda4afc", null ],
     [ "ForceGarbageCollectionSlow", "classcppgc_1_1Heap.html#aa8ef2e6a66b5512a189ddfb7a3ab4f3d", null ],
     [ "GetAllocationHandle", "classcppgc_1_1Heap.html#ab3137d30e4a524fc997ddae411640442", null ],
     [ "GetHeapHandle", "classcppgc_1_1Heap.html#a3c9d9dcc6a11d868f1cf7d60ac53e27d", null ],

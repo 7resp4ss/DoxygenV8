@@ -1,6 +1,10 @@
 var classv8_1_1MemorySpan =
 [
+    [ "is_compatible_iterator", "structv8_1_1MemorySpan_1_1is__compatible__iterator.html", null ],
+    [ "is_compatible_iterator< It, std::void_t< std::is_base_of< std::random_access_iterator_tag, typename std::iterator_traits< It >::iterator_category >, is_array_convertible< std::remove_reference_t< iter_reference_t< It > >, T > > >", "structv8_1_1MemorySpan_1_1is__compatible__iterator_3_01It_00_01std_1_1void__t_3_01std_1_1is__bas588d3c10a10a6bf91cdf3dd884edacf7.html", null ],
     [ "Iterator", "classv8_1_1MemorySpan_1_1Iterator.html", "classv8_1_1MemorySpan_1_1Iterator" ],
+    [ "is_array_convertible", "classv8_1_1MemorySpan.html#ab6bbf6f20458473aeba88a60c97379c6", null ],
+    [ "iter_reference_t", "classv8_1_1MemorySpan.html#aacd9de6e3a2818923062f4695f6c5bf8", null ],
     [ "MemorySpan", "classv8_1_1MemorySpan.html#a608d88ac62c94507720daad3b27dc1fb", null ],
     [ "MemorySpan", "classv8_1_1MemorySpan.html#a1e8fab4db7c9652cd2bbd8d9b45fe16b", null ],
     [ "MemorySpan", "classv8_1_1MemorySpan.html#a86ff69460cead8e2ded9cb4e69ad79da", null ],
@@ -13,5 +17,11 @@ var classv8_1_1MemorySpan =
     [ "empty", "classv8_1_1MemorySpan.html#acc56626b372c665540709d72e9837acc", null ],
     [ "end", "classv8_1_1MemorySpan.html#a3998774145c41c7e9f09f49983ed7268", null ],
     [ "operator[]", "classv8_1_1MemorySpan.html#ab6283385e32cbe7856fe912bdd138c7e", null ],
-    [ "size", "classv8_1_1MemorySpan.html#ae25fe427f3be53fff34a3d1a270a8a91", null ]
+    [ "size", "classv8_1_1MemorySpan.html#ae25fe427f3be53fff34a3d1a270a8a91", null ],
+    [ "to_address", "classv8_1_1MemorySpan.html#aa1644c39b340d13fbb5cbfeb63b170e2", null ],
+    [ "to_address", "classv8_1_1MemorySpan.html#a922e12fef206ec216334cfac608c5c68", null ],
+    [ "data_", "classv8_1_1MemorySpan.html#ac3069b31b3e1062eaf6c2cb9f6ed56e7", null ],
+    [ "is_array_convertible_v", "classv8_1_1MemorySpan.html#ab064527b190329295bfabc114a70254b", null ],
+    [ "is_compatible_iterator_v", "classv8_1_1MemorySpan.html#af1c88ef371e13e32896686477feb6a09", null ],
+    [ "size_", "classv8_1_1MemorySpan.html#ac1a5c83027f1fa3a1bb15cad9e66f392", null ]
 ];

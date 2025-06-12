@@ -1,12 +1,15 @@
 var classv8_1_1LocalVector =
 [
+    [ "allocator_type", "classv8_1_1LocalVector.html#a96937a0ff6c912b6f7a4229ec3e8bf29", null ],
     [ "const_iterator", "classv8_1_1LocalVector.html#a82522a18f5faf987f394a70891d9adc4", null ],
     [ "const_reference", "classv8_1_1LocalVector.html#aad855555e8aadd7211752ab01b037663", null ],
     [ "difference_type", "classv8_1_1LocalVector.html#a7e56c2691e3c71d67279b368b39ce310", null ],
+    [ "element_type", "classv8_1_1LocalVector.html#af64bc06e913ecb4552537a5bcd4a609d", null ],
     [ "iterator", "classv8_1_1LocalVector.html#a3b302c02ddae9ff002ee1133eb5cbed3", null ],
     [ "reference", "classv8_1_1LocalVector.html#a4128aaa3e9316cdd9685944333c88092", null ],
     [ "size_type", "classv8_1_1LocalVector.html#a5adfe6a2802eaf8dce47154c841e6d9c", null ],
     [ "value_type", "classv8_1_1LocalVector.html#a3c100c5b478cba13fa230f2da71b7876", null ],
+    [ "vector_type", "classv8_1_1LocalVector.html#a0d63453afcb5f28187f6e5c92001e6e9", null ],
     [ "LocalVector", "classv8_1_1LocalVector.html#ac6fc3d9e6b214d1105967807b1f4d0b5", null ],
     [ "LocalVector", "classv8_1_1LocalVector.html#ad36bc2ec75e82b9582c26d15b916d18e", null ],
     [ "LocalVector", "classv8_1_1LocalVector.html#a68980b68af0a0e837b2e91895b8c9a5a", null ],
@@ -28,6 +31,7 @@ var classv8_1_1LocalVector =
     [ "insert", "classv8_1_1LocalVector.html#a820814ecd0bbb87f87aab20336c02107", null ],
     [ "insert", "classv8_1_1LocalVector.html#ab2e76bbf8f69676e4be73a33238d9d35", null ],
     [ "insert", "classv8_1_1LocalVector.html#a371b98d0fdde8397cb6f08d127263fcb", null ],
+    [ "make_allocator", "classv8_1_1LocalVector.html#a6578d442cf568a2d3dd7f32135b49da0", null ],
     [ "operator=", "classv8_1_1LocalVector.html#a32d0a59f5b3a5ea27b9c33bf70006eef", null ],
     [ "operator[]", "classv8_1_1LocalVector.html#add8acdf8a5b22dddae913593b3bf74a5", null ],
     [ "operator[]", "classv8_1_1LocalVector.html#a79a75d5505953c9289e42c741447c4b0", null ],
@@ -43,5 +47,6 @@ var classv8_1_1LocalVector =
     [ "operator<=", "classv8_1_1LocalVector.html#a3f3a04b8227c41e080b23a076c08f7eb", null ],
     [ "operator==", "classv8_1_1LocalVector.html#ac3282db82169f45c821e99f78321d976", null ],
     [ "operator>", "classv8_1_1LocalVector.html#af4ca629dead40378ef8cfa63705785ec", null ],
-    [ "operator>=", "classv8_1_1LocalVector.html#a0738f19943c57e12aefd14ed47672c9b", null ]
+    [ "operator>=", "classv8_1_1LocalVector.html#a0738f19943c57e12aefd14ed47672c9b", null ],
+    [ "backing_", "classv8_1_1LocalVector.html#a0186d6921aeeffeefa98ea8af7b113b2", null ]
 ];

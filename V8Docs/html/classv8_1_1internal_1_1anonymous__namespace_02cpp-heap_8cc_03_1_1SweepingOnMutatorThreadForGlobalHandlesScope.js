@@ -1,0 +1,6 @@
+var classv8_1_1internal_1_1anonymous__namespace_02cpp_heap_8cc_03_1_1SweepingOnMutatorThreadForGlobalHandlesScope =
+[
+    [ "SweepingOnMutatorThreadForGlobalHandlesScope", "classv8_1_1internal_1_1anonymous__namespace_02cpp-heap_8cc_03_1_1SweepingOnMutatorThreadForGlobalHandlesScope.html#a6b204fbc0b0ea6e5f3ada0a7af1e35f0", null ],
+    [ "~SweepingOnMutatorThreadForGlobalHandlesScope", "classv8_1_1internal_1_1anonymous__namespace_02cpp-heap_8cc_03_1_1SweepingOnMutatorThreadForGlobalHandlesScope.html#ac60d31086677ceb273e34c6680695a33", null ],
+    [ "traced_handles_", "classv8_1_1internal_1_1anonymous__namespace_02cpp-heap_8cc_03_1_1SweepingOnMutatorThreadForGlobalHandlesScope.html#a40256a7ed559700be0b79036f090bcef", null ]
+];

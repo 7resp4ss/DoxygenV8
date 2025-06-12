@@ -9,5 +9,9 @@ var classv8_1_1CFunctionInfo =
     [ "ArgumentInfo", "classv8_1_1CFunctionInfo.html#a74624c1e0dc051230611d42071c033a0", null ],
     [ "GetInt64Representation", "classv8_1_1CFunctionInfo.html#a076c05652bcaa1fd7a1b333435f6592e", null ],
     [ "HasOptions", "classv8_1_1CFunctionInfo.html#a857c37bd652ce8ebc3effb6545ff7fd7", null ],
-    [ "ReturnInfo", "classv8_1_1CFunctionInfo.html#ae796c3b354f378c88a45c54c5dcce75a", null ]
+    [ "ReturnInfo", "classv8_1_1CFunctionInfo.html#ae796c3b354f378c88a45c54c5dcce75a", null ],
+    [ "arg_count_", "classv8_1_1CFunctionInfo.html#ad3aae4b98c65b06dfec57369ee7b6068", null ],
+    [ "arg_info_", "classv8_1_1CFunctionInfo.html#a6898b28f310416b1f6b850ed59715234", null ],
+    [ "repr_", "classv8_1_1CFunctionInfo.html#abfaf4a8dda2551be73950018561a5420", null ],
+    [ "return_info_", "classv8_1_1CFunctionInfo.html#ac45badc2eeefdbc116f5d5b8872d3e82", null ]
 ];

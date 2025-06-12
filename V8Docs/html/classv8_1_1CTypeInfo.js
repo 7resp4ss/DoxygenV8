@@ -1,6 +1,5 @@
 var classv8_1_1CTypeInfo =
 [
-    [ "Identifier", "classv8_1_1CTypeInfo.html#af25ff301192ac9ad65037573faae76cc", null ],
     [ "Flags", "classv8_1_1CTypeInfo.html#a17fb72874909d1e15611f64d12f40e8b", [
       [ "kNone", "classv8_1_1CTypeInfo.html#a17fb72874909d1e15611f64d12f40e8ba35c3ace1970663a16e5c65baa5941b13", null ],
       [ "kAllowSharedBit", "classv8_1_1CTypeInfo.html#a17fb72874909d1e15611f64d12f40e8ba1f5f2ced019609d6d7516a09a3cebce9", null ],
@@ -25,10 +24,22 @@ var classv8_1_1CTypeInfo =
       [ "kAny", "classv8_1_1CTypeInfo.html#aecb61a42625eacedeae9f88c01298b0ba198158a4155a179dc73ad4bea1159c1d", null ]
     ] ],
     [ "CTypeInfo", "classv8_1_1CTypeInfo.html#a1c32b9220ed15e33a0f7baf6070a3356", null ],
-    [ "CTypeInfo", "classv8_1_1CTypeInfo.html#a8c6ca743208268521aa012aca55f4647", null ],
+    [ "CTypeInfo", "classv8_1_1CTypeInfo.html#aadcd6c617a5dfbd6c6b709d3bd72dec1", null ],
     [ "CTypeInfo", "classv8_1_1CTypeInfo.html#af5f7b06edf85ebfdd44126e72895dcde", null ],
     [ "GetFlags", "classv8_1_1CTypeInfo.html#ac1c498043c0a0dd409f5beddf697a8c2", null ],
     [ "GetId", "classv8_1_1CTypeInfo.html#a991336f3deca6a04e0b137607c91c0b4", null ],
-    [ "GetSequenceType", "classv8_1_1CTypeInfo.html#afcc395e9cdf8040041dbbeb72054d338", null ],
-    [ "GetType", "classv8_1_1CTypeInfo.html#abf7f57d074b5a146cfb3b05543381ad1", null ]
+    [ "GetSequenceType", "classv8_1_1CTypeInfo.html#a10362e4174e2f1b279f56079e6bc9855", null ],
+    [ "GetType", "classv8_1_1CTypeInfo.html#abf7f57d074b5a146cfb3b05543381ad1", null ],
+    [ "IsFloatingPointType", "classv8_1_1CTypeInfo.html#a4380813beff0adcfc05eff128b7efc2b", null ],
+    [ "IsIntegralType", "classv8_1_1CTypeInfo.html#a899f68327619eca49795d8fcf065b1e9", null ],
+    [ "IsPrimitive", "classv8_1_1CTypeInfo.html#a522fe508ddc987381e5756cfb3ff55f6", null ],
+    [ "flags", "classv8_1_1CTypeInfo.html#a7b33405b6ef6fccf675b19a0e7471412", null ],
+    [ "flags_", "classv8_1_1CTypeInfo.html#a44155ee570aa5f4e79382449578c536a", null ],
+    [ "kCallbackOptionsType", "classv8_1_1CTypeInfo.html#a5541967a210d3bae4040c142c19154f3", null ],
+    [ "kIsArrayBuffer", "classv8_1_1CTypeInfo.html#a79dde6114d2b30d8f3b08ecb4a17865c", null ],
+    [ "kIsSequence", "classv8_1_1CTypeInfo.html#a0eec826a9e90588f87570e086164b13d", null ],
+    [ "sequence_type", "classv8_1_1CTypeInfo.html#a9f57840296a478e372bb8e7b06cf7cdf", null ],
+    [ "sequence_type_", "classv8_1_1CTypeInfo.html#a10955779ba7204574030ac0bf9c70e90", null ],
+    [ "SequenceType", "classv8_1_1CTypeInfo.html#a539c0d396ef6db4f78a0ca6428b4e4ce", null ],
+    [ "type_", "classv8_1_1CTypeInfo.html#af16275c33e573ff6a59506dcf4ed29d7", null ]
 ];

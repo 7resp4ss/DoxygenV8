@@ -1,6 +1,6 @@
 var src_2base_2macros_8h =
 [
-    [ "is_trivially_copyable", "structv8_1_1base_1_1is__trivially__copyable.html", null ],
+    [ "is_trivially_copyable", "structv8_1_1base_1_1is__trivially__copyable.html", "structv8_1_1base_1_1is__trivially__copyable" ],
     [ "is_trivially_destructible", "structv8_1_1base_1_1is__trivially__destructible.html", null ],
     [ "Use", "structv8_1_1base_1_1Use.html", "structv8_1_1base_1_1Use" ],
     [ "arraysize", "src_2base_2macros_8h.html#ac55fdd6aa61539c49b1b1f5d38a0ed73", null ],
@@ -63,8 +63,8 @@ var src_2base_2macros_8h =
     [ "AlignedAddress", "src_2base_2macros_8h.html#a642af91b62cafba63b2a751a6547a085", null ],
     [ "ArraySizeHelper", "src_2base_2macros_8h.html#a035c708586393b9377c2476a528abfb1", null ],
     [ "ArraySizeHelper", "src_2base_2macros_8h.html#a0faba242ec05ca7f82511c5679324ca4", null ],
-    [ "bit_cast", "src_2base_2macros_8h.html#a6c410bc41f21b97060b8520c074eb957", null ],
-    [ "implicit_cast", "src_2base_2macros_8h.html#a30ce798834379da9811846c5a1135d5d", null ],
+    [ "bit_cast", "src_2base_2macros_8h.html#af58b80e546e7bb38de46687e436abfed", null ],
+    [ "implicit_cast", "src_2base_2macros_8h.html#ac800d3f8e5f065dd9eeb90b156b66083", null ],
     [ "is_inbounds", "src_2base_2macros_8h.html#afd8645e0ab1c0fc51094be0da603d278", null ],
     [ "IsAligned", "src_2base_2macros_8h.html#ab7a19c1f785f31f2b190afc19875368a", null ],
     [ "make_uint64", "src_2base_2macros_8h.html#adff3f6029f9e791f368af3b0ba52be65", null ],

@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::Load\+Global\+IC\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=223pt]{classv8_1_1internal_1_1LoadGlobalIC__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1LoadGlobalIC__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::Load\+Global\+IC\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=223pt]{classv8_1_1internal_1_1LoadGlobalIC__coll__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1LoadGlobalIC__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -34,6 +34,13 @@ Collaboration diagram for v8\+::internal\+::Load\+Global\+IC\+:
 \doxysubsection*{Additional Inherited Members}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 218 of file ic.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1LoadGlobalIC_aa013eef2779ac92f5c91722cd1763255}\label{classv8_1_1internal_1_1LoadGlobalIC_aa013eef2779ac92f5c91722cd1763255}} 
 \index{v8::internal::LoadGlobalIC@{v8::internal::LoadGlobalIC}!LoadGlobalIC@{LoadGlobalIC}}
@@ -41,6 +48,15 @@ Collaboration diagram for v8\+::internal\+::Load\+Global\+IC\+:
 \doxysubsubsection{\texorpdfstring{LoadGlobalIC()}{LoadGlobalIC()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Load\+Global\+IC\+::\+Load\+Global\+IC (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1FeedbackVector}{Feedback\+Vector}} $>$}]{vector,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1FeedbackSlot}{Feedback\+Slot}}}]{slot,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a568220f4c0d8eed9fda4e10c93e025ea}{Feedback\+Slot\+Kind}}}]{kind }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 220 of file ic.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{222       : \mbox{\hyperlink{classv8_1_1internal_1_1LoadIC_aaaaf68a003f00638910139a61b734431}{LoadIC}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}, vector, slot, \mbox{\hyperlink{classv8_1_1internal_1_1IC_a8b5bd465d7121a9addc65b6f47c1e321}{kind}}) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -52,7 +68,84 @@ Collaboration diagram for v8\+::internal\+::Load\+Global\+IC\+:
 
 
 
+Definition at line 465 of file ic.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{466                                                                    \{}
+\DoxyCodeLine{467   Handle<JSGlobalObject> global = \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a02fd172ef4a5caf9b5ce7d9794f79510}{global\_object}}();}
+\DoxyCodeLine{468 }
+\DoxyCodeLine{469   \textcolor{keywordflow}{if} (IsString(*\mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}})) \{}
+\DoxyCodeLine{470     \textcolor{comment}{// Look up in script context table.}}
+\DoxyCodeLine{471     DirectHandle<String> str\_name = Cast<String>(\mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}});}
+\DoxyCodeLine{472     DirectHandle<ScriptContextTable> script\_contexts(}
+\DoxyCodeLine{473         global-\/>native\_context()-\/>script\_context\_table(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}());}
+\DoxyCodeLine{474 }
+\DoxyCodeLine{475     VariableLookupResult lookup\_result;}
+\DoxyCodeLine{476     \textcolor{keywordflow}{if} (script\_contexts-\/>Lookup(str\_name, \&lookup\_result)) \{}
+\DoxyCodeLine{477       DirectHandle<Context> script\_context(}
+\DoxyCodeLine{478           script\_contexts-\/>get(lookup\_result.context\_index), \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}());}
+\DoxyCodeLine{479       \textcolor{keywordflow}{if} (script\_context-\/>IsElementTheHole(lookup\_result.slot\_index)) \{}
+\DoxyCodeLine{480         \textcolor{comment}{// Do not install stubs and stay pre-\/monomorphic for}}
+\DoxyCodeLine{481         \textcolor{comment}{// uninitialized accesses.}}
+\DoxyCodeLine{482         \mbox{\hyperlink{execution_2isolate_8h_a6557667dd5be0768bd92d4bfd9a4d70f}{THROW\_NEW\_ERROR}}(}
+\DoxyCodeLine{483             \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(),}
+\DoxyCodeLine{484             NewReferenceError(MessageTemplate::kAccessedUninitializedVariable,}
+\DoxyCodeLine{485                               \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}}));}
+\DoxyCodeLine{486       \}}
+\DoxyCodeLine{487       \textcolor{keywordtype}{bool} use\_ic =}
+\DoxyCodeLine{488           (\mbox{\hyperlink{classv8_1_1internal_1_1IC_a44761904b47f546a821e76605ba889df}{state}}() != \mbox{\hyperlink{namespacev8_1_1internal_aeef5aadaecbd08b3fcbb9ec1faa36c01a5e21ad0652f710f392b8fb78d6247921}{NO\_FEEDBACK}}) \&\& \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.use\_ic \&\& update\_feedback;}
+\DoxyCodeLine{489       \mbox{\hyperlink{namespacev8_1_1internal_aa583abbe977ca41df2196a083796b84a}{if}} (use\_ic) \{}
+\DoxyCodeLine{490         \textcolor{comment}{// 'const' Variables are mutable if REPL mode is enabled. This disables}}
+\DoxyCodeLine{491         \textcolor{comment}{// compiler inlining for all 'const' variables declared in REPL mode.}}
+\DoxyCodeLine{492         \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1IC_ac10e141b7bede2f69f8af8340a90d384}{nexus}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1FeedbackNexus_a0bad673f7d43128804f40f5bc79ccb64}{ConfigureLexicalVarMode}}(}
+\DoxyCodeLine{493                 lookup\_result.context\_index, lookup\_result.slot\_index,}
+\DoxyCodeLine{494                 (\mbox{\hyperlink{namespacev8_1_1internal_a69e2535337f64592a7cc873d0c595412}{IsImmutableLexicalVariableMode}}(lookup\_result.mode) \&\&}
+\DoxyCodeLine{495                  !lookup\_result.is\_repl\_mode))) \{}
+\DoxyCodeLine{496           \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), LoadGlobalIC\_LoadScriptContextField);}
+\DoxyCodeLine{497         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{498           \textcolor{comment}{// Given combination of indices can't be encoded, so use slow stub.}}
+\DoxyCodeLine{499           \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), LoadGlobalIC\_SlowStub);}
+\DoxyCodeLine{500           \mbox{\hyperlink{classv8_1_1internal_1_1IC_ae44fb28293e95b0fa78da8c92946302e}{SetCache}}(\mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}}, \mbox{\hyperlink{classv8_1_1internal_1_1LoadHandler_a03a81ff2382070eba0e24384f5a9f924}{LoadHandler::LoadSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{501         \}}
+\DoxyCodeLine{502         \mbox{\hyperlink{classv8_1_1internal_1_1IC_a1f89dd078deea90d36984a2ccd956c8b}{TraceIC}}(\textcolor{stringliteral}{"{}LoadGlobalIC"{}}, \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}});}
+\DoxyCodeLine{503       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1IC_a44761904b47f546a821e76605ba889df}{state}}() == NO\_FEEDBACK) \{}
+\DoxyCodeLine{504         \mbox{\hyperlink{classv8_1_1internal_1_1IC_a1f89dd078deea90d36984a2ccd956c8b}{TraceIC}}(\textcolor{stringliteral}{"{}LoadGlobalIC"{}}, \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}});}
+\DoxyCodeLine{505       \}}
+\DoxyCodeLine{506       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1Context_ad00b72e38319e8f7f1f6dc5a9cbd6b95}{Context::Get}}(script\_context, lookup\_result.slot\_index, \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}());}
+\DoxyCodeLine{507     \}}
+\DoxyCodeLine{508   \}}
+\DoxyCodeLine{509   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1LoadIC_a3bc56d22f058c2c5f481d73bfce9158a}{LoadIC::Load}}(global, \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}}, update\_feedback);}
+\DoxyCodeLine{510 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Feedback\+Nexus\+::\+Configure\+Lexical\+Var\+Mode(), v8\+::internal\+::\+Variable\+Lookup\+Result\+::context\+\_\+index, v8\+::internal\+::\+Context\+::\+Get(), v8\+::internal\+::\+Isolate\+::global\+\_\+object(), v8\+::internal\+::if(), v8\+::internal\+::\+Variable\+Lookup\+Result\+::is\+\_\+repl\+\_\+mode, v8\+::internal\+::\+Is\+Immutable\+Lexical\+Variable\+Mode(), v8\+::internal\+::\+IC\+::isolate(), v8\+::internal\+::\+Load\+IC\+::\+Load(), v8\+::internal\+::\+Load\+Handler\+::\+Load\+Slow(), v8\+::internal\+::\+Variable\+Lookup\+Result\+::mode, v8\+::internal\+::name, v8\+::internal\+::\+IC\+::nexus(), v8\+::internal\+::\+NO\+\_\+\+FEEDBACK, v8\+::internal\+::\+IC\+::\+Set\+Cache(), v8\+::internal\+::\+Variable\+Lookup\+Result\+::slot\+\_\+index, v8\+::internal\+::\+IC\+::state(), THROW\+\_\+\+NEW\+\_\+\+ERROR, TRACE\+\_\+\+HANDLER\+\_\+\+STATS, v8\+::internal\+::\+IC\+::\+Trace\+IC(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1LoadGlobalIC_a6cff12ab59ec7e7dea34eba306ae5c50_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1LoadGlobalIC_a6cff12ab59ec7e7dea34eba306ae5c50_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{ic_8h}{ic.\+h}}\item 
-\mbox{\hyperlink{ic_8cc}{ic.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/ic/\mbox{\hyperlink{ic_8h}{ic.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/ic/\mbox{\hyperlink{ic_8cc}{ic.\+cc}}\end{DoxyCompactItemize}

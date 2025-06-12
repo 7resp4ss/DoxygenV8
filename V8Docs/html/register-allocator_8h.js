@@ -19,6 +19,8 @@ var register_allocator_8h =
     [ "BundleBuilder", "classv8_1_1internal_1_1compiler_1_1BundleBuilder.html", "classv8_1_1internal_1_1compiler_1_1BundleBuilder" ],
     [ "RegisterAllocator", "classv8_1_1internal_1_1compiler_1_1RegisterAllocator.html", "classv8_1_1internal_1_1compiler_1_1RegisterAllocator" ],
     [ "LinearScanAllocator", "classv8_1_1internal_1_1compiler_1_1LinearScanAllocator.html", "classv8_1_1internal_1_1compiler_1_1LinearScanAllocator" ],
+    [ "UnhandledLiveRangeOrdering", "structv8_1_1internal_1_1compiler_1_1LinearScanAllocator_1_1UnhandledLiveRangeOrdering.html", "structv8_1_1internal_1_1compiler_1_1LinearScanAllocator_1_1UnhandledLiveRangeOrdering" ],
+    [ "InactiveLiveRangeOrdering", "structv8_1_1internal_1_1compiler_1_1LinearScanAllocator_1_1InactiveLiveRangeOrdering.html", "structv8_1_1internal_1_1compiler_1_1LinearScanAllocator_1_1InactiveLiveRangeOrdering" ],
     [ "OperandAssigner", "classv8_1_1internal_1_1compiler_1_1OperandAssigner.html", "classv8_1_1internal_1_1compiler_1_1OperandAssigner" ],
     [ "ReferenceMapPopulator", "classv8_1_1internal_1_1compiler_1_1ReferenceMapPopulator.html", "classv8_1_1internal_1_1compiler_1_1ReferenceMapPopulator" ],
     [ "LiveRangeConnector", "classv8_1_1internal_1_1compiler_1_1LiveRangeConnector.html", "classv8_1_1internal_1_1compiler_1_1LiveRangeConnector" ],
@@ -43,5 +45,6 @@ var register_allocator_8h =
       [ "kRequiresSlot", "register-allocator_8h.html#a7b6df401819d405afa63acd8f105c5e2a52ab9859ec308dbd0d198cce409b209d", null ]
     ] ],
     [ "operator<<", "register-allocator_8h.html#a135d5776b8f3aa71053e09aff0fac7b9", null ],
-    [ "operator<<", "register-allocator_8h.html#a4343c6cb055ec2b4274edfb1ce50f3ec", null ]
+    [ "operator<<", "register-allocator_8h.html#a4343c6cb055ec2b4274edfb1ce50f3ec", null ],
+    [ "kUnassignedRegister", "register-allocator_8h.html#a5514165439c07930304e4a7f06d091fb", null ]
 ];

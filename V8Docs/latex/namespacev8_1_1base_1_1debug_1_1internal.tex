@@ -3,7 +3,7 @@
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-char $\ast$ \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1internal_a53e36da8d924a887b0a694989260e4c3}{itoa\+\_\+r}} (intptr\+\_\+t i, char $\ast$buf, size\+\_\+t sz, int \mbox{\hyperlink{instruction-selector-x64_8cc_a7971003206f2f3d97ca8b90452bc2d92}{base}}, size\+\_\+t padding)
+char $\ast$ \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1internal_a53e36da8d924a887b0a694989260e4c3}{itoa\+\_\+r}} (intptr\+\_\+t i, char $\ast$buf, size\+\_\+t sz, \mbox{\hyperlink{classint}{int}} base, size\+\_\+t padding)
 \end{DoxyCompactItemize}
 
 
@@ -12,5 +12,87 @@ char $\ast$ \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1internal_a53e36da8d
 \index{v8::base::debug::internal@{v8::base::debug::internal}!itoa\_r@{itoa\_r}}
 \index{itoa\_r@{itoa\_r}!v8::base::debug::internal@{v8::base::debug::internal}}
 \doxysubsubsection{\texorpdfstring{itoa\_r()}{itoa\_r()}}
-{\footnotesize\ttfamily char $\ast$ v8\+::base\+::debug\+::internal\+::itoa\+\_\+r (\begin{DoxyParamCaption}\item[{intptr\+\_\+t}]{i,  }\item[{char $\ast$}]{buf,  }\item[{size\+\_\+t}]{sz,  }\item[{int}]{base,  }\item[{size\+\_\+t}]{padding }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily char $\ast$ v8\+::base\+::debug\+::internal\+::itoa\+\_\+r (\begin{DoxyParamCaption}\item[{intptr\+\_\+t}]{i,  }\item[{char $\ast$}]{buf,  }\item[{size\+\_\+t}]{sz,  }\item[{\mbox{\hyperlink{classint}{int}}}]{base,  }\item[{size\+\_\+t}]{padding }\end{DoxyParamCaption})}
 
+
+
+Definition at line 421 of file stack\+\_\+trace\+\_\+posix.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{421                                                                          \{}
+\DoxyCodeLine{422   \textcolor{comment}{// Make sure we can write at least one NUL byte.}}
+\DoxyCodeLine{423   \textcolor{keywordtype}{size\_t} n = 1;}
+\DoxyCodeLine{424   \textcolor{keywordflow}{if} (n > sz) \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{425 }
+\DoxyCodeLine{426   \textcolor{keywordflow}{if} (base < 2 || base > 16) \{}
+\DoxyCodeLine{427     buf[0] = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{428     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{429   \}}
+\DoxyCodeLine{430 }
+\DoxyCodeLine{431   \textcolor{keywordtype}{char}* start = buf;}
+\DoxyCodeLine{432 }
+\DoxyCodeLine{433   \mbox{\hyperlink{classuintptr__t}{uintptr\_t}} j = \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}};}
+\DoxyCodeLine{434 }
+\DoxyCodeLine{435   \textcolor{comment}{// Handle negative numbers (only for base 10).}}
+\DoxyCodeLine{436   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal}{i}} < 0 \&\& base == 10) \{}
+\DoxyCodeLine{437     \textcolor{comment}{// This does "{}j = -\/i"{} while avoiding integer overflow.}}
+\DoxyCodeLine{438     j = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{classuintptr__t}{uintptr\_t}}\textcolor{keyword}{>}(-\/(\mbox{\hyperlink{namespacev8_1_1internal}{i}} + 1)) + 1;}
+\DoxyCodeLine{439 }
+\DoxyCodeLine{440     \textcolor{comment}{// Make sure we can write the '-\/' character.}}
+\DoxyCodeLine{441     \textcolor{keywordflow}{if} (++n > sz) \{}
+\DoxyCodeLine{442       buf[0] = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{443       \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{444     \}}
+\DoxyCodeLine{445     *start++ = \textcolor{charliteral}{'-\/'};}
+\DoxyCodeLine{446   \}}
+\DoxyCodeLine{447 }
+\DoxyCodeLine{448   \textcolor{comment}{// Loop until we have converted the entire number. Output at least one}}
+\DoxyCodeLine{449   \textcolor{comment}{// character (i.e. '0').}}
+\DoxyCodeLine{450   \textcolor{keywordtype}{char}* ptr = start;}
+\DoxyCodeLine{451   \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{452     \textcolor{comment}{// Make sure there is still enough space left in our output buffer.}}
+\DoxyCodeLine{453     \textcolor{keywordflow}{if} (++n > sz) \{}
+\DoxyCodeLine{454       buf[0] = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{455       \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{456     \}}
+\DoxyCodeLine{457 }
+\DoxyCodeLine{458     \textcolor{comment}{// Output the next digit.}}
+\DoxyCodeLine{459     *ptr++ = \textcolor{stringliteral}{"{}0123456789abcdef"{}}[j \% base];}
+\DoxyCodeLine{460     j /= base;}
+\DoxyCodeLine{461 }
+\DoxyCodeLine{462     \textcolor{keywordflow}{if} (padding > 0) padding-\/-\/;}
+\DoxyCodeLine{463   \} \textcolor{keywordflow}{while} (j > 0 || padding > 0);}
+\DoxyCodeLine{464 }
+\DoxyCodeLine{465   \textcolor{comment}{// Terminate the output with a NUL character.}}
+\DoxyCodeLine{466   *ptr = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{467 }
+\DoxyCodeLine{468   \textcolor{comment}{// Conversion to ASCII actually resulted in the digits being in reverse}}
+\DoxyCodeLine{469   \textcolor{comment}{// order. We can't easily generate them in forward order, as we can't tell}}
+\DoxyCodeLine{470   \textcolor{comment}{// the number of characters needed until we are done converting.}}
+\DoxyCodeLine{471   \textcolor{comment}{// So, now, we reverse the string (except for the possible "{}-\/"{} sign).}}
+\DoxyCodeLine{472   \textcolor{keywordflow}{while} (-\/-\/ptr > start) \{}
+\DoxyCodeLine{473     \textcolor{keywordtype}{char} ch = *ptr;}
+\DoxyCodeLine{474     *ptr = *start;}
+\DoxyCodeLine{475     *start++ = ch;}
+\DoxyCodeLine{476   \}}
+\DoxyCodeLine{477   \textcolor{keywordflow}{return} buf;}
+\DoxyCodeLine{478 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i.
+
+
+
+Referenced by v8\+::base\+::debug\+::anonymous\+\_\+namespace\{stack\+\_\+trace\+\_\+posix.\+cc\}\+::\+Stack\+Dump\+Signal\+Handler().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1base_1_1debug_1_1internal_a53e36da8d924a887b0a694989260e4c3_icgraph}
+\end{center}
+\end{figure}

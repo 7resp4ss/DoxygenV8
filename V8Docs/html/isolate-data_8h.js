@@ -1,6 +1,7 @@
 var isolate_data_8h =
 [
     [ "IsolateData", "classv8_1_1internal_1_1IsolateData.html", "classv8_1_1internal_1_1IsolateData" ],
+    [ "RawArgument", "structv8_1_1internal_1_1IsolateData_1_1RawArgument.html", "structv8_1_1internal_1_1IsolateData_1_1RawArgument" ],
     [ "CASE", "isolate-data_8h.html#a0d0a28cf24b2aaa5369931f09ece8fd5", null ],
     [ "ENUM", "isolate-data_8h.html#a17862d65cd12bcc967a0b1ac0ed792d2", null ],
     [ "ENUM", "isolate-data_8h.html#a54bb62ae09555d50d9352509e23712aa", null ],
@@ -21,5 +22,6 @@ var isolate_data_8h =
       [ "ENUM", "isolate-data_8h.html#a2b6fbba70fe6e40ab0c37b8da85b7508a248025ed5fc1b768c1cde80caa210bbc", null ],
       [ "ENUM", "isolate-data_8h.html#a2b6fbba70fe6e40ab0c37b8da85b7508a8233224f86f942499826a96fd8220d3e", null ]
     ] ],
+    [ "kFastCCallAlignmentPaddingCount", "isolate-data_8h.html#a7553f838d246f0f54497d3d88ed7337f", null ],
     [ "kNumIsolateFieldIds", "isolate-data_8h.html#ae8747a5fe3747b9add3bf2d837c1a199", null ]
 ];

@@ -1,0 +1,200 @@
+\hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03}{}\doxysection{cppgc\+::internal\+::anonymous\+\_\+namespace\{explicit-\/management.cc\} Namespace Reference}
+\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03}\index{cppgc::internal::anonymous\_namespace\lcurly{}explicit-\/management.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}explicit-\/management.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_a6e81dcb9809d0665ddbf4d724883b336}{In\+GC}} (\mbox{\hyperlink{classcppgc_1_1HeapHandle}{Heap\+Handle}} \&heap\+\_\+handle)
+\item 
+bool \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_a9b693261d18e8c148aef50de7dec30df}{Grow}} (\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader}{Heap\+Object\+Header}} \&header, \mbox{\hyperlink{classcppgc_1_1internal_1_1BasePage}{Base\+Page}} \&base\+\_\+page, size\+\_\+t new\+\_\+size, size\+\_\+t size\+\_\+delta)
+\item 
+bool \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_ae386bd778f9a2f3f49df2f8a280ffdf9}{Shrink}} (\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader}{Heap\+Object\+Header}} \&header, \mbox{\hyperlink{classcppgc_1_1internal_1_1BasePage}{Base\+Page}} \&base\+\_\+page, size\+\_\+t new\+\_\+size, size\+\_\+t size\+\_\+delta)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_a9b693261d18e8c148aef50de7dec30df}\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_a9b693261d18e8c148aef50de7dec30df}} 
+\index{cppgc::internal::anonymous\_namespace\lcurly{}explicit-\/management.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}explicit-\/management.cc\rcurly{}}!Grow@{Grow}}
+\index{Grow@{Grow}!cppgc::internal::anonymous\_namespace\lcurly{}explicit-\/management.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}explicit-\/management.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{Grow()}{Grow()}}
+{\footnotesize\ttfamily bool cppgc\+::internal\+::anonymous\+\_\+namespace\{explicit-\/management.\+cc\}\+::Grow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader}{Heap\+Object\+Header}} \&}]{header,  }\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1BasePage}{Base\+Page}} \&}]{base\+\_\+page,  }\item[{size\+\_\+t}]{new\+\_\+size,  }\item[{size\+\_\+t}]{size\+\_\+delta }\end{DoxyParamCaption})}
+
+
+
+Definition at line 91 of file explicit-\/management.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{92                              \{}
+\DoxyCodeLine{93   \mbox{\hyperlink{src_2base_2logging_8h_aabec5c3b7a8628298a25f044dcf89c25}{DCHECK\_GE}}(new\_size, header.AllocatedSize() + \mbox{\hyperlink{namespacecppgc_1_1internal_aaba7fddb4e903ed04a345be335f48d68}{kAllocationGranularity}});}
+\DoxyCodeLine{94   \mbox{\hyperlink{src_2base_2logging_8h_aabec5c3b7a8628298a25f044dcf89c25}{DCHECK\_GE}}(size\_delta, \mbox{\hyperlink{namespacecppgc_1_1internal_aaba7fddb4e903ed04a345be335f48d68}{kAllocationGranularity}});}
+\DoxyCodeLine{95   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!base\_page.is\_large());}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97   \textcolor{keyword}{auto}\& normal\_space = *\textcolor{keyword}{static\_cast<}NormalPageSpace*\textcolor{keyword}{>}(\&base\_page.space());}
+\DoxyCodeLine{98   \textcolor{keyword}{auto}\& lab = normal\_space.linear\_allocation\_buffer();}
+\DoxyCodeLine{99   \textcolor{keywordflow}{if} (lab.start() == header.ObjectEnd() \&\& lab.size() >= size\_delta) \{}
+\DoxyCodeLine{100     \textcolor{comment}{// LABs are considered used memory which means that no allocated size}}
+\DoxyCodeLine{101     \textcolor{comment}{// adjustments are needed.}}
+\DoxyCodeLine{102     \mbox{\hyperlink{namespacev8_1_1base_aed4219b45684a3840c8b930b5df90ea9}{Address}} delta\_start = lab.Allocate(size\_delta);}
+\DoxyCodeLine{103     \mbox{\hyperlink{namespacecppgc_1_1internal_ae040dfdc19bed997f7115e302243b4cb}{SetMemoryAccessible}}(delta\_start, size\_delta);}
+\DoxyCodeLine{104     header.SetAllocatedSize(new\_size);}
+\DoxyCodeLine{105 \textcolor{preprocessor}{\#if defined(CPPGC\_YOUNG\_GENERATION)}}
+\DoxyCodeLine{106     \textcolor{keywordflow}{if} (\textcolor{keyword}{auto}\& heap\_base = *normal\_space.raw\_heap()-\/>heap();}
+\DoxyCodeLine{107         heap\_base.generational\_gc\_supported()) \{}
+\DoxyCodeLine{108       \textcolor{keywordflow}{if} (header.IsMarked()) \{}
+\DoxyCodeLine{109         base\_page.IncrementMarkedBytes(}
+\DoxyCodeLine{110             header.AllocatedSize<AccessMode::kNonAtomic>());}
+\DoxyCodeLine{111       \}}
+\DoxyCodeLine{112     \}}
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// defined(CPPGC\_YOUNG\_GENERATION)}}
+\DoxyCodeLine{114     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{115   \}}
+\DoxyCodeLine{116   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{117 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Normal\+Page\+Space\+::\+Linear\+Allocation\+Buffer\+::\+Allocate(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Allocated\+Size(), DCHECK, DCHECK\+\_\+\+GE, cppgc\+::internal\+::\+Base\+Page\+::\+Increment\+Marked\+Bytes(), cppgc\+::internal\+::\+Base\+Page\+::is\+\_\+large(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Is\+Marked(), cppgc\+::internal\+::k\+Allocation\+Granularity, cppgc\+::internal\+::k\+Non\+Atomic, cppgc\+::internal\+::\+Normal\+Page\+Space\+::linear\+\_\+allocation\+\_\+buffer(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Object\+End(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Set\+Allocated\+Size(), cppgc\+::internal\+::\+Set\+Memory\+Accessible(), and cppgc\+::internal\+::\+Base\+Page\+::space().
+
+
+
+Referenced by v8\+::internal\+::\+Small\+Ordered\+Hash\+Map\+::\+Add(), v8\+::internal\+::\+Small\+Ordered\+Hash\+Set\+::\+Add(), v8\+::internal\+::\+Small\+Ordered\+Name\+Dictionary\+::\+Add(), v8\+::internal\+::compiler\+::\+Value\+Numbering\+Reducer\+::\+Reduce(), and cppgc\+::internal\+::\+Explicit\+Management\+Impl\+::\+Resize().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_a9b693261d18e8c148aef50de7dec30df_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_a9b693261d18e8c148aef50de7dec30df_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_a6e81dcb9809d0665ddbf4d724883b336}\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_a6e81dcb9809d0665ddbf4d724883b336}} 
+\index{cppgc::internal::anonymous\_namespace\lcurly{}explicit-\/management.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}explicit-\/management.cc\rcurly{}}!InGC@{InGC}}
+\index{InGC@{InGC}!cppgc::internal::anonymous\_namespace\lcurly{}explicit-\/management.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}explicit-\/management.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{InGC()}{InGC()}}
+{\footnotesize\ttfamily bool cppgc\+::internal\+::anonymous\+\_\+namespace\{explicit-\/management.\+cc\}\+::In\+GC (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1HeapHandle}{Heap\+Handle}} \&}]{heap\+\_\+handle }\end{DoxyParamCaption})}
+
+
+
+Definition at line 21 of file explicit-\/management.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21                                    \{}
+\DoxyCodeLine{22   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& \mbox{\hyperlink{namespaceheap}{heap}} = HeapBase::From(heap\_handle);}
+\DoxyCodeLine{23   \textcolor{comment}{// Whenever the GC is active, avoid modifying the object as it may mess with}}
+\DoxyCodeLine{24   \textcolor{comment}{// state that the GC needs.}}
+\DoxyCodeLine{25   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespaceheap}{heap}}.in\_atomic\_pause() || \mbox{\hyperlink{namespaceheap}{heap}}.marker() ||}
+\DoxyCodeLine{26          \mbox{\hyperlink{namespaceheap}{heap}}.sweeper().IsSweepingInProgress();}
+\DoxyCodeLine{27 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Heap\+Base\+::\+From().
+
+
+
+Referenced by cppgc\+::internal\+::\+Explicit\+Management\+Impl\+::\+Free\+Unreferenced\+Object(), and cppgc\+::internal\+::\+Explicit\+Management\+Impl\+::\+Resize().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_a6e81dcb9809d0665ddbf4d724883b336_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_a6e81dcb9809d0665ddbf4d724883b336_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_ae386bd778f9a2f3f49df2f8a280ffdf9}\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_ae386bd778f9a2f3f49df2f8a280ffdf9}} 
+\index{cppgc::internal::anonymous\_namespace\lcurly{}explicit-\/management.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}explicit-\/management.cc\rcurly{}}!Shrink@{Shrink}}
+\index{Shrink@{Shrink}!cppgc::internal::anonymous\_namespace\lcurly{}explicit-\/management.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}explicit-\/management.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{Shrink()}{Shrink()}}
+{\footnotesize\ttfamily bool cppgc\+::internal\+::anonymous\+\_\+namespace\{explicit-\/management.\+cc\}\+::Shrink (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader}{Heap\+Object\+Header}} \&}]{header,  }\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1BasePage}{Base\+Page}} \&}]{base\+\_\+page,  }\item[{size\+\_\+t}]{new\+\_\+size,  }\item[{size\+\_\+t}]{size\+\_\+delta }\end{DoxyParamCaption})}
+
+
+
+Definition at line 119 of file explicit-\/management.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{120                                \{}
+\DoxyCodeLine{121   \mbox{\hyperlink{src_2base_2logging_8h_aabec5c3b7a8628298a25f044dcf89c25}{DCHECK\_GE}}(header.AllocatedSize(), new\_size + \mbox{\hyperlink{namespacecppgc_1_1internal_aaba7fddb4e903ed04a345be335f48d68}{kAllocationGranularity}});}
+\DoxyCodeLine{122   \mbox{\hyperlink{src_2base_2logging_8h_aabec5c3b7a8628298a25f044dcf89c25}{DCHECK\_GE}}(size\_delta, \mbox{\hyperlink{namespacecppgc_1_1internal_aaba7fddb4e903ed04a345be335f48d68}{kAllocationGranularity}});}
+\DoxyCodeLine{123   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!base\_page.is\_large());}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125   \textcolor{keyword}{auto}\& normal\_space = *\textcolor{keyword}{static\_cast<}NormalPageSpace*\textcolor{keyword}{>}(\&base\_page.space());}
+\DoxyCodeLine{126   \textcolor{keyword}{auto}\& lab = normal\_space.linear\_allocation\_buffer();}
+\DoxyCodeLine{127   \mbox{\hyperlink{namespacev8_1_1base_aed4219b45684a3840c8b930b5df90ea9}{Address}} free\_start = header.ObjectEnd() -\/ size\_delta;}
+\DoxyCodeLine{128   \textcolor{keywordflow}{if} (lab.start() == header.ObjectEnd()) \{}
+\DoxyCodeLine{129     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(free\_start, lab.start() -\/ size\_delta);}
+\DoxyCodeLine{130     \textcolor{comment}{// LABs are considered used memory which means that no allocated size}}
+\DoxyCodeLine{131     \textcolor{comment}{// adjustments are needed.}}
+\DoxyCodeLine{132     lab.Set(free\_start, lab.size() + size\_delta);}
+\DoxyCodeLine{133     \mbox{\hyperlink{namespacecppgc_1_1internal_a5fe9a99b7857f70d05c7cd44847195dd}{SetMemoryInaccessible}}(lab.start(), size\_delta);}
+\DoxyCodeLine{134     header.SetAllocatedSize(new\_size);}
+\DoxyCodeLine{135   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (size\_delta >= ObjectAllocator::kSmallestSpaceSize) \{}
+\DoxyCodeLine{136     \textcolor{comment}{// Heuristic: Only return memory to the free list if the block is larger}}
+\DoxyCodeLine{137     \textcolor{comment}{// than the smallest size class.}}
+\DoxyCodeLine{138     \mbox{\hyperlink{namespacecppgc_1_1internal_a5fe9a99b7857f70d05c7cd44847195dd}{SetMemoryInaccessible}}(free\_start, size\_delta);}
+\DoxyCodeLine{139     base\_page.heap().stats\_collector()-\/>NotifyExplicitFree(size\_delta);}
+\DoxyCodeLine{140     normal\_space.free\_list().Add(\{free\_start, size\_delta\});}
+\DoxyCodeLine{141     NormalPage::From(\&base\_page)-\/>object\_start\_bitmap().SetBit(free\_start);}
+\DoxyCodeLine{142     header.SetAllocatedSize(new\_size);}
+\DoxyCodeLine{143   \}}
+\DoxyCodeLine{144 \textcolor{preprocessor}{\#if defined(CPPGC\_YOUNG\_GENERATION)}}
+\DoxyCodeLine{145   \textcolor{keyword}{auto}\& \mbox{\hyperlink{namespaceheap}{heap}} = base\_page.heap();}
+\DoxyCodeLine{146   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespaceheap}{heap}}.generational\_gc\_supported()) \{}
+\DoxyCodeLine{147     \mbox{\hyperlink{namespaceheap}{heap}}.remembered\_set().InvalidateRememberedSlotsInRange(}
+\DoxyCodeLine{148         free\_start, free\_start + size\_delta);}
+\DoxyCodeLine{149     \textcolor{keywordflow}{if} (header.IsMarked()) \{}
+\DoxyCodeLine{150       base\_page.DecrementMarkedBytes(}
+\DoxyCodeLine{151           header.AllocatedSize<AccessMode::kNonAtomic>());}
+\DoxyCodeLine{152     \}}
+\DoxyCodeLine{153   \}}
+\DoxyCodeLine{154 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// defined(CPPGC\_YOUNG\_GENERATION)}}
+\DoxyCodeLine{155   \textcolor{comment}{// Return success in any case, as we want to avoid that embedders start}}
+\DoxyCodeLine{156   \textcolor{comment}{// copying memory because of small deltas.}}
+\DoxyCodeLine{157   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{158 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Allocated\+Size(), DCHECK, DCHECK\+\_\+\+EQ, DCHECK\+\_\+\+GE, cppgc\+::internal\+::\+Base\+Page\+::\+Decrement\+Marked\+Bytes(), cppgc\+::internal\+::\+Normal\+Page\+::\+From(), cppgc\+::internal\+::\+Base\+Page\+::heap(), cppgc\+::internal\+::\+Base\+Page\+::is\+\_\+large(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Is\+Marked(), cppgc\+::internal\+::k\+Allocation\+Granularity, cppgc\+::internal\+::k\+Non\+Atomic, cppgc\+::internal\+::\+Object\+Allocator\+::k\+Smallest\+Space\+Size, cppgc\+::internal\+::\+Normal\+Page\+Space\+::linear\+\_\+allocation\+\_\+buffer(), cppgc\+::internal\+::\+Stats\+Collector\+::\+Notify\+Explicit\+Free(), cppgc\+::internal\+::\+Normal\+Page\+::object\+\_\+start\+\_\+bitmap(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Object\+End(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Set\+Allocated\+Size(), cppgc\+::internal\+::\+Platform\+Aware\+Object\+Start\+Bitmap\+::\+Set\+Bit(), cppgc\+::internal\+::\+Set\+Memory\+Inaccessible(), cppgc\+::internal\+::\+Base\+Page\+::space(), and cppgc\+::internal\+::\+Heap\+Base\+::stats\+\_\+collector().
+
+
+
+Referenced by v8\+::internal\+::\+Futex\+Emulation\+::\+Cleanup\+Async\+Waiter\+Promise(), v8\+::internal\+::\+Ordered\+Name\+Dictionary\+::\+Delete\+Entry(), v8\+::internal\+::\+Small\+Ordered\+Name\+Dictionary\+::\+Delete\+Entry(), v8\+::internal\+::anonymous\+\_\+namespace\{js-\/atomics-\/synchronization.\+cc\}\+::\+Remove\+Promise\+From\+Native\+Context(), v8\+::internal\+::requires(), cppgc\+::internal\+::\+Explicit\+Management\+Impl\+::\+Resize(), v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION(), v8\+::internal\+::\+Ordered\+Name\+Dictionary\+Handler\+::\+Shrink(), and v8\+::internal\+::\+JSFinalization\+Registry\+::\+Shrink\+Key\+Map().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_ae386bd778f9a2f3f49df2f8a280ffdf9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02explicit-management_8cc_03_ae386bd778f9a2f3f49df2f8a280ffdf9_icgraph}
+\end{center}
+\end{figure}

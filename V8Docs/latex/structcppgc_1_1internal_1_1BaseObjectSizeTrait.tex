@@ -14,6 +14,16 @@ Inheritance diagram for cppgc\+::internal\+::Base\+Object\+Size\+Trait\+:
 \includegraphics[width=350pt]{structcppgc_1_1internal_1_1BaseObjectSizeTrait__inherit__graph}
 \end{center}
 \end{figure}
+
+
+Collaboration diagram for cppgc\+::internal\+::Base\+Object\+Size\+Trait\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{structcppgc_1_1internal_1_1BaseObjectSizeTrait__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -23,6 +33,13 @@ static size\+\_\+t \mbox{\hyperlink{structcppgc_1_1internal_1_1BaseObjectSizeTra
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 17 of file object-\/size-\/trait.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{structcppgc_1_1internal_1_1BaseObjectSizeTrait_a83048b19797f8b464d803574f9d9064d}\label{structcppgc_1_1internal_1_1BaseObjectSizeTrait_a83048b19797f8b464d803574f9d9064d}} 
 \index{cppgc::internal::BaseObjectSizeTrait@{cppgc::internal::BaseObjectSizeTrait}!GetObjectSizeForGarbageCollected@{GetObjectSizeForGarbageCollected}}
@@ -30,6 +47,30 @@ static size\+\_\+t \mbox{\hyperlink{structcppgc_1_1internal_1_1BaseObjectSizeTra
 \doxysubsubsection{\texorpdfstring{GetObjectSizeForGarbageCollected()}{GetObjectSizeForGarbageCollected()}}
 {\footnotesize\ttfamily size\+\_\+t cppgc\+::internal\+::\+Base\+Object\+Size\+Trait\+::\+Get\+Object\+Size\+For\+Garbage\+Collected (\begin{DoxyParamCaption}\item[{const void $\ast$}]{object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
 
+
+
+Definition at line 15 of file object-\/size-\/trait.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16                         \{}
+\DoxyCodeLine{17   \textcolor{keywordflow}{return} ObjectView<AccessMode::kAtomic>(\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader_a04b955c04b80d2a431dc2b96e4a85028}{HeapObjectHeader::FromObject}}(\textcolor{keywordtype}{object}))}
+\DoxyCodeLine{18       .Size();}
+\DoxyCodeLine{19 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+From\+Object(), and cppgc\+::internal\+::\+Object\+View$<$ Access\+Mode $>$\+::\+Size().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structcppgc_1_1internal_1_1BaseObjectSizeTrait_a83048b19797f8b464d803574f9d9064d_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{structcppgc_1_1internal_1_1BaseObjectSizeTrait_a774c1b643329bc5377f9fd53061db48c}\label{structcppgc_1_1internal_1_1BaseObjectSizeTrait_a774c1b643329bc5377f9fd53061db48c}} 
 \index{cppgc::internal::BaseObjectSizeTrait@{cppgc::internal::BaseObjectSizeTrait}!GetObjectSizeForGarbageCollectedMixin@{GetObjectSizeForGarbageCollectedMixin}}
 \index{GetObjectSizeForGarbageCollectedMixin@{GetObjectSizeForGarbageCollectedMixin}!cppgc::internal::BaseObjectSizeTrait@{cppgc::internal::BaseObjectSizeTrait}}
@@ -38,7 +79,36 @@ static size\+\_\+t \mbox{\hyperlink{structcppgc_1_1internal_1_1BaseObjectSizeTra
 
 
 
+Definition at line 22 of file object-\/size-\/trait.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23                          \{}
+\DoxyCodeLine{24   \textcolor{comment}{// `address` is guaranteed to be on a normal page because large object mixins}}
+\DoxyCodeLine{25   \textcolor{comment}{// are not supported.}}
+\DoxyCodeLine{26   \textcolor{keyword}{const} \textcolor{keyword}{auto}\& header =}
+\DoxyCodeLine{27       \mbox{\hyperlink{classcppgc_1_1internal_1_1BasePage_aad13cafeed6c2ea494b7423b9c527b7a}{BasePage::FromPayload}}(address)}
+\DoxyCodeLine{28           -\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1BasePage_a3e4e942b9d1f96f27df335a9daaacf09}{ObjectHeaderFromInnerAddress}}<\mbox{\hyperlink{namespacecppgc_1_1internal_ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71}{AccessMode::kAtomic}}>(address);}
+\DoxyCodeLine{29   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!header.IsLargeObject<\mbox{\hyperlink{namespacecppgc_1_1internal_ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71}{AccessMode::kAtomic}}>());}
+\DoxyCodeLine{30   \textcolor{keywordflow}{return} header.ObjectSize<\mbox{\hyperlink{namespacecppgc_1_1internal_ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71}{AccessMode::kAtomic}}>();}
+\DoxyCodeLine{31 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK, cppgc\+::internal\+::\+Base\+Page\+::\+From\+Payload(), cppgc\+::internal\+::k\+Atomic, and cppgc\+::internal\+::\+Base\+Page\+::\+Object\+Header\+From\+Inner\+Address().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structcppgc_1_1internal_1_1BaseObjectSizeTrait_a774c1b643329bc5377f9fd53061db48c_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{object-size-trait_8h}{object-\/size-\/trait.\+h}}\item 
-\mbox{\hyperlink{object-size-trait_8cc}{object-\/size-\/trait.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/cppgc/\mbox{\hyperlink{object-size-trait_8h}{object-\/size-\/trait.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/cppgc/\mbox{\hyperlink{object-size-trait_8cc}{object-\/size-\/trait.\+cc}}\end{DoxyCompactItemize}

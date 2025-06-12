@@ -7,7 +7,7 @@ Inheritance diagram for v8\+::internal\+::detail\+::Sync\+Waiter\+Queue\+Node\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=214pt]{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode__inherit__graph}
+\includegraphics[width=268pt]{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -31,11 +31,32 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a94ba
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a8efe8cbd2b7ec5949499ce4b4b478e2b}{Notify}} () override
 \item 
-\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_abe6713e7a2b05a69762be7c60f4a9319}{Is\+Same\+Isolate\+For\+Async\+Cleanup}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}) override
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_abe6713e7a2b05a69762be7c60f4a9319}{Is\+Same\+Isolate\+For\+Async\+Cleanup}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate) override
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a33cc139d9814585eb4faa3486b493ef8}{Cleanup\+Matching\+Async\+Waiters}} (const \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a608fdb09d24cc3ffbc95000bf1e77c45}{Dequeue\+Matcher}} \&matcher) override
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_aca14147904561d2dc8a4c920027e8de8}{Set\+Ready\+For\+Async\+Cleanup}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a05916c221ec8c8f7ef628e2017e9e17d}{wait\+\_\+lock\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable}{base\+::\+Condition\+Variable}} \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a07d6ff34bb1a44b61b879b241ec02449}{wait\+\_\+cond\+\_\+var\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a605fa0854e6f5ad7f1f5031928cbfbf4}{should\+\_\+wait\+\_\+}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 169 of file js-\/atomics-\/synchronization.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -45,6 +66,15 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a33cc
 \doxysubsubsection{\texorpdfstring{SyncWaiterQueueNode()}{SyncWaiterQueueNode()}}
 {\footnotesize\ttfamily v8\+::internal\+::detail\+::\+Sync\+Waiter\+Queue\+Node\+::\+Sync\+Waiter\+Queue\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{requester }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
+
+
+Definition at line 171 of file js-\/atomics-\/synchronization.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{172       : \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}(requester), \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a605fa0854e6f5ad7f1f5031928cbfbf4}{should\_wait\_}}(\textcolor{keyword}{true}) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -58,6 +88,29 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a33cc
 
 Implements \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_ab28cb06aa1de73dbcdc30e66d9dbd392}{v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node}}.
 
+
+
+Definition at line 226 of file js-\/atomics-\/synchronization.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{226                                                                            \{}
+\DoxyCodeLine{227     \mbox{\hyperlink{namespacev8_1_1internal_acdec713c25068019f935e35976f5b666}{UNREACHABLE}}();}
+\DoxyCodeLine{228   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+UNREACHABLE().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a33cc139d9814585eb4faa3486b493ef8_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_abe6713e7a2b05a69762be7c60f4a9319}\label{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_abe6713e7a2b05a69762be7c60f4a9319}} 
 \index{v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}!IsSameIsolateForAsyncCleanup@{IsSameIsolateForAsyncCleanup}}
 \index{IsSameIsolateForAsyncCleanup@{IsSameIsolateForAsyncCleanup}!v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}}
@@ -67,6 +120,24 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_ab2
 
 
 Implements \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a11ef736d49da3e80c42139b4f877d90d}{v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node}}.
+
+
+
+Definition at line 219 of file js-\/atomics-\/synchronization.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{219                                                                \{}
+\DoxyCodeLine{220     \textcolor{comment}{// Sync waiters are only queued while the thread is sleeping, so there}}
+\DoxyCodeLine{221     \textcolor{comment}{// should not be sync nodes while cleaning up the isolate.}}
+\DoxyCodeLine{222     \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a37847a50cd1b682ab21e5eb57932ddfd}{requester\_}}, isolate);}
+\DoxyCodeLine{223     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{224   \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+NE.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a8efe8cbd2b7ec5949499ce4b4b478e2b}\label{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a8efe8cbd2b7ec5949499ce4b4b478e2b}} 
 \index{v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}!Notify@{Notify}}
@@ -78,12 +149,86 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a11
 
 Implements \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_aa0f6e6d3af5c5bf50bf7e941316b01d6}{v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node}}.
 
+
+
+Definition at line 212 of file js-\/atomics-\/synchronization.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{212                          \{}
+\DoxyCodeLine{213     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a05916c221ec8c8f7ef628e2017e9e17d}{wait\_lock\_}});}
+\DoxyCodeLine{214     \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a605fa0854e6f5ad7f1f5031928cbfbf4}{should\_wait\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{215     \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a07d6ff34bb1a44b61b879b241ec02449}{wait\_cond\_var\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable_ab95e3ebf6594803215e1fea18848eb97}{NotifyOne}}();}
+\DoxyCodeLine{216     \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a2ce4e875e520597eec3f972de1fdda17}{SetNotInListForVerification}}();}
+\DoxyCodeLine{217   \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_aca14147904561d2dc8a4c920027e8de8}\label{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_aca14147904561d2dc8a4c920027e8de8}} 
+\index{v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}!SetReadyForAsyncCleanup@{SetReadyForAsyncCleanup}}
+\index{SetReadyForAsyncCleanup@{SetReadyForAsyncCleanup}!v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}}
+\doxysubsubsection{\texorpdfstring{SetReadyForAsyncCleanup()}{SetReadyForAsyncCleanup()}}
+{\footnotesize\ttfamily void v8\+::internal\+::detail\+::\+Sync\+Waiter\+Queue\+Node\+::\+Set\+Ready\+For\+Async\+Cleanup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a5f9da8667f1e8e5e61ef5cd6b1a7db73}{v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node}}.
+
+
+
+Definition at line 231 of file js-\/atomics-\/synchronization.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{231 \{ \mbox{\hyperlink{namespacev8_1_1internal_acdec713c25068019f935e35976f5b666}{UNREACHABLE}}(); \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+UNREACHABLE().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_aca14147904561d2dc8a4c920027e8de8_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a94ba82d1b3bd8d2fd6a602a8c04d3039}\label{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a94ba82d1b3bd8d2fd6a602a8c04d3039}} 
 \index{v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}!Wait@{Wait}}
 \index{Wait@{Wait}!v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}}
 \doxysubsubsection{\texorpdfstring{Wait()}{Wait()}}
 {\footnotesize\ttfamily void v8\+::internal\+::detail\+::\+Sync\+Waiter\+Queue\+Node\+::\+Wait (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 174 of file js-\/atomics-\/synchronization.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{174               \{}
+\DoxyCodeLine{175     \mbox{\hyperlink{namespacev8_1_1internal_a74c516016f0912786d8131af8e11288a}{AllowGarbageCollection}} allow\_before\_parking;}
+\DoxyCodeLine{176     \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a37847a50cd1b682ab21e5eb57932ddfd}{requester\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ad3901de072f06f3039b055f236dd4db9}{main\_thread\_local\_heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1LocalHeap_a31af3471672225c7ad4caae71b3d8550}{ExecuteWhileParked}}([\textcolor{keyword}{this}]() \{}
+\DoxyCodeLine{177       \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a05916c221ec8c8f7ef628e2017e9e17d}{wait\_lock\_}});}
+\DoxyCodeLine{178       \textcolor{keywordflow}{while} (\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a605fa0854e6f5ad7f1f5031928cbfbf4}{should\_wait\_}}) \{}
+\DoxyCodeLine{179         \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a07d6ff34bb1a44b61b879b241ec02449}{wait\_cond\_var\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable_a29ca064849ef418937bbedcb0900279c}{Wait}}(\&\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a05916c221ec8c8f7ef628e2017e9e17d}{wait\_lock\_}});}
+\DoxyCodeLine{180       \}}
+\DoxyCodeLine{181     \});}
+\DoxyCodeLine{182   \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Lock\+Slow\+Path(), and v8\+::internal\+::\+JSAtomics\+Condition\+::\+Wait\+For().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a94ba82d1b3bd8d2fd6a602a8c04d3039_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_af598cbd2ee8b624193492e6bd3fc3002}\label{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_af598cbd2ee8b624193492e6bd3fc3002}} 
 \index{v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}!WaitFor@{WaitFor}}
 \index{WaitFor@{WaitFor}!v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}}
@@ -92,6 +237,97 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_aa0
 
 
 
+Definition at line 185 of file js-\/atomics-\/synchronization.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{185                                               \{}
+\DoxyCodeLine{186     \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{187     \mbox{\hyperlink{namespacev8_1_1internal_a74c516016f0912786d8131af8e11288a}{AllowGarbageCollection}} allow\_before\_parking;}
+\DoxyCodeLine{188     \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a37847a50cd1b682ab21e5eb57932ddfd}{requester\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ad3901de072f06f3039b055f236dd4db9}{main\_thread\_local\_heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1LocalHeap_a31af3471672225c7ad4caae71b3d8550}{ExecuteWhileParked}}([\textcolor{keyword}{this}, rel\_time,}
+\DoxyCodeLine{189                                                               \&\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}]() \{}
+\DoxyCodeLine{190       \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a05916c221ec8c8f7ef628e2017e9e17d}{wait\_lock\_}});}
+\DoxyCodeLine{191       base::TimeTicks current\_time = \mbox{\hyperlink{classv8_1_1base_1_1TimeTicks_ab0886bf0e84f1e1fcdc101021c2c0775}{base::TimeTicks::Now}}();}
+\DoxyCodeLine{192       base::TimeTicks timeout\_time = current\_time + rel\_time;}
+\DoxyCodeLine{193       \textcolor{keywordflow}{for} (;;) \{}
+\DoxyCodeLine{194         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a605fa0854e6f5ad7f1f5031928cbfbf4}{should\_wait\_}}) \{}
+\DoxyCodeLine{195           \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{196           \textcolor{keywordflow}{return};}
+\DoxyCodeLine{197         \}}
+\DoxyCodeLine{198         current\_time = \mbox{\hyperlink{classv8_1_1base_1_1TimeTicks_ab0886bf0e84f1e1fcdc101021c2c0775}{base::TimeTicks::Now}}();}
+\DoxyCodeLine{199         \textcolor{keywordflow}{if} (current\_time >= timeout\_time) \{}
+\DoxyCodeLine{200           \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{201           \textcolor{keywordflow}{return};}
+\DoxyCodeLine{202         \}}
+\DoxyCodeLine{203         base::TimeDelta time\_until\_timeout = timeout\_time -\/ current\_time;}
+\DoxyCodeLine{204         \textcolor{keywordtype}{bool} wait\_res = \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a07d6ff34bb1a44b61b879b241ec02449}{wait\_cond\_var\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable_a8eed4e24b1485dc056b7bb9201581475}{WaitFor}}(\&\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a05916c221ec8c8f7ef628e2017e9e17d}{wait\_lock\_}}, time\_until\_timeout);}
+\DoxyCodeLine{205         \mbox{\hyperlink{src_2base_2macros_8h_a280b0798f270f4b3f361c9ab64832956}{USE}}(wait\_res);}
+\DoxyCodeLine{206         \textcolor{comment}{// The wake up may have been spurious, so loop again.}}
+\DoxyCodeLine{207       \}}
+\DoxyCodeLine{208     \});}
+\DoxyCodeLine{209     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{210   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Time\+Ticks\+::\+Now(), v8\+::base\+::internal\+::result, and USE.
+
+
+
+Referenced by v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Lock\+Slow\+Path(), and v8\+::internal\+::\+JSAtomics\+Condition\+::\+Wait\+For().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_af598cbd2ee8b624193492e6bd3fc3002_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_af598cbd2ee8b624193492e6bd3fc3002_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a605fa0854e6f5ad7f1f5031928cbfbf4}\label{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a605fa0854e6f5ad7f1f5031928cbfbf4}} 
+\index{v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}!should\_wait\_@{should\_wait\_}}
+\index{should\_wait\_@{should\_wait\_}!v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}}
+\doxysubsubsection{\texorpdfstring{should\_wait\_}{should\_wait\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::detail\+::\+Sync\+Waiter\+Queue\+Node\+::should\+\_\+wait\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 235 of file js-\/atomics-\/synchronization.\+cc.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a07d6ff34bb1a44b61b879b241ec02449}\label{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a07d6ff34bb1a44b61b879b241ec02449}} 
+\index{v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}!wait\_cond\_var\_@{wait\_cond\_var\_}}
+\index{wait\_cond\_var\_@{wait\_cond\_var\_}!v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}}
+\doxysubsubsection{\texorpdfstring{wait\_cond\_var\_}{wait\_cond\_var\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable}{base\+::\+Condition\+Variable}} v8\+::internal\+::detail\+::\+Sync\+Waiter\+Queue\+Node\+::wait\+\_\+cond\+\_\+var\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 234 of file js-\/atomics-\/synchronization.\+cc.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a05916c221ec8c8f7ef628e2017e9e17d}\label{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a05916c221ec8c8f7ef628e2017e9e17d}} 
+\index{v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}!wait\_lock\_@{wait\_lock\_}}
+\index{wait\_lock\_@{wait\_lock\_}!v8::internal::detail::SyncWaiterQueueNode@{v8::internal::detail::SyncWaiterQueueNode}}
+\doxysubsubsection{\texorpdfstring{wait\_lock\_}{wait\_lock\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} v8\+::internal\+::detail\+::\+Sync\+Waiter\+Queue\+Node\+::wait\+\_\+lock\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 233 of file js-\/atomics-\/synchronization.\+cc.
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{js-atomics-synchronization_8cc}{js-\/atomics-\/synchronization.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{js-atomics-synchronization_8cc}{js-\/atomics-\/synchronization.\+cc}}\end{DoxyCompactItemize}

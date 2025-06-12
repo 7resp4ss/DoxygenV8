@@ -7,5 +7,6 @@ var classv8_1_1internal_1_1compiler_1_1TurbofanPipelineStatistics =
     [ "BeginPhaseKind", "classv8_1_1internal_1_1compiler_1_1TurbofanPipelineStatistics.html#a5a4e1d2bcfd83773a2a78f099ea3c6bc", null ],
     [ "EndPhase", "classv8_1_1internal_1_1compiler_1_1TurbofanPipelineStatistics.html#af8857adf339cbd8a478ac63f116aba88", null ],
     [ "EndPhaseKind", "classv8_1_1internal_1_1compiler_1_1TurbofanPipelineStatistics.html#a2db3048b3869adf525752fd4e6ec3886", null ],
-    [ "operator=", "classv8_1_1internal_1_1compiler_1_1TurbofanPipelineStatistics.html#ab87e4f007ab4908fa01325d8520fd215", null ]
+    [ "operator=", "classv8_1_1internal_1_1compiler_1_1TurbofanPipelineStatistics.html#ab87e4f007ab4908fa01325d8520fd215", null ],
+    [ "kTraceCategory", "classv8_1_1internal_1_1compiler_1_1TurbofanPipelineStatistics.html#a266924e9d13b6541bfe877d54478078b", null ]
 ];

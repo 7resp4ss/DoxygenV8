@@ -11,7 +11,7 @@ Collaboration diagram for v8\+::internal\+::Memory\+Reducer\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=290pt]{classv8_1_1internal_1_1MemoryReducer__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Classes}
@@ -20,6 +20,8 @@ Collaboration diagram for v8\+::internal\+::Memory\+Reducer\+:
 struct \mbox{\hyperlink{structv8_1_1internal_1_1MemoryReducer_1_1Event}{Event}}
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State}{State}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1TimerTask}{Timer\+Task}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
@@ -59,30 +61,62 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a3010ec7bd3d474cac493
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State}{State}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_acb773a2429f9006c75dda44558b28250}{Step}} (const \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State}{State}} \&\mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}, const \mbox{\hyperlink{structv8_1_1internal_1_1MemoryReducer_1_1Event}{Event}} \&event)
+static \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State}{State}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_acb773a2429f9006c75dda44558b28250}{Step}} (const \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State}{State}} \&state, const \mbox{\hyperlink{structv8_1_1internal_1_1MemoryReducer_1_1Event}{Event}} \&event)
 \item 
-static int \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a45acc94242918899a7609978ae9f4677}{Max\+Number\+Of\+GCs}} ()
+static \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a45acc94242918899a7609978ae9f4677}{Max\+Number\+Of\+GCs}} ()
 \item 
 static \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a200284fa83ab3905f8add22a77ba027a}{Is\+Frozen}} (const \mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6d461b494e05eb173fab49be31f4f485}{heap}})
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-static const int \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a9560a6e073f69b8bbb7f3f91025405e9}{k\+Long\+Delay\+Ms}} = 8000
+static const \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a9560a6e073f69b8bbb7f3f91025405e9}{k\+Long\+Delay\+Ms}} = 8000
 \item 
-static const int \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_ab7e2131ef74777b24fdf47f2a0f1c925}{k\+Short\+Delay\+Ms}} = 500
+static const \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_ab7e2131ef74777b24fdf47f2a0f1c925}{k\+Short\+Delay\+Ms}} = 500
 \item 
-static const int \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_aea8eec9cb70717cff5db71c98545dc22}{k\+Watchdog\+Delay\+Ms}} = 100000
+static const \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_aea8eec9cb70717cff5db71c98545dc22}{k\+Watchdog\+Delay\+Ms}} = 100000
 \item 
 static const double \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a4f3d452e0ed4ba216d104a47908ee815}{k\+Committed\+Memory\+Factor}} = 1.\+1
 \item 
 static const \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6558d1f96e8713f098912eb4139356cb}{k\+Committed\+Memory\+Delta}} = 10 $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_af46551c5713d2a3a1be4dca973e521e0}{MB}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6113a2856a04756b860ac3092424570c}{Notify\+Timer}} (const \mbox{\hyperlink{structv8_1_1internal_1_1MemoryReducer_1_1Event}{Event}} \&event)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a4ef347b802a3ef3f47628aed3e89f2ee}{Watchdog\+GC}} (const \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State}{State}} \&state, const \mbox{\hyperlink{structv8_1_1internal_1_1MemoryReducer_1_1Event}{Event}} \&event)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_ac1f4f4b3845a868e173be5d35e7eb5ea}{heap\+\_\+}}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1TaskRunner}{v8\+::\+Task\+Runner}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a4992f599c47517497b47b9b114f4a8a7}{taskrunner\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State}{State}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\+\_\+}}
+\item 
+unsigned \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_aec8d9a808b4582f1938442ae7bcf0376}{js\+\_\+calls\+\_\+counter\+\_\+}}
+\item 
+double \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a885842874f44e3b0d8310270bd2097ae}{js\+\_\+calls\+\_\+sample\+\_\+time\+\_\+ms\+\_\+}}
+\item 
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_ac4a3a7b37ef06b11ece32b7f118fd234}{start\+\_\+delay\+\_\+ms\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a82ae4496cd3d64eb51e343ce3dcda96f}{heap\+::\+Heap\+Tester}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 87 of file memory-\/reducer.\+h.
+
 
 
 \doxysubsection{Member Enumeration Documentation}
@@ -106,6 +140,15 @@ k\+Possible\+Garbage&\\
 \hline
 
 \end{DoxyEnumFields}
+
+
+Definition at line 146 of file memory-\/reducer.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{146 \{ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a2853ab10b53e2913c5e06cc170d2d3bfa51c927987ca67f56a7ba39c7b783e8f7}{kTimer}}, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a2853ab10b53e2913c5e06cc170d2d3bfa0fe0a01b65fffa7cca8d42e86606d0ef}{kMarkCompact}}, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a2853ab10b53e2913c5e06cc170d2d3bfa3871efcda74c405ffa3c3014381f6ead}{kPossibleGarbage}} \};}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024}\label{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!Id@{Id}}
 \index{Id@{Id}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
@@ -132,6 +175,15 @@ k\+Run&\\
 \end{DoxyEnumFields}
 
 
+Definition at line 89 of file memory-\/reducer.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{89 \{ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a6b3c6282fb87dd75ed7f21dbe0a953ab}{kUninit}}, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a854dc5bbdcdafec3c7b6e0c0789d4a45}{kDone}}, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a992977b7fc071c75f915e27409a5214f}{kWait}}, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a33aefc0aa85e0f7a37b33f6c7b1a5c88}{kRun}} \};}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_ac96b54dd8d2483419d8798146dc6e332}\label{classv8_1_1internal_1_1MemoryReducer_ac96b54dd8d2483419d8798146dc6e332}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!MemoryReducer@{MemoryReducer}}
@@ -139,6 +191,34 @@ k\+Run&\\
 \doxysubsubsection{\texorpdfstring{MemoryReducer()}{MemoryReducer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Memory\+Reducer\+::\+Memory\+Reducer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$}]{heap }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
+
+
+Definition at line 23 of file memory-\/reducer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24     : \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_ac1f4f4b3845a868e173be5d35e7eb5ea}{heap\_}}(\mbox{\hyperlink{namespaceheap}{heap}}),}
+\DoxyCodeLine{25       \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a4992f599c47517497b47b9b114f4a8a7}{taskrunner\_}}(\mbox{\hyperlink{namespaceheap}{heap}}-\/>GetForegroundTaskRunner()),}
+\DoxyCodeLine{26       \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a3ca1dd94a853a54fca466410cadc9e2d}{State::CreateUninitialized}}()),}
+\DoxyCodeLine{27       \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_aec8d9a808b4582f1938442ae7bcf0376}{js\_calls\_counter\_}}(0),}
+\DoxyCodeLine{28       \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a885842874f44e3b0d8310270bd2097ae}{js\_calls\_sample\_time\_ms\_}}(0.0) \{}
+\DoxyCodeLine{29   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.incremental\_marking);}
+\DoxyCodeLine{30   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.memory\_reducer);}
+\DoxyCodeLine{31 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), and v8\+::internal\+::v8\+\_\+flags.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer_ac96b54dd8d2483419d8798146dc6e332_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_ace05a6bccd8b273ef760c6eac26248ce}\label{classv8_1_1internal_1_1MemoryReducer_ace05a6bccd8b273ef760c6eac26248ce}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!MemoryReducer@{MemoryReducer}}
 \index{MemoryReducer@{MemoryReducer}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
@@ -154,30 +234,256 @@ k\+Run&\\
 \doxysubsubsection{\texorpdfstring{heap()}{heap()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}}$\ast$ v8\+::internal\+::\+Memory\+Reducer\+::heap (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 180 of file memory-\/reducer.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{180 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_ac1f4f4b3845a868e173be5d35e7eb5ea}{heap\_}}; \}}
+
+\end{DoxyCode}
+
+
+Referenced by Notify\+Mark\+Compact(), Notify\+Possible\+Garbage(), Notify\+Timer(), and Schedule\+Timer().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer_a6d461b494e05eb173fab49be31f4f485_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_a200284fa83ab3905f8add22a77ba027a}\label{classv8_1_1internal_1_1MemoryReducer_a200284fa83ab3905f8add22a77ba027a}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!IsFrozen@{IsFrozen}}
 \index{IsFrozen@{IsFrozen}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
 \doxysubsubsection{\texorpdfstring{IsFrozen()}{IsFrozen()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Reducer\+::\+Is\+Frozen (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$}]{heap }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 246 of file memory-\/reducer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{246                                              \{}
+\DoxyCodeLine{247   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.memory\_reducer\_respects\_frozen\_state \&\&}
+\DoxyCodeLine{248          \mbox{\hyperlink{namespaceheap}{heap}}-\/>isolate()-\/>IsFrozen();}
+\DoxyCodeLine{249 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by Notify\+Mark\+Compact(), Notify\+Possible\+Garbage(), and v8\+::internal\+::\+Memory\+Reducer\+::\+Timer\+Task\+::\+Run\+Internal().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer_a200284fa83ab3905f8add22a77ba027a_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_a45acc94242918899a7609978ae9f4677}\label{classv8_1_1internal_1_1MemoryReducer_a45acc94242918899a7609978ae9f4677}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!MaxNumberOfGCs@{MaxNumberOfGCs}}
 \index{MaxNumberOfGCs@{MaxNumberOfGCs}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
 \doxysubsubsection{\texorpdfstring{MaxNumberOfGCs()}{MaxNumberOfGCs()}}
-{\footnotesize\ttfamily int v8\+::internal\+::\+Memory\+Reducer\+::\+Max\+Number\+Of\+GCs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::\+Memory\+Reducer\+::\+Max\+Number\+Of\+GCs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 240 of file memory-\/reducer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{240                                   \{}
+\DoxyCodeLine{241   \mbox{\hyperlink{src_2base_2logging_8h_afd957f297df7e9ee36c46185e961485f}{DCHECK\_GT}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.memory\_reducer\_gc\_count, 0);}
+\DoxyCodeLine{242   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.memory\_reducer\_gc\_count;}
+\DoxyCodeLine{243 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+GT, and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by Step().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer_a45acc94242918899a7609978ae9f4677_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_adb98d332601116e866a64feef2d22b05}\label{classv8_1_1internal_1_1MemoryReducer_adb98d332601116e866a64feef2d22b05}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!NotifyMarkCompact@{NotifyMarkCompact}}
 \index{NotifyMarkCompact@{NotifyMarkCompact}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
 \doxysubsubsection{\texorpdfstring{NotifyMarkCompact()}{NotifyMarkCompact()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Reducer\+::\+Notify\+Mark\+Compact (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{committed\+\_\+memory\+\_\+before }\end{DoxyParamCaption})}
 
+
+
+Definition at line 103 of file memory-\/reducer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{103                                                                     \{}
+\DoxyCodeLine{104   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.incremental\_marking) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{105   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} committed\_memory = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6d461b494e05eb173fab49be31f4f485}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_abb84a77dfb1fe7d5fa034e0226d2dd19}{CommittedOldGenerationMemory}}();}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107   \textcolor{comment}{// Trigger one more GC if}}
+\DoxyCodeLine{108   \textcolor{comment}{// -\/ this GC decreased committed memory,}}
+\DoxyCodeLine{109   \textcolor{comment}{// -\/ there is high fragmentation,}}
+\DoxyCodeLine{110   \textcolor{keyword}{const} MemoryReducer::Event \textcolor{keyword}{event}\{}
+\DoxyCodeLine{111       \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a2853ab10b53e2913c5e06cc170d2d3bfa0fe0a01b65fffa7cca8d42e86606d0ef}{MemoryReducer::kMarkCompact}},}
+\DoxyCodeLine{112       \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6d461b494e05eb173fab49be31f4f485}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a7b5c699c226448342885e3bc81c5a230}{MonotonicallyIncreasingTimeInMs}}(),}
+\DoxyCodeLine{113       committed\_memory,}
+\DoxyCodeLine{114       (committed\_memory\_before > committed\_memory + \mbox{\hyperlink{namespacev8_1_1internal_af46551c5713d2a3a1be4dca973e521e0}{MB}}) ||}
+\DoxyCodeLine{115           \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6d461b494e05eb173fab49be31f4f485}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a8368bf50d73656c6df28dd1e80205049}{HasHighFragmentation}}(),}
+\DoxyCodeLine{116       \textcolor{keyword}{false},}
+\DoxyCodeLine{117       \textcolor{keyword}{false},}
+\DoxyCodeLine{118       \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a200284fa83ab3905f8add22a77ba027a}{IsFrozen}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6d461b494e05eb173fab49be31f4f485}{heap}}())\};}
+\DoxyCodeLine{119   \textcolor{keyword}{const} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02conversions_8cc_03_a38fbaa06b6874aa41823cd9433129e5e}{State}} old\_state = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}};}
+\DoxyCodeLine{120   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_acb773a2429f9006c75dda44558b28250}{Step}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}, event);}
+\DoxyCodeLine{121   \textcolor{keywordflow}{if} (old\_state.id() != \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a992977b7fc071c75f915e27409a5214f}{kWait}} \&\& \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a8cf5b0ade6400ad533530d3ed3046dd0}{id}}() == \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a992977b7fc071c75f915e27409a5214f}{kWait}}) \{}
+\DoxyCodeLine{122     \textcolor{comment}{// If we are transitioning to the WAIT state, start the timer.}}
+\DoxyCodeLine{123     \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a92bb3db5e54080dd68d5988d1a6b6f22}{ScheduleTimer}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a169340477cc64eeb1755e1d9f6b128db}{next\_gc\_start\_ms}}() -\/ event.time\_ms);}
+\DoxyCodeLine{124   \}}
+\DoxyCodeLine{125   \textcolor{keywordflow}{if} (old\_state.id() == \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a33aefc0aa85e0f7a37b33f6c7b1a5c88}{kRun}} \&\& \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_memory\_reducer) \{}
+\DoxyCodeLine{126     \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6d461b494e05eb173fab49be31f4f485}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ae5160ad63bc51ff7b36e8f247be48f63}{isolate}}()-\/>PrintWithTimestamp(}
+\DoxyCodeLine{127         \textcolor{stringliteral}{"{}Memory reducer: finished GC \#\%d (\%s)\(\backslash\)n"{}}, old\_state.started\_gcs(),}
+\DoxyCodeLine{128         \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a8cf5b0ade6400ad533530d3ed3046dd0}{id}}() == \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a992977b7fc071c75f915e27409a5214f}{kWait}} ? \textcolor{stringliteral}{"{}will do more"{}} : \textcolor{stringliteral}{"{}done"{}});}
+\DoxyCodeLine{129   \}}
+\DoxyCodeLine{130 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Heap\+::\+Committed\+Old\+Generation\+Memory(), v8\+::internal\+::\+Heap\+::\+Has\+High\+Fragmentation(), heap(), v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::id(), Is\+Frozen(), v8\+::internal\+::\+Heap\+::isolate(), k\+Mark\+Compact, k\+Run, k\+Wait, v8\+::internal\+::\+MB, v8\+::internal\+::\+Heap\+::\+Monotonically\+Increasing\+Time\+In\+Ms(), v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::next\+\_\+gc\+\_\+start\+\_\+ms(), Schedule\+Timer(), v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::started\+\_\+gcs(), state\+\_\+, Step(), and v8\+::internal\+::v8\+\_\+flags.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer_adb98d332601116e866a64feef2d22b05_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_af8d90f35e7105a5bbc7170fefb01f006}\label{classv8_1_1internal_1_1MemoryReducer_af8d90f35e7105a5bbc7170fefb01f006}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!NotifyPossibleGarbage@{NotifyPossibleGarbage}}
 \index{NotifyPossibleGarbage@{NotifyPossibleGarbage}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
 \doxysubsubsection{\texorpdfstring{NotifyPossibleGarbage()}{NotifyPossibleGarbage()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Reducer\+::\+Notify\+Possible\+Garbage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 132 of file memory-\/reducer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{132                                           \{}
+\DoxyCodeLine{133   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.incremental\_marking) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{134   \textcolor{keyword}{const} MemoryReducer::Event \textcolor{keyword}{event}\{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a2853ab10b53e2913c5e06cc170d2d3bfa3871efcda74c405ffa3c3014381f6ead}{MemoryReducer::kPossibleGarbage}},}
+\DoxyCodeLine{135                                    \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6d461b494e05eb173fab49be31f4f485}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a7b5c699c226448342885e3bc81c5a230}{MonotonicallyIncreasingTimeInMs}}(),}
+\DoxyCodeLine{136                                    0,}
+\DoxyCodeLine{137                                    \textcolor{keyword}{false},}
+\DoxyCodeLine{138                                    \textcolor{keyword}{false},}
+\DoxyCodeLine{139                                    \textcolor{keyword}{false},}
+\DoxyCodeLine{140                                    \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a200284fa83ab3905f8add22a77ba027a}{IsFrozen}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_ac1f4f4b3845a868e173be5d35e7eb5ea}{heap\_}})\};}
+\DoxyCodeLine{141   \textcolor{keyword}{const} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024}{Id}} old\_action = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a8cf5b0ade6400ad533530d3ed3046dd0}{id}}();}
+\DoxyCodeLine{142   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_acb773a2429f9006c75dda44558b28250}{Step}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}, event);}
+\DoxyCodeLine{143   \textcolor{keywordflow}{if} (old\_action != \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a992977b7fc071c75f915e27409a5214f}{kWait}} \&\& \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a8cf5b0ade6400ad533530d3ed3046dd0}{id}}() == \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a992977b7fc071c75f915e27409a5214f}{kWait}}) \{}
+\DoxyCodeLine{144     \textcolor{comment}{// If we are transitioning to the WAIT state, start the timer.}}
+\DoxyCodeLine{145     \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a92bb3db5e54080dd68d5988d1a6b6f22}{ScheduleTimer}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a169340477cc64eeb1755e1d9f6b128db}{next\_gc\_start\_ms}}() -\/ event.time\_ms);}
+\DoxyCodeLine{146   \}}
+\DoxyCodeLine{147 \}}
+
+\end{DoxyCode}
+
+
+References heap(), heap\+\_\+, v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::id(), Is\+Frozen(), k\+Possible\+Garbage, k\+Wait, v8\+::internal\+::\+Heap\+::\+Monotonically\+Increasing\+Time\+In\+Ms(), v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::next\+\_\+gc\+\_\+start\+\_\+ms(), Schedule\+Timer(), state\+\_\+, Step(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::\+Heap\+::\+Notify\+Old\+Generation\+Expansion(), and v8\+::internal\+::\+Heap\+::\+Start\+Incremental\+Marking\+If\+Allocation\+Limit\+Is\+Reached().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer_af8d90f35e7105a5bbc7170fefb01f006_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer_af8d90f35e7105a5bbc7170fefb01f006_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_a6113a2856a04756b860ac3092424570c}\label{classv8_1_1internal_1_1MemoryReducer_a6113a2856a04756b860ac3092424570c}} 
+\index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!NotifyTimer@{NotifyTimer}}
+\index{NotifyTimer@{NotifyTimer}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
+\doxysubsubsection{\texorpdfstring{NotifyTimer()}{NotifyTimer()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Reducer\+::\+Notify\+Timer (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structv8_1_1internal_1_1MemoryReducer_1_1Event}{Event}} \&}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 75 of file memory-\/reducer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{75                                                   \{}
+\DoxyCodeLine{76   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a8cf5b0ade6400ad533530d3ed3046dd0}{id}}() != \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a992977b7fc071c75f915e27409a5214f}{kWait}}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{77   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a2853ab10b53e2913c5e06cc170d2d3bfa51c927987ca67f56a7ba39c7b783e8f7}{kTimer}}, event.type);}
+\DoxyCodeLine{78   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_acb773a2429f9006c75dda44558b28250}{Step}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}, event);}
+\DoxyCodeLine{79   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a8cf5b0ade6400ad533530d3ed3046dd0}{id}}() == \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a33aefc0aa85e0f7a37b33f6c7b1a5c88}{kRun}}) \{}
+\DoxyCodeLine{80     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6d461b494e05eb173fab49be31f4f485}{heap}}()-\/>incremental\_marking()-\/>IsStopped());}
+\DoxyCodeLine{81     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.incremental\_marking);}
+\DoxyCodeLine{82     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_memory\_reducer) \{}
+\DoxyCodeLine{83       \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6d461b494e05eb173fab49be31f4f485}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ae5160ad63bc51ff7b36e8f247be48f63}{isolate}}()-\/>PrintWithTimestamp(\textcolor{stringliteral}{"{}Memory reducer: started GC \#\%d\(\backslash\)n"{}},}
+\DoxyCodeLine{84                                             \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a48dac00268212aab6deb173307732a51}{started\_gcs}}());}
+\DoxyCodeLine{85     \}}
+\DoxyCodeLine{86     \mbox{\hyperlink{namespacev8_1_1internal_a24853159aa54bea444b33aa05498f546}{GCFlags}} gc\_flags = \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.memory\_reducer\_favors\_memory}
+\DoxyCodeLine{87                            ? \mbox{\hyperlink{namespacev8_1_1internal_ae64a67f1c140b4617efdee2dd95094f4a1560a0f2c71a124bd10d2c0855ec48ea}{GCFlag::kReduceMemoryFootprint}}}
+\DoxyCodeLine{88                            : \mbox{\hyperlink{namespacev8_1_1internal_ae64a67f1c140b4617efdee2dd95094f4a744f371df4037409b14e84cb6ec340e6}{GCFlag::kNoFlags}};}
+\DoxyCodeLine{89     \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6d461b494e05eb173fab49be31f4f485}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a639b0a87f1592c0455cb1d988f5998ed}{StartIncrementalMarking}}(gc\_flags,}
+\DoxyCodeLine{90                                     \mbox{\hyperlink{namespacev8_1_1internal_a0a2f2571e39a2684be87407899aba748ac5b405ee92aa66ea06f3521b0bae6b40}{GarbageCollectionReason::kMemoryReducer}},}
+\DoxyCodeLine{91                                     \mbox{\hyperlink{namespacev8_a247c37a849f4d6c293b9b16e94e1944bac99bba24c93c55d6d5ec92115650dce9}{kGCCallbackFlagCollectAllExternalMemory}});}
+\DoxyCodeLine{92   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a8cf5b0ade6400ad533530d3ed3046dd0}{id}}() == \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a992977b7fc071c75f915e27409a5214f}{kWait}}) \{}
+\DoxyCodeLine{93     \textcolor{comment}{// Re-\/schedule the timer.}}
+\DoxyCodeLine{94     \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a92bb3db5e54080dd68d5988d1a6b6f22}{ScheduleTimer}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a169340477cc64eeb1755e1d9f6b128db}{next\_gc\_start\_ms}}() -\/ event.time\_ms);}
+\DoxyCodeLine{95     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_memory\_reducer) \{}
+\DoxyCodeLine{96       \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6d461b494e05eb173fab49be31f4f485}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ae5160ad63bc51ff7b36e8f247be48f63}{isolate}}()-\/>PrintWithTimestamp(}
+\DoxyCodeLine{97           \textcolor{stringliteral}{"{}Memory reducer: waiting for \%.f ms\(\backslash\)n"{}},}
+\DoxyCodeLine{98           \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a169340477cc64eeb1755e1d9f6b128db}{next\_gc\_start\_ms}}() -\/ event.time\_ms);}
+\DoxyCodeLine{99     \}}
+\DoxyCodeLine{100   \}}
+\DoxyCodeLine{101 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, heap(), v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::id(), v8\+::internal\+::\+Heap\+::isolate(), v8\+::k\+GCCallback\+Flag\+Collect\+All\+External\+Memory, v8\+::internal\+::k\+Memory\+Reducer, v8\+::internal\+::k\+No\+Flags, v8\+::internal\+::k\+Reduce\+Memory\+Footprint, k\+Run, k\+Timer, k\+Wait, v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::next\+\_\+gc\+\_\+start\+\_\+ms(), Schedule\+Timer(), v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::started\+\_\+gcs(), v8\+::internal\+::\+Heap\+::\+Start\+Incremental\+Marking(), state\+\_\+, Step(), v8\+::internal\+::\+Memory\+Reducer\+::\+Event\+::time\+\_\+ms, v8\+::internal\+::\+Memory\+Reducer\+::\+Event\+::type, and v8\+::internal\+::v8\+\_\+flags.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1MemoryReducer_a6113a2856a04756b860ac3092424570c_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_a6e4f3d59d1e0c41bb12572f47bdeaec8}\label{classv8_1_1internal_1_1MemoryReducer_a6e4f3d59d1e0c41bb12572f47bdeaec8}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!operator=@{operator=}}
 \index{operator=@{operator=}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
@@ -190,24 +496,238 @@ k\+Run&\\
 \doxysubsubsection{\texorpdfstring{ScheduleTimer()}{ScheduleTimer()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Reducer\+::\+Schedule\+Timer (\begin{DoxyParamCaption}\item[{double}]{delay\+\_\+ms }\end{DoxyParamCaption})}
 
+
+
+Definition at line 228 of file memory-\/reducer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{228                                                  \{}
+\DoxyCodeLine{229   \mbox{\hyperlink{src_2base_2logging_8h_af1a711c8d5520dff78858ddefd2ad668}{DCHECK\_LT}}(0, delay\_ms);}
+\DoxyCodeLine{230   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6d461b494e05eb173fab49be31f4f485}{heap}}()-\/>IsTearingDown()) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{231   \textcolor{comment}{// Leave some room for precision error in task scheduler.}}
+\DoxyCodeLine{232   \textcolor{keyword}{const} \textcolor{keywordtype}{double} kSlackMs = 100;}
+\DoxyCodeLine{233   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a4992f599c47517497b47b9b114f4a8a7}{taskrunner\_}}-\/>PostDelayedTask(std::make\_unique<MemoryReducer::TimerTask>(\textcolor{keyword}{this}),}
+\DoxyCodeLine{234                                (delay\_ms + kSlackMs) / 1000.0);}
+\DoxyCodeLine{235 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+LT, heap(), and taskrunner\+\_\+.
+
+
+
+Referenced by Notify\+Mark\+Compact(), Notify\+Possible\+Garbage(), and Notify\+Timer().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer_a92bb3db5e54080dd68d5988d1a6b6f22_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer_a92bb3db5e54080dd68d5988d1a6b6f22_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_a892aacadda91617fc2d8420102258380}\label{classv8_1_1internal_1_1MemoryReducer_a892aacadda91617fc2d8420102258380}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!ShouldGrowHeapSlowly@{ShouldGrowHeapSlowly}}
 \index{ShouldGrowHeapSlowly@{ShouldGrowHeapSlowly}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
 \doxysubsubsection{\texorpdfstring{ShouldGrowHeapSlowly()}{ShouldGrowHeapSlowly()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Reducer\+::\+Should\+Grow\+Heap\+Slowly (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 182 of file memory-\/reducer.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{182 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a8cf5b0ade6400ad533530d3ed3046dd0}{id}}() == \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a854dc5bbdcdafec3c7b6e0c0789d4a45}{kDone}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_acb773a2429f9006c75dda44558b28250}\label{classv8_1_1internal_1_1MemoryReducer_acb773a2429f9006c75dda44558b28250}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!Step@{Step}}
 \index{Step@{Step}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
 \doxysubsubsection{\texorpdfstring{Step()}{Step()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State}{Memory\+Reducer\+::\+State}} v8\+::internal\+::\+Memory\+Reducer\+::\+Step (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State}{State}} \&}]{state,  }\item[{const \mbox{\hyperlink{structv8_1_1internal_1_1MemoryReducer_1_1Event}{Event}} \&}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 156 of file memory-\/reducer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{157                                                              \{}
+\DoxyCodeLine{158   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.memory\_reducer);}
+\DoxyCodeLine{159   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.incremental\_marking);}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161   \textcolor{keywordflow}{switch} (state.id()) \{}
+\DoxyCodeLine{162     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a6b3c6282fb87dd75ed7f21dbe0a953ab}{kUninit}}:}
+\DoxyCodeLine{163     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a854dc5bbdcdafec3c7b6e0c0789d4a45}{kDone}}:}
+\DoxyCodeLine{164       \textcolor{keywordflow}{if} (event.type == \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a2853ab10b53e2913c5e06cc170d2d3bfa51c927987ca67f56a7ba39c7b783e8f7}{kTimer}}) \{}
+\DoxyCodeLine{165         \textcolor{keywordflow}{return} state;}
+\DoxyCodeLine{166       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (event.type == \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a2853ab10b53e2913c5e06cc170d2d3bfa0fe0a01b65fffa7cca8d42e86606d0ef}{kMarkCompact}}) \{}
+\DoxyCodeLine{167         \textcolor{keywordflow}{if} (event.committed\_memory <}
+\DoxyCodeLine{168             std::max(}
+\DoxyCodeLine{169                 \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(state.committed\_memory\_at\_last\_run() *}
+\DoxyCodeLine{170                                     \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a4f3d452e0ed4ba216d104a47908ee815}{kCommittedMemoryFactor}}),}
+\DoxyCodeLine{171                 state.committed\_memory\_at\_last\_run() + \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a6558d1f96e8713f098912eb4139356cb}{kCommittedMemoryDelta}})) \{}
+\DoxyCodeLine{172           \textcolor{keywordflow}{return} state;}
+\DoxyCodeLine{173         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{174           \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a1d2fe1ccd2d949fd2f2a899d25c2f77a}{State::CreateWait}}(0, event.time\_ms + \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a9560a6e073f69b8bbb7f3f91025405e9}{kLongDelayMs}},}
+\DoxyCodeLine{175                                    event.time\_ms);}
+\DoxyCodeLine{176         \}}
+\DoxyCodeLine{177       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{178         \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a2853ab10b53e2913c5e06cc170d2d3bfa3871efcda74c405ffa3c3014381f6ead}{kPossibleGarbage}}, event.type);}
+\DoxyCodeLine{179         \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a1d2fe1ccd2d949fd2f2a899d25c2f77a}{State::CreateWait}}(}
+\DoxyCodeLine{180             0, event.time\_ms + \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.gc\_memory\_reducer\_start\_delay\_ms,}
+\DoxyCodeLine{181             state.last\_gc\_time\_ms());}
+\DoxyCodeLine{182       \}}
+\DoxyCodeLine{183     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a992977b7fc071c75f915e27409a5214f}{kWait}}:}
+\DoxyCodeLine{184       \mbox{\hyperlink{src_2base_2logging_8h_a56e883b55c80205b4d1727679c68b2bd}{CHECK\_LE}}(state.started\_gcs(), \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a45acc94242918899a7609978ae9f4677}{MaxNumberOfGCs}}());}
+\DoxyCodeLine{185       \textcolor{keywordflow}{switch} (event.type) \{}
+\DoxyCodeLine{186         \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a2853ab10b53e2913c5e06cc170d2d3bfa3871efcda74c405ffa3c3014381f6ead}{kPossibleGarbage}}:}
+\DoxyCodeLine{187           \textcolor{keywordflow}{return} state;}
+\DoxyCodeLine{188         \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a2853ab10b53e2913c5e06cc170d2d3bfa51c927987ca67f56a7ba39c7b783e8f7}{kTimer}}:}
+\DoxyCodeLine{189           \textcolor{keywordflow}{if} (event.is\_frozen || state.started\_gcs() >= \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a45acc94242918899a7609978ae9f4677}{MaxNumberOfGCs}}()) \{}
+\DoxyCodeLine{190             \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a8ad27893fb822a518f7562f12cfcd604}{State::CreateDone}}(state.last\_gc\_time\_ms(),}
+\DoxyCodeLine{191                                      event.committed\_memory);}
+\DoxyCodeLine{192           \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (event.can\_start\_incremental\_gc \&\&}
+\DoxyCodeLine{193                      (event.should\_start\_incremental\_gc ||}
+\DoxyCodeLine{194                       \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a4ef347b802a3ef3f47628aed3e89f2ee}{WatchdogGC}}(state, event))) \{}
+\DoxyCodeLine{195             \textcolor{keywordflow}{if} (state.next\_gc\_start\_ms() <= event.time\_ms) \{}
+\DoxyCodeLine{196               \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_ad501fb2eef10ed72cbd9ec0f111528b4}{State::CreateRun}}(state.started\_gcs() + 1);}
+\DoxyCodeLine{197             \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{198               \textcolor{keywordflow}{return} state;}
+\DoxyCodeLine{199             \}}
+\DoxyCodeLine{200           \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{201             \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a1d2fe1ccd2d949fd2f2a899d25c2f77a}{State::CreateWait}}(state.started\_gcs(),}
+\DoxyCodeLine{202                                      event.time\_ms + \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a9560a6e073f69b8bbb7f3f91025405e9}{kLongDelayMs}},}
+\DoxyCodeLine{203                                      state.last\_gc\_time\_ms());}
+\DoxyCodeLine{204           \}}
+\DoxyCodeLine{205         \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a2853ab10b53e2913c5e06cc170d2d3bfa0fe0a01b65fffa7cca8d42e86606d0ef}{kMarkCompact}}:}
+\DoxyCodeLine{206           \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a1d2fe1ccd2d949fd2f2a899d25c2f77a}{State::CreateWait}}(state.started\_gcs(),}
+\DoxyCodeLine{207                                    event.time\_ms + \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a9560a6e073f69b8bbb7f3f91025405e9}{kLongDelayMs}}, event.time\_ms);}
+\DoxyCodeLine{208       \}}
+\DoxyCodeLine{209     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_abd2f0611452dd9344369bb6f29682024a33aefc0aa85e0f7a37b33f6c7b1a5c88}{kRun}}:}
+\DoxyCodeLine{210       \mbox{\hyperlink{src_2base_2logging_8h_a56e883b55c80205b4d1727679c68b2bd}{CHECK\_LE}}(state.started\_gcs(), \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a45acc94242918899a7609978ae9f4677}{MaxNumberOfGCs}}());}
+\DoxyCodeLine{211       \textcolor{keywordflow}{if} (event.type == \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a2853ab10b53e2913c5e06cc170d2d3bfa0fe0a01b65fffa7cca8d42e86606d0ef}{kMarkCompact}}) \{}
+\DoxyCodeLine{212         \textcolor{keywordflow}{if} (!event.is\_frozen \&\& state.started\_gcs() < \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a45acc94242918899a7609978ae9f4677}{MaxNumberOfGCs}}() \&\&}
+\DoxyCodeLine{213             (event.next\_gc\_likely\_to\_collect\_more ||}
+\DoxyCodeLine{214              state.started\_gcs() == 1)) \{}
+\DoxyCodeLine{215           \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a1d2fe1ccd2d949fd2f2a899d25c2f77a}{State::CreateWait}}(state.started\_gcs(),}
+\DoxyCodeLine{216                                    event.time\_ms + \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_ab7e2131ef74777b24fdf47f2a0f1c925}{kShortDelayMs}},}
+\DoxyCodeLine{217                                    event.time\_ms);}
+\DoxyCodeLine{218         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{219           \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a8ad27893fb822a518f7562f12cfcd604}{State::CreateDone}}(event.time\_ms, event.committed\_memory);}
+\DoxyCodeLine{220         \}}
+\DoxyCodeLine{221       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{222         \textcolor{keywordflow}{return} state;}
+\DoxyCodeLine{223       \}}
+\DoxyCodeLine{224   \}}
+\DoxyCodeLine{225   \mbox{\hyperlink{namespacev8_1_1internal_acdec713c25068019f935e35976f5b666}{UNREACHABLE}}();}
+\DoxyCodeLine{226 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Memory\+Reducer\+::\+Event\+::can\+\_\+start\+\_\+incremental\+\_\+gc, CHECK\+\_\+\+LE, v8\+::internal\+::\+Memory\+Reducer\+::\+Event\+::committed\+\_\+memory, v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::committed\+\_\+memory\+\_\+at\+\_\+last\+\_\+run(), v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::\+Create\+Done(), v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::\+Create\+Run(), v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::\+Create\+Wait(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::id(), v8\+::internal\+::\+Memory\+Reducer\+::\+Event\+::is\+\_\+frozen, k\+Committed\+Memory\+Delta, k\+Committed\+Memory\+Factor, k\+Done, k\+Long\+Delay\+Ms, k\+Mark\+Compact, k\+Possible\+Garbage, k\+Run, k\+Short\+Delay\+Ms, k\+Timer, k\+Uninit, k\+Wait, v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::last\+\_\+gc\+\_\+time\+\_\+ms(), Max\+Number\+Of\+GCs(), v8\+::internal\+::\+Memory\+Reducer\+::\+Event\+::next\+\_\+gc\+\_\+likely\+\_\+to\+\_\+collect\+\_\+more, v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::next\+\_\+gc\+\_\+start\+\_\+ms(), v8\+::internal\+::\+Memory\+Reducer\+::\+Event\+::should\+\_\+start\+\_\+incremental\+\_\+gc, v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::started\+\_\+gcs(), v8\+::internal\+::\+Memory\+Reducer\+::\+Event\+::time\+\_\+ms, v8\+::internal\+::\+Memory\+Reducer\+::\+Event\+::type, v8\+::internal\+::\+UNREACHABLE(), v8\+::internal\+::v8\+\_\+flags, and Watchdog\+GC().
+
+
+
+Referenced by Notify\+Mark\+Compact(), Notify\+Possible\+Garbage(), and Notify\+Timer().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer_acb773a2429f9006c75dda44558b28250_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer_acb773a2429f9006c75dda44558b28250_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_a3010ec7bd3d474cac493524bcec6b19b}\label{classv8_1_1internal_1_1MemoryReducer_a3010ec7bd3d474cac493524bcec6b19b}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!TearDown@{TearDown}}
 \index{TearDown@{TearDown}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
 \doxysubsubsection{\texorpdfstring{TearDown()}{TearDown()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Reducer\+::\+Tear\+Down (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 237 of file memory-\/reducer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{237 \{ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}{state\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State_a3ca1dd94a853a54fca466410cadc9e2d}{State::CreateUninitialized}}(); \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::\+Create\+Uninitialized(), and state\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer_a3010ec7bd3d474cac493524bcec6b19b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_a4ef347b802a3ef3f47628aed3e89f2ee}\label{classv8_1_1internal_1_1MemoryReducer_a4ef347b802a3ef3f47628aed3e89f2ee}} 
+\index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!WatchdogGC@{WatchdogGC}}
+\index{WatchdogGC@{WatchdogGC}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
+\doxysubsubsection{\texorpdfstring{WatchdogGC()}{WatchdogGC()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Reducer\+::\+Watchdog\+GC (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State}{State}} \&}]{state,  }\item[{const \mbox{\hyperlink{structv8_1_1internal_1_1MemoryReducer_1_1Event}{Event}} \&}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 149 of file memory-\/reducer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{149                                                                      \{}
+\DoxyCodeLine{150   \textcolor{keywordflow}{return} state.last\_gc\_time\_ms() != 0 \&\&}
+\DoxyCodeLine{151          \textcolor{keyword}{event}.time\_ms > state.last\_gc\_time\_ms() + \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_aea8eec9cb70717cff5db71c98545dc22}{kWatchdogDelayMs}};}
+\DoxyCodeLine{152 \}}
+
+\end{DoxyCode}
+
+
+References k\+Watchdog\+Delay\+Ms, and v8\+::internal\+::\+Memory\+Reducer\+::\+State\+::last\+\_\+gc\+\_\+time\+\_\+ms().
+
+
+
+Referenced by Step().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer_a4ef347b802a3ef3f47628aed3e89f2ee_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryReducer_a4ef347b802a3ef3f47628aed3e89f2ee_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Friends And Related Function Documentation}
@@ -219,12 +739,58 @@ k\+Run&\\
 
 
 
+Definition at line 213 of file memory-\/reducer.\+h.
+
+
+
 \doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_ac1f4f4b3845a868e173be5d35e7eb5ea}\label{classv8_1_1internal_1_1MemoryReducer_ac1f4f4b3845a868e173be5d35e7eb5ea}} 
+\index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!heap\_@{heap\_}}
+\index{heap\_@{heap\_}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
+\doxysubsubsection{\texorpdfstring{heap\_}{heap\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}}$\ast$ v8\+::internal\+::\+Memory\+Reducer\+::heap\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 205 of file memory-\/reducer.\+h.
+
+
+
+Referenced by Notify\+Possible\+Garbage().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_aec8d9a808b4582f1938442ae7bcf0376}\label{classv8_1_1internal_1_1MemoryReducer_aec8d9a808b4582f1938442ae7bcf0376}} 
+\index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!js\_calls\_counter\_@{js\_calls\_counter\_}}
+\index{js\_calls\_counter\_@{js\_calls\_counter\_}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
+\doxysubsubsection{\texorpdfstring{js\_calls\_counter\_}{js\_calls\_counter\_}}
+{\footnotesize\ttfamily unsigned \mbox{\hyperlink{classint}{int}} v8\+::internal\+::\+Memory\+Reducer\+::js\+\_\+calls\+\_\+counter\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 208 of file memory-\/reducer.\+h.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_a885842874f44e3b0d8310270bd2097ae}\label{classv8_1_1internal_1_1MemoryReducer_a885842874f44e3b0d8310270bd2097ae}} 
+\index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!js\_calls\_sample\_time\_ms\_@{js\_calls\_sample\_time\_ms\_}}
+\index{js\_calls\_sample\_time\_ms\_@{js\_calls\_sample\_time\_ms\_}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
+\doxysubsubsection{\texorpdfstring{js\_calls\_sample\_time\_ms\_}{js\_calls\_sample\_time\_ms\_}}
+{\footnotesize\ttfamily double v8\+::internal\+::\+Memory\+Reducer\+::js\+\_\+calls\+\_\+sample\+\_\+time\+\_\+ms\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 209 of file memory-\/reducer.\+h.
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_a6558d1f96e8713f098912eb4139356cb}\label{classv8_1_1internal_1_1MemoryReducer_a6558d1f96e8713f098912eb4139356cb}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!kCommittedMemoryDelta@{kCommittedMemoryDelta}}
 \index{kCommittedMemoryDelta@{kCommittedMemoryDelta}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
 \doxysubsubsection{\texorpdfstring{kCommittedMemoryDelta}{kCommittedMemoryDelta}}
 {\footnotesize\ttfamily const \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Memory\+Reducer\+::k\+Committed\+Memory\+Delta = 10 $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_af46551c5713d2a3a1be4dca973e521e0}{MB}}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 178 of file memory-\/reducer.\+h.
+
+
+
+Referenced by Step().
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_a4f3d452e0ed4ba216d104a47908ee815}\label{classv8_1_1internal_1_1MemoryReducer_a4f3d452e0ed4ba216d104a47908ee815}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!kCommittedMemoryFactor@{kCommittedMemoryFactor}}
@@ -232,27 +798,97 @@ k\+Run&\\
 \doxysubsubsection{\texorpdfstring{kCommittedMemoryFactor}{kCommittedMemoryFactor}}
 {\footnotesize\ttfamily const double v8\+::internal\+::\+Memory\+Reducer\+::k\+Committed\+Memory\+Factor = 1.\+1\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 175 of file memory-\/reducer.\+h.
+
+
+
+Referenced by Step().
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_a9560a6e073f69b8bbb7f3f91025405e9}\label{classv8_1_1internal_1_1MemoryReducer_a9560a6e073f69b8bbb7f3f91025405e9}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!kLongDelayMs@{kLongDelayMs}}
 \index{kLongDelayMs@{kLongDelayMs}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
 \doxysubsubsection{\texorpdfstring{kLongDelayMs}{kLongDelayMs}}
-{\footnotesize\ttfamily const int v8\+::internal\+::\+Memory\+Reducer\+::k\+Long\+Delay\+Ms = 8000\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classint}{int}} v8\+::internal\+::\+Memory\+Reducer\+::k\+Long\+Delay\+Ms = 8000\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 170 of file memory-\/reducer.\+h.
+
+
+
+Referenced by Step().
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_ab7e2131ef74777b24fdf47f2a0f1c925}\label{classv8_1_1internal_1_1MemoryReducer_ab7e2131ef74777b24fdf47f2a0f1c925}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!kShortDelayMs@{kShortDelayMs}}
 \index{kShortDelayMs@{kShortDelayMs}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
 \doxysubsubsection{\texorpdfstring{kShortDelayMs}{kShortDelayMs}}
-{\footnotesize\ttfamily const int v8\+::internal\+::\+Memory\+Reducer\+::k\+Short\+Delay\+Ms = 500\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classint}{int}} v8\+::internal\+::\+Memory\+Reducer\+::k\+Short\+Delay\+Ms = 500\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 171 of file memory-\/reducer.\+h.
+
+
+
+Referenced by Step().
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_aea8eec9cb70717cff5db71c98545dc22}\label{classv8_1_1internal_1_1MemoryReducer_aea8eec9cb70717cff5db71c98545dc22}} 
 \index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!kWatchdogDelayMs@{kWatchdogDelayMs}}
 \index{kWatchdogDelayMs@{kWatchdogDelayMs}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
 \doxysubsubsection{\texorpdfstring{kWatchdogDelayMs}{kWatchdogDelayMs}}
-{\footnotesize\ttfamily const int v8\+::internal\+::\+Memory\+Reducer\+::k\+Watchdog\+Delay\+Ms = 100000\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classint}{int}} v8\+::internal\+::\+Memory\+Reducer\+::k\+Watchdog\+Delay\+Ms = 100000\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 172 of file memory-\/reducer.\+h.
+
+
+
+Referenced by Watchdog\+GC().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_ac4a3a7b37ef06b11ece32b7f118fd234}\label{classv8_1_1internal_1_1MemoryReducer_ac4a3a7b37ef06b11ece32b7f118fd234}} 
+\index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!start\_delay\_ms\_@{start\_delay\_ms\_}}
+\index{start\_delay\_ms\_@{start\_delay\_ms\_}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
+\doxysubsubsection{\texorpdfstring{start\_delay\_ms\_}{start\_delay\_ms\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::\+Memory\+Reducer\+::start\+\_\+delay\+\_\+ms\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 210 of file memory-\/reducer.\+h.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}\label{classv8_1_1internal_1_1MemoryReducer_a12bcf7083c7d03b7d1384e8d3b222643}} 
+\index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!state\_@{state\_}}
+\index{state\_@{state\_}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
+\doxysubsubsection{\texorpdfstring{state\_}{state\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MemoryReducer_1_1State}{State}} v8\+::internal\+::\+Memory\+Reducer\+::state\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 207 of file memory-\/reducer.\+h.
+
+
+
+Referenced by Notify\+Mark\+Compact(), Notify\+Possible\+Garbage(), Notify\+Timer(), and Tear\+Down().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryReducer_a4992f599c47517497b47b9b114f4a8a7}\label{classv8_1_1internal_1_1MemoryReducer_a4992f599c47517497b47b9b114f4a8a7}} 
+\index{v8::internal::MemoryReducer@{v8::internal::MemoryReducer}!taskrunner\_@{taskrunner\_}}
+\index{taskrunner\_@{taskrunner\_}!v8::internal::MemoryReducer@{v8::internal::MemoryReducer}}
+\doxysubsubsection{\texorpdfstring{taskrunner\_}{taskrunner\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1TaskRunner}{v8\+::\+Task\+Runner}}$>$ v8\+::internal\+::\+Memory\+Reducer\+::taskrunner\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 206 of file memory-\/reducer.\+h.
+
+
+
+Referenced by Schedule\+Timer().
 
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{memory-reducer_8h}{memory-\/reducer.\+h}}\item 
-\mbox{\hyperlink{memory-reducer_8cc}{memory-\/reducer.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{memory-reducer_8h}{memory-\/reducer.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{memory-reducer_8cc}{memory-\/reducer.\+cc}}\end{DoxyCompactItemize}

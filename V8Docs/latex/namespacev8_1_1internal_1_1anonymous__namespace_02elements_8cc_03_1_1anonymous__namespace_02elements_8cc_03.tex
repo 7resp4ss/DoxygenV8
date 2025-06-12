@@ -1,0 +1,59 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02elements_8cc_03_1_1anonymous__namespace_02elements_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{elements.\+cc\}\+::anonymous\+\_\+namespace\{elements.\+cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02elements_8cc_03_1_1anonymous__namespace_02elements_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}elements.cc\rcurly{}::anonymous\_namespace\lcurly{}elements.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}elements.cc\rcurly{}::anonymous\_namespace\lcurly{}elements.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$Elements\+Kind Dest\+Kind, typename Dest\+Element\+Type , Elements\+Kind Source\+Kind$>$ }\\void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02elements_8cc_03_1_1anonymous__namespace_02elements_8cc_03_ab07e46b9c6f8da45cf62b3c35dc53d37}{Copy\+From\+Float16\+Backing\+Store}} (uint16\+\_\+t $\ast$source\+\_\+data\+\_\+ptr, Dest\+Element\+Type $\ast$dest\+\_\+data\+\_\+ptr, \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}}, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02elements_8cc_03_acd37159826079290ea180403d57a2ebe}{Is\+Shared\+Buffer}} \mbox{\hyperlink{namespacev8_1_1internal_adee95482032a93e07f59341fed5c909f}{is\+\_\+shared}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02elements_8cc_03_1_1anonymous__namespace_02elements_8cc_03_ab07e46b9c6f8da45cf62b3c35dc53d37}\label{namespacev8_1_1internal_1_1anonymous__namespace_02elements_8cc_03_1_1anonymous__namespace_02elements_8cc_03_ab07e46b9c6f8da45cf62b3c35dc53d37}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}elements.cc\rcurly{}::anonymous\_namespace\lcurly{}elements.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}elements.cc\rcurly{}::anonymous\_namespace\lcurly{}elements.cc\rcurly{}}!CopyFromFloat16BackingStore@{CopyFromFloat16BackingStore}}
+\index{CopyFromFloat16BackingStore@{CopyFromFloat16BackingStore}!v8::internal::anonymous\_namespace\lcurly{}elements.cc\rcurly{}::anonymous\_namespace\lcurly{}elements.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}elements.cc\rcurly{}::anonymous\_namespace\lcurly{}elements.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{CopyFromFloat16BackingStore()}{CopyFromFloat16BackingStore()}}
+{\footnotesize\ttfamily template$<$Elements\+Kind Dest\+Kind, typename Dest\+Element\+Type , Elements\+Kind Source\+Kind$>$ \\
+void v8\+::internal\+::anonymous\+\_\+namespace\{elements.\+cc\}\+::anonymous\+\_\+namespace\{elements.\+cc\}\+::Copy\+From\+Float16\+Backing\+Store (\begin{DoxyParamCaption}\item[{uint16\+\_\+t $\ast$}]{source\+\_\+data\+\_\+ptr,  }\item[{Dest\+Element\+Type $\ast$}]{dest\+\_\+data\+\_\+ptr,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{length,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02elements_8cc_03_acd37159826079290ea180403d57a2ebe}{Is\+Shared\+Buffer}}}]{is\+\_\+shared }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4342 of file elements.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{4344                                                            \{}
+\DoxyCodeLine{4345   \textcolor{keywordflow}{for} (; \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}} > 0; -\/-\/\mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}}, ++source\_data\_ptr, ++dest\_data\_ptr) \{}
+\DoxyCodeLine{4346     \textcolor{comment}{// We use scalar accessors to avoid boxing/unboxing, so there are no}}
+\DoxyCodeLine{4347     \textcolor{comment}{// allocations.}}
+\DoxyCodeLine{4348     \mbox{\hyperlink{namespaceunibrow_a0869a94c1a582a2b47889b990444deb9}{uint16\_t}} source\_elem = TypedElementsAccessor<SourceKind, uint16\_t>::GetImpl(}
+\DoxyCodeLine{4349         source\_data\_ptr, \mbox{\hyperlink{namespacev8_1_1internal_adee95482032a93e07f59341fed5c909f}{is\_shared}});}
+\DoxyCodeLine{4350     DestElementType dest\_elem;}
+\DoxyCodeLine{4351     \textcolor{keywordflow}{if} constexpr (\mbox{\hyperlink{namespacev8_1_1internal_a5e7e50c320a34088c9b11b974fca2d99}{IsFloat16TypedArrayElementsKind}}(DestKind)) \{}
+\DoxyCodeLine{4352       \textcolor{comment}{// There is the reasonable expectations that copying to the same kind of}}
+\DoxyCodeLine{4353       \textcolor{comment}{// TypedArray does not change the bit pattern of the data. For float16,}}
+\DoxyCodeLine{4354       \textcolor{comment}{// round tripping fp16-\/>fp32-\/>fp16 with the software emulation can change}}
+\DoxyCodeLine{4355       \textcolor{comment}{// NaN patterns.}}
+\DoxyCodeLine{4356       dest\_elem = source\_elem;}
+\DoxyCodeLine{4357     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{4358       dest\_elem = TypedElementsAccessor<DestKind, DestElementType>::FromScalar(}
+\DoxyCodeLine{4359           fp16\_ieee\_to\_fp32\_value(source\_elem));}
+\DoxyCodeLine{4360     \}}
+\DoxyCodeLine{4361 }
+\DoxyCodeLine{4362     TypedElementsAccessor<DestKind, DestElementType>::SetImpl(}
+\DoxyCodeLine{4363         dest\_data\_ptr, dest\_elem, \mbox{\hyperlink{namespacev8_1_1internal_adee95482032a93e07f59341fed5c909f}{is\_shared}});}
+\DoxyCodeLine{4364   \}}
+\DoxyCodeLine{4365 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::is\+\_\+shared, v8\+::internal\+::\+Is\+Float16\+Typed\+Array\+Elements\+Kind(), and v8\+::internal\+::length.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02elements_8cc_03_1_1anonymous__namespace_02elements_8cc_03_ab07e46b9c6f8da45cf62b3c35dc53d37_cgraph}
+\end{center}
+\end{figure}

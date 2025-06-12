@@ -4,10 +4,20 @@
 
 {\ttfamily \#include $<$assembler.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Assembler\+Options\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1AssemblerOptions__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{structv8_1_1internal_1_1AssemblerOptions}{Assembler\+Options}} \mbox{\hyperlink{structv8_1_1internal_1_1AssemblerOptions_a6a99f8f40b0a08a82fdd40cfc010b7cb}{Default}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+static \mbox{\hyperlink{structv8_1_1internal_1_1AssemblerOptions}{Assembler\+Options}} \mbox{\hyperlink{structv8_1_1internal_1_1AssemblerOptions_a6a99f8f40b0a08a82fdd40cfc010b7cb}{Default}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -34,6 +44,13 @@ static \mbox{\hyperlink{structv8_1_1internal_1_1AssemblerOptions}{Assembler\+Opt
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 214 of file assembler.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1AssemblerOptions_a6a99f8f40b0a08a82fdd40cfc010b7cb}\label{structv8_1_1internal_1_1AssemblerOptions_a6a99f8f40b0a08a82fdd40cfc010b7cb}} 
 \index{v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}!Default@{Default}}
@@ -43,6 +60,73 @@ static \mbox{\hyperlink{structv8_1_1internal_1_1AssemblerOptions}{Assembler\+Opt
 
 
 
+Definition at line 53 of file assembler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{53                                                            \{}
+\DoxyCodeLine{54   AssemblerOptions options;}
+\DoxyCodeLine{55   \textcolor{keyword}{const} \textcolor{keywordtype}{bool} serializer = isolate-\/>serializer\_enabled();}
+\DoxyCodeLine{56   \textcolor{keyword}{const} \textcolor{keywordtype}{bool} generating\_embedded\_builtin =}
+\DoxyCodeLine{57       isolate-\/>IsGeneratingEmbeddedBuiltins();}
+\DoxyCodeLine{58   options.record\_reloc\_info\_for\_serialization = serializer;}
+\DoxyCodeLine{59   options.enable\_root\_relative\_access =}
+\DoxyCodeLine{60       !serializer \&\& !generating\_embedded\_builtin;}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#ifdef USE\_SIMULATOR}}
+\DoxyCodeLine{62   \textcolor{comment}{// Even though the simulator is enabled, we may still need to generate code}}
+\DoxyCodeLine{63   \textcolor{comment}{// that may need to run on both the simulator and real hardware. For example,}}
+\DoxyCodeLine{64   \textcolor{comment}{// if we are cross-\/compiling and embedding a script into the snapshot, the}}
+\DoxyCodeLine{65   \textcolor{comment}{// script will need to run on the host causing the embedded builtins to run in}}
+\DoxyCodeLine{66   \textcolor{comment}{// the simulator. While the final cross-\/compiled V8 will not have a simulator.}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68   \textcolor{comment}{// So here we enable simulator specific code if not generating the snapshot or}}
+\DoxyCodeLine{69   \textcolor{comment}{// if we are but we are targetting the simulator *only*.}}
+\DoxyCodeLine{70   options.enable\_simulator\_code = !serializer || \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.target\_is\_simulator;}
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73 \textcolor{preprocessor}{\#if V8\_TARGET\_ARCH\_X64 || V8\_TARGET\_ARCH\_ARM64 || V8\_TARGET\_ARCH\_LOONG64 || \(\backslash\)}}
+\DoxyCodeLine{74 \textcolor{preprocessor}{    V8\_TARGET\_ARCH\_RISCV64}}
+\DoxyCodeLine{75   options.code\_range\_base = isolate-\/>heap()-\/>code\_range\_base();}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{77   \textcolor{keywordtype}{bool} short\_builtin\_calls =}
+\DoxyCodeLine{78       isolate-\/>is\_short\_builtin\_calls\_enabled() \&\&}
+\DoxyCodeLine{79       !generating\_embedded\_builtin \&\&}
+\DoxyCodeLine{80       (options.code\_range\_base != \mbox{\hyperlink{namespacev8_1_1internal_acf6bafb5b8483a580f375393c413ee02}{kNullAddress}}) \&\&}
+\DoxyCodeLine{81       \textcolor{comment}{// Serialization of NEAR\_BUILTIN\_ENTRY reloc infos is not supported yet.}}
+\DoxyCodeLine{82       !serializer;}
+\DoxyCodeLine{83   \textcolor{keywordflow}{if} (short\_builtin\_calls) \{}
+\DoxyCodeLine{84     options.builtin\_call\_jump\_mode = \mbox{\hyperlink{namespacev8_1_1internal_aa69eda50b87523ed3b72c991a31463c7a6afb7f172c48d521a49ea4319dac75ec}{BuiltinCallJumpMode::kPCRelative}};}
+\DoxyCodeLine{85   \}}
+\DoxyCodeLine{86   \textcolor{keywordflow}{return} options;}
+\DoxyCodeLine{87 \}}
+
+\end{DoxyCode}
+
+
+References builtin\+\_\+call\+\_\+jump\+\_\+mode, code\+\_\+range\+\_\+base, v8\+::internal\+::\+Heap\+::code\+\_\+range\+\_\+base(), enable\+\_\+root\+\_\+relative\+\_\+access, enable\+\_\+simulator\+\_\+code, v8\+::internal\+::\+Isolate\+::heap(), v8\+::internal\+::\+Isolate\+::is\+\_\+short\+\_\+builtin\+\_\+calls\+\_\+enabled(), v8\+::internal\+::\+Isolate\+::\+Is\+Generating\+Embedded\+Builtins(), v8\+::internal\+::k\+Null\+Address, v8\+::internal\+::k\+PCRelative, record\+\_\+reloc\+\_\+info\+\_\+for\+\_\+serialization, v8\+::internal\+::\+Isolate\+::serializer\+\_\+enabled(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::baseline\+::anonymous\+\_\+namespace\{baseline-\/compiler.\+cc\}\+::\+Baseline\+Assembler\+Options(), v8\+::internal\+::anonymous\+\_\+namespace\{setup-\/builtins-\/internal.\+cc\}\+::\+Builtin\+Assembler\+Options(), v8\+::internal\+::compiler\+::\+Compile\+CWasm\+Entry(), v8\+::internal\+::compiler\+::\+Pipeline\+::\+Generate\+Code\+For\+Testing(), and v8\+::internal\+::compiler\+::\+Code\+Assembler\+Compilation\+Job\+::\+New\+Job\+For\+Testing().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1AssemblerOptions_a6a99f8f40b0a08a82fdd40cfc010b7cb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1AssemblerOptions_a6a99f8f40b0a08a82fdd40cfc010b7cb_icgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1AssemblerOptions_ac463b8525fe81a8865656767792226ff}\label{structv8_1_1internal_1_1AssemblerOptions_ac463b8525fe81a8865656767792226ff}} 
 \index{v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}!builtin\_call\_jump\_mode@{builtin\_call\_jump\_mode}}
@@ -50,11 +134,27 @@ static \mbox{\hyperlink{structv8_1_1internal_1_1AssemblerOptions}{Assembler\+Opt
 \doxysubsubsection{\texorpdfstring{builtin\_call\_jump\_mode}{builtin\_call\_jump\_mode}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_aa69eda50b87523ed3b72c991a31463c7}{Builtin\+Call\+Jump\+Mode}} v8\+::internal\+::\+Assembler\+Options\+::builtin\+\_\+call\+\_\+jump\+\_\+mode = \mbox{\hyperlink{namespacev8_1_1internal_aa69eda50b87523ed3b72c991a31463c7abab0767e88027de9944aa55c24c8387a}{Builtin\+Call\+Jump\+Mode\+::k\+Absolute}}}
 
+
+
+Definition at line 231 of file assembler.\+h.
+
+
+
+Referenced by v8\+::internal\+::baseline\+::anonymous\+\_\+namespace\{baseline-\/compiler.\+cc\}\+::\+Baseline\+Assembler\+Options(), v8\+::internal\+::anonymous\+\_\+namespace\{setup-\/builtins-\/internal.\+cc\}\+::\+Builtin\+Assembler\+Options(), and Default().
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1AssemblerOptions_a993f283760efdfc09ae2df792b1d61ee}\label{structv8_1_1internal_1_1AssemblerOptions_a993f283760efdfc09ae2df792b1d61ee}} 
 \index{v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}!code\_range\_base@{code\_range\_base}}
 \index{code\_range\_base@{code\_range\_base}!v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}}
 \doxysubsubsection{\texorpdfstring{code\_range\_base}{code\_range\_base}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} v8\+::internal\+::\+Assembler\+Options\+::code\+\_\+range\+\_\+base = 0}
+
+
+
+Definition at line 243 of file assembler.\+h.
+
+
+
+Referenced by Default().
 
 \mbox{\Hypertarget{structv8_1_1internal_1_1AssemblerOptions_a23bf6f4ee2bad573c020e81753dfa9da}\label{structv8_1_1internal_1_1AssemblerOptions_a23bf6f4ee2bad573c020e81753dfa9da}} 
 \index{v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}!collect\_win64\_unwind\_info@{collect\_win64\_unwind\_info}}
@@ -62,11 +162,23 @@ static \mbox{\hyperlink{structv8_1_1internal_1_1AssemblerOptions}{Assembler\+Opt
 \doxysubsubsection{\texorpdfstring{collect\_win64\_unwind\_info}{collect\_win64\_unwind\_info}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Assembler\+Options\+::collect\+\_\+win64\+\_\+unwind\+\_\+info = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}}
 
+
+
+Definition at line 247 of file assembler.\+h.
+
+
+
+Referenced by v8\+::internal\+::anonymous\+\_\+namespace\{setup-\/builtins-\/internal.\+cc\}\+::\+Builtin\+Assembler\+Options().
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1AssemblerOptions_a1de4c3fd30746fb37f2c9f97b9f58abe}\label{structv8_1_1internal_1_1AssemblerOptions_a1de4c3fd30746fb37f2c9f97b9f58abe}} 
 \index{v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}!emit\_code\_comments@{emit\_code\_comments}}
 \index{emit\_code\_comments@{emit\_code\_comments}!v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}}
 \doxysubsubsection{\texorpdfstring{emit\_code\_comments}{emit\_code\_comments}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Assembler\+Options\+::emit\+\_\+code\+\_\+comments = v8\+\_\+flags.\+code\+\_\+comments}
+
+
+
+Definition at line 249 of file assembler.\+h.
 
 \mbox{\Hypertarget{structv8_1_1internal_1_1AssemblerOptions_af46f34707cf84f179a9a62b089c83d7e}\label{structv8_1_1internal_1_1AssemblerOptions_af46f34707cf84f179a9a62b089c83d7e}} 
 \index{v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}!enable\_root\_relative\_access@{enable\_root\_relative\_access}}
@@ -74,11 +186,27 @@ static \mbox{\hyperlink{structv8_1_1internal_1_1AssemblerOptions}{Assembler\+Opt
 \doxysubsubsection{\texorpdfstring{enable\_root\_relative\_access}{enable\_root\_relative\_access}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Assembler\+Options\+::enable\+\_\+root\+\_\+relative\+\_\+access = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}}
 
+
+
+Definition at line 222 of file assembler.\+h.
+
+
+
+Referenced by Default(), and v8\+::internal\+::compiler\+::turboshaft\+::\+Instruction\+Selection\+Phase\+::\+Run().
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1AssemblerOptions_a9afdb5645d6e0b146269081ecd127375}\label{structv8_1_1internal_1_1AssemblerOptions_a9afdb5645d6e0b146269081ecd127375}} 
 \index{v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}!enable\_simulator\_code@{enable\_simulator\_code}}
 \index{enable\_simulator\_code@{enable\_simulator\_code}!v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}}
 \doxysubsubsection{\texorpdfstring{enable\_simulator\_code}{enable\_simulator\_code}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Assembler\+Options\+::enable\+\_\+simulator\+\_\+code = \mbox{\hyperlink{common_2globals_8h_afe34d0cb524a2f607a7f4cff781aec39}{USE\+\_\+\+SIMULATOR\+\_\+\+BOOL}}}
+
+
+
+Definition at line 224 of file assembler.\+h.
+
+
+
+Referenced by Default(), v8\+::internal\+::anonymous\+\_\+namespace\{builtins-\/riscv.\+cc\}\+::\+Switch\+Simulator\+Stack\+Limit(), and v8\+::internal\+::anonymous\+\_\+namespace\{builtins-\/riscv.\+cc\}\+::\+Switch\+Stack\+Pointer\+And\+Simulator\+Stack\+Limit().
 
 \mbox{\Hypertarget{structv8_1_1internal_1_1AssemblerOptions_a55a87fe9c4c81f2ab405efc82eed4388}\label{structv8_1_1internal_1_1AssemblerOptions_a55a87fe9c4c81f2ab405efc82eed4388}} 
 \index{v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}!is\_wasm@{is\_wasm}}
@@ -86,17 +214,41 @@ static \mbox{\hyperlink{structv8_1_1internal_1_1AssemblerOptions}{Assembler\+Opt
 \doxysubsubsection{\texorpdfstring{is\_wasm}{is\_wasm}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Assembler\+Options\+::is\+\_\+wasm = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}}
 
+
+
+Definition at line 251 of file assembler.\+h.
+
+
+
+Referenced by v8\+::internal\+::anonymous\+\_\+namespace\{setup-\/builtins-\/internal.\+cc\}\+::\+Builtin\+Assembler\+Options(), v8\+::internal\+::\+Macro\+Assembler\+::\+Call\+Runtime(), v8\+::internal\+::wasm\+::anonymous\+\_\+namespace\{liftoff-\/assembler.\+cc\}\+::\+Default\+Liftoff\+Options(), v8\+::internal\+::compiler\+::\+Pipeline\+::\+Generate\+Code\+For\+Testing(), and v8\+::internal\+::compiler\+::\+TFPipeline\+Data\+::\+Initialize\+Code\+Generator().
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1AssemblerOptions_a66c0f370780a095edcebd1550adb13cd}\label{structv8_1_1internal_1_1AssemblerOptions_a66c0f370780a095edcebd1550adb13cd}} 
 \index{v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}!isolate\_independent\_code@{isolate\_independent\_code}}
 \index{isolate\_independent\_code@{isolate\_independent\_code}!v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}}
 \doxysubsubsection{\texorpdfstring{isolate\_independent\_code}{isolate\_independent\_code}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Assembler\+Options\+::isolate\+\_\+independent\+\_\+code = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}}
 
+
+
+Definition at line 228 of file assembler.\+h.
+
+
+
+Referenced by v8\+::internal\+::anonymous\+\_\+namespace\{setup-\/builtins-\/internal.\+cc\}\+::\+Builtin\+Assembler\+Options(), and v8\+::internal\+::\+Assembler\+Base\+::is\+\_\+constant\+\_\+pool\+\_\+available().
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1AssemblerOptions_a3322787178fcccbbbd73604dc0a87f15}\label{structv8_1_1internal_1_1AssemblerOptions_a3322787178fcccbbbd73604dc0a87f15}} 
 \index{v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}!record\_reloc\_info\_for\_serialization@{record\_reloc\_info\_for\_serialization}}
 \index{record\_reloc\_info\_for\_serialization@{record\_reloc\_info\_for\_serialization}!v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}}
 \doxysubsubsection{\texorpdfstring{record\_reloc\_info\_for\_serialization}{record\_reloc\_info\_for\_serialization}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Assembler\+Options\+::record\+\_\+reloc\+\_\+info\+\_\+for\+\_\+serialization = \mbox{\hyperlink{namespacev8_1_1internal_a7f5302a7c7fd292ffd4a5f9758bd3686}{true}}}
+
+
+
+Definition at line 219 of file assembler.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Assembler\+::\+Constant\+Pool\+Add\+Entry(), Default(), v8\+::internal\+::compiler\+::\+Wasm\+Assembler\+Options(), and v8\+::internal\+::compiler\+::\+Wasm\+Stub\+Assembler\+Options().
 
 \mbox{\Hypertarget{structv8_1_1internal_1_1AssemblerOptions_a19214b0044dcecba9b0ebc532deb2c13}\label{structv8_1_1internal_1_1AssemblerOptions_a19214b0044dcecba9b0ebc532deb2c13}} 
 \index{v8::internal::AssemblerOptions@{v8::internal::AssemblerOptions}!use\_pc\_relative\_calls\_and\_jumps\_for\_mksnapshot@{use\_pc\_relative\_calls\_and\_jumps\_for\_mksnapshot}}
@@ -106,7 +258,15 @@ static \mbox{\hyperlink{structv8_1_1internal_1_1AssemblerOptions}{Assembler\+Opt
 
 
 
+Definition at line 239 of file assembler.\+h.
+
+
+
+Referenced by v8\+::internal\+::anonymous\+\_\+namespace\{setup-\/builtins-\/internal.\+cc\}\+::\+Builtin\+Assembler\+Options().
+
+
+
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{codegen_2assembler_8h}{codegen/assembler.\+h}}\item 
-\mbox{\hyperlink{codegen_2assembler_8cc}{codegen/assembler.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/codegen/\mbox{\hyperlink{codegen_2assembler_8h}{assembler.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/codegen/\mbox{\hyperlink{codegen_2assembler_8cc}{assembler.\+cc}}\end{DoxyCompactItemize}

@@ -1,6 +1,10 @@
 var instruction_scheduler_8h =
 [
     [ "InstructionScheduler", "classv8_1_1internal_1_1compiler_1_1InstructionScheduler.html", "classv8_1_1internal_1_1compiler_1_1InstructionScheduler" ],
+    [ "ScheduleGraphNode", "classv8_1_1internal_1_1compiler_1_1InstructionScheduler_1_1ScheduleGraphNode.html", "classv8_1_1internal_1_1compiler_1_1InstructionScheduler_1_1ScheduleGraphNode" ],
+    [ "SchedulingQueueBase", "classv8_1_1internal_1_1compiler_1_1InstructionScheduler_1_1SchedulingQueueBase.html", "classv8_1_1internal_1_1compiler_1_1InstructionScheduler_1_1SchedulingQueueBase" ],
+    [ "CriticalPathFirstQueue", "classv8_1_1internal_1_1compiler_1_1InstructionScheduler_1_1CriticalPathFirstQueue.html", "classv8_1_1internal_1_1compiler_1_1InstructionScheduler_1_1CriticalPathFirstQueue" ],
+    [ "StressSchedulerQueue", "classv8_1_1internal_1_1compiler_1_1InstructionScheduler_1_1StressSchedulerQueue.html", "classv8_1_1internal_1_1compiler_1_1InstructionScheduler_1_1StressSchedulerQueue" ],
     [ "ArchOpcodeFlags", "instruction-scheduler_8h.html#a25e270104c681c4ff04488c7f638c236", [
       [ "kNoOpcodeFlags", "instruction-scheduler_8h.html#a25e270104c681c4ff04488c7f638c236a32ad8d8323d176d9946aefe7281090bb", null ],
       [ "kHasSideEffect", "instruction-scheduler_8h.html#a25e270104c681c4ff04488c7f638c236af1da867775f374a357da0d82ba4592bf", null ],

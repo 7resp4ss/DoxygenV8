@@ -1,0 +1,5 @@
+var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1anonymous__namespace_02graph_builder_8cc_03_1_1GraphBuilder_1_1BlockData =
+[
+    [ "block", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1anonymous__namespace_02graph-builder_8cc_03_1_1GraphBuilder_1_1BlockData.html#add5e13c5084b60350c3e0ce7fae9f4ac", null ],
+    [ "final_frame_state", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1anonymous__namespace_02graph-builder_8cc_03_1_1GraphBuilder_1_1BlockData.html#a395d1537d4609e63788f3092574f2cc9", null ]
+];

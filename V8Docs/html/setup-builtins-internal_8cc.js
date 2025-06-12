@@ -10,5 +10,20 @@ var setup_builtins_internal_8cc =
     [ "BUILD_TSC_WITHOUT_JOB", "setup-builtins-internal_8cc.html#a7287e6191ce54241385acb0c3b61c741", null ],
     [ "BUILD_TSJ_WITHOUT_JOB", "setup-builtins-internal_8cc.html#a0e43ded166f412e60d644405f604c60e", null ],
     [ "FORWARD_DECLARE", "setup-builtins-internal_8cc.html#aeed576336af5fc9c00ce909e57bdb9cd", null ],
-    [ "NOP", "setup-builtins-internal_8cc.html#ac66f7950aef0d57c14d7acc298145bdd", null ]
+    [ "NOP", "setup-builtins-internal_8cc.html#ac66f7950aef0d57c14d7acc298145bdd", null ],
+    [ "BuiltinCompilationScheduler", "setup-builtins-internal_8cc.html#a4d6d4b39721339ace4a23e4063f517b7", null ],
+    [ "CodeAssemblerGenerator", "setup-builtins-internal_8cc.html#acd27b56033bdc2555692ed613662b263", null ],
+    [ "CodeAssemblerInstaller", "setup-builtins-internal_8cc.html#a7cb62609b1b7c7c339fcc78ae9fa9483", null ],
+    [ "MacroAssemblerGenerator", "setup-builtins-internal_8cc.html#a8087db7b511939a0286cd939731bdc5e", null ],
+    [ "TurboshaftAssemblerGenerator", "setup-builtins-internal_8cc.html#a43da364e9feced2299138e46abd04745", null ],
+    [ "BuildAdaptor", "setup-builtins-internal_8cc.html#ad3116959190dc9d6a95567288e0e2ba7", null ],
+    [ "BuildPlaceholder", "setup-builtins-internal_8cc.html#aacb8ebdb845bc8cf02ecfa19b9fe501e", null ],
+    [ "BuildWithMacroAssembler", "setup-builtins-internal_8cc.html#a1c853b5717adb735dd0571181379ffba", null ],
+    [ "BuildWithTurboshaftAssemblerCS", "setup-builtins-internal_8cc.html#a4015d53a749423822c3fb8dca832ec00", null ],
+    [ "BuildWithTurboshaftAssemblerJS", "setup-builtins-internal_8cc.html#a4a0ac308426a02d8ae5aa8858a8b3b38", null ],
+    [ "BuiltinAssemblerOptions", "setup-builtins-internal_8cc.html#a8ac8ecb2ec61923dfc883c5ee4877951", null ],
+    [ "CompileBytecodeHandler", "setup-builtins-internal_8cc.html#a50c41edc759772771e0fb7ce5f0daa1f", null ],
+    [ "CompileCSLinkageCodeStubBuiltin", "setup-builtins-internal_8cc.html#ae6f15cf4c6526527be09a41bedd95768", null ],
+    [ "CompileJSLinkageCodeStubBuiltin", "setup-builtins-internal_8cc.html#a2af72740ffa0953181278242eb10ddab", null ],
+    [ "kBufferSize", "setup-builtins-internal_8cc.html#aaf91439cfd8e6acdbf165becfe9df8ff", null ]
 ];

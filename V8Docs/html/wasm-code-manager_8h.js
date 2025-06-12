@@ -7,9 +7,11 @@ var wasm_code_manager_8h =
     [ "NativeModule", "classv8_1_1internal_1_1wasm_1_1NativeModule.html", "classv8_1_1internal_1_1wasm_1_1NativeModule" ],
     [ "NativeModuleAllocationLockScope", "classv8_1_1internal_1_1wasm_1_1NativeModule_1_1NativeModuleAllocationLockScope.html", "classv8_1_1internal_1_1wasm_1_1NativeModule_1_1NativeModuleAllocationLockScope" ],
     [ "JumpTablesRef", "structv8_1_1internal_1_1wasm_1_1NativeModule_1_1JumpTablesRef.html", "structv8_1_1internal_1_1wasm_1_1NativeModule_1_1JumpTablesRef" ],
+    [ "CodeSpaceData", "structv8_1_1internal_1_1wasm_1_1NativeModule_1_1CodeSpaceData.html", "structv8_1_1internal_1_1wasm_1_1NativeModule_1_1CodeSpaceData" ],
     [ "WasmCodeManager", "classv8_1_1internal_1_1wasm_1_1WasmCodeManager.html", "classv8_1_1internal_1_1wasm_1_1WasmCodeManager" ],
     [ "WasmCodeRefScope", "classv8_1_1internal_1_1wasm_1_1WasmCodeRefScope.html", "classv8_1_1internal_1_1wasm_1_1WasmCodeRefScope" ],
     [ "WasmCodeLookupCache", "classv8_1_1internal_1_1wasm_1_1WasmCodeLookupCache.html", "classv8_1_1internal_1_1wasm_1_1WasmCodeLookupCache" ],
+    [ "CacheEntry", "structv8_1_1internal_1_1wasm_1_1WasmCodeLookupCache_1_1CacheEntry.html", "structv8_1_1internal_1_1wasm_1_1WasmCodeLookupCache_1_1CacheEntry" ],
     [ "GetCodeKind", "wasm-code-manager_8h.html#ac5c325f4f80fa26ae7e7bd8fa6caed93", null ],
     [ "GetWasmCodeKindAsString", "wasm-code-manager_8h.html#a7d4fcae80d23d6a3fd336b7ed70eee1e", null ],
     [ "kInvalidWasmCodePointer", "wasm-code-manager_8h.html#a7d41c6d12091165e18a14f58ae8b1b91", null ]

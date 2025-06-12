@@ -15,5 +15,7 @@ var structv8_1_1internal_1_1TaggedPayload =
     [ "operator==", "structv8_1_1internal_1_1TaggedPayload.html#ad5b590da713a19004f5ab700245ff935", null ],
     [ "SetMarkBit", "structv8_1_1internal_1_1TaggedPayload.html#a511a690e26733d36d2484f182e65b5a3", null ],
     [ "SetTag", "structv8_1_1internal_1_1TaggedPayload.html#aef278fdf70454119bac41fdb86c20c21", null ],
-    [ "Untag", "structv8_1_1internal_1_1TaggedPayload.html#a30d532cde6eff855cd8ab151967668a8", null ]
+    [ "Tag", "structv8_1_1internal_1_1TaggedPayload.html#a962a4dad48166346cfb42301cc7639e8", null ],
+    [ "Untag", "structv8_1_1internal_1_1TaggedPayload.html#a30d532cde6eff855cd8ab151967668a8", null ],
+    [ "encoded_word_", "structv8_1_1internal_1_1TaggedPayload.html#aa9f7d4997f4804d3500e5df0d1160074", null ]
 ];

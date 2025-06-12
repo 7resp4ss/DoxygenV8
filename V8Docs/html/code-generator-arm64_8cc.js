@@ -1,6 +1,7 @@
 var code_generator_arm64_8cc =
 [
     [ "Arm64OperandConverter", "classv8_1_1internal_1_1compiler_1_1Arm64OperandConverter.html", "classv8_1_1internal_1_1compiler_1_1Arm64OperandConverter" ],
+    [ "OutOfLineRecordWrite", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm64_8cc_03_1_1OutOfLineRecordWrite.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm64_8cc_03_1_1OutOfLineRecordWrite" ],
     [ "__", "code-generator-arm64_8cc.html#a0a87998f4e8cee4888f2a89df3d5639b", null ],
     [ "ASSEMBLE_ATOMIC_AND", "code-generator-arm64_8cc.html#a10aae07b01e0f6c7101d320c3f3b68d7", null ],
     [ "ASSEMBLE_ATOMIC_BINOP", "code-generator-arm64_8cc.html#a9cbd1619cdb8a0848f52a6b7bb0b6ce7", null ],
@@ -15,18 +16,14 @@ var code_generator_arm64_8cc =
     [ "ASSEMBLE_SIMD_SHIFT_LEFT", "code-generator-arm64_8cc.html#acd8c252da26fe24f43a918f80527faa6", null ],
     [ "ASSEMBLE_SIMD_SHIFT_RIGHT", "code-generator-arm64_8cc.html#a32e0814033354c75aba9292b5a28e497", null ],
     [ "ATOMIC_BINOP_CASE", "code-generator-arm64_8cc.html#a82fcb46a1460459d02289b25ac40f048", null ],
+    [ "AdjustStackPointerForTailCall", "code-generator-arm64_8cc.html#ac294d0c15cdae4fdcb642a90559f4b05", null ],
     [ "AssembleConditionalCompareChain", "code-generator-arm64_8cc.html#a5b4157e4d68bf9bd89e49b536f1fdcbd", null ],
     [ "ConditionToDefaultFlags", "code-generator-arm64_8cc.html#abc36062c5abad33071fd01fc136d1101", null ],
+    [ "EmitFpOrNeonUnop", "code-generator-arm64_8cc.html#ac63e64466f1ccdb20ebdc7eb3f34ee45", null ],
+    [ "FlagsConditionToCondition", "code-generator-arm64_8cc.html#a5e292c4ef2427160ee3d41bd576e764f", null ],
     [ "GetLaneMask", "code-generator-arm64_8cc.html#ad517329fd45df7a82d79b35843e7be6b", null ],
+    [ "RecordTrapInfoIfNeeded", "code-generator-arm64_8cc.html#a23172ef6eb75b2bbf02128fc66e49b18", null ],
     [ "Shuffle1Helper", "code-generator-arm64_8cc.html#afe1604f47fbc9f0e1855a1696a32b46a", null ],
     [ "Shuffle2Helper", "code-generator-arm64_8cc.html#ad8c12d583151ba6439ce3ed1f679c8da", null ],
-    [ "Shuffle4Helper", "code-generator-arm64_8cc.html#ab650c86d8b8c52c0f452c88feb8a9cd0", null ],
-    [ "indirect_pointer_tag_", "code-generator-arm64_8cc.html#ac65776d707ac07cc6389ba76807fa3a7", null ],
-    [ "mode_", "code-generator-arm64_8cc.html#adc5709192230b7fde07de03eb2974043", null ],
-    [ "must_save_lr_", "code-generator-arm64_8cc.html#a41a2de46b73ead1c0417e8f1751a5022", null ],
-    [ "object_", "code-generator-arm64_8cc.html#a5563c55e446f92e237e9fb9b07b423b6", null ],
-    [ "offset_", "code-generator-arm64_8cc.html#ab11f8f1256e847420fa280346be66736", null ],
-    [ "unwinding_info_writer_", "code-generator-arm64_8cc.html#a169281d819fe1cec036d4799afb2accf", null ],
-    [ "value_", "code-generator-arm64_8cc.html#ac1b34591c0a6bb909fcc2d34d0b5aaff", null ],
-    [ "zone_", "code-generator-arm64_8cc.html#a4979f6e7e64e9ee56f4229d03fa20c69", null ]
+    [ "Shuffle4Helper", "code-generator-arm64_8cc.html#ab650c86d8b8c52c0f452c88feb8a9cd0", null ]
 ];

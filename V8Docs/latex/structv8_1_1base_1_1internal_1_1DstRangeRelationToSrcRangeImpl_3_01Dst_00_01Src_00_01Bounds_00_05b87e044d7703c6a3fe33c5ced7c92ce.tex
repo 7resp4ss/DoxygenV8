@@ -4,11 +4,31 @@
 
 {\ttfamily \#include $<$safe\+\_\+conversions\+\_\+impl.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::base\+::internal\+::Dst\+Range\+Relation\+To\+Src\+Range\+Impl$<$ Dst, Src, Bounds, Integer\+Representation\+::k\+Unsigned, Integer\+Representation\+::k\+Signed, Numeric\+Range\+Representation\+::k\+Not\+Contained $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{structv8_1_1base_1_1internal_1_1DstRangeRelationToSrcRangeImpl_3_01Dst_00_01Src_00_01Bounds_00_0d70cf92bcfb970021996a6122b5643ed}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static constexpr \mbox{\hyperlink{classv8_1_1base_1_1internal_1_1RangeCheck}{Range\+Check}} \mbox{\hyperlink{structv8_1_1base_1_1internal_1_1DstRangeRelationToSrcRangeImpl_3_01Dst_00_01Src_00_01Bounds_00_05b87e044d7703c6a3fe33c5ced7c92ce_a81079165d15e088384f17c16dc43a753}{Check}} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a8921e87be2d8dbb6dea1b0d5e6e36d7c}{Src}} \mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+static constexpr \mbox{\hyperlink{classv8_1_1base_1_1internal_1_1RangeCheck}{Range\+Check}} \mbox{\hyperlink{structv8_1_1base_1_1internal_1_1DstRangeRelationToSrcRangeImpl_3_01Dst_00_01Src_00_01Bounds_00_05b87e044d7703c6a3fe33c5ced7c92ce_a81079165d15e088384f17c16dc43a753}{Check}} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a8921e87be2d8dbb6dea1b0d5e6e36d7c}{Src}} value)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Dst, typename Src, template$<$ typename $>$ class Bounds$>$\newline
+struct v8\+::base\+::internal\+::\+Dst\+Range\+Relation\+To\+Src\+Range\+Impl$<$ Dst, Src, Bounds, Integer\+Representation\+::k\+Unsigned, Integer\+Representation\+::k\+Signed, Numeric\+Range\+Representation\+::k\+Not\+Contained $>$}
+
+
+
+Definition at line 294 of file safe\+\_\+conversions\+\_\+impl.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -21,6 +41,38 @@ static constexpr \mbox{\hyperlink{classv8_1_1base_1_1internal_1_1RangeCheck}{Ran
 
 
 
+Definition at line 297 of file safe\+\_\+conversions\+\_\+impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{297                                                \{}
+\DoxyCodeLine{298     \textcolor{keyword}{using} SrcLimits = std::numeric\_limits<Src>;}
+\DoxyCodeLine{299     \textcolor{keyword}{using} DstLimits = NarrowingRange<Dst, Src, Bounds>;}
+\DoxyCodeLine{300     \textcolor{keyword}{using} Promotion = decltype(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a8921e87be2d8dbb6dea1b0d5e6e36d7c}{Src}}() + Dst());}
+\DoxyCodeLine{301     \textcolor{keywordtype}{bool} ge\_zero;}
+\DoxyCodeLine{302     \textcolor{comment}{// Converting floating-\/point to integer will discard fractional part, so}}
+\DoxyCodeLine{303     \textcolor{comment}{// values in (-\/1.0, -\/0.0) will truncate to 0 and fit in Dst.}}
+\DoxyCodeLine{304     \textcolor{keywordflow}{if} constexpr (std::is\_floating\_point\_v<Src>) \{}
+\DoxyCodeLine{305       ge\_zero = \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} > \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a8921e87be2d8dbb6dea1b0d5e6e36d7c}{Src}}\{-\/1\};}
+\DoxyCodeLine{306     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{307       ge\_zero = \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} >= \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a8921e87be2d8dbb6dea1b0d5e6e36d7c}{Src}}\{0\};}
+\DoxyCodeLine{308     \}}
+\DoxyCodeLine{309     \textcolor{keywordflow}{return} RangeCheck(}
+\DoxyCodeLine{310         ge\_zero \&\& (DstLimits::lowest() == 0 ||}
+\DoxyCodeLine{311                     \textcolor{keyword}{static\_cast<}Dst\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}) >= DstLimits::lowest()),}
+\DoxyCodeLine{312         \textcolor{keyword}{static\_cast<}Promotion\textcolor{keyword}{>}(SrcLimits::max()) <=}
+\DoxyCodeLine{313                 \textcolor{keyword}{static\_cast<}Promotion\textcolor{keyword}{>}(DstLimits::max()) ||}
+\DoxyCodeLine{314             \textcolor{keyword}{static\_cast<}Promotion\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}) <=}
+\DoxyCodeLine{315                 \textcolor{keyword}{static\_cast<}Promotion\textcolor{keyword}{>}(DstLimits::max()));}
+\DoxyCodeLine{316   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::internal\+::\+Src, and v8\+::internal\+::value.
+
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{safe__conversions__impl_8h}{safe\+\_\+conversions\+\_\+impl.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/base/numerics/\mbox{\hyperlink{safe__conversions__impl_8h}{safe\+\_\+conversions\+\_\+impl.\+h}}\end{DoxyCompactItemize}

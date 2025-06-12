@@ -1,8 +1,26 @@
 var date_8cc =
 [
+    [ "FormatDate", "date_8cc.html#a8fca054555bd64b4cbae71f435b2d183", null ],
     [ "MakeDate", "date_8cc.html#a15e716a25ee6029bc361dc7a9f95e687", null ],
     [ "MakeDay", "date_8cc.html#a8aa7adca19ab30657cac1ecd04bfa83e", null ],
     [ "MakeTime", "date_8cc.html#a96ac16e82505af14b413addff24c5b74", null ],
     [ "ParseDateTimeString", "date_8cc.html#adc23ffa03ad8f3e49027522e7efdf5d7", null ],
-    [ "ToDateString", "date_8cc.html#a5b75ec7515aae9f6233e5a71e89c5720", null ]
+    [ "ToDateString", "date_8cc.html#a5b75ec7515aae9f6233e5a71e89c5720", null ],
+    [ "kDays1970to2000", "date_8cc.html#a7957f05b3f29dbdd93ed96b2520db5f1", null ],
+    [ "kDaysIn100Years", "date_8cc.html#a58f23ca1525ddc90433e2f1083316346", null ],
+    [ "kDaysIn400Years", "date_8cc.html#af5eb61a754f86c20588dfc614e7ab823", null ],
+    [ "kDaysIn4Years", "date_8cc.html#a42159147f263c5948e9f8d8f965724cb", null ],
+    [ "kDaysInMonths", "date_8cc.html#a089f26e517e4b144c14f85329d7541c7", null ],
+    [ "kDaysOffset", "date_8cc.html#a058295f5dd585d6464144af1d3d87e1f", null ],
+    [ "kMaxMonth", "date_8cc.html#a23d8339c5aaee6a04a19bd95c2cf07ec", null ],
+    [ "kMaxYear", "date_8cc.html#a48057d257109bfae181f1f0f361bf0f1", null ],
+    [ "kMinMonth", "date_8cc.html#ad479e35ccfcdaa0ab70752369b36687f", null ],
+    [ "kMinYear", "date_8cc.html#ad7711878976badce5a0bad719c5bd5d6", null ],
+    [ "kMsPerDay", "date_8cc.html#a5a287c42cbb5a31e4b4ab933c41ef0c4", null ],
+    [ "kMsPerHour", "date_8cc.html#aafa6f6b85e9d3b0e879e4c6ec07c1246", null ],
+    [ "kMsPerMinute", "date_8cc.html#afebd238eb51bcb6330c203b67598c219", null ],
+    [ "kMsPerSecond", "date_8cc.html#ae9f23ecb394fe26929e45a0f0fb5ab1f", null ],
+    [ "kShortMonths", "date_8cc.html#a844895f597ceebdebe440a35db8c4fc3", null ],
+    [ "kShortWeekDays", "date_8cc.html#a15415ca91a4f0e970bf28803b0d07fa9", null ],
+    [ "kYearsOffset", "date_8cc.html#ab21d4673513254edf73e2631009eb75b", null ]
 ];

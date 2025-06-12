@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::base\+::Virtual\+Address\+Space\+Base\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=215pt]{classv8_1_1base_1_1VirtualAddressSpaceBase__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1base_1_1VirtualAddressSpaceBase__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -29,9 +29,48 @@ Collaboration diagram for v8\+::base\+::Virtual\+Address\+Space\+Base\+:
 \item 
 \mbox{\hyperlink{classv8_1_1base_1_1VirtualAddressSpaceBase_a89ac2a1056b489546fc71c9190ca89c1}{Virtual\+Address\+Space}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classv8_1_1base_1_1VirtualAddressSpaceBase_a390967a9390bd0e8efc21b80cf44dc5f}{Free\+Subspace}} (\mbox{\hyperlink{classv8_1_1base_1_1VirtualAddressSubspace}{Virtual\+Address\+Subspace}} $\ast$subspace)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+friend \mbox{\hyperlink{classv8_1_1base_1_1VirtualAddressSpaceBase_ab8bf66900c2aacfea5a4d47a7b44bd85}{Virtual\+Address\+Subspace}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 26 of file virtual-\/address-\/space.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1base_1_1VirtualAddressSpaceBase_a390967a9390bd0e8efc21b80cf44dc5f}\label{classv8_1_1base_1_1VirtualAddressSpaceBase_a390967a9390bd0e8efc21b80cf44dc5f}} 
+\index{v8::base::VirtualAddressSpaceBase@{v8::base::VirtualAddressSpaceBase}!FreeSubspace@{FreeSubspace}}
+\index{FreeSubspace@{FreeSubspace}!v8::base::VirtualAddressSpaceBase@{v8::base::VirtualAddressSpaceBase}}
+\doxysubsubsection{\texorpdfstring{FreeSubspace()}{FreeSubspace()}}
+{\footnotesize\ttfamily virtual void v8\+::base\+::\+Virtual\+Address\+Space\+Base\+::\+Free\+Subspace (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1base_1_1VirtualAddressSubspace}{Virtual\+Address\+Subspace}} $\ast$}]{subspace }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classv8_1_1base_1_1VirtualAddressSubspace_ac33446b7812996139d409e7652c310e6}{v8\+::base\+::\+Virtual\+Address\+Subspace}}, and \mbox{\hyperlink{classv8_1_1base_1_1VirtualAddressSpace_a824381e07f413e9478ac3cf1faef736c}{v8\+::base\+::\+Virtual\+Address\+Space}}.
+
+
+
+Referenced by v8\+::base\+::\+Virtual\+Address\+Subspace\+::$\sim$\+Virtual\+Address\+Subspace().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1base_1_1VirtualAddressSpaceBase_a390967a9390bd0e8efc21b80cf44dc5f_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1base_1_1VirtualAddressSpaceBase_a89ac2a1056b489546fc71c9190ca89c1}\label{classv8_1_1base_1_1VirtualAddressSpaceBase_a89ac2a1056b489546fc71c9190ca89c1}} 
 \index{v8::base::VirtualAddressSpaceBase@{v8::base::VirtualAddressSpaceBase}!VirtualAddressSpace@{VirtualAddressSpace}}
 \index{VirtualAddressSpace@{VirtualAddressSpace}!v8::base::VirtualAddressSpaceBase@{v8::base::VirtualAddressSpaceBase}}
@@ -40,6 +79,45 @@ Collaboration diagram for v8\+::base\+::Virtual\+Address\+Space\+Base\+:
 
 
 
+Definition at line 53 of file virtual-\/address-\/space.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54     : VirtualAddressSpaceBase(\mbox{\hyperlink{classv8_1_1base_1_1OS_a898e2ee73a8c43cc0c2a74d251f020da}{OS::CommitPageSize}}(), \mbox{\hyperlink{classv8_1_1base_1_1OS_a256fc9a746d9709bee086741843b3f2c}{OS::AllocatePageSize}}(),}
+\DoxyCodeLine{55                               \mbox{\hyperlink{namespacev8_1_1base_ae714b233e65334e0104cda752fc559c5}{kNullAddress}},}
+\DoxyCodeLine{56                               std::numeric\_limits<uintptr\_t>::max(),}
+\DoxyCodeLine{57                               \mbox{\hyperlink{namespacev8_afd990b3ba59f8683a014651f68dd2555a203620cd187bc1be1aec50642019ee57}{PagePermissions::kReadWriteExecute}}) \{}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#if V8\_OS\_WIN}}
+\DoxyCodeLine{59   \textcolor{comment}{// On Windows, this additional step is required to lookup the VirtualAlloc2}}
+\DoxyCodeLine{60   \textcolor{comment}{// and friends functions.}}
+\DoxyCodeLine{61   OS::EnsureWin32MemoryAPILoaded();}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_OS\_WIN}}
+\DoxyCodeLine{63   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1base_1_1bits_af9eb752b538fa8a66badab8f26e0e000}{bits::IsPowerOfTwo}}(page\_size()));}
+\DoxyCodeLine{64   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1base_1_1bits_af9eb752b538fa8a66badab8f26e0e000}{bits::IsPowerOfTwo}}(allocation\_granularity()));}
+\DoxyCodeLine{65   \mbox{\hyperlink{src_2base_2logging_8h_aabec5c3b7a8628298a25f044dcf89c25}{DCHECK\_GE}}(allocation\_granularity(), page\_size());}
+\DoxyCodeLine{66   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{src_2base_2macros_8h_ab7a19c1f785f31f2b190afc19875368a}{IsAligned}}(allocation\_granularity(), page\_size()));}
+\DoxyCodeLine{67 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1base_1_1VirtualAddressSpaceBase_ab8bf66900c2aacfea5a4d47a7b44bd85}\label{classv8_1_1base_1_1VirtualAddressSpaceBase_ab8bf66900c2aacfea5a4d47a7b44bd85}} 
+\index{v8::base::VirtualAddressSpaceBase@{v8::base::VirtualAddressSpaceBase}!VirtualAddressSubspace@{VirtualAddressSubspace}}
+\index{VirtualAddressSubspace@{VirtualAddressSubspace}!v8::base::VirtualAddressSpaceBase@{v8::base::VirtualAddressSpaceBase}}
+\doxysubsubsection{\texorpdfstring{VirtualAddressSubspace}{VirtualAddressSubspace}}
+{\footnotesize\ttfamily friend v8\+::base\+::\+Virtual\+Address\+Space\+Base\+::\+Virtual\+Address\+Subspace\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 32 of file virtual-\/address-\/space.\+h.
+
+
+
+Referenced by v8\+::base\+::\+Virtual\+Address\+Space\+::\+Allocate\+Subspace(), and v8\+::base\+::\+Virtual\+Address\+Subspace\+::\+Allocate\+Subspace().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{virtual-address-space_8h}{virtual-\/address-\/space.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/base/\mbox{\hyperlink{virtual-address-space_8h}{virtual-\/address-\/space.\+h}}\end{DoxyCompactItemize}

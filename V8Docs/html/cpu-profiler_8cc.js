@@ -1,7 +1,7 @@
 var cpu_profiler_8cc =
 [
     [ "CpuSampler", "classv8_1_1internal_1_1CpuSampler.html", "classv8_1_1internal_1_1CpuSampler" ],
+    [ "CpuProfilersManager", "classv8_1_1internal_1_1anonymous__namespace_02cpu-profiler_8cc_03_1_1CpuProfilersManager.html", "classv8_1_1internal_1_1anonymous__namespace_02cpu-profiler_8cc_03_1_1CpuProfilersManager" ],
     [ "PROFILER_TYPE_CASE", "cpu-profiler_8cc.html#ad1d856284182420f8ddb54c872e42dbf", null ],
-    [ "mutex_", "cpu-profiler_8cc.html#aa79b1c3ffa58499b08380edb5aa7dc13", null ],
-    [ "profilers_", "cpu-profiler_8cc.html#abf68c99e53fe4195c443ca7f4ca44474", null ]
+    [ "kProfilerStackSize", "cpu-profiler_8cc.html#ab2eea69fd5100bc497c1a3696827947a", null ]
 ];

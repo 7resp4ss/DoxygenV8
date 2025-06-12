@@ -11,5 +11,7 @@ var builtins_atomics_synchronization_8cc =
     [ "BUILTIN", "builtins-atomics-synchronization_8cc.html#aae92ee2d182393eb461d6fd3a5e318fb", null ],
     [ "BUILTIN", "builtins-atomics-synchronization_8cc.html#a613b812ebe3b08325c5f369455018b46", null ],
     [ "BUILTIN", "builtins-atomics-synchronization_8cc.html#ab62e72be9a84abeffed913dea945998b", null ],
-    [ "BUILTIN", "builtins-atomics-synchronization_8cc.html#aa12c6a830ce4e7a4201e4ae4a12c8ab2", null ]
+    [ "BUILTIN", "builtins-atomics-synchronization_8cc.html#aa12c6a830ce4e7a4201e4ae4a12c8ab2", null ],
+    [ "GetTimeoutDelta", "builtins-atomics-synchronization_8cc.html#a1602db6b479a6aef5f3b55971dbde5d6", null ],
+    [ "UnlockAsyncLockedMutexFromPromiseHandler", "builtins-atomics-synchronization_8cc.html#a70582aee11ef108997391dbd21aae440", null ]
 ];

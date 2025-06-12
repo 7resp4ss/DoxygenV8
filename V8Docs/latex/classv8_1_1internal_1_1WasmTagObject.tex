@@ -32,8 +32,15 @@ Collaboration diagram for v8\+::internal\+::Wasm\+Tag\+Object\+:
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1WasmTagObject}{Wasm\+Tag\+Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1WasmTagObject_a80e21a9531997c9d7c95d9bd95d86cd4}{New}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, const \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a1a17c60bc1e8b8ad11208d7b0d3ec5a9}{wasm\+::\+Function\+Sig}} $\ast$\mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}, \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1CanonicalTypeIndex}{wasm\+::\+Canonical\+Type\+Index}} type\+\_\+index, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ tag, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1WasmTrustedInstanceData}{Wasm\+Trusted\+Instance\+Data}} $>$ instance)
+static \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1WasmTagObject}{Wasm\+Tag\+Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1WasmTagObject_a80e21a9531997c9d7c95d9bd95d86cd4}{New}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, const \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a1a17c60bc1e8b8ad11208d7b0d3ec5a9}{wasm\+::\+Function\+Sig}} $\ast$\mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}, \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1CanonicalTypeIndex}{wasm\+::\+Canonical\+Type\+Index}} type\+\_\+index, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ tag, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1WasmTrustedInstanceData}{Wasm\+Trusted\+Instance\+Data}} $>$ instance)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 759 of file wasm-\/objects.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -43,6 +50,18 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$
 \doxysubsubsection{\texorpdfstring{MatchesSignature()}{MatchesSignature()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Wasm\+Tag\+Object\+::\+Matches\+Signature (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1CanonicalTypeIndex}{wasm\+::\+Canonical\+Type\+Index}}}]{expected\+\_\+index }\end{DoxyParamCaption})}
 
+
+
+Definition at line 2411 of file wasm-\/objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2411                                                                           \{}
+\DoxyCodeLine{2412   \textcolor{keywordflow}{return} wasm::CanonicalTypeIndex\{\textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(}
+\DoxyCodeLine{2413              this-\/>canonical\_type\_index())\} == expected\_index;}
+\DoxyCodeLine{2414 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1WasmTagObject_a80e21a9531997c9d7c95d9bd95d86cd4}\label{classv8_1_1internal_1_1WasmTagObject_a80e21a9531997c9d7c95d9bd95d86cd4}} 
 \index{v8::internal::WasmTagObject@{v8::internal::WasmTagObject}!New@{New}}
 \index{New@{New}!v8::internal::WasmTagObject@{v8::internal::WasmTagObject}}
@@ -51,7 +70,68 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$
 
 
 
+Definition at line 2367 of file wasm-\/objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2370                                                         \{}
+\DoxyCodeLine{2371   DirectHandle<JSFunction> tag\_cons(}
+\DoxyCodeLine{2372       isolate-\/>native\_context()-\/>wasm\_tag\_constructor(), isolate);}
+\DoxyCodeLine{2373 }
+\DoxyCodeLine{2374   \textcolor{comment}{// Serialize the signature.}}
+\DoxyCodeLine{2375   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(0, \mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}-\/>return\_count());}
+\DoxyCodeLine{2376   \mbox{\hyperlink{src_2base_2logging_8h_a16b382527f19b805fc8f856668f2270b}{DCHECK\_LE}}(\mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}-\/>parameter\_count(), std::numeric\_limits<int>::max());}
+\DoxyCodeLine{2377   \textcolor{keywordtype}{int} sig\_size = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}-\/>parameter\_count());}
+\DoxyCodeLine{2378   DirectHandle<PodArray<wasm::ValueType>> serialized\_sig =}
+\DoxyCodeLine{2379       \mbox{\hyperlink{classv8_1_1internal_1_1PodArray_a3f28a70fe5af7c7d45ec1d89d2afe748}{PodArray<wasm::ValueType>::New}}(isolate, sig\_size, \mbox{\hyperlink{namespacev8_1_1internal_a604d5beeb6fc8639670f737ed201e20aa0aa38c28f349d65a6819e03844b73dff}{AllocationType::kOld}});}
+\DoxyCodeLine{2380   \textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = 0;  \textcolor{comment}{// Index into the \{PodArray\} above.}}
+\DoxyCodeLine{2381   \textcolor{keywordflow}{for} (wasm::ValueType param : \mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}-\/>parameters()) \{}
+\DoxyCodeLine{2382     serialized\_sig-\/>set(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}++, param);}
+\DoxyCodeLine{2383   \}}
+\DoxyCodeLine{2384 }
+\DoxyCodeLine{2385   DirectHandle<JSObject> tag\_object =}
+\DoxyCodeLine{2386       isolate-\/>factory()-\/>NewJSObject(tag\_cons, \mbox{\hyperlink{namespacev8_1_1internal_a604d5beeb6fc8639670f737ed201e20aa0aa38c28f349d65a6819e03844b73dff}{AllocationType::kOld}});}
+\DoxyCodeLine{2387   DirectHandle<WasmTagObject> tag\_wrapper = Cast<WasmTagObject>(tag\_object);}
+\DoxyCodeLine{2388   tag\_wrapper-\/>set\_serialized\_signature(*serialized\_sig);}
+\DoxyCodeLine{2389   tag\_wrapper-\/>set\_canonical\_type\_index(type\_index.index);}
+\DoxyCodeLine{2390   tag\_wrapper-\/>set\_tag(*tag);}
+\DoxyCodeLine{2391   \textcolor{keywordflow}{if} (!trusted\_data.is\_null()) \{}
+\DoxyCodeLine{2392     tag\_wrapper-\/>set\_trusted\_data(*trusted\_data);}
+\DoxyCodeLine{2393   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{2394     tag\_wrapper-\/>clear\_trusted\_data();}
+\DoxyCodeLine{2395   \}}
+\DoxyCodeLine{2396 }
+\DoxyCodeLine{2397   \textcolor{keywordflow}{return} tag\_wrapper;}
+\DoxyCodeLine{2398 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+EQ, DCHECK\+\_\+\+LE, v8\+::internal\+::\+Isolate\+::factory(), v8\+::internal\+::index, v8\+::internal\+::wasm\+::\+Type\+Index\+::index, v8\+::internal\+::\+Direct\+Handle$<$ T $>$\+::is\+\_\+null(), v8\+::internal\+::k\+Old, v8\+::internal\+::\+Isolate\+::native\+\_\+context(), v8\+::internal\+::\+Pod\+Array$<$ T $>$\+::\+New(), v8\+::internal\+::\+Factory\+::\+New\+JSObject(), and v8\+::internal\+::sig.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Instance\+Builder\+::\+Process\+Exports(), and v8\+::anonymous\+\_\+namespace\{wasm-\/js.\+cc\}\+::\+Web\+Assembly\+Tag\+Impl().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1WasmTagObject_a80e21a9531997c9d7c95d9bd95d86cd4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1WasmTagObject_a80e21a9531997c9d7c95d9bd95d86cd4_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{wasm-objects_8h}{wasm-\/objects.\+h}}\item 
-\mbox{\hyperlink{wasm-objects_8cc}{wasm-\/objects.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{wasm-objects_8h}{wasm-\/objects.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{wasm-objects_8cc}{wasm-\/objects.\+cc}}\end{DoxyCompactItemize}

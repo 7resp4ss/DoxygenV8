@@ -1,0 +1,265 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{minor-\/mark-\/sweep.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_1_1YoungStringForwardingTableCleaner}{Young\+String\+Forwarding\+Table\+Cleaner}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_1_1MinorMSConservativeStackVisitor}{Minor\+MSConservative\+Stack\+Visitor}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_ab355be19a501854844dcc0207bce866d}{Estimate\+Max\+Number\+Of\+Remebered\+Sets}} (\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a761e4e5929b1553283fd6a532822bb17}{heap}})
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_ab365c84eb18c55fd7a7af984f0b633d7}{Is\+Unmarked\+Object\+In\+Young\+Generation}} (\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a761e4e5929b1553283fd6a532822bb17}{heap}}, \mbox{\hyperlink{classv8_1_1internal_1_1FullObjectSlot}{Full\+Object\+Slot}} p)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a2c2d4f6ca3e18cf7dc1606780afec1aa}{Visit\+Object\+With\+Cpp\+Heap\+Pointer\+Field}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{namespacev8_1_1internal_a298d2dbd83cc21c72ade1438d46c346c}{Cpp\+Heap\+Pointer\+Wrapper\+ObjectT}} $>$ object, \mbox{\hyperlink{classv8_1_1internal_1_1MarkingWorklists_a941d07bdea68cc187975415adc4dac79}{Marking\+Worklists\+::\+Local}} \&worklist)
+\item 
+intptr\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a193f659c513fa999e1e0b15fe57a5dd0}{New\+Space\+Page\+Evacuation\+Threshold}} ()
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a9ab8d6fa164cf62f8e645faa687d18a3}{Should\+Move\+Page}} (\mbox{\hyperlink{classv8_1_1internal_1_1PageMetadata}{Page\+Metadata}} $\ast$p, intptr\+\_\+t live\+\_\+bytes, intptr\+\_\+t wasted\+\_\+bytes)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_ab355be19a501854844dcc0207bce866d}\label{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_ab355be19a501854844dcc0207bce866d}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}}!EstimateMaxNumberOfRemeberedSets@{EstimateMaxNumberOfRemeberedSets}}
+\index{EstimateMaxNumberOfRemeberedSets@{EstimateMaxNumberOfRemeberedSets}!v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{EstimateMaxNumberOfRemeberedSets()}{EstimateMaxNumberOfRemeberedSets()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::anonymous\+\_\+namespace\{minor-\/mark-\/sweep.\+cc\}\+::Estimate\+Max\+Number\+Of\+Remebered\+Sets (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$}]{heap }\end{DoxyParamCaption})}
+
+
+
+Definition at line 165 of file minor-\/mark-\/sweep.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{165                                                  \{}
+\DoxyCodeLine{166   \textcolor{comment}{// old space, lo space, trusted space and trusted lo space can have a maximum}}
+\DoxyCodeLine{167   \textcolor{comment}{// of two remembered sets (OLD\_TO\_NEW and OLD\_TO\_NEW\_BACKGROUND).}}
+\DoxyCodeLine{168   \textcolor{comment}{// Code space and code lo space can have typed OLD\_TO\_NEW in addition.}}
+\DoxyCodeLine{169   \textcolor{keywordflow}{return} 2 * (\mbox{\hyperlink{namespaceheap}{heap}}-\/>old\_space()-\/>CountTotalPages() +}
+\DoxyCodeLine{170               \mbox{\hyperlink{namespaceheap}{heap}}-\/>lo\_space()-\/>PageCount() +}
+\DoxyCodeLine{171               \mbox{\hyperlink{namespaceheap}{heap}}-\/>trusted\_space()-\/>CountTotalPages() +}
+\DoxyCodeLine{172               \mbox{\hyperlink{namespaceheap}{heap}}-\/>trusted\_lo\_space()-\/>PageCount()) +}
+\DoxyCodeLine{173          3 * (\mbox{\hyperlink{namespaceheap}{heap}}-\/>code\_space()-\/>CountTotalPages() +}
+\DoxyCodeLine{174               \mbox{\hyperlink{namespaceheap}{heap}}-\/>code\_lo\_space()-\/>PageCount());}
+\DoxyCodeLine{175 \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+Young\+Generation\+Remembered\+Sets\+Marking\+Worklist\+::\+Collect\+Items().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_ab355be19a501854844dcc0207bce866d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_ab365c84eb18c55fd7a7af984f0b633d7}\label{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_ab365c84eb18c55fd7a7af984f0b633d7}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}}!IsUnmarkedObjectInYoungGeneration@{IsUnmarkedObjectInYoungGeneration}}
+\index{IsUnmarkedObjectInYoungGeneration@{IsUnmarkedObjectInYoungGeneration}!v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{IsUnmarkedObjectInYoungGeneration()}{IsUnmarkedObjectInYoungGeneration()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::anonymous\+\_\+namespace\{minor-\/mark-\/sweep.\+cc\}\+::Is\+Unmarked\+Object\+In\+Young\+Generation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$}]{heap,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1FullObjectSlot}{Full\+Object\+Slot}}}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 495 of file minor-\/mark-\/sweep.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{495                                                                      \{}
+\DoxyCodeLine{496   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.sticky\_mark\_bits) \{}
+\DoxyCodeLine{497     \textcolor{keywordflow}{return} HeapLayout::InYoungGeneration(*p);}
+\DoxyCodeLine{498   \}}
+\DoxyCodeLine{499   \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(HeapLayout::InYoungGeneration(*p), Heap::InToPage(*p));}
+\DoxyCodeLine{500   \textcolor{keywordflow}{return} HeapLayout::InYoungGeneration(*p) \&\&}
+\DoxyCodeLine{501          !\mbox{\hyperlink{namespaceheap}{heap}}-\/>non\_atomic\_marking\_state()-\/>IsMarked(Cast<HeapObject>(*p));}
+\DoxyCodeLine{502 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+IMPLIES, v8\+::internal\+::\+Heap\+::\+In\+To\+Page(), v8\+::internal\+::\+Heap\+Layout\+::\+In\+Young\+Generation(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::\+Minor\+Mark\+Sweep\+Collector\+::\+Clear\+Non\+Live\+References().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_ab365c84eb18c55fd7a7af984f0b633d7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_ab365c84eb18c55fd7a7af984f0b633d7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a193f659c513fa999e1e0b15fe57a5dd0}\label{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a193f659c513fa999e1e0b15fe57a5dd0}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}}!NewSpacePageEvacuationThreshold@{NewSpacePageEvacuationThreshold}}
+\index{NewSpacePageEvacuationThreshold@{NewSpacePageEvacuationThreshold}!v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{NewSpacePageEvacuationThreshold()}{NewSpacePageEvacuationThreshold()}}
+{\footnotesize\ttfamily intptr\+\_\+t v8\+::internal\+::anonymous\+\_\+namespace\{minor-\/mark-\/sweep.\+cc\}\+::New\+Space\+Page\+Evacuation\+Threshold (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 868 of file minor-\/mark-\/sweep.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{868                                            \{}
+\DoxyCodeLine{869   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.minor\_ms\_page\_promotion\_threshold *}
+\DoxyCodeLine{870          MemoryChunkLayout::AllocatableMemoryInDataPage() / 100;}
+\DoxyCodeLine{871 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Memory\+Chunk\+Layout\+::\+Allocatable\+Memory\+In\+Data\+Page(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by Should\+Move\+Page().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a193f659c513fa999e1e0b15fe57a5dd0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a193f659c513fa999e1e0b15fe57a5dd0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a9ab8d6fa164cf62f8e645faa687d18a3}\label{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a9ab8d6fa164cf62f8e645faa687d18a3}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}}!ShouldMovePage@{ShouldMovePage}}
+\index{ShouldMovePage@{ShouldMovePage}!v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ShouldMovePage()}{ShouldMovePage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::anonymous\+\_\+namespace\{minor-\/mark-\/sweep.\+cc\}\+::Should\+Move\+Page (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1PageMetadata}{Page\+Metadata}} $\ast$}]{p,  }\item[{intptr\+\_\+t}]{live\+\_\+bytes,  }\item[{intptr\+\_\+t}]{wasted\+\_\+bytes }\end{DoxyParamCaption})}
+
+
+
+Definition at line 873 of file minor-\/mark-\/sweep.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{874                                            \{}
+\DoxyCodeLine{875   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.page\_promotion);}
+\DoxyCodeLine{876   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.sticky\_mark\_bits);}
+\DoxyCodeLine{877   Heap* \mbox{\hyperlink{namespaceheap}{heap}} = p-\/>heap();}
+\DoxyCodeLine{878   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!p-\/>Chunk()-\/>NeverEvacuate());}
+\DoxyCodeLine{879   \textcolor{keyword}{const} \textcolor{keywordtype}{bool} should\_move\_page =}
+\DoxyCodeLine{880       ((live\_bytes + wasted\_bytes) > \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a193f659c513fa999e1e0b15fe57a5dd0}{NewSpacePageEvacuationThreshold}}() ||}
+\DoxyCodeLine{881        (p-\/>AllocatedLabSize() == 0)) \&\&}
+\DoxyCodeLine{882       (\mbox{\hyperlink{namespaceheap}{heap}}-\/>new\_space()-\/>IsPromotionCandidate(p)) \&\&}
+\DoxyCodeLine{883       \mbox{\hyperlink{namespaceheap}{heap}}-\/>CanExpandOldGeneration(live\_bytes);}
+\DoxyCodeLine{884   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_page\_promotions) \{}
+\DoxyCodeLine{885     \mbox{\hyperlink{namespacev8_1_1internal_ada9f491dce0173d9e92b0dfaeaf8b64c}{PrintIsolate}}(}
+\DoxyCodeLine{886         \mbox{\hyperlink{namespaceheap}{heap}}-\/>isolate(),}
+\DoxyCodeLine{887         \textcolor{stringliteral}{"{}[Page Promotion] \%p: collector=mms, should move: \%d"{}}}
+\DoxyCodeLine{888         \textcolor{stringliteral}{"{}, live bytes = \%zu, wasted bytes = \%zu, promotion threshold = \%zu"{}}}
+\DoxyCodeLine{889         \textcolor{stringliteral}{"{}, allocated labs size = \%zu\(\backslash\)n"{}},}
+\DoxyCodeLine{890         p, should\_move\_page, live\_bytes, wasted\_bytes,}
+\DoxyCodeLine{891         \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a193f659c513fa999e1e0b15fe57a5dd0}{NewSpacePageEvacuationThreshold}}(), p-\/>AllocatedLabSize());}
+\DoxyCodeLine{892   \}}
+\DoxyCodeLine{893   \textcolor{keywordflow}{if} (!should\_move\_page \&\&}
+\DoxyCodeLine{894       (p-\/>AgeInNewSpace() == \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.minor\_ms\_max\_page\_age)) \{}
+\DoxyCodeLine{895     \textcolor{comment}{// Don't allocate on old pages so that recently allocated objects on the}}
+\DoxyCodeLine{896     \textcolor{comment}{// page get a chance to die young. The page will be force promoted on the}}
+\DoxyCodeLine{897     \textcolor{comment}{// next GC because `AllocatedLabSize` will be 0.}}
+\DoxyCodeLine{898     p-\/>Chunk()-\/>SetFlagNonExecutable(MemoryChunk::NEVER\_ALLOCATE\_ON\_PAGE);}
+\DoxyCodeLine{899   \}}
+\DoxyCodeLine{900   \textcolor{keywordflow}{return} should\_move\_page;}
+\DoxyCodeLine{901 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Mutable\+Page\+Metadata\+::\+Age\+In\+New\+Space(), v8\+::internal\+::\+Mutable\+Page\+Metadata\+::\+Allocated\+Lab\+Size(), v8\+::internal\+::\+Memory\+Chunk\+Metadata\+::\+Chunk(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Memory\+Chunk\+Metadata\+::heap(), v8\+::internal\+::\+Memory\+Chunk\+::\+NEVER\+\_\+\+ALLOCATE\+\_\+\+ON\+\_\+\+PAGE, v8\+::internal\+::\+Memory\+Chunk\+::\+Never\+Evacuate(), New\+Space\+Page\+Evacuation\+Threshold(), v8\+::internal\+::\+Print\+Isolate(), v8\+::internal\+::\+Memory\+Chunk\+::\+Set\+Flag\+Non\+Executable(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::\+Minor\+Mark\+Sweep\+Collector\+::\+Start\+Sweep\+New\+Space().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a9ab8d6fa164cf62f8e645faa687d18a3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a9ab8d6fa164cf62f8e645faa687d18a3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a2c2d4f6ca3e18cf7dc1606780afec1aa}\label{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a2c2d4f6ca3e18cf7dc1606780afec1aa}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}}!VisitObjectWithCppHeapPointerField@{VisitObjectWithCppHeapPointerField}}
+\index{VisitObjectWithCppHeapPointerField@{VisitObjectWithCppHeapPointerField}!v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}minor-\/mark-\/sweep.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{VisitObjectWithCppHeapPointerField()}{VisitObjectWithCppHeapPointerField()}}
+{\footnotesize\ttfamily void v8\+::internal\+::anonymous\+\_\+namespace\{minor-\/mark-\/sweep.\+cc\}\+::Visit\+Object\+With\+Cpp\+Heap\+Pointer\+Field (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{namespacev8_1_1internal_a298d2dbd83cc21c72ade1438d46c346c}{Cpp\+Heap\+Pointer\+Wrapper\+ObjectT}} $>$}]{object,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MarkingWorklists_a941d07bdea68cc187975415adc4dac79}{Marking\+Worklists\+::\+Local}} \&}]{worklist }\end{DoxyParamCaption})}
+
+
+
+Definition at line 607 of file minor-\/mark-\/sweep.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{609                                      \{}
+\DoxyCodeLine{610   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_1_1InstanceTypeChecker_ac21fcf2a2603a83253faf3bc7eb942c0}{IsCppHeapPointerWrapperObject}}(\textcolor{keywordtype}{object}));}
+\DoxyCodeLine{611   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!HeapLayout::InYoungGeneration(\textcolor{keywordtype}{object}));}
+\DoxyCodeLine{612 }
+\DoxyCodeLine{613   \textcolor{comment}{// Wrapper using cpp\_heap\_wrappable field.}}
+\DoxyCodeLine{614   \textcolor{keywordtype}{void}* wrappable = CppHeapObjectWrapper::From(\textcolor{keywordtype}{object}).GetCppHeapWrappable(}
+\DoxyCodeLine{615       isolate, \mbox{\hyperlink{namespacev8_aae49a9f3d8db66575ac58455ef63fe6f}{kAnyCppHeapPointer}});}
+\DoxyCodeLine{616   \textcolor{keywordflow}{if} (wrappable) \{}
+\DoxyCodeLine{617     worklist.cpp\_marking\_state()-\/>MarkAndPush(wrappable);}
+\DoxyCodeLine{618   \}}
+\DoxyCodeLine{619 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Cpp\+Heap\+Object\+Wrapper\+::\+From(), v8\+::internal\+::\+Cpp\+Heap\+Object\+Wrapper\+::\+Get\+Cpp\+Heap\+Wrappable(), v8\+::internal\+::\+Heap\+Layout\+::\+In\+Young\+Generation(), v8\+::internal\+::\+Instance\+Type\+Checker\+::\+Is\+Cpp\+Heap\+Pointer\+Wrapper\+Object(), and v8\+::k\+Any\+Cpp\+Heap\+Pointer().
+
+
+
+Referenced by v8\+::internal\+::\+Minor\+Mark\+Sweep\+Collector\+::\+Mark\+Roots\+From\+Traced\+Handles().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a2c2d4f6ca3e18cf7dc1606780afec1aa_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02minor-mark-sweep_8cc_03_a2c2d4f6ca3e18cf7dc1606780afec1aa_icgraph}
+\end{center}
+\end{figure}

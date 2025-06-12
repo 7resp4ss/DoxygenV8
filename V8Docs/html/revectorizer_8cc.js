@@ -1,5 +1,6 @@
 var revectorizer_8cc =
 [
+    [ "EffectChainIterator", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02revectorizer_8cc_03_1_1EffectChainIterator.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02revectorizer_8cc_03_1_1EffectChainIterator" ],
     [ "CASE", "revectorizer_8cc.html#aeef365a7b39c8e0860298c551aa10ba9", null ],
     [ "CASE", "revectorizer_8cc.html#adcc190c080748beea7e37bd5e8457ddb", null ],
     [ "CHECK_SIGN_EXTENSION_CASE", "revectorizer_8cc.html#ac237162fb480f77822ad94c0e20a96c7", null ],
@@ -13,6 +14,18 @@ var revectorizer_8cc =
     [ "SIMPLE_SIMD_OP", "revectorizer_8cc.html#a87bc0cd7537033b3cb8d17a195ce04ea", null ],
     [ "SPLAT_CASE", "revectorizer_8cc.html#a7db703ba3d22c6e196df84090169c6f6", null ],
     [ "TRACE", "revectorizer_8cc.html#a5f6aa8edcd99914757600b5d3b259bb7", null ],
-    [ "node_", "revectorizer_8cc.html#aba6993474022e5c735bf3b9326a3fbb2", null ],
-    [ "prev_", "revectorizer_8cc.html#a8995a507d8cc5dd2e7dadb9ca44f38ea", null ]
+    [ "AllConstant", "revectorizer_8cc.html#a14b3be5027babc38064a7837bff0c165", null ],
+    [ "AllPackableOperator", "revectorizer_8cc.html#ae7286c5d5342390d563761eb7ba08b95", null ],
+    [ "AllSameAddress", "revectorizer_8cc.html#aff145bd01e826243c3d9fc09d6577a6e", null ],
+    [ "GetConstantValue", "revectorizer_8cc.html#ab357115d0ece73b7d9b4ce52e6eab42d", null ],
+    [ "GetMemoryOffsetValue", "revectorizer_8cc.html#abe0e10ebe24a526f50bb1030a8f94e7a", null ],
+    [ "GetNodeAddress", "revectorizer_8cc.html#a621e4069de84eb5931aeae20938397dc", null ],
+    [ "InsertAfter", "revectorizer_8cc.html#add8b32433d32f053ae0d0f1111062c7d", null ],
+    [ "IsContinuousAccess", "revectorizer_8cc.html#af9c7006befed3135cdaa58744f90ebb9", null ],
+    [ "IsSignExtensionOperation", "revectorizer_8cc.html#a777ff01e06c0ed62dc637147b6cd0507", null ],
+    [ "IsSplat", "revectorizer_8cc.html#a3790f74f870398c4d9d834bc5b0c8ef6", null ],
+    [ "IsSupportedLoad", "revectorizer_8cc.html#a886b73c5e58856b559e7a2bd830d3d0a", null ],
+    [ "MaybePackSignExtensionOp", "revectorizer_8cc.html#aabe8c047f49408793d2a0434b9db08d9", null ],
+    [ "OperatorCanBePacked", "revectorizer_8cc.html#a10e9dc7f914f5dd99a1e2f8070d0e838", null ],
+    [ "ShiftBySameScalar", "revectorizer_8cc.html#ad6f0b288602c8a827a99b755053cb775", null ]
 ];

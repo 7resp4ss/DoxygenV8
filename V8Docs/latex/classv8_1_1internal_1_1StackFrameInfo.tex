@@ -37,8 +37,15 @@ using \mbox{\hyperlink{classv8_1_1internal_1_1StackFrameInfo_a2e5ffe2fb5a457fb0e
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static int \mbox{\hyperlink{classv8_1_1internal_1_1StackFrameInfo_af0f917da7e80473550fb90c56f553123}{Get\+Source\+Position}} (\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1StackFrameInfo}{Stack\+Frame\+Info}} $>$ \mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}})
+static \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1StackFrameInfo_af0f917da7e80473550fb90c56f553123}{Get\+Source\+Position}} (\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1StackFrameInfo}{Stack\+Frame\+Info}} $>$ info)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 210 of file debug-\/objects.\+h.
+
 
 
 \doxysubsection{Member Typedef Documentation}
@@ -50,13 +57,63 @@ static int \mbox{\hyperlink{classv8_1_1internal_1_1StackFrameInfo_af0f917da7e804
 
 
 
+Definition at line 230 of file debug-\/objects.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1StackFrameInfo_af0f917da7e80473550fb90c56f553123}\label{classv8_1_1internal_1_1StackFrameInfo_af0f917da7e80473550fb90c56f553123}} 
 \index{v8::internal::StackFrameInfo@{v8::internal::StackFrameInfo}!GetSourcePosition@{GetSourcePosition}}
 \index{GetSourcePosition@{GetSourcePosition}!v8::internal::StackFrameInfo@{v8::internal::StackFrameInfo}}
 \doxysubsubsection{\texorpdfstring{GetSourcePosition()}{GetSourcePosition()}}
-{\footnotesize\ttfamily int v8\+::internal\+::\+Stack\+Frame\+Info\+::\+Get\+Source\+Position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1StackFrameInfo}{Stack\+Frame\+Info}} $>$}]{info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::\+Stack\+Frame\+Info\+::\+Get\+Source\+Position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1StackFrameInfo}{Stack\+Frame\+Info}} $>$}]{info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 407 of file debug-\/objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{407                                                                        \{}
+\DoxyCodeLine{408   \textcolor{keywordflow}{if} (IsScript(info-\/>shared\_or\_script())) \{}
+\DoxyCodeLine{409     \textcolor{keywordflow}{return} info-\/>bytecode\_offset\_or\_source\_position();}
+\DoxyCodeLine{410   \}}
+\DoxyCodeLine{411   Isolate* isolate = \mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a05a2b08b2b0f2d5aef8dc053e2ea3d9b}{Isolate::Current}}();}
+\DoxyCodeLine{412   DirectHandle<SharedFunctionInfo> shared(}
+\DoxyCodeLine{413       Cast<SharedFunctionInfo>(info-\/>shared\_or\_script()), isolate);}
+\DoxyCodeLine{414   \mbox{\hyperlink{classv8_1_1internal_1_1SharedFunctionInfo_a3be913553e4b94b747bd0f898a7b02af}{SharedFunctionInfo::EnsureSourcePositionsAvailable}}(isolate, shared);}
+\DoxyCodeLine{415   \textcolor{keywordtype}{int} source\_position = shared-\/>abstract\_code(isolate)-\/>SourcePosition(}
+\DoxyCodeLine{416       isolate, info-\/>bytecode\_offset\_or\_source\_position());}
+\DoxyCodeLine{417   info-\/>set\_shared\_or\_script(Cast<Script>(shared-\/>script()));}
+\DoxyCodeLine{418   info-\/>set\_bytecode\_offset\_or\_source\_position(source\_position);}
+\DoxyCodeLine{419   \textcolor{keywordflow}{return} source\_position;}
+\DoxyCodeLine{420 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::\+Current(), and v8\+::internal\+::\+Shared\+Function\+Info\+::\+Ensure\+Source\+Positions\+Available().
+
+
+
+Referenced by v8\+::internal\+::\+Isolate\+::\+Compute\+Location\+From\+Detailed\+Stack\+Trace(), v8\+::\+Stack\+Frame\+::\+Get\+Location(), and v8\+::\+Stack\+Frame\+::\+Get\+Source\+Position().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StackFrameInfo_af0f917da7e80473550fb90c56f553123_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StackFrameInfo_af0f917da7e80473550fb90c56f553123_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1StackFrameInfo_a7177687b137d88a2175ede607e0d2162}\label{classv8_1_1internal_1_1StackFrameInfo_a7177687b137d88a2175ede607e0d2162}} 
 \index{v8::internal::StackFrameInfo@{v8::internal::StackFrameInfo}!script@{script}}
 \index{script@{script}!v8::internal::StackFrameInfo@{v8::internal::StackFrameInfo}}
@@ -65,8 +122,23 @@ static int \mbox{\hyperlink{classv8_1_1internal_1_1StackFrameInfo_af0f917da7e804
 
 
 
+Definition at line 68 of file debug-\/objects-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{68                                             \{}
+\DoxyCodeLine{69   \mbox{\hyperlink{namespacev8_1_1internal_a57f5ecf71b9a2757b0555b2be4c640b8}{Tagged<HeapObject>}} \textcolor{keywordtype}{object} = shared\_or\_script();}
+\DoxyCodeLine{70   \textcolor{keywordflow}{if} (IsSharedFunctionInfo(\textcolor{keywordtype}{object})) \{}
+\DoxyCodeLine{71     \textcolor{keywordtype}{object} = Cast<SharedFunctionInfo>(\textcolor{keywordtype}{object})-\/>script();}
+\DoxyCodeLine{72   \}}
+\DoxyCodeLine{73   \textcolor{keywordflow}{return} Cast<Script>(\textcolor{keywordtype}{object});}
+\DoxyCodeLine{74 \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{debug-objects_8h}{debug-\/objects.\+h}}\item 
-\mbox{\hyperlink{debug-objects-inl_8h}{debug-\/objects-\/inl.\+h}}\item 
-\mbox{\hyperlink{debug-objects_8cc}{debug-\/objects.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{debug-objects_8h}{debug-\/objects.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{debug-objects-inl_8h}{debug-\/objects-\/inl.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{debug-objects_8cc}{debug-\/objects.\+cc}}\end{DoxyCompactItemize}

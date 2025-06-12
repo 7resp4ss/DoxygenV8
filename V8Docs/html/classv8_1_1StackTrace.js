@@ -13,6 +13,8 @@ var classv8_1_1StackTrace =
       [ "kOverview", "classv8_1_1StackTrace.html#a9704e4a37949eb8eb8ccddbddf161492a60fe19da5aa747930690195e24d0cbe5", null ],
       [ "kDetailed", "classv8_1_1StackTrace.html#a9704e4a37949eb8eb8ccddbddf161492abea56780240641d6802b6482354cbe59", null ]
     ] ],
+    [ "CurrentScriptNameOrSourceURL", "classv8_1_1StackTrace.html#a62cddd7d4e3716d496a5e308de69993a", null ],
+    [ "CurrentStackTrace", "classv8_1_1StackTrace.html#a784e1357ed18f93f14d1fc8e9fe078cf", null ],
     [ "GetFrame", "classv8_1_1StackTrace.html#a4d42c17268028c668938cbac427779a8", null ],
     [ "GetFrameCount", "classv8_1_1StackTrace.html#a97a2010fa998f963df290062a8157849", null ],
     [ "GetID", "classv8_1_1StackTrace.html#ae62f2310255cc7fd3984c43267ae9fc0", null ]

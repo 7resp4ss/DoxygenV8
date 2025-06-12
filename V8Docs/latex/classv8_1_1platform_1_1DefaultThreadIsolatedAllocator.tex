@@ -37,10 +37,17 @@ void \mbox{\hyperlink{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_ad30
 \item 
 enum Type \mbox{\hyperlink{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_a388c71f78f659304546481e76ff32fad}{Type}} () const override
 \item 
-int \mbox{\hyperlink{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_a00ff7bd90508d2b864ef8a25cc83a948}{Pkey}} () const override
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_a00ff7bd90508d2b864ef8a25cc83a948}{Pkey}} () const override
 \item 
 bool \mbox{\hyperlink{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_ae34f07184f85214010c1258f8d724a11}{Valid}} () const
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 16 of file default-\/thread-\/isolated-\/allocator.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -50,12 +57,39 @@ bool \mbox{\hyperlink{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_ae34
 \doxysubsubsection{\texorpdfstring{DefaultThreadIsolatedAllocator()}{DefaultThreadIsolatedAllocator()}}
 {\footnotesize\ttfamily v8\+::platform\+::\+Default\+Thread\+Isolated\+Allocator\+::\+Default\+Thread\+Isolated\+Allocator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 70 of file default-\/thread-\/isolated-\/allocator.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72     : pkey\_(PkeyAlloc())}
+\DoxyCodeLine{73 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{74 \{}
+\DoxyCodeLine{75 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_aa981b5c87d0a6cba4df94ae351029b14}\label{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_aa981b5c87d0a6cba4df94ae351029b14}} 
 \index{v8::platform::DefaultThreadIsolatedAllocator@{v8::platform::DefaultThreadIsolatedAllocator}!````~DefaultThreadIsolatedAllocator@{$\sim$DefaultThreadIsolatedAllocator}}
 \index{````~DefaultThreadIsolatedAllocator@{$\sim$DefaultThreadIsolatedAllocator}!v8::platform::DefaultThreadIsolatedAllocator@{v8::platform::DefaultThreadIsolatedAllocator}}
 \doxysubsubsection{\texorpdfstring{$\sim$DefaultThreadIsolatedAllocator()}{~DefaultThreadIsolatedAllocator()}}
 {\footnotesize\ttfamily v8\+::platform\+::\+Default\+Thread\+Isolated\+Allocator\+::$\sim$\+Default\+Thread\+Isolated\+Allocator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
 
+
+
+Definition at line 77 of file default-\/thread-\/isolated-\/allocator.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{77                                                                 \{}
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#if V8\_HAS\_PKU\_JIT\_WRITE\_PROTECT}}
+\DoxyCodeLine{79   \textcolor{keywordflow}{if} (pkey\_ != -\/1) \{}
+\DoxyCodeLine{80     PkeyFree(pkey\_);}
+\DoxyCodeLine{81   \}}
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{83 \}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -65,17 +99,68 @@ bool \mbox{\hyperlink{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_ae34
 \doxysubsubsection{\texorpdfstring{Allocate()}{Allocate()}}
 {\footnotesize\ttfamily void $\ast$ v8\+::platform\+::\+Default\+Thread\+Isolated\+Allocator\+::\+Allocate (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
 
+
+
+Definition at line 87 of file default-\/thread-\/isolated-\/allocator.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{87                                                           \{}
+\DoxyCodeLine{88   \textcolor{keywordflow}{return} malloc(\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}});}
+\DoxyCodeLine{89 \}}
+
+\end{DoxyCode}
+
+
+References size().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_ac15bb798e40b4d1700b9925090cf3fa1_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_ad308a49f230fa35bd4cfe027cd410c9d}\label{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_ad308a49f230fa35bd4cfe027cd410c9d}} 
 \index{v8::platform::DefaultThreadIsolatedAllocator@{v8::platform::DefaultThreadIsolatedAllocator}!Free@{Free}}
 \index{Free@{Free}!v8::platform::DefaultThreadIsolatedAllocator@{v8::platform::DefaultThreadIsolatedAllocator}}
 \doxysubsubsection{\texorpdfstring{Free()}{Free()}}
 {\footnotesize\ttfamily void v8\+::platform\+::\+Default\+Thread\+Isolated\+Allocator\+::\+Free (\begin{DoxyParamCaption}\item[{void $\ast$}]{object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
 
+
+
+Definition at line 91 of file default-\/thread-\/isolated-\/allocator.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{91 \{ free(\textcolor{keywordtype}{object}); \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_a00ff7bd90508d2b864ef8a25cc83a948}\label{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_a00ff7bd90508d2b864ef8a25cc83a948}} 
 \index{v8::platform::DefaultThreadIsolatedAllocator@{v8::platform::DefaultThreadIsolatedAllocator}!Pkey@{Pkey}}
 \index{Pkey@{Pkey}!v8::platform::DefaultThreadIsolatedAllocator@{v8::platform::DefaultThreadIsolatedAllocator}}
 \doxysubsubsection{\texorpdfstring{Pkey()}{Pkey()}}
-{\footnotesize\ttfamily int v8\+::platform\+::\+Default\+Thread\+Isolated\+Allocator\+::\+Pkey (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::platform\+::\+Default\+Thread\+Isolated\+Allocator\+::\+Pkey (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line 102 of file default-\/thread-\/isolated-\/allocator.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{102                                                \{}
+\DoxyCodeLine{103 \textcolor{preprocessor}{\#if V8\_HAS\_PKU\_JIT\_WRITE\_PROTECT}}
+\DoxyCodeLine{104   \textcolor{keywordflow}{return} pkey\_;}
+\DoxyCodeLine{105 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{106   \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{107 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{108 \}}
+
+\end{DoxyCode}
+
+
+References UNREACHABLE.
 
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_a388c71f78f659304546481e76ff32fad}\label{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_a388c71f78f659304546481e76ff32fad}} 
 \index{v8::platform::DefaultThreadIsolatedAllocator@{v8::platform::DefaultThreadIsolatedAllocator}!Type@{Type}}
@@ -83,6 +168,21 @@ bool \mbox{\hyperlink{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_ae34
 \doxysubsubsection{\texorpdfstring{Type()}{Type()}}
 {\footnotesize\ttfamily enum Default\+Thread\+Isolated\+Allocator\+::\+Type v8\+::platform\+::\+Default\+Thread\+Isolated\+Allocator\+::\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
 
+
+
+Definition at line 91 of file default-\/thread-\/isolated-\/allocator.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{94           \{}
+\DoxyCodeLine{95 \textcolor{preprocessor}{\#if V8\_HAS\_PKU\_JIT\_WRITE\_PROTECT}}
+\DoxyCodeLine{96   \textcolor{keywordflow}{return} Type::kPkey;}
+\DoxyCodeLine{97 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{98   \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{99 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{100 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_ae34f07184f85214010c1258f8d724a11}\label{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_ae34f07184f85214010c1258f8d724a11}} 
 \index{v8::platform::DefaultThreadIsolatedAllocator@{v8::platform::DefaultThreadIsolatedAllocator}!Valid@{Valid}}
 \index{Valid@{Valid}!v8::platform::DefaultThreadIsolatedAllocator@{v8::platform::DefaultThreadIsolatedAllocator}}
@@ -91,7 +191,34 @@ bool \mbox{\hyperlink{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_ae34
 
 
 
+Definition at line 110 of file default-\/thread-\/isolated-\/allocator.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{110                                                  \{}
+\DoxyCodeLine{111 \textcolor{preprocessor}{\#if V8\_HAS\_PKU\_JIT\_WRITE\_PROTECT}}
+\DoxyCodeLine{112   \textcolor{keywordflow}{return} pkey\_ != -\/1;}
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{114   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{115 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{116 \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::platform\+::\+Default\+Platform\+::\+Get\+Thread\+Isolated\+Allocator().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultThreadIsolatedAllocator_ae34f07184f85214010c1258f8d724a11_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{default-thread-isolated-allocator_8h}{default-\/thread-\/isolated-\/allocator.\+h}}\item 
-\mbox{\hyperlink{default-thread-isolated-allocator_8cc}{default-\/thread-\/isolated-\/allocator.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/libplatform/\mbox{\hyperlink{default-thread-isolated-allocator_8h}{default-\/thread-\/isolated-\/allocator.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/libplatform/\mbox{\hyperlink{default-thread-isolated-allocator_8cc}{default-\/thread-\/isolated-\/allocator.\+cc}}\end{DoxyCompactItemize}

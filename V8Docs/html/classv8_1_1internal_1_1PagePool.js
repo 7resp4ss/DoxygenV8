@@ -1,7 +1,12 @@
 var classv8_1_1internal_1_1PagePool =
 [
+    [ "LargePagePoolImpl", "classv8_1_1internal_1_1PagePool_1_1LargePagePoolImpl.html", "classv8_1_1internal_1_1PagePool_1_1LargePagePoolImpl" ],
+    [ "PoolImpl", "classv8_1_1internal_1_1PagePool_1_1PoolImpl.html", "classv8_1_1internal_1_1PagePool_1_1PoolImpl" ],
     [ "ReleasePooledChunksTask", "classv8_1_1internal_1_1PagePool_1_1ReleasePooledChunksTask.html", "classv8_1_1internal_1_1PagePool_1_1ReleasePooledChunksTask" ],
     [ "ReleasePooledLargeChunksTask", "classv8_1_1internal_1_1PagePool_1_1ReleasePooledLargeChunksTask.html", "classv8_1_1internal_1_1PagePool_1_1ReleasePooledLargeChunksTask" ],
+    [ "InternalTime", "classv8_1_1internal_1_1PagePool.html#a985d80f287dad0933dedc251efe4acda", null ],
+    [ "LargePageMemory", "classv8_1_1internal_1_1PagePool.html#a885f6f3cb1450a65fa27794fb120c165", null ],
+    [ "PageMemory", "classv8_1_1internal_1_1PagePool.html#a315c02ab57051893574a57c112c315cd", null ],
     [ "PagePool", "classv8_1_1internal_1_1PagePool.html#a09b0bf587493eb135a15078cacdcd289", null ],
     [ "~PagePool", "classv8_1_1internal_1_1PagePool.html#a0ec9e1173db2aeb19e89416b99a5dbc0", null ],
     [ "PagePool", "classv8_1_1internal_1_1PagePool.html#a9fd8ddd64646fffbb89cd480935ccb0b", null ],
@@ -13,12 +18,16 @@ var classv8_1_1internal_1_1PagePool =
     [ "GetSharedCount", "classv8_1_1internal_1_1PagePool.html#a37c0fd218ddf6cd9cd489ec4286dde5b", null ],
     [ "GetTotalCount", "classv8_1_1internal_1_1PagePool.html#a7b16b5d71766b7b666805961365f71b7", null ],
     [ "operator=", "classv8_1_1internal_1_1PagePool.html#af3242d2e111c74aca58bf3c302197c01", null ],
-    [ "ReleaseImmediately", "classv8_1_1internal_1_1PagePool.html#a9f436fdf058714e64e28f97f26212afd", null ],
     [ "ReleaseImmediately", "classv8_1_1internal_1_1PagePool.html#a09b2d3102a39875ddf55c406e0e037c0", null ],
     [ "ReleaseLargeImmediately", "classv8_1_1internal_1_1PagePool.html#af53e5262c6703a8f7d16467dcd4acbc3", null ],
     [ "ReleaseOnTearDown", "classv8_1_1internal_1_1PagePool.html#a209e9ab1b0252a9f9e1f05b73ecf94f9", null ],
+    [ "ReleaseUpTo", "classv8_1_1internal_1_1PagePool.html#a89fa3e6a0aba5d99705d71c39283eca9", null ],
     [ "Remove", "classv8_1_1internal_1_1PagePool.html#a41526eead70f90e28c5b1362bf757e1b", null ],
     [ "RemoveLarge", "classv8_1_1internal_1_1PagePool.html#a6a20fa7e843bd1a667e8c81de13cfbae", null ],
     [ "RemoveZoneReservation", "classv8_1_1internal_1_1PagePool.html#a027adc740f1159b57818bc6bc6696cf5", null ],
-    [ "TearDown", "classv8_1_1internal_1_1PagePool.html#aa98579b12697a80e95c354e44b9217de", null ]
+    [ "TearDown", "classv8_1_1internal_1_1PagePool.html#aa98579b12697a80e95c354e44b9217de", null ],
+    [ "large_pool_", "classv8_1_1internal_1_1PagePool.html#a9423067abe2a3a87e578469e3525f790", null ],
+    [ "next_time_", "classv8_1_1internal_1_1PagePool.html#ac80f9abc7af0b14317224de5675670fe", null ],
+    [ "page_pool_", "classv8_1_1internal_1_1PagePool.html#ae3122fbd3ed15fdfa24d8a773555ad78", null ],
+    [ "zone_pool_", "classv8_1_1internal_1_1PagePool.html#a72b4286eaf006f3778daaac6a51ad8b3", null ]
 ];

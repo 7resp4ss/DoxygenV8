@@ -1,11 +1,9 @@
 var compilation_cache_table_8cc =
 [
-    [ "flags_", "compilation-cache-table_8cc.html#ac845e03de27eac923877cf24fda703fd", null ],
-    [ "isolate_", "compilation-cache-table_8cc.html#a68072bca3fef7bd8b0d3cbac971cbf4b", null ],
-    [ "key_", "compilation-cache-table_8cc.html#a8082a0cedea4c47ef40f0212dd84b81a", null ],
-    [ "language_mode_", "compilation-cache-table_8cc.html#a178917793a2fb615f52b6284688eb3d2", null ],
-    [ "position_", "compilation-cache-table_8cc.html#af530c0f421cbad2022cee31eea42f886", null ],
-    [ "shared_", "compilation-cache-table_8cc.html#a266e025a26a038d9c19c1369148234e4", null ],
-    [ "source_", "compilation-cache-table_8cc.html#ab2bab439cb844db4da9205c1576c259f", null ],
-    [ "string_", "compilation-cache-table_8cc.html#ad06216342143b11dd467b563192f61c4", null ]
+    [ "EvalCacheKey", "classv8_1_1internal_1_1anonymous__namespace_02compilation-cache-table_8cc_03_1_1EvalCacheKey.html", "classv8_1_1internal_1_1anonymous__namespace_02compilation-cache-table_8cc_03_1_1EvalCacheKey" ],
+    [ "RegExpKey", "classv8_1_1internal_1_1anonymous__namespace_02compilation-cache-table_8cc_03_1_1RegExpKey.html", "classv8_1_1internal_1_1anonymous__namespace_02compilation-cache-table_8cc_03_1_1RegExpKey" ],
+    [ "CodeKey", "classv8_1_1internal_1_1anonymous__namespace_02compilation-cache-table_8cc_03_1_1CodeKey.html", "classv8_1_1internal_1_1anonymous__namespace_02compilation-cache-table_8cc_03_1_1CodeKey" ],
+    [ "AddToJSFunctionMap", "compilation-cache-table_8cc.html#a02c6323d3357e7d989210636aba8d3c4", null ],
+    [ "ScriptHash", "compilation-cache-table_8cc.html#a0a1bfd791aa723da06c72354ca3bf854", null ],
+    [ "SearchLiteralsMap", "compilation-cache-table_8cc.html#a56fcd64d39cc8c8fe3f318be66832eb5", null ]
 ];

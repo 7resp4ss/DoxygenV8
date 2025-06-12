@@ -38,7 +38,7 @@ uint32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_
 \item 
 virtual void \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_aa0f6e6d3af5c5bf50bf7e941316b01d6}{Notify}} ()=0
 \item 
-virtual \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a11ef736d49da3e80c42139b4f877d90d}{Is\+Same\+Isolate\+For\+Async\+Cleanup}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})=0
+virtual \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a11ef736d49da3e80c42139b4f877d90d}{Is\+Same\+Isolate\+For\+Async\+Cleanup}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)=0
 \item 
 virtual void \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_ab28cb06aa1de73dbcdc30e66d9dbd392}{Cleanup\+Matching\+Async\+Waiters}} (const \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a608fdb09d24cc3ffbc95000bf1e77c45}{Dequeue\+Matcher}} \&matcher)=0
 \end{DoxyCompactItemize}
@@ -55,7 +55,7 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter
 \item 
 static \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_af00af8e021183ebf4f6f0654cafdab62}{Split}} (\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$$\ast$head, uint32\+\_\+t \mbox{\hyperlink{structv8_1_1internal_1_1count}{count}})
 \item 
-static int \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a669ff0045b5ed313bb85fd5c03646352}{Length\+From\+Head}} (\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$head)
+static \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a669ff0045b5ed313bb85fd5c03646352}{Length\+From\+Head}} (\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$head)
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -75,6 +75,20 @@ virtual void \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a5192b80e77ed7c4eb320c8492f50ce3f}{prev\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_aac3dddfec0016532e1789494928f4e23}{Dequeue\+Unchecked}} (\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$$\ast$head)
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a3c321698e984535f94425519494dcf49}{Verify\+Not\+In\+List}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 38 of file waiter-\/queue-\/node.\+h.
+
 
 
 \doxysubsection{Member Typedef Documentation}
@@ -86,6 +100,10 @@ virtual void \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a
 
 
 
+Definition at line 45 of file waiter-\/queue-\/node.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a76b37c099cebf9d72d775df85c8f38cc}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a76b37c099cebf9d72d775df85c8f38cc}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!````~WaiterQueueNode@{$\sim$WaiterQueueNode}}
@@ -93,12 +111,47 @@ virtual void \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a
 \doxysubsubsection{\texorpdfstring{$\sim$WaiterQueueNode()}{~WaiterQueueNode()}}
 {\footnotesize\ttfamily v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::$\sim$\+Waiter\+Queue\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
+
+
+Definition at line 17 of file waiter-\/queue-\/node.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17                                   \{}
+\DoxyCodeLine{18   \textcolor{comment}{// Since waiter queue nodes are allocated on the stack, they must be removed}}
+\DoxyCodeLine{19   \textcolor{comment}{// from the intrusive linked list once they go out of scope, otherwise there}}
+\DoxyCodeLine{20   \textcolor{comment}{// will be dangling pointers.}}
+\DoxyCodeLine{21   \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a3c321698e984535f94425519494dcf49}{VerifyNotInList}}();}
+\DoxyCodeLine{22 \}}
+
+\end{DoxyCode}
+
+
+References Verify\+Not\+In\+List().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a76b37c099cebf9d72d775df85c8f38cc_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!WaiterQueueNode@{WaiterQueueNode}}
 \index{WaiterQueueNode@{WaiterQueueNode}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
 \doxysubsubsection{\texorpdfstring{WaiterQueueNode()}{WaiterQueueNode()}}
 {\footnotesize\ttfamily v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::\+Waiter\+Queue\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{requester }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [protected]}}
 
+
+
+Definition at line 15 of file waiter-\/queue-\/node.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15 : \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a37847a50cd1b682ab21e5eb57932ddfd}{requester\_}}(requester) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -112,30 +165,278 @@ virtual void \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a
 
 Implemented in \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1AsyncWaiterQueueNode_a45cd8af42169918450a0c9c46a465fe2}{v8\+::internal\+::detail\+::\+Async\+Waiter\+Queue\+Node$<$ T $>$}}, and \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a33cc139d9814585eb4faa3486b493ef8}{v8\+::internal\+::detail\+::\+Sync\+Waiter\+Queue\+Node}}.
 
+
+
+Referenced by v8\+::internal\+::\+JSSynchronization\+Primitive\+::\+Cleanup\+Async\+Waiter\+Lists().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_ab28cb06aa1de73dbcdc30e66d9dbd392_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_ab5c593f10eda6b809da72dda2e1690f2}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_ab5c593f10eda6b809da72dda2e1690f2}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!Dequeue@{Dequeue}}
 \index{Dequeue@{Dequeue}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
 \doxysubsubsection{\texorpdfstring{Dequeue()}{Dequeue()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$ v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::\+Dequeue (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$$\ast$}]{head }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 100 of file waiter-\/queue-\/node.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{100                                                                 \{}
+\DoxyCodeLine{101   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_ae672d68e7aa4d9a4e071c204a98ce022}{DequeueMatching}}(head, [](\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* node) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{true}; \});}
+\DoxyCodeLine{102 \}}
+
+\end{DoxyCode}
+
+
+References Dequeue\+Matching().
+
+
+
+Referenced by v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Cleanup\+Matching\+Async\+Waiters(), v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Handle\+Async\+Notify(), v8\+::internal\+::\+JSAtomics\+Condition\+::\+Notify(), and v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Unlock\+Slow\+Path().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_ab5c593f10eda6b809da72dda2e1690f2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_ab5c593f10eda6b809da72dda2e1690f2_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a0cae6ce82fdd7c88fe431afa22093868}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a0cae6ce82fdd7c88fe431afa22093868}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!DequeueAllMatchingForAsyncCleanup@{DequeueAllMatchingForAsyncCleanup}}
 \index{DequeueAllMatchingForAsyncCleanup@{DequeueAllMatchingForAsyncCleanup}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
 \doxysubsubsection{\texorpdfstring{DequeueAllMatchingForAsyncCleanup()}{DequeueAllMatchingForAsyncCleanup()}}
 {\footnotesize\ttfamily void v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::\+Dequeue\+All\+Matching\+For\+Async\+Cleanup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$$\ast$}]{head,  }\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a608fdb09d24cc3ffbc95000bf1e77c45}{Dequeue\+Matcher}} \&}]{matcher }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 81 of file waiter-\/queue-\/node.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{82                                                            \{}
+\DoxyCodeLine{83   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(head);}
+\DoxyCodeLine{84   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(*head);}
+\DoxyCodeLine{85   \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* original\_tail = (*head)-\/>prev\_;}
+\DoxyCodeLine{86   \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* cur = *head;}
+\DoxyCodeLine{87   \textcolor{keywordflow}{for} (;;) \{}
+\DoxyCodeLine{88     \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(cur);}
+\DoxyCodeLine{89     \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* next = cur-\/>next\_;}
+\DoxyCodeLine{90     \textcolor{keywordflow}{if} (matcher(cur)) \{}
+\DoxyCodeLine{91       cur-\/>DequeueUnchecked(head);}
+\DoxyCodeLine{92       cur-\/>SetReadyForAsyncCleanup();}
+\DoxyCodeLine{93     \}}
+\DoxyCodeLine{94     \textcolor{keywordflow}{if} (cur == original\_tail) \textcolor{keywordflow}{break};}
+\DoxyCodeLine{95     cur = next;}
+\DoxyCodeLine{96   \}}
+\DoxyCodeLine{97 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+NOT\+\_\+\+NULL, Dequeue\+Unchecked(), next\+\_\+, prev\+\_\+, and Set\+Ready\+For\+Async\+Cleanup().
+
+
+
+Referenced by v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Cleanup\+Matching\+Async\+Waiters(), and v8\+::internal\+::\+JSAtomics\+Condition\+::\+Cleanup\+Matching\+Async\+Waiters().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a0cae6ce82fdd7c88fe431afa22093868_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a0cae6ce82fdd7c88fe431afa22093868_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_ae672d68e7aa4d9a4e071c204a98ce022}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_ae672d68e7aa4d9a4e071c204a98ce022}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!DequeueMatching@{DequeueMatching}}
 \index{DequeueMatching@{DequeueMatching}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
 \doxysubsubsection{\texorpdfstring{DequeueMatching()}{DequeueMatching()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$ v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::\+Dequeue\+Matching (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$$\ast$}]{head,  }\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a608fdb09d24cc3ffbc95000bf1e77c45}{Dequeue\+Matcher}} \&}]{matcher }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 65 of file waiter-\/queue-\/node.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66                                                            \{}
+\DoxyCodeLine{67   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(head);}
+\DoxyCodeLine{68   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(*head);}
+\DoxyCodeLine{69   \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* original\_head = *head;}
+\DoxyCodeLine{70   \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* cur = *head;}
+\DoxyCodeLine{71   \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{72     \textcolor{keywordflow}{if} (matcher(cur)) \{}
+\DoxyCodeLine{73       cur-\/>DequeueUnchecked(head);}
+\DoxyCodeLine{74       \textcolor{keywordflow}{return} cur;}
+\DoxyCodeLine{75     \}}
+\DoxyCodeLine{76     cur = cur-\/>next\_;}
+\DoxyCodeLine{77   \} \textcolor{keywordflow}{while} (cur != original\_head);}
+\DoxyCodeLine{78   \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{79 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+NOT\+\_\+\+NULL, Dequeue\+Unchecked(), and next\+\_\+.
+
+
+
+Referenced by Dequeue(), v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Dequeue\+Timed\+Out\+Async\+Waiter(), v8\+::internal\+::\+JSAtomics\+Condition\+::\+Handle\+Async\+Timeout(), v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Lock\+JSMutex\+Or\+Dequeue\+Timed\+Out\+Waiter(), and v8\+::internal\+::\+JSAtomics\+Condition\+::\+Wait\+For().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_ae672d68e7aa4d9a4e071c204a98ce022_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_ae672d68e7aa4d9a4e071c204a98ce022_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_aac3dddfec0016532e1789494928f4e23}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_aac3dddfec0016532e1789494928f4e23}} 
+\index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!DequeueUnchecked@{DequeueUnchecked}}
+\index{DequeueUnchecked@{DequeueUnchecked}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
+\doxysubsubsection{\texorpdfstring{DequeueUnchecked()}{DequeueUnchecked()}}
+{\footnotesize\ttfamily void v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::\+Dequeue\+Unchecked (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$$\ast$}]{head }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 43 of file waiter-\/queue-\/node.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{43                                                              \{}
+\DoxyCodeLine{44   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_af207fe4013b3446c33de55658d076e47}{next\_}} == \textcolor{keyword}{this}) \{}
+\DoxyCodeLine{45     \textcolor{comment}{// The queue contains exactly 1 node.}}
+\DoxyCodeLine{46     *head = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{47   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{48     \textcolor{comment}{// The queue contains >1 nodes.}}
+\DoxyCodeLine{49     \textcolor{keywordflow}{if} (\textcolor{keyword}{this} == *head) \{}
+\DoxyCodeLine{50       \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* tail = (*head)-\/>prev\_;}
+\DoxyCodeLine{51       \textcolor{comment}{// The matched node is the head, so next is the new head.}}
+\DoxyCodeLine{52       \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_af207fe4013b3446c33de55658d076e47}{next\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a5192b80e77ed7c4eb320c8492f50ce3f}{prev\_}} = tail;}
+\DoxyCodeLine{53       tail-\/>\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_af207fe4013b3446c33de55658d076e47}{next\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_af207fe4013b3446c33de55658d076e47}{next\_}};}
+\DoxyCodeLine{54       *head = \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_af207fe4013b3446c33de55658d076e47}{next\_}};}
+\DoxyCodeLine{55     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{56       \textcolor{comment}{// The matched node is in the middle of the queue, so the head does}}
+\DoxyCodeLine{57       \textcolor{comment}{// not need to be updated.}}
+\DoxyCodeLine{58       \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a5192b80e77ed7c4eb320c8492f50ce3f}{prev\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_af207fe4013b3446c33de55658d076e47}{next\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_af207fe4013b3446c33de55658d076e47}{next\_}};}
+\DoxyCodeLine{59       \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_af207fe4013b3446c33de55658d076e47}{next\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a5192b80e77ed7c4eb320c8492f50ce3f}{prev\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a5192b80e77ed7c4eb320c8492f50ce3f}{prev\_}};}
+\DoxyCodeLine{60     \}}
+\DoxyCodeLine{61   \}}
+\DoxyCodeLine{62   \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a2ce4e875e520597eec3f972de1fdda17}{SetNotInListForVerification}}();}
+\DoxyCodeLine{63 \}}
+
+\end{DoxyCode}
+
+
+References next\+\_\+, prev\+\_\+, and Set\+Not\+In\+List\+For\+Verification().
+
+
+
+Referenced by Dequeue\+All\+Matching\+For\+Async\+Cleanup(), and Dequeue\+Matching().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_aac3dddfec0016532e1789494928f4e23_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_aac3dddfec0016532e1789494928f4e23_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a639d7e56545b8e47357d1564989d070d}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a639d7e56545b8e47357d1564989d070d}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!Enqueue@{Enqueue}}
 \index{Enqueue@{Enqueue}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
 \doxysubsubsection{\texorpdfstring{Enqueue()}{Enqueue()}}
 {\footnotesize\ttfamily void v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::\+Enqueue (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$$\ast$}]{head,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$}]{new\+\_\+tail }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 25 of file waiter-\/queue-\/node.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26                                                          \{}
+\DoxyCodeLine{27   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(head);}
+\DoxyCodeLine{28   new\_tail-\/>VerifyNotInList();}
+\DoxyCodeLine{29   \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* current\_head = *head;}
+\DoxyCodeLine{30   \textcolor{keywordflow}{if} (current\_head == \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{31     new\_tail-\/>next\_ = new\_tail;}
+\DoxyCodeLine{32     new\_tail-\/>prev\_ = new\_tail;}
+\DoxyCodeLine{33     *head = new\_tail;}
+\DoxyCodeLine{34   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{35     \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* current\_tail = current\_head-\/>prev\_;}
+\DoxyCodeLine{36     current\_tail-\/>next\_ = new\_tail;}
+\DoxyCodeLine{37     current\_head-\/>prev\_ = new\_tail;}
+\DoxyCodeLine{38     new\_tail-\/>next\_ = current\_head;}
+\DoxyCodeLine{39     new\_tail-\/>prev\_ = current\_tail;}
+\DoxyCodeLine{40   \}}
+\DoxyCodeLine{41 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+NOT\+\_\+\+NULL, next\+\_\+, prev\+\_\+, and Verify\+Not\+In\+List().
+
+
+
+Referenced by v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Maybe\+Enqueue\+Node(), and v8\+::internal\+::\+JSAtomics\+Condition\+::\+Queue\+Waiter().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a639d7e56545b8e47357d1564989d070d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a639d7e56545b8e47357d1564989d070d_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a11ef736d49da3e80c42139b4f877d90d}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a11ef736d49da3e80c42139b4f877d90d}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!IsSameIsolateForAsyncCleanup@{IsSameIsolateForAsyncCleanup}}
 \index{IsSameIsolateForAsyncCleanup@{IsSameIsolateForAsyncCleanup}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
@@ -146,12 +447,57 @@ Implemented in \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1AsyncWaiterQueu
 
 Implemented in \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1AsyncWaiterQueueNode_af6ce5cc929ebe88c39fc146fece70112}{v8\+::internal\+::detail\+::\+Async\+Waiter\+Queue\+Node$<$ T $>$}}, and \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_abe6713e7a2b05a69762be7c60f4a9319}{v8\+::internal\+::detail\+::\+Sync\+Waiter\+Queue\+Node}}.
 
+
+
+Referenced by v8\+::internal\+::\+JSSynchronization\+Primitive\+::\+Isolate\+Deinit().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a11ef736d49da3e80c42139b4f877d90d_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a669ff0045b5ed313bb85fd5c03646352}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a669ff0045b5ed313bb85fd5c03646352}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!LengthFromHead@{LengthFromHead}}
 \index{LengthFromHead@{LengthFromHead}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
 \doxysubsubsection{\texorpdfstring{LengthFromHead()}{LengthFromHead()}}
-{\footnotesize\ttfamily int v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::\+Length\+From\+Head (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$}]{head }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::\+Length\+From\+Head (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$}]{head }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 137 of file waiter-\/queue-\/node.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{137                                                          \{}
+\DoxyCodeLine{138   \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* cur = head;}
+\DoxyCodeLine{139   \textcolor{keywordtype}{int} len = 0;}
+\DoxyCodeLine{140   \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{141     len++;}
+\DoxyCodeLine{142     cur = cur-\/>next\_;}
+\DoxyCodeLine{143   \} \textcolor{keywordflow}{while} (cur != head);}
+\DoxyCodeLine{144   \textcolor{keywordflow}{return} len;}
+\DoxyCodeLine{145 \}}
+
+\end{DoxyCode}
+
+
+References next\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+JSSynchronization\+Primitive\+::\+Num\+Waiters\+For\+Testing().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a669ff0045b5ed313bb85fd5c03646352_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_aa0f6e6d3af5c5bf50bf7e941316b01d6}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_aa0f6e6d3af5c5bf50bf7e941316b01d6}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!Notify@{Notify}}
 \index{Notify@{Notify}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
@@ -162,30 +508,217 @@ Implemented in \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1AsyncWaiterQueu
 
 Implemented in \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1AsyncWaiterQueueNode_afdb92c907988f53d7c8ff193fe26d574}{v8\+::internal\+::detail\+::\+Async\+Waiter\+Queue\+Node$<$ T $>$}}, and \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_a8efe8cbd2b7ec5949499ce4b4b478e2b}{v8\+::internal\+::detail\+::\+Sync\+Waiter\+Queue\+Node}}.
 
+
+
+Referenced by v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Cleanup\+Matching\+Async\+Waiters(), v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Handle\+Async\+Notify(), v8\+::internal\+::\+JSAtomics\+Condition\+::\+Notify(), Notify\+All\+In\+List(), and v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Unlock\+Slow\+Path().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_aa0f6e6d3af5c5bf50bf7e941316b01d6_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a32dde5aaa508640181d6156fc6a7bc19}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a32dde5aaa508640181d6156fc6a7bc19}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!NotifyAllInList@{NotifyAllInList}}
 \index{NotifyAllInList@{NotifyAllInList}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
 \doxysubsubsection{\texorpdfstring{NotifyAllInList()}{NotifyAllInList()}}
 {\footnotesize\ttfamily uint32\+\_\+t v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::\+Notify\+All\+In\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 147 of file waiter-\/queue-\/node.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{147                                           \{}
+\DoxyCodeLine{148   \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* cur = \textcolor{keyword}{this};}
+\DoxyCodeLine{149   uint32\_t count = 0;}
+\DoxyCodeLine{150   \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{151     \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* next = cur-\/>next\_;}
+\DoxyCodeLine{152     cur-\/>Notify();}
+\DoxyCodeLine{153     cur = next;}
+\DoxyCodeLine{154     count++;}
+\DoxyCodeLine{155   \} \textcolor{keywordflow}{while} (cur != \textcolor{keyword}{this});}
+\DoxyCodeLine{156   \textcolor{keywordflow}{return} count;}
+\DoxyCodeLine{157 \}}
+
+\end{DoxyCode}
+
+
+References next\+\_\+, and Notify().
+
+
+
+Referenced by v8\+::internal\+::\+JSAtomics\+Condition\+::\+Notify().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a32dde5aaa508640181d6156fc6a7bc19_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a32dde5aaa508640181d6156fc6a7bc19_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a2ce4e875e520597eec3f972de1fdda17}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a2ce4e875e520597eec3f972de1fdda17}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!SetNotInListForVerification@{SetNotInListForVerification}}
 \index{SetNotInListForVerification@{SetNotInListForVerification}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
 \doxysubsubsection{\texorpdfstring{SetNotInListForVerification()}{SetNotInListForVerification()}}
 {\footnotesize\ttfamily void v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::\+Set\+Not\+In\+List\+For\+Verification (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 164 of file waiter-\/queue-\/node.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{164                                                   \{}
+\DoxyCodeLine{165 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{166   \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_af207fe4013b3446c33de55658d076e47}{next\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a5192b80e77ed7c4eb320c8492f50ce3f}{prev\_}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{167 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{168 \}}
+
+\end{DoxyCode}
+
+
+References next\+\_\+, and prev\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Cleanup\+Matching\+Async\+Waiters(), v8\+::internal\+::\+JSAtomics\+Condition\+::\+Cleanup\+Matching\+Async\+Waiters(), and Dequeue\+Unchecked().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a2ce4e875e520597eec3f972de1fdda17_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a5f9da8667f1e8e5e61ef5cd6b1a7db73}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a5f9da8667f1e8e5e61ef5cd6b1a7db73}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!SetReadyForAsyncCleanup@{SetReadyForAsyncCleanup}}
 \index{SetReadyForAsyncCleanup@{SetReadyForAsyncCleanup}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
 \doxysubsubsection{\texorpdfstring{SetReadyForAsyncCleanup()}{SetReadyForAsyncCleanup()}}
 {\footnotesize\ttfamily virtual void v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::\+Set\+Ready\+For\+Async\+Cleanup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
 
+
+
+Implemented in \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1AsyncWaiterQueueNode_acf85ea0f4ac9de24d60138876d190fbc}{v8\+::internal\+::detail\+::\+Async\+Waiter\+Queue\+Node$<$ T $>$}}, and \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1SyncWaiterQueueNode_aca14147904561d2dc8a4c920027e8de8}{v8\+::internal\+::detail\+::\+Sync\+Waiter\+Queue\+Node}}.
+
+
+
+Referenced by Dequeue\+All\+Matching\+For\+Async\+Cleanup().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a5f9da8667f1e8e5e61ef5cd6b1a7db73_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_af00af8e021183ebf4f6f0654cafdab62}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_af00af8e021183ebf4f6f0654cafdab62}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!Split@{Split}}
 \index{Split@{Split}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
 \doxysubsubsection{\texorpdfstring{Split()}{Split()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$ v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::\+Split (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}} $\ast$$\ast$}]{head,  }\item[{uint32\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 105 of file waiter-\/queue-\/node.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{106                                                         \{}
+\DoxyCodeLine{107   \mbox{\hyperlink{src_2base_2logging_8h_afd957f297df7e9ee36c46185e961485f}{DCHECK\_GT}}(count, 0);}
+\DoxyCodeLine{108   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(head);}
+\DoxyCodeLine{109   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(*head);}
+\DoxyCodeLine{110   \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* front\_head = *head;}
+\DoxyCodeLine{111   \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* back\_head = front\_head;}
+\DoxyCodeLine{112   uint32\_t actual\_count = 0;}
+\DoxyCodeLine{113   \textcolor{keywordflow}{while} (actual\_count < count) \{}
+\DoxyCodeLine{114     back\_head = back\_head-\/>next\_;}
+\DoxyCodeLine{115     \textcolor{comment}{// The queue is shorter than the requested count, return the whole queue.}}
+\DoxyCodeLine{116     \textcolor{keywordflow}{if} (back\_head == front\_head) \{}
+\DoxyCodeLine{117       *head = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{118       \textcolor{keywordflow}{return} front\_head;}
+\DoxyCodeLine{119     \}}
+\DoxyCodeLine{120     actual\_count++;}
+\DoxyCodeLine{121   \}}
+\DoxyCodeLine{122   \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* front\_tail = back\_head-\/>prev\_;}
+\DoxyCodeLine{123   \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a356eed8fbc0fa2aa8cd4d0c72aa42f1c}{WaiterQueueNode}}* back\_tail = front\_head-\/>prev\_;}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125   \textcolor{comment}{// Fix up the back list (i.e. remainder of the list).}}
+\DoxyCodeLine{126   back\_head-\/>prev\_ = back\_tail;}
+\DoxyCodeLine{127   back\_tail-\/>next\_ = back\_head;}
+\DoxyCodeLine{128   *head = back\_head;}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130   \textcolor{comment}{// Fix up and return the front list (i.e. the dequeued list).}}
+\DoxyCodeLine{131   front\_head-\/>prev\_ = front\_tail;}
+\DoxyCodeLine{132   front\_tail-\/>next\_ = front\_head;}
+\DoxyCodeLine{133   \textcolor{keywordflow}{return} front\_head;}
+\DoxyCodeLine{134 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+GT, DCHECK\+\_\+\+NOT\+\_\+\+NULL, next\+\_\+, and prev\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+JSAtomics\+Condition\+::\+Notify().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_af00af8e021183ebf4f6f0654cafdab62_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a3c321698e984535f94425519494dcf49}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a3c321698e984535f94425519494dcf49}} 
+\index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!VerifyNotInList@{VerifyNotInList}}
+\index{VerifyNotInList@{VerifyNotInList}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
+\doxysubsubsection{\texorpdfstring{VerifyNotInList()}{VerifyNotInList()}}
+{\footnotesize\ttfamily void v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::\+Verify\+Not\+In\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 159 of file waiter-\/queue-\/node.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{159                                       \{}
+\DoxyCodeLine{160   \mbox{\hyperlink{src_2base_2logging_8h_a2209830df6b59d1ec1fdf66b9352924f}{DCHECK\_NULL}}(\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_af207fe4013b3446c33de55658d076e47}{next\_}});}
+\DoxyCodeLine{161   \mbox{\hyperlink{src_2base_2logging_8h_a2209830df6b59d1ec1fdf66b9352924f}{DCHECK\_NULL}}(\mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a5192b80e77ed7c4eb320c8492f50ce3f}{prev\_}});}
+\DoxyCodeLine{162 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+NULL, next\+\_\+, and prev\+\_\+.
+
+
+
+Referenced by Enqueue(), and $\sim$\+Waiter\+Queue\+Node().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a3c321698e984535f94425519494dcf49_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Data Documentation}
@@ -195,11 +728,27 @@ Implemented in \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1AsyncWaiterQueu
 \doxysubsubsection{\texorpdfstring{next\_}{next\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}}$\ast$ v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::next\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 85 of file waiter-\/queue-\/node.\+h.
+
+
+
+Referenced by Dequeue\+All\+Matching\+For\+Async\+Cleanup(), Dequeue\+Matching(), Dequeue\+Unchecked(), Enqueue(), Length\+From\+Head(), Notify\+All\+In\+List(), Set\+Not\+In\+List\+For\+Verification(), Split(), and Verify\+Not\+In\+List().
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a5192b80e77ed7c4eb320c8492f50ce3f}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a5192b80e77ed7c4eb320c8492f50ce3f}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!prev\_@{prev\_}}
 \index{prev\_@{prev\_}!v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}}
 \doxysubsubsection{\texorpdfstring{prev\_}{prev\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1WaiterQueueNode}{Waiter\+Queue\+Node}}$\ast$ v8\+::internal\+::detail\+::\+Waiter\+Queue\+Node\+::prev\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 86 of file waiter-\/queue-\/node.\+h.
+
+
+
+Referenced by Dequeue\+All\+Matching\+For\+Async\+Cleanup(), Dequeue\+Unchecked(), Enqueue(), Set\+Not\+In\+List\+For\+Verification(), Split(), and Verify\+Not\+In\+List().
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a37847a50cd1b682ab21e5eb57932ddfd}\label{classv8_1_1internal_1_1detail_1_1WaiterQueueNode_a37847a50cd1b682ab21e5eb57932ddfd}} 
 \index{v8::internal::detail::WaiterQueueNode@{v8::internal::detail::WaiterQueueNode}!requester\_@{requester\_}}
@@ -209,7 +758,15 @@ Implemented in \mbox{\hyperlink{classv8_1_1internal_1_1detail_1_1AsyncWaiterQueu
 
 
 
+Definition at line 82 of file waiter-\/queue-\/node.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Handle\+Async\+Notify(), v8\+::internal\+::\+JSAtomics\+Condition\+::\+Handle\+Async\+Notify(), v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Handle\+Async\+Timeout(), v8\+::internal\+::\+JSAtomics\+Condition\+::\+Handle\+Async\+Timeout(), and v8\+::internal\+::detail\+::\+Async\+Waiter\+Queue\+Node$<$ T $>$\+::\+Remove\+From\+Async\+Waiter\+Queue\+List().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{waiter-queue-node_8h}{waiter-\/queue-\/node.\+h}}\item 
-\mbox{\hyperlink{waiter-queue-node_8cc}{waiter-\/queue-\/node.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{waiter-queue-node_8h}{waiter-\/queue-\/node.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{waiter-queue-node_8cc}{waiter-\/queue-\/node.\+cc}}\end{DoxyCompactItemize}

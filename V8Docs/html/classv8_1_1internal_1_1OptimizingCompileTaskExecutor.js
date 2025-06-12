@@ -15,5 +15,12 @@ var classv8_1_1internal_1_1OptimizingCompileTaskExecutor =
     [ "Stop", "classv8_1_1internal_1_1OptimizingCompileTaskExecutor.html#ac07b1e6abaf21e2619b2032853e34331", null ],
     [ "TryQueueForOptimization", "classv8_1_1internal_1_1OptimizingCompileTaskExecutor.html#a1ecfcfae0db55abbfa9ed3a4f7cd0eb9", null ],
     [ "WaitUntilCompilationJobsDoneForIsolate", "classv8_1_1internal_1_1OptimizingCompileTaskExecutor.html#a165215a90c3074c8e11bed19f7e249df", null ],
-    [ "OptimizingCompileDispatcher", "classv8_1_1internal_1_1OptimizingCompileTaskExecutor.html#a7412031335a0003e2d25b3c2753df5b9", null ]
+    [ "OptimizingCompileDispatcher", "classv8_1_1internal_1_1OptimizingCompileTaskExecutor.html#a7412031335a0003e2d25b3c2753df5b9", null ],
+    [ "input_queue_", "classv8_1_1internal_1_1OptimizingCompileTaskExecutor.html#a56ed11e9a4404d8d185dfa78e7151b44", null ],
+    [ "is_initialized_", "classv8_1_1internal_1_1OptimizingCompileTaskExecutor.html#a5b41a32ae897fa42ae7da6e4c0e5ecdb", null ],
+    [ "job_handle_", "classv8_1_1internal_1_1OptimizingCompileTaskExecutor.html#aec45491fc21e24e674b4a69c900db451", null ],
+    [ "kEfficiencyTaskPriority", "classv8_1_1internal_1_1OptimizingCompileTaskExecutor.html#ad6dc0dd27d1b282207e59a727d2586c1", null ],
+    [ "kTaskPriority", "classv8_1_1internal_1_1OptimizingCompileTaskExecutor.html#a4f37b96209e6ec636abaa21b7943f487", null ],
+    [ "recompilation_delay_", "classv8_1_1internal_1_1OptimizingCompileTaskExecutor.html#a9202d36add48ba33c934694d3a67085d", null ],
+    [ "task_states_", "classv8_1_1internal_1_1OptimizingCompileTaskExecutor.html#ab58a42042968f995eab4fac07188e8ba", null ]
 ];

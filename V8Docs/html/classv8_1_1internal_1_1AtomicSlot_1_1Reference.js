@@ -7,5 +7,7 @@ var classv8_1_1internal_1_1AtomicSlot_1_1Reference =
     [ "operator=", "classv8_1_1internal_1_1AtomicSlot_1_1Reference.html#a38073171a0f309f009fcdf5fb53e90c7", null ],
     [ "operator=", "classv8_1_1internal_1_1AtomicSlot_1_1Reference.html#a82ee8d59c538af0e5ddc8d2cb1695166", null ],
     [ "operator==", "classv8_1_1internal_1_1AtomicSlot_1_1Reference.html#aaef5b0dbfda2ae5ca499467a50d2888a", null ],
-    [ "swap", "classv8_1_1internal_1_1AtomicSlot_1_1Reference.html#a4533cb1896de222265f6c04c57fa9eae", null ]
+    [ "swap", "classv8_1_1internal_1_1AtomicSlot_1_1Reference.html#a4533cb1896de222265f6c04c57fa9eae", null ],
+    [ "value", "classv8_1_1internal_1_1AtomicSlot_1_1Reference.html#aaa011669d72294c9b879b853e1edd82a", null ],
+    [ "address_", "classv8_1_1internal_1_1AtomicSlot_1_1Reference.html#ac3646e7206ae4a38ac4c77552aeee2e8", null ]
 ];

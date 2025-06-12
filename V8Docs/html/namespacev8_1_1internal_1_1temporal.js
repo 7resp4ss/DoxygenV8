@@ -1,5 +1,10 @@
 var namespacev8_1_1internal_1_1temporal =
 [
+    [ "anonymous_namespace{js-temporal-helpers.cc}", "namespacev8_1_1internal_1_1temporal_1_1anonymous__namespace_02js-temporal-helpers_8cc_03.html", [
+      [ "IsIntegralNumber", "namespacev8_1_1internal_1_1temporal_1_1anonymous__namespace_02js-temporal-helpers_8cc_03.html#a29df9b159e5d7332ebc6fdcfe7cfb117", null ],
+      [ "IterateDurationRecordFieldsTable", "namespacev8_1_1internal_1_1temporal_1_1anonymous__namespace_02js-temporal-helpers_8cc_03.html#aaddf3140cb63e7ee715e865ccdb06a05", null ],
+      [ "ToIntegerWithoutRounding", "namespacev8_1_1internal_1_1temporal_1_1anonymous__namespace_02js-temporal-helpers_8cc_03.html#a5ad9341abcf007aabca8bf6c40813ae7", null ]
+    ] ],
     [ "TimeDurationRecord", "structv8_1_1internal_1_1temporal_1_1TimeDurationRecord.html", "structv8_1_1internal_1_1temporal_1_1TimeDurationRecord" ],
     [ "DurationRecord", "structv8_1_1internal_1_1temporal_1_1DurationRecord.html", "structv8_1_1internal_1_1temporal_1_1DurationRecord" ],
     [ "DifferenceOperation", "namespacev8_1_1internal_1_1temporal.html#af104ef9a64c0df48075ade7c7dc29459", [

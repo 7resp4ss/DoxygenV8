@@ -13,9 +13,17 @@ var classv8_1_1internal_1_1Module =
       [ "kEvaluated", "classv8_1_1internal_1_1Module.html#a09ce29de807d3dae0277a0479d3e2ceea8c79c278e6b3c4a30927a4ce57f21657", null ],
       [ "kErrored", "classv8_1_1internal_1_1Module.html#a09ce29de807d3dae0277a0479d3e2ceea1e81546178ff61b0a1b62ad7f18835e1", null ]
     ] ],
+    [ "Evaluate", "classv8_1_1internal_1_1Module.html#a35cd34fba5af19fe2b4615d0594809c2", null ],
+    [ "FinishInstantiate", "classv8_1_1internal_1_1Module.html#a9b1e85e2cb79dcd37f3b8b344d16b5f2", null ],
     [ "GetException", "classv8_1_1internal_1_1Module.html#a49a5d855b83d37e8a3146f6ea95efca9", null ],
+    [ "GetModuleNamespace", "classv8_1_1internal_1_1Module.html#a92194d012a1ad3cb339ba2b15192ddce", null ],
+    [ "Instantiate", "classv8_1_1internal_1_1Module.html#ad93825cc43116f69cb5d5d7d13568fd8", null ],
     [ "IsGraphAsync", "classv8_1_1internal_1_1Module.html#a1abec5d16602d482f6f5cdb6ee83fc7e", null ],
+    [ "PrepareInstantiate", "classv8_1_1internal_1_1Module.html#ae7d91624010d6b75481c77e25251529b", null ],
     [ "RecordError", "classv8_1_1internal_1_1Module.html#a282856250e27af1b24892246c3959c33", null ],
+    [ "Reset", "classv8_1_1internal_1_1Module.html#ab70add2adfa9081b284be34a920b5c11", null ],
+    [ "ResetGraph", "classv8_1_1internal_1_1Module.html#a108be8b335e713760ee6101c4bce6e2e", null ],
+    [ "ResolveExport", "classv8_1_1internal_1_1Module.html#a8bd0cf48c177cb5cb6c5daf3f6c96fb8", null ],
     [ "SetStatus", "classv8_1_1internal_1_1Module.html#a6ac4c9bd0dc5aaf8f85cda7305d67295", null ],
     [ "Factory", "classv8_1_1internal_1_1Module.html#a328c093d609680cca505905c6d49901a", null ]
 ];

@@ -1,5 +1,5 @@
-\hypertarget{builtins_8h}{}\doxysection{builtins.\+h File Reference}
-\label{builtins_8h}\index{builtins.h@{builtins.h}}
+\hypertarget{builtins_8h}{}\doxysection{/mnt/\+V8\+Source\+Code/src/builtins/builtins.h File Reference}
+\label{builtins_8h}\index{/mnt/V8SourceCode/src/builtins/builtins.h@{/mnt/V8SourceCode/src/builtins/builtins.h}}
 {\ttfamily \#include \char`\"{}src/base/flags.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/base/vector.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/builtins/builtins-\/definitions.\+h\char`\"{}}\newline
@@ -7,12 +7,21 @@
 {\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/objects/type-\/hints.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/sandbox/code-\/entrypoint-\/tag.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/sandbox/code-\/sandboxing-\/mode.\+h\char`\"{}}\newline
 Include dependency graph for builtins.\+h\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{builtins_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{builtins_8h__dep__incl}
 \end{center}
 \end{figure}
 \doxysubsection*{Classes}
@@ -24,7 +33,7 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1Builtins}{v8\+::internal\+::\+Buil
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacev8}{v8}}
-\item 
+\begin{DoxyCompactList}\small\item\em This file provides additional API on top of the default one for making API calls, which come from embedder C++ functions. \end{DoxyCompactList}\item 
  \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
 \item 
  \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
@@ -34,7 +43,7 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1Builtins}{v8\+::internal\+::\+Buil
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{builtins_8h_af33bd0f259d8e6a511fd018115e0d62c}{BUILTIN\+\_\+\+CODE}}(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}},  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})~  (\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})-\/$>$builtins()-\/$>$code\+\_\+handle(i\+::\+Builtin\+::k\#\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\#define \mbox{\hyperlink{builtins_8h_af33bd0f259d8e6a511fd018115e0d62c}{BUILTIN\+\_\+\+CODE}}(isolate,  \mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}})~  (isolate)-\/$>$builtins()-\/$>$code\+\_\+handle(i\+::\+Builtin\+::k\#\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}})
 \item 
 \#define \mbox{\hyperlink{builtins_8h_a2ca09ef09aa9697f52d5de5351b43880}{DEF\+\_\+\+ENUM}}(Name, ...)~k\#\#Name,
 \item 
@@ -48,7 +57,7 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1Builtins}{v8\+::internal\+::\+Buil
 \item 
 \#define \mbox{\hyperlink{builtins_8h_a9cd1c9546b0db12d17fa5f9f6afcddd8}{DECLARE\+\_\+\+ASM}}(Name, ...)~  static void Generate\+\_\+\#\#Name(Macro\+Assembler$\ast$ masm);
 \item 
-\#define \mbox{\hyperlink{builtins_8h_abf6e9c67b1cb5a9d3266d8cd1ae1fb65}{DECLARE\+\_\+\+TF}}(Name, ...)~  static void Generate\+\_\+\#\#Name(compiler\+::\+Code\+Assembler\+State$\ast$ \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}});
+\#define \mbox{\hyperlink{builtins_8h_abf6e9c67b1cb5a9d3266d8cd1ae1fb65}{DECLARE\+\_\+\+TF}}(Name, ...)~  static void Generate\+\_\+\#\#Name(compiler\+::\+Code\+Assembler\+State$\ast$ state);
 \item 
 \#define \mbox{\hyperlink{builtins_8h_a44b3b31e44ab9a38857b98e47032f703}{DECLARE\+\_\+\+TS}}(Name, ...)
 \item 
@@ -70,17 +79,19 @@ enum class \mbox{\hyperlink{namespacev8_1_1internal_a7cc946db711e0424d0a51abb9a4
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} bool \mbox{\hyperlink{namespacev8_1_1internal_ac3ae977638419c739f5e209d7a66ae4b}{v8\+::internal\+::\+Is\+Valid\+Tiering\+Builtin}} (Tiering\+Builtin \mbox{\hyperlink{liftoff-compiler_8cc_a01d5e89f3b7e433e5b30ecde7b63c6b2}{builtin}})
+{\footnotesize template$<$typename T $>$ }\\static constexpr \mbox{\hyperlink{classT}{T}} \mbox{\hyperlink{namespacev8_1_1internal_a25d99b5e935624cd74e99db868099de7}{v8\+::internal\+::\+First\+From\+Var\+Args}} (\mbox{\hyperlink{classT}{T}} x,...) noexcept
 \item 
-constexpr \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} bool \mbox{\hyperlink{namespacev8_1_1internal_ad345bec6dac5a89ce4770b3c3cb1a51b}{v8\+::internal\+::operator$<$}} (Builtin \mbox{\hyperlink{js-call-reducer_8cc_a4665d2c07575c01062ce1cdba711d875}{a}}, Builtin b)
+bool \mbox{\hyperlink{namespacev8_1_1internal_a51462a81bd321a12ee5866e145e9a479}{v8\+::internal\+::\+Is\+Valid\+Tiering\+Builtin}} (Tiering\+Builtin builtin)
 \item 
-constexpr \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} Builtin \mbox{\hyperlink{namespacev8_1_1internal_a1bde22962e97046551b3882a8d898ebc}{v8\+::internal\+::operator++}} (Builtin \&\mbox{\hyperlink{liftoff-compiler_8cc_a01d5e89f3b7e433e5b30ecde7b63c6b2}{builtin}})
+constexpr bool \mbox{\hyperlink{namespacev8_1_1internal_a5afba934e7c226386836d2bb9ee7b2ee}{v8\+::internal\+::operator$<$}} (Builtin a, Builtin b)
 \item 
-constexpr \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} Builtin \mbox{\hyperlink{namespacev8_1_1internal_a924ab2f51dc8d1caeaf98355b6dc003d}{v8\+::internal\+::operator-\/-\/}} (Builtin \&\mbox{\hyperlink{liftoff-compiler_8cc_a01d5e89f3b7e433e5b30ecde7b63c6b2}{builtin}})
+constexpr Builtin \mbox{\hyperlink{namespacev8_1_1internal_aed26aac3c05949f8ebe6c970cebc655f}{v8\+::internal\+::operator++}} (Builtin \&builtin)
 \item 
-constexpr \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} bool \mbox{\hyperlink{namespacev8_1_1internal_a8f8c1e140dba37773d48c821dbfa01f0}{v8\+::internal\+::\+Is\+Interpreter\+Trampoline\+Builtin}} (Builtin builtin\+\_\+id)
+constexpr Builtin \mbox{\hyperlink{namespacev8_1_1internal_aab55cc06a83c496032b78f6f6e7ec6b7}{v8\+::internal\+::operator-\/-\/}} (Builtin \&builtin)
 \item 
-constexpr \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} bool \mbox{\hyperlink{namespacev8_1_1internal_a66f075aa646afd32672a9bef62d11c54}{v8\+::internal\+::\+Is\+Baseline\+Trampoline\+Builtin}} (Builtin builtin\+\_\+id)
+constexpr bool \mbox{\hyperlink{namespacev8_1_1internal_ab5034f457a28dac26fce1d6345057549}{v8\+::internal\+::\+Is\+Interpreter\+Trampoline\+Builtin}} (Builtin builtin\+\_\+id)
+\item 
+constexpr bool \mbox{\hyperlink{namespacev8_1_1internal_a29f7a5485a04a5331a52ef097c2f3055}{v8\+::internal\+::\+Is\+Baseline\+Trampoline\+Builtin}} (Builtin builtin\+\_\+id)
 \item 
 Builtin \mbox{\hyperlink{namespacev8_1_1internal_ad904382c7f2bdfd901c1d5fa38108488}{v8\+::internal\+::\+Example\+Builtin\+For\+Torque\+Function\+Pointer\+Type}} (size\+\_\+t function\+\_\+pointer\+\_\+type\+\_\+id)
 \end{DoxyCompactItemize}
@@ -93,11 +104,19 @@ Builtin \mbox{\hyperlink{namespacev8_1_1internal_ad904382c7f2bdfd901c1d5fa381084
 \doxysubsubsection{\texorpdfstring{ADD\_ONE}{ADD\_ONE}}
 {\footnotesize\ttfamily \#define ADD\+\_\+\+ONE(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})~+1}
 
+
+
+Definition at line 111 of file builtins.\+h.
+
 \mbox{\Hypertarget{builtins_8h_af33bd0f259d8e6a511fd018115e0d62c}\label{builtins_8h_af33bd0f259d8e6a511fd018115e0d62c}} 
 \index{builtins.h@{builtins.h}!BUILTIN\_CODE@{BUILTIN\_CODE}}
 \index{BUILTIN\_CODE@{BUILTIN\_CODE}!builtins.h@{builtins.h}}
 \doxysubsubsection{\texorpdfstring{BUILTIN\_CODE}{BUILTIN\_CODE}}
-{\footnotesize\ttfamily \#define BUILTIN\+\_\+\+CODE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}},  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})~  (\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})-\/$>$builtins()-\/$>$code\+\_\+handle(i\+::\+Builtin\+::k\#\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})}
+{\footnotesize\ttfamily \#define BUILTIN\+\_\+\+CODE(\begin{DoxyParamCaption}\item[{}]{isolate,  }\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}} }\end{DoxyParamCaption})~  (isolate)-\/$>$builtins()-\/$>$code\+\_\+handle(i\+::\+Builtin\+::k\#\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}})}
+
+
+
+Definition at line 47 of file builtins.\+h.
 
 \mbox{\Hypertarget{builtins_8h_ad05a04fef258e5e6c5359524397f6c8b}\label{builtins_8h_ad05a04fef258e5e6c5359524397f6c8b}} 
 \index{builtins.h@{builtins.h}!CASE@{CASE}}
@@ -107,7 +126,7 @@ Builtin \mbox{\hyperlink{namespacev8_1_1internal_ad904382c7f2bdfd901c1d5fa381084
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  \textcolor{keywordflow}{if} (\mbox{\hyperlink{liftoff-compiler_8cc_a01d5e89f3b7e433e5b30ecde7b63c6b2}{builtin}} == TieringBuiltin::k\#\#Name) \{ \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (builtin == TieringBuiltin::k\#\#Name) \{ \(\backslash\)}
 \DoxyCodeLine{    return \textcolor{keyword}{true};                            \(\backslash\)}
 \DoxyCodeLine{  \}}
 
@@ -118,17 +137,29 @@ Builtin \mbox{\hyperlink{namespacev8_1_1internal_ad904382c7f2bdfd901c1d5fa381084
 \doxysubsubsection{\texorpdfstring{COS\_IMPL}{COS\_IMPL}}
 {\footnotesize\ttfamily \#define COS\+\_\+\+IMPL(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_acef733af0cd52e464ef990347581e777}{X}} }\end{DoxyParamCaption})~base\+::ieee754\+::cos(\mbox{\hyperlink{flag-definitions_8h_acef733af0cd52e464ef990347581e777}{X}})}
 
+
+
+Definition at line 560 of file builtins.\+h.
+
 \mbox{\Hypertarget{builtins_8h_a9cd1c9546b0db12d17fa5f9f6afcddd8}\label{builtins_8h_a9cd1c9546b0db12d17fa5f9f6afcddd8}} 
 \index{builtins.h@{builtins.h}!DECLARE\_ASM@{DECLARE\_ASM}}
 \index{DECLARE\_ASM@{DECLARE\_ASM}!builtins.h@{builtins.h}}
 \doxysubsubsection{\texorpdfstring{DECLARE\_ASM}{DECLARE\_ASM}}
 {\footnotesize\ttfamily \#define DECLARE\+\_\+\+ASM(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})~  static void Generate\+\_\+\#\#Name(Macro\+Assembler$\ast$ masm);}
 
+
+
+Definition at line 484 of file builtins.\+h.
+
 \mbox{\Hypertarget{builtins_8h_abf6e9c67b1cb5a9d3266d8cd1ae1fb65}\label{builtins_8h_abf6e9c67b1cb5a9d3266d8cd1ae1fb65}} 
 \index{builtins.h@{builtins.h}!DECLARE\_TF@{DECLARE\_TF}}
 \index{DECLARE\_TF@{DECLARE\_TF}!builtins.h@{builtins.h}}
 \doxysubsubsection{\texorpdfstring{DECLARE\_TF}{DECLARE\_TF}}
-{\footnotesize\ttfamily \#define DECLARE\+\_\+\+TF(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})~  static void Generate\+\_\+\#\#Name(compiler\+::\+Code\+Assembler\+State$\ast$ \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}});}
+{\footnotesize\ttfamily \#define DECLARE\+\_\+\+TF(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})~  static void Generate\+\_\+\#\#Name(compiler\+::\+Code\+Assembler\+State$\ast$ state);}
+
+
+
+Definition at line 486 of file builtins.\+h.
 
 \mbox{\Hypertarget{builtins_8h_a44b3b31e44ab9a38857b98e47032f703}\label{builtins_8h_a44b3b31e44ab9a38857b98e47032f703}} 
 \index{builtins.h@{builtins.h}!DECLARE\_TS@{DECLARE\_TS}}
@@ -138,22 +169,34 @@ Builtin \mbox{\hyperlink{namespacev8_1_1internal_ad904382c7f2bdfd901c1d5fa381084
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  \textcolor{keyword}{static} \textcolor{keywordtype}{void} Generate\_\#\#Name(compiler::turboshaft::PipelineData* \mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \(\backslash\)}
-\DoxyCodeLine{                              Isolate* \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}},                         \(\backslash\)}
-\DoxyCodeLine{                              compiler::turboshaft::Graph\& \mbox{\hyperlink{add-type-assertions-reducer_8cc_a4db7d9af9cc5e165a9c50f82a9aeb8a3}{graph}}, Zone* zone);}
+\DoxyCodeLine{  \textcolor{keyword}{static} \textcolor{keywordtype}{void} Generate\_\#\#Name(compiler::turboshaft::PipelineData* data, \(\backslash\)}
+\DoxyCodeLine{                              Isolate* isolate,                         \(\backslash\)}
+\DoxyCodeLine{                              compiler::turboshaft::Graph\& \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}, Zone* zone);}
 
 \end{DoxyCode}
+
+
+Definition at line 488 of file builtins.\+h.
+
 \mbox{\Hypertarget{builtins_8h_a2ca09ef09aa9697f52d5de5351b43880}\label{builtins_8h_a2ca09ef09aa9697f52d5de5351b43880}} 
 \index{builtins.h@{builtins.h}!DEF\_ENUM@{DEF\_ENUM}}
 \index{DEF\_ENUM@{DEF\_ENUM}!builtins.h@{builtins.h}}
 \doxysubsubsection{\texorpdfstring{DEF\_ENUM}{DEF\_ENUM}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily \#define DEF\+\_\+\+ENUM(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})~k\#\#Name,}
 
+
+
+Definition at line 63 of file builtins.\+h.
+
 \mbox{\Hypertarget{builtins_8h_a2ca09ef09aa9697f52d5de5351b43880}\label{builtins_8h_a2ca09ef09aa9697f52d5de5351b43880}} 
 \index{builtins.h@{builtins.h}!DEF\_ENUM@{DEF\_ENUM}}
 \index{DEF\_ENUM@{DEF\_ENUM}!builtins.h@{builtins.h}}
 \doxysubsubsection{\texorpdfstring{DEF\_ENUM}{DEF\_ENUM}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \#define DEF\+\_\+\+ENUM(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})~k\#\#Name = static\+\_\+cast$<$int32\+\_\+t$>$(Builtin\+::k\#\#Name),}
+
+
+
+Definition at line 63 of file builtins.\+h.
 
 \mbox{\Hypertarget{builtins_8h_a6d1152c9c1e59189666b64e9c2bd7158}\label{builtins_8h_a6d1152c9c1e59189666b64e9c2bd7158}} 
 \index{builtins.h@{builtins.h}!EXTRACT\_NAME@{EXTRACT\_NAME}}
@@ -166,4 +209,8 @@ Builtin \mbox{\hyperlink{namespacev8_1_1internal_ad904382c7f2bdfd901c1d5fa381084
 \index{SIN\_IMPL@{SIN\_IMPL}!builtins.h@{builtins.h}}
 \doxysubsubsection{\texorpdfstring{SIN\_IMPL}{SIN\_IMPL}}
 {\footnotesize\ttfamily \#define SIN\+\_\+\+IMPL(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_acef733af0cd52e464ef990347581e777}{X}} }\end{DoxyParamCaption})~base\+::ieee754\+::sin(\mbox{\hyperlink{flag-definitions_8h_acef733af0cd52e464ef990347581e777}{X}})}
+
+
+
+Definition at line 559 of file builtins.\+h.
 

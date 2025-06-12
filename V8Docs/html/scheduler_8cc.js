@@ -2,6 +2,8 @@ var scheduler_8cc =
 [
     [ "CFGBuilder", "classv8_1_1internal_1_1compiler_1_1CFGBuilder.html", "classv8_1_1internal_1_1compiler_1_1CFGBuilder" ],
     [ "SpecialRPONumberer", "classv8_1_1internal_1_1compiler_1_1SpecialRPONumberer.html", "classv8_1_1internal_1_1compiler_1_1SpecialRPONumberer" ],
+    [ "SpecialRPOStackFrame", "structv8_1_1internal_1_1compiler_1_1SpecialRPONumberer_1_1SpecialRPOStackFrame.html", "structv8_1_1internal_1_1compiler_1_1SpecialRPONumberer_1_1SpecialRPOStackFrame" ],
+    [ "LoopInfo", "structv8_1_1internal_1_1compiler_1_1SpecialRPONumberer_1_1LoopInfo.html", "structv8_1_1internal_1_1compiler_1_1SpecialRPONumberer_1_1LoopInfo" ],
     [ "PrepareUsesVisitor", "classv8_1_1internal_1_1compiler_1_1PrepareUsesVisitor.html", "classv8_1_1internal_1_1compiler_1_1PrepareUsesVisitor" ],
     [ "ScheduleEarlyNodeVisitor", "classv8_1_1internal_1_1compiler_1_1ScheduleEarlyNodeVisitor.html", "classv8_1_1internal_1_1compiler_1_1ScheduleEarlyNodeVisitor" ],
     [ "ScheduleLateNodeVisitor", "classv8_1_1internal_1_1compiler_1_1ScheduleLateNodeVisitor.html", "classv8_1_1internal_1_1compiler_1_1ScheduleLateNodeVisitor" ],

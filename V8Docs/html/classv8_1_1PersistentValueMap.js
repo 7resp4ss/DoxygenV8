@@ -6,5 +6,6 @@ var classv8_1_1PersistentValueMap =
     [ "Set", "classv8_1_1PersistentValueMap.html#a00f89f1b7665698349f98b04d0059180", null ],
     [ "Set", "classv8_1_1PersistentValueMap.html#a8128f8cff6ed0f3177e966b28cc081ba", null ],
     [ "Set", "classv8_1_1PersistentValueMap.html#a4527a2e1b25a9f1772317f948382d9f9", null ],
-    [ "SetUnique", "classv8_1_1PersistentValueMap.html#a97ab74c7670e65dd5f95ec2940c4ab11", null ]
+    [ "SetUnique", "classv8_1_1PersistentValueMap.html#a97ab74c7670e65dd5f95ec2940c4ab11", null ],
+    [ "WeakCallback", "classv8_1_1PersistentValueMap.html#a476da54f6c537c330821a38995144e6a", null ]
 ];

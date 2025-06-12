@@ -1,0 +1,26 @@
+var namespacev8_1_1internal_1_1anonymous__namespace_02debug_coverage_8cc_03 =
+[
+    [ "CoverageBlockIterator", "classv8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03_1_1CoverageBlockIterator.html", "classv8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03_1_1CoverageBlockIterator" ],
+    [ "SharedFunctionInfoAndCount", "structv8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03_1_1SharedFunctionInfoAndCount.html", "structv8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03_1_1SharedFunctionInfoAndCount" ],
+    [ "ClampToBinary", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#ae0e1b23124dbbcc1113df5c69d7dd4ea", null ],
+    [ "CollectAndMaybeResetCounts", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a6bd71c4bf8cf278244d4f0e036ec0ce4", null ],
+    [ "CollectBlockCoverage", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a56a3d0fed9afcb859bfcfa348777355d", null ],
+    [ "CollectBlockCoverageInternal", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a15f0c97a8b39358f91af7513d1c6166f", null ],
+    [ "CompareCoverageBlock", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a1080c16a1fd8c041d3ef5950aabd487b", null ],
+    [ "FilterAliasedSingletons", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a70d27617fc378c05001c1bb43204c9a6", null ],
+    [ "FilterEmptyRanges", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#aca88c5679e724e198c099417b4654e21", null ],
+    [ "FilterUncoveredRanges", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a13b7be07364814ff87b0099ecd517646", null ],
+    [ "GetSortedBlockData", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a42dcf99f8807668aa45516ef2ca204cc", null ],
+    [ "HaveSameSourceRange", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a8569146bc3e0157f6ab734315251d9d2", null ],
+    [ "IsBinaryMode", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a184d02efd817e9f0d12462674067db13", null ],
+    [ "IsBlockMode", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a8c223b8ebd12f35065d7bf08e4e35708", null ],
+    [ "MergeConsecutiveRanges", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a2fdde66eb855b9682748881fdf17a297", null ],
+    [ "MergeDuplicateRanges", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#abe30a9e60f51e8d0ade1d49582afb4d0", null ],
+    [ "MergeNestedRanges", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a54426b2f0efeb30489fbe76f38e88ea2", null ],
+    [ "PrintBlockCoverage", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#aaf5f817109bd96f04047f1369ec4e973", null ],
+    [ "ResetAllBlockCounts", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a2c11ab322740c12cf01481c06ef3cd8e", null ],
+    [ "RewriteFunctionScopeCounter", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a13f4bff10afb145e9679f720c520f679", null ],
+    [ "RewritePositionSingletonsToRanges", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#ad79db1afc34bf91b7837bc4fd95f9dbc", null ],
+    [ "SortBlockData", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a10c55d2c054a6b2e5d72e3c6717b7572", null ],
+    [ "StartPosition", "namespacev8_1_1internal_1_1anonymous__namespace_02debug-coverage_8cc_03.html#a9d8d5f5d3c2045c6c35cad9a1c9a4f7c", null ]
+];

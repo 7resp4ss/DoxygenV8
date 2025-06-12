@@ -1,5 +1,5 @@
-\hypertarget{v8-string-conversions_8cc}{}\doxysection{v8-\/string-\/conversions.cc File Reference}
-\label{v8-string-conversions_8cc}\index{v8-\/string-\/conversions.cc@{v8-\/string-\/conversions.cc}}
+\hypertarget{v8-string-conversions_8cc}{}\doxysection{/mnt/\+V8\+Source\+Code/src/inspector/v8-\/string-\/conversions.cc File Reference}
+\label{v8-string-conversions_8cc}\index{/mnt/V8SourceCode/src/inspector/v8-\/string-\/conversions.cc@{/mnt/V8SourceCode/src/inspector/v8-\/string-\/conversions.cc}}
 {\ttfamily \#include \char`\"{}src/inspector/v8-\/string-\/conversions.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$limits$>$}\newline
 {\ttfamily \#include $<$vector$>$}\newline
@@ -16,26 +16,69 @@ Include dependency graph for v8-\/string-\/conversions.cc\+:
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacev8__inspector}{v8\+\_\+inspector}}
+\item 
+ \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{v8-string-conversions_8cc_af61a68e47f2001bc1e9eca44b57f16d0}{U\+\_\+\+IS\+\_\+\+BMP}}(c)~((uint32\+\_\+t)(c) $<$= 0x\+FFFF)
-\item 
+\begin{DoxyCompactList}\small\item\em Is this code point a BMP code point (U+0000..U+ffff)? \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{v8-string-conversions_8cc_a3e17136e0bf04c8cc2abeea275bde094}{U\+\_\+\+IS\+\_\+\+SUPPLEMENTARY}}(c)~((uint32\+\_\+t)((c)-\/0x010000) $<$= 0x\+FFFFF)
-\item 
+\begin{DoxyCompactList}\small\item\em Is this code point a supplementary code point (U+010000..U+10\+FFFF)? \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{v8-string-conversions_8cc_a0ec1c520a06d1e8e3ca431a2ff8e6b02}{U\+\_\+\+IS\+\_\+\+SURROGATE}}(c)~(((c)\&0x\+FFFFF800) == 0x\+D800)
-\item 
+\begin{DoxyCompactList}\small\item\em Is this code point a surrogate (U+d800..U+dfff)? \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{v8-string-conversions_8cc_ad0e832d06991f5f07a43d68d202165b1}{U16\+\_\+\+LEAD}}(supplementary)~(UChar)(((supplementary) $>$$>$ 10) + 0x\+D7\+C0)
-\item 
+\begin{DoxyCompactList}\small\item\em Get the lead surrogate (0x\+D800..0x\+DBFF) for a supplementary code point (0x010000..0x10\+FFFF). \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{v8-string-conversions_8cc_abf0698cf645946911b2e10d3ab890321}{U16\+\_\+\+TRAIL}}(supplementary)~(UChar)(((supplementary)\&0x3\+FF) $\vert$ 0x\+DC00)
+\begin{DoxyCompactList}\small\item\em Get the trail surrogate (0x\+DC00..0x\+DFFF) for a supplementary code point (0x010000..0x10\+FFFF). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_a6e250094bcf5f843fdc7fbdd92bcd45f}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::\+UChar}} = char16\+\_\+t
+\item 
+using \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_a044c32d08d466bbb42eb7166e01065ae}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::\+UChar32}} = uint32\+\_\+t
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_ab66c2f92739c5fbf607d4e9a3c19c735}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::\+Conversion\+Result}} \{ \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_ab66c2f92739c5fbf607d4e9a3c19c735a5538dc6c44d8db96a4229d26c6aa00c3}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::conversion\+OK}}
+, \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_ab66c2f92739c5fbf607d4e9a3c19c735ae2db84ff1f3d928cbf372cb96120e0bf}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::source\+Exhausted}}
+, \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_ab66c2f92739c5fbf607d4e9a3c19c735ac721d268fb43f99c33ade30e4653edab}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::target\+Exhausted}}
+, \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_ab66c2f92739c5fbf607d4e9a3c19c735a0be387be7b9dd8ce0ef995a0d61bcdf4}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::source\+Illegal}}
+ \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-std\+::string \mbox{\hyperlink{namespacev8__inspector_a616a4988d37751c2608fe9e601773615}{v8\+\_\+inspector\+::\+UTF16\+To\+UTF8}} (const UChar $\ast$string\+Start, size\+\_\+t \mbox{\hyperlink{random-module-generation_8cc_aebb70c2aab3407a9f05334c47131a43b}{length}})
+bool \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_a2409c36727a1af4f66e1853cdcdd1b52}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::is\+ASCII}} (UChar c)
 \item 
-std\+::basic\+\_\+string$<$ UChar $>$ \mbox{\hyperlink{namespacev8__inspector_a0604bf8a00b61d291343a3b338ce8dac}{v8\+\_\+inspector\+::\+UTF8\+To\+UTF16}} (const char $\ast$string\+Start, size\+\_\+t \mbox{\hyperlink{random-module-generation_8cc_aebb70c2aab3407a9f05334c47131a43b}{length}})
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_a5a71e1d61b4b571c8cf9651334b6119c}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::inline\+UTF8\+Sequence\+Length\+Non\+ASCII}} (char b0)
+\item 
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_a241e8730eb17707f75fd235594bd1b67}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::inline\+UTF8\+Sequence\+Length}} (char b0)
+\item 
+Conversion\+Result \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_a431ac724485d755cb50e9810a3fe2b1d}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::convert\+UTF16\+To\+UTF8}} (const UChar $\ast$$\ast$source\+Start, const UChar $\ast$source\+End, char $\ast$$\ast$target\+Start, char $\ast$target\+End, bool strict)
+\item 
+static bool \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_a8c2b4260e43ec2ff610a3e7b30a90fc6}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::is\+Legal\+UTF8}} (const unsigned char $\ast$source, \mbox{\hyperlink{classint}{int}} length)
+\item 
+static UChar32 \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_a751e9d7353e05b5c2fa75cb0abbe3c93}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::read\+UTF8\+Sequence}} (const char $\ast$\&sequence, size\+\_\+t length)
+\item 
+Conversion\+Result \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_aa6e19e5362c7d74ea500cffc07f7350b}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::convert\+UTF8\+To\+UTF16}} (const char $\ast$$\ast$source\+Start, const char $\ast$source\+End, UChar $\ast$$\ast$target\+Start, UChar $\ast$target\+End, bool $\ast$source\+All\+ASCII, bool strict)
+\item 
+static void \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_a2e895e74eab24f8980ab29c96a4bbdaa}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::put\+UTF8\+Triple}} (char $\ast$\&buffer, UChar ch)
+\item 
+std\+::string \mbox{\hyperlink{namespacev8__inspector_a616a4988d37751c2608fe9e601773615}{v8\+\_\+inspector\+::\+UTF16\+To\+UTF8}} (const UChar $\ast$string\+Start, size\+\_\+t length)
+\item 
+std\+::basic\+\_\+string$<$ UChar $>$ \mbox{\hyperlink{namespacev8__inspector_a0604bf8a00b61d291343a3b338ce8dac}{v8\+\_\+inspector\+::\+UTF8\+To\+UTF16}} (const char $\ast$string\+Start, size\+\_\+t length)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const UChar \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_ab60d358caa7bc2a02efe0f560d48164a}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::replacement\+Character}} = 0x\+FFFD
+\item 
+static const unsigned char \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_aaa2e6d038add513ea2e4a775896aeeeb}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::first\+Byte\+Mark}} \mbox{[}7\mbox{]}
+\item 
+static const UChar32 \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03_ab4b1f91f708df0495cf1dd2f97ecd761}{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/string-\/conversions.\+cc\}\+::offsets\+From\+UTF8}} \mbox{[}6\mbox{]}
 \end{DoxyCompactItemize}
 
 
@@ -46,7 +89,11 @@ std\+::basic\+\_\+string$<$ UChar $>$ \mbox{\hyperlink{namespacev8__inspector_a0
 \doxysubsubsection{\texorpdfstring{U16\_LEAD}{U16\_LEAD}}
 {\footnotesize\ttfamily \#define U16\+\_\+\+LEAD(\begin{DoxyParamCaption}\item[{}]{supplementary }\end{DoxyParamCaption})~(UChar)(((supplementary) $>$$>$ 10) + 0x\+D7\+C0)}
 
+
+
 Get the lead surrogate (0x\+D800..0x\+DBFF) for a supplementary code point (0x010000..0x10\+FFFF). 
+
+
 \begin{DoxyParams}{Parameters}
 {\em supplementary} & 32-\/bit code point (U+010000..U+10\+FFFF) \\
 \hline
@@ -54,13 +101,21 @@ Get the lead surrogate (0x\+D800..0x\+DBFF) for a supplementary code point (0x01
 \begin{DoxyReturn}{Returns}
 lead surrogate (U+\+D800..U+\+DBFF) for supplementary @stable ICU 2.\+4 
 \end{DoxyReturn}
+
+
+Definition at line 164 of file v8-\/string-\/conversions.\+cc.
+
 \mbox{\Hypertarget{v8-string-conversions_8cc_abf0698cf645946911b2e10d3ab890321}\label{v8-string-conversions_8cc_abf0698cf645946911b2e10d3ab890321}} 
 \index{v8-\/string-\/conversions.cc@{v8-\/string-\/conversions.cc}!U16\_TRAIL@{U16\_TRAIL}}
 \index{U16\_TRAIL@{U16\_TRAIL}!v8-\/string-\/conversions.cc@{v8-\/string-\/conversions.cc}}
 \doxysubsubsection{\texorpdfstring{U16\_TRAIL}{U16\_TRAIL}}
 {\footnotesize\ttfamily \#define U16\+\_\+\+TRAIL(\begin{DoxyParamCaption}\item[{}]{supplementary }\end{DoxyParamCaption})~(UChar)(((supplementary)\&0x3\+FF) $\vert$ 0x\+DC00)}
 
+
+
 Get the trail surrogate (0x\+DC00..0x\+DFFF) for a supplementary code point (0x010000..0x10\+FFFF). 
+
+
 \begin{DoxyParams}{Parameters}
 {\em supplementary} & 32-\/bit code point (U+010000..U+10\+FFFF) \\
 \hline
@@ -68,13 +123,21 @@ Get the trail surrogate (0x\+DC00..0x\+DFFF) for a supplementary code point (0x0
 \begin{DoxyReturn}{Returns}
 trail surrogate (U+\+DC00..U+\+DFFF) for supplementary @stable ICU 2.\+4 
 \end{DoxyReturn}
+
+
+Definition at line 173 of file v8-\/string-\/conversions.\+cc.
+
 \mbox{\Hypertarget{v8-string-conversions_8cc_af61a68e47f2001bc1e9eca44b57f16d0}\label{v8-string-conversions_8cc_af61a68e47f2001bc1e9eca44b57f16d0}} 
 \index{v8-\/string-\/conversions.cc@{v8-\/string-\/conversions.cc}!U\_IS\_BMP@{U\_IS\_BMP}}
 \index{U\_IS\_BMP@{U\_IS\_BMP}!v8-\/string-\/conversions.cc@{v8-\/string-\/conversions.cc}}
 \doxysubsubsection{\texorpdfstring{U\_IS\_BMP}{U\_IS\_BMP}}
 {\footnotesize\ttfamily \#define U\+\_\+\+IS\+\_\+\+BMP(\begin{DoxyParamCaption}\item[{}]{c }\end{DoxyParamCaption})~((uint32\+\_\+t)(c) $<$= 0x\+FFFF)}
 
+
+
 Is this code point a BMP code point (U+0000..U+ffff)? 
+
+
 \begin{DoxyParams}{Parameters}
 {\em c} & 32-\/bit code point \\
 \hline
@@ -82,13 +145,21 @@ Is this code point a BMP code point (U+0000..U+ffff)?
 \begin{DoxyReturn}{Returns}
 TRUE or FALSE @stable ICU 2.\+8 
 \end{DoxyReturn}
+
+
+Definition at line 139 of file v8-\/string-\/conversions.\+cc.
+
 \mbox{\Hypertarget{v8-string-conversions_8cc_a3e17136e0bf04c8cc2abeea275bde094}\label{v8-string-conversions_8cc_a3e17136e0bf04c8cc2abeea275bde094}} 
 \index{v8-\/string-\/conversions.cc@{v8-\/string-\/conversions.cc}!U\_IS\_SUPPLEMENTARY@{U\_IS\_SUPPLEMENTARY}}
 \index{U\_IS\_SUPPLEMENTARY@{U\_IS\_SUPPLEMENTARY}!v8-\/string-\/conversions.cc@{v8-\/string-\/conversions.cc}}
 \doxysubsubsection{\texorpdfstring{U\_IS\_SUPPLEMENTARY}{U\_IS\_SUPPLEMENTARY}}
 {\footnotesize\ttfamily \#define U\+\_\+\+IS\+\_\+\+SUPPLEMENTARY(\begin{DoxyParamCaption}\item[{}]{c }\end{DoxyParamCaption})~((uint32\+\_\+t)((c)-\/0x010000) $<$= 0x\+FFFFF)}
 
+
+
 Is this code point a supplementary code point (U+010000..U+10\+FFFF)? 
+
+
 \begin{DoxyParams}{Parameters}
 {\em c} & 32-\/bit code point \\
 \hline
@@ -96,13 +167,21 @@ Is this code point a supplementary code point (U+010000..U+10\+FFFF)?
 \begin{DoxyReturn}{Returns}
 TRUE or FALSE @stable ICU 2.\+8 
 \end{DoxyReturn}
+
+
+Definition at line 147 of file v8-\/string-\/conversions.\+cc.
+
 \mbox{\Hypertarget{v8-string-conversions_8cc_a0ec1c520a06d1e8e3ca431a2ff8e6b02}\label{v8-string-conversions_8cc_a0ec1c520a06d1e8e3ca431a2ff8e6b02}} 
 \index{v8-\/string-\/conversions.cc@{v8-\/string-\/conversions.cc}!U\_IS\_SURROGATE@{U\_IS\_SURROGATE}}
 \index{U\_IS\_SURROGATE@{U\_IS\_SURROGATE}!v8-\/string-\/conversions.cc@{v8-\/string-\/conversions.cc}}
 \doxysubsubsection{\texorpdfstring{U\_IS\_SURROGATE}{U\_IS\_SURROGATE}}
 {\footnotesize\ttfamily \#define U\+\_\+\+IS\+\_\+\+SURROGATE(\begin{DoxyParamCaption}\item[{}]{c }\end{DoxyParamCaption})~(((c)\&0x\+FFFFF800) == 0x\+D800)}
 
+
+
 Is this code point a surrogate (U+d800..U+dfff)? 
+
+
 \begin{DoxyParams}{Parameters}
 {\em c} & 32-\/bit code point \\
 \hline
@@ -110,3 +189,7 @@ Is this code point a surrogate (U+d800..U+dfff)?
 \begin{DoxyReturn}{Returns}
 TRUE or FALSE @stable ICU 2.\+4 
 \end{DoxyReturn}
+
+
+Definition at line 155 of file v8-\/string-\/conversions.\+cc.
+

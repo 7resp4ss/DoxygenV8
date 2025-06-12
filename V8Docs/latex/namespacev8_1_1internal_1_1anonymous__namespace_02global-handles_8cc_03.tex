@@ -1,0 +1,240 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{global-\/handles.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_ab08ec521fbcd52817aa6b4aa2a68769b}{Extract\+Internal\+Fields}} (\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSObject}{JSObject}} $>$ jsobject, void $\ast$$\ast$embedder\+\_\+fields, \mbox{\hyperlink{classint}{int}} len)
+\item 
+{\footnotesize template$<$typename Node\+Type $>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_acd03fdba902237e68b1f4fe409ab4e96}{Needs\+Tracking\+In\+Young\+Nodes}} (\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, Node\+Type $\ast$node)
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_a1788303d2f19ec8a6957ebb7651f61e3}{Update\+List\+Of\+Young\+Nodes\+Impl}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, std\+::vector$<$ \mbox{\hyperlink{classT}{T}} $\ast$ $>$ $\ast$node\+\_\+list)
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_aae5a503779f7feec5472f052571f87a2}{Clear\+List\+Of\+Young\+Nodes\+Impl}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, std\+::vector$<$ \mbox{\hyperlink{classT}{T}} $\ast$ $>$ $\ast$node\+\_\+list)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_a310ec535d39cdeecb62031a1bc9423a1}{k\+Block\+Size}} = 256
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_aae5a503779f7feec5472f052571f87a2}\label{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_aae5a503779f7feec5472f052571f87a2}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}}!ClearListOfYoungNodesImpl@{ClearListOfYoungNodesImpl}}
+\index{ClearListOfYoungNodesImpl@{ClearListOfYoungNodesImpl}!v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ClearListOfYoungNodesImpl()}{ClearListOfYoungNodesImpl()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void v8\+::internal\+::anonymous\+\_\+namespace\{global-\/handles.\+cc\}\+::Clear\+List\+Of\+Young\+Nodes\+Impl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{std\+::vector$<$ \mbox{\hyperlink{classT}{T}} $\ast$ $>$ $\ast$}]{node\+\_\+list }\end{DoxyParamCaption})}
+
+
+
+Definition at line 802 of file global-\/handles.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{802                                                                            \{}
+\DoxyCodeLine{803   \textcolor{keywordflow}{for} (\mbox{\hyperlink{classT}{T}}* node : *node\_list) \{}
+\DoxyCodeLine{804     \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(node-\/>is\_in\_young\_list());}
+\DoxyCodeLine{805     node-\/>set\_in\_young\_list(\textcolor{keyword}{false});}
+\DoxyCodeLine{806     \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(node-\/>IsInUse() \&\& node-\/>state() != T::NEAR\_DEATH,}
+\DoxyCodeLine{807                    !HeapLayout::InYoungGeneration(node-\/>object()));}
+\DoxyCodeLine{808   \}}
+\DoxyCodeLine{809   isolate-\/>heap()-\/>IncrementNodesDiedInNewSpace(}
+\DoxyCodeLine{810       \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(node\_list-\/>size()));}
+\DoxyCodeLine{811   node\_list-\/>clear();}
+\DoxyCodeLine{812   node\_list-\/>shrink\_to\_fit();}
+\DoxyCodeLine{813 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+IMPLIES, v8\+::internal\+::\+Isolate\+::heap(), v8\+::internal\+::\+Heap\+::\+Increment\+Nodes\+Died\+In\+New\+Space(), and v8\+::internal\+::\+Heap\+Layout\+::\+In\+Young\+Generation().
+
+
+
+Referenced by v8\+::internal\+::\+Global\+Handles\+::\+Clear\+List\+Of\+Young\+Nodes().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_aae5a503779f7feec5472f052571f87a2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_aae5a503779f7feec5472f052571f87a2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_ab08ec521fbcd52817aa6b4aa2a68769b}\label{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_ab08ec521fbcd52817aa6b4aa2a68769b}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}}!ExtractInternalFields@{ExtractInternalFields}}
+\index{ExtractInternalFields@{ExtractInternalFields}!v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ExtractInternalFields()}{ExtractInternalFields()}}
+{\footnotesize\ttfamily void v8\+::internal\+::anonymous\+\_\+namespace\{global-\/handles.\+cc\}\+::Extract\+Internal\+Fields (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSObject}{JSObject}} $>$}]{jsobject,  }\item[{void $\ast$$\ast$}]{embedder\+\_\+fields,  }\item[{\mbox{\hyperlink{classint}{int}}}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 410 of file global-\/handles.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{411                                     \{}
+\DoxyCodeLine{412   \textcolor{keywordtype}{int} field\_count = jsobject-\/>GetEmbedderFieldCount();}
+\DoxyCodeLine{413   IsolateForSandbox isolate = \mbox{\hyperlink{namespacev8_1_1internal_adb23f3baf7223f8c3acb2901e2491245}{GetCurrentIsolateForSandbox}}();}
+\DoxyCodeLine{414   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < len; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{415     \textcolor{keywordflow}{if} (field\_count == \mbox{\hyperlink{namespacev8_1_1internal}{i}}) \textcolor{keywordflow}{break};}
+\DoxyCodeLine{416     \textcolor{keywordtype}{void}* pointer;}
+\DoxyCodeLine{417     \textcolor{keywordflow}{if} (EmbedderDataSlot(jsobject, \mbox{\hyperlink{namespacev8_1_1internal}{i}}).ToAlignedPointer(isolate, \&pointer)) \{}
+\DoxyCodeLine{418       embedder\_fields[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}] = pointer;}
+\DoxyCodeLine{419     \}}
+\DoxyCodeLine{420   \}}
+\DoxyCodeLine{421 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Get\+Current\+Isolate\+For\+Sandbox(), and v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i.
+
+
+
+Referenced by v8\+::internal\+::\+Global\+Handles\+::\+Node\+::\+Collect\+Phantom\+Callback\+Data().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_ab08ec521fbcd52817aa6b4aa2a68769b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_ab08ec521fbcd52817aa6b4aa2a68769b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_acd03fdba902237e68b1f4fe409ab4e96}\label{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_acd03fdba902237e68b1f4fe409ab4e96}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}}!NeedsTrackingInYoungNodes@{NeedsTrackingInYoungNodes}}
+\index{NeedsTrackingInYoungNodes@{NeedsTrackingInYoungNodes}!v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{NeedsTrackingInYoungNodes()}{NeedsTrackingInYoungNodes()}}
+{\footnotesize\ttfamily template$<$typename Node\+Type $>$ \\
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::anonymous\+\_\+namespace\{global-\/handles.\+cc\}\+::Needs\+Tracking\+In\+Young\+Nodes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{value,  }\item[{Node\+Type $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 618 of file global-\/handles.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{618                                                                      \{}
+\DoxyCodeLine{619   \textcolor{keywordflow}{return} HeapLayout::InYoungGeneration(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}) \&\& !node-\/>is\_in\_young\_list();}
+\DoxyCodeLine{620 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Heap\+Layout\+::\+In\+Young\+Generation(), and v8\+::internal\+::value.
+
+
+
+Referenced by v8\+::internal\+::\+Global\+Handles\+::\+Create().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_acd03fdba902237e68b1f4fe409ab4e96_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_acd03fdba902237e68b1f4fe409ab4e96_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_a1788303d2f19ec8a6957ebb7651f61e3}\label{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_a1788303d2f19ec8a6957ebb7651f61e3}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}}!UpdateListOfYoungNodesImpl@{UpdateListOfYoungNodesImpl}}
+\index{UpdateListOfYoungNodesImpl@{UpdateListOfYoungNodesImpl}!v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{UpdateListOfYoungNodesImpl()}{UpdateListOfYoungNodesImpl()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void v8\+::internal\+::anonymous\+\_\+namespace\{global-\/handles.\+cc\}\+::Update\+List\+Of\+Young\+Nodes\+Impl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{std\+::vector$<$ \mbox{\hyperlink{classT}{T}} $\ast$ $>$ $\ast$}]{node\+\_\+list }\end{DoxyParamCaption})}
+
+
+
+Definition at line 779 of file global-\/handles.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{779                                                                             \{}
+\DoxyCodeLine{780   \textcolor{keywordtype}{size\_t} last = 0;}
+\DoxyCodeLine{781   \textcolor{keywordflow}{for} (\mbox{\hyperlink{classT}{T}}* node : *node\_list) \{}
+\DoxyCodeLine{782     \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(node-\/>is\_in\_young\_list());}
+\DoxyCodeLine{783     \textcolor{keywordflow}{if} (node-\/>IsInUse() \&\& node-\/>state() != T::NEAR\_DEATH) \{}
+\DoxyCodeLine{784       \textcolor{keywordflow}{if} (HeapLayout::InYoungGeneration(node-\/>object())) \{}
+\DoxyCodeLine{785         (*node\_list)[last++] = node;}
+\DoxyCodeLine{786         isolate-\/>heap()-\/>IncrementNodesCopiedInNewSpace();}
+\DoxyCodeLine{787       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{788         node-\/>set\_in\_young\_list(\textcolor{keyword}{false});}
+\DoxyCodeLine{789         isolate-\/>heap()-\/>IncrementNodesPromoted();}
+\DoxyCodeLine{790       \}}
+\DoxyCodeLine{791     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{792       node-\/>set\_in\_young\_list(\textcolor{keyword}{false});}
+\DoxyCodeLine{793       isolate-\/>heap()-\/>IncrementNodesDiedInNewSpace(1);}
+\DoxyCodeLine{794     \}}
+\DoxyCodeLine{795   \}}
+\DoxyCodeLine{796   \mbox{\hyperlink{src_2base_2logging_8h_a16b382527f19b805fc8f856668f2270b}{DCHECK\_LE}}(last, node\_list-\/>size());}
+\DoxyCodeLine{797   node\_list-\/>resize(last);}
+\DoxyCodeLine{798   node\_list-\/>shrink\_to\_fit();}
+\DoxyCodeLine{799 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+LE, v8\+::internal\+::\+Isolate\+::heap(), v8\+::internal\+::\+Heap\+::\+Increment\+Nodes\+Copied\+In\+New\+Space(), v8\+::internal\+::\+Heap\+::\+Increment\+Nodes\+Died\+In\+New\+Space(), v8\+::internal\+::\+Heap\+::\+Increment\+Nodes\+Promoted(), and v8\+::internal\+::\+Heap\+Layout\+::\+In\+Young\+Generation().
+
+
+
+Referenced by v8\+::internal\+::\+Global\+Handles\+::\+Update\+List\+Of\+Young\+Nodes().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_a1788303d2f19ec8a6957ebb7651f61e3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_a1788303d2f19ec8a6957ebb7651f61e3_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_a310ec535d39cdeecb62031a1bc9423a1}\label{namespacev8_1_1internal_1_1anonymous__namespace_02global-handles_8cc_03_a310ec535d39cdeecb62031a1bc9423a1}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}}!kBlockSize@{kBlockSize}}
+\index{kBlockSize@{kBlockSize}!v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}global-\/handles.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{kBlockSize}{kBlockSize}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::anonymous\+\_\+namespace\{global-\/handles.\+cc\}\+::k\+Block\+Size = 256\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line 41 of file global-\/handles.\+cc.
+
+
+
+Referenced by v8\+::internal\+::\+Global\+Handles\+::\+Node\+Block$<$ \+\_\+\+Node\+Type $>$\+::end\+\_\+address(), v8\+::internal\+::\+Global\+Handles\+::\+Node\+Block$<$ \+\_\+\+Node\+Type $>$\+::\+Increase\+Usage(), v8\+::internal\+::\+Global\+Handles\+::\+Node\+Iterator$<$ Block\+Type $>$\+::operator++(), v8\+::internal\+::\+Global\+Handles\+::\+Node\+Space$<$ Node\+Type $>$\+::\+Put\+Nodes\+On\+Free\+List(), and v8\+::internal\+::\+Global\+Handles\+::\+Node\+Space$<$ Node\+Type $>$\+::\+Total\+Size().
+

@@ -59,8 +59,20 @@ static \mbox{\hyperlink{v8config_8h_a63258e4bf5dc9fb8c78f881c8405d83b}{V8\+\_\+\
 \item 
 static constexpr uint32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_aa1d6d9c84b8b41f30b276840a29da6c7}{k\+Invalid\+Async\+Task\+Id}} = 0
 \item 
-static const int \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a3305b4a032ec33a44eb077d288c067c9}{k\+Size\+With\+Embedder\+Fields}}
+static const \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a3305b4a032ec33a44eb077d288c067c9}{k\+Size\+With\+Embedder\+Fields}}
 \end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_aaebe25d9b0b5d0ece0223a142a58e6be}{Trigger\+Promise\+Reactions}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a06b87e4ea4bc5ae48676b569d619bd2f}{reactions}}, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ argument, \mbox{\hyperlink{classv8_1_1internal_1_1PromiseReaction_ae58c48378eaa38b1b27e354e38929cb7}{Promise\+Reaction\+::\+Type}} type)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 31 of file js-\/promise.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -70,53 +82,434 @@ static const int \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a3305b4a032ec
 \doxysubsubsection{\texorpdfstring{async\_task\_id()}{async\_task\_id()}}
 {\footnotesize\ttfamily uint32\+\_\+t v8\+::internal\+::\+JSPromise\+::async\+\_\+task\+\_\+id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 40 of file js-\/promise-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40                                         \{}
+\DoxyCodeLine{41   \textcolor{keywordflow}{return} AsyncTaskIdBits::decode(\mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}}());}
+\DoxyCodeLine{42 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::flags.
+
+
+
+Referenced by has\+\_\+async\+\_\+task\+\_\+id().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_a264131e72ef355c2493ab8a08bd36606_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSPromise_ad80bac78b8a734d811ba6a912d52b0c5}\label{classv8_1_1internal_1_1JSPromise_ad80bac78b8a734d811ba6a912d52b0c5}} 
 \index{v8::internal::JSPromise@{v8::internal::JSPromise}!Fulfill@{Fulfill}}
 \index{Fulfill@{Fulfill}!v8::internal::JSPromise@{v8::internal::JSPromise}}
 \doxysubsubsection{\texorpdfstring{Fulfill()}{Fulfill()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ v8\+::internal\+::\+JSPromise\+::\+Fulfill (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise}{JSPromise}} $>$}]{promise,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 5049 of file objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5050                                                               \{}
+\DoxyCodeLine{5051   Isolate* \textcolor{keyword}{const} isolate = \mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a05a2b08b2b0f2d5aef8dc053e2ea3d9b}{Isolate::Current}}();}
+\DoxyCodeLine{5052 }
+\DoxyCodeLine{5053 \textcolor{preprocessor}{\#ifdef V8\_ENABLE\_JAVASCRIPT\_PROMISE\_HOOKS}}
+\DoxyCodeLine{5054   \textcolor{keywordflow}{if} (isolate-\/>HasContextPromiseHooks()) \{}
+\DoxyCodeLine{5055     isolate-\/>raw\_native\_context()-\/>RunPromiseHook(}
+\DoxyCodeLine{5056         \mbox{\hyperlink{namespacev8_afe9d9e16c02074ac8482a8f09e19d5cca73ce23530eb7684cd06a6f076acf1d7d}{PromiseHookType::kResolve}}, \mbox{\hyperlink{namespacev8_1_1internal_a15cafb1d1ed1ac577609eb5e764384e8}{indirect\_handle}}(promise, isolate),}
+\DoxyCodeLine{5057         isolate-\/>factory()-\/>undefined\_value());}
+\DoxyCodeLine{5058   \}}
+\DoxyCodeLine{5059 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{5060 }
+\DoxyCodeLine{5061   \textcolor{comment}{// 1. Assert: The value of promise.[[PromiseState]] is "{}pending"{}.}}
+\DoxyCodeLine{5062   \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1Promise_a0c357b9d99a634f98a5a203b0a322544a8dce1224e4cc6a5d9352b7dc0fe381cc}{Promise::kPending}}, promise-\/>status());}
+\DoxyCodeLine{5063 }
+\DoxyCodeLine{5064   \textcolor{comment}{// 2. Let reactions be promise.[[PromiseFulfillReactions]].}}
+\DoxyCodeLine{5065   DirectHandle<Object> \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a06b87e4ea4bc5ae48676b569d619bd2f}{reactions}}(promise-\/>reactions(), isolate);}
+\DoxyCodeLine{5066 }
+\DoxyCodeLine{5067   \textcolor{comment}{// 3. Set promise.[[PromiseResult]] to value.}}
+\DoxyCodeLine{5068   \textcolor{comment}{// 4. Set promise.[[PromiseFulfillReactions]] to undefined.}}
+\DoxyCodeLine{5069   \textcolor{comment}{// 5. Set promise.[[PromiseRejectReactions]] to undefined.}}
+\DoxyCodeLine{5070   promise-\/>set\_reactions\_or\_result(Cast<JSAny>(*\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}));}
+\DoxyCodeLine{5071 }
+\DoxyCodeLine{5072   \textcolor{comment}{// 6. Set promise.[[PromiseState]] to "{}fulfilled"{}.}}
+\DoxyCodeLine{5073   promise-\/>set\_status(\mbox{\hyperlink{classv8_1_1Promise_a0c357b9d99a634f98a5a203b0a322544a103bbff0a43dee23d79150ad18128ebc}{Promise::kFulfilled}});}
+\DoxyCodeLine{5074 }
+\DoxyCodeLine{5075   \textcolor{comment}{// 7. Return TriggerPromiseReactions(reactions, value).}}
+\DoxyCodeLine{5076   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_aaebe25d9b0b5d0ece0223a142a58e6be}{TriggerPromiseReactions}}(isolate, \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a06b87e4ea4bc5ae48676b569d619bd2f}{reactions}}, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}},}
+\DoxyCodeLine{5077                                  \mbox{\hyperlink{classv8_1_1internal_1_1PromiseReaction_ae58c48378eaa38b1b27e354e38929cb7a8a03ac306894f33da5c51ae134035316}{PromiseReaction::kFulfill}});}
+\DoxyCodeLine{5078 \}}
+
+\end{DoxyCode}
+
+
+References CHECK\+\_\+\+EQ, v8\+::internal\+::\+Isolate\+::\+Current(), v8\+::internal\+::\+Isolate\+::factory(), v8\+::internal\+::\+Isolate\+::\+Has\+Context\+Promise\+Hooks(), v8\+::internal\+::indirect\+\_\+handle(), v8\+::internal\+::\+Promise\+Reaction\+::k\+Fulfill, v8\+::\+Promise\+::k\+Fulfilled, v8\+::\+Promise\+::k\+Pending, v8\+::k\+Resolve, v8\+::internal\+::\+Isolate\+::raw\+\_\+native\+\_\+context(), and v8\+::internal\+::value.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_ad80bac78b8a734d811ba6a912d52b0c5_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSPromise_ae04478d6b9b1f6a1adb5cbaf28b7c4d1}\label{classv8_1_1internal_1_1JSPromise_ae04478d6b9b1f6a1adb5cbaf28b7c4d1}} 
 \index{v8::internal::JSPromise@{v8::internal::JSPromise}!GetNextAsyncTaskId@{GetNextAsyncTaskId}}
 \index{GetNextAsyncTaskId@{GetNextAsyncTaskId}!v8::internal::JSPromise@{v8::internal::JSPromise}}
 \doxysubsubsection{\texorpdfstring{GetNextAsyncTaskId()}{GetNextAsyncTaskId()}}
 {\footnotesize\ttfamily uint32\+\_\+t v8\+::internal\+::\+JSPromise\+::\+Get\+Next\+Async\+Task\+Id (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{current\+\_\+async\+\_\+task\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
+
+
+Definition at line 28 of file js-\/promise-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{28                                                              \{}
+\DoxyCodeLine{29   \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{30     ++\mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a264131e72ef355c2493ab8a08bd36606}{async\_task\_id}};}
+\DoxyCodeLine{31     \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a264131e72ef355c2493ab8a08bd36606}{async\_task\_id}} \&= AsyncTaskIdBits::kMax;}
+\DoxyCodeLine{32   \} \textcolor{keywordflow}{while} (\mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a264131e72ef355c2493ab8a08bd36606}{async\_task\_id}} == \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_aa1d6d9c84b8b41f30b276840a29da6c7}{kInvalidAsyncTaskId}});}
+\DoxyCodeLine{33   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a264131e72ef355c2493ab8a08bd36606}{async\_task\_id}};}
+\DoxyCodeLine{34 \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+Isolate\+::\+On\+Async\+Function\+Suspended(), and v8\+::internal\+::\+Isolate\+::\+On\+Promise\+Then().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_ae04478d6b9b1f6a1adb5cbaf28b7c4d1_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSPromise_a8ac5a7df0a2b03a0da7d3c24eff07ea2}\label{classv8_1_1internal_1_1JSPromise_a8ac5a7df0a2b03a0da7d3c24eff07ea2}} 
 \index{v8::internal::JSPromise@{v8::internal::JSPromise}!has\_async\_task\_id@{has\_async\_task\_id}}
 \index{has\_async\_task\_id@{has\_async\_task\_id}!v8::internal::JSPromise@{v8::internal::JSPromise}}
 \doxysubsubsection{\texorpdfstring{has\_async\_task\_id()}{has\_async\_task\_id()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+JSPromise\+::has\+\_\+async\+\_\+task\+\_\+id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 36 of file js-\/promise-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{36                                         \{}
+\DoxyCodeLine{37   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a264131e72ef355c2493ab8a08bd36606}{async\_task\_id}}() != \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_aa1d6d9c84b8b41f30b276840a29da6c7}{kInvalidAsyncTaskId}};}
+\DoxyCodeLine{38 \}}
+
+\end{DoxyCode}
+
+
+References async\+\_\+task\+\_\+id(), and k\+Invalid\+Async\+Task\+Id.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_a8ac5a7df0a2b03a0da7d3c24eff07ea2_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSPromise_a06b87e4ea4bc5ae48676b569d619bd2f}\label{classv8_1_1internal_1_1JSPromise_a06b87e4ea4bc5ae48676b569d619bd2f}} 
 \index{v8::internal::JSPromise@{v8::internal::JSPromise}!reactions@{reactions}}
 \index{reactions@{reactions}!v8::internal::JSPromise@{v8::internal::JSPromise}}
 \doxysubsubsection{\texorpdfstring{reactions()}{reactions()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ v8\+::internal\+::\+JSPromise\+::reactions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 53 of file js-\/promise-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{53                                           \{}
+\DoxyCodeLine{54   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1Promise_a0c357b9d99a634f98a5a203b0a322544a8dce1224e4cc6a5d9352b7dc0fe381cc}{Promise::kPending}}, \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_af302d8a003b596dcd4c49eded9db17a0}{status}}());}
+\DoxyCodeLine{55   \textcolor{keywordflow}{return} reactions\_or\_result();}
+\DoxyCodeLine{56 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+EQ, v8\+::\+Promise\+::k\+Pending, and status().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_a06b87e4ea4bc5ae48676b569d619bd2f_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSPromise_a708343c7989f38578d92beef9dccdda6}\label{classv8_1_1internal_1_1JSPromise_a708343c7989f38578d92beef9dccdda6}} 
 \index{v8::internal::JSPromise@{v8::internal::JSPromise}!Reject@{Reject}}
 \index{Reject@{Reject}!v8::internal::JSPromise@{v8::internal::JSPromise}}
 \doxysubsubsection{\texorpdfstring{Reject()}{Reject()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ v8\+::internal\+::\+JSPromise\+::\+Reject (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise}{JSPromise}} $>$}]{promise,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{reason,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}}}]{debug\+\_\+event = {\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a7f5302a7c7fd292ffd4a5f9758bd3686}{true}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 5100 of file objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5102                                                    \{}
+\DoxyCodeLine{5103   Isolate* \textcolor{keyword}{const} isolate = \mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a05a2b08b2b0f2d5aef8dc053e2ea3d9b}{Isolate::Current}}();}
+\DoxyCodeLine{5104   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(}
+\DoxyCodeLine{5105       !\textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1Isolate}{v8::Isolate}}*\textcolor{keyword}{>}(isolate)-\/>GetCurrentContext().IsEmpty());}
+\DoxyCodeLine{5106 }
+\DoxyCodeLine{5107   \mbox{\hyperlink{namespacev8_1_1internal_a77f4be9ab876a6f56ad37361c423a218}{MoveMessageToPromise}}(isolate, promise);}
+\DoxyCodeLine{5108 }
+\DoxyCodeLine{5109   \textcolor{keywordflow}{if} (debug\_event) isolate-\/>debug()-\/>OnPromiseReject(promise, reason);}
+\DoxyCodeLine{5110   isolate-\/>RunAllPromiseHooks(\mbox{\hyperlink{namespacev8_afe9d9e16c02074ac8482a8f09e19d5cca73ce23530eb7684cd06a6f076acf1d7d}{PromiseHookType::kResolve}}, promise,}
+\DoxyCodeLine{5111                               isolate-\/>factory()-\/>undefined\_value());}
+\DoxyCodeLine{5112 }
+\DoxyCodeLine{5113   \textcolor{comment}{// 1. Assert: The value of promise.[[PromiseState]] is "{}pending"{}.}}
+\DoxyCodeLine{5114   \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1Promise_a0c357b9d99a634f98a5a203b0a322544a8dce1224e4cc6a5d9352b7dc0fe381cc}{Promise::kPending}}, promise-\/>status());}
+\DoxyCodeLine{5115 }
+\DoxyCodeLine{5116   \textcolor{comment}{// 2. Let reactions be promise.[[PromiseRejectReactions]].}}
+\DoxyCodeLine{5117   DirectHandle<Object> \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a06b87e4ea4bc5ae48676b569d619bd2f}{reactions}}(promise-\/>reactions(), isolate);}
+\DoxyCodeLine{5118 }
+\DoxyCodeLine{5119   \textcolor{comment}{// 3. Set promise.[[PromiseResult]] to reason.}}
+\DoxyCodeLine{5120   \textcolor{comment}{// 4. Set promise.[[PromiseFulfillReactions]] to undefined.}}
+\DoxyCodeLine{5121   \textcolor{comment}{// 5. Set promise.[[PromiseRejectReactions]] to undefined.}}
+\DoxyCodeLine{5122   promise-\/>set\_reactions\_or\_result(Cast<JSAny>(*reason));}
+\DoxyCodeLine{5123 }
+\DoxyCodeLine{5124   \textcolor{comment}{// 6. Set promise.[[PromiseState]] to "{}rejected"{}.}}
+\DoxyCodeLine{5125   promise-\/>set\_status(\mbox{\hyperlink{classv8_1_1Promise_a0c357b9d99a634f98a5a203b0a322544a5ced64bc0b4332d27a1f8b9a1925e361}{Promise::kRejected}});}
+\DoxyCodeLine{5126 }
+\DoxyCodeLine{5127   \textcolor{comment}{// 7. If promise.[[PromiseIsHandled]] is false, perform}}
+\DoxyCodeLine{5128   \textcolor{comment}{//    HostPromiseRejectionTracker(promise, "{}reject"{}).}}
+\DoxyCodeLine{5129   \textcolor{keywordflow}{if} (!promise-\/>has\_handler()) \{}
+\DoxyCodeLine{5130     isolate-\/>ReportPromiseReject(promise, reason, \mbox{\hyperlink{namespacev8_a307b3674d4966684f8170a4fbd932eafa5beb69af7586c2dea1f4914fa9999c48}{kPromiseRejectWithNoHandler}});}
+\DoxyCodeLine{5131   \}}
+\DoxyCodeLine{5132 }
+\DoxyCodeLine{5133   \textcolor{comment}{// 8. Return TriggerPromiseReactions(reactions, reason).}}
+\DoxyCodeLine{5134   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_aaebe25d9b0b5d0ece0223a142a58e6be}{TriggerPromiseReactions}}(isolate, \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a06b87e4ea4bc5ae48676b569d619bd2f}{reactions}}, reason,}
+\DoxyCodeLine{5135                                  \mbox{\hyperlink{classv8_1_1internal_1_1PromiseReaction_ae58c48378eaa38b1b27e354e38929cb7ab50716ac05e0f4860abc55a123fe237f}{PromiseReaction::kReject}});}
+\DoxyCodeLine{5136 \}}
+
+\end{DoxyCode}
+
+
+References CHECK\+\_\+\+EQ, v8\+::internal\+::\+Isolate\+::\+Current(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Isolate\+::debug(), v8\+::internal\+::\+Isolate\+::factory(), v8\+::\+Promise\+::k\+Pending, v8\+::k\+Promise\+Reject\+With\+No\+Handler, v8\+::internal\+::\+Promise\+Reaction\+::k\+Reject, v8\+::\+Promise\+::k\+Rejected, v8\+::k\+Resolve, v8\+::internal\+::\+Move\+Message\+To\+Promise(), v8\+::internal\+::\+Debug\+::\+On\+Promise\+Reject(), v8\+::internal\+::\+Isolate\+::\+Report\+Promise\+Reject(), and v8\+::internal\+::\+Isolate\+::\+Run\+All\+Promise\+Hooks().
+
+
+
+Referenced by v8\+::internal\+::\+Source\+Text\+Module\+::\+Async\+Module\+Execution\+Rejected(), v8\+::internal\+::\+BUILTIN(), v8\+::internal\+::\+Module\+::\+Evaluate(), v8\+::internal\+::\+Source\+Text\+Module\+::\+Evaluate(), v8\+::internal\+::\+JSAsync\+Disposable\+Stack\+::\+Next\+Dispose\+Async\+Iteration(), v8\+::\+Promise\+::\+Resolver\+::\+Reject(), and v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_a708343c7989f38578d92beef9dccdda6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_a708343c7989f38578d92beef9dccdda6_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSPromise_ab5498a7e4026703f904ad2ab3018c250}\label{classv8_1_1internal_1_1JSPromise_ab5498a7e4026703f904ad2ab3018c250}} 
 \index{v8::internal::JSPromise@{v8::internal::JSPromise}!Resolve@{Resolve}}
 \index{Resolve@{Resolve}!v8::internal::JSPromise@{v8::internal::JSPromise}}
 \doxysubsubsection{\texorpdfstring{Resolve()}{Resolve()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MaybeHandle}{Maybe\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ v8\+::internal\+::\+JSPromise\+::\+Resolve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise}{JSPromise}} $>$}]{promise,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{resolution }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 5140 of file objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5141                                                                             \{}
+\DoxyCodeLine{5142   Isolate* \textcolor{keyword}{const} isolate = \mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a05a2b08b2b0f2d5aef8dc053e2ea3d9b}{Isolate::Current}}();}
+\DoxyCodeLine{5143   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(}
+\DoxyCodeLine{5144       !\textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1Isolate}{v8::Isolate}}*\textcolor{keyword}{>}(isolate)-\/>GetCurrentContext().IsEmpty());}
+\DoxyCodeLine{5145 }
+\DoxyCodeLine{5146   isolate-\/>RunPromiseHook(\mbox{\hyperlink{namespacev8_afe9d9e16c02074ac8482a8f09e19d5cca73ce23530eb7684cd06a6f076acf1d7d}{PromiseHookType::kResolve}}, promise,}
+\DoxyCodeLine{5147                           isolate-\/>factory()-\/>undefined\_value());}
+\DoxyCodeLine{5148 }
+\DoxyCodeLine{5149   \textcolor{comment}{// 7. If SameValue(resolution, promise) is true, then}}
+\DoxyCodeLine{5150   \textcolor{keywordflow}{if} (promise.is\_identical\_to(resolution\_obj)) \{}
+\DoxyCodeLine{5151     \textcolor{comment}{// a. Let selfResolutionError be a newly created TypeError object.}}
+\DoxyCodeLine{5152     DirectHandle<Object> self\_resolution\_error =}
+\DoxyCodeLine{5153         isolate-\/>factory()-\/>NewTypeError(MessageTemplate::kPromiseCyclic,}
+\DoxyCodeLine{5154                                          resolution\_obj);}
+\DoxyCodeLine{5155     \textcolor{comment}{// b. Return RejectPromise(promise, selfResolutionError).}}
+\DoxyCodeLine{5156     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a708343c7989f38578d92beef9dccdda6}{Reject}}(promise, self\_resolution\_error);}
+\DoxyCodeLine{5157   \}}
+\DoxyCodeLine{5158 }
+\DoxyCodeLine{5159   \textcolor{comment}{// 8. If Type(resolution) is not Object, then}}
+\DoxyCodeLine{5160   DirectHandle<JSReceiver> resolution\_recv;}
+\DoxyCodeLine{5161   \textcolor{keywordflow}{if} (!TryCast<JSReceiver>(resolution\_obj, \&resolution\_recv)) \{}
+\DoxyCodeLine{5162     \textcolor{comment}{// a. Return FulfillPromise(promise, resolution).}}
+\DoxyCodeLine{5163     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_ad80bac78b8a734d811ba6a912d52b0c5}{Fulfill}}(promise, resolution\_obj);}
+\DoxyCodeLine{5164   \}}
+\DoxyCodeLine{5165 }
+\DoxyCodeLine{5166   \textcolor{comment}{// 9. Let then be Get(resolution, "{}then"{}).}}
+\DoxyCodeLine{5167   MaybeDirectHandle<Object> then;}
+\DoxyCodeLine{5168 }
+\DoxyCodeLine{5169   \textcolor{comment}{// Make sure a lookup of "{}then"{} on any JSPromise whose [[Prototype]] is the}}
+\DoxyCodeLine{5170   \textcolor{comment}{// initial \%PromisePrototype\% yields the initial method. In addition this}}
+\DoxyCodeLine{5171   \textcolor{comment}{// protector also guards the negative lookup of "{}then"{} on the intrinsic}}
+\DoxyCodeLine{5172   \textcolor{comment}{// \%ObjectPrototype\%, meaning that such lookups are guaranteed to yield}}
+\DoxyCodeLine{5173   \textcolor{comment}{// undefined without triggering any side-\/effects.}}
+\DoxyCodeLine{5174   \textcolor{keywordflow}{if} (IsJSPromise(*resolution\_recv) \&\&}
+\DoxyCodeLine{5175       resolution\_recv-\/>map()-\/>prototype()-\/>map()-\/>instance\_type() ==}
+\DoxyCodeLine{5176           JS\_PROMISE\_PROTOTYPE\_TYPE \&\&}
+\DoxyCodeLine{5177       Protectors::IsPromiseThenLookupChainIntact(isolate)) \{}
+\DoxyCodeLine{5178     \textcolor{comment}{// We can skip the "{}then"{} lookup on \{resolution\} if its [[Prototype]]}}
+\DoxyCodeLine{5179     \textcolor{comment}{// is the (initial) Promise.prototype and the Promise\#then protector}}
+\DoxyCodeLine{5180     \textcolor{comment}{// is intact, as that guards the lookup path for the "{}then"{} property}}
+\DoxyCodeLine{5181     \textcolor{comment}{// on JSPromise instances which have the (initial) \%PromisePrototype\%.}}
+\DoxyCodeLine{5182     then = isolate-\/>promise\_then();}
+\DoxyCodeLine{5183   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{5184     then = \mbox{\hyperlink{classv8_1_1internal_1_1JSReceiver_aba4a2cfb4946da1635ae2730b710ff00}{JSReceiver::GetProperty}}(isolate, resolution\_recv,}
+\DoxyCodeLine{5185                                    isolate-\/>factory()-\/>then\_string());}
+\DoxyCodeLine{5186   \}}
+\DoxyCodeLine{5187 }
+\DoxyCodeLine{5188   \textcolor{comment}{// 10. If then is an abrupt completion, then}}
+\DoxyCodeLine{5189   DirectHandle<Object> then\_action;}
+\DoxyCodeLine{5190   \textcolor{keywordflow}{if} (!then.ToHandle(\&then\_action)) \{}
+\DoxyCodeLine{5191     \textcolor{comment}{// The "{}then"{} lookup can cause termination.}}
+\DoxyCodeLine{5192     \textcolor{keywordflow}{if} (!isolate-\/>is\_catchable\_by\_javascript(isolate-\/>exception())) \{}
+\DoxyCodeLine{5193       \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a12bba79f0b2c466b43e23e173e34465d}{kNullMaybeHandle}};}
+\DoxyCodeLine{5194     \}}
+\DoxyCodeLine{5195 }
+\DoxyCodeLine{5196     \textcolor{comment}{// a. Return RejectPromise(promise, then.[[Value]]).}}
+\DoxyCodeLine{5197     DirectHandle<Object> reason(isolate-\/>exception(), isolate);}
+\DoxyCodeLine{5198     isolate-\/>clear\_exception();}
+\DoxyCodeLine{5199     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a708343c7989f38578d92beef9dccdda6}{Reject}}(promise, reason, \textcolor{keyword}{false});}
+\DoxyCodeLine{5200   \}}
+\DoxyCodeLine{5201 }
+\DoxyCodeLine{5202   \textcolor{comment}{// 11. Let thenAction be then.[[Value]].}}
+\DoxyCodeLine{5203   \textcolor{comment}{// 12. If IsCallable(thenAction) is false, then}}
+\DoxyCodeLine{5204   \textcolor{keywordflow}{if} (!IsCallable(*then\_action)) \{}
+\DoxyCodeLine{5205     \textcolor{comment}{// a. Return FulfillPromise(promise, resolution).}}
+\DoxyCodeLine{5206     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_ad80bac78b8a734d811ba6a912d52b0c5}{Fulfill}}(promise, resolution\_recv);}
+\DoxyCodeLine{5207   \}}
+\DoxyCodeLine{5208 }
+\DoxyCodeLine{5209   \textcolor{comment}{// 13. Let job be NewPromiseResolveThenableJob(promise, resolution,}}
+\DoxyCodeLine{5210   \textcolor{comment}{//                                             thenAction).}}
+\DoxyCodeLine{5211   DirectHandle<NativeContext> then\_context;}
+\DoxyCodeLine{5212   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1JSReceiver_ad0a6af0a4c5b2a977f2922accb0f0b0c}{JSReceiver::GetContextForMicrotask}}(Cast<JSReceiver>(then\_action))}
+\DoxyCodeLine{5213            .\mbox{\hyperlink{namespacev8_1_1anonymous__namespace_02api_8cc_03_a0be2944595d695733e968a9a946d9fcc}{ToHandle}}(\&then\_context)) \{}
+\DoxyCodeLine{5214     then\_context = isolate-\/>native\_context();}
+\DoxyCodeLine{5215   \}}
+\DoxyCodeLine{5216 }
+\DoxyCodeLine{5217   DirectHandle<PromiseResolveThenableJobTask> task =}
+\DoxyCodeLine{5218       isolate-\/>factory()-\/>NewPromiseResolveThenableJobTask(}
+\DoxyCodeLine{5219           promise, resolution\_recv, Cast<JSReceiver>(then\_action),}
+\DoxyCodeLine{5220           then\_context);}
+\DoxyCodeLine{5221   \textcolor{keywordflow}{if} (isolate-\/>debug()-\/>is\_active() \&\& IsJSPromise(*resolution\_recv)) \{}
+\DoxyCodeLine{5222     \textcolor{comment}{// Mark the dependency of the new \{promise\} on the \{resolution\}.}}
+\DoxyCodeLine{5223     \mbox{\hyperlink{classv8_1_1internal_1_1Object_a2e8108d7b7d2b826ab90a71b20be7a9d}{Object::SetProperty}}(isolate, resolution\_recv,}
+\DoxyCodeLine{5224                         isolate-\/>factory()-\/>promise\_handled\_by\_symbol(),}
+\DoxyCodeLine{5225                         promise)}
+\DoxyCodeLine{5226         .Check();}
+\DoxyCodeLine{5227   \}}
+\DoxyCodeLine{5228   MicrotaskQueue* microtask\_queue = then\_context-\/>microtask\_queue();}
+\DoxyCodeLine{5229   \textcolor{keywordflow}{if} (microtask\_queue) microtask\_queue-\/>EnqueueMicrotask(*task);}
+\DoxyCodeLine{5230 }
+\DoxyCodeLine{5231   \textcolor{comment}{// 15. Return undefined.}}
+\DoxyCodeLine{5232   \textcolor{keywordflow}{return} isolate-\/>factory()-\/>undefined\_value();}
+\DoxyCodeLine{5233 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::clear\+\_\+exception(), v8\+::internal\+::\+Isolate\+::\+Current(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Isolate\+::debug(), v8\+::internal\+::\+Microtask\+Queue\+::\+Enqueue\+Microtask(), v8\+::internal\+::\+Isolate\+::exception(), v8\+::internal\+::\+Isolate\+::factory(), v8\+::internal\+::\+JSReceiver\+::\+Get\+Context\+For\+Microtask(), v8\+::internal\+::\+JSReceiver\+::\+Get\+Property(), v8\+::internal\+::\+Debug\+::is\+\_\+active(), v8\+::internal\+::\+Isolate\+::is\+\_\+catchable\+\_\+by\+\_\+javascript(), v8\+::internal\+::\+Direct\+Handle$<$ T $>$\+::is\+\_\+identical\+\_\+to(), v8\+::internal\+::k\+Null\+Maybe\+Handle, v8\+::k\+Resolve, v8\+::internal\+::\+Isolate\+::native\+\_\+context(), v8\+::internal\+::\+Factory\+::\+New\+Promise\+Resolve\+Thenable\+Job\+Task(), v8\+::internal\+::\+Isolate\+::\+Run\+Promise\+Hook(), v8\+::internal\+::\+Object\+::\+Set\+Property(), v8\+::internal\+::\+Maybe\+Direct\+Handle$<$ T $>$\+::\+To\+Handle(), and v8\+::anonymous\+\_\+namespace\{api.\+cc\}\+::\+To\+Handle().
+
+
+
+Referenced by v8\+::internal\+::\+Source\+Text\+Module\+::\+Async\+Module\+Execution\+Fulfilled(), v8\+::internal\+::\+BUILTIN(), v8\+::internal\+::\+Synthetic\+Module\+::\+Evaluate(), v8\+::internal\+::\+Source\+Text\+Module\+::\+Evaluate(), v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Handle\+Async\+Notify(), v8\+::internal\+::\+JSAtomics\+Condition\+::\+Handle\+Async\+Notify(), v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Handle\+Async\+Timeout(), v8\+::internal\+::\+JSAtomics\+Mutex\+::\+Lock\+Async(), v8\+::internal\+::\+JSAsync\+Disposable\+Stack\+::\+Next\+Dispose\+Async\+Iteration(), v8\+::\+Promise\+::\+Resolver\+::\+Resolve(), v8\+::internal\+::\+Futex\+Emulation\+::\+Resolve\+Async\+Waiter\+Promise(), and v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1JSPromise_ab5498a7e4026703f904ad2ab3018c250_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_ab5498a7e4026703f904ad2ab3018c250_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSPromise_a77225780b23b26aec0923ce4e32b44f5}\label{classv8_1_1internal_1_1JSPromise_a77225780b23b26aec0923ce4e32b44f5}} 
 \index{v8::internal::JSPromise@{v8::internal::JSPromise}!result@{result}}
 \index{result@{result}!v8::internal::JSPromise@{v8::internal::JSPromise}}
 \doxysubsubsection{\texorpdfstring{result()}{result()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ v8\+::internal\+::\+JSPromise\+::result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 48 of file js-\/promise-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{48                                        \{}
+\DoxyCodeLine{49   \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(\mbox{\hyperlink{classv8_1_1Promise_a0c357b9d99a634f98a5a203b0a322544a8dce1224e4cc6a5d9352b7dc0fe381cc}{Promise::kPending}}, \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_af302d8a003b596dcd4c49eded9db17a0}{status}}());}
+\DoxyCodeLine{50   \textcolor{keywordflow}{return} reactions\_or\_result();}
+\DoxyCodeLine{51 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+NE, v8\+::\+Promise\+::k\+Pending, and status().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_a77225780b23b26aec0923ce4e32b44f5_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSPromise_ab03eaf4e4e0e00cb2d6b97964664ee79}\label{classv8_1_1internal_1_1JSPromise_ab03eaf4e4e0e00cb2d6b97964664ee79}} 
 \index{v8::internal::JSPromise@{v8::internal::JSPromise}!set\_async\_task\_id@{set\_async\_task\_id}}
 \index{set\_async\_task\_id@{set\_async\_task\_id}!v8::internal::JSPromise@{v8::internal::JSPromise}}
 \doxysubsubsection{\texorpdfstring{set\_async\_task\_id()}{set\_async\_task\_id()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+JSPromise\+::set\+\_\+async\+\_\+task\+\_\+id (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 44 of file js-\/promise-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{44                                              \{}
+\DoxyCodeLine{45   set\_flags(AsyncTaskIdBits::update(\mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}}(), \textcolor{keywordtype}{id}));}
+\DoxyCodeLine{46 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::flags.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSPromise_aa8cf1466c4c37c6e6f1a5cc5019e34bf}\label{classv8_1_1internal_1_1JSPromise_aa8cf1466c4c37c6e6f1a5cc5019e34bf}} 
 \index{v8::internal::JSPromise@{v8::internal::JSPromise}!set\_status@{set\_status}}
@@ -124,18 +517,258 @@ static const int \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a3305b4a032ec
 \doxysubsubsection{\texorpdfstring{set\_status()}{set\_status()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+JSPromise\+::set\+\_\+status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Promise_a0c357b9d99a634f98a5a203b0a322544}{Promise\+::\+Promise\+State}}}]{status }\end{DoxyParamCaption})}
 
+
+
+Definition at line 5030 of file objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5030                                                      \{}
+\DoxyCodeLine{5031   \textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}}() \& \string~StatusBits::kMask;}
+\DoxyCodeLine{5032   set\_flags(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} | \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_af302d8a003b596dcd4c49eded9db17a0}{status}});}
+\DoxyCodeLine{5033 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Script\+::flags(), v8\+::internal\+::\+Script\+::set\+\_\+flags(), v8\+::internal\+::status, and v8\+::internal\+::value.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_aa8cf1466c4c37c6e6f1a5cc5019e34bf_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSPromise_af302d8a003b596dcd4c49eded9db17a0}\label{classv8_1_1internal_1_1JSPromise_af302d8a003b596dcd4c49eded9db17a0}} 
 \index{v8::internal::JSPromise@{v8::internal::JSPromise}!status@{status}}
 \index{status@{status}!v8::internal::JSPromise@{v8::internal::JSPromise}}
 \doxysubsubsection{\texorpdfstring{status()}{status()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1Promise_a0c357b9d99a634f98a5a203b0a322544}{v8\+::\+Promise\+::\+Promise\+State}} v8\+::internal\+::\+JSPromise\+::status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Definition at line 5024 of file objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5024                                               \{}
+\DoxyCodeLine{5025   \textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}}() \& StatusBits::kMask;}
+\DoxyCodeLine{5026   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} == 0 || \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} == 1 || \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} == 2);}
+\DoxyCodeLine{5027   \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{classv8_1_1Promise_a0c357b9d99a634f98a5a203b0a322544}{v8::Promise::PromiseState}}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});}
+\DoxyCodeLine{5028 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Script\+::flags(), and v8\+::internal\+::value.
+
+
+
+Referenced by reactions(), and result().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_af302d8a003b596dcd4c49eded9db17a0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_af302d8a003b596dcd4c49eded9db17a0_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSPromise_a06fe1942f92d4b54d2e3625027102922}\label{classv8_1_1internal_1_1JSPromise_a06fe1942f92d4b54d2e3625027102922}} 
 \index{v8::internal::JSPromise@{v8::internal::JSPromise}!Status@{Status}}
 \index{Status@{Status}!v8::internal::JSPromise@{v8::internal::JSPromise}}
 \doxysubsubsection{\texorpdfstring{Status()}{Status()}}
 {\footnotesize\ttfamily const char $\ast$ v8\+::internal\+::\+JSPromise\+::\+Status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Promise_a0c357b9d99a634f98a5a203b0a322544}{Promise\+::\+Promise\+State}}}]{status }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 5036 of file objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5036                                                           \{}
+\DoxyCodeLine{5037   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_af302d8a003b596dcd4c49eded9db17a0}{status}}) \{}
+\DoxyCodeLine{5038     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1Promise_a0c357b9d99a634f98a5a203b0a322544a103bbff0a43dee23d79150ad18128ebc}{v8::Promise::kFulfilled}}:}
+\DoxyCodeLine{5039       \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}fulfilled"{}};}
+\DoxyCodeLine{5040     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1Promise_a0c357b9d99a634f98a5a203b0a322544a8dce1224e4cc6a5d9352b7dc0fe381cc}{v8::Promise::kPending}}:}
+\DoxyCodeLine{5041       \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}pending"{}};}
+\DoxyCodeLine{5042     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1Promise_a0c357b9d99a634f98a5a203b0a322544a5ced64bc0b4332d27a1f8b9a1925e361}{v8::Promise::kRejected}}:}
+\DoxyCodeLine{5043       \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}rejected"{}};}
+\DoxyCodeLine{5044   \}}
+\DoxyCodeLine{5045   \mbox{\hyperlink{namespacev8_1_1internal_acdec713c25068019f935e35976f5b666}{UNREACHABLE}}();}
+\DoxyCodeLine{5046 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Promise\+::k\+Fulfilled, v8\+::\+Promise\+::k\+Pending, v8\+::\+Promise\+::k\+Rejected, v8\+::internal\+::status, and v8\+::internal\+::\+UNREACHABLE().
+
+
+
+Referenced by v8\+::internal\+::\+Runtime\+::\+Get\+Internal\+Properties().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_a06fe1942f92d4b54d2e3625027102922_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_a06fe1942f92d4b54d2e3625027102922_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1JSPromise_aaebe25d9b0b5d0ece0223a142a58e6be}\label{classv8_1_1internal_1_1JSPromise_aaebe25d9b0b5d0ece0223a142a58e6be}} 
+\index{v8::internal::JSPromise@{v8::internal::JSPromise}!TriggerPromiseReactions@{TriggerPromiseReactions}}
+\index{TriggerPromiseReactions@{TriggerPromiseReactions}!v8::internal::JSPromise@{v8::internal::JSPromise}}
+\doxysubsubsection{\texorpdfstring{TriggerPromiseReactions()}{TriggerPromiseReactions()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ v8\+::internal\+::\+JSPromise\+::\+Trigger\+Promise\+Reactions (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{reactions,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{argument,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1PromiseReaction_ae58c48378eaa38b1b27e354e38929cb7}{Promise\+Reaction\+::\+Type}}}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 5236 of file objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5238                                                              \{}
+\DoxyCodeLine{5239   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_ac299e59759eecb4621f6bad64d5db952}{IsSmi}}(*\mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a06b87e4ea4bc5ae48676b569d619bd2f}{reactions}}) || IsPromiseReaction(*\mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a06b87e4ea4bc5ae48676b569d619bd2f}{reactions}}));}
+\DoxyCodeLine{5240 }
+\DoxyCodeLine{5241   \textcolor{comment}{// We need to reverse the \{reactions\} here, since we record them}}
+\DoxyCodeLine{5242   \textcolor{comment}{// on the JSPromise in the reverse order.}}
+\DoxyCodeLine{5243   \{}
+\DoxyCodeLine{5244     \mbox{\hyperlink{namespacev8_1_1internal_af2248a427f8ff8f81e68a2a87758e145}{DisallowGarbageCollection}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{no\_gc}};}
+\DoxyCodeLine{5245     Tagged<UnionOf<Smi, PromiseReaction>> current =}
+\DoxyCodeLine{5246         Cast<UnionOf<Smi, PromiseReaction>>(*reactions);}
+\DoxyCodeLine{5247     Tagged<UnionOf<Smi, PromiseReaction>> reversed = \mbox{\hyperlink{classv8_1_1internal_1_1Smi_a5386e0cc44bcfd6a13c8481b95f5652f}{Smi::zero}}();}
+\DoxyCodeLine{5248     \textcolor{keywordflow}{while} (!\mbox{\hyperlink{namespacev8_1_1internal_ac299e59759eecb4621f6bad64d5db952}{IsSmi}}(current)) \{}
+\DoxyCodeLine{5249       Tagged<UnionOf<Smi, PromiseReaction>> next =}
+\DoxyCodeLine{5250           Cast<PromiseReaction>(current)-\/>next();}
+\DoxyCodeLine{5251       Cast<PromiseReaction>(current)-\/>set\_next(reversed);}
+\DoxyCodeLine{5252       reversed = current;}
+\DoxyCodeLine{5253       current = next;}
+\DoxyCodeLine{5254     \}}
+\DoxyCodeLine{5255     \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a06b87e4ea4bc5ae48676b569d619bd2f}{reactions}} = \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(reversed, isolate);}
+\DoxyCodeLine{5256   \}}
+\DoxyCodeLine{5257 }
+\DoxyCodeLine{5258   \textcolor{comment}{// Morph the \{reactions\} into PromiseReactionJobTasks}}
+\DoxyCodeLine{5259   \textcolor{comment}{// and push them onto the microtask queue.}}
+\DoxyCodeLine{5260   \textcolor{keywordflow}{while} (!\mbox{\hyperlink{namespacev8_1_1internal_ac299e59759eecb4621f6bad64d5db952}{IsSmi}}(*\mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a06b87e4ea4bc5ae48676b569d619bd2f}{reactions}})) \{}
+\DoxyCodeLine{5261     \textcolor{keyword}{auto} task = Cast<HeapObject>(\mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a06b87e4ea4bc5ae48676b569d619bd2f}{reactions}});}
+\DoxyCodeLine{5262     \textcolor{keyword}{auto} reaction = Cast<PromiseReaction>(task);}
+\DoxyCodeLine{5263     \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a06b87e4ea4bc5ae48676b569d619bd2f}{reactions}} = \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(reaction-\/>next(), isolate);}
+\DoxyCodeLine{5264 }
+\DoxyCodeLine{5265     \textcolor{comment}{// According to HTML, we use the context of the appropriate handler as the}}
+\DoxyCodeLine{5266     \textcolor{comment}{// context of the microtask. See step 3 of HTML's EnqueueJob:}}
+\DoxyCodeLine{5267     \textcolor{comment}{// https://html.spec.whatwg.org/C/\#enqueuejob(queuename,-\/job,-\/arguments)}}
+\DoxyCodeLine{5268     DirectHandle<NativeContext> handler\_context;}
+\DoxyCodeLine{5269 }
+\DoxyCodeLine{5270     DirectHandle<UnionOf<Undefined, JSCallable>> primary\_handler;}
+\DoxyCodeLine{5271     DirectHandle<UnionOf<Undefined, JSCallable>> secondary\_handler;}
+\DoxyCodeLine{5272     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1tracing_a96000282e12b2483531025283d63154d}{type}} == \mbox{\hyperlink{classv8_1_1internal_1_1PromiseReaction_ae58c48378eaa38b1b27e354e38929cb7a8a03ac306894f33da5c51ae134035316}{PromiseReaction::kFulfill}}) \{}
+\DoxyCodeLine{5273       primary\_handler = \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(reaction-\/>fulfill\_handler(), isolate);}
+\DoxyCodeLine{5274       secondary\_handler = \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(reaction-\/>reject\_handler(), isolate);}
+\DoxyCodeLine{5275     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{5276       primary\_handler = \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(reaction-\/>reject\_handler(), isolate);}
+\DoxyCodeLine{5277       secondary\_handler = \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(reaction-\/>fulfill\_handler(), isolate);}
+\DoxyCodeLine{5278     \}}
+\DoxyCodeLine{5279 }
+\DoxyCodeLine{5280     \textcolor{keywordtype}{bool} has\_handler\_context = \textcolor{keyword}{false};}
+\DoxyCodeLine{5281     \textcolor{keywordflow}{if} (IsJSReceiver(*primary\_handler)) \{}
+\DoxyCodeLine{5282       has\_handler\_context =}
+\DoxyCodeLine{5283           \mbox{\hyperlink{classv8_1_1internal_1_1JSReceiver_ad0a6af0a4c5b2a977f2922accb0f0b0c}{JSReceiver::GetContextForMicrotask}}(Cast<JSReceiver>(primary\_handler))}
+\DoxyCodeLine{5284               .ToHandle(\&handler\_context);}
+\DoxyCodeLine{5285     \}}
+\DoxyCodeLine{5286     \textcolor{keywordflow}{if} (!has\_handler\_context \&\& IsJSReceiver(*secondary\_handler)) \{}
+\DoxyCodeLine{5287       has\_handler\_context = \mbox{\hyperlink{classv8_1_1internal_1_1JSReceiver_ad0a6af0a4c5b2a977f2922accb0f0b0c}{JSReceiver::GetContextForMicrotask}}(}
+\DoxyCodeLine{5288                                 Cast<JSReceiver>(secondary\_handler))}
+\DoxyCodeLine{5289                                 .ToHandle(\&handler\_context);}
+\DoxyCodeLine{5290     \}}
+\DoxyCodeLine{5291     \textcolor{keywordflow}{if} (!has\_handler\_context) handler\_context = isolate-\/>native\_context();}
+\DoxyCodeLine{5292 }
+\DoxyCodeLine{5293     static\_assert(}
+\DoxyCodeLine{5294         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(PromiseReaction::kSize) ==}
+\DoxyCodeLine{5295         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(}
+\DoxyCodeLine{5296             \mbox{\hyperlink{classv8_1_1internal_1_1PromiseReactionJobTask_a73466f5588f51fb67519e6ac673b163d}{PromiseReactionJobTask::kSizeOfAllPromiseReactionJobTasks}}));}
+\DoxyCodeLine{5297     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1tracing_a96000282e12b2483531025283d63154d}{type}} == \mbox{\hyperlink{classv8_1_1internal_1_1PromiseReaction_ae58c48378eaa38b1b27e354e38929cb7a8a03ac306894f33da5c51ae134035316}{PromiseReaction::kFulfill}}) \{}
+\DoxyCodeLine{5298       task-\/>set\_map(}
+\DoxyCodeLine{5299           isolate,}
+\DoxyCodeLine{5300           ReadOnlyRoots(isolate).promise\_fulfill\_reaction\_job\_task\_map(),}
+\DoxyCodeLine{5301           \mbox{\hyperlink{namespacev8_a13596ed4ca024abd4790ec46b62c2097}{kReleaseStore}});}
+\DoxyCodeLine{5302       Cast<PromiseFulfillReactionJobTask>(task)-\/>set\_argument(*argument);}
+\DoxyCodeLine{5303       Cast<PromiseFulfillReactionJobTask>(task)-\/>set\_context(*handler\_context);}
+\DoxyCodeLine{5304       static\_assert(}
+\DoxyCodeLine{5305           \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(PromiseReaction::kFulfillHandlerOffset) ==}
+\DoxyCodeLine{5306           \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(PromiseFulfillReactionJobTask::kHandlerOffset));}
+\DoxyCodeLine{5307       static\_assert(}
+\DoxyCodeLine{5308           \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(PromiseReaction::kPromiseOrCapabilityOffset) ==}
+\DoxyCodeLine{5309           \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(}
+\DoxyCodeLine{5310               PromiseFulfillReactionJobTask::kPromiseOrCapabilityOffset));}
+\DoxyCodeLine{5311 \textcolor{preprocessor}{\#ifdef V8\_ENABLE\_CONTINUATION\_PRESERVED\_EMBEDDER\_DATA}}
+\DoxyCodeLine{5312       static\_assert(}
+\DoxyCodeLine{5313           \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(}
+\DoxyCodeLine{5314               PromiseReaction::kContinuationPreservedEmbedderDataOffset) ==}
+\DoxyCodeLine{5315           \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(PromiseFulfillReactionJobTask::}
+\DoxyCodeLine{5316                                kContinuationPreservedEmbedderDataOffset));}
+\DoxyCodeLine{5317 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_ENABLE\_CONTINUATION\_PRESERVED\_EMBEDDER\_DATA}}
+\DoxyCodeLine{5318     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{5319       \mbox{\hyperlink{namespacev8_1_1internal_af2248a427f8ff8f81e68a2a87758e145}{DisallowGarbageCollection}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{no\_gc}};}
+\DoxyCodeLine{5320       task-\/>set\_map(}
+\DoxyCodeLine{5321           isolate,}
+\DoxyCodeLine{5322           ReadOnlyRoots(isolate).promise\_reject\_reaction\_job\_task\_map(),}
+\DoxyCodeLine{5323           \mbox{\hyperlink{namespacev8_a13596ed4ca024abd4790ec46b62c2097}{kReleaseStore}});}
+\DoxyCodeLine{5324       Cast<PromiseRejectReactionJobTask>(task)-\/>set\_argument(*argument);}
+\DoxyCodeLine{5325       Cast<PromiseRejectReactionJobTask>(task)-\/>set\_context(*handler\_context);}
+\DoxyCodeLine{5326       Cast<PromiseRejectReactionJobTask>(task)-\/>set\_handler(*primary\_handler);}
+\DoxyCodeLine{5327       static\_assert(}
+\DoxyCodeLine{5328           \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(PromiseReaction::kPromiseOrCapabilityOffset) ==}
+\DoxyCodeLine{5329           \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(}
+\DoxyCodeLine{5330               PromiseRejectReactionJobTask::kPromiseOrCapabilityOffset));}
+\DoxyCodeLine{5331 \textcolor{preprocessor}{\#ifdef V8\_ENABLE\_CONTINUATION\_PRESERVED\_EMBEDDER\_DATA}}
+\DoxyCodeLine{5332       static\_assert(}
+\DoxyCodeLine{5333           \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(}
+\DoxyCodeLine{5334               PromiseReaction::kContinuationPreservedEmbedderDataOffset) ==}
+\DoxyCodeLine{5335           \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(PromiseRejectReactionJobTask::}
+\DoxyCodeLine{5336                                kContinuationPreservedEmbedderDataOffset));}
+\DoxyCodeLine{5337 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_ENABLE\_CONTINUATION\_PRESERVED\_EMBEDDER\_DATA}}
+\DoxyCodeLine{5338     \}}
+\DoxyCodeLine{5339 }
+\DoxyCodeLine{5340     MicrotaskQueue* microtask\_queue = handler\_context-\/>microtask\_queue();}
+\DoxyCodeLine{5341     \textcolor{keywordflow}{if} (microtask\_queue) \{}
+\DoxyCodeLine{5342       microtask\_queue-\/>EnqueueMicrotask(*Cast<PromiseReactionJobTask>(task));}
+\DoxyCodeLine{5343     \}}
+\DoxyCodeLine{5344   \}}
+\DoxyCodeLine{5345 }
+\DoxyCodeLine{5346   \textcolor{keywordflow}{return} isolate-\/>factory()-\/>undefined\_value();}
+\DoxyCodeLine{5347 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, v8\+::internal\+::direct\+\_\+handle(), v8\+::internal\+::\+Microtask\+Queue\+::\+Enqueue\+Microtask(), v8\+::internal\+::\+Isolate\+::factory(), v8\+::internal\+::\+JSReceiver\+::\+Get\+Context\+For\+Microtask(), v8\+::internal\+::\+Is\+Smi(), v8\+::internal\+::\+Promise\+Reaction\+::k\+Fulfill, v8\+::k\+Release\+Store, v8\+::internal\+::\+Promise\+Reaction\+Job\+Task\+::k\+Size\+Of\+All\+Promise\+Reaction\+Job\+Tasks, v8\+::internal\+::\+Isolate\+::native\+\_\+context(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::no\+\_\+gc, v8\+::internal\+::tracing\+::type, and v8\+::internal\+::\+Smi\+::zero().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSPromise_aaebe25d9b0b5d0ece0223a142a58e6be_cgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Data Documentation}
@@ -145,11 +778,19 @@ static const int \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a3305b4a032ec
 \doxysubsubsection{\texorpdfstring{kInvalidAsyncTaskId}{kInvalidAsyncTaskId}}
 {\footnotesize\ttfamily constexpr uint32\+\_\+t v8\+::internal\+::\+JSPromise\+::k\+Invalid\+Async\+Task\+Id = 0\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
 
+
+
+Definition at line 34 of file js-\/promise.\+h.
+
+
+
+Referenced by has\+\_\+async\+\_\+task\+\_\+id().
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSPromise_a3305b4a032ec33a44eb077d288c067c9}\label{classv8_1_1internal_1_1JSPromise_a3305b4a032ec33a44eb077d288c067c9}} 
 \index{v8::internal::JSPromise@{v8::internal::JSPromise}!kSizeWithEmbedderFields@{kSizeWithEmbedderFields}}
 \index{kSizeWithEmbedderFields@{kSizeWithEmbedderFields}!v8::internal::JSPromise@{v8::internal::JSPromise}}
 \doxysubsubsection{\texorpdfstring{kSizeWithEmbedderFields}{kSizeWithEmbedderFields}}
-{\footnotesize\ttfamily const int v8\+::internal\+::\+JSPromise\+::k\+Size\+With\+Embedder\+Fields\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classint}{int}} v8\+::internal\+::\+JSPromise\+::k\+Size\+With\+Embedder\+Fields\hspace{0.3cm}{\ttfamily [static]}}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
@@ -159,8 +800,16 @@ static const int \mbox{\hyperlink{classv8_1_1internal_1_1JSPromise_a3305b4a032ec
 \end{DoxyCode}
 
 
+Definition at line 75 of file js-\/promise.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Promise\+Builtins\+Assembler\+::\+Allocate\+JSPromise(), v8\+::internal\+::\+Genesis\+::\+Initialize\+Global(), v8\+::internal\+::compiler\+::\+JSCreate\+Lowering\+::\+Reduce\+JSCreate\+Promise(), and v8\+::internal\+::\+Promise\+Builtins\+Assembler\+::\+Zero\+Out\+Embedder\+Offsets().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{js-promise_8h}{js-\/promise.\+h}}\item 
-\mbox{\hyperlink{js-promise-inl_8h}{js-\/promise-\/inl.\+h}}\item 
-\mbox{\hyperlink{objects_8cc}{objects.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{js-promise_8h}{js-\/promise.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{js-promise-inl_8h}{js-\/promise-\/inl.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{objects_8cc}{objects.\+cc}}\end{DoxyCompactItemize}

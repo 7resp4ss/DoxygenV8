@@ -1,0 +1,67 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02scanner_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{scanner.\+cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02scanner_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}scanner.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}scanner.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02scanner_8cc_03_a4fcbb3fe069262bd4de4f99d97a4d821}{Process\+Per\+Function\+Compile\+Hints}} (const \mbox{\hyperlink{classv8_1_1base_1_1Vector}{base\+::\+Vector}}$<$ const uint8\+\_\+t $>$ \&data, \mbox{\hyperlink{classint}{int}} current\+\_\+position, std\+::vector$<$ \mbox{\hyperlink{classint}{int}} $>$ \&positions)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02scanner_8cc_03_a4fcbb3fe069262bd4de4f99d97a4d821}\label{namespacev8_1_1internal_1_1anonymous__namespace_02scanner_8cc_03_a4fcbb3fe069262bd4de4f99d97a4d821}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}scanner.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}scanner.cc\rcurly{}}!ProcessPerFunctionCompileHints@{ProcessPerFunctionCompileHints}}
+\index{ProcessPerFunctionCompileHints@{ProcessPerFunctionCompileHints}!v8::internal::anonymous\_namespace\lcurly{}scanner.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}scanner.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ProcessPerFunctionCompileHints()}{ProcessPerFunctionCompileHints()}}
+{\footnotesize\ttfamily void v8\+::internal\+::anonymous\+\_\+namespace\{scanner.\+cc\}\+::Process\+Per\+Function\+Compile\+Hints (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1base_1_1Vector}{base\+::\+Vector}}$<$ const uint8\+\_\+t $>$ \&}]{data,  }\item[{\mbox{\hyperlink{classint}{int}}}]{current\+\_\+position,  }\item[{std\+::vector$<$ \mbox{\hyperlink{classint}{int}} $>$ \&}]{positions }\end{DoxyParamCaption})}
+
+
+
+Definition at line 255 of file scanner.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{257                                                                \{}
+\DoxyCodeLine{258   \textcolor{comment}{// Compile hints are relative to the position of the comment end.}}
+\DoxyCodeLine{259   \textcolor{keywordtype}{int} last\_position = current\_position;}
+\DoxyCodeLine{260   \textcolor{keywordtype}{size\_t} pos = 0;}
+\DoxyCodeLine{261   \textcolor{keyword}{const} \textcolor{keywordtype}{char}* char\_data = \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(data.data());}
+\DoxyCodeLine{262   \textcolor{keywordflow}{while} (pos < \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(data.length())) \{}
+\DoxyCodeLine{263     \mbox{\hyperlink{namespaceunibrow_ab0275d47f9778d486eafe88b18c5851d}{int32\_t}} delta = \mbox{\hyperlink{namespacev8_1_1base_af93bd21b34b46d67a87c8ede4ba9e52d}{base::VLQBase64Decode}}(char\_data, data.length(), \&pos);}
+\DoxyCodeLine{264     \textcolor{keywordflow}{if} (delta == std::numeric\_limits<int32\_t>::min()) \{}
+\DoxyCodeLine{265       \textcolor{comment}{// Invalid data, bail out and clear the data we read so far. (Not using}}
+\DoxyCodeLine{266       \textcolor{comment}{// the data until the invalid portion is consistent with 2-\/byte data not}}
+\DoxyCodeLine{267       \textcolor{comment}{// being handled at all.)}}
+\DoxyCodeLine{268       positions.clear();}
+\DoxyCodeLine{269       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{270     \}}
+\DoxyCodeLine{271     last\_position += delta;}
+\DoxyCodeLine{272     positions.push\_back(last\_position);}
+\DoxyCodeLine{273   \}}
+\DoxyCodeLine{274   positions.shrink\_to\_fit();}
+\DoxyCodeLine{275 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Vector$<$ T $>$\+::data(), v8\+::base\+::\+Vector$<$ T $>$\+::length(), and v8\+::base\+::\+VLQBase64\+Decode().
+
+
+
+Referenced by v8\+::internal\+::\+Scanner\+::\+Try\+To\+Parse\+Magic\+Comment().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02scanner_8cc_03_a4fcbb3fe069262bd4de4f99d97a4d821_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02scanner_8cc_03_a4fcbb3fe069262bd4de4f99d97a4d821_icgraph}
+\end{center}
+\end{figure}

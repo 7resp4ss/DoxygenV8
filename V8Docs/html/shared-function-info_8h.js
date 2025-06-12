@@ -3,19 +3,19 @@ var shared_function_info_8h =
     [ "PreparseData", "classv8_1_1internal_1_1PreparseData.html", "classv8_1_1internal_1_1PreparseData" ],
     [ "UncompiledData", "classv8_1_1internal_1_1UncompiledData.html", "classv8_1_1internal_1_1UncompiledData" ],
     [ "UncompiledDataWithoutPreparseData", "classv8_1_1internal_1_1UncompiledDataWithoutPreparseData.html", [
-      [ "BodyDescriptor", "classv8_1_1internal_1_1UncompiledDataWithoutPreparseData_1_1BodyDescriptor.html", null ]
+      [ "BodyDescriptor", "classv8_1_1internal_1_1UncompiledDataWithoutPreparseData_1_1BodyDescriptor.html", "classv8_1_1internal_1_1UncompiledDataWithoutPreparseData_1_1BodyDescriptor" ]
     ] ],
     [ "UncompiledDataWithPreparseData", "classv8_1_1internal_1_1UncompiledDataWithPreparseData.html", [
-      [ "BodyDescriptor", "classv8_1_1internal_1_1UncompiledDataWithPreparseData_1_1BodyDescriptor.html", null ]
+      [ "BodyDescriptor", "classv8_1_1internal_1_1UncompiledDataWithPreparseData_1_1BodyDescriptor.html", "classv8_1_1internal_1_1UncompiledDataWithPreparseData_1_1BodyDescriptor" ]
     ] ],
     [ "UncompiledDataWithoutPreparseDataWithJob", "classv8_1_1internal_1_1UncompiledDataWithoutPreparseDataWithJob.html", [
-      [ "BodyDescriptor", "classv8_1_1internal_1_1UncompiledDataWithoutPreparseDataWithJob_1_1BodyDescriptor.html", null ]
+      [ "BodyDescriptor", "classv8_1_1internal_1_1UncompiledDataWithoutPreparseDataWithJob_1_1BodyDescriptor.html", "classv8_1_1internal_1_1UncompiledDataWithoutPreparseDataWithJob_1_1BodyDescriptor" ]
     ] ],
     [ "UncompiledDataWithPreparseDataAndJob", "classv8_1_1internal_1_1UncompiledDataWithPreparseDataAndJob.html", [
-      [ "BodyDescriptor", "classv8_1_1internal_1_1UncompiledDataWithPreparseDataAndJob_1_1BodyDescriptor.html", null ]
+      [ "BodyDescriptor", "classv8_1_1internal_1_1UncompiledDataWithPreparseDataAndJob_1_1BodyDescriptor.html", "classv8_1_1internal_1_1UncompiledDataWithPreparseDataAndJob_1_1BodyDescriptor" ]
     ] ],
     [ "InterpreterData", "classv8_1_1internal_1_1InterpreterData.html", [
-      [ "BodyDescriptor", "classv8_1_1internal_1_1InterpreterData_1_1BodyDescriptor.html", null ]
+      [ "BodyDescriptor", "classv8_1_1internal_1_1InterpreterData_1_1BodyDescriptor.html", "classv8_1_1internal_1_1InterpreterData_1_1BodyDescriptor" ]
     ] ],
     [ "SharedFunctionInfo", "classv8_1_1internal_1_1SharedFunctionInfo.html", "classv8_1_1internal_1_1SharedFunctionInfo" ],
     [ "ScriptIterator", "classv8_1_1internal_1_1SharedFunctionInfo_1_1ScriptIterator.html", "classv8_1_1internal_1_1SharedFunctionInfo_1_1ScriptIterator" ],
@@ -30,5 +30,6 @@ var shared_function_info_8h =
       [ "kYes", "shared-function-info_8h.html#a76203d540ab8a0b4a07a0c73c7e81f47a1ea590aa4a64767508460736ac0edaa9", null ]
     ] ],
     [ "operator<<", "shared-function-info_8h.html#a65e338b65301686f0a796923e35f0130", null ],
-    [ "operator<<", "shared-function-info_8h.html#ad16c4503bff10768095eb33368868ebb", null ]
+    [ "operator<<", "shared-function-info_8h.html#ad16c4503bff10768095eb33368868ebb", null ],
+    [ "kStaticRootsSFISize", "shared-function-info_8h.html#a0f432e36796021f5600e391fb0e2d3cf", null ]
 ];

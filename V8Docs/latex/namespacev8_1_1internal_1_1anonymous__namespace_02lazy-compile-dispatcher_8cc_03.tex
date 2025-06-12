@@ -1,0 +1,99 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02lazy-compile-dispatcher_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{lazy-\/compile-\/dispatcher.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02lazy-compile-dispatcher_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}lazy-\/compile-\/dispatcher.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}lazy-\/compile-\/dispatcher.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02lazy-compile-dispatcher_8cc_03_a693f71687d7206ec0081932a2603c00a}{Set\+Uncompiled\+Data\+Job\+Pointer}} (\mbox{\hyperlink{classv8_1_1internal_1_1LocalIsolate}{Local\+Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1SharedFunctionInfo}{Shared\+Function\+Info}} $>$ shared\+\_\+info, \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} job\+\_\+address)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02lazy-compile-dispatcher_8cc_03_a693f71687d7206ec0081932a2603c00a}\label{namespacev8_1_1internal_1_1anonymous__namespace_02lazy-compile-dispatcher_8cc_03_a693f71687d7206ec0081932a2603c00a}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}lazy-\/compile-\/dispatcher.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}lazy-\/compile-\/dispatcher.cc\rcurly{}}!SetUncompiledDataJobPointer@{SetUncompiledDataJobPointer}}
+\index{SetUncompiledDataJobPointer@{SetUncompiledDataJobPointer}!v8::internal::anonymous\_namespace\lcurly{}lazy-\/compile-\/dispatcher.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}lazy-\/compile-\/dispatcher.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{SetUncompiledDataJobPointer()}{SetUncompiledDataJobPointer()}}
+{\footnotesize\ttfamily void v8\+::internal\+::anonymous\+\_\+namespace\{lazy-\/compile-\/dispatcher.\+cc\}\+::Set\+Uncompiled\+Data\+Job\+Pointer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1LocalIsolate}{Local\+Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1SharedFunctionInfo}{Shared\+Function\+Info}} $>$}]{shared\+\_\+info,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{job\+\_\+address }\end{DoxyParamCaption})}
+
+
+
+Definition at line 95 of file lazy-\/compile-\/dispatcher.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{97                                                       \{}
+\DoxyCodeLine{98   Tagged<UncompiledData> uncompiled\_data =}
+\DoxyCodeLine{99       shared\_info-\/>uncompiled\_data(isolate);}
+\DoxyCodeLine{100   \textcolor{keywordflow}{switch} (uncompiled\_data-\/>map(isolate)-\/>instance\_type()) \{}
+\DoxyCodeLine{101     \textcolor{comment}{// The easy cases -\/-\/ we already have a job slot, so can write into it and}}
+\DoxyCodeLine{102     \textcolor{comment}{// return.}}
+\DoxyCodeLine{103     \textcolor{keywordflow}{case} UNCOMPILED\_DATA\_WITH\_PREPARSE\_DATA\_AND\_JOB\_TYPE:}
+\DoxyCodeLine{104       Cast<UncompiledDataWithPreparseDataAndJob>(uncompiled\_data)}
+\DoxyCodeLine{105           -\/>set\_job(job\_address);}
+\DoxyCodeLine{106       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{107     \textcolor{keywordflow}{case} UNCOMPILED\_DATA\_WITHOUT\_PREPARSE\_DATA\_WITH\_JOB\_TYPE:}
+\DoxyCodeLine{108       Cast<UncompiledDataWithoutPreparseDataWithJob>(uncompiled\_data)}
+\DoxyCodeLine{109           -\/>set\_job(job\_address);}
+\DoxyCodeLine{110       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112     \textcolor{comment}{// Otherwise, we'll have to allocate a new UncompiledData (with or without}}
+\DoxyCodeLine{113     \textcolor{comment}{// preparse data as appropriate), set the job pointer on that, and update}}
+\DoxyCodeLine{114     \textcolor{comment}{// the SharedFunctionInfo to use the new UncompiledData}}
+\DoxyCodeLine{115     \textcolor{keywordflow}{case} UNCOMPILED\_DATA\_WITH\_PREPARSE\_DATA\_TYPE: \{}
+\DoxyCodeLine{116       Handle<String> inferred\_name(uncompiled\_data-\/>inferred\_name(), isolate);}
+\DoxyCodeLine{117       Handle<PreparseData> preparse\_data(}
+\DoxyCodeLine{118           Cast<UncompiledDataWithPreparseData>(uncompiled\_data)}
+\DoxyCodeLine{119               -\/>preparse\_data(),}
+\DoxyCodeLine{120           isolate);}
+\DoxyCodeLine{121       DirectHandle<UncompiledDataWithPreparseDataAndJob> new\_uncompiled\_data =}
+\DoxyCodeLine{122           isolate-\/>factory()-\/>NewUncompiledDataWithPreparseDataAndJob(}
+\DoxyCodeLine{123               inferred\_name, uncompiled\_data-\/>start\_position(),}
+\DoxyCodeLine{124               uncompiled\_data-\/>end\_position(), preparse\_data);}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126       new\_uncompiled\_data-\/>set\_job(job\_address);}
+\DoxyCodeLine{127       shared\_info-\/>set\_uncompiled\_data(*new\_uncompiled\_data);}
+\DoxyCodeLine{128       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{129     \}}
+\DoxyCodeLine{130     \textcolor{keywordflow}{case} UNCOMPILED\_DATA\_WITHOUT\_PREPARSE\_DATA\_TYPE: \{}
+\DoxyCodeLine{131       \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(IsUncompiledDataWithoutPreparseData(uncompiled\_data));}
+\DoxyCodeLine{132       Handle<String> inferred\_name(uncompiled\_data-\/>inferred\_name(), isolate);}
+\DoxyCodeLine{133       DirectHandle<UncompiledDataWithoutPreparseDataWithJob>}
+\DoxyCodeLine{134           new\_uncompiled\_data =}
+\DoxyCodeLine{135               isolate-\/>factory()-\/>NewUncompiledDataWithoutPreparseDataWithJob(}
+\DoxyCodeLine{136                   inferred\_name, uncompiled\_data-\/>start\_position(),}
+\DoxyCodeLine{137                   uncompiled\_data-\/>end\_position());}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139       new\_uncompiled\_data-\/>set\_job(job\_address);}
+\DoxyCodeLine{140       shared\_info-\/>set\_uncompiled\_data(*new\_uncompiled\_data);}
+\DoxyCodeLine{141       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{142     \}}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{144     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{145       \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{146   \}}
+\DoxyCodeLine{147 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Local\+Isolate\+::factory(), v8\+::internal\+::\+Factory\+Base$<$ Impl $>$\+::\+New\+Uncompiled\+Data\+Without\+Preparse\+Data\+With\+Job(), v8\+::internal\+::\+Factory\+Base$<$ Impl $>$\+::\+New\+Uncompiled\+Data\+With\+Preparse\+Data\+And\+Job(), and v8\+::internal\+::\+UNREACHABLE().
+
+
+
+Referenced by v8\+::internal\+::\+Lazy\+Compile\+Dispatcher\+::\+Enqueue().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02lazy-compile-dispatcher_8cc_03_a693f71687d7206ec0081932a2603c00a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02lazy-compile-dispatcher_8cc_03_a693f71687d7206ec0081932a2603c00a_icgraph}
+\end{center}
+\end{figure}

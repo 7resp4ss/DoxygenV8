@@ -50,12 +50,13 @@ var instance_type_8h =
       [ "kSlicedStringTag", "instance-type_8h.html#a1dcd1c70913dd4654f57126302d602f3ad20b0b337d27d5c026040a5ddde26056", null ],
       [ "kThinStringTag", "instance-type_8h.html#a1dcd1c70913dd4654f57126302d602f3a50a3631077e22994ea698506529181d0", null ]
     ] ],
-    [ "IsConsString", "instance-type_8h.html#aebbb61798224538b32941c0ce73773b9", null ],
-    [ "IsOneByteString", "instance-type_8h.html#a399c4c058502c51395c9db51064a4acd", null ],
-    [ "IsSeqString", "instance-type_8h.html#aa743cb9f652de25cb58a6dcf10d8a470", null ],
-    [ "IsSlicedString", "instance-type_8h.html#a86ec53a6fc7395defd7805a076774a4f", null ],
-    [ "IsThinString", "instance-type_8h.html#aa45d081b1e775bd4f4d80a82da564dff", null ],
-    [ "IsTwoByteString", "instance-type_8h.html#a0045fd3ffde814ab002e33c722b904da", null ],
+    [ "IsConsString", "instance-type_8h.html#a201fb0d8cedbcd31f168a1817a317cff", null ],
+    [ "IsOneByteString", "instance-type_8h.html#a165dbbe18fe83c7ea40f570889075e4b", null ],
+    [ "IsSeqString", "instance-type_8h.html#a92e550bd0b176cb5282928800e3d714e", null ],
+    [ "IsShortcutCandidate", "instance-type_8h.html#a7f1715652054fbabe5af5b3a376ecd91", null ],
+    [ "IsSlicedString", "instance-type_8h.html#a3f090c16901c1065109f26e8ffb6473b", null ],
+    [ "IsThinString", "instance-type_8h.html#aa7c22336c3d2b0cb4f8e9ceea301d857", null ],
+    [ "IsTwoByteString", "instance-type_8h.html#ad9de1d0f92c419ca3806405654e45a3e", null ],
     [ "operator<<", "instance-type_8h.html#a586cf3b32468e70bd7267ad157f48e10", null ],
     [ "ToString", "instance-type_8h.html#a6bd26246c8cb198816ff791c3c423686", null ],
     [ "kExternalOneByteStringTag", "instance-type_8h.html#ac2826c80213f63ebf8092ff9b19ee305", null ],
@@ -82,5 +83,6 @@ var instance_type_8h =
     [ "kTwoByteStringTag", "instance-type_8h.html#a32748e76c13313ee4837d66d18000307", null ],
     [ "kUncachedExternalStringMask", "instance-type_8h.html#a4d1b938077c26360300997ba84b869bb", null ],
     [ "kUncachedExternalStringTag", "instance-type_8h.html#a3bca87fbeea8eaed3b35acb2cedc0715", null ],
-    [ "LAST_STRING_TYPE", "instance-type_8h.html#a37634b0651895896e662fdbd2f143740", null ]
+    [ "LAST_STRING_TYPE", "instance-type_8h.html#a37634b0651895896e662fdbd2f143740", null ],
+    [ "PROPERTY_DICTIONARY_TYPE", "instance-type_8h.html#a403aa5a29cd222ebfdd187939b2b94da", null ]
 ];

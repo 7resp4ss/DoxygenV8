@@ -18,6 +18,9 @@ var classv8_1_1HeapProfiler =
       [ "kSamplingIncludeObjectsCollectedByMajorGC", "classv8_1_1HeapProfiler.html#aa7826fbe67065080b08309e8f649e049a34ffa7039012ffb153c4dfd82fc60cae", null ],
       [ "kSamplingIncludeObjectsCollectedByMinorGC", "classv8_1_1HeapProfiler.html#aa7826fbe67065080b08309e8f649e049a71c158180831a667c2264cf95af66303", null ]
     ] ],
+    [ "HeapProfiler", "classv8_1_1HeapProfiler.html#a18a1718f212ec3cd841e6eccb299567a", null ],
+    [ "~HeapProfiler", "classv8_1_1HeapProfiler.html#ae29bce04fde6def75b954b1834629f5a", null ],
+    [ "HeapProfiler", "classv8_1_1HeapProfiler.html#abb7dd8b5c784388e6ca2266344f18056", null ],
     [ "AddBuildEmbedderGraphCallback", "classv8_1_1HeapProfiler.html#a4aa69e692d215f7b4599afe2c9dbfbfd", null ],
     [ "ClearObjectIds", "classv8_1_1HeapProfiler.html#a8a90c630543ed1875cbf9166239ff8d3", null ],
     [ "CopyNameForHeapSnapshot", "classv8_1_1HeapProfiler.html#a7bbd16ad003fba1ec1ad459d508c6959", null ],
@@ -31,6 +34,7 @@ var classv8_1_1HeapProfiler =
     [ "GetObjectId", "classv8_1_1HeapProfiler.html#ab70b786b27f81e5b50c1a271f29df779", null ],
     [ "GetSnapshotCount", "classv8_1_1HeapProfiler.html#a24830775a0ab938eb0a29ed8f3dfd265", null ],
     [ "IsTakingSnapshot", "classv8_1_1HeapProfiler.html#a256fc136d91ea994e8673c91a22cb37e", null ],
+    [ "operator=", "classv8_1_1HeapProfiler.html#a9792e8ddde522f8e2aa97005c0e6bc8f", null ],
     [ "QueryObjects", "classv8_1_1HeapProfiler.html#a1fc1b1e7d5b4b1cfa7d84de168991152", null ],
     [ "RemoveBuildEmbedderGraphCallback", "classv8_1_1HeapProfiler.html#a3f7289d12816af7738944f530d28495d", null ],
     [ "SetGetDetachednessCallback", "classv8_1_1HeapProfiler.html#a04e6fd2201b25ab4b8a398b37e728c67", null ],
@@ -39,5 +43,7 @@ var classv8_1_1HeapProfiler =
     [ "StopSamplingHeapProfiler", "classv8_1_1HeapProfiler.html#abc43e12e6febb087be251c0629ff17bf", null ],
     [ "StopTrackingHeapObjects", "classv8_1_1HeapProfiler.html#ae448d9474ae34781133d4a4547b08cb1", null ],
     [ "TakeHeapSnapshot", "classv8_1_1HeapProfiler.html#a90fe37731ef691678bc1ca755370f091", null ],
-    [ "TakeHeapSnapshot", "classv8_1_1HeapProfiler.html#acb51ae3b356dcc497b9a9c3ccd72f41d", null ]
+    [ "TakeHeapSnapshot", "classv8_1_1HeapProfiler.html#acb51ae3b356dcc497b9a9c3ccd72f41d", null ],
+    [ "kPersistentHandleNoClassId", "classv8_1_1HeapProfiler.html#a272c9af3ea5cd90a2737af3d22a7eb78", null ],
+    [ "kUnknownObjectId", "classv8_1_1HeapProfiler.html#a40f41d75716ff1b335e95521296e027d", null ]
 ];

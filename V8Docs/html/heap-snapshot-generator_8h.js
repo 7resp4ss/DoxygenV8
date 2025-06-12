@@ -6,6 +6,7 @@ var heap_snapshot_generator_8h =
     [ "HeapSnapshot", "classv8_1_1internal_1_1HeapSnapshot.html", "classv8_1_1internal_1_1HeapSnapshot" ],
     [ "HeapObjectsMap", "classv8_1_1internal_1_1HeapObjectsMap.html", "classv8_1_1internal_1_1HeapObjectsMap" ],
     [ "TimeInterval", "structv8_1_1internal_1_1HeapObjectsMap_1_1TimeInterval.html", "structv8_1_1internal_1_1HeapObjectsMap_1_1TimeInterval" ],
+    [ "EntryInfo", "structv8_1_1internal_1_1HeapObjectsMap_1_1EntryInfo.html", "structv8_1_1internal_1_1HeapObjectsMap_1_1EntryInfo" ],
     [ "HeapEntriesAllocator", "classv8_1_1internal_1_1HeapEntriesAllocator.html", "classv8_1_1internal_1_1HeapEntriesAllocator" ],
     [ "SnapshottingProgressReportingInterface", "classv8_1_1internal_1_1SnapshottingProgressReportingInterface.html", "classv8_1_1internal_1_1SnapshottingProgressReportingInterface" ],
     [ "V8HeapExplorer", "classv8_1_1internal_1_1V8HeapExplorer.html", "classv8_1_1internal_1_1V8HeapExplorer" ],

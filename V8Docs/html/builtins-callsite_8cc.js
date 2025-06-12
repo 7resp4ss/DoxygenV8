@@ -22,5 +22,7 @@ var builtins_callsite_8cc =
     [ "BUILTIN", "builtins-callsite_8cc.html#a24e197615ea32f02a4264665148a1c3d", null ],
     [ "BUILTIN", "builtins-callsite_8cc.html#a14fa19f2fbe29f7ddf033eb6ba2213b1", null ],
     [ "BUILTIN", "builtins-callsite_8cc.html#a336b9c327b464d7f595f7c16a08fd298", null ],
-    [ "BUILTIN", "builtins-callsite_8cc.html#a9c5e46b8b4ec73ea0720034781a86745", null ]
+    [ "BUILTIN", "builtins-callsite_8cc.html#a9c5e46b8b4ec73ea0720034781a86745", null ],
+    [ "NativeContextIsForShadowRealm", "builtins-callsite_8cc.html#a2e4f36ada42b7a9bfc56e929fd1ecb83", null ],
+    [ "PositiveNumberOrNull", "builtins-callsite_8cc.html#afc9a992a16a03c8c24aefb5c01fc67d8", null ]
 ];

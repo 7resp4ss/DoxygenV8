@@ -2,6 +2,7 @@ var builtins_internal_gen_8cc =
 [
     [ "WriteBarrierCodeStubAssembler", "classv8_1_1internal_1_1WriteBarrierCodeStubAssembler.html", "classv8_1_1internal_1_1WriteBarrierCodeStubAssembler" ],
     [ "DeletePropertyBaseAssembler", "classv8_1_1internal_1_1DeletePropertyBaseAssembler.html", "classv8_1_1internal_1_1DeletePropertyBaseAssembler" ],
+    [ "SetOrCopyDataPropertiesAssembler", "classv8_1_1internal_1_1anonymous__namespace_02builtins-internal-gen_8cc_03_1_1SetOrCopyDataPropertiesAssembler.html", "classv8_1_1internal_1_1anonymous__namespace_02builtins-internal-gen_8cc_03_1_1SetOrCopyDataPropertiesAssembler" ],
     [ "CppBuiltinsAdaptorAssembler", "classv8_1_1internal_1_1CppBuiltinsAdaptorAssembler.html", "classv8_1_1internal_1_1CppBuiltinsAdaptorAssembler" ],
     [ "TF_BUILTIN", "builtins-internal-gen_8cc.html#a3f69ada8f99bd9aca9055dd386285cb2", null ],
     [ "TF_BUILTIN", "builtins-internal-gen_8cc.html#a62ca2fd7c9e2aa1f6e427296c81fc179", null ],

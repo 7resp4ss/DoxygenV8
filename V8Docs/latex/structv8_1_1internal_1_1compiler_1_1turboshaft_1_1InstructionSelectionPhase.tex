@@ -4,16 +4,33 @@
 
 {\ttfamily \#include $<$instruction-\/selection-\/phase.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Instruction\+Selection\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=317pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1InstructionSelectionPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-std\+::optional$<$ \mbox{\hyperlink{namespacev8_1_1internal_a170d48425b861bac584bb286a25d977f}{Bailout\+Reason}} $>$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1InstructionSelectionPhase_a400821ba9cb90f5259120e9b9321c399}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData}{Pipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone, const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CallDescriptor}{Call\+Descriptor}} $\ast$call\+\_\+descriptor, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Linkage}{Linkage}} $\ast$\mbox{\hyperlink{graph-builder_8cc_af97d4be930be06ad1e71c0c6a130dcff}{linkage}}, \mbox{\hyperlink{classv8_1_1internal_1_1CodeTracer}{Code\+Tracer}} $\ast$code\+\_\+tracer)
+std\+::optional$<$ \mbox{\hyperlink{namespacev8_1_1internal_a170d48425b861bac584bb286a25d977f}{Bailout\+Reason}} $>$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1InstructionSelectionPhase_a400821ba9cb90f5259120e9b9321c399}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData}{Pipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone, const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CallDescriptor}{Call\+Descriptor}} $\ast$call\+\_\+descriptor, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Linkage}{Linkage}} $\ast$linkage, \mbox{\hyperlink{classv8_1_1internal_1_1CodeTracer}{Code\+Tracer}} $\ast$code\+\_\+tracer)
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 static constexpr \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1InstructionSelectionPhase_a26d193ae8b5d4088af05f4b1b00410c3}{k\+Output\+Is\+Traceable\+Graph}} = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 128 of file instruction-\/selection-\/phase.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -25,6 +42,66 @@ static constexpr \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d
 
 
 
+Definition at line 329 of file instruction-\/selection-\/phase.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{331                                                \{}
+\DoxyCodeLine{332   Graph\& \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}} = data-\/>graph();}
+\DoxyCodeLine{333 }
+\DoxyCodeLine{334   \textcolor{comment}{// Initialize an instruction sequence.}}
+\DoxyCodeLine{335   data-\/>InitializeInstructionComponent(call\_descriptor);}
+\DoxyCodeLine{336 }
+\DoxyCodeLine{337   \textcolor{comment}{// Run the actual instruction selection.}}
+\DoxyCodeLine{338   InstructionSelector selector = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSelector_a6ee43859dc03498da9a61f46f66f7580}{InstructionSelector::ForTurboshaft}}(}
+\DoxyCodeLine{339       temp\_zone, \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}.op\_id\_count(), linkage, data-\/>sequence(), \&\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}},}
+\DoxyCodeLine{340       data-\/>frame(),}
+\DoxyCodeLine{341       data-\/>info()-\/>switch\_jump\_table()}
+\DoxyCodeLine{342           ? \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSelector_a71c119590535799afc2fecd609851159acc5e74e2868fc356ab3e547a4fc31e1b}{InstructionSelector::kEnableSwitchJumpTable}}}
+\DoxyCodeLine{343           : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSelector_a71c119590535799afc2fecd609851159ad82ed00f338d8e7c75904490429b101a}{InstructionSelector::kDisableSwitchJumpTable}},}
+\DoxyCodeLine{344       \&data-\/>info()-\/>tick\_counter(), data-\/>broker(),}
+\DoxyCodeLine{345       \&data-\/>max\_unoptimized\_frame\_height(), \&data-\/>max\_pushed\_argument\_count(),}
+\DoxyCodeLine{346       data-\/>info()-\/>source\_positions()}
+\DoxyCodeLine{347           ? \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSelector_ac985d7ff7e0eeb569c3b612182388601ab2fd54d89fbd0ef99231e4733e3ae591}{InstructionSelector::kAllSourcePositions}}}
+\DoxyCodeLine{348           : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSelector_ac985d7ff7e0eeb569c3b612182388601a89fde5e3de8958e0e331ad6a262fd69a}{InstructionSelector::kCallSourcePositions}},}
+\DoxyCodeLine{349       \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSelector_ab5ee2fe198b50a28b6e9d03cf26b79cb}{InstructionSelector::SupportedFeatures}}(),}
+\DoxyCodeLine{350       \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.turbo\_instruction\_scheduling}
+\DoxyCodeLine{351           ? \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSelector_a862e65439efe3446dd900644d4690feeac01c20960bd9f98648a1a19d7274ab85}{InstructionSelector::kEnableScheduling}}}
+\DoxyCodeLine{352           : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSelector_a862e65439efe3446dd900644d4690feeae5db1baa491b884e93d3742b68a04db8}{InstructionSelector::kDisableScheduling}},}
+\DoxyCodeLine{353       data-\/>assembler\_options().enable\_root\_relative\_access}
+\DoxyCodeLine{354           ? \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSelector_aca89bc2e3634df5451c64926b3b89789ab2ed64c153c9113f373f84dc3ed12818}{InstructionSelector::kEnableRootsRelativeAddressing}}}
+\DoxyCodeLine{355           : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSelector_aca89bc2e3634df5451c64926b3b89789a7df80d79df284e9b7145ec68a9e49034}{InstructionSelector::kDisableRootsRelativeAddressing}},}
+\DoxyCodeLine{356       data-\/>info()-\/>trace\_turbo\_json()}
+\DoxyCodeLine{357           ? \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSelector_a7cec32e5c17da5e3ee0b786dd3728a1fa6646c885b19d8a0f702c19b0eb6a5d22}{InstructionSelector::kEnableTraceTurboJson}}}
+\DoxyCodeLine{358           : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSelector_a7cec32e5c17da5e3ee0b786dd3728a1fac0f47c044f0e68d5ec4436e0ecfc059c}{InstructionSelector::kDisableTraceTurboJson}},}
+\DoxyCodeLine{359       \textcolor{comment}{// For now only ensure a deterministic NaN pattern for Wasm code. The spec}}
+\DoxyCodeLine{360       \textcolor{comment}{// does not mandate it, but we want it for differential fuzzing.}}
+\DoxyCodeLine{361       \textcolor{comment}{// TODO(353475584): This will have to be refined for Wasm-\/in-\/JS inlining.}}
+\DoxyCodeLine{362       data-\/>is\_wasm() ? \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSelector_a1405e16958a3785b7403c239c89c0dccaefba6b112124dc50bf407e187e11e4bb}{InstructionSelector::kEnsureDeterministicNan}}}
+\DoxyCodeLine{363                       : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSelector_a1405e16958a3785b7403c239c89c0dcca958f45d41991ec88c0cdb3882e7d4e36}{InstructionSelector::kNoDeterministicNan}});}
+\DoxyCodeLine{364   \textcolor{keywordflow}{if} (std::optional<BailoutReason> bailout = selector.SelectInstructions()) \{}
+\DoxyCodeLine{365     \textcolor{keywordflow}{return} bailout;}
+\DoxyCodeLine{366   \}}
+\DoxyCodeLine{367   \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_1_1anonymous__namespace_02instruction-selection-phase_8cc_03_a6776e338f493a13428f0b117a1397fba}{TraceSequence}}(data-\/>info(), data-\/>sequence(), data-\/>broker(), code\_tracer,}
+\DoxyCodeLine{368                 \textcolor{stringliteral}{"{}after instruction selection"{}});}
+\DoxyCodeLine{369   \textcolor{keywordflow}{return} std::nullopt;}
+\DoxyCodeLine{370 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::assembler\+\_\+options(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::broker(), v8\+::internal\+::\+Assembler\+Options\+::enable\+\_\+root\+\_\+relative\+\_\+access, v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+For\+Turboshaft(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::frame(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::graph(), graph(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::info(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::\+Initialize\+Instruction\+Component(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::is\+\_\+wasm(), v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::k\+All\+Source\+Positions, v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::k\+Call\+Source\+Positions, v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::k\+Disable\+Roots\+Relative\+Addressing, v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::k\+Disable\+Scheduling, v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::k\+Disable\+Switch\+Jump\+Table, v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::k\+Disable\+Trace\+Turbo\+Json, v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::k\+Enable\+Roots\+Relative\+Addressing, v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::k\+Enable\+Scheduling, v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::k\+Enable\+Switch\+Jump\+Table, v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::k\+Enable\+Trace\+Turbo\+Json, v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::k\+Ensure\+Deterministic\+Nan, v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::k\+No\+Deterministic\+Nan, v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::max\+\_\+pushed\+\_\+argument\+\_\+count(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::max\+\_\+unoptimized\+\_\+frame\+\_\+height(), v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Select\+Instructions(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::sequence(), v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Supported\+Features(), v8\+::internal\+::\+Optimized\+Compilation\+Info\+::tick\+\_\+counter(), v8\+::internal\+::compiler\+::turboshaft\+::anonymous\+\_\+namespace\{instruction-\/selection-\/phase.\+cc\}\+::\+Trace\+Sequence(), and v8\+::internal\+::v8\+\_\+flags.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1InstructionSelectionPhase_a400821ba9cb90f5259120e9b9321c399_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1InstructionSelectionPhase_a26d193ae8b5d4088af05f4b1b00410c3}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1InstructionSelectionPhase_a26d193ae8b5d4088af05f4b1b00410c3}} 
 \index{v8::internal::compiler::turboshaft::InstructionSelectionPhase@{v8::internal::compiler::turboshaft::InstructionSelectionPhase}!kOutputIsTraceableGraph@{kOutputIsTraceableGraph}}
@@ -34,7 +111,11 @@ static constexpr \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d
 
 
 
+Definition at line 130 of file instruction-\/selection-\/phase.\+h.
+
+
+
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{instruction-selection-phase_8h}{instruction-\/selection-\/phase.\+h}}\item 
-\mbox{\hyperlink{instruction-selection-phase_8cc}{instruction-\/selection-\/phase.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{instruction-selection-phase_8h}{instruction-\/selection-\/phase.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{instruction-selection-phase_8cc}{instruction-\/selection-\/phase.\+cc}}\end{DoxyCompactItemize}

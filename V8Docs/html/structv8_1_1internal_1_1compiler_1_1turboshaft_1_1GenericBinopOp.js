@@ -10,5 +10,6 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1GenericBinopOp =
     [ "left", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1GenericBinopOp.html#a82599ca2b1cd96cb11c6cef8b718ce2c", null ],
     [ "options", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1GenericBinopOp.html#a628fbd98f8ec4599be034547d9a2737b", null ],
     [ "right", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1GenericBinopOp.html#a03ad75f0bbb9826e4188d889b48f9576", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1GenericBinopOp.html#acf92e99802fc75da4a020d761ecc332e", null ],
     [ "kind", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1GenericBinopOp.html#adc3b27ecefb3a83ad8a98e4193c0058c", null ]
 ];

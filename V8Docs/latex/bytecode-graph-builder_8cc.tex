@@ -1,5 +1,5 @@
-\hypertarget{bytecode-graph-builder_8cc}{}\doxysection{bytecode-\/graph-\/builder.cc File Reference}
-\label{bytecode-graph-builder_8cc}\index{bytecode-\/graph-\/builder.cc@{bytecode-\/graph-\/builder.cc}}
+\hypertarget{bytecode-graph-builder_8cc}{}\doxysection{/mnt/\+V8\+Source\+Code/src/compiler/bytecode-\/graph-\/builder.cc File Reference}
+\label{bytecode-graph-builder_8cc}\index{/mnt/V8SourceCode/src/compiler/bytecode-\/graph-\/builder.cc@{/mnt/V8SourceCode/src/compiler/bytecode-\/graph-\/builder.cc}}
 {\ttfamily \#include \char`\"{}src/compiler/bytecode-\/graph-\/builder.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$optional$>$}\newline
 {\ttfamily \#include \char`\"{}src/ast/ast.\+h\char`\"{}}\newline
@@ -41,6 +41,8 @@ Include dependency graph for bytecode-\/graph-\/builder.cc\+:
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder}{v8\+::internal\+::compiler\+::\+Bytecode\+Graph\+Builder}}
 \item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1ExceptionHandler}{v8\+::internal\+::compiler\+::\+Bytecode\+Graph\+Builder\+::\+Exception\+Handler}}
+\item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1Environment}{v8\+::internal\+::compiler\+::\+Bytecode\+Graph\+Builder\+::\+Environment}}
 \item 
 struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1SubEnvironment}{v8\+::internal\+::compiler\+::\+Bytecode\+Graph\+Builder\+::\+Sub\+Environment}}
@@ -48,12 +50,14 @@ struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder
 class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1BytecodePositionDecorator}{v8\+::internal\+::compiler\+::\+Bytecode\+Graph\+Builder\+::\+Bytecode\+Position\+Decorator}}
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1OsrIteratorState}{v8\+::internal\+::compiler\+::\+Bytecode\+Graph\+Builder\+::\+Osr\+Iterator\+State}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1OsrIteratorState_1_1IteratorsStates}{v8\+::internal\+::compiler\+::\+Bytecode\+Graph\+Builder\+::\+Osr\+Iterator\+State\+::\+Iterators\+States}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacev8}{v8}}
-\item 
+\begin{DoxyCompactList}\small\item\em This file provides additional API on top of the default one for making API calls, which come from embedder C++ functions. \end{DoxyCompactList}\item 
  \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
 \item 
  \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
@@ -61,9 +65,9 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{bytecode-graph-builder_8cc_a91a723c0c29ce7367981931094aa42d4}{DECLARE\+\_\+\+VISIT\+\_\+\+BYTECODE}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, ...)~void Visit\#\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}();
+\#define \mbox{\hyperlink{bytecode-graph-builder_8cc_a91a723c0c29ce7367981931094aa42d4}{DECLARE\+\_\+\+VISIT\+\_\+\+BYTECODE}}(\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}}, ...)~void Visit\#\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}}();
 \item 
-\#define \mbox{\hyperlink{bytecode-graph-builder_8cc_aa0a4db3c76c7196b64c87008301780db}{BYTECODE\+\_\+\+CASE}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, ...)
+\#define \mbox{\hyperlink{bytecode-graph-builder_8cc_aa0a4db3c76c7196b64c87008301780db}{BYTECODE\+\_\+\+CASE}}(\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}}, ...)
 \item 
 \#define \mbox{\hyperlink{bytecode-graph-builder_8cc_a827360f279a695bc923b65c544557e6e}{SHORT\+\_\+\+STAR\+\_\+\+VISITOR}}(Name, ...)
 \item 
@@ -72,7 +76,7 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac18a1984c136521f73df9e23f74d1b1f}{v8\+::internal\+::compiler\+::\+Build\+Graph\+From\+Bytecode}} (JSHeap\+Broker $\ast$\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, Zone $\ast$local\+\_\+zone, Shared\+Function\+Info\+Ref shared\+\_\+info, Bytecode\+Array\+Ref \mbox{\hyperlink{experimental_8cc_adcfc7c70462a57a18137cf25c883eae5}{bytecode}}, Feedback\+Cell\+Ref feedback\+\_\+cell, Bytecode\+Offset osr\+\_\+offset, JSGraph $\ast$\mbox{\hyperlink{js-call-reducer_8cc_a63b24fad76b2ce65101ba7d418f301d2}{jsgraph}}, Call\+Frequency const \&invocation\+\_\+frequency, Source\+Position\+Table $\ast$\mbox{\hyperlink{graph-builder_8cc_acc2fa1f7c7062f53a2840f0064a43ef1}{source\+\_\+positions}}, Node\+Origin\+Table $\ast$node\+\_\+origins, int inlining\+\_\+id, Code\+Kind code\+\_\+kind, Bytecode\+Graph\+Builder\+Flags \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}}, Tick\+Counter $\ast$tick\+\_\+counter, Observe\+Node\+Info const \&observe\+\_\+node\+\_\+info)
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac18a1984c136521f73df9e23f74d1b1f}{v8\+::internal\+::compiler\+::\+Build\+Graph\+From\+Bytecode}} (JSHeap\+Broker $\ast$\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, Zone $\ast$local\+\_\+zone, Shared\+Function\+Info\+Ref shared\+\_\+info, Bytecode\+Array\+Ref bytecode, Feedback\+Cell\+Ref feedback\+\_\+cell, Bytecode\+Offset osr\+\_\+offset, JSGraph $\ast$jsgraph, Call\+Frequency const \&invocation\+\_\+frequency, Source\+Position\+Table $\ast$source\+\_\+positions, Node\+Origin\+Table $\ast$node\+\_\+origins, \mbox{\hyperlink{classint}{int}} inlining\+\_\+id, Code\+Kind code\+\_\+kind, Bytecode\+Graph\+Builder\+Flags \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}}, Tick\+Counter $\ast$tick\+\_\+counter, Observe\+Node\+Info const \&observe\+\_\+node\+\_\+info)
 \end{DoxyCompactItemize}
 
 
@@ -81,12 +85,12 @@ void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac18a1984c136521f73df9
 \index{bytecode-\/graph-\/builder.cc@{bytecode-\/graph-\/builder.cc}!BYTECODE\_CASE@{BYTECODE\_CASE}}
 \index{BYTECODE\_CASE@{BYTECODE\_CASE}!bytecode-\/graph-\/builder.cc@{bytecode-\/graph-\/builder.cc}}
 \doxysubsubsection{\texorpdfstring{BYTECODE\_CASE}{BYTECODE\_CASE}}
-{\footnotesize\ttfamily \#define BYTECODE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{... }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define BYTECODE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}},  }\item[{}]{... }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  \textcolor{keywordflow}{case} interpreter::Bytecode::k\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}: \(\backslash\)}
-\DoxyCodeLine{    Visit\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}();                     \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} interpreter::Bytecode::k\#\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}}: \(\backslash\)}
+\DoxyCodeLine{    Visit\#\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}}();                     \(\backslash\)}
 \DoxyCodeLine{    break;}
 
 \end{DoxyCode}
@@ -96,11 +100,19 @@ void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac18a1984c136521f73df9
 \doxysubsubsection{\texorpdfstring{DEBUG\_BREAK}{DEBUG\_BREAK}}
 {\footnotesize\ttfamily \#define DEBUG\+\_\+\+BREAK(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})~  void Bytecode\+Graph\+Builder\+::\+Visit\#\#Name() \{ \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}(); \}}
 
+
+
+Definition at line 3787 of file bytecode-\/graph-\/builder.\+cc.
+
 \mbox{\Hypertarget{bytecode-graph-builder_8cc_a91a723c0c29ce7367981931094aa42d4}\label{bytecode-graph-builder_8cc_a91a723c0c29ce7367981931094aa42d4}} 
 \index{bytecode-\/graph-\/builder.cc@{bytecode-\/graph-\/builder.cc}!DECLARE\_VISIT\_BYTECODE@{DECLARE\_VISIT\_BYTECODE}}
 \index{DECLARE\_VISIT\_BYTECODE@{DECLARE\_VISIT\_BYTECODE}!bytecode-\/graph-\/builder.cc@{bytecode-\/graph-\/builder.cc}}
 \doxysubsubsection{\texorpdfstring{DECLARE\_VISIT\_BYTECODE}{DECLARE\_VISIT\_BYTECODE}}
-{\footnotesize\ttfamily \#define DECLARE\+\_\+\+VISIT\+\_\+\+BYTECODE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{... }\end{DoxyParamCaption})~void Visit\#\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}();}
+{\footnotesize\ttfamily \#define DECLARE\+\_\+\+VISIT\+\_\+\+BYTECODE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}},  }\item[{}]{... }\end{DoxyParamCaption})~void Visit\#\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}}();}
+
+
+
+Definition at line 447 of file bytecode-\/graph-\/builder.\+cc.
 
 \mbox{\Hypertarget{bytecode-graph-builder_8cc_a827360f279a695bc923b65c544557e6e}\label{bytecode-graph-builder_8cc_a827360f279a695bc923b65c544557e6e}} 
 \index{bytecode-\/graph-\/builder.cc@{bytecode-\/graph-\/builder.cc}!SHORT\_STAR\_VISITOR@{SHORT\_STAR\_VISITOR}}
@@ -111,10 +123,14 @@ void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac18a1984c136521f73df9
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordtype}{void} BytecodeGraphBuilder::Visit\#\#Name() \{                                  \(\backslash\)}
-\DoxyCodeLine{    Node* \mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}} = environment()-\/>LookupAccumulator();                         \(\backslash\)}
+\DoxyCodeLine{    Node* \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = environment()-\/>LookupAccumulator();                         \(\backslash\)}
 \DoxyCodeLine{    environment()-\/>BindRegister(                                              \(\backslash\)}
 \DoxyCodeLine{        interpreter::Register::FromShortStar(interpreter::Bytecode::k\#\#Name), \(\backslash\)}
-\DoxyCodeLine{        \mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}});                                                               \(\backslash\)}
+\DoxyCodeLine{        \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});                                                               \(\backslash\)}
 \DoxyCodeLine{  \}}
 
 \end{DoxyCode}
+
+
+Definition at line 1574 of file bytecode-\/graph-\/builder.\+cc.
+

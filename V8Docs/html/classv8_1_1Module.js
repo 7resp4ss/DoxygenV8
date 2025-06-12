@@ -11,6 +11,9 @@ var classv8_1_1Module =
       [ "kEvaluated", "classv8_1_1Module.html#a9c2a22c9cb8e928d570c38648c648b7eaf16adbfece3693748165cd6860157604", null ],
       [ "kErrored", "classv8_1_1Module.html#a9c2a22c9cb8e928d570c38648c648b7ead44e2076c4d0e851f3b2e294720dab96", null ]
     ] ],
+    [ "Cast", "classv8_1_1Module.html#ae1ac454828295309b0eef397173a72bb", null ],
+    [ "CheckCast", "classv8_1_1Module.html#a18b10f8dab50171172fbf7b872cb8ea9", null ],
+    [ "CreateSyntheticModule", "classv8_1_1Module.html#a61b904b51e5f9d8595efd04c2fd631ae", null ],
     [ "Evaluate", "classv8_1_1Module.html#a1f1758265a4082595757c3251bb40e0f", null ],
     [ "GetException", "classv8_1_1Module.html#a7a48405dcd0e84b6edc78e9b1424bbb4", null ],
     [ "GetIdentityHash", "classv8_1_1Module.html#aa2966a54ccb783a91ab494407782e9e3", null ],

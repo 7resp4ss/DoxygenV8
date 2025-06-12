@@ -19,6 +19,7 @@ var classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface =
     [ "ArrayNewFixed", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#aa525b2102bd0b7104f7e023bb780f887", null ],
     [ "ArrayNewSegment", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#ae80826e3a79eca0b1f486a84d78a190c", null ],
     [ "ArraySet", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a1edf992297e7181c5320007a39223c7a", null ],
+    [ "Asm", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#aea66975f7a93a8bdf08feb5d6a433d3a", null ],
     [ "AssertNotNullTypecheck", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a3c8ac08ce639f73bf9627787f6e2f094", null ],
     [ "AssertNullTypecheck", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a0e4aaa00c6a01f28d9d025978e717089", null ],
     [ "AtomicFence", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a5e6894dc083efb02585225eaa80d7e56", null ],
@@ -50,6 +51,7 @@ var classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface =
     [ "ContNew", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a2cad89b97ababc4cc753f078c0eaabe5", null ],
     [ "CurrentMemoryPages", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a502cbd6b13837dd2ed0896b855e192fa", null ],
     [ "DataDrop", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a93d09578bc878c560bc8300df70f2a8f", null ],
+    [ "DefaultValue", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a1043e5026f606c195f4d3b1e68e340cd", null ],
     [ "Delegate", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a5652fabd77177177164a1212d32bf3fe", null ],
     [ "DoReturn", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a23d79c40db82f848ef2f282dfbc26f67", null ],
     [ "Drop", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a66e792ad359b498b349067c3252bf3b8", null ],
@@ -163,5 +165,11 @@ var classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface =
     [ "Try", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a78877ef88d798d27821823b50d38f376", null ],
     [ "TryTable", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a91ff4311e7ea6107b68858fd698cd655", null ],
     [ "UnOp", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#afe85238a7d4d077b12d4817722a469e3", null ],
-    [ "UnOpImpl", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a8069852123bb14d85015db4f201e84d8", null ]
+    [ "UnOpImpl", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a8069852123bb14d85015db4f201e84d8", null ],
+    [ "arguments_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a516f2b1687a12b783f4e7f14576b53d0", null ],
+    [ "asm_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#aeb20e34e0c6c1aecccc73118f7e3ed35", null ],
+    [ "kUsesPoppedArgs", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a4b22198c2f4d39bb7645b7a8c1dfcb69", null ],
+    [ "locals_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#ac49d920933310c33385e3480b822f246", null ],
+    [ "result_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a5aeb9aabcbe191a6e030beb14a5712ff", null ],
+    [ "trusted_instance_data_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmInJsInliningInterface.html#a239c6e3f0d2fcd6becdc1b77c1cc2a75", null ]
 ];

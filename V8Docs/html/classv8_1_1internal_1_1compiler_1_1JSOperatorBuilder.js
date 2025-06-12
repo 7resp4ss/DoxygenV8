@@ -124,5 +124,8 @@ var classv8_1_1internal_1_1compiler_1_1JSOperatorBuilder =
     [ "ToNumberConvertBigInt", "classv8_1_1internal_1_1compiler_1_1JSOperatorBuilder.html#ae2e0c06c21bc4f5b38331b4683f7ccf5", null ],
     [ "ToNumeric", "classv8_1_1internal_1_1compiler_1_1JSOperatorBuilder.html#a040adb2681d8c9819c904f921453895e", null ],
     [ "ToObject", "classv8_1_1internal_1_1compiler_1_1JSOperatorBuilder.html#aa1483e6dd31b9534af5acfd7ce2e4bdc", null ],
-    [ "ToString", "classv8_1_1internal_1_1compiler_1_1JSOperatorBuilder.html#a30e95ac6e7c6d4e0c8234d6312e8e7e0", null ]
+    [ "ToString", "classv8_1_1internal_1_1compiler_1_1JSOperatorBuilder.html#a30e95ac6e7c6d4e0c8234d6312e8e7e0", null ],
+    [ "zone", "classv8_1_1internal_1_1compiler_1_1JSOperatorBuilder.html#a2ecae9d07c165505122b9ec3de219312", null ],
+    [ "cache_", "classv8_1_1internal_1_1compiler_1_1JSOperatorBuilder.html#a4a9e4132d79d98d981deefda41920fcf", null ],
+    [ "zone_", "classv8_1_1internal_1_1compiler_1_1JSOperatorBuilder.html#afd9482cdc921c396e8eb54cf3af3fcc9", null ]
 ];

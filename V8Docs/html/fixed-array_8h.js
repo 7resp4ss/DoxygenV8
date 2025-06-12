@@ -33,8 +33,8 @@ var fixed_array_8h =
     [ "FixedIntegerArrayBase", "classv8_1_1internal_1_1FixedIntegerArrayBase.html", "classv8_1_1internal_1_1FixedIntegerArrayBase" ],
     [ "FixedAddressArrayBase", "classv8_1_1internal_1_1FixedAddressArrayBase.html", "classv8_1_1internal_1_1FixedAddressArrayBase" ],
     [ "PodArrayBase", "classv8_1_1internal_1_1PodArrayBase.html", "classv8_1_1internal_1_1PodArrayBase" ],
-    [ "PodArray", "classv8_1_1internal_1_1PodArray.html", null ],
-    [ "TrustedPodArray", "classv8_1_1internal_1_1TrustedPodArray.html", null ],
+    [ "PodArray", "classv8_1_1internal_1_1PodArray.html", "classv8_1_1internal_1_1PodArray" ],
+    [ "TrustedPodArray", "classv8_1_1internal_1_1TrustedPodArray.html", "classv8_1_1internal_1_1TrustedPodArray" ],
     [ "V8_ARRAY_EXTRA_FIELDS", "fixed-array_8h.html#a8b8ce4b52f5969b91fd96cb9a9a308be", null ],
     [ "FixedAddressArray", "fixed-array_8h.html#a857b8c5b1ce50370e546449aac4f9f01", null ],
     [ "FixedInt16Array", "fixed-array_8h.html#a89fe05f00058e7309ba1598aff034c64", null ],
@@ -45,5 +45,6 @@ var fixed_array_8h =
     [ "FixedUInt8Array", "fixed-array_8h.html#aa12225749f7728e16cc09b1f25221a1d", null ],
     [ "TaggedArrayHeader", "fixed-array_8h.html#a3fc44a87761f16e9e03fea27ece43c34", null ],
     [ "TrustedFixedAddressArray", "fixed-array_8h.html#a860e60f59cb6aab1609c46f106a2febc", null ],
+    [ "kMaxFixedArrayCapacity", "fixed-array_8h.html#af9d618655c2d99f3399f146387fd1586", null ],
     [ "V8_OBJECT_END", "fixed-array_8h.html#add978aef2b1affd41fb217ce71eefb56", null ]
 ];

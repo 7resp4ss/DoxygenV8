@@ -1,0 +1,52 @@
+var namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module_compiler_8cc_03 =
+[
+    [ "BackgroundCompileScope", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1BackgroundCompileScope.html", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1BackgroundCompileScope" ],
+    [ "CompilationUnitQueues", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1CompilationUnitQueues.html", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1CompilationUnitQueues" ],
+    [ "CompilationStateImpl", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1CompilationStateImpl.html", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1CompilationStateImpl" ],
+    [ "ExecutionTierPair", "structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1ExecutionTierPair.html", "structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1ExecutionTierPair" ],
+    [ "CompilationUnitBuilder", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1CompilationUnitBuilder.html", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1CompilationUnitBuilder" ],
+    [ "CompileLazyTimingScope", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1CompileLazyTimingScope.html", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1CompileLazyTimingScope" ],
+    [ "CompilationTimeCallback", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1CompilationTimeCallback.html", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1CompilationTimeCallback" ],
+    [ "BackgroundCompileJob", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1BackgroundCompileJob.html", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1BackgroundCompileJob" ],
+    [ "TriggerCodeCachingAfterTimeoutTask", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1TriggerCodeCachingAfterTimeoutTask.html", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03_1_1TriggerCodeCachingAfterTimeoutTask" ],
+    [ "CompilationExecutionResult", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#ae1a0e3acdeaf10ffa4f50002a3142e41", [
+      [ "kNoMoreUnits", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#ae1a0e3acdeaf10ffa4f50002a3142e41a577dc2d037846e27be1eb4e765f081c9", null ],
+      [ "kYield", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#ae1a0e3acdeaf10ffa4f50002a3142e41a947f61f88373f45f1b447f94e46b9a82", null ]
+    ] ],
+    [ "CompilationTier", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#aef575f4d4842a6dcdb81b8c172df9eb5", [
+      [ "kBaseline", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#aef575f4d4842a6dcdb81b8c172df9eb5a2a11c6a5dff5cdb0647ee1f3988baf5f", null ],
+      [ "kTopTier", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#aef575f4d4842a6dcdb81b8c172df9eb5a7d4e18577ff3900f63c397998a03e7cf", null ],
+      [ "kNumTiers", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#aef575f4d4842a6dcdb81b8c172df9eb5a858dc986c63dc1a7d53bf74bbe83d40c", null ]
+    ] ],
+    [ "CompileStrategy", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a115f40d5a1db2ef4a1f91c4e42c88a94", [
+      [ "kLazy", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a115f40d5a1db2ef4a1f91c4e42c88a94ae3c54a7917f0c719b11db86b1dd59b0f", null ],
+      [ "kEager", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a115f40d5a1db2ef4a1f91c4e42c88a94a1f85c8fbccc9bb4fcda482bf840bc3e2", null ],
+      [ "kLazyBaselineEagerTopTier", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a115f40d5a1db2ef4a1f91c4e42c88a94a1fede85ba930eef5832cf35bc93cb2cb", null ],
+      [ "kDefault", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a115f40d5a1db2ef4a1f91c4e42c88a94a6867faeaa475fda467e48267db2bb8a8", null ]
+    ] ],
+    [ "OnlyLazyFunctions", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#ad24095519f429b94dcc97af671c9ce56", [
+      [ "kAllFunctions", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#ad24095519f429b94dcc97af671c9ce56a34502fb9b3ecabea840b4c0f1b19ee6b", null ],
+      [ "kOnlyLazyFunctions", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#ad24095519f429b94dcc97af671c9ce56a6876a5a7a3362814c6427ac82bfe58c2", null ]
+    ] ],
+    [ "ApplyHintToExecutionTier", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a7b7f5d73feefbda427f05e9297ca8699", null ],
+    [ "CompileNativeModule", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a2f5e685f626460ac296f11ac3601234e", null ],
+    [ "ExecuteCompilationUnits", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a168d82deb0d259820bfa9d1edff28451", null ],
+    [ "GetCompilationEventName", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#ab499118d31e8a33d00e9c72dc66824ff", null ],
+    [ "GetCompilationHint", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a2a168ca8f855d74ddf2e46ee53233b20", null ],
+    [ "GetCompileStrategy", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a1ef8abc5c39d51cdbffe2b71a8c68a44", null ],
+    [ "GetDefaultTiersPerModule", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a389db69d367e7efac0db6727f46fc3f0", null ],
+    [ "GetLazyCompilationTiers", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#afa5d6fcac84dbf1bc0b0d47a39f81eb3", null ],
+    [ "GetOrCompileNewNativeModule", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a8da49e53852594df7dc1de3853ee4aed", null ],
+    [ "Impl", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a5e40db7d1803f45e703d7d44c554d6a9", null ],
+    [ "Impl", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a2648e951d12b3a44f449116ec9866b2e", null ],
+    [ "ImportStartOffset", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#ab844238ed02513478a0a17b5107670ec", null ],
+    [ "InitializeCompilation", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#aa8e9ac1dc24b7d71879dea71afe0f9bd", null ],
+    [ "IsI16Array", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a96cb041804eb9ad1ff24e3dc61924efb", null ],
+    [ "IsI8Array", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a5fe3511ee452d3e7c4db017d38b2a875", null ],
+    [ "IsLazyModule", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a5c84f9651f5d91a9ec588b0be2866b40", null ],
+    [ "MayCompriseLazyFunctions", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a3476387793c3e12b4a0f03900cad2c59", null ],
+    [ "ValidateFunctions", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#abf3c0f77160227e1516427b01f7ee33f", null ],
+    [ "ValidateFunctions", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#aa473ed0f84f04526df4a597b823e88d4", null ],
+    [ "ValidateSingleFunction", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a6eeacc59bea21e7cec9649abc2c0d555", null ],
+    [ "kMainTaskId", "namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02module-compiler_8cc_03.html#a015ad5b29d5923038933294c57cca557", null ]
+];

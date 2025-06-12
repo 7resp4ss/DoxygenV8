@@ -7,7 +7,7 @@ Inheritance diagram for v8\+::internal\+::Cpu\+Sampler\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=217pt]{classv8_1_1internal_1_1CpuSampler__inherit__graph}
+\includegraphics[width=301pt]{classv8_1_1internal_1_1CpuSampler__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -17,7 +17,7 @@ Collaboration diagram for v8\+::internal\+::Cpu\+Sampler\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=291pt]{classv8_1_1internal_1_1CpuSampler__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CpuSampler__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -27,7 +27,21 @@ Collaboration diagram for v8\+::internal\+::Cpu\+Sampler\+:
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1CpuSampler_adc6944a2d2a3ccf210c80dc36d16753a}{Sample\+Stack}} (const \mbox{\hyperlink{structv8_1_1RegisterState}{v8\+::\+Register\+State}} \&regs) override
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1SamplingEventsProcessor}{Sampling\+Events\+Processor}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1CpuSampler_ae31b473a704bba96d0b690fd13f8888b}{processor\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_1_1PerIsolateThreadData}{Isolate\+::\+Per\+Isolate\+Thread\+Data}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1CpuSampler_acf632d1f8bc943b5d4fc02a549dcbb85}{per\+Thread\+Data\+\_\+}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 35 of file cpu-\/profiler.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -37,6 +51,17 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1CpuSampler_adc6944a2d2a3ccf210c80dc
 \doxysubsubsection{\texorpdfstring{CpuSampler()}{CpuSampler()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Cpu\+Sampler\+::\+Cpu\+Sampler (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1SamplingEventsProcessor}{Sampling\+Events\+Processor}} $\ast$}]{processor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 37 of file cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{38       : sampler::Sampler(\textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1Isolate}{v8::Isolate}}*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a6c4f2fb7b802fbc72e147e8fe9993dd1}{isolate}})),}
+\DoxyCodeLine{39         \mbox{\hyperlink{classv8_1_1internal_1_1CpuSampler_ae31b473a704bba96d0b690fd13f8888b}{processor\_}}(processor),}
+\DoxyCodeLine{40         \mbox{\hyperlink{classv8_1_1internal_1_1CpuSampler_acf632d1f8bc943b5d4fc02a549dcbb85}{perThreadData\_}}(\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a6c4f2fb7b802fbc72e147e8fe9993dd1}{isolate}}-\/>FindPerThreadDataForThisThread()) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -52,6 +77,84 @@ Implements \mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a8956c1936909b7e4ffffd
 
 
 
+Definition at line 42 of file cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{42                                                          \{}
+\DoxyCodeLine{43     Isolate* \mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a6c4f2fb7b802fbc72e147e8fe9993dd1}{isolate}} = \textcolor{keyword}{reinterpret\_cast<}Isolate*\textcolor{keyword}{>}(this-\/>\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a6c4f2fb7b802fbc72e147e8fe9993dd1}{isolate}}());}
+\DoxyCodeLine{44     \textcolor{keywordflow}{if} (isolate-\/>was\_locker\_ever\_used() \&\&}
+\DoxyCodeLine{45         (!\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a6c4f2fb7b802fbc72e147e8fe9993dd1}{isolate}}-\/>thread\_manager()-\/>IsLockedByThread(}
+\DoxyCodeLine{46              \mbox{\hyperlink{classv8_1_1internal_1_1CpuSampler_acf632d1f8bc943b5d4fc02a549dcbb85}{perThreadData\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_1_1PerIsolateThreadData_a4777d2851ddb394cb173ba8aca3c7269}{thread\_id}}()) ||}
+\DoxyCodeLine{47          \mbox{\hyperlink{classv8_1_1internal_1_1CpuSampler_acf632d1f8bc943b5d4fc02a549dcbb85}{perThreadData\_}}-\/>thread\_state() != \textcolor{keyword}{nullptr})) \{}
+\DoxyCodeLine{48       \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerStats_a3265435aeee9716f32382a9d9391dda7}{ProfilerStats::Instance}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerStats_aec629b8ca598fc845f8bdb64de52ca19}{AddReason}}(}
+\DoxyCodeLine{49           ProfilerStats::Reason::kIsolateNotLocked);}
+\DoxyCodeLine{50       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{51     \}}
+\DoxyCodeLine{52     TickSample* sample = \mbox{\hyperlink{classv8_1_1internal_1_1CpuSampler_ae31b473a704bba96d0b690fd13f8888b}{processor\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1SamplingEventsProcessor_a2e218538e88cc10453a07a76a1640ae4}{StartTickSample}}();}
+\DoxyCodeLine{53     \textcolor{keywordflow}{if} (sample == \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{54       \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerStats_a3265435aeee9716f32382a9d9391dda7}{ProfilerStats::Instance}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerStats_aec629b8ca598fc845f8bdb64de52ca19}{AddReason}}(}
+\DoxyCodeLine{55           ProfilerStats::Reason::kTickBufferFull);}
+\DoxyCodeLine{56       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{57     \}}
+\DoxyCodeLine{58     \textcolor{comment}{// Every bailout up until here resulted in a dropped sample. From now on,}}
+\DoxyCodeLine{59     \textcolor{comment}{// the sample is created in the buffer.}}
+\DoxyCodeLine{60     sample-\/>Init(\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a6c4f2fb7b802fbc72e147e8fe9993dd1}{isolate}}, regs, \mbox{\hyperlink{structv8_1_1internal_1_1TickSample_a83e83599fa86f30e0761b741065d4bcbaf7a326882684cba9b840e6da01cc51fb}{TickSample::kIncludeCEntryFrame}},}
+\DoxyCodeLine{61                  \textcolor{comment}{/* update\_stats */} \textcolor{keyword}{true},}
+\DoxyCodeLine{62                  \textcolor{comment}{/* use\_simulator\_reg\_state */} \textcolor{keyword}{true}, \mbox{\hyperlink{classv8_1_1internal_1_1CpuSampler_ae31b473a704bba96d0b690fd13f8888b}{processor\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1SamplingEventsProcessor_a1d608a9f8d594bd99ce8ff035aec5d3d}{period}}());}
+\DoxyCodeLine{63     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a9c32fc8d9c423d4f2d4232de0378cd6e}{is\_counting\_samples\_}} \&\& !sample-\/>timestamp.IsNull()) \{}
+\DoxyCodeLine{64       \textcolor{keywordflow}{if} (sample-\/>state == \mbox{\hyperlink{namespacev8_af4bd667bae597459fddd3443cbec0cb2abb1fd20769a1c35f2ec136d8dfe99ea5}{JS}}) ++\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_ac9ce4fdf7ce265479fdefa9dad30593c}{js\_sample\_count\_}};}
+\DoxyCodeLine{65       \textcolor{keywordflow}{if} (sample-\/>state == \mbox{\hyperlink{namespacev8_af4bd667bae597459fddd3443cbec0cb2a825ae0debbacb70bd55b9049af6cb9e1}{EXTERNAL}}) ++\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_adc4f82663ce04a5c29b8510db93b7198}{external\_sample\_count\_}};}
+\DoxyCodeLine{66     \}}
+\DoxyCodeLine{67     \mbox{\hyperlink{classv8_1_1internal_1_1CpuSampler_ae31b473a704bba96d0b690fd13f8888b}{processor\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1SamplingEventsProcessor_a016cbc0377e415f2d9d1af05d1d26320}{FinishTickSample}}();}
+\DoxyCodeLine{68   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Profiler\+Stats\+::\+Add\+Reason(), v8\+::\+EXTERNAL, v8\+::sampler\+::\+Sampler\+::external\+\_\+sample\+\_\+count\+\_\+, v8\+::internal\+::\+Sampling\+Events\+Processor\+::\+Finish\+Tick\+Sample(), v8\+::internal\+::\+Tick\+Sample\+::\+Init(), v8\+::internal\+::\+Profiler\+Stats\+::\+Instance(), v8\+::sampler\+::\+Sampler\+::is\+\_\+counting\+\_\+samples\+\_\+, v8\+::base\+::time\+\_\+internal\+::\+Time\+Base$<$ Time\+Class $>$\+::\+Is\+Null(), v8\+::sampler\+::\+Sampler\+::isolate(), v8\+::\+JS, v8\+::sampler\+::\+Sampler\+::js\+\_\+sample\+\_\+count\+\_\+, v8\+::internal\+::\+Tick\+Sample\+::k\+Include\+CEntry\+Frame, v8\+::internal\+::\+Sampling\+Events\+Processor\+::period(), per\+Thread\+Data\+\_\+, processor\+\_\+, v8\+::internal\+::\+Sampling\+Events\+Processor\+::\+Start\+Tick\+Sample(), v8\+::internal\+::\+Tick\+Sample\+::state, v8\+::internal\+::\+Isolate\+::\+Per\+Isolate\+Thread\+Data\+::thread\+\_\+id(), v8\+::internal\+::\+Tick\+Sample\+::timestamp, and v8\+::internal\+::\+Isolate\+::was\+\_\+locker\+\_\+ever\+\_\+used().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CpuSampler_adc6944a2d2a3ccf210c80dc36d16753a_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1CpuSampler_acf632d1f8bc943b5d4fc02a549dcbb85}\label{classv8_1_1internal_1_1CpuSampler_acf632d1f8bc943b5d4fc02a549dcbb85}} 
+\index{v8::internal::CpuSampler@{v8::internal::CpuSampler}!perThreadData\_@{perThreadData\_}}
+\index{perThreadData\_@{perThreadData\_}!v8::internal::CpuSampler@{v8::internal::CpuSampler}}
+\doxysubsubsection{\texorpdfstring{perThreadData\_}{perThreadData\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Isolate_1_1PerIsolateThreadData}{Isolate\+::\+Per\+Isolate\+Thread\+Data}}$\ast$ v8\+::internal\+::\+Cpu\+Sampler\+::per\+Thread\+Data\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 72 of file cpu-\/profiler.\+cc.
+
+
+
+Referenced by Sample\+Stack().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1CpuSampler_ae31b473a704bba96d0b690fd13f8888b}\label{classv8_1_1internal_1_1CpuSampler_ae31b473a704bba96d0b690fd13f8888b}} 
+\index{v8::internal::CpuSampler@{v8::internal::CpuSampler}!processor\_@{processor\_}}
+\index{processor\_@{processor\_}!v8::internal::CpuSampler@{v8::internal::CpuSampler}}
+\doxysubsubsection{\texorpdfstring{processor\_}{processor\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1SamplingEventsProcessor}{Sampling\+Events\+Processor}}$\ast$ v8\+::internal\+::\+Cpu\+Sampler\+::processor\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 71 of file cpu-\/profiler.\+cc.
+
+
+
+Referenced by Sample\+Stack().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{cpu-profiler_8cc}{cpu-\/profiler.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/profiler/\mbox{\hyperlink{cpu-profiler_8cc}{cpu-\/profiler.\+cc}}\end{DoxyCompactItemize}

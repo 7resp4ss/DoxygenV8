@@ -1,5 +1,6 @@
 var classv8_1_1CodeEvent =
 [
+    [ "GetCodeEventTypeName", "classv8_1_1CodeEvent.html#a7f37ec3b38dd16582135eb6a1871c57e", null ],
     [ "GetCodeSize", "classv8_1_1CodeEvent.html#ad0804f7a64f8bb1545204d6f4ca3d19b", null ],
     [ "GetCodeStartAddress", "classv8_1_1CodeEvent.html#a4018eb2ab6907598649cde071c3e02b7", null ],
     [ "GetCodeType", "classv8_1_1CodeEvent.html#a3a6507024df2e1e0898c03bc35bbd293", null ],

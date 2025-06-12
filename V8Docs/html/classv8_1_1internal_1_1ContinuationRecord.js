@@ -14,9 +14,23 @@ var classv8_1_1internal_1_1ContinuationRecord =
       [ "kSimpleObject", "classv8_1_1internal_1_1ContinuationRecord.html#a387fc26ba27a38fc5ca7413977af96f0ab2b6b557fd9c684c1c3fcefa8caa0fac", null ],
       [ "kObjectKey", "classv8_1_1internal_1_1ContinuationRecord.html#a387fc26ba27a38fc5ca7413977af96f0abc6d4a579cb6cfc1bac278551d5fc8fd", null ]
     ] ],
+    [ "ContinuationRecord", "classv8_1_1internal_1_1ContinuationRecord.html#a465d8f095018560d6b49fd695d9d3764", null ],
+    [ "ContinuationRecord", "classv8_1_1internal_1_1ContinuationRecord.html#a4655a185bb7321553810f7f4417a0e22", null ],
+    [ "ContinuationRecord", "classv8_1_1internal_1_1ContinuationRecord.html#af989de1183b439403fe042a9b24c4863", null ],
     [ "array_elements", "classv8_1_1internal_1_1ContinuationRecord.html#a78ffb577f75b5e2bf9b5a84ea25ab491", null ],
     [ "array_index", "classv8_1_1internal_1_1ContinuationRecord.html#ad49a1a069e8138ceb380a8006a23a1d9", null ],
     [ "array_length", "classv8_1_1internal_1_1ContinuationRecord.html#a01aeeabd6493e7fb231ca13447327b08", null ],
+    [ "ContinuationTypeForArray", "classv8_1_1internal_1_1ContinuationRecord.html#a958d044cb14226e4ee14ec9de053cc98", null ],
+    [ "ContinuationTypeFromResult", "classv8_1_1internal_1_1ContinuationRecord.html#a4132293acb0341776e12a8a26058c051", null ],
+    [ "ForJSAny", "classv8_1_1internal_1_1ContinuationRecord.html#ac1b3e5b27e4c0852667ab42d38bc2a53", null ],
+    [ "ForJSArray", "classv8_1_1internal_1_1ContinuationRecord.html#a83bf46a376789dc0e91743a03f66c36d", null ],
+    [ "ForJSArrayResume", "classv8_1_1internal_1_1ContinuationRecord.html#a2a0ce4136cf33bf5414584c61f44067b", null ],
+    [ "ForJSObject", "classv8_1_1internal_1_1ContinuationRecord.html#a8723b67f470d473511e14d9e741b870e", null ],
+    [ "ForJSObjectResume", "classv8_1_1internal_1_1ContinuationRecord.html#a5d83e9e674e7477e24d999b06e1acb53", null ],
+    [ "ForObjectKey", "classv8_1_1internal_1_1ContinuationRecord.html#a776978f717b0a74b217e330eeeea6d7b", null ],
+    [ "ForSimpleObject", "classv8_1_1internal_1_1ContinuationRecord.html#a86399ad264ded26e183276085640e947", null ],
+    [ "IsArrayResumeType", "classv8_1_1internal_1_1ContinuationRecord.html#ae876e296942190f256d8ef3a6adfaa81", null ],
+    [ "IsObjectResumeType", "classv8_1_1internal_1_1ContinuationRecord.html#a399984eef4b25503efe819344cadd6d2", null ],
     [ "js_array", "classv8_1_1internal_1_1ContinuationRecord.html#a608eade8bc43cca76abb21b6dc3166ce", null ],
     [ "js_object", "classv8_1_1internal_1_1ContinuationRecord.html#af792b1fee514bb92844a21259fe8240b", null ],
     [ "object", "classv8_1_1internal_1_1ContinuationRecord.html#a45bce3b121e65f4b498e565a5952d63b", null ],
@@ -39,5 +53,7 @@ var classv8_1_1internal_1_1ContinuationRecord =
     [ "js_object_", "classv8_1_1internal_1_1ContinuationRecord.html#a11230b3f295770af1470c505ce71e8b2", null ],
     [ "length", "classv8_1_1internal_1_1ContinuationRecord.html#ad54dd137f1f9b75f05d174b1a13a36b7", null ],
     [ "nof_descriptors", "classv8_1_1internal_1_1ContinuationRecord.html#a5147dbcf132e78b58f75949a38138844", null ],
-    [ "object_key_", "classv8_1_1internal_1_1ContinuationRecord.html#a58b46b203b1b8ca7abffee52caf0e32b", null ]
+    [ "object_", "classv8_1_1internal_1_1ContinuationRecord.html#af89ed2b09830dd5cdc59bb5a06d84072", null ],
+    [ "object_key_", "classv8_1_1internal_1_1ContinuationRecord.html#a58b46b203b1b8ca7abffee52caf0e32b", null ],
+    [ "type_", "classv8_1_1internal_1_1ContinuationRecord.html#ae6d4bdf64dab8ee5ebe8332bb31ae72c", null ]
 ];

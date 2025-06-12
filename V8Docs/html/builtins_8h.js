@@ -21,10 +21,11 @@ var builtins_8h =
       [ "DEF_ENUM", "builtins_8h.html#a7cc946db711e0424d0a51abb9a459cedad570b9e98d1be6a65c2079e5146e1f19", null ]
     ] ],
     [ "ExampleBuiltinForTorqueFunctionPointerType", "builtins_8h.html#ad904382c7f2bdfd901c1d5fa38108488", null ],
-    [ "IsBaselineTrampolineBuiltin", "builtins_8h.html#a66f075aa646afd32672a9bef62d11c54", null ],
-    [ "IsInterpreterTrampolineBuiltin", "builtins_8h.html#a8f8c1e140dba37773d48c821dbfa01f0", null ],
-    [ "IsValidTieringBuiltin", "builtins_8h.html#ac3ae977638419c739f5e209d7a66ae4b", null ],
-    [ "operator++", "builtins_8h.html#a1bde22962e97046551b3882a8d898ebc", null ],
-    [ "operator--", "builtins_8h.html#a924ab2f51dc8d1caeaf98355b6dc003d", null ],
-    [ "operator<", "builtins_8h.html#ad345bec6dac5a89ce4770b3c3cb1a51b", null ]
+    [ "FirstFromVarArgs", "builtins_8h.html#a25d99b5e935624cd74e99db868099de7", null ],
+    [ "IsBaselineTrampolineBuiltin", "builtins_8h.html#a29f7a5485a04a5331a52ef097c2f3055", null ],
+    [ "IsInterpreterTrampolineBuiltin", "builtins_8h.html#ab5034f457a28dac26fce1d6345057549", null ],
+    [ "IsValidTieringBuiltin", "builtins_8h.html#a51462a81bd321a12ee5866e145e9a479", null ],
+    [ "operator++", "builtins_8h.html#aed26aac3c05949f8ebe6c970cebc655f", null ],
+    [ "operator--", "builtins_8h.html#aab55cc06a83c496032b78f6f6e7ec6b7", null ],
+    [ "operator<", "builtins_8h.html#a5afba934e7c226386836d2bb9ee7b2ee", null ]
 ];

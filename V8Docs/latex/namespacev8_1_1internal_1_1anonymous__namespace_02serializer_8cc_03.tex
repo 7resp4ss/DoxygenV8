@@ -1,0 +1,177 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{serializer.\+cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}serializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}serializer.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03_ab189e7a63f945d55c81d05ebd8c0af52}{To\+String}} (\mbox{\hyperlink{namespacev8_1_1internal_a46b9a1b06854a0906e24b2eb20af28f9}{Snapshot\+Space}} \mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}})
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a46b9a1b06854a0906e24b2eb20af28f9}{Snapshot\+Space}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03_a145fd533b1001b530d79f77c9f6d75e7}{Get\+Snapshot\+Space}} (\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ object)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03_a36a5c486a3d69f6bc94249f9376e4f81}{Output\+Raw\+With\+Custom\+Field}} (\mbox{\hyperlink{classv8_1_1internal_1_1SnapshotByteSink}{Snapshot\+Byte\+Sink}} $\ast$sink, \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} object\+\_\+start, \mbox{\hyperlink{classint}{int}} written\+\_\+so\+\_\+far, \mbox{\hyperlink{classint}{int}} bytes\+\_\+to\+\_\+write, \mbox{\hyperlink{classint}{int}} field\+\_\+offset, \mbox{\hyperlink{classint}{int}} field\+\_\+size, const uint8\+\_\+t $\ast$field\+\_\+value)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03_a145fd533b1001b530d79f77c9f6d75e7}\label{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03_a145fd533b1001b530d79f77c9f6d75e7}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}serializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}serializer.cc\rcurly{}}!GetSnapshotSpace@{GetSnapshotSpace}}
+\index{GetSnapshotSpace@{GetSnapshotSpace}!v8::internal::anonymous\_namespace\lcurly{}serializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}serializer.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{GetSnapshotSpace()}{GetSnapshotSpace()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a46b9a1b06854a0906e24b2eb20af28f9}{Snapshot\+Space}} v8\+::internal\+::anonymous\+\_\+namespace\{serializer.\+cc\}\+::Get\+Snapshot\+Space (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$}]{object }\end{DoxyParamCaption})}
+
+
+
+Definition at line 868 of file serializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{868                                                           \{}
+\DoxyCodeLine{869   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02read-only-promotion_8cc_03_a996ff47de27ce5f127bdcc0bff48b7f9}{ReadOnlyHeap::Contains}}(\textcolor{keywordtype}{object})) \{}
+\DoxyCodeLine{870     \textcolor{keywordflow}{return} SnapshotSpace::kReadOnlyHeap;}
+\DoxyCodeLine{871   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{872     \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fef}{AllocationSpace}} heap\_space =}
+\DoxyCodeLine{873         MutablePageMetadata::FromHeapObject(\textcolor{keywordtype}{object})-\/>owner\_identity();}
+\DoxyCodeLine{874     \textcolor{comment}{// Large code objects are not supported and cannot be expressed by}}
+\DoxyCodeLine{875     \textcolor{comment}{// SnapshotSpace.}}
+\DoxyCodeLine{876     \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(heap\_space, \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fefa93dfdbc84455c750a99db7dd0cc02aff}{CODE\_LO\_SPACE}});}
+\DoxyCodeLine{877     \textcolor{keywordflow}{switch} (heap\_space) \{}
+\DoxyCodeLine{878       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fefacc7351aa01c6173555932b162b850e99}{OLD\_SPACE}}:}
+\DoxyCodeLine{879       \textcolor{comment}{// Young generation objects are tenured, as objects that have survived}}
+\DoxyCodeLine{880       \textcolor{comment}{// until snapshot building probably deserve to be considered 'old'.}}
+\DoxyCodeLine{881       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fefa057ecb490c9eb2f2dc1677326b8a5621}{NEW\_SPACE}}:}
+\DoxyCodeLine{882       \textcolor{comment}{// Large objects (young and old) are encoded as simply 'old' snapshot}}
+\DoxyCodeLine{883       \textcolor{comment}{// objects, as "{}normal"{} objects vs large objects is a heap implementation}}
+\DoxyCodeLine{884       \textcolor{comment}{// detail and isn't relevant to the snapshot.}}
+\DoxyCodeLine{885       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fefa6f564dbff22ad6da21740d3143349d93}{NEW\_LO\_SPACE}}:}
+\DoxyCodeLine{886       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fefa385454df67937debeccaa3ec05627542}{LO\_SPACE}}:}
+\DoxyCodeLine{887       \textcolor{comment}{// Shared objects are currently encoded as 'old' snapshot objects. This}}
+\DoxyCodeLine{888       \textcolor{comment}{// basically duplicates shared heap objects for each isolate again.}}
+\DoxyCodeLine{889       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fefa800a76ff776aa278523aa6176cf222a8}{SHARED\_SPACE}}:}
+\DoxyCodeLine{890       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fefaea13a1454fdc1412eea716033f5d503e}{SHARED\_LO\_SPACE}}:}
+\DoxyCodeLine{891         \textcolor{keywordflow}{return} SnapshotSpace::kOld;}
+\DoxyCodeLine{892       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fefa7b3b52e8b8e6e29f82884e41bfe0f500}{CODE\_SPACE}}:}
+\DoxyCodeLine{893         \textcolor{keywordflow}{return} SnapshotSpace::kCode;}
+\DoxyCodeLine{894       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fefa8515da266a18e6c9f673363f2a37570b}{TRUSTED\_SPACE}}:}
+\DoxyCodeLine{895       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fefa14e4604f12b3138f8e00091e7093c023}{TRUSTED\_LO\_SPACE}}:}
+\DoxyCodeLine{896         \textcolor{keywordflow}{return} SnapshotSpace::kTrusted;}
+\DoxyCodeLine{897       \textcolor{comment}{// Shared objects are currently encoded as 'trusteds' snapshot objects.}}
+\DoxyCodeLine{898       \textcolor{comment}{// This basically duplicates shared trusted heap objects for each isolate}}
+\DoxyCodeLine{899       \textcolor{comment}{// again.}}
+\DoxyCodeLine{900       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fefa9acffab6677a59b1aac93aed5942cd7f}{SHARED\_TRUSTED\_SPACE}}:}
+\DoxyCodeLine{901       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fefa352d11f88c5e95ed732c05ccf68c0f32}{SHARED\_TRUSTED\_LO\_SPACE}}:}
+\DoxyCodeLine{902         \textcolor{keywordflow}{return} SnapshotSpace::kTrusted;}
+\DoxyCodeLine{903       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fefa93dfdbc84455c750a99db7dd0cc02aff}{CODE\_LO\_SPACE}}:}
+\DoxyCodeLine{904       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fefa562d18bd6c0058c8ec356cce717a3324}{RO\_SPACE}}:}
+\DoxyCodeLine{905         \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{906     \}}
+\DoxyCodeLine{907   \}}
+\DoxyCodeLine{908 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+CODE\+\_\+\+LO\+\_\+\+SPACE, v8\+::internal\+::\+CODE\+\_\+\+SPACE, v8\+::internal\+::\+Read\+Only\+Heap\+::\+Contains(), DCHECK\+\_\+\+NE, v8\+::internal\+::\+Mutable\+Page\+Metadata\+::\+From\+Heap\+Object(), v8\+::internal\+::k\+Code, v8\+::internal\+::k\+Old, v8\+::internal\+::k\+Read\+Only\+Heap, v8\+::internal\+::k\+Trusted, v8\+::internal\+::\+LO\+\_\+\+SPACE, v8\+::internal\+::\+NEW\+\_\+\+LO\+\_\+\+SPACE, v8\+::internal\+::\+NEW\+\_\+\+SPACE, v8\+::internal\+::\+OLD\+\_\+\+SPACE, v8\+::internal\+::\+Mutable\+Page\+Metadata\+::owner\+\_\+identity(), v8\+::internal\+::\+RO\+\_\+\+SPACE, v8\+::internal\+::\+SHARED\+\_\+\+LO\+\_\+\+SPACE, v8\+::internal\+::\+SHARED\+\_\+\+SPACE, v8\+::internal\+::\+SHARED\+\_\+\+TRUSTED\+\_\+\+LO\+\_\+\+SPACE, v8\+::internal\+::\+SHARED\+\_\+\+TRUSTED\+\_\+\+SPACE, v8\+::internal\+::\+TRUSTED\+\_\+\+LO\+\_\+\+SPACE, v8\+::internal\+::\+TRUSTED\+\_\+\+SPACE, and v8\+::internal\+::\+UNREACHABLE().
+
+
+
+Referenced by v8\+::internal\+::\+Serializer\+::\+Object\+Serializer\+::\+Serialize\+Object().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03_a145fd533b1001b530d79f77c9f6d75e7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03_a145fd533b1001b530d79f77c9f6d75e7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03_a36a5c486a3d69f6bc94249f9376e4f81}\label{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03_a36a5c486a3d69f6bc94249f9376e4f81}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}serializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}serializer.cc\rcurly{}}!OutputRawWithCustomField@{OutputRawWithCustomField}}
+\index{OutputRawWithCustomField@{OutputRawWithCustomField}!v8::internal::anonymous\_namespace\lcurly{}serializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}serializer.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{OutputRawWithCustomField()}{OutputRawWithCustomField()}}
+{\footnotesize\ttfamily void v8\+::internal\+::anonymous\+\_\+namespace\{serializer.\+cc\}\+::Output\+Raw\+With\+Custom\+Field (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1SnapshotByteSink}{Snapshot\+Byte\+Sink}} $\ast$}]{sink,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{object\+\_\+start,  }\item[{\mbox{\hyperlink{classint}{int}}}]{written\+\_\+so\+\_\+far,  }\item[{\mbox{\hyperlink{classint}{int}}}]{bytes\+\_\+to\+\_\+write,  }\item[{\mbox{\hyperlink{classint}{int}}}]{field\+\_\+offset,  }\item[{\mbox{\hyperlink{classint}{int}}}]{field\+\_\+size,  }\item[{const uint8\+\_\+t $\ast$}]{field\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1340 of file serializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1343                                                           \{}
+\DoxyCodeLine{1344   \textcolor{keywordtype}{int} offset = field\_offset -\/ written\_so\_far;}
+\DoxyCodeLine{1345   \textcolor{keywordflow}{if} (0 <= offset \&\& offset < bytes\_to\_write) \{}
+\DoxyCodeLine{1346     \mbox{\hyperlink{src_2base_2logging_8h_aabec5c3b7a8628298a25f044dcf89c25}{DCHECK\_GE}}(bytes\_to\_write, offset + field\_size);}
+\DoxyCodeLine{1347     sink-\/>PutRaw(\textcolor{keyword}{reinterpret\_cast<}uint8\_t*\textcolor{keyword}{>}(object\_start + written\_so\_far),}
+\DoxyCodeLine{1348                  offset, \textcolor{stringliteral}{"{}Bytes"{}});}
+\DoxyCodeLine{1349     sink-\/>PutRaw(field\_value, field\_size, \textcolor{stringliteral}{"{}Bytes"{}});}
+\DoxyCodeLine{1350     written\_so\_far += offset + field\_size;}
+\DoxyCodeLine{1351     bytes\_to\_write -\/= offset + field\_size;}
+\DoxyCodeLine{1352     sink-\/>PutRaw(\textcolor{keyword}{reinterpret\_cast<}uint8\_t*\textcolor{keyword}{>}(object\_start + written\_so\_far),}
+\DoxyCodeLine{1353                  bytes\_to\_write, \textcolor{stringliteral}{"{}Bytes"{}});}
+\DoxyCodeLine{1354   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{1355     sink-\/>PutRaw(\textcolor{keyword}{reinterpret\_cast<}uint8\_t*\textcolor{keyword}{>}(object\_start + written\_so\_far),}
+\DoxyCodeLine{1356                  bytes\_to\_write, \textcolor{stringliteral}{"{}Bytes"{}});}
+\DoxyCodeLine{1357   \}}
+\DoxyCodeLine{1358 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+GE, and v8\+::internal\+::\+Snapshot\+Byte\+Sink\+::\+Put\+Raw().
+
+
+
+Referenced by v8\+::internal\+::\+Serializer\+::\+Object\+Serializer\+::\+Output\+Raw\+Data().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03_a36a5c486a3d69f6bc94249f9376e4f81_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03_a36a5c486a3d69f6bc94249f9376e4f81_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03_ab189e7a63f945d55c81d05ebd8c0af52}\label{namespacev8_1_1internal_1_1anonymous__namespace_02serializer_8cc_03_ab189e7a63f945d55c81d05ebd8c0af52}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}serializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}serializer.cc\rcurly{}}!ToString@{ToString}}
+\index{ToString@{ToString}!v8::internal::anonymous\_namespace\lcurly{}serializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}serializer.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ToString()}{ToString()}}
+{\footnotesize\ttfamily const char$\ast$ v8\+::internal\+::anonymous\+\_\+namespace\{serializer.\+cc\}\+::To\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a46b9a1b06854a0906e24b2eb20af28f9}{Snapshot\+Space}}}]{space }\end{DoxyParamCaption})}
+
+
+
+Definition at line 90 of file serializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{90                                           \{}
+\DoxyCodeLine{91   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}) \{}
+\DoxyCodeLine{92     \textcolor{keywordflow}{case} SnapshotSpace::kReadOnlyHeap:}
+\DoxyCodeLine{93       \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}ReadOnlyHeap"{}};}
+\DoxyCodeLine{94     \textcolor{keywordflow}{case} SnapshotSpace::kOld:}
+\DoxyCodeLine{95       \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Old"{}};}
+\DoxyCodeLine{96     \textcolor{keywordflow}{case} SnapshotSpace::kCode:}
+\DoxyCodeLine{97       \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Code"{}};}
+\DoxyCodeLine{98     \textcolor{keywordflow}{case} SnapshotSpace::kTrusted:}
+\DoxyCodeLine{99       \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Trusted"{}};}
+\DoxyCodeLine{100   \}}
+\DoxyCodeLine{101 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::k\+Code, v8\+::internal\+::k\+Old, v8\+::internal\+::k\+Read\+Only\+Heap, v8\+::internal\+::k\+Trusted, and space.
+

@@ -1,10 +1,27 @@
 \hypertarget{structv8_1_1internal_1_1compiler_1_1TyperPhase}{}\doxysection{v8\+::internal\+::compiler\+::Typer\+Phase Struct Reference}
 \label{structv8_1_1internal_1_1compiler_1_1TyperPhase}\index{v8::internal::compiler::TyperPhase@{v8::internal::compiler::TyperPhase}}
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Typer\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{structv8_1_1internal_1_1compiler_1_1TyperPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1TyperPhase_ab012652fc9e8d70205a439481e35dc40}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Typer}{Typer}} $\ast$typer)
+void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1TyperPhase_ab012652fc9e8d70205a439481e35dc40}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Typer}{Typer}} $\ast$typer)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1042 of file pipeline.\+cc.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -16,6 +33,42 @@ void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1TyperPhase_ab012652fc9
 
 
 
+Definition at line 1045 of file pipeline.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1045                                                                 \{}
+\DoxyCodeLine{1046     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a4107c005c14e5351157d6a5d020f7bba}{NodeVector}} roots(temp\_zone);}
+\DoxyCodeLine{1047     data-\/>jsgraph()-\/>GetCachedNodes(\&roots);}
+\DoxyCodeLine{1048 }
+\DoxyCodeLine{1049     \textcolor{comment}{// Make sure we always type True and False. Needed for escape analysis.}}
+\DoxyCodeLine{1050     roots.push\_back(data-\/>jsgraph()-\/>TrueConstant());}
+\DoxyCodeLine{1051     roots.push\_back(data-\/>jsgraph()-\/>FalseConstant());}
+\DoxyCodeLine{1052 }
+\DoxyCodeLine{1053     LoopVariableOptimizer induction\_vars(data-\/>jsgraph()-\/>graph(),}
+\DoxyCodeLine{1054                                          data-\/>common(), temp\_zone);}
+\DoxyCodeLine{1055     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.turbo\_loop\_variable) induction\_vars.Run();}
+\DoxyCodeLine{1056 }
+\DoxyCodeLine{1057     \textcolor{comment}{// The typer inspects heap objects, so we need to unpark the local heap.}}
+\DoxyCodeLine{1058     UnparkedScopeIfNeeded scope(data-\/>broker());}
+\DoxyCodeLine{1059     typer-\/>Run(roots, \&induction\_vars);}
+\DoxyCodeLine{1060   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::push\+\_\+back(), v8\+::internal\+::compiler\+::\+Loop\+Variable\+Optimizer\+::\+Run(), and v8\+::internal\+::v8\+\_\+flags.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1TyperPhase_ab012652fc9e8d70205a439481e35dc40_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}

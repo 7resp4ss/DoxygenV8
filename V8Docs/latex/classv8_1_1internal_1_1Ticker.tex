@@ -7,7 +7,7 @@ Inheritance diagram for v8\+::internal\+::Ticker\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=201pt]{classv8_1_1internal_1_1Ticker__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1Ticker__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -17,13 +17,13 @@ Collaboration diagram for v8\+::internal\+::Ticker\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=291pt]{classv8_1_1internal_1_1Ticker__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1Ticker__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1Ticker_add84fb7f671753917fba5b0a363428d2}{Ticker}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a6c4f2fb7b802fbc72e147e8fe9993dd1}{isolate}}, int interval\+\_\+microseconds)
+\mbox{\hyperlink{classv8_1_1internal_1_1Ticker_add84fb7f671753917fba5b0a363428d2}{Ticker}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a6c4f2fb7b802fbc72e147e8fe9993dd1}{isolate}}, \mbox{\hyperlink{classint}{int}} interval\+\_\+microseconds)
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_aafcd56d68d7aba9012c6be7ac3f8080d}{$\sim$\+Ticker}} () override
 \item 
@@ -31,9 +31,25 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a9bd275f6dca361cb4b1d7196967
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_adf0f145ffacc4b5030f921efc2089193}{Clear\+Profiler}} ()
 \item 
-void \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a884cec6dd0fe06603514cfc9c183f7e4}{Sample\+Stack}} (const \mbox{\hyperlink{structv8_1_1RegisterState}{v8\+::\+Register\+State}} \&\mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}) override
+void \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a884cec6dd0fe06603514cfc9c183f7e4}{Sample\+Stack}} (const \mbox{\hyperlink{structv8_1_1RegisterState}{v8\+::\+Register\+State}} \&state) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Profiler}{Profiler}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a5c48513b9a0a300579240ce5ee6c4a6f}{profiler\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1SamplingThread}{Sampling\+Thread}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a7b86e2aa36a80ec403e3a73765b90342}{sampling\+\_\+thread\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_1_1PerIsolateThreadData}{Isolate\+::\+Per\+Isolate\+Thread\+Data}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a2439c81cf6780364b5701f3f57722e3b}{per\+Thread\+Data\+\_\+}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1116 of file log.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -41,14 +57,49 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a884cec6dd0fe06603514cfc9c18
 \index{v8::internal::Ticker@{v8::internal::Ticker}!Ticker@{Ticker}}
 \index{Ticker@{Ticker}!v8::internal::Ticker@{v8::internal::Ticker}}
 \doxysubsubsection{\texorpdfstring{Ticker()}{Ticker()}}
-{\footnotesize\ttfamily v8\+::internal\+::\+Ticker\+::\+Ticker (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{int}]{interval\+\_\+microseconds }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily v8\+::internal\+::\+Ticker\+::\+Ticker (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classint}{int}}}]{interval\+\_\+microseconds }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 1118 of file log.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1119       : sampler::Sampler(\textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1Isolate}{v8::Isolate}}*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a6c4f2fb7b802fbc72e147e8fe9993dd1}{isolate}})),}
+\DoxyCodeLine{1120         \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a7b86e2aa36a80ec403e3a73765b90342}{sampling\_thread\_}}(}
+\DoxyCodeLine{1121             std::make\_unique<SamplingThread>(\textcolor{keyword}{this}, interval\_microseconds)),}
+\DoxyCodeLine{1122         \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a2439c81cf6780364b5701f3f57722e3b}{perThreadData\_}}(\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a6c4f2fb7b802fbc72e147e8fe9993dd1}{isolate}}-\/>FindPerThreadDataForThisThread()) \{\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1Ticker_aafcd56d68d7aba9012c6be7ac3f8080d}\label{classv8_1_1internal_1_1Ticker_aafcd56d68d7aba9012c6be7ac3f8080d}} 
 \index{v8::internal::Ticker@{v8::internal::Ticker}!````~Ticker@{$\sim$Ticker}}
 \index{````~Ticker@{$\sim$Ticker}!v8::internal::Ticker@{v8::internal::Ticker}}
 \doxysubsubsection{\texorpdfstring{$\sim$Ticker()}{~Ticker()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Ticker\+::$\sim$\+Ticker (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
 
+
+
+Definition at line 1124 of file log.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1124                      \{}
+\DoxyCodeLine{1125     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a1a60129bc323a452d01150e62e6d50a9}{IsActive}}()) \mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_ae1993183cd62ec3b809a818096a3a2c0}{Stop}}();}
+\DoxyCodeLine{1126   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::sampler\+::\+Sampler\+::\+Is\+Active(), and v8\+::sampler\+::\+Sampler\+::\+Stop().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1Ticker_aafcd56d68d7aba9012c6be7ac3f8080d_cgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Function Documentation}
@@ -58,6 +109,31 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a884cec6dd0fe06603514cfc9c18
 \doxysubsubsection{\texorpdfstring{ClearProfiler()}{ClearProfiler()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Ticker\+::\+Clear\+Profiler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 1135 of file log.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1135                        \{}
+\DoxyCodeLine{1136     \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a5c48513b9a0a300579240ce5ee6c4a6f}{profiler\_}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{1137     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a1a60129bc323a452d01150e62e6d50a9}{IsActive}}()) \mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_ae1993183cd62ec3b809a818096a3a2c0}{Stop}}();}
+\DoxyCodeLine{1138     \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a7b86e2aa36a80ec403e3a73765b90342}{sampling\_thread\_}}-\/>Join();}
+\DoxyCodeLine{1139   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::sampler\+::\+Sampler\+::\+Is\+Active(), profiler\+\_\+, sampling\+\_\+thread\+\_\+, and v8\+::sampler\+::\+Sampler\+::\+Stop().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1Ticker_adf0f145ffacc4b5030f921efc2089193_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1Ticker_a884cec6dd0fe06603514cfc9c183f7e4}\label{classv8_1_1internal_1_1Ticker_a884cec6dd0fe06603514cfc9c183f7e4}} 
 \index{v8::internal::Ticker@{v8::internal::Ticker}!SampleStack@{SampleStack}}
 \index{SampleStack@{SampleStack}!v8::internal::Ticker@{v8::internal::Ticker}}
@@ -68,6 +144,38 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a884cec6dd0fe06603514cfc9c18
 
 Implements \mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a8956c1936909b7e4ffffd02834185b44}{v8\+::sampler\+::\+Sampler}}.
 
+
+
+Definition at line 1141 of file log.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1141                                                           \{}
+\DoxyCodeLine{1142     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a5c48513b9a0a300579240ce5ee6c4a6f}{profiler\_}}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{1143     Isolate* \mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a6c4f2fb7b802fbc72e147e8fe9993dd1}{isolate}} = \textcolor{keyword}{reinterpret\_cast<}Isolate*\textcolor{keyword}{>}(this-\/>\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a6c4f2fb7b802fbc72e147e8fe9993dd1}{isolate}}());}
+\DoxyCodeLine{1144     \textcolor{keywordflow}{if} (isolate-\/>was\_locker\_ever\_used() \&\&}
+\DoxyCodeLine{1145         (!\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a6c4f2fb7b802fbc72e147e8fe9993dd1}{isolate}}-\/>thread\_manager()-\/>IsLockedByThread(}
+\DoxyCodeLine{1146              \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a2439c81cf6780364b5701f3f57722e3b}{perThreadData\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_1_1PerIsolateThreadData_a4777d2851ddb394cb173ba8aca3c7269}{thread\_id}}()) ||}
+\DoxyCodeLine{1147          \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a2439c81cf6780364b5701f3f57722e3b}{perThreadData\_}}-\/>thread\_state() != \textcolor{keyword}{nullptr}))}
+\DoxyCodeLine{1148       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{1149     TickSample sample;}
+\DoxyCodeLine{1150     sample.Init(\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a6c4f2fb7b802fbc72e147e8fe9993dd1}{isolate}}, state, \mbox{\hyperlink{structv8_1_1internal_1_1TickSample_a83e83599fa86f30e0761b741065d4bcbaf7a326882684cba9b840e6da01cc51fb}{TickSample::kIncludeCEntryFrame}}, \textcolor{keyword}{true});}
+\DoxyCodeLine{1151     \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a5c48513b9a0a300579240ce5ee6c4a6f}{profiler\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Profiler_aa16ebe6474f389da1823168299163ae1}{Insert}}(\&sample);}
+\DoxyCodeLine{1152   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Tick\+Sample\+::\+Init(), v8\+::internal\+::\+Profiler\+::\+Insert(), v8\+::sampler\+::\+Sampler\+::isolate(), v8\+::internal\+::\+Tick\+Sample\+::k\+Include\+CEntry\+Frame, per\+Thread\+Data\+\_\+, profiler\+\_\+, v8\+::internal\+::\+Isolate\+::\+Per\+Isolate\+Thread\+Data\+::thread\+\_\+id(), and v8\+::internal\+::\+Isolate\+::was\+\_\+locker\+\_\+ever\+\_\+used().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1Ticker_a884cec6dd0fe06603514cfc9c183f7e4_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1Ticker_a9bd275f6dca361cb4b1d7196967b4e0e}\label{classv8_1_1internal_1_1Ticker_a9bd275f6dca361cb4b1d7196967b4e0e}} 
 \index{v8::internal::Ticker@{v8::internal::Ticker}!SetProfiler@{SetProfiler}}
 \index{SetProfiler@{SetProfiler}!v8::internal::Ticker@{v8::internal::Ticker}}
@@ -76,6 +184,77 @@ Implements \mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a8956c1936909b7e4ffffd
 
 
 
+Definition at line 1128 of file log.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1128                                        \{}
+\DoxyCodeLine{1129     \mbox{\hyperlink{src_2base_2logging_8h_a2209830df6b59d1ec1fdf66b9352924f}{DCHECK\_NULL}}(\mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a5c48513b9a0a300579240ce5ee6c4a6f}{profiler\_}});}
+\DoxyCodeLine{1130     \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a5c48513b9a0a300579240ce5ee6c4a6f}{profiler\_}} = profiler;}
+\DoxyCodeLine{1131     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_a1a60129bc323a452d01150e62e6d50a9}{IsActive}}()) \mbox{\hyperlink{classv8_1_1sampler_1_1Sampler_aae6b602b48bcc6ee5bae419c4294f277}{Start}}();}
+\DoxyCodeLine{1132     \mbox{\hyperlink{classv8_1_1internal_1_1Ticker_a7b86e2aa36a80ec403e3a73765b90342}{sampling\_thread\_}}-\/>StartSynchronously();}
+\DoxyCodeLine{1133   \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+NULL, v8\+::sampler\+::\+Sampler\+::\+Is\+Active(), profiler\+\_\+, sampling\+\_\+thread\+\_\+, and v8\+::sampler\+::\+Sampler\+::\+Start().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1Ticker_a9bd275f6dca361cb4b1d7196967b4e0e_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1Ticker_a2439c81cf6780364b5701f3f57722e3b}\label{classv8_1_1internal_1_1Ticker_a2439c81cf6780364b5701f3f57722e3b}} 
+\index{v8::internal::Ticker@{v8::internal::Ticker}!perThreadData\_@{perThreadData\_}}
+\index{perThreadData\_@{perThreadData\_}!v8::internal::Ticker@{v8::internal::Ticker}}
+\doxysubsubsection{\texorpdfstring{perThreadData\_}{perThreadData\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Isolate_1_1PerIsolateThreadData}{Isolate\+::\+Per\+Isolate\+Thread\+Data}}$\ast$ v8\+::internal\+::\+Ticker\+::per\+Thread\+Data\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 1157 of file log.\+cc.
+
+
+
+Referenced by Sample\+Stack().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1Ticker_a5c48513b9a0a300579240ce5ee6c4a6f}\label{classv8_1_1internal_1_1Ticker_a5c48513b9a0a300579240ce5ee6c4a6f}} 
+\index{v8::internal::Ticker@{v8::internal::Ticker}!profiler\_@{profiler\_}}
+\index{profiler\_@{profiler\_}!v8::internal::Ticker@{v8::internal::Ticker}}
+\doxysubsubsection{\texorpdfstring{profiler\_}{profiler\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Profiler}{Profiler}}$\ast$ v8\+::internal\+::\+Ticker\+::profiler\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 1155 of file log.\+cc.
+
+
+
+Referenced by Clear\+Profiler(), Sample\+Stack(), and Set\+Profiler().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1Ticker_a7b86e2aa36a80ec403e3a73765b90342}\label{classv8_1_1internal_1_1Ticker_a7b86e2aa36a80ec403e3a73765b90342}} 
+\index{v8::internal::Ticker@{v8::internal::Ticker}!sampling\_thread\_@{sampling\_thread\_}}
+\index{sampling\_thread\_@{sampling\_thread\_}!v8::internal::Ticker@{v8::internal::Ticker}}
+\doxysubsubsection{\texorpdfstring{sampling\_thread\_}{sampling\_thread\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1internal_1_1SamplingThread}{Sampling\+Thread}}$>$ v8\+::internal\+::\+Ticker\+::sampling\+\_\+thread\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 1156 of file log.\+cc.
+
+
+
+Referenced by Clear\+Profiler(), and Set\+Profiler().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{log_8cc}{log.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/logging/\mbox{\hyperlink{log_8cc}{log.\+cc}}\end{DoxyCompactItemize}

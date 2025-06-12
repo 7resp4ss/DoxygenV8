@@ -55,6 +55,7 @@ var classv8_1_1internal_1_1compiler_1_1WasmGraphBuilder =
     [ "inlining_id_", "classv8_1_1internal_1_1compiler_1_1WasmGraphBuilder.html#aeb01ff6e22bf8ed0d340edfa935e4384", null ],
     [ "instance_data_node_", "classv8_1_1internal_1_1compiler_1_1WasmGraphBuilder.html#a7a8d9347566ae9cd695e9c634422d58c", null ],
     [ "isolate_", "classv8_1_1internal_1_1compiler_1_1WasmGraphBuilder.html#a296b3a9233377904858bf748d76d1735", null ],
+    [ "kNoCachedMemoryIndex", "classv8_1_1internal_1_1compiler_1_1WasmGraphBuilder.html#a1a61864d4735029ad81454933c05aa1e", null ],
     [ "mcgraph_", "classv8_1_1internal_1_1compiler_1_1WasmGraphBuilder.html#a9da623a41c279550b82c11844336b5da", null ],
     [ "needs_stack_check_", "classv8_1_1internal_1_1compiler_1_1WasmGraphBuilder.html#a4fcb39fb43be65ea9e15fbb5f1dfb198", null ],
     [ "null_check_strategy_", "classv8_1_1internal_1_1compiler_1_1WasmGraphBuilder.html#af03cc9367d2ae7cc58c68625b5f88805", null ],

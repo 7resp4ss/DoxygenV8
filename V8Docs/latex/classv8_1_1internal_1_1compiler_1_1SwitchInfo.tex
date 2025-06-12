@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$instruction-\/selector-\/impl.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Switch\+Info\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1SwitchInfo__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -23,6 +33,26 @@ int32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a77c
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Block}{turboshaft\+::\+Block}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_abe409fbb1a9bc767e2b9c80e5ab96f9c}{default\+\_\+branch}} () const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector}{Zone\+Vector}}$<$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1CaseInfo}{Case\+Info}} $>$ \& \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_aedf3c462a767544d2f02e2d3f85b0964}{cases\+\_\+}}
+\item 
+int32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a1dcb02d9007654decc23e3a6f142d52b}{min\+\_\+value\+\_\+}}
+\item 
+int32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a6c19ad384f4cd1f2b5b13e58f148a53a}{max\+\_\+value\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_aef67d96c588cb1358649de2c2107c10a}{value\+\_\+range\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Block}{turboshaft\+::\+Block}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_ae52f420a1480569e7689b3b642059ded}{default\+\_\+branch\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 30 of file instruction-\/selector-\/impl.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -34,6 +64,40 @@ int32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a77c
 
 
 
+Definition at line 32 of file instruction-\/selector-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34       : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_aedf3c462a767544d2f02e2d3f85b0964}{cases\_}}(cases),}
+\DoxyCodeLine{35         \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a1dcb02d9007654decc23e3a6f142d52b}{min\_value\_}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_afcce56b3d203e5d248600da74c549149}{min\_value}}),}
+\DoxyCodeLine{36         \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a6c19ad384f4cd1f2b5b13e58f148a53a}{max\_value\_}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a77c703328b9c2ba14d352abe272e7562}{max\_value}}),}
+\DoxyCodeLine{37         \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_ae52f420a1480569e7689b3b642059ded}{default\_branch\_}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_abe409fbb1a9bc767e2b9c80e5ab96f9c}{default\_branch}}) \{}
+\DoxyCodeLine{38     \textcolor{keywordflow}{if} (cases.size() != 0) \{}
+\DoxyCodeLine{39       \mbox{\hyperlink{src_2base_2logging_8h_a16b382527f19b805fc8f856668f2270b}{DCHECK\_LE}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_afcce56b3d203e5d248600da74c549149}{min\_value}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a77c703328b9c2ba14d352abe272e7562}{max\_value}});}
+\DoxyCodeLine{40       \textcolor{comment}{// Note that \{value\_range\} can be 0 if \{min\_value\} is -\/2\string^31 and}}
+\DoxyCodeLine{41       \textcolor{comment}{// \{max\_value\} is 2\string^31-\/1, so don't assume that it's non-\/zero below.}}
+\DoxyCodeLine{42       \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_aef67d96c588cb1358649de2c2107c10a}{value\_range\_}} = 1u + base::bit\_cast<uint32\_t>(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a77c703328b9c2ba14d352abe272e7562}{max\_value}}) -\/}
+\DoxyCodeLine{43                      base::bit\_cast<uint32\_t>(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_afcce56b3d203e5d248600da74c549149}{min\_value}});}
+\DoxyCodeLine{44     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{45       \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_aef67d96c588cb1358649de2c2107c10a}{value\_range\_}} = 0;}
+\DoxyCodeLine{46     \}}
+\DoxyCodeLine{47   \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+LE, max\+\_\+value(), min\+\_\+value(), v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::size(), and value\+\_\+range\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a9c8acf1ea3fe415e36d8542b9b65242e_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a86a29ba90c36077caee32c2ba94b7200}\label{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a86a29ba90c36077caee32c2ba94b7200}} 
 \index{v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}!case\_count@{case\_count}}
@@ -41,36 +105,191 @@ int32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a77c
 \doxysubsubsection{\texorpdfstring{case\_count()}{case\_count()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::compiler\+::\+Switch\+Info\+::case\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 59 of file instruction-\/selector-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{59 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_aedf3c462a767544d2f02e2d3f85b0964}{cases\_}}.size(); \}}
+
+\end{DoxyCode}
+
+
+References cases\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Emit\+Binary\+Search\+Switch(), v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Visit\+Switch(), and v8\+::internal\+::compiler\+::\+Visit\+Word\+Compare().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a86a29ba90c36077caee32c2ba94b7200_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SwitchInfo_af5682ca51bd2601c5957d0eebfc086ae}\label{classv8_1_1internal_1_1compiler_1_1SwitchInfo_af5682ca51bd2601c5957d0eebfc086ae}} 
 \index{v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}!CasesSortedByValue@{CasesSortedByValue}}
 \index{CasesSortedByValue@{CasesSortedByValue}!v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}}
 \doxysubsubsection{\texorpdfstring{CasesSortedByValue()}{CasesSortedByValue()}}
 {\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1CaseInfo}{Case\+Info}}$>$ v8\+::internal\+::compiler\+::\+Switch\+Info\+::\+Cases\+Sorted\+By\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 49 of file instruction-\/selector-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49                                                  \{}
+\DoxyCodeLine{50     std::vector<CaseInfo> \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_aedf3c462a767544d2f02e2d3f85b0964}{cases\_}}.begin(), \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_aedf3c462a767544d2f02e2d3f85b0964}{cases\_}}.end());}
+\DoxyCodeLine{51     std::stable\_sort(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.begin(), \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.end(),}
+\DoxyCodeLine{52                      [](CaseInfo a, CaseInfo b) \{ return a.value < b.value; \});}
+\DoxyCodeLine{53     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{54   \}}
+
+\end{DoxyCode}
+
+
+References cases\+\_\+, and v8\+::base\+::internal\+::result.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Emit\+Binary\+Search\+Switch().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1SwitchInfo_af5682ca51bd2601c5957d0eebfc086ae_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a0055442fce360f728f8aaf30ac9aebe1}\label{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a0055442fce360f728f8aaf30ac9aebe1}} 
 \index{v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}!CasesUnsorted@{CasesUnsorted}}
 \index{CasesUnsorted@{CasesUnsorted}!v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}}
 \doxysubsubsection{\texorpdfstring{CasesUnsorted()}{CasesUnsorted()}}
 {\footnotesize\ttfamily const \mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector}{Zone\+Vector}}$<$\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1CaseInfo}{Case\+Info}}$>$\& v8\+::internal\+::compiler\+::\+Switch\+Info\+::\+Cases\+Unsorted (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 55 of file instruction-\/selector-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{55 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_aedf3c462a767544d2f02e2d3f85b0964}{cases\_}}; \}}
+
+\end{DoxyCode}
+
+
+References cases\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Emit\+Table\+Switch().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a0055442fce360f728f8aaf30ac9aebe1_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SwitchInfo_abe409fbb1a9bc767e2b9c80e5ab96f9c}\label{classv8_1_1internal_1_1compiler_1_1SwitchInfo_abe409fbb1a9bc767e2b9c80e5ab96f9c}} 
 \index{v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}!default\_branch@{default\_branch}}
 \index{default\_branch@{default\_branch}!v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}}
 \doxysubsubsection{\texorpdfstring{default\_branch()}{default\_branch()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Block}{turboshaft\+::\+Block}}$\ast$ v8\+::internal\+::compiler\+::\+Switch\+Info\+::default\+\_\+branch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 60 of file instruction-\/selector-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_ae52f420a1480569e7689b3b642059ded}{default\_branch\_}}; \}}
+
+\end{DoxyCode}
+
+
+References default\+\_\+branch\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Emit\+Binary\+Search\+Switch(), and v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Emit\+Table\+Switch().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1SwitchInfo_abe409fbb1a9bc767e2b9c80e5ab96f9c_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a77c703328b9c2ba14d352abe272e7562}\label{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a77c703328b9c2ba14d352abe272e7562}} 
 \index{v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}!max\_value@{max\_value}}
 \index{max\_value@{max\_value}!v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}}
 \doxysubsubsection{\texorpdfstring{max\_value()}{max\_value()}}
 {\footnotesize\ttfamily int32\+\_\+t v8\+::internal\+::compiler\+::\+Switch\+Info\+::max\+\_\+value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 57 of file instruction-\/selector-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{57 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a6c19ad384f4cd1f2b5b13e58f148a53a}{max\_value\_}}; \}}
+
+\end{DoxyCode}
+
+
+References max\+\_\+value\+\_\+.
+
+
+
+Referenced by Switch\+Info().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a77c703328b9c2ba14d352abe272e7562_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SwitchInfo_afcce56b3d203e5d248600da74c549149}\label{classv8_1_1internal_1_1compiler_1_1SwitchInfo_afcce56b3d203e5d248600da74c549149}} 
 \index{v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}!min\_value@{min\_value}}
 \index{min\_value@{min\_value}!v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}}
 \doxysubsubsection{\texorpdfstring{min\_value()}{min\_value()}}
 {\footnotesize\ttfamily int32\+\_\+t v8\+::internal\+::compiler\+::\+Switch\+Info\+::min\+\_\+value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 56 of file instruction-\/selector-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{56 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a1dcb02d9007654decc23e3a6f142d52b}{min\_value\_}}; \}}
+
+\end{DoxyCode}
+
+
+References min\+\_\+value\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Emit\+Table\+Switch(), Switch\+Info(), v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Visit\+Switch(), and v8\+::internal\+::compiler\+::\+Visit\+Word\+Compare().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1compiler_1_1SwitchInfo_afcce56b3d203e5d248600da74c549149_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a5571e5bb11defe3bfc57260a3f7f2ead}\label{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a5571e5bb11defe3bfc57260a3f7f2ead}} 
 \index{v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}!value\_range@{value\_range}}
 \index{value\_range@{value\_range}!v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}}
@@ -79,6 +298,104 @@ int32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a77c
 
 
 
+Definition at line 58 of file instruction-\/selector-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{58 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SwitchInfo_aef67d96c588cb1358649de2c2107c10a}{value\_range\_}}; \}}
+
+\end{DoxyCode}
+
+
+References value\+\_\+range\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Emit\+Table\+Switch(), v8\+::internal\+::compiler\+::\+Instruction\+Selector\+::\+Visit\+Switch(), and v8\+::internal\+::compiler\+::\+Visit\+Word\+Compare().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a5571e5bb11defe3bfc57260a3f7f2ead_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SwitchInfo_aedf3c462a767544d2f02e2d3f85b0964}\label{classv8_1_1internal_1_1compiler_1_1SwitchInfo_aedf3c462a767544d2f02e2d3f85b0964}} 
+\index{v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}!cases\_@{cases\_}}
+\index{cases\_@{cases\_}!v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}}
+\doxysubsubsection{\texorpdfstring{cases\_}{cases\_}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector}{Zone\+Vector}}$<$\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1CaseInfo}{Case\+Info}}$>$\& v8\+::internal\+::compiler\+::\+Switch\+Info\+::cases\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 63 of file instruction-\/selector-\/impl.\+h.
+
+
+
+Referenced by case\+\_\+count(), Cases\+Sorted\+By\+Value(), and Cases\+Unsorted().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SwitchInfo_ae52f420a1480569e7689b3b642059ded}\label{classv8_1_1internal_1_1compiler_1_1SwitchInfo_ae52f420a1480569e7689b3b642059ded}} 
+\index{v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}!default\_branch\_@{default\_branch\_}}
+\index{default\_branch\_@{default\_branch\_}!v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}}
+\doxysubsubsection{\texorpdfstring{default\_branch\_}{default\_branch\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Block}{turboshaft\+::\+Block}}$\ast$ v8\+::internal\+::compiler\+::\+Switch\+Info\+::default\+\_\+branch\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 67 of file instruction-\/selector-\/impl.\+h.
+
+
+
+Referenced by default\+\_\+branch().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a6c19ad384f4cd1f2b5b13e58f148a53a}\label{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a6c19ad384f4cd1f2b5b13e58f148a53a}} 
+\index{v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}!max\_value\_@{max\_value\_}}
+\index{max\_value\_@{max\_value\_}!v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}}
+\doxysubsubsection{\texorpdfstring{max\_value\_}{max\_value\_}}
+{\footnotesize\ttfamily int32\+\_\+t v8\+::internal\+::compiler\+::\+Switch\+Info\+::max\+\_\+value\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 65 of file instruction-\/selector-\/impl.\+h.
+
+
+
+Referenced by max\+\_\+value().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a1dcb02d9007654decc23e3a6f142d52b}\label{classv8_1_1internal_1_1compiler_1_1SwitchInfo_a1dcb02d9007654decc23e3a6f142d52b}} 
+\index{v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}!min\_value\_@{min\_value\_}}
+\index{min\_value\_@{min\_value\_}!v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}}
+\doxysubsubsection{\texorpdfstring{min\_value\_}{min\_value\_}}
+{\footnotesize\ttfamily int32\+\_\+t v8\+::internal\+::compiler\+::\+Switch\+Info\+::min\+\_\+value\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 64 of file instruction-\/selector-\/impl.\+h.
+
+
+
+Referenced by min\+\_\+value().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SwitchInfo_aef67d96c588cb1358649de2c2107c10a}\label{classv8_1_1internal_1_1compiler_1_1SwitchInfo_aef67d96c588cb1358649de2c2107c10a}} 
+\index{v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}!value\_range\_@{value\_range\_}}
+\index{value\_range\_@{value\_range\_}!v8::internal::compiler::SwitchInfo@{v8::internal::compiler::SwitchInfo}}
+\doxysubsubsection{\texorpdfstring{value\_range\_}{value\_range\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::compiler\+::\+Switch\+Info\+::value\+\_\+range\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 66 of file instruction-\/selector-\/impl.\+h.
+
+
+
+Referenced by Switch\+Info(), and value\+\_\+range().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{instruction-selector-impl_8h}{instruction-\/selector-\/impl.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/backend/\mbox{\hyperlink{instruction-selector-impl_8h}{instruction-\/selector-\/impl.\+h}}\end{DoxyCompactItemize}

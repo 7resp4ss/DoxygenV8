@@ -4,6 +4,7 @@ var gdb_remote_util_8cc =
     [ "Mem2Hex", "gdb-remote-util_8cc.html#a1bb9a4bb82365af0392cb002ea59dd55", null ],
     [ "Mem2Hex", "gdb-remote-util_8cc.html#a32f5ba113002411191219227c4107b88", null ],
     [ "NibbleToUInt8", "gdb-remote-util_8cc.html#a6c2288ae167f6952fd29112b1a5ac82f", null ],
-    [ "StringSplit", "gdb-remote-util_8cc.html#a3e0ba28ef66c5171a621115ade2c3bab", null ],
-    [ "UInt8ToHex", "gdb-remote-util_8cc.html#a1a719d52ccabfecbc5b880099019a790", null ]
+    [ "StringSplit", "gdb-remote-util_8cc.html#a7983d036d68226b36da620d885c9d44f", null ],
+    [ "UInt8ToHex", "gdb-remote-util_8cc.html#a1a719d52ccabfecbc5b880099019a790", null ],
+    [ "kHexChars", "gdb-remote-util_8cc.html#aa0fddfddf678cada9207743c861b03cd", null ]
 ];

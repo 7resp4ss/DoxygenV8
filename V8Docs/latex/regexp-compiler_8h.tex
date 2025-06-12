@@ -1,5 +1,5 @@
-\hypertarget{regexp-compiler_8h}{}\doxysection{regexp-\/compiler.h File Reference}
-\label{regexp-compiler_8h}\index{regexp-\/compiler.h@{regexp-\/compiler.h}}
+\hypertarget{regexp-compiler_8h}{}\doxysection{/mnt/\+V8\+Source\+Code/src/regexp/regexp-\/compiler.h File Reference}
+\label{regexp-compiler_8h}\index{/mnt/V8SourceCode/src/regexp/regexp-\/compiler.h@{/mnt/V8SourceCode/src/regexp/regexp-\/compiler.h}}
 {\ttfamily \#include $<$bitset$>$}\newline
 {\ttfamily \#include \char`\"{}src/base/small-\/vector.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/base/strings.\+h\char`\"{}}\newline
@@ -42,6 +42,8 @@ struct \mbox{\hyperlink{structv8_1_1internal_1_1PreloadState}{v8\+::internal\+::
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1FrequencyCollator}{v8\+::internal\+::\+Frequency\+Collator}}
 \item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1FrequencyCollator_1_1CharacterFrequency}{v8\+::internal\+::\+Frequency\+Collator\+::\+Character\+Frequency}}
+\item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1RegExpCompiler}{v8\+::internal\+::\+Reg\+Exp\+Compiler}}
 \item 
 struct \mbox{\hyperlink{structv8_1_1internal_1_1RegExpCompiler_1_1CompilationResult}{v8\+::internal\+::\+Reg\+Exp\+Compiler\+::\+Compilation\+Result}}
@@ -52,7 +54,7 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1UnicodeRangeSplitter}{v8\+::intern
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacev8}{v8}}
-\item 
+\begin{DoxyCompactList}\small\item\em This file provides additional API on top of the default one for making API calls, which come from embedder C++ functions. \end{DoxyCompactList}\item 
  \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
 \item 
  \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants}}
@@ -71,9 +73,9 @@ enum \mbox{\hyperlink{namespacev8_1_1internal_ab5f51e401a8b954e7a63ef90d91254e8}
 \item 
 bool \mbox{\hyperlink{namespacev8_1_1internal_a553ef96eece3844b39ed2a89a39bdefc}{v8\+::internal\+::\+Needs\+Unicode\+Case\+Equivalents}} (Reg\+Exp\+Flags \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}})
 \item 
-Contained\+In\+Lattice \mbox{\hyperlink{namespacev8_1_1internal_a48b6b404e309683fd05ffc4d2229630e}{v8\+::internal\+::\+Combine}} (Contained\+In\+Lattice \mbox{\hyperlink{js-call-reducer_8cc_a4665d2c07575c01062ce1cdba711d875}{a}}, Contained\+In\+Lattice b)
+Contained\+In\+Lattice \mbox{\hyperlink{namespacev8_1_1internal_a48b6b404e309683fd05ffc4d2229630e}{v8\+::internal\+::\+Combine}} (Contained\+In\+Lattice a, Contained\+In\+Lattice b)
 \item 
-Reg\+Exp\+Error \mbox{\hyperlink{namespacev8_1_1internal_aad3511bee6f7b826d71b76c7e15ee8b1}{v8\+::internal\+::\+Analyze\+Reg\+Exp}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, bool is\+\_\+one\+\_\+byte, Reg\+Exp\+Flags \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}}, Reg\+Exp\+Node $\ast$\mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}})
+Reg\+Exp\+Error \mbox{\hyperlink{namespacev8_1_1internal_aad3511bee6f7b826d71b76c7e15ee8b1}{v8\+::internal\+::\+Analyze\+Reg\+Exp}} (Isolate $\ast$isolate, bool is\+\_\+one\+\_\+byte, Reg\+Exp\+Flags \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}}, Reg\+Exp\+Node $\ast$node)
 \item 
 bool \mbox{\hyperlink{namespacev8_1_1internal_add988119f0b0b2be1452bacef17ff351}{v8\+::internal\+::\+Range\+Contains\+Latin1\+Equivalents}} (Character\+Range range)
 \end{DoxyCompactItemize}
@@ -82,25 +84,25 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_add988119f0b0b2be1452bacef17ff351}
 \item 
 constexpr base\+::uc32 \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a7b02a4649529a8b9653422c90127980d}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Range\+End\+Marker}} = 0x110000
 \item 
-constexpr int \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_ae12d087bea5f1f254fda94a605fb9d62}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Space\+Ranges}} \mbox{[}$\,$\mbox{]}
+constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_ae12d087bea5f1f254fda94a605fb9d62}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Space\+Ranges}} \mbox{[}$\,$\mbox{]}
 \item 
-constexpr int \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a7ea6ed87956db2979a67da337f34a7ac}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Space\+Range\+Count}} = \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(k\+Space\+Ranges)
+constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a7ea6ed87956db2979a67da337f34a7ac}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Space\+Range\+Count}} = \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(k\+Space\+Ranges)
 \item 
-constexpr int \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a9e0c8c411fc50a80f647366d456dce58}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Word\+Ranges}} \mbox{[}$\,$\mbox{]}
+constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a9e0c8c411fc50a80f647366d456dce58}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Word\+Ranges}} \mbox{[}$\,$\mbox{]}
 \item 
-constexpr int \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a27f39833045e81b75a2754baa7cc8205}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Word\+Range\+Count}} = \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(k\+Word\+Ranges)
+constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a27f39833045e81b75a2754baa7cc8205}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Word\+Range\+Count}} = \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(k\+Word\+Ranges)
 \item 
-constexpr int \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a283f0123d569cabca7fe987ad4007d54}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Digit\+Ranges}} \mbox{[}$\,$\mbox{]} = \{\textquotesingle{}0\textquotesingle{}, \textquotesingle{}9\textquotesingle{} + 1, k\+Range\+End\+Marker\}
+constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a283f0123d569cabca7fe987ad4007d54}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Digit\+Ranges}} \mbox{[}$\,$\mbox{]} = \{\textquotesingle{}0\textquotesingle{}, \textquotesingle{}9\textquotesingle{} + 1, k\+Range\+End\+Marker\}
 \item 
-constexpr int \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a7d384bd5ef4b04db068c7abdb0ce22f9}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Digit\+Range\+Count}} = \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(k\+Digit\+Ranges)
+constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a7d384bd5ef4b04db068c7abdb0ce22f9}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Digit\+Range\+Count}} = \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(k\+Digit\+Ranges)
 \item 
-constexpr int \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_afba5d0ceabeff0da7b69366d523a080e}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Surrogate\+Ranges}} \mbox{[}$\,$\mbox{]}
+constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_afba5d0ceabeff0da7b69366d523a080e}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Surrogate\+Ranges}} \mbox{[}$\,$\mbox{]}
 \item 
-constexpr int \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a90af8f7565ff765fdfab7f3d3f9a9a34}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Surrogate\+Range\+Count}} = \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(k\+Surrogate\+Ranges)
+constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a90af8f7565ff765fdfab7f3d3f9a9a34}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Surrogate\+Range\+Count}} = \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(k\+Surrogate\+Ranges)
 \item 
-constexpr int \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_abd16c04fc49bb4615bb1b62417e92ce6}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Line\+Terminator\+Ranges}} \mbox{[}$\,$\mbox{]}
+constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_abd16c04fc49bb4615bb1b62417e92ce6}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Line\+Terminator\+Ranges}} \mbox{[}$\,$\mbox{]}
 \item 
-constexpr int \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a7045cbaed9a7948875c5c0ea8906f55e}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Line\+Terminator\+Range\+Count}} = \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(k\+Line\+Terminator\+Ranges)
+constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_a7045cbaed9a7948875c5c0ea8906f55e}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Line\+Terminator\+Range\+Count}} = \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(k\+Line\+Terminator\+Ranges)
 \item 
 constexpr uint32\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1regexp__compiler__constants_ae55928b59cf6de9317d6a3c9cd37c5ce}{v8\+::internal\+::regexp\+\_\+compiler\+\_\+constants\+::k\+Max\+Lookahead\+For\+Boyer\+Moore}} = 8
 \item 

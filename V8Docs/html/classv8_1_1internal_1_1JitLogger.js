@@ -6,5 +6,8 @@ var classv8_1_1internal_1_1JitLogger =
     [ "CodeDisableOptEvent", "classv8_1_1internal_1_1JitLogger.html#a4547090112fa17423100a2340e683ee0", null ],
     [ "CodeMoveEvent", "classv8_1_1internal_1_1JitLogger.html#a226862ca6d8836ec84656802b781b9c1", null ],
     [ "EndCodePosInfoEvent", "classv8_1_1internal_1_1JitLogger.html#afb194e2240acca82973f09ffb675be8e", null ],
-    [ "StartCodePosInfoEvent", "classv8_1_1internal_1_1JitLogger.html#aab1d9edef99bf27b49f8f62075a9e04d", null ]
+    [ "LogRecordedBuffer", "classv8_1_1internal_1_1JitLogger.html#accf24a55cd6a225f9e2336e86392e451", null ],
+    [ "StartCodePosInfoEvent", "classv8_1_1internal_1_1JitLogger.html#aab1d9edef99bf27b49f8f62075a9e04d", null ],
+    [ "code_event_handler_", "classv8_1_1internal_1_1JitLogger.html#a21feeb69c3f4c2ae489c875575c2a31a", null ],
+    [ "logger_mutex_", "classv8_1_1internal_1_1JitLogger.html#a55e1a27ecfb86de182f68e861445aa01", null ]
 ];

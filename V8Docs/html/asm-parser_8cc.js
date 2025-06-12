@@ -1,6 +1,6 @@
 var asm_parser_8cc =
 [
-    [ "AsmJsParser", "classv8_1_1internal_1_1wasm_1_1AsmJsParser.html", "classv8_1_1internal_1_1wasm_1_1AsmJsParser" ],
+    [ "TemporaryVariableScope", "classv8_1_1internal_1_1wasm_1_1AsmJsParser_1_1TemporaryVariableScope.html", "classv8_1_1internal_1_1wasm_1_1AsmJsParser_1_1TemporaryVariableScope" ],
     [ "EXPECT_TOKEN", "asm-parser_8cc.html#a7ec595e1ca4f441faacd09d680e03366", null ],
     [ "EXPECT_TOKEN_OR_RETURN", "asm-parser_8cc.html#aca5d870719111119b810173e8ddb0705", null ],
     [ "EXPECT_TOKENn", "asm-parser_8cc.html#a910b62e9c8b1a1a9e4e2fd622b448260", null ],

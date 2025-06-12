@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::Unified\+Heap\+Verification\+State\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=229pt]{classv8_1_1internal_1_1UnifiedHeapVerificationState__inherit__graph}
+\includegraphics[width=260pt]{classv8_1_1internal_1_1UnifiedHeapVerificationState__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::Unified\+Heap\+Verification\+State\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=229pt]{classv8_1_1internal_1_1UnifiedHeapVerificationState__coll__graph}
+\includegraphics[width=260pt]{classv8_1_1internal_1_1UnifiedHeapVerificationState__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -30,6 +30,13 @@ Collaboration diagram for v8\+::internal\+::Unified\+Heap\+Verification\+State\+
 void \mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapVerificationState_a1c19d466dd21ea25c03ecff97be0bea3}{Verify\+Marked\+Traced\+Reference}} (const \mbox{\hyperlink{classv8_1_1TracedReferenceBase}{Traced\+Reference\+Base}} \&ref) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 14 of file unified-\/heap-\/marking-\/verifier.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -41,7 +48,56 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapVerificationState_a1c19d
 
 
 
+Definition at line 60 of file unified-\/heap-\/marking-\/verifier.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{61                                           \{}
+\DoxyCodeLine{62   \textcolor{comment}{// The following code will crash with null pointer derefs when finding a}}
+\DoxyCodeLine{63   \textcolor{comment}{// non-\/empty `TracedReferenceBase` when `CppHeap` is in detached mode.}}
+\DoxyCodeLine{64   \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}* traced\_handle\_location =}
+\DoxyCodeLine{65       \mbox{\hyperlink{classv8_1_1internal_1_1BasicTracedReferenceExtractor_ac5e8196f098040e28f478b0526bcec60}{BasicTracedReferenceExtractor::GetObjectSlotForMarking}}(ref);}
+\DoxyCodeLine{66   \textcolor{comment}{// We cannot assume that the reference is non-\/null as we may get here by}}
+\DoxyCodeLine{67   \textcolor{comment}{// tracing an ephemeron which doesn't have early bailouts, see}}
+\DoxyCodeLine{68   \textcolor{comment}{// `cppgc::Visitor::TraceEphemeron()` for non-\/Member values.}}
+\DoxyCodeLine{69   \textcolor{keywordflow}{if} (!traced\_handle\_location) \{}
+\DoxyCodeLine{70     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{71   \}}
+\DoxyCodeLine{72   \textcolor{comment}{// Verification runs after unamrked nodes are freed. The node for this}}
+\DoxyCodeLine{73   \textcolor{comment}{// TracedReference should still be marked as in use.}}
+\DoxyCodeLine{74   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1TracedHandles_a4edba62955e2826b4c51b46c10b285f7}{TracedHandles::IsValidInUseNode}}(traced\_handle\_location)) \{}
+\DoxyCodeLine{75     \mbox{\hyperlink{src_2base_2logging_8h_a0d093cb749cfc7ab5993726392df681f}{FATAL}}(}
+\DoxyCodeLine{76         \textcolor{stringliteral}{"{}MarkingVerifier: Encountered unmarked TracedReference.\(\backslash\)n"{}}}
+\DoxyCodeLine{77         \textcolor{stringliteral}{"{}\#\(\backslash\)n"{}}}
+\DoxyCodeLine{78         \textcolor{stringliteral}{"{}\# Hint:\(\backslash\)n"{}}}
+\DoxyCodeLine{79         \textcolor{stringliteral}{"{}\#   \%s (\%p)\(\backslash\)n"{}}}
+\DoxyCodeLine{80         \textcolor{stringliteral}{"{}\#     \(\backslash\)\(\backslash\)-\/> TracedReference (\%p)"{}},}
+\DoxyCodeLine{81         \mbox{\hyperlink{classcppgc_1_1internal_1_1VerificationState_a572b830704b14c36c2c5c0463a53db84}{parent\_}}}
+\DoxyCodeLine{82             ? \mbox{\hyperlink{classcppgc_1_1internal_1_1VerificationState_a572b830704b14c36c2c5c0463a53db84}{parent\_}}}
+\DoxyCodeLine{83                   -\/>GetName(\mbox{\hyperlink{namespacecppgc_1_1internal_a9e597470d83101c79911b2c8ec69b97f}{cppgc::internal::HeapObjectNameForUnnamedObject}}::}
+\DoxyCodeLine{84                                 kUseClassNameIfSupported)}
+\DoxyCodeLine{85                   .\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}}
+\DoxyCodeLine{86             : \textcolor{stringliteral}{"{}Stack"{}},}
+\DoxyCodeLine{87         \mbox{\hyperlink{classcppgc_1_1internal_1_1VerificationState_a572b830704b14c36c2c5c0463a53db84}{parent\_}} ? \mbox{\hyperlink{classcppgc_1_1internal_1_1VerificationState_a572b830704b14c36c2c5c0463a53db84}{parent\_}}-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader_a2f5a585893bb8836a77a5fdbf344a24a}{ObjectStart}}() : \textcolor{keyword}{nullptr}, \&ref);}
+\DoxyCodeLine{88   \}}
+\DoxyCodeLine{89 \}}
+
+\end{DoxyCode}
+
+
+References FATAL, v8\+::internal\+::\+Basic\+Traced\+Reference\+Extractor\+::\+Get\+Object\+Slot\+For\+Marking(), v8\+::internal\+::\+Traced\+Handles\+::\+Is\+Valid\+In\+Use\+Node(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Object\+Start(), cppgc\+::internal\+::\+Verification\+State\+::parent\+\_\+, and v8\+::internal\+::value.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1UnifiedHeapVerificationState_a1c19d466dd21ea25c03ecff97be0bea3_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{unified-heap-marking-verifier_8h}{unified-\/heap-\/marking-\/verifier.\+h}}\item 
-\mbox{\hyperlink{unified-heap-marking-verifier_8cc}{unified-\/heap-\/marking-\/verifier.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/cppgc-\/js/\mbox{\hyperlink{unified-heap-marking-verifier_8h}{unified-\/heap-\/marking-\/verifier.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/cppgc-\/js/\mbox{\hyperlink{unified-heap-marking-verifier_8cc}{unified-\/heap-\/marking-\/verifier.\+cc}}\end{DoxyCompactItemize}

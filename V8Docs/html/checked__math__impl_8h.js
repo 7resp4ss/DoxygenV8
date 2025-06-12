@@ -12,7 +12,7 @@ var checked__math__impl_8h =
     [ "CheckedXorOp", "structv8_1_1base_1_1internal_1_1CheckedXorOp.html", null ],
     [ "CheckedMaxOp", "structv8_1_1base_1_1internal_1_1CheckedMaxOp.html", null ],
     [ "CheckedMinOp", "structv8_1_1base_1_1internal_1_1CheckedMinOp.html", null ],
-    [ "GetNumericRepresentation", "structv8_1_1base_1_1internal_1_1GetNumericRepresentation.html", null ],
+    [ "GetNumericRepresentation", "structv8_1_1base_1_1internal_1_1GetNumericRepresentation.html", "structv8_1_1base_1_1internal_1_1GetNumericRepresentation" ],
     [ "CheckedNumericState", "classv8_1_1base_1_1internal_1_1CheckedNumericState.html", null ],
     [ "CheckedNumericState< T, NUMERIC_INTEGER >", "classv8_1_1base_1_1internal_1_1CheckedNumericState_3_01T_00_01NUMERIC__INTEGER_01_4.html", "classv8_1_1base_1_1internal_1_1CheckedNumericState_3_01T_00_01NUMERIC__INTEGER_01_4" ],
     [ "CheckedNumericState< T, NUMERIC_FLOATING >", "classv8_1_1base_1_1internal_1_1CheckedNumericState_3_01T_00_01NUMERIC__FLOATING_01_4.html", "classv8_1_1base_1_1internal_1_1CheckedNumericState_3_01T_00_01NUMERIC__FLOATING_01_4" ],
@@ -25,6 +25,7 @@ var checked__math__impl_8h =
     [ "CheckedAddImpl", "checked__math__impl_8h.html#a243463829ccafd7ae298b239f17b66b3", null ],
     [ "CheckedMulImpl", "checked__math__impl_8h.html#a675d7e911ced03c64f31868c485401a0", null ],
     [ "CheckedSubImpl", "checked__math__impl_8h.html#ac5a83524c581cd9b2f060855e7e99739", null ],
+    [ "Do", "checked__math__impl_8h.html#a3e782cca0587b669fdd9d3b7f9112cf8", null ],
     [ "requires", "checked__math__impl_8h.html#a045eda49b763664601ec944a48aeaa3c", null ],
     [ "requires", "checked__math__impl_8h.html#a5b88575d3dbebc74b16c4a856ea3c539", null ],
     [ "U", "checked__math__impl_8h.html#a709d6f30f1192434c1eb74d0f8a3bc3a", null ]

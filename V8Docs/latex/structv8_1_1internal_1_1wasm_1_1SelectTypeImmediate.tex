@@ -11,13 +11,13 @@ Collaboration diagram for v8\+::internal\+::wasm\+::Select\+Type\+Immediate\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=220pt]{structv8_1_1internal_1_1wasm_1_1SelectTypeImmediate__coll__graph}
+\includegraphics[height=550pt]{structv8_1_1internal_1_1wasm_1_1SelectTypeImmediate__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$typename Validation\+Tag $>$ }\\\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1SelectTypeImmediate_added94749def1d019cf33ea72891cf5c}{Select\+Type\+Immediate}} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmEnabledFeatures}{Wasm\+Enabled\+Features}} enabled, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmDetectedFeatures}{Wasm\+Detected\+Features}} $\ast$detected, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1Decoder}{Decoder}} $\ast$decoder, const uint8\+\_\+t $\ast$\mbox{\hyperlink{experimental-interpreter_8cc_ac8c81e61335635fa4709d82412b31f06}{pc}}, Validation\+Tag=\{\})
+{\footnotesize template$<$typename Validation\+Tag $>$ }\\\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1SelectTypeImmediate_added94749def1d019cf33ea72891cf5c}{Select\+Type\+Immediate}} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmEnabledFeatures}{Wasm\+Enabled\+Features}} enabled, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmDetectedFeatures}{Wasm\+Detected\+Features}} $\ast$detected, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1Decoder}{Decoder}} $\ast$decoder, const uint8\+\_\+t $\ast$pc, Validation\+Tag=\{\})
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -26,6 +26,13 @@ uint32\+\_\+t \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1SelectTypeImmedia
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1ValueType}{Value\+Type}} \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1SelectTypeImmediate_aa84fee62107aa2e2459b0dfef7017cfa}{type}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 740 of file function-\/body-\/decoder-\/impl.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -38,12 +45,44 @@ v8\+::internal\+::wasm\+::\+Select\+Type\+Immediate\+::\+Select\+Type\+Immediate
 
 
 
+Definition at line 745 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{747                                                          \{\}) \{}
+\DoxyCodeLine{748     uint8\_t num\_types;}
+\DoxyCodeLine{749     std::tie(num\_types, \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1SelectTypeImmediate_a7abfb5e7c20e91c6c663bfef84323278}{length}}) =}
+\DoxyCodeLine{750         decoder-\/>read\_u32v<ValidationTag>(pc, \textcolor{stringliteral}{"{}number of select types"{}});}
+\DoxyCodeLine{751     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{function-body-decoder-impl_8h_a58180ad1df577b04696516c2feca595c}{VALIDATE}}(num\_types == 1)) \{}
+\DoxyCodeLine{752       DecodeError<ValidationTag>(}
+\DoxyCodeLine{753           decoder, pc,}
+\DoxyCodeLine{754           \textcolor{stringliteral}{"{}Invalid number of types. Select accepts exactly one type"{}});}
+\DoxyCodeLine{755       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{756     \}}
+\DoxyCodeLine{757     uint32\_t type\_length;}
+\DoxyCodeLine{758     std::tie(\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1SelectTypeImmediate_aa84fee62107aa2e2459b0dfef7017cfa}{type}}, type\_length) =}
+\DoxyCodeLine{759         value\_type\_reader::read\_value\_type<ValidationTag>(decoder, pc + \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1SelectTypeImmediate_a7abfb5e7c20e91c6c663bfef84323278}{length}},}
+\DoxyCodeLine{760                                                           enabled, detected);}
+\DoxyCodeLine{761     \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1SelectTypeImmediate_a7abfb5e7c20e91c6c663bfef84323278}{length}} += type\_length;}
+\DoxyCodeLine{762   \}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1SelectTypeImmediate_a7abfb5e7c20e91c6c663bfef84323278}\label{structv8_1_1internal_1_1wasm_1_1SelectTypeImmediate_a7abfb5e7c20e91c6c663bfef84323278}} 
 \index{v8::internal::wasm::SelectTypeImmediate@{v8::internal::wasm::SelectTypeImmediate}!length@{length}}
 \index{length@{length}!v8::internal::wasm::SelectTypeImmediate@{v8::internal::wasm::SelectTypeImmediate}}
 \doxysubsubsection{\texorpdfstring{length}{length}}
 {\footnotesize\ttfamily uint32\+\_\+t v8\+::internal\+::wasm\+::\+Select\+Type\+Immediate\+::length}
+
+
+
+Definition at line 741 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Full\+Decoder$<$ Validation\+Tag, Interface, decoding\+\_\+mode $>$\+::\+DECODE(), v8\+::internal\+::wasm\+::\+Wasm\+Bytecode\+Generator\+::\+Decode\+Instruction(), and v8\+::internal\+::wasm\+::\+Wasm\+Decoder$<$ Validation\+Tag, decoding\+\_\+mode $>$\+::\+Opcode\+Length().
 
 \mbox{\Hypertarget{structv8_1_1internal_1_1wasm_1_1SelectTypeImmediate_aa84fee62107aa2e2459b0dfef7017cfa}\label{structv8_1_1internal_1_1wasm_1_1SelectTypeImmediate_aa84fee62107aa2e2459b0dfef7017cfa}} 
 \index{v8::internal::wasm::SelectTypeImmediate@{v8::internal::wasm::SelectTypeImmediate}!type@{type}}
@@ -53,6 +92,14 @@ v8\+::internal\+::wasm\+::\+Select\+Type\+Immediate\+::\+Select\+Type\+Immediate
 
 
 
+Definition at line 742 of file function-\/body-\/decoder-\/impl.\+h.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Full\+Decoder$<$ Validation\+Tag, Interface, decoding\+\_\+mode $>$\+::\+DECODE(), v8\+::internal\+::wasm\+::\+Immediates\+Printer$<$ Validation\+Tag $>$\+::\+Select\+Type(), and v8\+::internal\+::wasm\+::\+Wasm\+Decoder$<$ Validation\+Tag, decoding\+\_\+mode $>$\+::\+Validate().
+
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{function-body-decoder-impl_8h}{function-\/body-\/decoder-\/impl.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{function-body-decoder-impl_8h}{function-\/body-\/decoder-\/impl.\+h}}\end{DoxyCompactItemize}

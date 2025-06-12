@@ -1,5 +1,6 @@
 var div_burnikel_8cc =
 [
-    [ "proc_", "div-burnikel_8cc.html#ae40a52c45701d5094cb55027c608b77f", null ],
-    [ "scratch_mem_", "div-burnikel_8cc.html#aa21b1780a66304d3e4a2e8cafd4ad4b0", null ]
+    [ "BZ", "classv8_1_1bigint_1_1anonymous__namespace_02div-burnikel_8cc_03_1_1BZ.html", "classv8_1_1bigint_1_1anonymous__namespace_02div-burnikel_8cc_03_1_1BZ" ],
+    [ "SetOnes", "div-burnikel_8cc.html#a66cabfcaea52478faf75c88c25fc8d37", null ],
+    [ "SpecialCompare", "div-burnikel_8cc.html#a3dd9d094070d70d45d5c48f77412bc42", null ]
 ];

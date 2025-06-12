@@ -1,6 +1,9 @@
 var code_generator_arm_8cc =
 [
     [ "ArmOperandConverter", "classv8_1_1internal_1_1compiler_1_1ArmOperandConverter.html", "classv8_1_1internal_1_1compiler_1_1ArmOperandConverter" ],
+    [ "OutOfLineRecordWrite", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_1_1OutOfLineRecordWrite.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_1_1OutOfLineRecordWrite" ],
+    [ "OutOfLineFloatMin", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_1_1OutOfLineFloatMin.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_1_1OutOfLineFloatMin" ],
+    [ "OutOfLineFloatMax", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_1_1OutOfLineFloatMax.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_1_1OutOfLineFloatMax" ],
     [ "__", "code-generator-arm_8cc.html#a0a87998f4e8cee4888f2a89df3d5639b", null ],
     [ "ASSEMBLE_ATOMIC64_ARITH_BINOP", "code-generator-arm_8cc.html#a6c2783438b23597172fff271e4d9434f", null ],
     [ "ASSEMBLE_ATOMIC64_LOGIC_BINOP", "code-generator-arm_8cc.html#a64b8601c3380abd380c0bc518d040dc7", null ],
@@ -20,14 +23,11 @@ var code_generator_arm_8cc =
     [ "ATOMIC_LOGIC_BINOP_CASE", "code-generator-arm_8cc.html#a69a8071641d491dc64d6c8354ab9786c", null ],
     [ "S_FROM_Q", "code-generator-arm_8cc.html#ae676f244fe1ef44a5d68af028864b4f8", null ],
     [ "S_FROM_Q", "code-generator-arm_8cc.html#ae676f244fe1ef44a5d68af028864b4f8", null ],
-    [ "left_", "code-generator-arm_8cc.html#ac041ac11fe8deea1150b1c99cb6aaf4f", null ],
-    [ "mode_", "code-generator-arm_8cc.html#adc5709192230b7fde07de03eb2974043", null ],
-    [ "must_save_lr_", "code-generator-arm_8cc.html#a41a2de46b73ead1c0417e8f1751a5022", null ],
-    [ "object_", "code-generator-arm_8cc.html#a5563c55e446f92e237e9fb9b07b423b6", null ],
-    [ "offset_", "code-generator-arm_8cc.html#ab11f8f1256e847420fa280346be66736", null ],
-    [ "result_", "code-generator-arm_8cc.html#a4d8c0017809aaa1049579c91f87ea54e", null ],
-    [ "right_", "code-generator-arm_8cc.html#a08fb76067c3603afea3a5fcc4d736849", null ],
-    [ "unwinding_info_writer_", "code-generator-arm_8cc.html#a169281d819fe1cec036d4799afb2accf", null ],
-    [ "value_", "code-generator-arm_8cc.html#ac1b34591c0a6bb909fcc2d34d0b5aaff", null ],
-    [ "zone_", "code-generator-arm_8cc.html#a4979f6e7e64e9ee56f4229d03fa20c69", null ]
+    [ "OutOfLineFloat32Max", "code-generator-arm_8cc.html#afc6f437047722fbeee41e63c45af6261", null ],
+    [ "OutOfLineFloat32Min", "code-generator-arm_8cc.html#a1b003a3035c7f304c998793b2910e1af", null ],
+    [ "OutOfLineFloat64Max", "code-generator-arm_8cc.html#a3d302c81cea6606e7b02c1254e1b2af9", null ],
+    [ "OutOfLineFloat64Min", "code-generator-arm_8cc.html#a9417ba0c68080425524eff1e5b6f2df6", null ],
+    [ "AdjustStackPointerForTailCall", "code-generator-arm_8cc.html#a5dadd4aef21f30ec52e8d86028c1790a", null ],
+    [ "FlagsConditionToCondition", "code-generator-arm_8cc.html#a5143ddf749d792686059c1fef5e23945", null ],
+    [ "FlushPendingPushRegisters", "code-generator-arm_8cc.html#aea516a0747f9149de4764c57d8365e50", null ]
 ];

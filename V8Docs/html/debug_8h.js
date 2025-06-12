@@ -5,6 +5,7 @@ var debug_8h =
     [ "DebugInfoCollection", "classv8_1_1internal_1_1DebugInfoCollection.html", "classv8_1_1internal_1_1DebugInfoCollection" ],
     [ "Iterator", "classv8_1_1internal_1_1DebugInfoCollection_1_1Iterator.html", "classv8_1_1internal_1_1DebugInfoCollection_1_1Iterator" ],
     [ "Debug", "classv8_1_1internal_1_1Debug.html", "classv8_1_1internal_1_1Debug" ],
+    [ "ThreadLocal", "classv8_1_1internal_1_1Debug_1_1ThreadLocal.html", "classv8_1_1internal_1_1Debug_1_1ThreadLocal" ],
     [ "DebugScope", "classv8_1_1internal_1_1DebugScope.html", "classv8_1_1internal_1_1DebugScope" ],
     [ "ReturnValueScope", "classv8_1_1internal_1_1ReturnValueScope.html", "classv8_1_1internal_1_1ReturnValueScope" ],
     [ "DisableBreak", "classv8_1_1internal_1_1DisableBreak.html", "classv8_1_1internal_1_1DisableBreak" ],

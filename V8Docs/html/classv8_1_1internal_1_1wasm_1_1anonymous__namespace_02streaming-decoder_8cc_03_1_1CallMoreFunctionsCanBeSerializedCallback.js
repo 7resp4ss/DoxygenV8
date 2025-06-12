@@ -1,0 +1,9 @@
+var classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02streaming_decoder_8cc_03_1_1CallMoreFunctionsCanBeSerializedCallback =
+[
+    [ "CallMoreFunctionsCanBeSerializedCallback", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02streaming-decoder_8cc_03_1_1CallMoreFunctionsCanBeSerializedCallback.html#afb3a827ad64201ddfd1a394dc74645c0", null ],
+    [ "call", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02streaming-decoder_8cc_03_1_1CallMoreFunctionsCanBeSerializedCallback.html#ac7a0f75d91466aba3582e0b5a515b4f4", null ],
+    [ "release_after_final_event", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02streaming-decoder_8cc_03_1_1CallMoreFunctionsCanBeSerializedCallback.html#a6c6d0cdf996c4615aefbe5a8eb6f1e46", null ],
+    [ "cache_count_", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02streaming-decoder_8cc_03_1_1CallMoreFunctionsCanBeSerializedCallback.html#a3f08c65274128d2ee294a812669115fa", null ],
+    [ "callback_", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02streaming-decoder_8cc_03_1_1CallMoreFunctionsCanBeSerializedCallback.html#a0bdfde8354f51da31836fd2856a00116", null ],
+    [ "native_module_", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02streaming-decoder_8cc_03_1_1CallMoreFunctionsCanBeSerializedCallback.html#a47ffc6d990332aac4c1acb03398f7dbb", null ]
+];

@@ -13,5 +13,11 @@ var classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmShuffleAnalyzer =
     [ "ProcessUnary", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmShuffleAnalyzer.html#a21a2b5af2343bd663399dc4d1297308d", null ],
     [ "Run", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmShuffleAnalyzer.html#a7ae1bf040341a1b926c298add1c81903", null ],
     [ "ShouldReduce", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmShuffleAnalyzer.html#a0138e647af1d49892565b0e7aae41670", null ],
-    [ "ShouldRewriteShuffleToLow", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmShuffleAnalyzer.html#a5cd7192aa78159280a0a3841add2f9f8", null ]
+    [ "ShouldRewriteShuffleToLow", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmShuffleAnalyzer.html#a5cd7192aa78159280a0a3841add2f9f8", null ],
+    [ "demanded_element_analysis", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmShuffleAnalyzer.html#aa98dc069e66b9eaee4fad129d0412466", null ],
+    [ "high_half_shuffles_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmShuffleAnalyzer.html#a7af3f91904cef3dbfeaa1bef1c6ce99f", null ],
+    [ "input_graph_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmShuffleAnalyzer.html#a604e2f1d043832731b1a2484d22bfa2a", null ],
+    [ "low_half_shuffles_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmShuffleAnalyzer.html#a73007387d1bd8025899263ba6c8729ea", null ],
+    [ "phase_zone_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmShuffleAnalyzer.html#a5f60448e4afb6c3c0f833b2c7639ac50", null ],
+    [ "shift_shuffles_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmShuffleAnalyzer.html#a21357862eeee590f2f2290814d8fe5e3", null ]
 ];

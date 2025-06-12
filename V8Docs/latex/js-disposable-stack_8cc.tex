@@ -1,5 +1,5 @@
-\hypertarget{js-disposable-stack_8cc}{}\doxysection{js-\/disposable-\/stack.cc File Reference}
-\label{js-disposable-stack_8cc}\index{js-\/disposable-\/stack.cc@{js-\/disposable-\/stack.cc}}
+\hypertarget{js-disposable-stack_8cc}{}\doxysection{/mnt/\+V8\+Source\+Code/src/objects/js-\/disposable-\/stack.cc File Reference}
+\label{js-disposable-stack_8cc}\index{/mnt/V8SourceCode/src/objects/js-\/disposable-\/stack.cc@{/mnt/V8SourceCode/src/objects/js-\/disposable-\/stack.cc}}
 {\ttfamily \#include \char`\"{}src/objects/js-\/disposable-\/stack.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}include/v8-\/maybe.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}include/v8-\/promise.\+h\char`\"{}}\newline
@@ -33,13 +33,13 @@ Include dependency graph for js-\/disposable-\/stack.cc\+:
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacev8}{v8}}
-\item 
+\begin{DoxyCompactList}\small\item\em This file provides additional API on top of the default one for making API calls, which come from embedder C++ functions. \end{DoxyCompactList}\item 
  \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{js-disposable-stack_8cc_a7b54408239cc4c308c66f4b91d72b4a2}{CHECK\+\_\+\+EXCEPTION\+\_\+\+ON\+\_\+\+DISPOSAL}}(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}},  disposable\+\_\+stack,  return\+\_\+value)
+\#define \mbox{\hyperlink{js-disposable-stack_8cc_a7b54408239cc4c308c66f4b91d72b4a2}{CHECK\+\_\+\+EXCEPTION\+\_\+\+ON\+\_\+\+DISPOSAL}}(isolate,  disposable\+\_\+stack,  return\+\_\+value)
 \end{DoxyCompactItemize}
 
 
@@ -48,22 +48,26 @@ Include dependency graph for js-\/disposable-\/stack.cc\+:
 \index{js-\/disposable-\/stack.cc@{js-\/disposable-\/stack.cc}!CHECK\_EXCEPTION\_ON\_DISPOSAL@{CHECK\_EXCEPTION\_ON\_DISPOSAL}}
 \index{CHECK\_EXCEPTION\_ON\_DISPOSAL@{CHECK\_EXCEPTION\_ON\_DISPOSAL}!js-\/disposable-\/stack.cc@{js-\/disposable-\/stack.cc}}
 \doxysubsubsection{\texorpdfstring{CHECK\_EXCEPTION\_ON\_DISPOSAL}{CHECK\_EXCEPTION\_ON\_DISPOSAL}}
-{\footnotesize\ttfamily \#define CHECK\+\_\+\+EXCEPTION\+\_\+\+ON\+\_\+\+DISPOSAL(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}},  }\item[{}]{disposable\+\_\+stack,  }\item[{}]{return\+\_\+value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define CHECK\+\_\+\+EXCEPTION\+\_\+\+ON\+\_\+\+DISPOSAL(\begin{DoxyParamCaption}\item[{}]{isolate,  }\item[{}]{disposable\+\_\+stack,  }\item[{}]{return\+\_\+value }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                       \(\backslash\)}
-\DoxyCodeLine{    DCHECK(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}-\/>has\_exception());                                        \(\backslash\)}
-\DoxyCodeLine{    DirectHandle<Object> current\_error(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}-\/>exception(), \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});       \(\backslash\)}
-\DoxyCodeLine{    DirectHandle<Object> current\_error\_message(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}-\/>pending\_message(),   \(\backslash\)}
-\DoxyCodeLine{                                               \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});                     \(\backslash\)}
-\DoxyCodeLine{    if (!\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}-\/>is\_catchable\_by\_javascript(*current\_error)) \{              \(\backslash\)}
+\DoxyCodeLine{    DCHECK(isolate-\/>has\_exception());                                        \(\backslash\)}
+\DoxyCodeLine{    DirectHandle<Object> current\_error(isolate-\/>exception(), isolate);       \(\backslash\)}
+\DoxyCodeLine{    DirectHandle<Object> current\_error\_message(isolate-\/>pending\_message(),   \(\backslash\)}
+\DoxyCodeLine{                                               isolate);                     \(\backslash\)}
+\DoxyCodeLine{    if (!isolate-\/>is\_catchable\_by\_javascript(*current\_error)) \{              \(\backslash\)}
 \DoxyCodeLine{      return return\_value;                                                   \(\backslash\)}
 \DoxyCodeLine{    \}                                                                        \(\backslash\)}
 \DoxyCodeLine{    isolate-\/>clear\_internal\_exception();                                     \(\backslash\)}
 \DoxyCodeLine{    isolate-\/>clear\_pending\_message();                                        \(\backslash\)}
-\DoxyCodeLine{    HandleErrorInDisposal(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, disposable\_stack, current\_error,          \(\backslash\)}
+\DoxyCodeLine{    HandleErrorInDisposal(isolate, disposable\_stack, current\_error,          \(\backslash\)}
 \DoxyCodeLine{                          current\_error\_message);                            \(\backslash\)}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 31 of file js-\/disposable-\/stack.\+cc.
+

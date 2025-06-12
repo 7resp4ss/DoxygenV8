@@ -17,12 +17,120 @@ Collaboration diagram for v8\+::base\+::AIXTimezone\+Cache\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=307pt]{classv8_1_1base_1_1AIXTimezoneCache__coll__graph}
+\includegraphics[width=314pt]{classv8_1_1base_1_1AIXTimezoneCache__coll__graph}
 \end{center}
 \end{figure}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \mbox{\hyperlink{classv8_1_1base_1_1AIXTimezoneCache_ac3b2452e19c03ce641ab79446ab580de}{Local\+Timezone}} (double \mbox{\hyperlink{flag-definitions_8h_a35294ca6f34ba906adefe31b21e5b765}{time}}) override
+\item 
+double \mbox{\hyperlink{classv8_1_1base_1_1AIXTimezoneCache_adb1e63812606648e451edda4c644ec96}{Local\+Time\+Offset}} (double time\+\_\+ms, bool is\+\_\+utc) override
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1AIXTimezoneCache_a2cd855583a1a3114d04efedac8217346}{$\sim$\+AIXTimezone\+Cache}} () override
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 53 of file platform-\/aix.\+cc.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classv8_1_1base_1_1AIXTimezoneCache_a2cd855583a1a3114d04efedac8217346}\label{classv8_1_1base_1_1AIXTimezoneCache_a2cd855583a1a3114d04efedac8217346}} 
+\index{v8::base::AIXTimezoneCache@{v8::base::AIXTimezoneCache}!````~AIXTimezoneCache@{$\sim$AIXTimezoneCache}}
+\index{````~AIXTimezoneCache@{$\sim$AIXTimezoneCache}!v8::base::AIXTimezoneCache@{v8::base::AIXTimezoneCache}}
+\doxysubsubsection{\texorpdfstring{$\sim$AIXTimezoneCache()}{~AIXTimezoneCache()}}
+{\footnotesize\ttfamily v8\+::base\+::\+AIXTimezone\+Cache\+::$\sim$\+AIXTimezone\+Cache (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [private]}}
+
+
+
+Definition at line 58 of file platform-\/aix.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{58 \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1base_1_1AIXTimezoneCache_adb1e63812606648e451edda4c644ec96}\label{classv8_1_1base_1_1AIXTimezoneCache_adb1e63812606648e451edda4c644ec96}} 
+\index{v8::base::AIXTimezoneCache@{v8::base::AIXTimezoneCache}!LocalTimeOffset@{LocalTimeOffset}}
+\index{LocalTimeOffset@{LocalTimeOffset}!v8::base::AIXTimezoneCache@{v8::base::AIXTimezoneCache}}
+\doxysubsubsection{\texorpdfstring{LocalTimeOffset()}{LocalTimeOffset()}}
+{\footnotesize\ttfamily double v8\+::base\+::\+AIXTimezone\+Cache\+::\+Local\+Time\+Offset (\begin{DoxyParamCaption}\item[{double}]{time\+\_\+ms,  }\item[{bool}]{is\+\_\+utc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classv8_1_1base_1_1TimezoneCache_a2be33f35f345692c7f667c1049d0a8aa}{v8\+::base\+::\+Timezone\+Cache}}.
+
+
+
+Definition at line 70 of file platform-\/aix.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{70                                                                     \{}
+\DoxyCodeLine{71   \textcolor{comment}{// On AIX, struct tm does not contain a tm\_gmtoff field, use get\_gmt\_offset}}
+\DoxyCodeLine{72   \textcolor{comment}{// helper function}}
+\DoxyCodeLine{73   time\_t utc = \mbox{\hyperlink{flag-definitions_8h_a35294ca6f34ba906adefe31b21e5b765}{time}}(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{74   \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(utc, -\/1);}
+\DoxyCodeLine{75   \textcolor{keyword}{struct }tm tm;}
+\DoxyCodeLine{76   \textcolor{keyword}{struct }tm* \mbox{\hyperlink{namespacev8_1_1internal_ad9a6b52837882e402eec262f40224890}{loc}} = localtime\_r(\&utc, \&tm);}
+\DoxyCodeLine{77   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(\mbox{\hyperlink{namespacev8_1_1internal_ad9a6b52837882e402eec262f40224890}{loc}});}
+\DoxyCodeLine{78   \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1base_a2da2129f7b784e8da1cbf86b6053d71a}{get\_gmt\_offset}}(*\mbox{\hyperlink{namespacev8_1_1internal_ad9a6b52837882e402eec262f40224890}{loc}}) * \mbox{\hyperlink{classv8_1_1base_1_1PosixTimezoneCache_aec984ac734484b7002e060761844519d}{msPerSecond}} -\/}
+\DoxyCodeLine{79                              (\mbox{\hyperlink{namespacev8_1_1internal_ad9a6b52837882e402eec262f40224890}{loc}}-\/>tm\_isdst > 0 ? 3600 * \mbox{\hyperlink{classv8_1_1base_1_1PosixTimezoneCache_aec984ac734484b7002e060761844519d}{msPerSecond}} : 0));}
+\DoxyCodeLine{80 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+NE, DCHECK\+\_\+\+NOT\+\_\+\+NULL, v8\+::base\+::get\+\_\+gmt\+\_\+offset(), v8\+::internal\+::loc, v8\+::base\+::\+Posix\+Timezone\+Cache\+::ms\+Per\+Second, and time().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1base_1_1AIXTimezoneCache_adb1e63812606648e451edda4c644ec96_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1base_1_1AIXTimezoneCache_ac3b2452e19c03ce641ab79446ab580de}\label{classv8_1_1base_1_1AIXTimezoneCache_ac3b2452e19c03ce641ab79446ab580de}} 
+\index{v8::base::AIXTimezoneCache@{v8::base::AIXTimezoneCache}!LocalTimezone@{LocalTimezone}}
+\index{LocalTimezone@{LocalTimezone}!v8::base::AIXTimezoneCache@{v8::base::AIXTimezoneCache}}
+\doxysubsubsection{\texorpdfstring{LocalTimezone()}{LocalTimezone()}}
+{\footnotesize\ttfamily const char $\ast$ v8\+::base\+::\+AIXTimezone\+Cache\+::\+Local\+Timezone (\begin{DoxyParamCaption}\item[{double}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classv8_1_1base_1_1TimezoneCache_a9ba134992875f89981d8966b304b5667}{v8\+::base\+::\+Timezone\+Cache}}.
+
+
+
+Definition at line 61 of file platform-\/aix.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{61                                                           \{}
+\DoxyCodeLine{62   \textcolor{keywordflow}{if} (std::isnan(time\_ms)) \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{63   time\_t tv = \textcolor{keyword}{static\_cast<}time\_t\textcolor{keyword}{>}(floor(time\_ms / \mbox{\hyperlink{classv8_1_1base_1_1PosixTimezoneCache_aec984ac734484b7002e060761844519d}{msPerSecond}}));}
+\DoxyCodeLine{64   \textcolor{keyword}{struct }tm tm;}
+\DoxyCodeLine{65   \textcolor{keyword}{struct }tm* t = localtime\_r(\&tv, \&tm);}
+\DoxyCodeLine{66   \textcolor{keywordflow}{if} (\textcolor{keyword}{nullptr} == t) \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{67   \textcolor{keywordflow}{return} tzname[0];  \textcolor{comment}{// The location of the timezone string on AIX.}}
+\DoxyCodeLine{68 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Posix\+Timezone\+Cache\+::ms\+Per\+Second.
+
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{platform-aix_8cc}{platform-\/aix.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/base/platform/\mbox{\hyperlink{platform-aix_8cc}{platform-\/aix.\+cc}}\end{DoxyCompactItemize}

@@ -20,7 +20,11 @@ var namespacev8_1_1internal_1_1wasm_1_1gdb__server =
     [ "NibbleToUInt8", "namespacev8_1_1internal_1_1wasm_1_1gdb__server.html#a6c2288ae167f6952fd29112b1a5ac82f", null ],
     [ "ReturnPc", "namespacev8_1_1internal_1_1wasm_1_1gdb__server.html#a7632252f435e4bd47e0905303b882f81", null ],
     [ "StoreValue", "namespacev8_1_1internal_1_1wasm_1_1gdb__server.html#ad4aabd0b433a307a395db37385f1b33c", null ],
-    [ "StringSplit", "namespacev8_1_1internal_1_1wasm_1_1gdb__server.html#a0e4f012fed4406698442c00e3e9170ff", null ],
-    [ "StringSplit", "namespacev8_1_1internal_1_1wasm_1_1gdb__server.html#a3e0ba28ef66c5171a621115ade2c3bab", null ],
-    [ "UInt8ToHex", "namespacev8_1_1internal_1_1wasm_1_1gdb__server.html#a1a719d52ccabfecbc5b880099019a790", null ]
+    [ "StringSplit", "namespacev8_1_1internal_1_1wasm_1_1gdb__server.html#a7983d036d68226b36da620d885c9d44f", null ],
+    [ "UInt8ToHex", "namespacev8_1_1internal_1_1wasm_1_1gdb__server.html#a1a719d52ccabfecbc5b880099019a790", null ],
+    [ "kHexChars", "namespacev8_1_1internal_1_1wasm_1_1gdb__server.html#aa0fddfddf678cada9207743c861b03cd", null ],
+    [ "kMaxWasmCallStack", "namespacev8_1_1internal_1_1wasm_1_1gdb__server.html#a7e1a8f0ef1319c959964bf6091423329", null ],
+    [ "kSigSegv", "namespacev8_1_1internal_1_1wasm_1_1gdb__server.html#a87a075ecc0b02c3100d616abc0128fc9", null ],
+    [ "kSigTrace", "namespacev8_1_1internal_1_1wasm_1_1gdb__server.html#a7c2ba566873121e6e72f9d5191d3d27b", null ],
+    [ "kThreadId", "namespacev8_1_1internal_1_1wasm_1_1gdb__server.html#a77c47ba1dc50d5a27082c98f975a3baa", null ]
 ];

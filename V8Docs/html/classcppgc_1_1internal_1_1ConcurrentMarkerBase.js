@@ -16,5 +16,12 @@ var classcppgc_1_1internal_1_1ConcurrentMarkerBase =
     [ "NotifyIncrementalMutatorStepCompleted", "classcppgc_1_1internal_1_1ConcurrentMarkerBase.html#a88d2675832a8339a30cd5e74fe939307", null ],
     [ "NotifyOfWorkIfNeeded", "classcppgc_1_1internal_1_1ConcurrentMarkerBase.html#a9bce441a403738f319c38e1a46f6690a", null ],
     [ "operator=", "classcppgc_1_1internal_1_1ConcurrentMarkerBase.html#add1f76e73178eae48e7f66a6da357157", null ],
-    [ "Start", "classcppgc_1_1internal_1_1ConcurrentMarkerBase.html#a03d09306f716ce73f645748b24e91186", null ]
+    [ "Start", "classcppgc_1_1internal_1_1ConcurrentMarkerBase.html#a03d09306f716ce73f645748b24e91186", null ],
+    [ "concurrent_marking_handle_", "classcppgc_1_1internal_1_1ConcurrentMarkerBase.html#a99202bc4c7a5aa7add1273c28168f76b", null ],
+    [ "concurrent_marking_priority_increased_", "classcppgc_1_1internal_1_1ConcurrentMarkerBase.html#aa2e5d8ffc7d0393f4dc19931dec74850", null ],
+    [ "concurrently_marked_bytes_", "classcppgc_1_1internal_1_1ConcurrentMarkerBase.html#a78b106ab61471e70848014c0fda3aeff", null ],
+    [ "heap_", "classcppgc_1_1internal_1_1ConcurrentMarkerBase.html#a2901742c6a7951a62e48ec2df422ca88", null ],
+    [ "incremental_marking_schedule_", "classcppgc_1_1internal_1_1ConcurrentMarkerBase.html#a2350ea16a0584d513e0aaa54b1b08728", null ],
+    [ "marking_worklists_", "classcppgc_1_1internal_1_1ConcurrentMarkerBase.html#af92601ce3568b2a99b911e42e4ffdf5c", null ],
+    [ "platform_", "classcppgc_1_1internal_1_1ConcurrentMarkerBase.html#a90a060e1c66900e32df08d8c27b480f1", null ]
 ];

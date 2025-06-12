@@ -2,21 +2,47 @@
 \label{classv8_1_1TypecheckWitness}\index{v8::TypecheckWitness@{v8::TypecheckWitness}}
 
 
+Can be used to avoid repeated expensive type checks for groups of objects that are expected to be similar (e.\+g.  
+
+
+
+
 {\ttfamily \#include $<$v8-\/value.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::Typecheck\+Witness\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1TypecheckWitness__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1TypecheckWitness_a47b1512e8682cdea639e62791db720a7}{Typecheck\+Witness}} (\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+\mbox{\hyperlink{classv8_1_1TypecheckWitness_a47b1512e8682cdea639e62791db720a7}{Typecheck\+Witness}} (\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$isolate)
 \item 
-\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} bool \mbox{\hyperlink{classv8_1_1TypecheckWitness_aea4382d0b2380ff1ad44f2088bd8790b}{Matches}} (\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$ candidate) const
-\item 
+bool \mbox{\hyperlink{classv8_1_1TypecheckWitness_aea4382d0b2380ff1ad44f2088bd8790b}{Matches}} (\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$ candidate) const
+\begin{DoxyCompactList}\small\item\em Checks whether \{candidate\} can cheaply be identified as being \char`\"{}similar\char`\"{} to the \{baseline\} that was passed to \{Update\} earlier. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classv8_1_1TypecheckWitness_a0a6dd28f0e910c5944476cbc99026aff}{Update}} (\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$ baseline)
+\begin{DoxyCompactList}\small\item\em Remembers a new baseline for future \{Matches\} queries. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Data}{Data}} $>$ \mbox{\hyperlink{classv8_1_1TypecheckWitness_a00596b7e27852b452a52c843f6f40e2b}{cached\+\_\+map\+\_\+}}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Can be used to avoid repeated expensive type checks for groups of objects that are expected to be similar (e.\+g. when Blink converts a bunch of Java\+Script objects to \char`\"{}\+Script\+Wrappable\char`\"{} after a \char`\"{}\+Has\+Instance\char`\"{} check) by making use of V8-\/internal \char`\"{}hidden classes\char`\"{}. An object that has passed the full check can be remembered via \{Update\}; further objects can be queried using \{Matches\}. Note that the answer will be conservative/\char`\"{}best-\/effort\char`\"{}\+: when \{Matches\} returns true, then the \{candidate\} can be relied upon to have the same shape/constructor/prototype/etc. as the \{baseline\}. Otherwise, no reliable statement can be made (the objects might still have indistinguishable shapes for all intents and purposes, but this mechanism, being optimized for speed, couldn\textquotesingle{}t determine that quickly). 
+Can be used to avoid repeated expensive type checks for groups of objects that are expected to be similar (e.\+g. 
+
+when Blink converts a bunch of Java\+Script objects to \char`\"{}\+Script\+Wrappable\char`\"{} after a \char`\"{}\+Has\+Instance\char`\"{} check) by making use of V8-\/internal \char`\"{}hidden classes\char`\"{}. An object that has passed the full check can be remembered via \{Update\}; further objects can be queried using \{Matches\}. Note that the answer will be conservative/\char`\"{}best-\/effort\char`\"{}\+: when \{Matches\} returns true, then the \{candidate\} can be relied upon to have the same shape/constructor/prototype/etc. as the \{baseline\}. Otherwise, no reliable statement can be made (the objects might still have indistinguishable shapes for all intents and purposes, but this mechanism, being optimized for speed, couldn\textquotesingle{}t determine that quickly). 
+
+Definition at line 515 of file v8-\/value.\+h.
+
+
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1TypecheckWitness_a47b1512e8682cdea639e62791db720a7}\label{classv8_1_1TypecheckWitness_a47b1512e8682cdea639e62791db720a7}} 
@@ -27,22 +53,135 @@ Can be used to avoid repeated expensive type checks for groups of objects that a
 
 
 
+Definition at line 8343 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{8346     : \mbox{\hyperlink{classv8_1_1TypecheckWitness_a00596b7e27852b452a52c843f6f40e2b}{cached\_map\_}}()}
+\DoxyCodeLine{8347 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{8348     \textcolor{comment}{// We need to reserve a handle that we can patch later.}}
+\DoxyCodeLine{8349     \textcolor{comment}{// We initialize it with something that cannot compare equal to any map.}}
+\DoxyCodeLine{8350     : \mbox{\hyperlink{classv8_1_1TypecheckWitness_a00596b7e27852b452a52c843f6f40e2b}{cached\_map\_}}(\mbox{\hyperlink{classv8_1_1Number_a4d8822be251214dab4cf0212475ede76}{v8::Number::New}}(isolate, 1))}
+\DoxyCodeLine{8351 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{8352 \{}
+\DoxyCodeLine{8353 \}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1TypecheckWitness_aea4382d0b2380ff1ad44f2088bd8790b}\label{classv8_1_1TypecheckWitness_aea4382d0b2380ff1ad44f2088bd8790b}} 
 \index{v8::TypecheckWitness@{v8::TypecheckWitness}!Matches@{Matches}}
 \index{Matches@{Matches}!v8::TypecheckWitness@{v8::TypecheckWitness}}
 \doxysubsubsection{\texorpdfstring{Matches()}{Matches()}}
-{\footnotesize\ttfamily bool v8\+::\+Typecheck\+Witness\+::\+Matches (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$}]{candidate }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool v8\+::\+Typecheck\+Witness\+::\+Matches (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$}]{candidate }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-Checks whether \{candidate\} can cheaply be identified as being \char`\"{}similar\char`\"{} to the \{baseline\} that was passed to \{Update\} earlier. It\textquotesingle{}s safe to call this on an uninitialized \{\mbox{\hyperlink{classv8_1_1TypecheckWitness}{Typecheck\+Witness}}\} instance\+: it will then return \{false\} for any input. \mbox{\Hypertarget{classv8_1_1TypecheckWitness_a0a6dd28f0e910c5944476cbc99026aff}\label{classv8_1_1TypecheckWitness_a0a6dd28f0e910c5944476cbc99026aff}} 
+
+
+Checks whether \{candidate\} can cheaply be identified as being \char`\"{}similar\char`\"{} to the \{baseline\} that was passed to \{Update\} earlier. 
+
+It\textquotesingle{}s safe to call this on an uninitialized \{\mbox{\hyperlink{classv8_1_1TypecheckWitness}{Typecheck\+Witness}}\} instance\+: it will then return \{false\} for any input. 
+
+Definition at line 664 of file v8-\/value.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{664                                                            \{}
+\DoxyCodeLine{665   \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{internal::Address}} obj = \mbox{\hyperlink{classv8_1_1internal_1_1ValueHelper_a2032b423f5a859341b30210d1650111b}{internal::ValueHelper::ValueAsAddress}}(*candidate);}
+\DoxyCodeLine{666   \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{internal::Address}} obj\_map = \mbox{\hyperlink{classv8_1_1internal_1_1Internals_a00791b13781644445793b654e245e506}{internal::Internals::LoadMap}}(obj);}
+\DoxyCodeLine{667   \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{internal::Address}} cached =}
+\DoxyCodeLine{668       \mbox{\hyperlink{classv8_1_1internal_1_1ValueHelper_a2032b423f5a859341b30210d1650111b}{internal::ValueHelper::ValueAsAddress}}(*\mbox{\hyperlink{classv8_1_1TypecheckWitness_a00596b7e27852b452a52c843f6f40e2b}{cached\_map\_}});}
+\DoxyCodeLine{669   \textcolor{keywordflow}{return} obj\_map == cached;}
+\DoxyCodeLine{670 \}}
+
+\end{DoxyCode}
+
+
+References cached\+\_\+map\+\_\+, v8\+::internal\+::\+Internals\+::\+Load\+Map(), and v8\+::internal\+::\+Value\+Helper\+::\+Value\+As\+Address().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1TypecheckWitness_aea4382d0b2380ff1ad44f2088bd8790b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1TypecheckWitness_a0a6dd28f0e910c5944476cbc99026aff}\label{classv8_1_1TypecheckWitness_a0a6dd28f0e910c5944476cbc99026aff}} 
 \index{v8::TypecheckWitness@{v8::TypecheckWitness}!Update@{Update}}
 \index{Update@{Update}!v8::TypecheckWitness@{v8::TypecheckWitness}}
 \doxysubsubsection{\texorpdfstring{Update()}{Update()}}
 {\footnotesize\ttfamily void v8\+::\+Typecheck\+Witness\+::\+Update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$}]{baseline }\end{DoxyParamCaption})}
 
+
+
 Remembers a new baseline for future \{Matches\} queries. 
+
+
+
+Definition at line 8355 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{8355                                                      \{}
+\DoxyCodeLine{8356   \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{i::Tagged<i::Object>}} obj = *\mbox{\hyperlink{classv8_1_1Utils_a9d3ed89b4ca4e995ba472f8091ea424f}{Utils::OpenDirectHandle}}(*baseline);}
+\DoxyCodeLine{8357 \textcolor{preprocessor}{\#ifdef V8\_ENABLE\_DIRECT\_HANDLE}}
+\DoxyCodeLine{8358   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_ac299e59759eecb4621f6bad64d5db952}{IsSmi}}(obj)) \{}
+\DoxyCodeLine{8359     \mbox{\hyperlink{classv8_1_1TypecheckWitness_a00596b7e27852b452a52c843f6f40e2b}{cached\_map\_}} = Local<Data>();}
+\DoxyCodeLine{8360   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{8361     \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{i::Tagged<i::HeapObject>}} map = i::Cast<i::HeapObject>(obj)-\/>map();}
+\DoxyCodeLine{8362     \mbox{\hyperlink{classv8_1_1TypecheckWitness_a00596b7e27852b452a52c843f6f40e2b}{cached\_map\_}} = Local<Data>::FromAddress(map-\/>\mbox{\hyperlink{classv8_1_1internal_1_1TaggedImpl_a4dba1b2eafcf7a414910966f950540c9}{ptr}}());}
+\DoxyCodeLine{8363   \}}
+\DoxyCodeLine{8364 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{8365   \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{i::Tagged<i::Object>}} map = \mbox{\hyperlink{classv8_1_1internal_1_1Smi_a5386e0cc44bcfd6a13c8481b95f5652f}{i::Smi::zero}}();}
+\DoxyCodeLine{8366   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_ac299e59759eecb4621f6bad64d5db952}{IsSmi}}(obj)) map = i::Cast<i::HeapObject>(obj)-\/>map();}
+\DoxyCodeLine{8367   \textcolor{comment}{// Design overview: in the \{TypecheckWitness\} constructor, we create}}
+\DoxyCodeLine{8368   \textcolor{comment}{// a single handle for the witness value. Whenever \{Update\} is called, we}}
+\DoxyCodeLine{8369   \textcolor{comment}{// make this handle point at the fresh baseline/witness; the intention is}}
+\DoxyCodeLine{8370   \textcolor{comment}{// to allow having short-\/lived HandleScopes (e.g. in \{FastIterateArray\}}}
+\DoxyCodeLine{8371   \textcolor{comment}{// above) while a \{TypecheckWitness\} is alive: it therefore cannot hold}}
+\DoxyCodeLine{8372   \textcolor{comment}{// on to one of the short-\/lived handles.}}
+\DoxyCodeLine{8373   \textcolor{comment}{// Calling \{OpenIndirectHandle\} on the \{cached\_map\_\} only serves to}}
+\DoxyCodeLine{8374   \textcolor{comment}{// "{}reinterpret\_cast"{} it to an \{i::IndirectHandle\} on which we can call}}
+\DoxyCodeLine{8375   \textcolor{comment}{// \{PatchValue\}.}}
+\DoxyCodeLine{8376   \textcolor{keyword}{auto} cache = Utils::OpenIndirectHandle(*\mbox{\hyperlink{classv8_1_1TypecheckWitness_a00596b7e27852b452a52c843f6f40e2b}{cached\_map\_}});}
+\DoxyCodeLine{8377   cache.PatchValue(map);}
+\DoxyCodeLine{8378 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{8379 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Is\+Smi(), v8\+::\+Utils\+::\+Open\+Direct\+Handle(), v8\+::internal\+::\+Tagged\+Impl$<$ k\+Ref\+Type, Storage\+Type $>$\+::ptr(), and v8\+::internal\+::\+Smi\+::zero().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1TypecheckWitness_a0a6dd28f0e910c5944476cbc99026aff_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1TypecheckWitness_a00596b7e27852b452a52c843f6f40e2b}\label{classv8_1_1TypecheckWitness_a00596b7e27852b452a52c843f6f40e2b}} 
+\index{v8::TypecheckWitness@{v8::TypecheckWitness}!cached\_map\_@{cached\_map\_}}
+\index{cached\_map\_@{cached\_map\_}!v8::TypecheckWitness@{v8::TypecheckWitness}}
+\doxysubsubsection{\texorpdfstring{cached\_map\_}{cached\_map\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1Local}{Local}}$<$\mbox{\hyperlink{classv8_1_1Data}{Data}}$>$ v8\+::\+Typecheck\+Witness\+::cached\+\_\+map\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 533 of file v8-\/value.\+h.
+
+
+
+Referenced by Matches().
+
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-value_8h}{v8-\/value.\+h}}\item 
-\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/\mbox{\hyperlink{v8-value_8h}{v8-\/value.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/api/\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}

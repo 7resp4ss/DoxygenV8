@@ -9,6 +9,8 @@ var classv8_1_1internal_1_1PreParserStatement =
     ] ],
     [ "PreParserStatement", "classv8_1_1internal_1_1PreParserStatement.html#a5ecaf09deaed06f19ff53ec8a0aeebd6", null ],
     [ "cases", "classv8_1_1internal_1_1PreParserStatement.html#adb06e95a2aca4b7a80189d756723bfc7", null ],
+    [ "Default", "classv8_1_1internal_1_1PreParserStatement.html#a932e6f366056841f205219195c215da3", null ],
+    [ "ExpressionStatement", "classv8_1_1internal_1_1PreParserStatement.html#ad9e1f8acb632bc698f575884ee2d6339", null ],
     [ "Initialize", "classv8_1_1internal_1_1PreParserStatement.html#a4642826aab0b024c7e805b84cd8246e6", null ],
     [ "Initialize", "classv8_1_1internal_1_1PreParserStatement.html#aa45f097e5634ba4a4eb2d55db2208046", null ],
     [ "Initialize", "classv8_1_1internal_1_1PreParserStatement.html#ae01bbd488675cc473498c3c444c6e983", null ],
@@ -18,7 +20,11 @@ var classv8_1_1internal_1_1PreParserStatement =
     [ "IsJumpStatement", "classv8_1_1internal_1_1PreParserStatement.html#ab1e7081bc53eb7aca8b1b2b16a75ed02", null ],
     [ "IsNull", "classv8_1_1internal_1_1PreParserStatement.html#a4ae89bb1c614b58926739a0b5d7554de", null ],
     [ "IsStringLiteral", "classv8_1_1internal_1_1PreParserStatement.html#aab47f7768a864f9c66b066961e2b717c", null ],
+    [ "Iteration", "classv8_1_1internal_1_1PreParserStatement.html#a86fd52bcad94cf2f2a9f82f461a80eca", null ],
+    [ "Jump", "classv8_1_1internal_1_1PreParserStatement.html#aaa6ea3a564b5d61801de03d78059e0b4", null ],
+    [ "Null", "classv8_1_1internal_1_1PreParserStatement.html#a81582da92f174fb53081d0eef95295dd", null ],
     [ "operator->", "classv8_1_1internal_1_1PreParserStatement.html#a57e6701b998d51829325d47a9b7056f4", null ],
     [ "set_scope", "classv8_1_1internal_1_1PreParserStatement.html#a5b65120d83f5f027f9ebf87f62006272", null ],
-    [ "statements", "classv8_1_1internal_1_1PreParserStatement.html#a9578a3cf915e40464df62780c2ecb785", null ]
+    [ "statements", "classv8_1_1internal_1_1PreParserStatement.html#a9578a3cf915e40464df62780c2ecb785", null ],
+    [ "code_", "classv8_1_1internal_1_1PreParserStatement.html#a6d306e8d42f33a22e0e507c0999cf37b", null ]
 ];

@@ -4,6 +4,7 @@ var classv8_1_1internal_1_1compiler_1_1JSGraph =
     [ "JSGraph", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#aef485680ea698be3c082608630716d6a", null ],
     [ "BooleanConstant", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#a95bc9e84f905a25a1320bdeb4a43ca3c", null ],
     [ "CEntryStubConstant", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#a51b3037c9fbc3929a5f6fa48fe8185d8", null ],
+    [ "Constant", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#a10de9d4f95c33ec88f9a2c62d3c9a278", null ],
     [ "ConstantMaybeHole", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#a18d444c140b27ef393e39dc90c779274", null ],
     [ "ConstantMaybeHole", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#a0cb79e2fb730eea055b3ee47add49ac3", null ],
     [ "ConstantMutableHeapNumber", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#a6e52a9544a208f7ef4caa676f0e1c9e4", null ],
@@ -17,9 +18,13 @@ var classv8_1_1internal_1_1compiler_1_1JSGraph =
     [ "isolate", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#a3cdc4b9f4f26c716107febc5fbcc4d71", null ],
     [ "javascript", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#a8d4d26c021a7db680ab1cc0678a5b0d0", null ],
     [ "NoContextConstant", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#a753c7f3f8269b249fcc5e87fe8b71a70", null ],
+    [ "NumberConstant", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#a502e060a31f458df910afcc4cc4b6575", null ],
     [ "operator=", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#aa023bb2cf5f72e016081120c1d8be067", null ],
     [ "PaddingConstant", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#aee1711f156b3577ebe0a714ff3a30357", null ],
     [ "simplified", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#a2a5cfb117e5973314835de306e18ccae", null ],
     [ "SmiConstant", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#a122deaff5ad49bf7c475fb6a65f0ccf2", null ],
-    [ "TrustedHeapConstant", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#ac87f7be2eb07f1c1982ee03884abc9da", null ]
+    [ "TrustedHeapConstant", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#ac87f7be2eb07f1c1982ee03884abc9da", null ],
+    [ "isolate_", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#a7fff9d5f393337704c974102fef0f28d", null ],
+    [ "javascript_", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#a5bc7e5269b5329860f506d300c5ca3b6", null ],
+    [ "simplified_", "classv8_1_1internal_1_1compiler_1_1JSGraph.html#aa2b3d3107ccc78ff3fe6e038db4afdbe", null ]
 ];

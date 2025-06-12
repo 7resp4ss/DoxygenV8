@@ -2,6 +2,7 @@ var stats_collector_8h =
 [
     [ "StatsCollector", "classcppgc_1_1internal_1_1StatsCollector.html", "classcppgc_1_1internal_1_1StatsCollector" ],
     [ "Event", "structcppgc_1_1internal_1_1StatsCollector_1_1Event.html", "structcppgc_1_1internal_1_1StatsCollector_1_1Event" ],
+    [ "InternalScope", "classcppgc_1_1internal_1_1StatsCollector_1_1InternalScope.html", "classcppgc_1_1internal_1_1StatsCollector_1_1InternalScope" ],
     [ "AllocationObserver", "classcppgc_1_1internal_1_1StatsCollector_1_1AllocationObserver.html", "classcppgc_1_1internal_1_1StatsCollector_1_1AllocationObserver" ],
     [ "CPPGC_CASE", "stats-collector_8h.html#a6cefba0c0f8781cefc06ca0fedc310fa", null ],
     [ "CPPGC_CASE", "stats-collector_8h.html#a6cefba0c0f8781cefc06ca0fedc310fa", null ],

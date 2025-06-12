@@ -1,0 +1,81 @@
+Oilpan is an open-\/source garbage collection library for C++ that can be used stand-\/alone or in collaboration with V8\textquotesingle{}s Java\+Script garbage collector. Oilpan implements mark-\/and-\/sweep garbage collection (GC) with limited compaction (for a subset of objects).
+
+{\bfseries{Key properties}}
+
+
+\begin{DoxyItemize}
+\item Trace-\/based garbage collection;
+\item Incremental and concurrent marking;
+\item Incremental and concurrent sweeping;
+\item Precise on-\/heap memory layout;
+\item Conservative on-\/stack memory layout;
+\item Allows for collection with and without considering stack;
+\item Non-\/incremental and non-\/concurrent compaction for selected spaces;
+\end{DoxyItemize}
+
+See the \href{https://chromium.googlesource.com/v8/v8/+/main/samples/cppgc/hello-world.cc}{\texttt{ Hello World}} example on how to get started using Oilpan to manage C++ code.
+
+Oilpan follows V8\textquotesingle{}s project organization, see e.\+g. on how we accept \href{https://v8.dev/docs/contribute}{\texttt{ contributions}} and \href{https://v8.dev/docs/api}{\texttt{ provide a stable API}}.\hypertarget{md__mnt_V8SourceCode_include_cppgc_README_autotoc_md52}{}\doxysection{Threading model}\label{md__mnt_V8SourceCode_include_cppgc_README_autotoc_md52}
+Oilpan features thread-\/local garbage collection and assumes heaps are not shared among threads. In other words, objects are accessed and ultimately reclaimed by the garbage collector on the same thread that allocates them. This allows Oilpan to run garbage collection in parallel with mutators running in other threads.
+
+References to objects belonging to another thread\textquotesingle{}s heap are modeled using cross-\/thread roots. This is even true for on-\/heap to on-\/heap references.
+
+Oilpan heaps may generally not be accessed from different threads unless otherwise noted.\hypertarget{md__mnt_V8SourceCode_include_cppgc_README_autotoc_md53}{}\doxysection{Heap partitioning}\label{md__mnt_V8SourceCode_include_cppgc_README_autotoc_md53}
+Oilpan\textquotesingle{}s heaps are partitioned into spaces. The space for an object is chosen depending on a number of criteria, e.\+g.\+:
+
+
+\begin{DoxyItemize}
+\item Objects over 64KiB are allocated in a large object space
+\item Objects can be assigned to a dedicated custom space. Custom spaces can also be marked as compactable.
+\item Other objects are allocated in one of the normal page spaces bucketed depending on their size.
+\end{DoxyItemize}\hypertarget{md__mnt_V8SourceCode_include_cppgc_README_autotoc_md54}{}\doxysection{Precise and conservative garbage collection}\label{md__mnt_V8SourceCode_include_cppgc_README_autotoc_md54}
+Oilpan supports two kinds of GCs\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Conservative GC.}} A GC is called conservative when it is executed while the regular native stack is not empty. In this case, the native stack might contain references to objects in Oilpan\textquotesingle{}s heap, which should be kept alive. The GC scans the native stack and treats the pointers discovered via the native stack as part of the root set. This kind of GC is considered imprecise because values on stack other than references may accidentally appear as references to on-\/heap object, which means these objects will be kept alive despite being in practice unreachable from the application as an actual reference.
+\item {\bfseries{Precise GC.}} A precise GC is triggered at the end of an event loop, which is controlled by an embedder via a platform. At this point, it is guaranteed that there are no on-\/stack references pointing to Oilpan\textquotesingle{}s heap. This means there is no risk of confusing other value types with references. Oilpan has precise knowledge of on-\/heap object layouts, and so it knows exactly where pointers lie in memory. Oilpan can just start marking from the regular root set and collect all garbage precisely.
+\end{DoxyEnumerate}\hypertarget{md__mnt_V8SourceCode_include_cppgc_README_autotoc_md55}{}\doxysection{Atomic, incremental and concurrent garbage collection}\label{md__mnt_V8SourceCode_include_cppgc_README_autotoc_md55}
+Oilpan has three modes of operation\+:
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Atomic GC.}} The entire GC cycle, including all its phases (e.\+g. see \href{\#Marking-phase}{\texttt{ Marking}} and \href{\#Sweeping-phase}{\texttt{ Sweeping}}), are executed back to back in a single pause. This mode of operation is also known as Stop-\/\+The-\/\+World (STW) garbage collection. It results in the most jank (due to a single long pause), but is overall the most efficient (e.\+g. no need for write barriers).
+\item {\bfseries{Incremental GC.}} Garbage collection work is split up into multiple steps which are interleaved with the mutator, i.\+e. user code chunked into tasks. Each step is a small chunk of work that is executed either as dedicated tasks between mutator tasks or, as needed, during mutator tasks. Using incremental GC introduces the need for write barriers that record changes to the object graph so that a consistent state is observed and no objects are accidentally considered dead and reclaimed. The incremental steps are followed by a smaller atomic pause to finalize garbage collection. The smaller pause times, due to smaller chunks of work, helps with reducing jank.
+\item {\bfseries{Concurrent GC.}} This is the most common type of GC. It builds on top of incremental GC and offloads much of the garbage collection work away from the mutator thread and on to background threads. Using concurrent GC allows the mutator thread to spend less time on GC and more on the actual mutator.
+\end{DoxyEnumerate}\hypertarget{md__mnt_V8SourceCode_include_cppgc_README_autotoc_md56}{}\doxysection{Marking phase}\label{md__mnt_V8SourceCode_include_cppgc_README_autotoc_md56}
+The marking phase consists of the following steps\+:
+
+
+\begin{DoxyEnumerate}
+\item Mark all objects in the root set.
+\item Mark all objects transitively reachable from the root set by calling {\ttfamily Trace()} methods defined on each object.
+\item Clear out all weak handles to unreachable objects and run weak callbacks.
+\end{DoxyEnumerate}
+
+The marking phase can be executed atomically in a stop-\/the-\/world manner, in which all 3 steps are executed one after the other.
+
+Alternatively, it can also be executed incrementally/concurrently. With incremental/concurrent marking, step 1 is executed in a short pause after which the mutator regains control. Step 2 is repeatedly executed in an interleaved manner with the mutator. When the GC is ready to finalize, i.\+e. step 2 is (almost) finished, another short pause is triggered in which step 2 is finished and step 3 is performed.
+
+To prevent a user-\/after-\/free (UAF) issues it is required for Oilpan to know about all edges in the object graph. This means that all pointers except on-\/stack pointers must be wrapped with Oilpan\textquotesingle{}s handles (i.\+e., Persistent$<$$>$, Member$<$$>$, Weak\+Member$<$$>$). Raw pointers to on-\/heap objects create an edge that Oilpan cannot observe and cause UAF issues Thus, raw pointers shall not be used to reference on-\/heap objects (except for raw pointers on native stacks).\hypertarget{md__mnt_V8SourceCode_include_cppgc_README_autotoc_md57}{}\doxysection{Sweeping phase}\label{md__mnt_V8SourceCode_include_cppgc_README_autotoc_md57}
+The sweeping phase consists of the following steps\+:
+
+
+\begin{DoxyEnumerate}
+\item Invoke pre-\/finalizers. At this point, no destructors have been invoked and no memory has been reclaimed. Pre-\/finalizers are allowed to access any other on-\/heap objects, even those that may get destructed.
+\item Sweeping invokes destructors of the dead (unreachable) objects and reclaims memory to be reused by future allocations.
+\end{DoxyEnumerate}
+
+Assumptions should not be made about the order and the timing of their execution. There is no guarantee on the order in which the destructors are invoked. That\textquotesingle{}s why destructors must not access any other on-\/heap objects (which might have already been destructed). If some destructor unavoidably needs to access other on-\/heap objects, it will have to be converted to a pre-\/finalizer. The pre-\/finalizer is allowed to access other on-\/heap objects.
+
+The mutator is resumed before all destructors have ran. For example, imagine a case where X is a client of Y, and Y holds a list of clients. If the code relies on X\textquotesingle{}s destructor removing X from the list, there is a risk that Y iterates the list and calls some method of X which may touch other on-\/heap objects. This causes a use-\/after-\/free. Care must be taken to make sure that X is explicitly removed from the list before the mutator resumes its execution in a way that doesn\textquotesingle{}t rely on X\textquotesingle{}s destructor (e.\+g. a pre-\/finalizer).
+
+Similar to marking, sweeping can be executed in either an atomic stop-\/the-\/world manner or incrementally/concurrently. With incremental/concurrent sweeping, step 2 is interleaved with mutator. Incremental/concurrent sweeping can be atomically finalized in case it is needed to trigger another GC cycle. Even with concurrent sweeping, destructors are guaranteed to run on the thread the object has been allocated on to preserve C++ semantics.
+
+Notes\+:
+
+
+\begin{DoxyItemize}
+\item Weak processing runs only when the holder object of the Weak\+Member outlives the pointed object. If the holder object and the pointed object die at the same time, weak processing doesn\textquotesingle{}t run. It is wrong to write code assuming that the weak processing always runs.
+\item Pre-\/finalizers are heavy because the thread needs to scan all pre-\/finalizers at each sweeping phase to determine which pre-\/finalizers should be invoked (the thread needs to invoke pre-\/finalizers of dead objects). Adding pre-\/finalizers to frequently created objects should be avoided. 
+\end{DoxyItemize}

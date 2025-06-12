@@ -17,12 +17,128 @@ Collaboration diagram for v8\+::base\+::ZOSTimezone\+Cache\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=307pt]{classv8_1_1base_1_1ZOSTimezoneCache__coll__graph}
+\includegraphics[width=314pt]{classv8_1_1base_1_1ZOSTimezoneCache__coll__graph}
 \end{center}
 \end{figure}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \mbox{\hyperlink{classv8_1_1base_1_1ZOSTimezoneCache_acca60445c9c520bbe83c1da94eb80ef8}{Local\+Timezone}} (double \mbox{\hyperlink{flag-definitions_8h_a35294ca6f34ba906adefe31b21e5b765}{time}}) override
+\item 
+double \mbox{\hyperlink{classv8_1_1base_1_1ZOSTimezoneCache_acee4354ded9e628b617e26c19a163fe4}{Local\+Time\+Offset}} (double time\+\_\+ms, bool is\+\_\+utc) override
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1ZOSTimezoneCache_aef026fb547517e07dadbed18bf03793a}{$\sim$\+ZOSTimezone\+Cache}} () override
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 49 of file platform-\/zos.\+cc.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classv8_1_1base_1_1ZOSTimezoneCache_aef026fb547517e07dadbed18bf03793a}\label{classv8_1_1base_1_1ZOSTimezoneCache_aef026fb547517e07dadbed18bf03793a}} 
+\index{v8::base::ZOSTimezoneCache@{v8::base::ZOSTimezoneCache}!````~ZOSTimezoneCache@{$\sim$ZOSTimezoneCache}}
+\index{````~ZOSTimezoneCache@{$\sim$ZOSTimezoneCache}!v8::base::ZOSTimezoneCache@{v8::base::ZOSTimezoneCache}}
+\doxysubsubsection{\texorpdfstring{$\sim$ZOSTimezoneCache()}{~ZOSTimezoneCache()}}
+{\footnotesize\ttfamily v8\+::base\+::\+ZOSTimezone\+Cache\+::$\sim$\+ZOSTimezone\+Cache (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [private]}}
+
+
+
+Definition at line 52 of file platform-\/zos.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{52 \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1base_1_1ZOSTimezoneCache_acee4354ded9e628b617e26c19a163fe4}\label{classv8_1_1base_1_1ZOSTimezoneCache_acee4354ded9e628b617e26c19a163fe4}} 
+\index{v8::base::ZOSTimezoneCache@{v8::base::ZOSTimezoneCache}!LocalTimeOffset@{LocalTimeOffset}}
+\index{LocalTimeOffset@{LocalTimeOffset}!v8::base::ZOSTimezoneCache@{v8::base::ZOSTimezoneCache}}
+\doxysubsubsection{\texorpdfstring{LocalTimeOffset()}{LocalTimeOffset()}}
+{\footnotesize\ttfamily double v8\+::base\+::\+ZOSTimezone\+Cache\+::\+Local\+Time\+Offset (\begin{DoxyParamCaption}\item[{double}]{time\+\_\+ms,  }\item[{bool}]{is\+\_\+utc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classv8_1_1base_1_1TimezoneCache_a2be33f35f345692c7f667c1049d0a8aa}{v8\+::base\+::\+Timezone\+Cache}}.
+
+
+
+Definition at line 64 of file platform-\/zos.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{64                                                                     \{}
+\DoxyCodeLine{65   time\_t tv = \mbox{\hyperlink{flag-definitions_8h_a35294ca6f34ba906adefe31b21e5b765}{time}}(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{66   \textcolor{keyword}{struct }tm tmv;}
+\DoxyCodeLine{67   \textcolor{keyword}{struct }tm* gmt = gmtime\_r(\&tv, \&tmv);}
+\DoxyCodeLine{68   \textcolor{keywordtype}{double} gm\_secs = gmt-\/>tm\_sec + (gmt-\/>tm\_min * 60) + (gmt-\/>tm\_hour * 3600);}
+\DoxyCodeLine{69   \textcolor{keyword}{struct }tm* localt = localtime\_r(\&tv, \&tmv);}
+\DoxyCodeLine{70   \textcolor{keywordtype}{double} local\_secs =}
+\DoxyCodeLine{71       localt-\/>tm\_sec + (localt-\/>tm\_min * 60) + (localt-\/>tm\_hour * 3600);}
+\DoxyCodeLine{72   \textcolor{keywordflow}{return} (local\_secs -\/ gm\_secs) * \mbox{\hyperlink{classv8_1_1base_1_1PosixTimezoneCache_aec984ac734484b7002e060761844519d}{msPerSecond}} -\/}
+\DoxyCodeLine{73          (localt-\/>tm\_isdst > 0 ? 3600 * \mbox{\hyperlink{classv8_1_1base_1_1PosixTimezoneCache_aec984ac734484b7002e060761844519d}{msPerSecond}} : 0);}
+\DoxyCodeLine{74 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Posix\+Timezone\+Cache\+::ms\+Per\+Second, and time().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=317pt]{classv8_1_1base_1_1ZOSTimezoneCache_acee4354ded9e628b617e26c19a163fe4_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1base_1_1ZOSTimezoneCache_acca60445c9c520bbe83c1da94eb80ef8}\label{classv8_1_1base_1_1ZOSTimezoneCache_acca60445c9c520bbe83c1da94eb80ef8}} 
+\index{v8::base::ZOSTimezoneCache@{v8::base::ZOSTimezoneCache}!LocalTimezone@{LocalTimezone}}
+\index{LocalTimezone@{LocalTimezone}!v8::base::ZOSTimezoneCache@{v8::base::ZOSTimezoneCache}}
+\doxysubsubsection{\texorpdfstring{LocalTimezone()}{LocalTimezone()}}
+{\footnotesize\ttfamily const char $\ast$ v8\+::base\+::\+ZOSTimezone\+Cache\+::\+Local\+Timezone (\begin{DoxyParamCaption}\item[{double}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classv8_1_1base_1_1TimezoneCache_a9ba134992875f89981d8966b304b5667}{v8\+::base\+::\+Timezone\+Cache}}.
+
+
+
+Definition at line 55 of file platform-\/zos.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{55                                                        \{}
+\DoxyCodeLine{56   \textcolor{keywordflow}{if} (isnan(\mbox{\hyperlink{flag-definitions_8h_a35294ca6f34ba906adefe31b21e5b765}{time}})) \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{57   time\_t tv = \textcolor{keyword}{static\_cast<}time\_t\textcolor{keyword}{>}(std::floor(\mbox{\hyperlink{flag-definitions_8h_a35294ca6f34ba906adefe31b21e5b765}{time}} / \mbox{\hyperlink{classv8_1_1base_1_1PosixTimezoneCache_aec984ac734484b7002e060761844519d}{msPerSecond}}));}
+\DoxyCodeLine{58   \textcolor{keyword}{struct }tm tm;}
+\DoxyCodeLine{59   \textcolor{keyword}{struct }tm* t = localtime\_r(\&tv, \&tm);}
+\DoxyCodeLine{60   \textcolor{keywordflow}{if} (t == \textcolor{keyword}{nullptr}) \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{61   \textcolor{keywordflow}{return} tzname[0];}
+\DoxyCodeLine{62 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Posix\+Timezone\+Cache\+::ms\+Per\+Second, and time().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=317pt]{classv8_1_1base_1_1ZOSTimezoneCache_acca60445c9c520bbe83c1da94eb80ef8_cgraph}
+\end{center}
+\end{figure}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{platform-zos_8cc}{platform-\/zos.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/base/platform/\mbox{\hyperlink{platform-zos_8cc}{platform-\/zos.\+cc}}\end{DoxyCompactItemize}

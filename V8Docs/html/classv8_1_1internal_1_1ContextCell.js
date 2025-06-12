@@ -25,5 +25,9 @@ var classv8_1_1internal_1_1ContextCell =
     [ "maglev::MaglevAssembler", "classv8_1_1internal_1_1ContextCell.html#a23e0bac3332bb8e3ba46ae8b831d896e", null ],
     [ "maglev::MaglevGraphBuilder", "classv8_1_1internal_1_1ContextCell.html#a79207812fbc2a0a6e0e7a3e8ab7fdb05", null ],
     [ "ObjectTraits< ContextCell >", "classv8_1_1internal_1_1ContextCell.html#a0b3444e55219620648ab345e5e6e12f2", null ],
-    [ "TorqueGeneratedContextCellAsserts", "classv8_1_1internal_1_1ContextCell.html#a13231c3f5f402b11755c8e8d876fc672", null ]
+    [ "TorqueGeneratedContextCellAsserts", "classv8_1_1internal_1_1ContextCell.html#a13231c3f5f402b11755c8e8d876fc672", null ],
+    [ "dependent_code_", "classv8_1_1internal_1_1ContextCell.html#aa6f2d1334e7de89667d0b4772f792f4a", null ],
+    [ "double_value_", "classv8_1_1internal_1_1ContextCell.html#a740217690ac2b72d9b85dfef3f6a866c", null ],
+    [ "state_", "classv8_1_1internal_1_1ContextCell.html#af4cbb7003046220532edd98728ac3f43", null ],
+    [ "tagged_value_", "classv8_1_1internal_1_1ContextCell.html#aafa054de6554687ead6f3eda382edbc8", null ]
 ];

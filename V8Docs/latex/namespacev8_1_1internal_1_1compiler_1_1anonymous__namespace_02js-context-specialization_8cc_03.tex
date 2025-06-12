@@ -1,0 +1,124 @@
+\hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-context-specialization_8cc_03}{}\doxysection{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{js-\/context-\/specialization.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-context-specialization_8cc_03}\index{v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/context-\/specialization.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/context-\/specialization.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-context-specialization_8cc_03_a39f620ac51985553e0261020a66c82f6}{Is\+Context\+Parameter}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$node)
+\item 
+Optional\+Context\+Ref \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-context-specialization_8cc_03_a8ca3bbdc73eee0a74f544695580c2098}{Get\+Specialization\+Context}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSHeapBroker}{JSHeap\+Broker}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$node, \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} $\ast$distance, \mbox{\hyperlink{classv8_1_1Maybe}{Maybe}}$<$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1OuterContext}{Outer\+Context}} $>$ maybe\+\_\+outer)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-context-specialization_8cc_03_a8ca3bbdc73eee0a74f544695580c2098}\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-context-specialization_8cc_03_a8ca3bbdc73eee0a74f544695580c2098}} 
+\index{v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/context-\/specialization.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/context-\/specialization.cc\rcurly{}}!GetSpecializationContext@{GetSpecializationContext}}
+\index{GetSpecializationContext@{GetSpecializationContext}!v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/context-\/specialization.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/context-\/specialization.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{GetSpecializationContext()}{GetSpecializationContext()}}
+{\footnotesize\ttfamily Optional\+Context\+Ref v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{js-\/context-\/specialization.\+cc\}\+::Get\+Specialization\+Context (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSHeapBroker}{JSHeap\+Broker}} $\ast$}]{broker,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$}]{node,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} $\ast$}]{distance,  }\item[{\mbox{\hyperlink{classv8_1_1Maybe}{Maybe}}$<$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1OuterContext}{Outer\+Context}} $>$}]{maybe\+\_\+outer }\end{DoxyParamCaption})}
+
+
+
+Definition at line 150 of file js-\/context-\/specialization.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{152                                                                              \{}
+\DoxyCodeLine{153   \textcolor{keywordflow}{switch} (node-\/>opcode()) \{}
+\DoxyCodeLine{154     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_1_1Opmask_a0ada1f75f62be73dabab73507ca7bc14}{IrOpcode::kHeapConstant}}: \{}
+\DoxyCodeLine{155       \textcolor{comment}{// TODO(jgruber,chromium:1209798): Using kAssumeMemoryFence works around}}
+\DoxyCodeLine{156       \textcolor{comment}{// the fact that the graph stores handles (and not refs). The assumption}}
+\DoxyCodeLine{157       \textcolor{comment}{// is that any handle inserted into the graph is safe to read; but we}}
+\DoxyCodeLine{158       \textcolor{comment}{// don't preserve the reason why it is safe to read. Thus we must}}
+\DoxyCodeLine{159       \textcolor{comment}{// over-\/approximate here and assume the existence of a memory fence. In}}
+\DoxyCodeLine{160       \textcolor{comment}{// the future, we should consider having the graph store ObjectRefs or}}
+\DoxyCodeLine{161       \textcolor{comment}{// ObjectData pointer instead, which would make new ref construction here}}
+\DoxyCodeLine{162       \textcolor{comment}{// unnecessary.}}
+\DoxyCodeLine{163       HeapObjectRef \textcolor{keywordtype}{object} =}
+\DoxyCodeLine{164           \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_aadd543ca4fc16007d5d460c691e9b499}{MakeRefAssumeMemoryFence}}(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a45e66bc0df94fd85d0728c0d613de8bd}{HeapConstantOf}}(node-\/>op()));}
+\DoxyCodeLine{165       \textcolor{keywordflow}{if} (\textcolor{keywordtype}{object}.IsContext()) \textcolor{keywordflow}{return} \textcolor{keywordtype}{object}.AsContext();}
+\DoxyCodeLine{166       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{167     \}}
+\DoxyCodeLine{168     \textcolor{keywordflow}{case} IrOpcode::kParameter: \{}
+\DoxyCodeLine{169       OuterContext outer;}
+\DoxyCodeLine{170       \textcolor{keywordflow}{if} (maybe\_outer.To(\&outer) \&\& \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-context-specialization_8cc_03_a39f620ac51985553e0261020a66c82f6}{IsContextParameter}}(node) \&\&}
+\DoxyCodeLine{171           *distance >= outer.distance) \{}
+\DoxyCodeLine{172         *distance -\/= outer.distance;}
+\DoxyCodeLine{173         \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a07fc62c815cf253248770b0a3627b0e1}{MakeRef}}(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, outer.context);}
+\DoxyCodeLine{174       \}}
+\DoxyCodeLine{175       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{176     \}}
+\DoxyCodeLine{177     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{178       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{179   \}}
+\DoxyCodeLine{180   \textcolor{keywordflow}{return} OptionalContextRef();}
+\DoxyCodeLine{181 \}}
+
+\end{DoxyCode}
+
+
+References broker(), v8\+::internal\+::compiler\+::\+Outer\+Context\+::context, v8\+::internal\+::compiler\+::\+Outer\+Context\+::distance, v8\+::internal\+::compiler\+::\+Heap\+Constant\+Of(), Is\+Context\+Parameter(), v8\+::internal\+::compiler\+::\+Make\+Ref(), v8\+::internal\+::compiler\+::\+Make\+Ref\+Assume\+Memory\+Fence(), v8\+::internal\+::compiler\+::\+Node\+::op(), v8\+::internal\+::compiler\+::\+Node\+::opcode(), and v8\+::\+Maybe$<$ T $>$\+::\+To().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+JSContext\+Specialization\+::\+Reduce\+JSLoad\+Context(), v8\+::internal\+::compiler\+::\+JSContext\+Specialization\+::\+Reduce\+JSLoad\+Context\+No\+Cell(), v8\+::internal\+::compiler\+::\+JSContext\+Specialization\+::\+Reduce\+JSStore\+Context(), and v8\+::internal\+::compiler\+::\+JSContext\+Specialization\+::\+Reduce\+JSStore\+Context\+No\+Cell().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-context-specialization_8cc_03_a8ca3bbdc73eee0a74f544695580c2098_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-context-specialization_8cc_03_a8ca3bbdc73eee0a74f544695580c2098_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-context-specialization_8cc_03_a39f620ac51985553e0261020a66c82f6}\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-context-specialization_8cc_03_a39f620ac51985553e0261020a66c82f6}} 
+\index{v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/context-\/specialization.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/context-\/specialization.cc\rcurly{}}!IsContextParameter@{IsContextParameter}}
+\index{IsContextParameter@{IsContextParameter}!v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/context-\/specialization.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/context-\/specialization.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{IsContextParameter()}{IsContextParameter()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{js-\/context-\/specialization.\+cc\}\+::Is\+Context\+Parameter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 139 of file js-\/context-\/specialization.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{139                                     \{}
+\DoxyCodeLine{140   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(IrOpcode::kParameter, node-\/>opcode());}
+\DoxyCodeLine{141   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a59ecd823aeea937b8f68f1771bc80f7b}{ParameterIndexOf}}(node-\/>op()) ==}
+\DoxyCodeLine{142          StartNode\{NodeProperties::GetValueInput(node, 0)\}}
+\DoxyCodeLine{143              .ContextParameterIndex\_MaybeNonStandardLayout();}
+\DoxyCodeLine{144 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+EQ, v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Get\+Value\+Input(), v8\+::internal\+::compiler\+::\+Node\+::op(), v8\+::internal\+::compiler\+::\+Node\+::opcode(), and v8\+::internal\+::compiler\+::\+Parameter\+Index\+Of().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Get\+Module\+Context(), and Get\+Specialization\+Context().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-context-specialization_8cc_03_a39f620ac51985553e0261020a66c82f6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-context-specialization_8cc_03_a39f620ac51985553e0261020a66c82f6_icgraph}
+\end{center}
+\end{figure}

@@ -9,5 +9,6 @@ var classv8_1_1internal_1_1torque_1_1Symbol =
     [ "operator=", "classv8_1_1internal_1_1torque_1_1Symbol.html#ab17f4836195f44267699e932fcbca957", null ],
     [ "rule", "classv8_1_1internal_1_1torque_1_1Symbol.html#aae85194b81a8bff81bc29d9f02231641", null ],
     [ "rule_number", "classv8_1_1internal_1_1torque_1_1Symbol.html#a71ae8189492b69034585039e84dbd703", null ],
-    [ "RunAction", "classv8_1_1internal_1_1torque_1_1Symbol.html#a36fe4e2ca6cb7393b1cae941313b4466", null ]
+    [ "RunAction", "classv8_1_1internal_1_1torque_1_1Symbol.html#a36fe4e2ca6cb7393b1cae941313b4466", null ],
+    [ "rules_", "classv8_1_1internal_1_1torque_1_1Symbol.html#ab65a1d32b9ab320db18e2d2be0e79e13", null ]
 ];

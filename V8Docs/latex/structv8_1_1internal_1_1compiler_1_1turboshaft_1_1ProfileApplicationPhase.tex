@@ -4,11 +4,28 @@
 
 {\ttfamily \#include $<$instruction-\/selection-\/phase.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Profile\+Application\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=273pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ProfileApplicationPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ProfileApplicationPhase_abc86d11db2f5493daac1d9c1961c9c7c}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData}{Pipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone, const \mbox{\hyperlink{classv8_1_1internal_1_1ProfileDataFromFile}{Profile\+Data\+From\+File}} $\ast$profile)
+void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ProfileApplicationPhase_abc86d11db2f5493daac1d9c1961c9c7c}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData}{Pipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone, const \mbox{\hyperlink{classv8_1_1internal_1_1ProfileDataFromFile}{Profile\+Data\+From\+File}} $\ast$profile)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 115 of file instruction-\/selection-\/phase.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -20,7 +37,41 @@ void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ProfileA
 
 
 
+Definition at line 298 of file instruction-\/selection-\/phase.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{299                                                                       \{}
+\DoxyCodeLine{300   Graph\& \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}} = data-\/>graph();}
+\DoxyCodeLine{301   \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& op : \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}.AllOperations()) \{}
+\DoxyCodeLine{302     \textcolor{keywordflow}{if} (BranchOp* branch = op.TryCast<BranchOp>()) \{}
+\DoxyCodeLine{303       uint32\_t true\_block\_id = branch-\/>if\_true-\/>index().id();}
+\DoxyCodeLine{304       uint32\_t false\_block\_id = branch-\/>if\_false-\/>index().id();}
+\DoxyCodeLine{305       \mbox{\hyperlink{namespacev8_1_1internal_ab5a4f63d4df50ea3fd9299c981ae3187}{BranchHint}} hint = profile-\/>GetHint(true\_block\_id, false\_block\_id);}
+\DoxyCodeLine{306       \textcolor{keywordflow}{if} (hint != \mbox{\hyperlink{namespacev8_1_1internal_ab5a4f63d4df50ea3fd9299c981ae3187a35c3ace1970663a16e5c65baa5941b13}{BranchHint::kNone}}) \{}
+\DoxyCodeLine{307         \textcolor{comment}{// We update the hint in-\/place.}}
+\DoxyCodeLine{308         branch-\/>hint = hint;}
+\DoxyCodeLine{309       \}}
+\DoxyCodeLine{310     \}}
+\DoxyCodeLine{311   \}}
+\DoxyCodeLine{312 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Profile\+Data\+From\+File\+::\+Get\+Hint(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::graph(), graph(), v8\+::internal\+::k\+None, and v8\+::internal\+::compiler\+::turboshaft\+::\+Operation\+::\+Try\+Cast().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ProfileApplicationPhase_abc86d11db2f5493daac1d9c1961c9c7c_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{instruction-selection-phase_8h}{instruction-\/selection-\/phase.\+h}}\item 
-\mbox{\hyperlink{instruction-selection-phase_8cc}{instruction-\/selection-\/phase.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{instruction-selection-phase_8h}{instruction-\/selection-\/phase.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{instruction-selection-phase_8cc}{instruction-\/selection-\/phase.\+cc}}\end{DoxyCompactItemize}

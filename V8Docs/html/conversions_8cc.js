@@ -5,11 +5,28 @@ var conversions_8cc =
     [ "NumberParseIntHelper", "classv8_1_1internal_1_1NumberParseIntHelper.html", "classv8_1_1internal_1_1NumberParseIntHelper" ],
     [ "StringToBigIntHelper", "classv8_1_1internal_1_1StringToBigIntHelper.html", "classv8_1_1internal_1_1StringToBigIntHelper" ],
     [ "FPCLASSIFY_NAMESPACE", "conversions_8cc.html#afde0431a7f73e337eb10eaf8fc7ae5e7", null ],
+    [ "Sign", "conversions_8cc.html#a6cb01a1f4823d4e05a885e0d03b8fe2d", [
+      [ "kNegative", "conversions_8cc.html#a6cb01a1f4823d4e05a885e0d03b8fe2da25b105cbe0fd4622cdb36360c85e89c3", null ],
+      [ "kPositive", "conversions_8cc.html#a6cb01a1f4823d4e05a885e0d03b8fe2dafe449700ac27fbd09863263d74e7735f", null ],
+      [ "kNone", "conversions_8cc.html#a6cb01a1f4823d4e05a885e0d03b8fe2da35c3ace1970663a16e5c65baa5941b13", null ]
+    ] ],
+    [ "State", "conversions_8cc.html#a38fbaa06b6874aa41823cd9433129e5e", [
+      [ "kRunning", "conversions_8cc.html#a38fbaa06b6874aa41823cd9433129e5ea2fc7fbf0d19294f85dd3880460dd3c0a", null ],
+      [ "kError", "conversions_8cc.html#a38fbaa06b6874aa41823cd9433129e5eae3587c730cc1aa530fa4ddc9c4204e97", null ],
+      [ "kJunk", "conversions_8cc.html#a38fbaa06b6874aa41823cd9433129e5eaa4ee53181d6c56eee8eb881a240608de", null ],
+      [ "kEmpty", "conversions_8cc.html#a38fbaa06b6874aa41823cd9433129e5ea65d0c57fb98927f91459ad92c864def8", null ],
+      [ "kZero", "conversions_8cc.html#a38fbaa06b6874aa41823cd9433129e5ea941d5a341a6f6a7a3986952dda4e9445", null ],
+      [ "kDone", "conversions_8cc.html#a38fbaa06b6874aa41823cd9433129e5ea9e2024e27d037d51bb46ef86d2e0ea4d", null ]
+    ] ],
     [ "AdvanceToNonspace", "conversions_8cc.html#a522270ac4fdb3c7d1ccc515b82162dda", null ],
     [ "BigIntLiteral", "conversions_8cc.html#a5c6cd52d29b1702862607c7e6f87c1bd", null ],
     [ "BigIntLiteralToDecimal", "conversions_8cc.html#afaca811e9d3f0deb233413dc4dacd8f4", null ],
     [ "BinaryStringToDouble", "conversions_8cc.html#a7115cac3559d1bc540f1d7f062c664bf", null ],
+    [ "Convert2Digits", "conversions_8cc.html#af65261fd51f9c02625466c653de6e1d5", null ],
+    [ "Convert8Digits", "conversions_8cc.html#abbaaf206d91bedbea0f0f39b9d1f8613", null ],
+    [ "ConvertHeadDigits", "conversions_8cc.html#a89cba4eab743cfac7c9a652681a63f35", null ],
     [ "ConvertUpTo9Digits", "conversions_8cc.html#a3b4be298f492757b5874dddf928d08e5", null ],
+    [ "CreateExponentialRepresentation", "conversions_8cc.html#a4ce1242cd13d12812dc19c55c9b9e625", null ],
     [ "DoubleToExponentialStringView", "conversions_8cc.html#a833665896ef7ac47ea7ecd26aea3b97c", null ],
     [ "DoubleToFixedStringView", "conversions_8cc.html#ae27e762b16a752bd14572e714fbe312d", null ],
     [ "DoubleToFloat32_NoInline", "conversions_8cc.html#aab1caac71305ee0a9ecb668a0485ee4a", null ],
@@ -41,5 +58,7 @@ var conversions_8cc =
     [ "SubStringEquals", "conversions_8cc.html#acf0b4402bd069f09d2e802835f2b9df0", null ],
     [ "TryStringToDouble", "conversions_8cc.html#a18ec2c44d442d408aceaf617cdc2d857", null ],
     [ "TryStringToInt", "conversions_8cc.html#ac9bbe4476adc3336a98a3ad17e920bcf", null ],
+    [ "kRadix100HeadTable", "conversions_8cc.html#a32e522330f5f5eeddbbd451f97fde39c", null ],
+    [ "kRadix100Table", "conversions_8cc.html#a28544b517eb04a5f89fcfbbe3be8736d", null ],
     [ "string", "conversions_8cc.html#af68b330f02476361ab10f531933b3381", null ]
 ];

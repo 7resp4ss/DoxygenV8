@@ -1,6 +1,24 @@
 var string_8cc =
 [
+    [ "WriteToFlat_RepeatOptimizer", "classv8_1_1internal_1_1anonymous__namespace_02string_8cc_03_1_1WriteToFlat__RepeatOptimizer.html", "classv8_1_1internal_1_1anonymous__namespace_02string_8cc_03_1_1WriteToFlat__RepeatOptimizer" ],
+    [ "wtf_stack_t", "string_8cc.html#a77212673c855017405f00a2e4651495a", null ],
+    [ "wtf_stack_top_t", "string_8cc.html#a60c185b0f8c838c3e07c7beee002d08e", null ],
+    [ "WriteToFlatImplVariant", "string_8cc.html#a6b5e403b865765acb725382b6ab080f6", [
+      [ "kWTFSeqOneByte", "string_8cc.html#a6b5e403b865765acb725382b6ab080f6a39115a7c10a683c8de51ab70b79b0ed1", null ],
+      [ "kWTFGeneric", "string_8cc.html#a6b5e403b865765acb725382b6ab080f6aa70b4a61cec0dc2733eae6cf5f721284", null ]
+    ] ],
+    [ "CalculateLineEndsImpl", "string_8cc.html#ae21e114b7a6cc5dbea6a2d6fb307acb2", null ],
+    [ "ComputeExternalStringMap", "string_8cc.html#a0d325d971dd168d32d6b2d7aa4118dd1", null ],
+    [ "HashString", "string_8cc.html#a09e2f9ff175d91d06e99e984ad1fd1de", null ],
+    [ "IsIdentifierVector", "string_8cc.html#a81e16e491a0fd7c856a1971413807626", null ],
+    [ "MigrateExternalString", "string_8cc.html#ae34108ddb11abf4614a2a8e1b3057c72", null ],
+    [ "MigrateExternalStringResource", "string_8cc.html#ade84dbbeeef3c422320162598300deaf", null ],
     [ "requires", "string_8cc.html#a599de70d843f3d6aa5bbf9fab4e460c8", null ],
-    [ "enabled_", "string_8cc.html#ab6dfcb3e6c79f4def1295fea7f0de8c0", null ],
-    [ "first_occurrence_", "string_8cc.html#a531023b7b85918860f62ad26f6313fbb", null ]
+    [ "SearchString", "string_8cc.html#ae240c0c3e0ac76dbf86572d04bd60aff", null ],
+    [ "StringMatchBackwards", "string_8cc.html#a6ef90fdbe7f550321e0ba894283ee41a", null ],
+    [ "ToValidIndex", "string_8cc.html#a4d6c438ddde7de69dbf2e5cd3b27542a", null ],
+    [ "WriteNonConsToFlat2", "string_8cc.html#ac732c05eb3b1b4b97b36b40f4c489b37", null ],
+    [ "WriteToFlat2Impl", "string_8cc.html#a594af923a523f3a9a42001835461d0f4", null ],
+    [ "wtf_push", "string_8cc.html#afbd2d9caf24ef62567944b1595e9d3aa", null ],
+    [ "wtf_try_pop", "string_8cc.html#a4c9e282de26361674d6cdf914d4f4c08", null ]
 ];

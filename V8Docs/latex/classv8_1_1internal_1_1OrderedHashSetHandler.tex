@@ -27,10 +27,17 @@ Collaboration diagram for v8\+::internal\+::Ordered\+Hash\+Set\+Handler\+:
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{classv8_1_1internal_1_1MaybeHandle}{Maybe\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1OrderedHashSetHandler_a96a6c7502525ce66c85227b85493b416}{Add}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ table, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}})
+static \mbox{\hyperlink{classv8_1_1internal_1_1MaybeHandle}{Maybe\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1OrderedHashSetHandler_a96a6c7502525ce66c85227b85493b416}{Add}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ table, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}})
 \item 
-static \mbox{\hyperlink{classv8_1_1internal_1_1MaybeHandle}{Maybe\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1OrderedHashSet}{Ordered\+Hash\+Set}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1OrderedHashSetHandler_a21321591f5bbfd5550b764410d16b3ef}{Adjust\+Representation}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1SmallOrderedHashSet}{Small\+Ordered\+Hash\+Set}} $>$ table)
+static \mbox{\hyperlink{classv8_1_1internal_1_1MaybeHandle}{Maybe\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1OrderedHashSet}{Ordered\+Hash\+Set}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1OrderedHashSetHandler_a21321591f5bbfd5550b764410d16b3ef}{Adjust\+Representation}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1SmallOrderedHashSet}{Small\+Ordered\+Hash\+Set}} $>$ table)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 768 of file ordered-\/hash-\/table.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -40,6 +47,45 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1MaybeHandle}{Maybe\+Handle}}$<$ \
 \doxysubsubsection{\texorpdfstring{Add()}{Add()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MaybeHandle}{Maybe\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ v8\+::internal\+::\+Ordered\+Hash\+Set\+Handler\+::\+Add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$}]{table,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 1267 of file ordered-\/hash-\/table.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1269                                                                              \{}
+\DoxyCodeLine{1270   \textcolor{keywordflow}{if} (IsSmallOrderedHashSet(*table)) \{}
+\DoxyCodeLine{1271     Handle<SmallOrderedHashSet> small\_set = Cast<SmallOrderedHashSet>(table);}
+\DoxyCodeLine{1272     MaybeHandle<SmallOrderedHashSet> new\_set =}
+\DoxyCodeLine{1273         \mbox{\hyperlink{classv8_1_1internal_1_1SmallOrderedHashSet_a5e54a45f159ec3f833c38a4890748d49}{SmallOrderedHashSet::Add}}(isolate, small\_set, \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}});}
+\DoxyCodeLine{1274     \textcolor{keywordflow}{if} (!new\_set.is\_null()) \textcolor{keywordflow}{return} new\_set.ToHandleChecked();}
+\DoxyCodeLine{1275 }
+\DoxyCodeLine{1276     \textcolor{comment}{// We couldn't add to the small table, let's migrate to the}}
+\DoxyCodeLine{1277     \textcolor{comment}{// big table.}}
+\DoxyCodeLine{1278     MaybeHandle<OrderedHashSet> table\_candidate =}
+\DoxyCodeLine{1279         \mbox{\hyperlink{classv8_1_1internal_1_1OrderedHashSetHandler_a21321591f5bbfd5550b764410d16b3ef}{OrderedHashSetHandler::AdjustRepresentation}}(isolate, small\_set);}
+\DoxyCodeLine{1280     \textcolor{keywordflow}{if} (!table\_candidate.ToHandle(\&table)) \{}
+\DoxyCodeLine{1281       \textcolor{keywordflow}{return} table\_candidate;}
+\DoxyCodeLine{1282     \}}
+\DoxyCodeLine{1283   \}}
+\DoxyCodeLine{1284 }
+\DoxyCodeLine{1285   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(IsOrderedHashSet(*table));}
+\DoxyCodeLine{1286   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1bigint_a6d4d2ce18897aba0f90b3208eca29a5b}{OrderedHashSet::Add}}(isolate, Cast<OrderedHashSet>(table), \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}});}
+\DoxyCodeLine{1287 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::bigint\+::\+Add(), DCHECK, v8\+::internal\+::\+Maybe\+Handle$<$ T $>$\+::is\+\_\+null(), v8\+::internal\+::key, v8\+::internal\+::\+Maybe\+Handle$<$ T $>$\+::\+To\+Handle(), and v8\+::internal\+::\+Maybe\+Handle$<$ T $>$\+::\+To\+Handle\+Checked().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1OrderedHashSetHandler_a96a6c7502525ce66c85227b85493b416_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1OrderedHashSetHandler_a21321591f5bbfd5550b764410d16b3ef}\label{classv8_1_1internal_1_1OrderedHashSetHandler_a21321591f5bbfd5550b764410d16b3ef}} 
 \index{v8::internal::OrderedHashSetHandler@{v8::internal::OrderedHashSetHandler}!AdjustRepresentation@{AdjustRepresentation}}
 \index{AdjustRepresentation@{AdjustRepresentation}!v8::internal::OrderedHashSetHandler@{v8::internal::OrderedHashSetHandler}}
@@ -48,7 +94,49 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1MaybeHandle}{Maybe\+Handle}}$<$ \
 
 
 
+Definition at line 1192 of file ordered-\/hash-\/table.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1193                                                                \{}
+\DoxyCodeLine{1194   MaybeHandle<OrderedHashSet> new\_table\_candidate =}
+\DoxyCodeLine{1195       \mbox{\hyperlink{classv8_1_1internal_1_1OrderedHashSet_a38f08ed452cc3e785d9db2e9de14782a}{OrderedHashSet::Allocate}}(isolate, OrderedHashTableMinSize);}
+\DoxyCodeLine{1196   Handle<OrderedHashSet> new\_table;}
+\DoxyCodeLine{1197   \textcolor{keywordflow}{if} (!new\_table\_candidate.ToHandle(\&new\_table)) \{}
+\DoxyCodeLine{1198     \textcolor{keywordflow}{return} new\_table\_candidate;}
+\DoxyCodeLine{1199   \}}
+\DoxyCodeLine{1200 }
+\DoxyCodeLine{1201   \textcolor{comment}{// TODO(gsathya): Optimize the lookup to not re calc offsets. Also,}}
+\DoxyCodeLine{1202   \textcolor{comment}{// unhandlify this code as we preallocate the new backing store with}}
+\DoxyCodeLine{1203   \textcolor{comment}{// the proper capacity.}}
+\DoxyCodeLine{1204   \textcolor{keywordflow}{for} (InternalIndex entry : table-\/>IterateEntries()) \{}
+\DoxyCodeLine{1205     DirectHandle<Object> \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}(table-\/>KeyAt(entry), isolate);}
+\DoxyCodeLine{1206     \textcolor{keywordflow}{if} (IsTheHole(*\mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}, isolate)) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{1207     new\_table\_candidate = \mbox{\hyperlink{namespacev8_1_1bigint_a6d4d2ce18897aba0f90b3208eca29a5b}{OrderedHashSet::Add}}(isolate, new\_table, \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}});}
+\DoxyCodeLine{1208     \textcolor{keywordflow}{if} (!new\_table\_candidate.ToHandle(\&new\_table)) \{}
+\DoxyCodeLine{1209       \textcolor{keywordflow}{return} new\_table\_candidate;}
+\DoxyCodeLine{1210     \}}
+\DoxyCodeLine{1211   \}}
+\DoxyCodeLine{1212 }
+\DoxyCodeLine{1213   \textcolor{keywordflow}{return} new\_table\_candidate;}
+\DoxyCodeLine{1214 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::bigint\+::\+Add(), v8\+::base\+::anonymous\+\_\+namespace\{platform-\/posix.\+cc\}\+::\+Allocate(), v8\+::internal\+::key, and v8\+::internal\+::\+Maybe\+Handle$<$ T $>$\+::\+To\+Handle().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1OrderedHashSetHandler_a21321591f5bbfd5550b764410d16b3ef_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{ordered-hash-table_8h}{ordered-\/hash-\/table.\+h}}\item 
-\mbox{\hyperlink{ordered-hash-table_8cc}{ordered-\/hash-\/table.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{ordered-hash-table_8h}{ordered-\/hash-\/table.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{ordered-hash-table_8cc}{ordered-\/hash-\/table.\+cc}}\end{DoxyCompactItemize}

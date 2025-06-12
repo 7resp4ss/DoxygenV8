@@ -9,5 +9,9 @@ var classv8_1_1internal_1_1OptimizingCompileInputQueue =
     [ "IsAvailable", "classv8_1_1internal_1_1OptimizingCompileInputQueue.html#aa33d5003137beafed9d250cd0f4f1252", null ],
     [ "Length", "classv8_1_1internal_1_1OptimizingCompileInputQueue.html#ad61d56c6ddf2b19150b59f1c4d8baf86", null ],
     [ "Prioritize", "classv8_1_1internal_1_1OptimizingCompileInputQueue.html#aac88f21e8482d286b81f6e711812f697", null ],
-    [ "OptimizingCompileTaskExecutor", "classv8_1_1internal_1_1OptimizingCompileInputQueue.html#a583c1b2bb51cda4ff6973a3d8e64dd8d", null ]
+    [ "OptimizingCompileTaskExecutor", "classv8_1_1internal_1_1OptimizingCompileInputQueue.html#a583c1b2bb51cda4ff6973a3d8e64dd8d", null ],
+    [ "capacity_", "classv8_1_1internal_1_1OptimizingCompileInputQueue.html#a8f45b07e7b44b8092b649b6f8999908b", null ],
+    [ "mutex_", "classv8_1_1internal_1_1OptimizingCompileInputQueue.html#aa9e97e2d8b01ed6a8af4929a4e16b553", null ],
+    [ "queue_", "classv8_1_1internal_1_1OptimizingCompileInputQueue.html#a85d3d3d7e7b40402eb179d1261fb1b2b", null ],
+    [ "task_finished_", "classv8_1_1internal_1_1OptimizingCompileInputQueue.html#af74ab3996083db39463d2e6b85e826e4", null ]
 ];

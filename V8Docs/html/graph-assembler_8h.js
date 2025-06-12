@@ -7,6 +7,7 @@ var graph_assembler_8h =
     [ "GraphAssemblerLabelForXHelper< T, std::enable_if_t< std::is_assignable_v< T &, U > >, base::SmallVector< U, 4 > >", "structv8_1_1internal_1_1compiler_1_1detail_1_1GraphAssemblerLabelForXHelper_3_01T_00_01std_1_1en0ca02d8e07c2eb09c93292a5534e8ba3.html", "structv8_1_1internal_1_1compiler_1_1detail_1_1GraphAssemblerLabelForXHelper_3_01T_00_01std_1_1en0ca02d8e07c2eb09c93292a5534e8ba3" ],
     [ "GraphAssembler", "classv8_1_1internal_1_1compiler_1_1GraphAssembler.html", "classv8_1_1internal_1_1compiler_1_1GraphAssembler" ],
     [ "LoopScope", "classv8_1_1internal_1_1compiler_1_1GraphAssembler_1_1LoopScope.html", "classv8_1_1internal_1_1compiler_1_1GraphAssembler_1_1LoopScope" ],
+    [ "LoopScopeInternal", "classv8_1_1internal_1_1compiler_1_1GraphAssembler_1_1LoopScope_1_1LoopScopeInternal.html", "classv8_1_1internal_1_1compiler_1_1GraphAssembler_1_1LoopScope_1_1LoopScopeInternal" ],
     [ "RestoreEffectControlScope", "classv8_1_1internal_1_1compiler_1_1GraphAssembler_1_1RestoreEffectControlScope.html", "classv8_1_1internal_1_1compiler_1_1GraphAssembler_1_1RestoreEffectControlScope" ],
     [ "JSGraphAssembler", "classv8_1_1internal_1_1compiler_1_1JSGraphAssembler.html", "classv8_1_1internal_1_1compiler_1_1JSGraphAssembler" ],
     [ "CatchScope", "classv8_1_1internal_1_1compiler_1_1JSGraphAssembler_1_1CatchScope.html", "classv8_1_1internal_1_1compiler_1_1JSGraphAssembler_1_1CatchScope" ],

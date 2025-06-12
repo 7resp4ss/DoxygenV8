@@ -1,10 +1,27 @@
 \hypertarget{structv8_1_1internal_1_1compiler_1_1UntyperPhase}{}\doxysection{v8\+::internal\+::compiler\+::Untyper\+Phase Struct Reference}
 \label{structv8_1_1internal_1_1compiler_1_1UntyperPhase}\index{v8::internal::compiler::UntyperPhase@{v8::internal::compiler::UntyperPhase}}
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Untyper\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{structv8_1_1internal_1_1compiler_1_1UntyperPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1UntyperPhase_aef7de39c2000f415a8e6faf0242c6659}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
+void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1UntyperPhase_aef7de39c2000f415a8e6faf0242c6659}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1063 of file pipeline.\+cc.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -16,6 +33,52 @@ void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1UntyperPhase_aef7de39c
 
 
 
+Definition at line 1066 of file pipeline.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1066                                                   \{}
+\DoxyCodeLine{1067     \textcolor{keyword}{class }RemoveTypeReducer final : \textcolor{keyword}{public} Reducer \{}
+\DoxyCodeLine{1068      \textcolor{keyword}{public}:}
+\DoxyCodeLine{1069       \textcolor{keyword}{const} \textcolor{keywordtype}{char}* reducer\_name()\textcolor{keyword}{ const override }\{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}RemoveTypeReducer"{}}; \}}
+\DoxyCodeLine{1070       Reduction Reduce(Node* node) \textcolor{keyword}{final} \{}
+\DoxyCodeLine{1071         \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a360819de483fa505a4a01aae2b390308}{NodeProperties::IsTyped}}(node)) \{}
+\DoxyCodeLine{1072           \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a68e264bd5cb312ba3ec6cd44c79e236b}{NodeProperties::RemoveType}}(node);}
+\DoxyCodeLine{1073           \textcolor{keywordflow}{return} Changed(node);}
+\DoxyCodeLine{1074         \}}
+\DoxyCodeLine{1075         \textcolor{keywordflow}{return} NoChange();}
+\DoxyCodeLine{1076       \}}
+\DoxyCodeLine{1077     \};}
+\DoxyCodeLine{1078 }
+\DoxyCodeLine{1079     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a4107c005c14e5351157d6a5d020f7bba}{NodeVector}} roots(temp\_zone);}
+\DoxyCodeLine{1080     data-\/>jsgraph()-\/>GetCachedNodes(\&roots);}
+\DoxyCodeLine{1081     \textcolor{keywordflow}{for} (Node* node : roots) \{}
+\DoxyCodeLine{1082       \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a68e264bd5cb312ba3ec6cd44c79e236b}{NodeProperties::RemoveType}}(node);}
+\DoxyCodeLine{1083     \}}
+\DoxyCodeLine{1084 }
+\DoxyCodeLine{1085     GraphReducer graph\_reducer(}
+\DoxyCodeLine{1086         temp\_zone, data-\/>graph(), \&data-\/>info()-\/>tick\_counter(), data-\/>broker(),}
+\DoxyCodeLine{1087         data-\/>jsgraph()-\/>Dead(), data-\/>observe\_node\_manager());}
+\DoxyCodeLine{1088     RemoveTypeReducer remove\_type\_reducer;}
+\DoxyCodeLine{1089     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&remove\_type\_reducer);}
+\DoxyCodeLine{1090     graph\_reducer.ReduceGraph();}
+\DoxyCodeLine{1091   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{pipeline.\+cc\}\+::\+Add\+Reducer(), v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Is\+Typed(), v8\+::internal\+::compiler\+::\+Graph\+Reducer\+::\+Reduce\+Graph(), and v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Remove\+Type().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1UntyperPhase_aef7de39c2000f415a8e6faf0242c6659_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}

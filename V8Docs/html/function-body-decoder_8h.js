@@ -3,6 +3,7 @@ var function_body_decoder_8h =
     [ "FunctionBody", "structv8_1_1internal_1_1wasm_1_1FunctionBody.html", "structv8_1_1internal_1_1wasm_1_1FunctionBody" ],
     [ "BodyLocalDecls", "structv8_1_1internal_1_1wasm_1_1BodyLocalDecls.html", "structv8_1_1internal_1_1wasm_1_1BodyLocalDecls" ],
     [ "BytecodeIterator", "classv8_1_1internal_1_1wasm_1_1BytecodeIterator.html", "classv8_1_1internal_1_1wasm_1_1BytecodeIterator" ],
+    [ "iterator_base", "classv8_1_1internal_1_1wasm_1_1BytecodeIterator_1_1iterator__base.html", "classv8_1_1internal_1_1wasm_1_1BytecodeIterator_1_1iterator__base" ],
     [ "opcode_iterator", "classv8_1_1internal_1_1wasm_1_1BytecodeIterator_1_1opcode__iterator.html", "classv8_1_1internal_1_1wasm_1_1BytecodeIterator_1_1opcode__iterator" ],
     [ "offset_iterator", "classv8_1_1internal_1_1wasm_1_1BytecodeIterator_1_1offset__iterator.html", "classv8_1_1internal_1_1wasm_1_1BytecodeIterator_1_1offset__iterator" ],
     [ "LoadTransformationKind", "function-body-decoder_8h.html#a7d1bc826b8b055dc643c61c30234bad8", [

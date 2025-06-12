@@ -7,5 +7,9 @@ var classcppgc_1_1internal_1_1VirtualMemory =
     [ "address", "classcppgc_1_1internal_1_1VirtualMemory.html#a42ee258cd5c5f19c79221debf74e49b7", null ],
     [ "IsReserved", "classcppgc_1_1internal_1_1VirtualMemory.html#a077e084e5c055180b1ab1f92fd1f2aef", null ],
     [ "operator=", "classcppgc_1_1internal_1_1VirtualMemory.html#ab7d22421c7340c1a5707f00514d7613c", null ],
-    [ "size", "classcppgc_1_1internal_1_1VirtualMemory.html#a0c86e5e2c7143c529b3d720ff44f875b", null ]
+    [ "Reset", "classcppgc_1_1internal_1_1VirtualMemory.html#a50a44f12134bd0858842b92dddf0630a", null ],
+    [ "size", "classcppgc_1_1internal_1_1VirtualMemory.html#a0c86e5e2c7143c529b3d720ff44f875b", null ],
+    [ "page_allocator_", "classcppgc_1_1internal_1_1VirtualMemory.html#a7bb9b9cfea57d9e4b473fcef5085ef16", null ],
+    [ "size_", "classcppgc_1_1internal_1_1VirtualMemory.html#a14ba55ce0a9b5bc30ae53b836937079d", null ],
+    [ "start_", "classcppgc_1_1internal_1_1VirtualMemory.html#a3e2f4eb36627924ffbf5d0c4b873e6e7", null ]
 ];

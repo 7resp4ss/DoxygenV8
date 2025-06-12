@@ -1,0 +1,4 @@
+var classv8_1_1internal_1_1anonymous__namespace_02register_configuration_8cc_03_1_1ArchDefaultRegisterConfiguration =
+[
+    [ "ArchDefaultRegisterConfiguration", "classv8_1_1internal_1_1anonymous__namespace_02register-configuration_8cc_03_1_1ArchDefaultRegisterConfiguration.html#a91913843b308ad8e47fcad62b6f9bcfd", null ]
+];

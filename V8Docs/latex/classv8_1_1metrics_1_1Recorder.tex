@@ -2,8 +2,23 @@
 \label{classv8_1_1metrics_1_1Recorder}\index{v8::metrics::Recorder@{v8::metrics::Recorder}}
 
 
+This class serves as a base class for recording event-\/based metrics in \mbox{\hyperlink{classv8_1_1V8}{V8}}.  
+
+
+
+
 {\ttfamily \#include $<$v8-\/metrics.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::metrics\+::Recorder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{classv8_1_1metrics_1_1Recorder__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -19,16 +34,22 @@ virtual void \mbox{\hyperlink{classv8_1_1metrics_1_1Recorder_ac10ac4d04c9112e5cf
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{classv8_1_1MaybeLocal}{Maybe\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Context}{Context}} $>$ \mbox{\hyperlink{classv8_1_1metrics_1_1Recorder_aba9743e620b3e65023edffd9bb882f57}{Get\+Context}} (\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1metrics_1_1Recorder_1_1ContextId}{Context\+Id}} id)
+static \mbox{\hyperlink{classv8_1_1MaybeLocal}{Maybe\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Context}{Context}} $>$ \mbox{\hyperlink{classv8_1_1metrics_1_1Recorder_aba9743e620b3e65023edffd9bb882f57}{Get\+Context}} (\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1metrics_1_1Recorder_1_1ContextId}{Context\+Id}} id)
 \item 
-static \mbox{\hyperlink{classv8_1_1metrics_1_1Recorder_1_1ContextId}{Context\+Id}} \mbox{\hyperlink{classv8_1_1metrics_1_1Recorder_ab0edb7eba2aec2e50079aed704e5b96f}{Get\+Context\+Id}} (\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Context}{Context}} $>$ \mbox{\hyperlink{js-call-reducer_8cc_a0835767fe473cead88c1afdf3175bce8}{context}})
+static \mbox{\hyperlink{classv8_1_1metrics_1_1Recorder_1_1ContextId}{Context\+Id}} \mbox{\hyperlink{classv8_1_1metrics_1_1Recorder_ab0edb7eba2aec2e50079aed704e5b96f}{Get\+Context\+Id}} (\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Context}{Context}} $>$ context)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-This class serves as a base class for recording event-\/based metrics in \mbox{\hyperlink{classv8_1_1V8}{V8}}. There a two kinds of metrics, those which are expected to be thread-\/safe and whose implementation is required to fulfill this requirement and those whose implementation does not have that requirement and only needs to be executable on the main thread. If such an event is triggered from a background thread, it will be delayed and executed by the foreground task runner.
+This class serves as a base class for recording event-\/based metrics in \mbox{\hyperlink{classv8_1_1V8}{V8}}. 
+
+There a two kinds of metrics, those which are expected to be thread-\/safe and whose implementation is required to fulfill this requirement and those whose implementation does not have that requirement and only needs to be executable on the main thread. If such an event is triggered from a background thread, it will be delayed and executed by the foreground task runner.
 
 The embedder is expected to call \mbox{\hyperlink{classv8_1_1Isolate_ae19bd6443174d5ed666132606d55d0be}{v8\+::\+Isolate\+::\+Set\+Metrics\+Recorder()}} providing its implementation and have the virtual methods overwritten for the events it cares about. 
+
+Definition at line 186 of file v8-\/metrics.\+h.
+
+
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1metrics_1_1Recorder_a2acdc18dd490c7d9b2868ee12d515edc}\label{classv8_1_1metrics_1_1Recorder_a2acdc18dd490c7d9b2868ee12d515edc}} 
@@ -46,12 +67,62 @@ The embedder is expected to call \mbox{\hyperlink{classv8_1_1Isolate_ae19bd64431
 \doxysubsubsection{\texorpdfstring{GetContext()}{GetContext()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1MaybeLocal}{Maybe\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Context}{Context}} $>$ v8\+::metrics\+::\+Recorder\+::\+Get\+Context (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1metrics_1_1Recorder_1_1ContextId}{Context\+Id}}}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 7276 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{7277                                                       \{}
+\DoxyCodeLine{7278   \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{i::Isolate}}* i\_isolate = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{i::Isolate}}*\textcolor{keyword}{>}(v8\_isolate);}
+\DoxyCodeLine{7279   \textcolor{keywordflow}{return} i\_isolate-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a3e37736bb5eb47fdc4a56df6a355584a}{GetContextFromRecorderContextId}}(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{7280 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::\+Get\+Context\+From\+Recorder\+Context\+Id().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1metrics_1_1Recorder_aba9743e620b3e65023edffd9bb882f57_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1metrics_1_1Recorder_ab0edb7eba2aec2e50079aed704e5b96f}\label{classv8_1_1metrics_1_1Recorder_ab0edb7eba2aec2e50079aed704e5b96f}} 
 \index{v8::metrics::Recorder@{v8::metrics::Recorder}!GetContextId@{GetContextId}}
 \index{GetContextId@{GetContextId}!v8::metrics::Recorder@{v8::metrics::Recorder}}
 \doxysubsubsection{\texorpdfstring{GetContextId()}{GetContextId()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1metrics_1_1Recorder_1_1ContextId}{metrics\+::\+Recorder\+::\+Context\+Id}} v8\+::metrics\+::\+Recorder\+::\+Get\+Context\+Id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Context}{Context}} $>$}]{context }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 7282 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{7283                             \{}
+\DoxyCodeLine{7284   \textcolor{keyword}{auto} i\_context = \mbox{\hyperlink{classv8_1_1Utils_a9d3ed89b4ca4e995ba472f8091ea424f}{Utils::OpenDirectHandle}}(*context);}
+\DoxyCodeLine{7285   \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{i::Isolate}}* i\_isolate = \mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a05a2b08b2b0f2d5aef8dc053e2ea3d9b}{i::Isolate::Current}}();}
+\DoxyCodeLine{7286   \textcolor{keywordflow}{return} i\_isolate-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a567b8009b9aee748292ab4b1dffdc176}{GetOrRegisterRecorderContextId}}(}
+\DoxyCodeLine{7287       \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(i\_context-\/>native\_context(), i\_isolate));}
+\DoxyCodeLine{7288 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::\+Current(), v8\+::internal\+::direct\+\_\+handle(), v8\+::internal\+::\+Isolate\+::\+Get\+Or\+Register\+Recorder\+Context\+Id(), and v8\+::\+Utils\+::\+Open\+Direct\+Handle().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1metrics_1_1Recorder_ab0edb7eba2aec2e50079aed704e5b96f_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1metrics_1_1Recorder_ac10ac4d04c9112e5cf0301d85ba3766a}\label{classv8_1_1metrics_1_1Recorder_ac10ac4d04c9112e5cf0301d85ba3766a}} 
 \index{v8::metrics::Recorder@{v8::metrics::Recorder}!NotifyIsolateDisposal@{NotifyIsolateDisposal}}
 \index{NotifyIsolateDisposal@{NotifyIsolateDisposal}!v8::metrics::Recorder@{v8::metrics::Recorder}}
@@ -60,7 +131,16 @@ The embedder is expected to call \mbox{\hyperlink{classv8_1_1Isolate_ae19bd64431
 
 
 
+Definition at line 238 of file v8-\/metrics.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{238 \{\}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-metrics_8h}{v8-\/metrics.\+h}}\item 
-\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/\mbox{\hyperlink{v8-metrics_8h}{v8-\/metrics.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/api/\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}

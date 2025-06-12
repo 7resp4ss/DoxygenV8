@@ -132,6 +132,54 @@ template&lt;const std::string_view &amp; kFormat, int kMaxLen, typename... Parts
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="string-format_8h_source.html#l00091">91</a> of file <a class="el" href="string-format_8h_source.html">string-format.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                                                                    {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  std::array&lt;char, kMaxLen&gt; message;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  static_assert(kMaxLen &gt; 0);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  static_assert(</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      kMaxLen &lt; 128,</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      <span class="stringliteral">&quot;Don&#39;t generate overly large strings; this limit can be increased, but &quot;</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      <span class="stringliteral">&quot;consider that the array lives on the stack of the caller.&quot;</span>);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="comment">// Add a special case for empty strings, because compilers complain about</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="comment">// empty format strings.</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  static_assert((kFormat.size() == 0) == (<span class="keyword">sizeof</span>...(Parts) == 0));</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keywordflow">if</span> constexpr (kFormat.size() == 0) {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    message[0] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">int</span> characters = <a class="code" href="namespacev8_1_1base.html#a36caaf43a3f7761ae90d699b961f0239">base::OS::SNPrintF</a>(message.data(), kMaxLen, kFormat.data(),</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                        parts.value...);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="src_2base_2logging_8h.html#a3e1cfef60e774a81f30eaddf26a3a274">CHECK</a>(characters &gt;= 0 &amp;&amp; characters &lt; kMaxLen);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="src_2base_2logging_8h.html#af9c313d74155f7f201955a939e24c71f">DCHECK_EQ</a>(<span class="charliteral">&#39;\0&#39;</span>, message[characters]);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keywordflow">return</span> message;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
+<div class="ttc" id="anamespacev8_1_1base_html_a36caaf43a3f7761ae90d699b961f0239"><div class="ttname"><a href="namespacev8_1_1base.html#a36caaf43a3f7761ae90d699b961f0239">v8::base::SNPrintF</a></div><div class="ttdeci">int SNPrintF(Vector&lt; char &gt; str, const char *format,...)</div><div class="ttdef"><b>Definition:</b> <a href="strings_8cc_source.html#l00020">strings.cc:20</a></div></div>
+<div class="ttc" id="asrc_2base_2logging_8h_html_a3e1cfef60e774a81f30eaddf26a3a274"><div class="ttname"><a href="src_2base_2logging_8h.html#a3e1cfef60e774a81f30eaddf26a3a274">CHECK</a></div><div class="ttdeci">#define CHECK(condition)</div><div class="ttdef"><b>Definition:</b> <a href="src_2base_2logging_8h_source.html#l00124">logging.h:124</a></div></div>
+<div class="ttc" id="asrc_2base_2logging_8h_html_af9c313d74155f7f201955a939e24c71f"><div class="ttname"><a href="src_2base_2logging_8h.html#af9c313d74155f7f201955a939e24c71f">DCHECK_EQ</a></div><div class="ttdeci">#define DCHECK_EQ(v1, v2)</div><div class="ttdef"><b>Definition:</b> <a href="src_2base_2logging_8h_source.html#l00484">logging.h:484</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="src_2base_2logging_8h_source.html#l00124">CHECK</a>, <a class="el" href="src_2base_2logging_8h_source.html#l00484">DCHECK_EQ</a>, and <a class="el" href="strings_8cc_source.html#l00020">v8::base::SNPrintF()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="string-format_8h_source.html#l00167">v8::base::FormattedString&lt; Ts &gt;::PrintToArray()</a>.</p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacev8_1_1base_1_1impl_ab400d4daa9fdebac3247a080e7d480bb_cgraph.svg" width="100%" height="366"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacev8_1_1base_1_1impl_ab400d4daa9fdebac3247a080e7d480bb_icgraph.svg" width="468" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
@@ -153,6 +201,8 @@ template&lt;typename T &gt; </div>
 <div class="line">    std::is_same_v&lt;char,</div>
 <div class="line">                   std::remove_cv_t&lt;std::remove_pointer_t&lt;std::decay_t&lt;T&gt;&gt;&gt;&gt;</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="string-format_8h_source.html#l00048">48</a> of file <a class="el" href="string-format_8h_source.html">string-format.h</a>.</p>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -161,7 +211,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacev8.html">v8</a></li><li class="navelem"><a class="el" href="namespacev8_1_1base.html">base</a></li><li class="navelem"><a class="el" href="namespacev8_1_1base_1_1impl.html">impl</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:43:03 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jun 12 2025 16:02:23 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

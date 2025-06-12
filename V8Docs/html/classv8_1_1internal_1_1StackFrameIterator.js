@@ -7,5 +7,6 @@ var classv8_1_1internal_1_1StackFrameIterator =
     [ "ComputeStackFrameType", "classv8_1_1internal_1_1StackFrameIterator.html#af37484c06050e5d6eab5b45ecda08889", null ],
     [ "frame", "classv8_1_1internal_1_1StackFrameIterator.html#a43fb614966eec5b43b038ded87711b5b", null ],
     [ "operator=", "classv8_1_1internal_1_1StackFrameIterator.html#abac75f9099660441aab81ecf58dbf9a8", null ],
-    [ "Reframe", "classv8_1_1internal_1_1StackFrameIterator.html#aac4a8d69c73d30203e4fc604fc248325", null ]
+    [ "Reframe", "classv8_1_1internal_1_1StackFrameIterator.html#aac4a8d69c73d30203e4fc604fc248325", null ],
+    [ "Reset", "classv8_1_1internal_1_1StackFrameIterator.html#aac542bb69d74a688b6f86b1422b208b5", null ]
 ];

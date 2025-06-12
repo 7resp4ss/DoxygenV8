@@ -5,5 +5,7 @@ var classv8_1_1internal_1_1Tuple2 =
     [ "set_value2", "classv8_1_1internal_1_1Tuple2.html#a03ef4732cc33651c395fa7b5b946ad14", null ],
     [ "value1", "classv8_1_1internal_1_1Tuple2.html#acde424f3dc5a78e85350d7976c2a8c71", null ],
     [ "value2", "classv8_1_1internal_1_1Tuple2.html#affb18e111735c1228f2076ff0ce7e1d6", null ],
-    [ "TorqueGeneratedTuple2Asserts", "classv8_1_1internal_1_1Tuple2.html#a15fb05bce6f7f76062dc631685a0df72", null ]
+    [ "TorqueGeneratedTuple2Asserts", "classv8_1_1internal_1_1Tuple2.html#a15fb05bce6f7f76062dc631685a0df72", null ],
+    [ "value1_", "classv8_1_1internal_1_1Tuple2.html#ac8d8df5e37a324c12b30bf3f6f7c03fe", null ],
+    [ "value2_", "classv8_1_1internal_1_1Tuple2.html#a06ec7ac34129bbeeebc633685d04c57d", null ]
 ];

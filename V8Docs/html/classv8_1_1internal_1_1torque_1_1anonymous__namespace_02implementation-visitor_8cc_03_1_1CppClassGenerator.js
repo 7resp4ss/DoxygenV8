@@ -1,0 +1,25 @@
+var classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation_visitor_8cc_03_1_1CppClassGenerator =
+[
+    [ "CppClassGenerator", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#a61615b1b7a17a3bf4372f96660235eda", null ],
+    [ "CanContainHeapObjects", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#a16fd2f25fbcd61f440ff817360ece2b7", null ],
+    [ "EmitLoadFieldStatement", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#a1d49b5a1c199f722a67f1f46a0193b7f", null ],
+    [ "EmitStoreFieldStatement", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#a97a4dd8e9a7765738fdb79774e6fa16c", null ],
+    [ "GenerateClass", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#a61dad43694318bc1ddeb0991641296dc", null ],
+    [ "GenerateClassConstructors", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#ac03598c07d03556664b6e0546158ec01", null ],
+    [ "GenerateCppObjectDefinitionAsserts", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#ac6247b7a0f3a8f4db1b2663666fd56c6", null ],
+    [ "GenerateCppObjectLayoutDefinitionAsserts", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#af5c5a4dce52b3b1b28f15632e2a09954", null ],
+    [ "GenerateFieldAccessors", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#af141baf9707f7d6c6e91926bfdb88b1f", null ],
+    [ "GetFieldOffsetForAccessor", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#a040150fbb50abe3088dedea65fa81444", null ],
+    [ "GetTypeNameForAccessor", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#ac12c572cb381fd02b4aa2eb3f8aebcc2", null ],
+    [ "Position", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#aac40f9b291419d91626aa9094354b0f4", null ],
+    [ "template_decl", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#aa143b185a3efc982617340e2ec22d8ed", null ],
+    [ "gen_name_", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#a379a7671f0ebb45bc7da798b3f363876", null ],
+    [ "gen_name_I_", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#ac161f44df2a3b3841a5eea7a7481f9af", null ],
+    [ "gen_name_T_", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#ad12f8ad063823682d6dc5affd5a5de21", null ],
+    [ "hdr_", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#acc7cd9e2c436c8b822a6ce8628c47956", null ],
+    [ "impl_", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#a1ba88d47b905253d1feaf7b4553aa297", null ],
+    [ "inl_", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#a7ef4b9a535bad5f982cd0f242c64be92", null ],
+    [ "name_", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#a8c8e8c00e6e3ff988b69d7ae9a2d096d", null ],
+    [ "super_", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#a5a1a8136c360acf86f5bb16f1a514c59", null ],
+    [ "type_", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02implementation-visitor_8cc_03_1_1CppClassGenerator.html#a0c97141e631a6fd212ec1f35222a9958", null ]
+];

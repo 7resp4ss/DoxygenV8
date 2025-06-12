@@ -8,5 +8,8 @@ var classv8_1_1Isolate_1_1DisallowJavascriptExecutionScope =
     [ "DisallowJavascriptExecutionScope", "classv8_1_1Isolate_1_1DisallowJavascriptExecutionScope.html#a64813f7832ddca3014a7b98730a13948", null ],
     [ "~DisallowJavascriptExecutionScope", "classv8_1_1Isolate_1_1DisallowJavascriptExecutionScope.html#a2c3d43cb558a1650cfd3d710254953cf", null ],
     [ "DisallowJavascriptExecutionScope", "classv8_1_1Isolate_1_1DisallowJavascriptExecutionScope.html#a9a0c43b82fe8d0583b7af67af8aa5a33", null ],
-    [ "operator=", "classv8_1_1Isolate_1_1DisallowJavascriptExecutionScope.html#a3cab43acfb1e7912dfeddd280750b912", null ]
+    [ "operator=", "classv8_1_1Isolate_1_1DisallowJavascriptExecutionScope.html#a3cab43acfb1e7912dfeddd280750b912", null ],
+    [ "on_failure_", "classv8_1_1Isolate_1_1DisallowJavascriptExecutionScope.html#a216aef2cf73fc4b2c5d276438fb0744b", null ],
+    [ "v8_isolate_", "classv8_1_1Isolate_1_1DisallowJavascriptExecutionScope.html#af094fd54506e1f14d8c56aed690c5944", null ],
+    [ "was_execution_allowed_", "classv8_1_1Isolate_1_1DisallowJavascriptExecutionScope.html#a57c58e0afd0875f3487f5681b4e33143", null ]
 ];

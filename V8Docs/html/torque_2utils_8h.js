@@ -32,6 +32,7 @@ var torque_2utils_8h =
     [ "IsValidNamespaceConstName", "torque_2utils_8h.html#ab9098037e9d0b8b5a1ca61aa2cbac53c", null ],
     [ "IsValidTypeName", "torque_2utils_8h.html#a830e4b42fa2a7bd69a57d3cff6817529", null ],
     [ "Lint", "torque_2utils_8h.html#a5abdd077087f61028c599216020f4e5c", null ],
+    [ "Message", "torque_2utils_8h.html#a5a2b0ddb7072fab76bc96b0a777c373b", null ],
     [ "operator<<", "torque_2utils_8h.html#aff5d6b4455ce692c096abb048e53080a", null ],
     [ "operator<<", "torque_2utils_8h.html#aeafd4b0fc4ea9c6fcb9931856b79d2b8", null ],
     [ "operator<<", "torque_2utils_8h.html#a0005614a4c155d71c5cc1a9b3111954f", null ],
@@ -50,5 +51,7 @@ var torque_2utils_8h =
     [ "ToString", "torque_2utils_8h.html#a47fcc9fb97bad791f676bf5025bb4ae6", null ],
     [ "TransformVector", "torque_2utils_8h.html#a24be2dfebda23b566aa67a1ed4e3f9ea", null ],
     [ "TransformVector", "torque_2utils_8h.html#a846a6e61fc3545116d95fa49e3cf0d23", null ],
-    [ "UnderlinifyPath", "torque_2utils_8h.html#adbf334f893e5eda5a63a10ff455a6ee9", null ]
+    [ "UnderlinifyPath", "torque_2utils_8h.html#adbf334f893e5eda5a63a10ff455a6ee9", null ],
+    [ "kBaseNamespaceName", "torque_2utils_8h.html#ab847c8108defafffa2e9e57b0d029b48", null ],
+    [ "kTestNamespaceName", "torque_2utils_8h.html#ae5e3cc933f2ae614e6acc1ebbeeae8bb", null ]
 ];

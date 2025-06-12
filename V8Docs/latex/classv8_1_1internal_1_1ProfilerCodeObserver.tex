@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::Profiler\+Code\+Observer\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=255pt]{classv8_1_1internal_1_1ProfilerCodeObserver__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilerCodeObserver__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -41,11 +41,46 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a480a2d6df0be8
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a6fe3c65ae7f543107c945bd765cff880}{Clear\+Code\+Map}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_aba030a6ccfb7ce908d02c29cca2c9028}{Code\+Event\+Handler\+Internal}} (const \mbox{\hyperlink{classv8_1_1internal_1_1CodeEventsContainer}{Code\+Events\+Container}} \&evt\+\_\+rec)
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_addfb29c628dd1a92c382666b7355a086}{Create\+Entries\+For\+Runtime\+Call\+Stats}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_ab9ac98131afd97af48cfa02fb54f0685}{Log\+Builtins}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerEventsProcessor}{Profiler\+Events\+Processor}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a1323bb7e91664860ef73ed521b422056}{processor}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_adc73c12816caf44b861672bc66a11ad1}{set\+\_\+processor}} (\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerEventsProcessor}{Profiler\+Events\+Processor}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a1323bb7e91664860ef73ed521b422056}{processor}})
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a04f994a6ef69159859330e7b76906c15}{clear\+\_\+processor}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$const \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a0c5a94364f2b25587781f3f52d35d08b}{isolate\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1CodeEntryStorage}{Code\+Entry\+Storage}} \& \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a32499bf009f8a3cb6ad7a8b9e79c5a90}{code\+\_\+entries\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1InstructionStreamMap}{Instruction\+Stream\+Map}} \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a426baacc7565c177a6d285ac3e7b9de6}{code\+\_\+map\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1WeakCodeRegistry}{Weak\+Code\+Registry}} \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_ac04321740c3ecc881877f4f71b6a3181}{weak\+\_\+code\+\_\+registry\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerEventsProcessor}{Profiler\+Events\+Processor}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a999daf7e9e55ac5c2f38ee39db3422e7}{processor\+\_\+}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a6371fd25eed9948fe51cc2fc458c7844}{Profiler\+Events\+Processor}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 271 of file cpu-\/profiler.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -57,19 +92,107 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a6371fd25eed9
 
 
 
+Definition at line 356 of file cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{358     : \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a0c5a94364f2b25587781f3f52d35d08b}{isolate\_}}(isolate),}
+\DoxyCodeLine{359       \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a32499bf009f8a3cb6ad7a8b9e79c5a90}{code\_entries\_}}(storage),}
+\DoxyCodeLine{360       \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a426baacc7565c177a6d285ac3e7b9de6}{code\_map\_}}(storage),}
+\DoxyCodeLine{361       \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_ac04321740c3ecc881877f4f71b6a3181}{weak\_code\_registry\_}}(isolate),}
+\DoxyCodeLine{362       \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a999daf7e9e55ac5c2f38ee39db3422e7}{processor\_}}(\textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{363   \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_addfb29c628dd1a92c382666b7355a086}{CreateEntriesForRuntimeCallStats}}();}
+\DoxyCodeLine{364   \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_ab9ac98131afd97af48cfa02fb54f0685}{LogBuiltins}}();}
+\DoxyCodeLine{365 \}}
+
+\end{DoxyCode}
+
+
+References Create\+Entries\+For\+Runtime\+Call\+Stats(), and Log\+Builtins().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilerCodeObserver_a820158f4157ab6fef06b7c195e76f82c_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_a04f994a6ef69159859330e7b76906c15}\label{classv8_1_1internal_1_1ProfilerCodeObserver_a04f994a6ef69159859330e7b76906c15}} 
+\index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!clear\_processor@{clear\_processor}}
+\index{clear\_processor@{clear\_processor}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
+\doxysubsubsection{\texorpdfstring{clear\_processor()}{clear\_processor()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Profiler\+Code\+Observer\+::clear\+\_\+processor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 299 of file cpu-\/profiler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{299 \{ \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a999daf7e9e55ac5c2f38ee39db3422e7}{processor\_}} = \textcolor{keyword}{nullptr}; \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+Profiler\+Events\+Processor\+::$\sim$\+Profiler\+Events\+Processor().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilerCodeObserver_a04f994a6ef69159859330e7b76906c15_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_a6fe3c65ae7f543107c945bd765cff880}\label{classv8_1_1internal_1_1ProfilerCodeObserver_a6fe3c65ae7f543107c945bd765cff880}} 
 \index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!ClearCodeMap@{ClearCodeMap}}
 \index{ClearCodeMap@{ClearCodeMap}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
 \doxysubsubsection{\texorpdfstring{ClearCodeMap()}{ClearCodeMap()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Profiler\+Code\+Observer\+::\+Clear\+Code\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 367 of file cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{367                                         \{}
+\DoxyCodeLine{368   \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_ac04321740c3ecc881877f4f71b6a3181}{weak\_code\_registry\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1WeakCodeRegistry_a001d17b1abaf103e3187450020cae7b3}{Clear}}();}
+\DoxyCodeLine{369   \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a426baacc7565c177a6d285ac3e7b9de6}{code\_map\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1InstructionStreamMap_abe2a22564394116734bb2dc1929fa217}{Clear}}();}
+\DoxyCodeLine{370 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Instruction\+Stream\+Map\+::\+Clear(), v8\+::internal\+::\+Weak\+Code\+Registry\+::\+Clear(), code\+\_\+map\+\_\+, and weak\+\_\+code\+\_\+registry\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilerCodeObserver_a6fe3c65ae7f543107c945bd765cff880_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_a1a93a7e19d54fff4b1de0dcf3aab8a7c}\label{classv8_1_1internal_1_1ProfilerCodeObserver_a1a93a7e19d54fff4b1de0dcf3aab8a7c}} 
 \index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!code\_entries@{code\_entries}}
 \index{code\_entries@{code\_entries}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
 \doxysubsubsection{\texorpdfstring{code\_entries()}{code\_entries()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1CodeEntryStorage}{Code\+Entry\+Storage}}$\ast$ v8\+::internal\+::\+Profiler\+Code\+Observer\+::code\+\_\+entries (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 276 of file cpu-\/profiler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{276 \{ \textcolor{keywordflow}{return} \&\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a32499bf009f8a3cb6ad7a8b9e79c5a90}{code\_entries\_}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_a480a2d6df0be872ffa1f27b06188bf33}\label{classv8_1_1internal_1_1ProfilerCodeObserver_a480a2d6df0be872ffa1f27b06188bf33}} 
 \index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!CodeEventHandler@{CodeEventHandler}}
 \index{CodeEventHandler@{CodeEventHandler}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
@@ -80,24 +203,317 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a6371fd25eed9
 
 Implements \mbox{\hyperlink{classv8_1_1internal_1_1CodeEventObserver_a8fb166e41cebe25a1a7b65f35671a6c8}{v8\+::internal\+::\+Code\+Event\+Observer}}.
 
+
+
+Definition at line 372 of file cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{373                                         \{}
+\DoxyCodeLine{374   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a999daf7e9e55ac5c2f38ee39db3422e7}{processor\_}}) \{}
+\DoxyCodeLine{375     \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a999daf7e9e55ac5c2f38ee39db3422e7}{processor\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerEventsProcessor_a6a62c345042e2d8386a2015f099c38b4}{CodeEventHandler}}(evt\_rec);}
+\DoxyCodeLine{376     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{377   \}}
+\DoxyCodeLine{378   \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_aba030a6ccfb7ce908d02c29cca2c9028}{CodeEventHandlerInternal}}(evt\_rec);}
+\DoxyCodeLine{379 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Profiler\+Events\+Processor\+::\+Code\+Event\+Handler(), Code\+Event\+Handler\+Internal(), and processor\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilerCodeObserver_a480a2d6df0be872ffa1f27b06188bf33_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_aba030a6ccfb7ce908d02c29cca2c9028}\label{classv8_1_1internal_1_1ProfilerCodeObserver_aba030a6ccfb7ce908d02c29cca2c9028}} 
+\index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!CodeEventHandlerInternal@{CodeEventHandlerInternal}}
+\index{CodeEventHandlerInternal@{CodeEventHandlerInternal}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
+\doxysubsubsection{\texorpdfstring{CodeEventHandlerInternal()}{CodeEventHandlerInternal()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Profiler\+Code\+Observer\+::\+Code\+Event\+Handler\+Internal (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1CodeEventsContainer}{Code\+Events\+Container}} \&}]{evt\+\_\+rec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 391 of file cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{392                                         \{}
+\DoxyCodeLine{393   CodeEventsContainer record = evt\_rec;}
+\DoxyCodeLine{394   \textcolor{keywordflow}{switch} (evt\_rec.generic.type) \{}
+\DoxyCodeLine{395 \textcolor{preprocessor}{\#define PROFILER\_TYPE\_CASE(type, clss)        \(\backslash\)}}
+\DoxyCodeLine{396 \textcolor{preprocessor}{  case CodeEventRecord::Type::type:           \(\backslash\)}}
+\DoxyCodeLine{397 \textcolor{preprocessor}{    record.clss\#\#\_.UpdateCodeMap(\&code\_map\_); \(\backslash\)}}
+\DoxyCodeLine{398 \textcolor{preprocessor}{    break;}}
+\DoxyCodeLine{399 }
+\DoxyCodeLine{400     \mbox{\hyperlink{cpu-profiler_8h_a93b51030e2e476cbc8c6b9419038c5ee}{CODE\_EVENTS\_TYPE\_LIST}}(\mbox{\hyperlink{cpu-profiler_8cc_ad1d856284182420f8ddb54c872e42dbf}{PROFILER\_TYPE\_CASE}})}
+\DoxyCodeLine{401 }
+\DoxyCodeLine{402 \textcolor{preprocessor}{\#undef PROFILER\_TYPE\_CASE}}
+\DoxyCodeLine{403     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{404       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{405   \}}
+\DoxyCodeLine{406 \}}
+
+\end{DoxyCode}
+
+
+References CODE\+\_\+\+EVENTS\+\_\+\+TYPE\+\_\+\+LIST, v8\+::internal\+::\+Code\+Events\+Container\+::generic, PROFILER\+\_\+\+TYPE\+\_\+\+CASE, and v8\+::internal\+::\+Code\+Event\+Record\+::type.
+
+
+
+Referenced by Code\+Event\+Handler(), Log\+Builtins(), and v8\+::internal\+::\+Profiler\+Events\+Processor\+::\+Process\+Code\+Event().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilerCodeObserver_aba030a6ccfb7ce908d02c29cca2c9028_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_addfb29c628dd1a92c382666b7355a086}\label{classv8_1_1internal_1_1ProfilerCodeObserver_addfb29c628dd1a92c382666b7355a086}} 
+\index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!CreateEntriesForRuntimeCallStats@{CreateEntriesForRuntimeCallStats}}
+\index{CreateEntriesForRuntimeCallStats@{CreateEntriesForRuntimeCallStats}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
+\doxysubsubsection{\texorpdfstring{CreateEntriesForRuntimeCallStats()}{CreateEntriesForRuntimeCallStats()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Profiler\+Code\+Observer\+::\+Create\+Entries\+For\+Runtime\+Call\+Stats (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 408 of file cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{408                                                             \{}
+\DoxyCodeLine{409 \textcolor{preprocessor}{\#ifdef V8\_RUNTIME\_CALL\_STATS}}
+\DoxyCodeLine{410   RuntimeCallStats* rcs = \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a0c5a94364f2b25587781f3f52d35d08b}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a9690b82e4f9b4c8a9160630396cde0b3}{counters}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Counters_aa27049ebe05a1e1a0df0d0a03f679b9d}{runtime\_call\_stats}}();}
+\DoxyCodeLine{411   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < RuntimeCallStats::kNumberOfCounters; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{412     RuntimeCallCounter* counter = rcs-\/>GetCounter(\mbox{\hyperlink{namespacev8_1_1internal}{i}});}
+\DoxyCodeLine{413     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(counter-\/>name());}
+\DoxyCodeLine{414     \textcolor{keyword}{auto} entry = \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a32499bf009f8a3cb6ad7a8b9e79c5a90}{code\_entries\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1CodeEntryStorage_a63a8206577bbfe5e90d471da882c7a2f}{Create}}(\mbox{\hyperlink{namespacev8_1_1internal_1_1torque_1_1ls_afd5aaa8da6c9fbff1051077ef657d7f7aa3b974a5f002b9d8d599a944c5fadca8}{LogEventListener::CodeTag::kFunction}},}
+\DoxyCodeLine{415                                       counter-\/>name(), \textcolor{stringliteral}{"{}native V8Runtime"{}});}
+\DoxyCodeLine{416     \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a426baacc7565c177a6d285ac3e7b9de6}{code\_map\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1InstructionStreamMap_a4d85c00466456e046e5595af221d20ab}{AddCode}}(\textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}\textcolor{keyword}{>}(counter), entry, 1);}
+\DoxyCodeLine{417   \}}
+\DoxyCodeLine{418 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_RUNTIME\_CALL\_STATS}}
+\DoxyCodeLine{419 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Instruction\+Stream\+Map\+::\+Add\+Code(), code\+\_\+entries\+\_\+, code\+\_\+map\+\_\+, v8\+::internal\+::\+Isolate\+::counters(), v8\+::internal\+::\+Code\+Entry\+Storage\+::\+Create(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, isolate\+\_\+, v8\+::internal\+::torque\+::ls\+::k\+Function, and v8\+::internal\+::\+Counters\+::runtime\+\_\+call\+\_\+stats().
+
+
+
+Referenced by Profiler\+Code\+Observer().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilerCodeObserver_addfb29c628dd1a92c382666b7355a086_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilerCodeObserver_addfb29c628dd1a92c382666b7355a086_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_a4084661b2ec0288ee1ef11a13efd21d8}\label{classv8_1_1internal_1_1ProfilerCodeObserver_a4084661b2ec0288ee1ef11a13efd21d8}} 
 \index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!GetEstimatedMemoryUsage@{GetEstimatedMemoryUsage}}
 \index{GetEstimatedMemoryUsage@{GetEstimatedMemoryUsage}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
 \doxysubsubsection{\texorpdfstring{GetEstimatedMemoryUsage()}{GetEstimatedMemoryUsage()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Profiler\+Code\+Observer\+::\+Get\+Estimated\+Memory\+Usage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Definition at line 381 of file cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{381                                                            \{}
+\DoxyCodeLine{382   \textcolor{comment}{// To avoid race condition in codemap,}}
+\DoxyCodeLine{383   \textcolor{comment}{// for now limit computation in kEagerLogging mode}}
+\DoxyCodeLine{384   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a999daf7e9e55ac5c2f38ee39db3422e7}{processor\_}}) \{}
+\DoxyCodeLine{385     \textcolor{keywordflow}{return} \textcolor{keyword}{sizeof}(*this) + \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a426baacc7565c177a6d285ac3e7b9de6}{code\_map\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1InstructionStreamMap_ac7a5aef172bc581e88f2e2f9879a7512}{GetEstimatedMemoryUsage}}() +}
+\DoxyCodeLine{386            \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a32499bf009f8a3cb6ad7a8b9e79c5a90}{code\_entries\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1CodeEntryStorage_a22dcfde2be57415d157d62be7824a29c}{strings}}().\mbox{\hyperlink{classv8_1_1internal_1_1StringsStorage_a7df3f1b6c6d8cc80d9ffd7159290f71e}{GetStringSize}}();}
+\DoxyCodeLine{387   \}}
+\DoxyCodeLine{388   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{389 \}}
+
+\end{DoxyCode}
+
+
+References code\+\_\+entries\+\_\+, code\+\_\+map\+\_\+, v8\+::internal\+::\+Instruction\+Stream\+Map\+::\+Get\+Estimated\+Memory\+Usage(), v8\+::internal\+::\+Strings\+Storage\+::\+Get\+String\+Size(), processor\+\_\+, and v8\+::internal\+::\+Code\+Entry\+Storage\+::strings().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilerCodeObserver_a4084661b2ec0288ee1ef11a13efd21d8_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_ac9283b8be79a486a75de040c851dec76}\label{classv8_1_1internal_1_1ProfilerCodeObserver_ac9283b8be79a486a75de040c851dec76}} 
 \index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!instruction\_stream\_map@{instruction\_stream\_map}}
 \index{instruction\_stream\_map@{instruction\_stream\_map}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
 \doxysubsubsection{\texorpdfstring{instruction\_stream\_map()}{instruction\_stream\_map()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1InstructionStreamMap}{Instruction\+Stream\+Map}}$\ast$ v8\+::internal\+::\+Profiler\+Code\+Observer\+::instruction\+\_\+stream\+\_\+map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 277 of file cpu-\/profiler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{277 \{ \textcolor{keywordflow}{return} \&\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a426baacc7565c177a6d285ac3e7b9de6}{code\_map\_}}; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_ab9ac98131afd97af48cfa02fb54f0685}\label{classv8_1_1internal_1_1ProfilerCodeObserver_ab9ac98131afd97af48cfa02fb54f0685}} 
+\index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!LogBuiltins@{LogBuiltins}}
+\index{LogBuiltins@{LogBuiltins}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
+\doxysubsubsection{\texorpdfstring{LogBuiltins()}{LogBuiltins()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Profiler\+Code\+Observer\+::\+Log\+Builtins (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 421 of file cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{421                                        \{}
+\DoxyCodeLine{422   Builtins* builtins = \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a0c5a94364f2b25587781f3f52d35d08b}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a6cb0edf57f829ea37a9a48a3e6bc007d}{builtins}}();}
+\DoxyCodeLine{423   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(builtins-\/>is\_initialized());}
+\DoxyCodeLine{424   \textcolor{keywordflow}{for} (\mbox{\hyperlink{namespacev8_1_1internal_acc2e164143496f18b5ec68f8ab70af52}{Builtin}} builtin = \mbox{\hyperlink{classv8_1_1internal_1_1Builtins_a4286c57109cb355bfc95df30cff0d14b}{Builtins::kFirst}}; builtin <= \mbox{\hyperlink{classv8_1_1internal_1_1Builtins_abd50adb836b525a19e9fedda7aa18618}{Builtins::kLast}};}
+\DoxyCodeLine{425        ++builtin) \{}
+\DoxyCodeLine{426 \textcolor{preprocessor}{\#if V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{427     \textcolor{comment}{// We add the embedded data entry below.}}
+\DoxyCodeLine{428     \textcolor{keywordflow}{if} (builtin == Builtin::kWasmToJsWrapperCSA) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{429 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{430     CodeEventsContainer evt\_rec(CodeEventRecord::Type::kReportBuiltin);}
+\DoxyCodeLine{431     ReportBuiltinEventRecord* rec = \&evt\_rec.ReportBuiltinEventRecord\_;}
+\DoxyCodeLine{432     Tagged<Code> \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}} = builtins-\/>code(builtin);}
+\DoxyCodeLine{433     rec-\/>instruction\_start = \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>instruction\_start();}
+\DoxyCodeLine{434     rec-\/>instruction\_size = \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>instruction\_size();}
+\DoxyCodeLine{435     rec-\/>builtin = builtin;}
+\DoxyCodeLine{436     \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_aba030a6ccfb7ce908d02c29cca2c9028}{CodeEventHandlerInternal}}(evt\_rec);}
+\DoxyCodeLine{437   \}}
+\DoxyCodeLine{438 }
+\DoxyCodeLine{439 \textcolor{preprocessor}{\#if V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{440   \textcolor{comment}{// We can call the WasmToJS wrapper from the embedded blob}}
+\DoxyCodeLine{441   CodeEventsContainer evt\_rec(CodeEventRecord::Type::kReportBuiltin);}
+\DoxyCodeLine{442   ReportBuiltinEventRecord* rec = \&evt\_rec.ReportBuiltinEventRecord\_;}
+\DoxyCodeLine{443   rec-\/>instruction\_start =}
+\DoxyCodeLine{444       \mbox{\hyperlink{classv8_1_1internal_1_1Builtins_a47a260ae04bebdcad714c481a3cd3553}{Builtins::EmbeddedEntryOf}}(Builtin::kWasmToJsWrapperCSA);}
+\DoxyCodeLine{445   rec-\/>instruction\_size =}
+\DoxyCodeLine{446       \mbox{\hyperlink{classv8_1_1internal_1_1EmbeddedData_a5f046101e1ed7d746979f87acbcb60e5}{EmbeddedData::FromBlob}}().\mbox{\hyperlink{classv8_1_1internal_1_1EmbeddedData_a59518d547915f442356ea926c0d1ff56}{InstructionSizeOf}}(Builtin::kWasmToJsWrapperCSA);}
+\DoxyCodeLine{447   rec-\/>builtin = Builtin::kWasmToJsWrapperCSA;}
+\DoxyCodeLine{448   \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_aba030a6ccfb7ce908d02c29cca2c9028}{CodeEventHandlerInternal}}(evt\_rec);}
+\DoxyCodeLine{449 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{450 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Report\+Builtin\+Event\+Record\+::builtin, v8\+::internal\+::\+Isolate\+::builtins(), v8\+::internal\+::\+Builtins\+::code(), code, Code\+Event\+Handler\+Internal(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Builtins\+::\+Embedded\+Entry\+Of(), v8\+::internal\+::\+Embedded\+Data\+::\+From\+Blob(), v8\+::internal\+::\+Report\+Builtin\+Event\+Record\+::instruction\+\_\+size, v8\+::internal\+::\+Report\+Builtin\+Event\+Record\+::instruction\+\_\+start, v8\+::internal\+::\+Embedded\+Data\+::\+Instruction\+Size\+Of(), v8\+::internal\+::\+Builtins\+::is\+\_\+initialized(), isolate\+\_\+, v8\+::internal\+::\+Builtins\+::k\+First, and v8\+::internal\+::\+Builtins\+::k\+Last.
+
+
+
+Referenced by Profiler\+Code\+Observer().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilerCodeObserver_ab9ac98131afd97af48cfa02fb54f0685_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilerCodeObserver_ab9ac98131afd97af48cfa02fb54f0685_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_a1323bb7e91664860ef73ed521b422056}\label{classv8_1_1internal_1_1ProfilerCodeObserver_a1323bb7e91664860ef73ed521b422056}} 
+\index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!processor@{processor}}
+\index{processor@{processor}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
+\doxysubsubsection{\texorpdfstring{processor()}{processor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerEventsProcessor}{Profiler\+Events\+Processor}}$\ast$ v8\+::internal\+::\+Profiler\+Code\+Observer\+::processor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 291 of file cpu-\/profiler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{291 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a999daf7e9e55ac5c2f38ee39db3422e7}{processor\_}}; \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+Profiler\+Events\+Processor\+::\+Profiler\+Events\+Processor(), and v8\+::internal\+::\+Profiler\+Events\+Processor\+::$\sim$\+Profiler\+Events\+Processor().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilerCodeObserver_a1323bb7e91664860ef73ed521b422056_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_adc73c12816caf44b861672bc66a11ad1}\label{classv8_1_1internal_1_1ProfilerCodeObserver_adc73c12816caf44b861672bc66a11ad1}} 
+\index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!set\_processor@{set\_processor}}
+\index{set\_processor@{set\_processor}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
+\doxysubsubsection{\texorpdfstring{set\_processor()}{set\_processor()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Profiler\+Code\+Observer\+::set\+\_\+processor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerEventsProcessor}{Profiler\+Events\+Processor}} $\ast$}]{processor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 294 of file cpu-\/profiler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{294                                                          \{}
+\DoxyCodeLine{295     \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a999daf7e9e55ac5c2f38ee39db3422e7}{processor\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_a1323bb7e91664860ef73ed521b422056}{processor}};}
+\DoxyCodeLine{296   \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+Profiler\+Events\+Processor\+::\+Profiler\+Events\+Processor().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilerCodeObserver_adc73c12816caf44b861672bc66a11ad1_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_a39eeb427adcc0eba65357eac33c12c26}\label{classv8_1_1internal_1_1ProfilerCodeObserver_a39eeb427adcc0eba65357eac33c12c26}} 
 \index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!weak\_code\_registry@{weak\_code\_registry}}
 \index{weak\_code\_registry@{weak\_code\_registry}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
 \doxysubsubsection{\texorpdfstring{weak\_code\_registry()}{weak\_code\_registry()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1WeakCodeRegistry}{Weak\+Code\+Registry}}$\ast$ v8\+::internal\+::\+Profiler\+Code\+Observer\+::weak\+\_\+code\+\_\+registry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 278 of file cpu-\/profiler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{278 \{ \textcolor{keywordflow}{return} \&\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerCodeObserver_ac04321740c3ecc881877f4f71b6a3181}{weak\_code\_registry\_}}; \}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Friends And Related Function Documentation}
@@ -109,7 +525,84 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1CodeEventObserver_a8fb166e41c
 
 
 
+Definition at line 284 of file cpu-\/profiler.\+h.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_a32499bf009f8a3cb6ad7a8b9e79c5a90}\label{classv8_1_1internal_1_1ProfilerCodeObserver_a32499bf009f8a3cb6ad7a8b9e79c5a90}} 
+\index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!code\_entries\_@{code\_entries\_}}
+\index{code\_entries\_@{code\_entries\_}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
+\doxysubsubsection{\texorpdfstring{code\_entries\_}{code\_entries\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1CodeEntryStorage}{Code\+Entry\+Storage}}\& v8\+::internal\+::\+Profiler\+Code\+Observer\+::code\+\_\+entries\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 302 of file cpu-\/profiler.\+h.
+
+
+
+Referenced by Create\+Entries\+For\+Runtime\+Call\+Stats(), and Get\+Estimated\+Memory\+Usage().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_a426baacc7565c177a6d285ac3e7b9de6}\label{classv8_1_1internal_1_1ProfilerCodeObserver_a426baacc7565c177a6d285ac3e7b9de6}} 
+\index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!code\_map\_@{code\_map\_}}
+\index{code\_map\_@{code\_map\_}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
+\doxysubsubsection{\texorpdfstring{code\_map\_}{code\_map\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1InstructionStreamMap}{Instruction\+Stream\+Map}} v8\+::internal\+::\+Profiler\+Code\+Observer\+::code\+\_\+map\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 303 of file cpu-\/profiler.\+h.
+
+
+
+Referenced by Clear\+Code\+Map(), Create\+Entries\+For\+Runtime\+Call\+Stats(), and Get\+Estimated\+Memory\+Usage().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_a0c5a94364f2b25587781f3f52d35d08b}\label{classv8_1_1internal_1_1ProfilerCodeObserver_a0c5a94364f2b25587781f3f52d35d08b}} 
+\index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!isolate\_@{isolate\_}}
+\index{isolate\_@{isolate\_}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
+\doxysubsubsection{\texorpdfstring{isolate\_}{isolate\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}}$\ast$ const v8\+::internal\+::\+Profiler\+Code\+Observer\+::isolate\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 301 of file cpu-\/profiler.\+h.
+
+
+
+Referenced by Create\+Entries\+For\+Runtime\+Call\+Stats(), and Log\+Builtins().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_a999daf7e9e55ac5c2f38ee39db3422e7}\label{classv8_1_1internal_1_1ProfilerCodeObserver_a999daf7e9e55ac5c2f38ee39db3422e7}} 
+\index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!processor\_@{processor\_}}
+\index{processor\_@{processor\_}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
+\doxysubsubsection{\texorpdfstring{processor\_}{processor\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerEventsProcessor}{Profiler\+Events\+Processor}}$\ast$ v8\+::internal\+::\+Profiler\+Code\+Observer\+::processor\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 305 of file cpu-\/profiler.\+h.
+
+
+
+Referenced by Code\+Event\+Handler(), and Get\+Estimated\+Memory\+Usage().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1ProfilerCodeObserver_ac04321740c3ecc881877f4f71b6a3181}\label{classv8_1_1internal_1_1ProfilerCodeObserver_ac04321740c3ecc881877f4f71b6a3181}} 
+\index{v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}!weak\_code\_registry\_@{weak\_code\_registry\_}}
+\index{weak\_code\_registry\_@{weak\_code\_registry\_}!v8::internal::ProfilerCodeObserver@{v8::internal::ProfilerCodeObserver}}
+\doxysubsubsection{\texorpdfstring{weak\_code\_registry\_}{weak\_code\_registry\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1WeakCodeRegistry}{Weak\+Code\+Registry}} v8\+::internal\+::\+Profiler\+Code\+Observer\+::weak\+\_\+code\+\_\+registry\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 304 of file cpu-\/profiler.\+h.
+
+
+
+Referenced by Clear\+Code\+Map().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{cpu-profiler_8h}{cpu-\/profiler.\+h}}\item 
-\mbox{\hyperlink{cpu-profiler_8cc}{cpu-\/profiler.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/profiler/\mbox{\hyperlink{cpu-profiler_8h}{cpu-\/profiler.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/profiler/\mbox{\hyperlink{cpu-profiler_8cc}{cpu-\/profiler.\+cc}}\end{DoxyCompactItemize}

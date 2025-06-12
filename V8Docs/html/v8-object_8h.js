@@ -43,5 +43,5 @@ var v8_object_8h =
       [ "kHasNoSideEffect", "v8-object_8h.html#a29711319c2b9fc7716d65faee2f7b9cba5168ab38be99edd5ce1e4cb991b21f51", null ],
       [ "kHasSideEffectToReceiver", "v8-object_8h.html#a29711319c2b9fc7716d65faee2f7b9cba9903bad4bfa0121e35f3a8682b316ca7", null ]
     ] ],
-    [ "V8_DEPRECATE_SOON", "v8-object_8h.html#aa14410fe119b4e38df68ede889113e5b", null ]
+    [ "V8_ENUM_DEPRECATE_SOON", "v8-object_8h.html#a491a10c2ad4a03302026bdb167a8cd56", null ]
 ];

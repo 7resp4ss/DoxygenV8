@@ -2,6 +2,7 @@ var platform_win32_8cc =
 [
     [ "WindowsTimezoneCache", "classv8_1_1base_1_1WindowsTimezoneCache.html", "classv8_1_1base_1_1WindowsTimezoneCache" ],
     [ "Win32Time", "classv8_1_1base_1_1Win32Time.html", "classv8_1_1base_1_1Win32Time" ],
+    [ "TimeStamp", "unionv8_1_1base_1_1Win32Time_1_1TimeStamp.html", "unionv8_1_1base_1_1Win32Time_1_1TimeStamp" ],
     [ "Win32MemoryMappedFile", "classv8_1_1base_1_1Win32MemoryMappedFile.html", "classv8_1_1base_1_1Win32MemoryMappedFile" ],
     [ "PlatformData", "classv8_1_1base_1_1Thread_1_1PlatformData.html", "classv8_1_1base_1_1Thread_1_1PlatformData" ],
     [ "DBGHELP_FUNCTION_LIST", "platform-win32_8cc.html#add09f6a0b989fa16f6586b67b6747818", null ],
@@ -35,8 +36,23 @@ var platform_win32_8cc =
       [ "CONSOLE", "platform-win32_8cc.html#a8005e899c1a17ecebe9530c2a894e16da314edcd936f538fc0078686ba11bc3ed", null ],
       [ "ODS", "platform-win32_8cc.html#a8005e899c1a17ecebe9530c2a894e16dac4b76d6fb9cec3b484bff6cd89595737", null ]
     ] ],
+    [ "AllocateInternal", "platform-win32_8cc.html#afe193e4925bba6817ac9ed8e7910baa8", null ],
+    [ "CheckIsOOMError", "platform-win32_8cc.html#abafde84aab8e9fdabb1031aa2363b8be", null ],
+    [ "ConvertUtf8StringToUtf16", "platform-win32_8cc.html#a4e7e0727a558ff03a0d5a9a05f16aec3", null ],
     [ "DEFINE_LAZY_LEAKY_OBJECT_GETTER", "platform-win32_8cc.html#af84f800e82451651cc6efe8ddf189a3d", null ],
+    [ "GetFileViewAccessFromMemoryPermission", "platform-win32_8cc.html#a31cfc9a9fce923a718f658d3dfb35dd7", null ],
+    [ "GetProtectionFromMemoryPermission", "platform-win32_8cc.html#a963050fb98dc70c57f03655c613d953c", null ],
+    [ "HasConsole", "platform-win32_8cc.html#aba5fca3206a2e43fd022191bc482fee5", null ],
+    [ "LoadDbgHelpAndTlHelp32", "platform-win32_8cc.html#a75fc3bc0bebec25fca957538b908d468", null ],
+    [ "LoadSymbols", "platform-win32_8cc.html#a4ba3ac1937e9da441242577b387ed8fa", null ],
+    [ "ThreadEntry", "platform-win32_8cc.html#a6be283378286baff0b449c4de32dfbea", null ],
+    [ "UserShadowStackEnabled", "platform-win32_8cc.html#a812fe31269e1a0364487d7d476158396", null ],
+    [ "VirtualAllocWithHint", "platform-win32_8cc.html#a6ca4b7f7b0918008be1156c25d2f7b3d", null ],
+    [ "VirtualAllocWrapper", "platform-win32_8cc.html#ac82b38aaafd4329330806e93719ae0a7", null ],
+    [ "VPrintHelper", "platform-win32_8cc.html#af8febcbbfb3cba7fe1561814f25234c5", null ],
+    [ "kNoThread", "platform-win32_8cc.html#aaac7db617d2f8be2fc20678d6ece00f3", null ],
     [ "MapViewOfFile3", "platform-win32_8cc.html#a0ea0d9c94b340f3ae61dfe095e71567c", null ],
+    [ "output_mode", "platform-win32_8cc.html#ae2d1e44ecac3d5b36ddb03961fc57cd3", null ],
     [ "UnmapViewOfFile2", "platform-win32_8cc.html#a7a8e5f39a6cedb50fe0f14dfc60faa17", null ],
     [ "VirtualAlloc2", "platform-win32_8cc.html#a5d9767851cd6623e1037e8cc2e344bf0", null ]
 ];

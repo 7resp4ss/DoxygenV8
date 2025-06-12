@@ -12,6 +12,7 @@ var classv8_1_1internal_1_1compiler_1_1TFGraph =
     [ "NewNode", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#acf1cedea6c7aa5e2aaaf3653ea8d5630", null ],
     [ "NewNode", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#a6c49c4fae06cfc7443bae18ec5a58579", null ],
     [ "NewNodeUnchecked", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#a89366836c623db73e24508fafbc5f4fa", null ],
+    [ "NextNodeId", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#ac2fe03e34c4807dae4c9934db98e9a53", null ],
     [ "NodeCount", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#a92f4cae118969b1a61dd07500561174f", null ],
     [ "operator=", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#acfdcb5686860680716faabe8e3c10dd0", null ],
     [ "Print", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#a92171a617cbcce4c4cbe76f97c58b42f", null ],
@@ -22,5 +23,13 @@ var classv8_1_1internal_1_1compiler_1_1TFGraph =
     [ "SetStart", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#a32bf4eb0e2848e591519bca3d0f1ad78", null ],
     [ "start", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#a123e25dfcbc42fb6faa4bd7b88fc51e6", null ],
     [ "zone", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#abcf2dededf60ccce586de9fc2c187c4d", null ],
-    [ "NodeMarkerBase", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#a300aff091dd808ac2a77b73336b03672", null ]
+    [ "NodeMarkerBase", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#a300aff091dd808ac2a77b73336b03672", null ],
+    [ "decorators_", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#ad7fc760dffe6fef9553117a1b2ffb994", null ],
+    [ "end_", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#a57d5cc5a670bf6500116d96ea033fcd4", null ],
+    [ "has_simd_", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#ab955aa76d60e2f0441b2ebd311d34446", null ],
+    [ "mark_max_", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#a474eff08c0f8ab01f325aa8518d087ea", null ],
+    [ "next_node_id_", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#a890a817bfa8ebce5e9d17bddea7b59c1", null ],
+    [ "simd_stores_", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#a6bbd592733a2693aacbd76f2a9b8538d", null ],
+    [ "start_", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#ac040610f4dcb724e1411d56f5004d57d", null ],
+    [ "zone_", "classv8_1_1internal_1_1compiler_1_1TFGraph.html#a70613aba6fe6e22d5e07054d8cb74fc6", null ]
 ];

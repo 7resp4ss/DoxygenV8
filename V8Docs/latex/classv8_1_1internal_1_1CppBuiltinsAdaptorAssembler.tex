@@ -7,7 +7,7 @@ Inheritance diagram for v8\+::internal\+::Cpp\+Builtins\+Adaptor\+Assembler\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classv8_1_1internal_1_1CppBuiltinsAdaptorAssembler__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1CppBuiltinsAdaptorAssembler__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -30,9 +30,16 @@ using \mbox{\hyperlink{classv8_1_1internal_1_1CppBuiltinsAdaptorAssembler_a82f46
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1CppBuiltinsAdaptorAssembler_abb9a3d1cd866e084ec4b175413c08708}{Cpp\+Builtins\+Adaptor\+Assembler}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssemblerState}{compiler\+::\+Code\+Assembler\+State}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a69e5efc92edbc414a2841fd6d35a5219}{state}})
 \item 
-void \mbox{\hyperlink{classv8_1_1internal_1_1CppBuiltinsAdaptorAssembler_a72a3703b9f51fedcc5a5912b15f5022f}{Generate\+Adaptor}} (int formal\+\_\+parameter\+\_\+count)
+void \mbox{\hyperlink{classv8_1_1internal_1_1CppBuiltinsAdaptorAssembler_a72a3703b9f51fedcc5a5912b15f5022f}{Generate\+Adaptor}} (\mbox{\hyperlink{classint}{int}} formal\+\_\+parameter\+\_\+count)
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1244 of file builtins-\/internal-\/gen.\+cc.
+
 
 
 \doxysubsection{Member Typedef Documentation}
@@ -41,6 +48,10 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1CppBuiltinsAdaptorAssembler_a72a370
 \index{Descriptor@{Descriptor}!v8::internal::CppBuiltinsAdaptorAssembler@{v8::internal::CppBuiltinsAdaptorAssembler}}
 \doxysubsubsection{\texorpdfstring{Descriptor}{Descriptor}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{classv8_1_1internal_1_1CppBuiltinsAdaptorAssembler_a82f46109e678104df8b67505c14bccbb}{v8\+::internal\+::\+Cpp\+Builtins\+Adaptor\+Assembler\+::\+Descriptor}} =  \mbox{\hyperlink{classv8_1_1internal_1_1CppBuiltinAdaptorDescriptor}{Cpp\+Builtin\+Adaptor\+Descriptor}}}
+
+
+
+Definition at line 1246 of file builtins-\/internal-\/gen.\+cc.
 
 
 
@@ -53,15 +64,106 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1CppBuiltinsAdaptorAssembler_a72a370
 
 
 
+Definition at line 1248 of file builtins-\/internal-\/gen.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1249       : \mbox{\hyperlink{classv8_1_1internal_1_1CodeStubAssembler_a5bea777236e3c5c2fabb4b8ec0c39f4d}{CodeStubAssembler}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a69e5efc92edbc414a2841fd6d35a5219}{state}}) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1CppBuiltinsAdaptorAssembler_a72a3703b9f51fedcc5a5912b15f5022f}\label{classv8_1_1internal_1_1CppBuiltinsAdaptorAssembler_a72a3703b9f51fedcc5a5912b15f5022f}} 
 \index{v8::internal::CppBuiltinsAdaptorAssembler@{v8::internal::CppBuiltinsAdaptorAssembler}!GenerateAdaptor@{GenerateAdaptor}}
 \index{GenerateAdaptor@{GenerateAdaptor}!v8::internal::CppBuiltinsAdaptorAssembler@{v8::internal::CppBuiltinsAdaptorAssembler}}
 \doxysubsubsection{\texorpdfstring{GenerateAdaptor()}{GenerateAdaptor()}}
-{\footnotesize\ttfamily void v8\+::internal\+::\+Cpp\+Builtins\+Adaptor\+Assembler\+::\+Generate\+Adaptor (\begin{DoxyParamCaption}\item[{int}]{formal\+\_\+parameter\+\_\+count }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Cpp\+Builtins\+Adaptor\+Assembler\+::\+Generate\+Adaptor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classint}{int}}}]{formal\+\_\+parameter\+\_\+count }\end{DoxyParamCaption})}
 
+
+
+Definition at line 1254 of file builtins-\/internal-\/gen.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1254                                                                             \{}
+\DoxyCodeLine{1255   \textcolor{keyword}{auto} context = Parameter<Context>(Descriptor::kContext);}
+\DoxyCodeLine{1256   \textcolor{keyword}{auto} target = Parameter<JSFunction>(Descriptor::kTarget);}
+\DoxyCodeLine{1257   \textcolor{keyword}{auto} new\_target = Parameter<Object>(Descriptor::kNewTarget);}
+\DoxyCodeLine{1258   \textcolor{keyword}{auto} c\_function = UncheckedParameter<WordT>(Descriptor::kCFunction);}
+\DoxyCodeLine{1259   \textcolor{keyword}{auto} actual\_argc =}
+\DoxyCodeLine{1260       UncheckedParameter<Int32T>(Descriptor::kActualArgumentsCount);}
+\DoxyCodeLine{1261 }
+\DoxyCodeLine{1262   \textcolor{comment}{// The logic contained here is mirrored for TurboFan inlining in}}
+\DoxyCodeLine{1263   \textcolor{comment}{// JSTypedLowering::ReduceJSCall\{Function,Construct\}. Keep these in sync.}}
+\DoxyCodeLine{1264 }
+\DoxyCodeLine{1265   \textcolor{comment}{// Make sure we operate in the context of the called function.}}
+\DoxyCodeLine{1266   CSA\_DCHECK(\textcolor{keyword}{this}, \mbox{\hyperlink{classv8_1_1internal_1_1CodeStubAssembler_ad986e91122456a56829a760260d3449d}{TaggedEqual}}(context, LoadJSFunctionContext(target)));}
+\DoxyCodeLine{1267 }
+\DoxyCodeLine{1268   static\_assert(\mbox{\hyperlink{namespacev8_1_1internal_a52f15eec14b13290a3f62bd1393e60d5}{kDontAdaptArgumentsSentinel}} == 0);}
+\DoxyCodeLine{1269   \textcolor{comment}{// The code below relies on |actual\_argc| to include receiver.}}
+\DoxyCodeLine{1270   static\_assert(\mbox{\hyperlink{namespacev8_1_1internal_aad3893fccd0a1a6e0ddcdf0a940428c7}{i::JSParameterCount}}(0) == 1);}
+\DoxyCodeLine{1271   TVARIABLE(Int32T, pushed\_argc, actual\_argc);}
+\DoxyCodeLine{1272 }
+\DoxyCodeLine{1273   \textcolor{comment}{// It's guaranteed that the receiver is pushed to the stack, thus both}}
+\DoxyCodeLine{1274   \textcolor{comment}{// kDontAdaptArgumentsSentinel and JSParameterCount(0) cases don't require}}
+\DoxyCodeLine{1275   \textcolor{comment}{// arguments adaptation. Just use the latter version for consistency.}}
+\DoxyCodeLine{1276   \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(\mbox{\hyperlink{namespacev8_1_1internal_a52f15eec14b13290a3f62bd1393e60d5}{kDontAdaptArgumentsSentinel}}, formal\_parameter\_count);}
+\DoxyCodeLine{1277   \textcolor{keywordflow}{if} (formal\_parameter\_count > \mbox{\hyperlink{namespacev8_1_1internal_aad3893fccd0a1a6e0ddcdf0a940428c7}{i::JSParameterCount}}(0)) \{}
+\DoxyCodeLine{1278     TNode<Int32T> formal\_count = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_ac15d4a314759279b4d8203afddec3fad}{Int32Constant}}(formal\_parameter\_count);}
+\DoxyCodeLine{1279 }
+\DoxyCodeLine{1280     \textcolor{comment}{// The number of arguments pushed is the maximum of actual arguments count}}
+\DoxyCodeLine{1281     \textcolor{comment}{// and formal parameters count.}}
+\DoxyCodeLine{1282     \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_aeeff59a8ec9a425e2ec18dc6f415ccf5}{Label}} done\_argc(\textcolor{keyword}{this});}
+\DoxyCodeLine{1283     \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a8a01c32bf239277c6063f52ad3f80a21}{GotoIf}}(Int32GreaterThanOrEqual(pushed\_argc.value(), formal\_count),}
+\DoxyCodeLine{1284            \&done\_argc);}
+\DoxyCodeLine{1285     \textcolor{comment}{// Update pushed args.}}
+\DoxyCodeLine{1286     pushed\_argc = formal\_count;}
+\DoxyCodeLine{1287     \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_ae1fa6d3d694b68f55e037aaffc918adb}{Goto}}(\&done\_argc);}
+\DoxyCodeLine{1288     BIND(\&done\_argc);}
+\DoxyCodeLine{1289   \}}
+\DoxyCodeLine{1290 }
+\DoxyCodeLine{1291   \textcolor{comment}{// Update arguments count for CEntry to contain the number of arguments}}
+\DoxyCodeLine{1292   \textcolor{comment}{// including the receiver and the extra arguments.}}
+\DoxyCodeLine{1293   TNode<Int32T> argc =}
+\DoxyCodeLine{1294       \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_ac261a60f6caf987d9e11197b68d911ec}{Int32Add}}(pushed\_argc.value(),}
+\DoxyCodeLine{1295                \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_ac15d4a314759279b4d8203afddec3fad}{Int32Constant}}(\mbox{\hyperlink{classv8_1_1internal_1_1BuiltinExitFrameConstants_a8cd32f1e737ff913ddc429ba0eb38047}{BuiltinExitFrameConstants::kNumExtraArgs}}));}
+\DoxyCodeLine{1296 }
+\DoxyCodeLine{1297   \textcolor{keyword}{const} \textcolor{keywordtype}{bool} builtin\_exit\_frame = \textcolor{keyword}{true};}
+\DoxyCodeLine{1298   \textcolor{keyword}{const} \textcolor{keywordtype}{bool} switch\_to\_central\_stack = \textcolor{keyword}{false};}
+\DoxyCodeLine{1299   \mbox{\hyperlink{namespacev8_1_1internal_acc2e164143496f18b5ec68f8ab70af52}{Builtin}} centry = \mbox{\hyperlink{classv8_1_1internal_1_1Builtins_ae8387be12acc6233ed4d0d0573b5dc90}{Builtins::CEntry}}(1, \mbox{\hyperlink{namespacev8_1_1internal_a42d27a473b67bd9a45d291d700a07effa5f4930a7bc3cf140a4d53f44f47ed789}{ArgvMode::kStack}}, builtin\_exit\_frame,}
+\DoxyCodeLine{1300                                     switch\_to\_central\_stack);}
+\DoxyCodeLine{1301 }
+\DoxyCodeLine{1302   static\_assert(\mbox{\hyperlink{classv8_1_1internal_1_1BuiltinArguments_a0d76092bad5adb3d4b167482e44fdc73}{BuiltinArguments::kNewTargetIndex}} == 0);}
+\DoxyCodeLine{1303   static\_assert(\mbox{\hyperlink{classv8_1_1internal_1_1BuiltinArguments_ae08ea91d3d3ab39ae3a9806872498ebe}{BuiltinArguments::kTargetIndex}} == 1);}
+\DoxyCodeLine{1304   static\_assert(\mbox{\hyperlink{classv8_1_1internal_1_1BuiltinArguments_a77ee1e614cbc5ba1ab832eacc8b5e1ce}{BuiltinArguments::kArgcIndex}} == 2);}
+\DoxyCodeLine{1305   static\_assert(\mbox{\hyperlink{classv8_1_1internal_1_1BuiltinArguments_a35752fc6cc0472e8e742b674245af491}{BuiltinArguments::kPaddingIndex}} == 3);}
+\DoxyCodeLine{1306 }
+\DoxyCodeLine{1307   \textcolor{comment}{// Unconditionally push argc, target and new target as extra stack arguments.}}
+\DoxyCodeLine{1308   \textcolor{comment}{// They will be used by stack frame iterators when constructing stack trace.}}
+\DoxyCodeLine{1309   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_aa88e7d32ce47e45cb91e9594116c6ff8}{TailCallBuiltin}}(centry, context,     \textcolor{comment}{// standard arguments for TailCallBuiltin}}
+\DoxyCodeLine{1310                   argc, c\_function,    \textcolor{comment}{// register arguments}}
+\DoxyCodeLine{1311                   TheHoleConstant(),   \textcolor{comment}{// additional stack argument 1 (padding)}}
+\DoxyCodeLine{1312                   \mbox{\hyperlink{classv8_1_1internal_1_1CodeStubAssembler_a0f369283b713c9e78113c803887119ff}{SmiFromInt32}}(argc),  \textcolor{comment}{// additional stack argument 2}}
+\DoxyCodeLine{1313                   target,              \textcolor{comment}{// additional stack argument 3}}
+\DoxyCodeLine{1314                   new\_target);         \textcolor{comment}{// additional stack argument 4}}
+\DoxyCodeLine{1315 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Builtins\+::\+CEntry(), DCHECK\+\_\+\+NE, v8\+::internal\+::compiler\+::\+Code\+Assembler\+::\+Goto(), v8\+::internal\+::compiler\+::\+Code\+Assembler\+::\+Goto\+If(), v8\+::internal\+::compiler\+::\+Code\+Assembler\+::\+Int32\+Add(), v8\+::internal\+::compiler\+::\+Code\+Assembler\+::\+Int32\+Constant(), v8\+::internal\+::\+JSParameter\+Count(), v8\+::internal\+::\+Builtin\+Arguments\+::k\+Argc\+Index, v8\+::internal\+::k\+Dont\+Adapt\+Arguments\+Sentinel, v8\+::internal\+::\+Builtin\+Arguments\+::k\+New\+Target\+Index, v8\+::internal\+::\+Builtin\+Exit\+Frame\+Constants\+::k\+Num\+Extra\+Args, v8\+::internal\+::\+Builtin\+Arguments\+::k\+Padding\+Index, v8\+::internal\+::k\+Stack, v8\+::internal\+::\+Builtin\+Arguments\+::k\+Target\+Index, v8\+::internal\+::\+Code\+Stub\+Assembler\+::\+Smi\+From\+Int32(), v8\+::internal\+::\+Code\+Stub\+Assembler\+::\+Tagged\+Equal(), and v8\+::internal\+::compiler\+::\+Code\+Assembler\+::\+Tail\+Call\+Builtin().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CppBuiltinsAdaptorAssembler_a72a3703b9f51fedcc5a5912b15f5022f_cgraph}
+\end{center}
+\end{figure}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{builtins-internal-gen_8cc}{builtins-\/internal-\/gen.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/builtins/\mbox{\hyperlink{builtins-internal-gen_8cc}{builtins-\/internal-\/gen.\+cc}}\end{DoxyCompactItemize}

@@ -1,0 +1,66 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02templates_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{templates.\+cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02templates_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}templates.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}templates.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSObject}{JSObject}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02templates_8cc_03_af94eb89d7f6af9ee8bd2aefa9ec3e7b3}{Create\+Slow\+JSObject\+With\+Properties}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1FixedArray}{Fixed\+Array}} $>$ property\+\_\+names, const \mbox{\hyperlink{classv8_1_1MemorySpan}{Memory\+Span}}$<$ \mbox{\hyperlink{classv8_1_1MaybeLocal}{Maybe\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$$>$ \&property\+\_\+values, \mbox{\hyperlink{classint}{int}} num\+\_\+properties\+\_\+set)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02templates_8cc_03_af94eb89d7f6af9ee8bd2aefa9ec3e7b3}\label{namespacev8_1_1internal_1_1anonymous__namespace_02templates_8cc_03_af94eb89d7f6af9ee8bd2aefa9ec3e7b3}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}templates.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}templates.cc\rcurly{}}!CreateSlowJSObjectWithProperties@{CreateSlowJSObjectWithProperties}}
+\index{CreateSlowJSObjectWithProperties@{CreateSlowJSObjectWithProperties}!v8::internal::anonymous\_namespace\lcurly{}templates.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}templates.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{CreateSlowJSObjectWithProperties()}{CreateSlowJSObjectWithProperties()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1JSObject}{JSObject}}$>$ v8\+::internal\+::anonymous\+\_\+namespace\{templates.\+cc\}\+::Create\+Slow\+JSObject\+With\+Properties (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1FixedArray}{Fixed\+Array}} $>$}]{property\+\_\+names,  }\item[{const \mbox{\hyperlink{classv8_1_1MemorySpan}{Memory\+Span}}$<$ \mbox{\hyperlink{classv8_1_1MaybeLocal}{Maybe\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$$>$ \&}]{property\+\_\+values,  }\item[{\mbox{\hyperlink{classint}{int}}}]{num\+\_\+properties\+\_\+set }\end{DoxyParamCaption})}
+
+
+
+Definition at line 221 of file templates.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{224                             \{}
+\DoxyCodeLine{225   DirectHandle<JSObject> \textcolor{keywordtype}{object} = isolate-\/>factory()-\/>NewSlowJSObjectFromMap(}
+\DoxyCodeLine{226       isolate-\/>slow\_object\_with\_object\_prototype\_map(), num\_properties\_set,}
+\DoxyCodeLine{227       AllocationType::kYoung);}
+\DoxyCodeLine{228   Handle<Object> properties = \mbox{\hyperlink{namespacev8_1_1internal_a8c89f00da07e125218128b9fbf0a321c}{handle}}(object-\/>raw\_properties\_or\_hash(), isolate);}
+\DoxyCodeLine{229   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; i < static\_cast<int>(property\_values.size()); ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{230     Local<Value> property\_value;}
+\DoxyCodeLine{231     \textcolor{keywordflow}{if} (!property\_values[\mbox{\hyperlink{namespacev8_1_1internal}{i}}].ToLocal(\&property\_value)) \{}
+\DoxyCodeLine{232       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{233     \}}
+\DoxyCodeLine{234     properties = \mbox{\hyperlink{namespacev8_1_1bigint_a6d4d2ce18897aba0f90b3208eca29a5b}{PropertyDictionary::Add}}(}
+\DoxyCodeLine{235         isolate, Cast<PropertyDictionary>(properties),}
+\DoxyCodeLine{236         Cast<String>(\mbox{\hyperlink{namespacev8_1_1internal_a8c89f00da07e125218128b9fbf0a321c}{handle}}(property\_names-\/>get(\mbox{\hyperlink{namespacev8_1_1internal}{i}}), isolate)),}
+\DoxyCodeLine{237         Utils::OpenDirectHandle(*property\_value), PropertyDetails::Empty());}
+\DoxyCodeLine{238   \}}
+\DoxyCodeLine{239   \textcolor{keywordtype}{object}-\/>set\_raw\_properties\_or\_hash(*properties);}
+\DoxyCodeLine{240   \textcolor{keywordflow}{return} object;}
+\DoxyCodeLine{241 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::bigint\+::\+Add(), v8\+::internal\+::\+Property\+Details\+::\+Empty(), v8\+::internal\+::\+Isolate\+::factory(), v8\+::internal\+::handle(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::k\+Young, v8\+::internal\+::\+Factory\+::\+New\+Slow\+JSObject\+From\+Map(), and v8\+::\+Utils\+::\+Open\+Direct\+Handle().
+
+
+
+Referenced by v8\+::internal\+::\+Dictionary\+Template\+Info\+::\+New\+Instance().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02templates_8cc_03_af94eb89d7f6af9ee8bd2aefa9ec3e7b3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02templates_8cc_03_af94eb89d7f6af9ee8bd2aefa9ec3e7b3_icgraph}
+\end{center}
+\end{figure}

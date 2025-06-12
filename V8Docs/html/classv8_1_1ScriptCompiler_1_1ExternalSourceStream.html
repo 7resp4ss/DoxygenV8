@@ -89,25 +89,40 @@ $(document).ready(function(){initNavTree('classv8_1_1ScriptCompiler_1_1ExternalS
 </div><!--header-->
 <div class="contents">
 
+<p>For streaming incomplete script data to <a class="el" href="classv8_1_1V8.html" title="Container class for static utility functions.">V8</a>.  
+ <a href="classv8_1_1ScriptCompiler_1_1ExternalSourceStream.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="v8-script_8h_source.html">v8-script.h</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for v8::ScriptCompiler::ExternalSourceStream:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classv8_1_1ScriptCompiler_1_1ExternalSourceStream__inherit__graph.svg" width="200" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classv8_1_1ScriptCompiler_1_1ExternalSourceStream__inherit__graph.svg" width="472" height="331"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+</div>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Collaboration diagram for v8::ScriptCompiler::ExternalSourceStream:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classv8_1_1ScriptCompiler_1_1ExternalSourceStream__coll__graph.svg" width="214" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aea5db01cae2b81183f9e3292421ad2df"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classv8_1_1ScriptCompiler_1_1ExternalSourceStream.html#aea5db01cae2b81183f9e3292421ad2df">~ExternalSourceStream</a> ()=default</td></tr>
 <tr class="separator:aea5db01cae2b81183f9e3292421ad2df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3a0221b5725f0b612a6342d8e83d899"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classv8_1_1ScriptCompiler_1_1ExternalSourceStream.html#ac3a0221b5725f0b612a6342d8e83d899">GetMoreData</a> (const uint8_t **src)=0</td></tr>
+<tr class="memdesc:ac3a0221b5725f0b612a6342d8e83d899"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classv8_1_1V8.html" title="Container class for static utility functions.">V8</a> calls this to request the next chunk of data from the embedder.  <a href="classv8_1_1ScriptCompiler_1_1ExternalSourceStream.html#ac3a0221b5725f0b612a6342d8e83d899">More...</a><br /></td></tr>
 <tr class="separator:ac3a0221b5725f0b612a6342d8e83d899"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>For streaming incomplete script data to <a class="el" href="classv8_1_1V8.html">V8</a>. The embedder should implement a subclass of this class. </p>
+<div class="textblock"><p>For streaming incomplete script data to <a class="el" href="classv8_1_1V8.html" title="Container class for static utility functions.">V8</a>. </p>
+<p>The embedder should implement a subclass of this class. </p>
+
+<p class="definition">Definition at line <a class="el" href="v8-script_8h_source.html#l00548">548</a> of file <a class="el" href="v8-script_8h_source.html">v8-script.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aea5db01cae2b81183f9e3292421ad2df"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aea5db01cae2b81183f9e3292421ad2df">&#9670;&nbsp;</a></span>~ExternalSourceStream()</h2>
@@ -158,17 +173,29 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p><a class="el" href="classv8_1_1V8.html">V8</a> calls this to request the next chunk of data from the embedder. This function will be called on a background thread, so it's OK to block and wait for the data, if the embedder doesn't have data yet. Returns the length of the data returned. When the data ends, GetMoreData should return 0. Caller takes ownership of the data.</p>
-<p>When streaming UTF-8 data, <a class="el" href="classv8_1_1V8.html">V8</a> handles multi-byte characters split between two data chunks, but doesn't handle multi-byte characters split between more than two data chunks. The embedder can avoid this problem by always returning at least 2 bytes of data.</p>
-<p>When streaming UTF-16 data, <a class="el" href="classv8_1_1V8.html">V8</a> does not handle characters split between two data chunks. The embedder has to make sure that chunks have an even length.</p>
-<p>If the embedder wants to cancel the streaming, they should make the next GetMoreData call return 0. <a class="el" href="classv8_1_1V8.html">V8</a> will interpret it as end of data (and most probably, parsing will fail). The streaming task will return as soon as <a class="el" href="classv8_1_1V8.html">V8</a> has parsed the data it received so far. </p>
 
-<p>Implemented in <a class="el" href="classv8_1_1DummySourceStream.html#a0b4b9e3f0d0747d169ba75e68fe596d7">v8::DummySourceStream</a>.</p>
+<p><a class="el" href="classv8_1_1V8.html" title="Container class for static utility functions.">V8</a> calls this to request the next chunk of data from the embedder. </p>
+<p>This function will be called on a background thread, so it's OK to block and wait for the data, if the embedder doesn't have data yet. Returns the length of the data returned. When the data ends, GetMoreData should return 0. Caller takes ownership of the data.</p>
+<p>When streaming UTF-8 data, <a class="el" href="classv8_1_1V8.html" title="Container class for static utility functions.">V8</a> handles multi-byte characters split between two data chunks, but doesn't handle multi-byte characters split between more than two data chunks. The embedder can avoid this problem by always returning at least 2 bytes of data.</p>
+<p>When streaming UTF-16 data, <a class="el" href="classv8_1_1V8.html" title="Container class for static utility functions.">V8</a> does not handle characters split between two data chunks. The embedder has to make sure that chunks have an even length.</p>
+<p>If the embedder wants to cancel the streaming, they should make the next GetMoreData call return 0. <a class="el" href="classv8_1_1V8.html" title="Container class for static utility functions.">V8</a> will interpret it as end of data (and most probably, parsing will fail). The streaming task will return as soon as <a class="el" href="classv8_1_1V8.html" title="Container class for static utility functions.">V8</a> has parsed the data it received so far. </p>
+
+<p>Implemented in <a class="el" href="classv8_1_1DummySourceStream.html#a0b4b9e3f0d0747d169ba75e68fe596d7">v8::DummySourceStream</a>, and <a class="el" href="classv8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_1_1StressBackgroundCompileThread_1_1SourceStream.html#a37c850a37d1a175f34c498522b49088d">v8::internal::anonymous_namespace{compiler.cc}::StressBackgroundCompileThread::SourceStream</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="scanner-character-streams_8cc_source.html#l00737">v8::internal::Utf8ExternalStreamingStream::FetchChunk()</a>, and <a class="el" href="scanner-character-streams_8cc_source.html#l00212">v8::internal::ChunkedStream&lt; Char &gt;::FetchChunk()</a>.</p>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classv8_1_1ScriptCompiler_1_1ExternalSourceStream_ac3a0221b5725f0b612a6342d8e83d899_icgraph.svg" width="100%" height="410"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="v8-script_8h_source.html">v8-script.h</a></li>
+<li>/mnt/V8SourceCode/include/<a class="el" href="v8-script_8h_source.html">v8-script.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -176,7 +203,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacev8.html">v8</a></li><li class="navelem"><a class="el" href="classv8_1_1ScriptCompiler.html">ScriptCompiler</a></li><li class="navelem"><a class="el" href="classv8_1_1ScriptCompiler_1_1ExternalSourceStream.html">ExternalSourceStream</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:42:53 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jun 12 2025 16:02:03 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -1,0 +1,242 @@
+\hypertarget{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03}{}\doxysection{v8\+::base\+::debug\+::anonymous\+\_\+namespace\{stack\+\_\+trace\+\_\+win.\+cc\} Namespace Reference}
+\label{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03}\index{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+long \mbox{\hyperlink{win32-headers_8h_a9aa60e1ead64be77ad551e745cbfd4d3}{WINAPI}} \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a5db7860bb196494a7bc063c4d47c7f14}{Stack\+Dump\+Exception\+Filter}} (EXCEPTION\+\_\+\+POINTERS $\ast$info)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_aebc6d480a681477f131a6bf6197a1cec}{Initialize\+Symbols}} ()
+\item 
+void \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a21b68c57b30d55a5f3f6dc2824c96061}{Output\+Trace\+To\+Stream}} (const void $\ast$const $\ast$trace, size\+\_\+t count, std\+::ostream $\ast$os)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+LPTOP\+\_\+\+LEVEL\+\_\+\+EXCEPTION\+\_\+\+FILTER \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_ac6ff53fd151c5e580815582ff5620107}{g\+\_\+previous\+\_\+filter}} = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a9b428f59b58170b6c8af44de63368cc7}{g\+\_\+dump\+\_\+stack\+\_\+in\+\_\+signal\+\_\+handler}} = \mbox{\hyperlink{flag-definitions_8h_ae56df915684f69fc6f5c0f3bd3b3c80c}{true}}
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a9c054671f10300fef2c70fbc583aa6cf}{g\+\_\+initialized\+\_\+symbols}} = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}
+\item 
+\mbox{\hyperlink{win32-headers_8h_ad342ac907eb044443153a22f964bf0af}{DWORD}} \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_ac82bc0d08bf302cf9009c98402a27665}{g\+\_\+init\+\_\+error}} = ERROR\+\_\+\+SUCCESS
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_aebc6d480a681477f131a6bf6197a1cec}\label{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_aebc6d480a681477f131a6bf6197a1cec}} 
+\index{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}!InitializeSymbols@{InitializeSymbols}}
+\index{InitializeSymbols@{InitializeSymbols}!v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{InitializeSymbols()}{InitializeSymbols()}}
+{\footnotesize\ttfamily bool v8\+::base\+::debug\+::anonymous\+\_\+namespace\{stack\+\_\+trace\+\_\+win.\+cc\}\+::Initialize\+Symbols (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 52 of file stack\+\_\+trace\+\_\+win.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{52                          \{}
+\DoxyCodeLine{53   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a9c054671f10300fef2c70fbc583aa6cf}{g\_initialized\_symbols}}) \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_ac82bc0d08bf302cf9009c98402a27665}{g\_init\_error}} == ERROR\_SUCCESS;}
+\DoxyCodeLine{54   \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a9c054671f10300fef2c70fbc583aa6cf}{g\_initialized\_symbols}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{55   \textcolor{comment}{// Defer symbol load until they're needed, use undecorated names, and get line}}
+\DoxyCodeLine{56   \textcolor{comment}{// numbers.}}
+\DoxyCodeLine{57   \mbox{\hyperlink{namespacev8_1_1base_aca82f387e10606199d99268240805673}{SymSetOptions}}(SYMOPT\_DEFERRED\_LOADS | SYMOPT\_UNDNAME | SYMOPT\_LOAD\_LINES);}
+\DoxyCodeLine{58   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1base_a7de9ac659321d3e042b09ddcb1e235c7}{SymInitialize}}(GetCurrentProcess(), \textcolor{keyword}{nullptr}, TRUE)) \{}
+\DoxyCodeLine{59     \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_ac82bc0d08bf302cf9009c98402a27665}{g\_init\_error}} = GetLastError();}
+\DoxyCodeLine{60     \textcolor{comment}{// TODO(awong): Handle error: SymInitialize can fail with}}
+\DoxyCodeLine{61     \textcolor{comment}{// ERROR\_INVALID\_PARAMETER.}}
+\DoxyCodeLine{62     \textcolor{comment}{// When it fails, we should not call debugbreak since it kills the current}}
+\DoxyCodeLine{63     \textcolor{comment}{// process (prevents future tests from running or kills the browser}}
+\DoxyCodeLine{64     \textcolor{comment}{// process).}}
+\DoxyCodeLine{65     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{66   \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68   \textcolor{comment}{// When transferring the binaries e.g. between bots, path put}}
+\DoxyCodeLine{69   \textcolor{comment}{// into the executable will get off. To still retrieve symbols correctly,}}
+\DoxyCodeLine{70   \textcolor{comment}{// add the directory of the executable to symbol search path.}}
+\DoxyCodeLine{71   \textcolor{comment}{// All following errors are non-\/fatal.}}
+\DoxyCodeLine{72   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} kSymbolsArraySize = 1024;}
+\DoxyCodeLine{73   std::unique\_ptr<wchar\_t[]> symbols\_path(\textcolor{keyword}{new} \textcolor{keywordtype}{wchar\_t}[kSymbolsArraySize]);}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75   \textcolor{comment}{// Note: The below function takes buffer size as number of characters,}}
+\DoxyCodeLine{76   \textcolor{comment}{// not number of bytes!}}
+\DoxyCodeLine{77   \textcolor{keywordflow}{if} (!SymGetSearchPathW(GetCurrentProcess(), symbols\_path.get(),}
+\DoxyCodeLine{78                          kSymbolsArraySize)) \{}
+\DoxyCodeLine{79     \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_ac82bc0d08bf302cf9009c98402a27665}{g\_init\_error}} = GetLastError();}
+\DoxyCodeLine{80     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{81   \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83   \textcolor{keywordtype}{wchar\_t} exe\_path[MAX\_PATH];}
+\DoxyCodeLine{84   GetModuleFileName(\textcolor{keyword}{nullptr}, exe\_path, MAX\_PATH);}
+\DoxyCodeLine{85   std::wstring exe\_path\_wstring(exe\_path);}
+\DoxyCodeLine{86   \textcolor{comment}{// To get the path without the filename, we just need to remove the final}}
+\DoxyCodeLine{87   \textcolor{comment}{// slash and everything after it.}}
+\DoxyCodeLine{88   std::wstring new\_path(}
+\DoxyCodeLine{89       std::wstring(symbols\_path.get()) + \mbox{\hyperlink{namespacev8_1_1internal_a68432e0286fadb63d524e475affa65fb}{L}}\textcolor{stringliteral}{"{};"{}} +}
+\DoxyCodeLine{90       exe\_path\_wstring.substr(0, exe\_path\_wstring.find\_last\_of(\mbox{\hyperlink{namespacev8_1_1internal_a68432e0286fadb63d524e475affa65fb}{L}}\textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)/"{}})));}
+\DoxyCodeLine{91   \textcolor{keywordflow}{if} (!SymSetSearchPathW(GetCurrentProcess(), new\_path.c\_str())) \{}
+\DoxyCodeLine{92     \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_ac82bc0d08bf302cf9009c98402a27665}{g\_init\_error}} = GetLastError();}
+\DoxyCodeLine{93     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{94   \}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96   \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_ac82bc0d08bf302cf9009c98402a27665}{g\_init\_error}} = ERROR\_SUCCESS;}
+\DoxyCodeLine{97   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{98 \}}
+
+\end{DoxyCode}
+
+
+References g\+\_\+init\+\_\+error, g\+\_\+initialized\+\_\+symbols, and v8\+::internal\+::L.
+
+\mbox{\Hypertarget{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a21b68c57b30d55a5f3f6dc2824c96061}\label{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a21b68c57b30d55a5f3f6dc2824c96061}} 
+\index{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}!OutputTraceToStream@{OutputTraceToStream}}
+\index{OutputTraceToStream@{OutputTraceToStream}!v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{OutputTraceToStream()}{OutputTraceToStream()}}
+{\footnotesize\ttfamily void v8\+::base\+::debug\+::anonymous\+\_\+namespace\{stack\+\_\+trace\+\_\+win.\+cc\}\+::Output\+Trace\+To\+Stream (\begin{DoxyParamCaption}\item[{const void $\ast$const $\ast$}]{trace,  }\item[{size\+\_\+t}]{count,  }\item[{std\+::ostream $\ast$}]{os }\end{DoxyParamCaption})}
+
+
+
+Definition at line 109 of file stack\+\_\+trace\+\_\+win.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{110                                          \{}
+\DoxyCodeLine{111   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; (\mbox{\hyperlink{namespacev8_1_1internal}{i}} < count) \&\& os-\/>good(); ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{112     \textcolor{keyword}{const} \textcolor{keywordtype}{int} kMaxNameLength = 256;}
+\DoxyCodeLine{113     DWORD\_PTR frame = \textcolor{keyword}{reinterpret\_cast<}DWORD\_PTR\textcolor{keyword}{>}(trace[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}]);}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115     \textcolor{comment}{// Code adapted from MSDN example:}}
+\DoxyCodeLine{116     \textcolor{comment}{// http://msdn.microsoft.com/en-\/us/library/ms680578(VS.85).aspx}}
+\DoxyCodeLine{117     ULONG64 buffer[(\textcolor{keyword}{sizeof}(SYMBOL\_INFO) + kMaxNameLength * \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{wchar\_t}) +}
+\DoxyCodeLine{118                     \textcolor{keyword}{sizeof}(ULONG64) -\/ 1) /}
+\DoxyCodeLine{119                    \textcolor{keyword}{sizeof}(ULONG64)];}
+\DoxyCodeLine{120     memset(buffer, 0, \textcolor{keyword}{sizeof}(buffer));}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122     \textcolor{comment}{// Initialize symbol information retrieval structures.}}
+\DoxyCodeLine{123     DWORD64 sym\_displacement = 0;}
+\DoxyCodeLine{124     PSYMBOL\_INFO symbol = \textcolor{keyword}{reinterpret\_cast<}PSYMBOL\_INFO\textcolor{keyword}{>}(\&buffer[0]);}
+\DoxyCodeLine{125     symbol-\/>SizeOfStruct = \textcolor{keyword}{sizeof}(SYMBOL\_INFO);}
+\DoxyCodeLine{126     symbol-\/>MaxNameLen = kMaxNameLength -\/ 1;}
+\DoxyCodeLine{127     \mbox{\hyperlink{classint}{BOOL}} has\_symbol =}
+\DoxyCodeLine{128         SymFromAddr(GetCurrentProcess(), frame, \&sym\_displacement, symbol);}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130     \textcolor{comment}{// Attempt to retrieve line number information.}}
+\DoxyCodeLine{131     \mbox{\hyperlink{win32-headers_8h_ad342ac907eb044443153a22f964bf0af}{DWORD}} line\_displacement = 0;}
+\DoxyCodeLine{132     IMAGEHLP\_LINE64 line = \{\};}
+\DoxyCodeLine{133     line.SizeOfStruct = \textcolor{keyword}{sizeof}(IMAGEHLP\_LINE64);}
+\DoxyCodeLine{134     \mbox{\hyperlink{classint}{BOOL}} has\_line = \mbox{\hyperlink{namespacev8_1_1base_a1e252e9780a545bfb5cfe0b2c59a5a19}{SymGetLineFromAddr64}}(GetCurrentProcess(), frame,}
+\DoxyCodeLine{135                                          \&line\_displacement, \&line);}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137     \textcolor{comment}{// Output the backtrace line.}}
+\DoxyCodeLine{138     (*os) << \textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{139     \textcolor{keywordflow}{if} (has\_symbol) \{}
+\DoxyCodeLine{140       (*os) << symbol-\/>Name << \textcolor{stringliteral}{"{} [0x"{}} << trace[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}] << \textcolor{stringliteral}{"{}+"{}} << sym\_displacement}
+\DoxyCodeLine{141             << \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{142     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{143       \textcolor{comment}{// If there is no symbol information, add a spacer.}}
+\DoxyCodeLine{144       (*os) << \textcolor{stringliteral}{"{}(No symbol) [0x"{}} << trace[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}] << \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{145     \}}
+\DoxyCodeLine{146     \textcolor{keywordflow}{if} (has\_line) \{}
+\DoxyCodeLine{147       (*os) << \textcolor{stringliteral}{"{} ("{}} << line.FileName << \textcolor{stringliteral}{"{}:"{}} << line.LineNumber << \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{148     \}}
+\DoxyCodeLine{149     (*os) << \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{150   \}}
+\DoxyCodeLine{151 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i.
+
+\mbox{\Hypertarget{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a5db7860bb196494a7bc063c4d47c7f14}\label{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a5db7860bb196494a7bc063c4d47c7f14}} 
+\index{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}!StackDumpExceptionFilter@{StackDumpExceptionFilter}}
+\index{StackDumpExceptionFilter@{StackDumpExceptionFilter}!v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{StackDumpExceptionFilter()}{StackDumpExceptionFilter()}}
+{\footnotesize\ttfamily long \mbox{\hyperlink{win32-headers_8h_a9aa60e1ead64be77ad551e745cbfd4d3}{WINAPI}} v8\+::base\+::debug\+::anonymous\+\_\+namespace\{stack\+\_\+trace\+\_\+win.\+cc\}\+::Stack\+Dump\+Exception\+Filter (\begin{DoxyParamCaption}\item[{EXCEPTION\+\_\+\+POINTERS $\ast$}]{info }\end{DoxyParamCaption})}
+
+
+
+Definition at line 44 of file stack\+\_\+trace\+\_\+win.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{44                                                                \{  \textcolor{comment}{// NOLINT}}
+\DoxyCodeLine{45   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a9b428f59b58170b6c8af44de63368cc7}{g\_dump\_stack\_in\_signal\_handler}}) \{}
+\DoxyCodeLine{46     debug::StackTrace(info).Print();}
+\DoxyCodeLine{47   \}}
+\DoxyCodeLine{48   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_ac6ff53fd151c5e580815582ff5620107}{g\_previous\_filter}}) \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_ac6ff53fd151c5e580815582ff5620107}{g\_previous\_filter}}(info);}
+\DoxyCodeLine{49   \textcolor{keywordflow}{return} EXCEPTION\_CONTINUE\_SEARCH;}
+\DoxyCodeLine{50 \}}
+
+\end{DoxyCode}
+
+
+References g\+\_\+dump\+\_\+stack\+\_\+in\+\_\+signal\+\_\+handler, g\+\_\+previous\+\_\+filter, and v8\+::base\+::debug\+::\+Stack\+Trace\+::\+Print().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a5db7860bb196494a7bc063c4d47c7f14_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a9b428f59b58170b6c8af44de63368cc7}\label{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a9b428f59b58170b6c8af44de63368cc7}} 
+\index{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}!g\_dump\_stack\_in\_signal\_handler@{g\_dump\_stack\_in\_signal\_handler}}
+\index{g\_dump\_stack\_in\_signal\_handler@{g\_dump\_stack\_in\_signal\_handler}!v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{g\_dump\_stack\_in\_signal\_handler}{g\_dump\_stack\_in\_signal\_handler}}
+{\footnotesize\ttfamily bool v8\+::base\+::debug\+::anonymous\+\_\+namespace\{stack\+\_\+trace\+\_\+win.\+cc\}\+::g\+\_\+dump\+\_\+stack\+\_\+in\+\_\+signal\+\_\+handler = \mbox{\hyperlink{flag-definitions_8h_ae56df915684f69fc6f5c0f3bd3b3c80c}{true}}}
+
+
+
+Definition at line 38 of file stack\+\_\+trace\+\_\+win.\+cc.
+
+
+
+Referenced by Stack\+Dump\+Exception\+Filter().
+
+\mbox{\Hypertarget{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_ac82bc0d08bf302cf9009c98402a27665}\label{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_ac82bc0d08bf302cf9009c98402a27665}} 
+\index{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}!g\_init\_error@{g\_init\_error}}
+\index{g\_init\_error@{g\_init\_error}!v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{g\_init\_error}{g\_init\_error}}
+{\footnotesize\ttfamily \mbox{\hyperlink{win32-headers_8h_ad342ac907eb044443153a22f964bf0af}{DWORD}} v8\+::base\+::debug\+::anonymous\+\_\+namespace\{stack\+\_\+trace\+\_\+win.\+cc\}\+::g\+\_\+init\+\_\+error = ERROR\+\_\+\+SUCCESS}
+
+
+
+Definition at line 40 of file stack\+\_\+trace\+\_\+win.\+cc.
+
+
+
+Referenced by Initialize\+Symbols().
+
+\mbox{\Hypertarget{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a9c054671f10300fef2c70fbc583aa6cf}\label{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_a9c054671f10300fef2c70fbc583aa6cf}} 
+\index{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}!g\_initialized\_symbols@{g\_initialized\_symbols}}
+\index{g\_initialized\_symbols@{g\_initialized\_symbols}!v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{g\_initialized\_symbols}{g\_initialized\_symbols}}
+{\footnotesize\ttfamily bool v8\+::base\+::debug\+::anonymous\+\_\+namespace\{stack\+\_\+trace\+\_\+win.\+cc\}\+::g\+\_\+initialized\+\_\+symbols = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}}
+
+
+
+Definition at line 39 of file stack\+\_\+trace\+\_\+win.\+cc.
+
+
+
+Referenced by Initialize\+Symbols().
+
+\mbox{\Hypertarget{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_ac6ff53fd151c5e580815582ff5620107}\label{namespacev8_1_1base_1_1debug_1_1anonymous__namespace_02stack__trace__win_8cc_03_ac6ff53fd151c5e580815582ff5620107}} 
+\index{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}!g\_previous\_filter@{g\_previous\_filter}}
+\index{g\_previous\_filter@{g\_previous\_filter}!v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}@{v8::base::debug::anonymous\_namespace\lcurly{}stack\_trace\_win.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{g\_previous\_filter}{g\_previous\_filter}}
+{\footnotesize\ttfamily LPTOP\+\_\+\+LEVEL\+\_\+\+EXCEPTION\+\_\+\+FILTER v8\+::base\+::debug\+::anonymous\+\_\+namespace\{stack\+\_\+trace\+\_\+win.\+cc\}\+::g\+\_\+previous\+\_\+filter = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}}
+
+
+
+Definition at line 36 of file stack\+\_\+trace\+\_\+win.\+cc.
+
+
+
+Referenced by Stack\+Dump\+Exception\+Filter().
+

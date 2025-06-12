@@ -4,10 +4,20 @@
 
 {\ttfamily \#include $<$code-\/comments.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Code\+Comments\+Writer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CodeCommentsWriter__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} void \mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_a66233acd194863059a2355d93c5d39e1}{Add}} (uint32\+\_\+t \mbox{\hyperlink{liftoff-compiler_8cc_ac8403346601a16f8902bbe271ff3c261}{pc\+\_\+offset}}, std\+::string comment)
+\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} void \mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_a66233acd194863059a2355d93c5d39e1}{Add}} (uint32\+\_\+t pc\+\_\+offset, std\+::string comment)
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_afc30bf5bdcc357a49ed8c79cd38a9ce3}{Emit}} (\mbox{\hyperlink{classv8_1_1internal_1_1Assembler}{Assembler}} $\ast$assm)
 \item 
@@ -15,6 +25,20 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_afc30bf5bdcc357a
 \item 
 uint32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_ab0bfbf0a999ec52bd7272abca6c43ae8}{section\+\_\+size}} () const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_a82d732e9a24c4723d14744e02e177630}{byte\+\_\+count\+\_\+}} = 0
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structv8_1_1internal_1_1CodeCommentEntry}{Code\+Comment\+Entry}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_a90fd4f45411fcb9c904efc03bf0ac485}{comments\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 36 of file code-\/comments.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -24,18 +48,112 @@ uint32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_ab0bfbf
 \doxysubsubsection{\texorpdfstring{Add()}{Add()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Code\+Comments\+Writer\+::\+Add (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{pc\+\_\+offset,  }\item[{std\+::string}]{comment }\end{DoxyParamCaption})}
 
+
+
+Definition at line 79 of file code-\/comments.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{79                                                                   \{}
+\DoxyCodeLine{80   CodeCommentEntry entry = \{pc\_offset, std::move(comment)\};}
+\DoxyCodeLine{81   \mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_a82d732e9a24c4723d14744e02e177630}{byte\_count\_}} += entry.size();}
+\DoxyCodeLine{82   \mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_a90fd4f45411fcb9c904efc03bf0ac485}{comments\_}}.push\_back(std::move(entry));}
+\DoxyCodeLine{83 \}}
+
+\end{DoxyCode}
+
+
+References byte\+\_\+count\+\_\+, comments\+\_\+, and v8\+::internal\+::\+Code\+Comment\+Entry\+::size().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CodeCommentsWriter_a66233acd194863059a2355d93c5d39e1_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1CodeCommentsWriter_afc30bf5bdcc357a49ed8c79cd38a9ce3}\label{classv8_1_1internal_1_1CodeCommentsWriter_afc30bf5bdcc357a49ed8c79cd38a9ce3}} 
 \index{v8::internal::CodeCommentsWriter@{v8::internal::CodeCommentsWriter}!Emit@{Emit}}
 \index{Emit@{Emit}!v8::internal::CodeCommentsWriter@{v8::internal::CodeCommentsWriter}}
 \doxysubsubsection{\texorpdfstring{Emit()}{Emit()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Code\+Comments\+Writer\+::\+Emit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Assembler}{Assembler}} $\ast$}]{assm }\end{DoxyParamCaption})}
 
+
+
+Definition at line 66 of file code-\/comments.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66                                              \{}
+\DoxyCodeLine{67   assm-\/>dd(\mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_ab0bfbf0a999ec52bd7272abca6c43ae8}{section\_size}}());}
+\DoxyCodeLine{68   \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = \mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_a90fd4f45411fcb9c904efc03bf0ac485}{comments\_}}.begin(); \mbox{\hyperlink{namespacev8_1_1internal}{i}} != \mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_a90fd4f45411fcb9c904efc03bf0ac485}{comments\_}}.end(); ++\mbox{\hyperlink{namespacev8_1_1internal}{i}}) \{}
+\DoxyCodeLine{69     assm-\/>dd(\mbox{\hyperlink{namespacev8_1_1internal}{i}}-\/>pc\_offset);}
+\DoxyCodeLine{70     assm-\/>dd(\mbox{\hyperlink{namespacev8_1_1internal}{i}}-\/>comment\_length());}
+\DoxyCodeLine{71     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{char} c : \mbox{\hyperlink{namespacev8_1_1internal}{i}}-\/>comment) \{}
+\DoxyCodeLine{72       EnsureSpace ensure\_space(assm);}
+\DoxyCodeLine{73       assm-\/>db(c);}
+\DoxyCodeLine{74     \}}
+\DoxyCodeLine{75     assm-\/>db(\textcolor{charliteral}{'\(\backslash\)0'});}
+\DoxyCodeLine{76   \}}
+\DoxyCodeLine{77 \}}
+
+\end{DoxyCode}
+
+
+References comments\+\_\+, v8\+::internal\+::\+Assembler\+::db(), v8\+::internal\+::\+Assembler\+::dd(), and section\+\_\+size().
+
+
+
+Referenced by v8\+::internal\+::\+Assembler\+::\+Write\+Code\+Comments().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CodeCommentsWriter_afc30bf5bdcc357a49ed8c79cd38a9ce3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CodeCommentsWriter_afc30bf5bdcc357a49ed8c79cd38a9ce3_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1CodeCommentsWriter_a56702f89cde4cbffec4759763285af9a}\label{classv8_1_1internal_1_1CodeCommentsWriter_a56702f89cde4cbffec4759763285af9a}} 
 \index{v8::internal::CodeCommentsWriter@{v8::internal::CodeCommentsWriter}!entry\_count@{entry\_count}}
 \index{entry\_count@{entry\_count}!v8::internal::CodeCommentsWriter@{v8::internal::CodeCommentsWriter}}
 \doxysubsubsection{\texorpdfstring{entry\_count()}{entry\_count()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Code\+Comments\+Writer\+::entry\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Definition at line 85 of file code-\/comments.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{85 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_a90fd4f45411fcb9c904efc03bf0ac485}{comments\_}}.size(); \}}
+
+\end{DoxyCode}
+
+
+References comments\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Assembler\+::\+Write\+Code\+Comments().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CodeCommentsWriter_a56702f89cde4cbffec4759763285af9a_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1CodeCommentsWriter_ab0bfbf0a999ec52bd7272abca6c43ae8}\label{classv8_1_1internal_1_1CodeCommentsWriter_ab0bfbf0a999ec52bd7272abca6c43ae8}} 
 \index{v8::internal::CodeCommentsWriter@{v8::internal::CodeCommentsWriter}!section\_size@{section\_size}}
 \index{section\_size@{section\_size}!v8::internal::CodeCommentsWriter@{v8::internal::CodeCommentsWriter}}
@@ -44,7 +162,65 @@ uint32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_ab0bfbf
 
 
 
+Definition at line 86 of file code-\/comments.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{86                                                 \{}
+\DoxyCodeLine{87   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02code-comments_8cc_03_ae7fc2cec19a7ff87cfc4e635f38fd2d1}{kOffsetToFirstCommentEntry}} + \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1CodeCommentsWriter_a82d732e9a24c4723d14744e02e177630}{byte\_count\_}});}
+\DoxyCodeLine{88 \}}
+
+\end{DoxyCode}
+
+
+References byte\+\_\+count\+\_\+, and v8\+::internal\+::anonymous\+\_\+namespace\{code-\/comments.\+cc\}\+::k\+Offset\+To\+First\+Comment\+Entry.
+
+
+
+Referenced by Emit(), and v8\+::internal\+::\+Assembler\+::\+Write\+Code\+Comments().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CodeCommentsWriter_ab0bfbf0a999ec52bd7272abca6c43ae8_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1CodeCommentsWriter_a82d732e9a24c4723d14744e02e177630}\label{classv8_1_1internal_1_1CodeCommentsWriter_a82d732e9a24c4723d14744e02e177630}} 
+\index{v8::internal::CodeCommentsWriter@{v8::internal::CodeCommentsWriter}!byte\_count\_@{byte\_count\_}}
+\index{byte\_count\_@{byte\_count\_}!v8::internal::CodeCommentsWriter@{v8::internal::CodeCommentsWriter}}
+\doxysubsubsection{\texorpdfstring{byte\_count\_}{byte\_count\_}}
+{\footnotesize\ttfamily uint32\+\_\+t v8\+::internal\+::\+Code\+Comments\+Writer\+::byte\+\_\+count\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 44 of file code-\/comments.\+h.
+
+
+
+Referenced by Add(), and section\+\_\+size().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1CodeCommentsWriter_a90fd4f45411fcb9c904efc03bf0ac485}\label{classv8_1_1internal_1_1CodeCommentsWriter_a90fd4f45411fcb9c904efc03bf0ac485}} 
+\index{v8::internal::CodeCommentsWriter@{v8::internal::CodeCommentsWriter}!comments\_@{comments\_}}
+\index{comments\_@{comments\_}!v8::internal::CodeCommentsWriter@{v8::internal::CodeCommentsWriter}}
+\doxysubsubsection{\texorpdfstring{comments\_}{comments\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structv8_1_1internal_1_1CodeCommentEntry}{Code\+Comment\+Entry}}$>$ v8\+::internal\+::\+Code\+Comments\+Writer\+::comments\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 45 of file code-\/comments.\+h.
+
+
+
+Referenced by Add(), Emit(), and entry\+\_\+count().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{code-comments_8h}{code-\/comments.\+h}}\item 
-\mbox{\hyperlink{code-comments_8cc}{code-\/comments.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/codegen/\mbox{\hyperlink{code-comments_8h}{code-\/comments.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/codegen/\mbox{\hyperlink{code-comments_8cc}{code-\/comments.\+cc}}\end{DoxyCompactItemize}

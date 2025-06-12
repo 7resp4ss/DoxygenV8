@@ -1,5 +1,17 @@
 var runtime_scopes_8cc =
 [
+    [ "HandleArguments", "classv8_1_1internal_1_1anonymous__namespace_02runtime-scopes_8cc_03_1_1HandleArguments.html", "classv8_1_1internal_1_1anonymous__namespace_02runtime-scopes_8cc_03_1_1HandleArguments" ],
+    [ "ParameterArguments", "classv8_1_1internal_1_1anonymous__namespace_02runtime-scopes_8cc_03_1_1ParameterArguments.html", "classv8_1_1internal_1_1anonymous__namespace_02runtime-scopes_8cc_03_1_1ParameterArguments" ],
+    [ "RedeclarationType", "runtime-scopes_8cc.html#aeebc045e8bb5a98652b51c4167d8241a", [
+      [ "kSyntaxError", "runtime-scopes_8cc.html#aeebc045e8bb5a98652b51c4167d8241aa43a2522b851e1a6c580e32d0cb53139b", null ],
+      [ "kTypeError", "runtime-scopes_8cc.html#aeebc045e8bb5a98652b51c4167d8241aaa2683774212a7155c864c5e106d2852c", null ]
+    ] ],
+    [ "AddToDisposableStack", "runtime-scopes_8cc.html#a2360b28a94b5e7e40171d5ac1522ad74", null ],
+    [ "DeclareEvalHelper", "runtime-scopes_8cc.html#aba2e99a4b8b5a38bc929cede533fd4e1", null ],
+    [ "DeclareGlobal", "runtime-scopes_8cc.html#a5dc1c71a431837b0102ae13453d62473", null ],
+    [ "GetCallerArguments", "runtime-scopes_8cc.html#a783c59c02d569d74e5c69f574c011326", null ],
+    [ "LoadLookupSlot", "runtime-scopes_8cc.html#a47804c8b32358910ce1dfe9a41b602ec", null ],
+    [ "NewSloppyArguments", "runtime-scopes_8cc.html#a80313176ba898da4a3f30c6b5f22f112", null ],
     [ "RUNTIME_FUNCTION", "runtime-scopes_8cc.html#a67912d03dfc86c5ac634e8cab217fc65", null ],
     [ "RUNTIME_FUNCTION", "runtime-scopes_8cc.html#abc4ea3bd7b697fbd56782e57a15d9a01", null ],
     [ "RUNTIME_FUNCTION", "runtime-scopes_8cc.html#ac1518e88c323a4fb73e8b8f5e4526bb4", null ],
@@ -29,6 +41,6 @@ var runtime_scopes_8cc =
     [ "RUNTIME_FUNCTION", "runtime-scopes_8cc.html#a973b3a921d9e3a0734ffc9ba65064d44", null ],
     [ "RUNTIME_FUNCTION", "runtime-scopes_8cc.html#a46f83cf971dbafcf907be31de4e1795c", null ],
     [ "RUNTIME_FUNCTION_RETURN_PAIR", "runtime-scopes_8cc.html#ac1e9a8b96f83dd8e3c30c816fe182e16", null ],
-    [ "array_", "runtime-scopes_8cc.html#afa9387d05a2f95cf8593871d5cbd2713", null ],
-    [ "parameters_", "runtime-scopes_8cc.html#a8b458cab516ac4d27c3042a2a5b1fb29", null ]
+    [ "StoreLookupSlot", "runtime-scopes_8cc.html#a9a2b013c2bff53c38f928fb9ada94004", null ],
+    [ "ThrowRedeclarationError", "runtime-scopes_8cc.html#ad996e155c88b68063ead543c724837cd", null ]
 ];

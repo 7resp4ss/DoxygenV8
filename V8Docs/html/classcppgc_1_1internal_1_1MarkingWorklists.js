@@ -2,6 +2,7 @@ var classcppgc_1_1internal_1_1MarkingWorklists =
 [
     [ "ConcurrentMarkingBailoutItem", "structcppgc_1_1internal_1_1MarkingWorklists_1_1ConcurrentMarkingBailoutItem.html", "structcppgc_1_1internal_1_1MarkingWorklists_1_1ConcurrentMarkingBailoutItem" ],
     [ "EphemeronPairItem", "structcppgc_1_1internal_1_1MarkingWorklists_1_1EphemeronPairItem.html", "structcppgc_1_1internal_1_1MarkingWorklists_1_1EphemeronPairItem" ],
+    [ "ExternalMarkingWorklist", "classcppgc_1_1internal_1_1MarkingWorklists_1_1ExternalMarkingWorklist.html", "classcppgc_1_1internal_1_1MarkingWorklists_1_1ExternalMarkingWorklist" ],
     [ "WeakCallbackItem", "structcppgc_1_1internal_1_1MarkingWorklists_1_1WeakCallbackItem.html", "structcppgc_1_1internal_1_1MarkingWorklists_1_1WeakCallbackItem" ],
     [ "ConcurrentMarkingBailoutWorklist", "classcppgc_1_1internal_1_1MarkingWorklists.html#ab7e223826d303b47d10c896f243deb40", null ],
     [ "EphemeronPairsWorklist", "classcppgc_1_1internal_1_1MarkingWorklists.html#a9ee1fb9d62af8dd3146dab81867212a9", null ],
@@ -27,5 +28,18 @@ var classcppgc_1_1internal_1_1MarkingWorklists =
     [ "weak_container_callback_worklist", "classcppgc_1_1internal_1_1MarkingWorklists.html#a2ee72c8ba9e8e8aa6f51435f3519cf84", null ],
     [ "weak_containers_worklist", "classcppgc_1_1internal_1_1MarkingWorklists.html#af073b5bca33996756bcb3f4310801f52", null ],
     [ "weak_custom_callback_worklist", "classcppgc_1_1internal_1_1MarkingWorklists.html#a1347461da940a31337557c6eaebfcf82", null ],
-    [ "write_barrier_worklist", "classcppgc_1_1internal_1_1MarkingWorklists.html#a4e1eb021f95c204332845cc347e21de5", null ]
+    [ "write_barrier_worklist", "classcppgc_1_1internal_1_1MarkingWorklists.html#a4e1eb021f95c204332845cc347e21de5", null ],
+    [ "concurrent_marking_bailout_worklist_", "classcppgc_1_1internal_1_1MarkingWorklists.html#ac93cef1741e3cc1b62056d6bf87b8196", null ],
+    [ "discovered_ephemeron_pairs_worklist_", "classcppgc_1_1internal_1_1MarkingWorklists.html#a8cc23832b826ffa7351c813f8428cad2", null ],
+    [ "ephemeron_pairs_for_processing_worklist_", "classcppgc_1_1internal_1_1MarkingWorklists.html#a338091b3776930786cceb70f1adb0efb", null ],
+    [ "kMutatorThreadId", "classcppgc_1_1internal_1_1MarkingWorklists.html#a2247af7a2530259e71780f7fea668232", null ],
+    [ "marking_worklist_", "classcppgc_1_1internal_1_1MarkingWorklists.html#ae6db6abe0a23e50bf3102bb3b99b59d9", null ],
+    [ "not_fully_constructed_worklist_", "classcppgc_1_1internal_1_1MarkingWorklists.html#af766a68a51da936a4015e65b85595e25", null ],
+    [ "parallel_weak_callback_worklist_", "classcppgc_1_1internal_1_1MarkingWorklists.html#a8e666b5640131fd09f015bb54b7c6062", null ],
+    [ "previously_not_fully_constructed_worklist_", "classcppgc_1_1internal_1_1MarkingWorklists.html#af5b823e89eb15393cfd9ebfc8158d37d", null ],
+    [ "retrace_marked_objects_worklist_", "classcppgc_1_1internal_1_1MarkingWorklists.html#a517c4f1d7a76ee7a56d0ae35c6a2b2d5", null ],
+    [ "weak_container_callback_worklist_", "classcppgc_1_1internal_1_1MarkingWorklists.html#a6953e8201a0507e0a518c510f786c182", null ],
+    [ "weak_containers_worklist_", "classcppgc_1_1internal_1_1MarkingWorklists.html#a80a05bbbf95fbad7fbf41362a8cbdace", null ],
+    [ "weak_custom_callback_worklist_", "classcppgc_1_1internal_1_1MarkingWorklists.html#ab7e1fea34ca6696091aa41ed12892f59", null ],
+    [ "write_barrier_worklist_", "classcppgc_1_1internal_1_1MarkingWorklists.html#aeb8e2b3aba508a561b0329e996f77e56", null ]
 ];

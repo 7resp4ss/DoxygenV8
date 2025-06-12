@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::Typed\+Frame\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=233pt]{classv8_1_1internal_1_1TypedFrame__coll__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1TypedFrame__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -41,6 +41,13 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1TypedFrame_a06f6701c2020187f449f757
 \doxysubsection*{Additional Inherited Members}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 702 of file frames.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1TypedFrame_a45d74273d946661f9660ba151a285adc}\label{classv8_1_1internal_1_1TypedFrame_a45d74273d946661f9660ba151a285adc}} 
 \index{v8::internal::TypedFrame@{v8::internal::TypedFrame}!TypedFrame@{TypedFrame}}
@@ -48,6 +55,15 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1TypedFrame_a06f6701c2020187f449f757
 \doxysubsubsection{\texorpdfstring{TypedFrame()}{TypedFrame()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Typed\+Frame\+::\+Typed\+Frame (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1StackFrameIteratorBase}{Stack\+Frame\+Iterator\+Base}} $\ast$}]{iterator }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}, {\ttfamily [protected]}}
 
+
+
+Definition at line 116 of file frames-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{117     : \mbox{\hyperlink{classv8_1_1internal_1_1CommonFrame_a012975430b13de6b116e4395bc5296a0}{CommonFrame}}(iterator) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -65,12 +81,168 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_aab011a08317b22888
 
 Reimplemented in \mbox{\hyperlink{classv8_1_1internal_1_1IrregexpFrame_a9812ac72fd5f34c11db55a385c82ad7e}{v8\+::internal\+::\+Irregexp\+Frame}}, \mbox{\hyperlink{classv8_1_1internal_1_1ConstructFrame_aedc76285c57bb1f6231302cea37640a6}{v8\+::internal\+::\+Construct\+Frame}}, \mbox{\hyperlink{classv8_1_1internal_1_1InternalFrame_aa7d3c8223747bcd3981858dd4a76ba02}{v8\+::internal\+::\+Internal\+Frame}}, \mbox{\hyperlink{classv8_1_1internal_1_1ExitFrame_a557476490b1e874bfeb69da5991820e1}{v8\+::internal\+::\+Exit\+Frame}}, \mbox{\hyperlink{classv8_1_1internal_1_1EntryFrame_ab7535eb80dba2605f8d1fb68af43087f}{v8\+::internal\+::\+Entry\+Frame}}, and \mbox{\hyperlink{classv8_1_1internal_1_1NativeFrame_a779ef2a98e6f36125e86085f73efe673}{v8\+::internal\+::\+Native\+Frame}}.
 
+
+
+Definition at line 1971 of file frames.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1971                                              \{}
+\DoxyCodeLine{1972   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_ab504aa990d423555eeff8e9d833bfe76}{iterator\_}}-\/>IsStackFrameIteratorForProfiler());}
+\DoxyCodeLine{1973 }
+\DoxyCodeLine{1974   \textcolor{comment}{//  ===  TypedFrame ===}}
+\DoxyCodeLine{1975   \textcolor{comment}{//  +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{1976   \textcolor{comment}{//  |   out\_param n   |  <-\/-\/ parameters\_base / sp}}
+\DoxyCodeLine{1977   \textcolor{comment}{//  |       ...       |}}
+\DoxyCodeLine{1978   \textcolor{comment}{//  |   out\_param 0   |}}
+\DoxyCodeLine{1979   \textcolor{comment}{//  +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{1980   \textcolor{comment}{//  |   spill\_slot n  |  <-\/-\/ parameters\_limit          \string^}}
+\DoxyCodeLine{1981   \textcolor{comment}{//  |       ...       |                          spill\_slot\_count}}
+\DoxyCodeLine{1982   \textcolor{comment}{//  |   spill\_slot 0  |                                v}}
+\DoxyCodeLine{1983   \textcolor{comment}{//  +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{1984   \textcolor{comment}{//  |   Type Marker   |  <-\/-\/ frame\_header\_base         \string^}}
+\DoxyCodeLine{1985   \textcolor{comment}{//  |-\/ -\/ -\/ -\/ -\/ -\/ -\/ -\/ -\/|                                |}}
+\DoxyCodeLine{1986   \textcolor{comment}{//  | [Constant Pool] |                                |}}
+\DoxyCodeLine{1987   \textcolor{comment}{//  |-\/ -\/ -\/ -\/ -\/ -\/ -\/ -\/ -\/|                           kFixedSlotCount}}
+\DoxyCodeLine{1988   \textcolor{comment}{//  | saved frame ptr |  <-\/-\/ fp                        |}}
+\DoxyCodeLine{1989   \textcolor{comment}{//  |-\/ -\/ -\/ -\/ -\/ -\/ -\/ -\/ -\/|                                |}}
+\DoxyCodeLine{1990   \textcolor{comment}{//  |  return addr    |                                v}}
+\DoxyCodeLine{1991   \textcolor{comment}{//  +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{1992 }
+\DoxyCodeLine{1993   \textcolor{comment}{// Find the code and compute the safepoint information.}}
+\DoxyCodeLine{1994   \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} inner\_pointer = \mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_abc14319996484cb09f941a893aa96525}{pc}}();}
+\DoxyCodeLine{1995   InnerPointerToCodeCache::InnerPointerToCodeCacheEntry* entry =}
+\DoxyCodeLine{1996       \mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_aa833f02441454c45d09c5bf51a699a20}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a99949749b070698fd4b2dab6a5bcf27d}{inner\_pointer\_to\_code\_cache}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1InnerPointerToCodeCache_a99ae60417d91f2a5504b40bfc55acc57}{GetCacheEntry}}(inner\_pointer);}
+\DoxyCodeLine{1997   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(entry-\/>code.has\_value());}
+\DoxyCodeLine{1998   Tagged<GcSafeCode> \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}} = entry-\/>code.value();}
+\DoxyCodeLine{1999 \textcolor{preprocessor}{\#if V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{2000   \textcolor{keywordtype}{bool} is\_generic\_wasm\_to\_js =}
+\DoxyCodeLine{2001       \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>is\_builtin() \&\& \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>builtin\_id() == Builtin::kWasmToJsWrapperCSA;}
+\DoxyCodeLine{2002   \textcolor{comment}{// Optimized wasm-\/to-\/js frames map to the WasmFrame type.}}
+\DoxyCodeLine{2003   \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(this-\/>\mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_a88b5e0918e5090f576323df49a7dd57f}{type}}(), WASM\_TO\_JS);}
+\DoxyCodeLine{2004   \textcolor{keywordflow}{if} (is\_generic\_wasm\_to\_js) \{}
+\DoxyCodeLine{2005     \mbox{\hyperlink{classv8_1_1internal_1_1TypedFrame_a06f6701c2020187f449f7579b672a955}{IterateParamsOfGenericWasmToJSWrapper}}(v);}
+\DoxyCodeLine{2006   \}}
+\DoxyCodeLine{2007 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{2008   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>is\_turbofanned());}
+\DoxyCodeLine{2009   SafepointEntry safepoint\_entry =}
+\DoxyCodeLine{2010       \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02frames_8cc_03_a9bdfc5c5f73731eab855adc445578465}{GetSafepointEntryFromCodeCache}}(\mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_aa833f02441454c45d09c5bf51a699a20}{isolate}}(), inner\_pointer, entry);}
+\DoxyCodeLine{2011 }
+\DoxyCodeLine{2012 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{2013   intptr\_t marker =}
+\DoxyCodeLine{2014       Memory<intptr\_t>(\mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_acd57bdd7c8b254edf7f35b769e6db458}{fp}}() + \mbox{\hyperlink{classv8_1_1internal_1_1CommonFrameConstants_a1c035d4bd11c0297bd029da37a15bc43}{CommonFrameConstants::kContextOrFrameTypeOffset}});}
+\DoxyCodeLine{2015   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_a3d839b46ed5210566ed310229fdb0a8d}{StackFrame::IsTypeMarker}}(marker));}
+\DoxyCodeLine{2016 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// DEBUG}}
+\DoxyCodeLine{2017 }
+\DoxyCodeLine{2018   \textcolor{comment}{// Determine the fixed header and spill slot area size.}}
+\DoxyCodeLine{2019   \textcolor{keywordtype}{int} frame\_header\_size = \mbox{\hyperlink{classv8_1_1internal_1_1TypedFrameConstants_aec7d44b578d300b19f5aba3a210e9fbb}{TypedFrameConstants::kFixedFrameSizeFromFp}};}
+\DoxyCodeLine{2020   \textcolor{keywordtype}{int} spill\_slots\_size =}
+\DoxyCodeLine{2021       \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>stack\_slots() * \mbox{\hyperlink{namespacev8_1_1internal_a72cbfdfeabb9a401f279f7b80bcff67a}{kSystemPointerSize}} -\/}
+\DoxyCodeLine{2022       (frame\_header\_size + \mbox{\hyperlink{classv8_1_1internal_1_1CommonFrameConstants_af1e15361462e26feb6e4e6520d46af67}{StandardFrameConstants::kFixedFrameSizeAboveFp}});}
+\DoxyCodeLine{2023 }
+\DoxyCodeLine{2024   \textcolor{comment}{// Fixed frame slots.}}
+\DoxyCodeLine{2025   FullObjectSlot frame\_header\_base(\&Memory<Address>(\mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_acd57bdd7c8b254edf7f35b769e6db458}{fp}}() -\/ frame\_header\_size));}
+\DoxyCodeLine{2026   FullObjectSlot frame\_header\_limit(}
+\DoxyCodeLine{2027       \&Memory<Address>(\mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_acd57bdd7c8b254edf7f35b769e6db458}{fp}}() -\/ \mbox{\hyperlink{classv8_1_1internal_1_1CommonFrameConstants_a992394389f3aa57ff16fa5ffed256c22}{StandardFrameConstants::kCPSlotSize}}));}
+\DoxyCodeLine{2028   \textcolor{comment}{// Parameters passed to the callee.}}
+\DoxyCodeLine{2029 \textcolor{preprocessor}{\#if V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{2030   \textcolor{comment}{// Frame layout without stack switching (stack grows upwards):}}
+\DoxyCodeLine{2031   \textcolor{comment}{//}}
+\DoxyCodeLine{2032   \textcolor{comment}{//         | callee      |}}
+\DoxyCodeLine{2033   \textcolor{comment}{//         | frame       |}}
+\DoxyCodeLine{2034   \textcolor{comment}{//         |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/| <-\/ sp()}}
+\DoxyCodeLine{2035   \textcolor{comment}{//         | out params  |}}
+\DoxyCodeLine{2036   \textcolor{comment}{//         |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/| <-\/ frame\_header\_base -\/ spill\_slot\_space}}
+\DoxyCodeLine{2037   \textcolor{comment}{//         | spill slots |}}
+\DoxyCodeLine{2038   \textcolor{comment}{//         |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/| <-\/ frame\_header\_base}}
+\DoxyCodeLine{2039   \textcolor{comment}{//         | frame header|}}
+\DoxyCodeLine{2040   \textcolor{comment}{//         |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/| <-\/ fp()}}
+\DoxyCodeLine{2041   \textcolor{comment}{//}}
+\DoxyCodeLine{2042   \textcolor{comment}{// With stack-\/switching:}}
+\DoxyCodeLine{2043   \textcolor{comment}{//}}
+\DoxyCodeLine{2044   \textcolor{comment}{//        Secondary stack:      Central stack:}}
+\DoxyCodeLine{2045   \textcolor{comment}{//}}
+\DoxyCodeLine{2046   \textcolor{comment}{//                              | callee     |}}
+\DoxyCodeLine{2047   \textcolor{comment}{//                              | frame      |}}
+\DoxyCodeLine{2048   \textcolor{comment}{//                              |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/| <-\/ sp()}}
+\DoxyCodeLine{2049   \textcolor{comment}{//                              | out params |}}
+\DoxyCodeLine{2050   \textcolor{comment}{//        |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|       |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/| <-\/ maybe\_stack\_switch.target\_sp}}
+\DoxyCodeLine{2051   \textcolor{comment}{//        | spill slots |}}
+\DoxyCodeLine{2052   \textcolor{comment}{//        |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/| <-\/ frame\_header\_base}}
+\DoxyCodeLine{2053   \textcolor{comment}{//        | frame header|}}
+\DoxyCodeLine{2054   \textcolor{comment}{//        |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/| <-\/ fp()}}
+\DoxyCodeLine{2055   \textcolor{comment}{//}}
+\DoxyCodeLine{2056   \textcolor{comment}{// The base (lowest address) of the outgoing stack parameters area is always}}
+\DoxyCodeLine{2057   \textcolor{comment}{// sp(), and the limit (highest address) is either \{frame\_header\_base -\/}}
+\DoxyCodeLine{2058   \textcolor{comment}{// spill\_slot\_size\} or \{maybe\_stack\_switch.target\_sp\} depending on}}
+\DoxyCodeLine{2059   \textcolor{comment}{// stack-\/switching.}}
+\DoxyCodeLine{2060   wasm::StackMemory::StackSwitchInfo maybe\_stack\_switch;}
+\DoxyCodeLine{2061   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_ab504aa990d423555eeff8e9d833bfe76}{iterator\_}}-\/>wasm\_stack() != \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{2062     maybe\_stack\_switch = \mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_ab504aa990d423555eeff8e9d833bfe76}{iterator\_}}-\/>wasm\_stack()-\/>stack\_switch\_info();}
+\DoxyCodeLine{2063   \}}
+\DoxyCodeLine{2064   FullObjectSlot parameters\_limit(}
+\DoxyCodeLine{2065       maybe\_stack\_switch.has\_value() \&\& maybe\_stack\_switch.source\_fp == \mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_acd57bdd7c8b254edf7f35b769e6db458}{fp}}()}
+\DoxyCodeLine{2066           ? maybe\_stack\_switch.target\_sp}
+\DoxyCodeLine{2067           : frame\_header\_base.address() -\/ spill\_slots\_size);}
+\DoxyCodeLine{2068 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{2069   FullObjectSlot parameters\_limit(frame\_header\_base.address() -\/}
+\DoxyCodeLine{2070                                   spill\_slots\_size);}
+\DoxyCodeLine{2071 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{2072   FullObjectSlot parameters\_base(\&Memory<Address>(\mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_a62e284fd302dbca8c04aa744c28d4960}{sp}}()));}
+\DoxyCodeLine{2073   FullObjectSlot spill\_slots\_end(frame\_header\_base.address() -\/}
+\DoxyCodeLine{2074                                  spill\_slots\_size);}
+\DoxyCodeLine{2075 }
+\DoxyCodeLine{2076   \textcolor{comment}{// Visit the rest of the parameters.}}
+\DoxyCodeLine{2077   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1CommonFrame_a89bfe7f37773312cb981f7fcde100260}{HasTaggedOutgoingParams}}(\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}})) \{}
+\DoxyCodeLine{2078     v-\/>VisitRootPointers(Root::kStackRoots, \textcolor{keyword}{nullptr}, parameters\_base,}
+\DoxyCodeLine{2079                          parameters\_limit);}
+\DoxyCodeLine{2080   \}}
+\DoxyCodeLine{2081 }
+\DoxyCodeLine{2082   \textcolor{comment}{// Visit pointer spill slots and locals.}}
+\DoxyCodeLine{2083   \mbox{\hyperlink{src_2base_2logging_8h_aabec5c3b7a8628298a25f044dcf89c25}{DCHECK\_GE}}((\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>stack\_slots() + \mbox{\hyperlink{namespacev8_1_1internal_a1f752d6859d2360901fc2a58c9548fd8}{kBitsPerByte}}) / \mbox{\hyperlink{namespacev8_1_1internal_a1f752d6859d2360901fc2a58c9548fd8}{kBitsPerByte}},}
+\DoxyCodeLine{2084             safepoint\_entry.tagged\_slots().size());}
+\DoxyCodeLine{2085   \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02frames_8cc_03_ab55a917fb3b71f45b262daec496c2c73}{VisitSpillSlots}}(\mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_aa833f02441454c45d09c5bf51a699a20}{isolate}}(), v, spill\_slots\_end,}
+\DoxyCodeLine{2086                   safepoint\_entry.tagged\_slots());}
+\DoxyCodeLine{2087 }
+\DoxyCodeLine{2088   \textcolor{comment}{// Visit fixed header region.}}
+\DoxyCodeLine{2089   v-\/>VisitRootPointers(Root::kStackRoots, \textcolor{keyword}{nullptr}, frame\_header\_base,}
+\DoxyCodeLine{2090                        frame\_header\_limit);}
+\DoxyCodeLine{2091 }
+\DoxyCodeLine{2092   \textcolor{comment}{// Visit the return address in the callee and incoming arguments.}}
+\DoxyCodeLine{2093   \mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_afe99ec22d5a613889110d7392be0dfb4}{IteratePc}}(v, \mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_a1965778b163e8648c83fec878250c854}{constant\_pool\_address}}(), \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}});}
+\DoxyCodeLine{2094 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, v8\+::internal\+::\+Inner\+Pointer\+To\+Code\+Cache\+::\+Inner\+Pointer\+To\+Code\+Cache\+Entry\+::code, code, v8\+::internal\+::\+Stack\+Frame\+::constant\+\_\+pool\+\_\+address(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+GE, DCHECK\+\_\+\+NE, v8\+::internal\+::\+Stack\+Frame\+::fp(), v8\+::internal\+::\+Inner\+Pointer\+To\+Code\+Cache\+::\+Get\+Cache\+Entry(), v8\+::internal\+::anonymous\+\_\+namespace\{frames.\+cc\}\+::\+Get\+Safepoint\+Entry\+From\+Code\+Cache(), v8\+::internal\+::wasm\+::\+Stack\+Memory\+::\+Stack\+Switch\+Info\+::has\+\_\+value(), v8\+::internal\+::\+Common\+Frame\+::\+Has\+Tagged\+Outgoing\+Params(), v8\+::internal\+::\+Isolate\+::inner\+\_\+pointer\+\_\+to\+\_\+code\+\_\+cache(), v8\+::internal\+::\+Stack\+Frame\+::isolate(), v8\+::internal\+::\+Stack\+Frame\+::\+Is\+Type\+Marker(), Iterate\+Params\+Of\+Generic\+Wasm\+To\+JSWrapper(), v8\+::internal\+::\+Stack\+Frame\+::\+Iterate\+Pc(), v8\+::internal\+::\+Stack\+Frame\+::iterator\+\_\+, v8\+::internal\+::k\+Bits\+Per\+Byte, v8\+::internal\+::\+Common\+Frame\+Constants\+::k\+Context\+Or\+Frame\+Type\+Offset, v8\+::internal\+::\+Common\+Frame\+Constants\+::k\+CPSlot\+Size, v8\+::internal\+::\+Common\+Frame\+Constants\+::k\+Fixed\+Frame\+Size\+Above\+Fp, v8\+::internal\+::\+Typed\+Frame\+Constants\+::k\+Fixed\+Frame\+Size\+From\+Fp, v8\+::internal\+::k\+System\+Pointer\+Size, v8\+::internal\+::\+Stack\+Frame\+::pc(), v8\+::base\+::\+Vector$<$ T $>$\+::size(), v8\+::internal\+::wasm\+::\+Stack\+Memory\+::\+Stack\+Switch\+Info\+::source\+\_\+fp, v8\+::internal\+::\+Stack\+Frame\+::sp(), v8\+::internal\+::\+Safepoint\+Entry\+::tagged\+\_\+slots(), v8\+::internal\+::wasm\+::\+Stack\+Memory\+::\+Stack\+Switch\+Info\+::target\+\_\+sp, v8\+::internal\+::\+Stack\+Frame\+::type(), v8\+::internal\+::\+Root\+Visitor\+::\+Visit\+Root\+Pointers(), and v8\+::internal\+::anonymous\+\_\+namespace\{frames.\+cc\}\+::\+Visit\+Spill\+Slots().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1TypedFrame_a5f4b21434a1bceaf383df4f0437a4e80_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1TypedFrame_a06f6701c2020187f449f7579b672a955}\label{classv8_1_1internal_1_1TypedFrame_a06f6701c2020187f449f7579b672a955}} 
 \index{v8::internal::TypedFrame@{v8::internal::TypedFrame}!IterateParamsOfGenericWasmToJSWrapper@{IterateParamsOfGenericWasmToJSWrapper}}
 \index{IterateParamsOfGenericWasmToJSWrapper@{IterateParamsOfGenericWasmToJSWrapper}!v8::internal::TypedFrame@{v8::internal::TypedFrame}}
 \doxysubsubsection{\texorpdfstring{IterateParamsOfGenericWasmToJSWrapper()}{IterateParamsOfGenericWasmToJSWrapper()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Typed\+Frame\+::\+Iterate\+Params\+Of\+Generic\+Wasm\+To\+JSWrapper (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1RootVisitor}{Root\+Visitor}} $\ast$}]{v }\end{DoxyParamCaption}) const}
 
+
+
+Referenced by Iterate().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1TypedFrame_a06f6701c2020187f449f7579b672a955_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1TypedFrame_ab3c05ef28423e5f8f8f5edb99521ea18}\label{classv8_1_1internal_1_1TypedFrame_ab3c05ef28423e5f8f8f5edb99521ea18}} 
 \index{v8::internal::TypedFrame@{v8::internal::TypedFrame}!unchecked\_code@{unchecked\_code}}
 \index{unchecked\_code@{unchecked\_code}!v8::internal::TypedFrame@{v8::internal::TypedFrame}}
@@ -87,8 +259,17 @@ Reimplemented in \mbox{\hyperlink{classv8_1_1internal_1_1StubFrame_a13a80e9c012d
 
 
 
+Definition at line 704 of file frames.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{704 \{ \textcolor{keywordflow}{return} \{\}; \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{frames_8h}{frames.\+h}}\item 
-\mbox{\hyperlink{frames-inl_8h}{frames-\/inl.\+h}}\item 
-\mbox{\hyperlink{frames_8cc}{frames.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/execution/\mbox{\hyperlink{frames_8h}{frames.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/execution/\mbox{\hyperlink{frames-inl_8h}{frames-\/inl.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/execution/\mbox{\hyperlink{frames_8cc}{frames.\+cc}}\end{DoxyCompactItemize}

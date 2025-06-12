@@ -1,0 +1,129 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-bigint_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{builtins-\/bigint.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-bigint_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}builtins-\/bigint.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}builtins-\/bigint.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1MaybeHandle}{Maybe\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1BigInt}{Big\+Int}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-bigint_8cc_03_a1a91949dec832e2591687fdf9e6700fd}{This\+Big\+Int\+Value}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, const char $\ast$caller)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-bigint_8cc_03_ab874908c7aa94a6af3cb3cdca4747418}{Big\+Int\+To\+String\+Impl}} (\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ receiver, \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ radix, \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, const char $\ast$builtin\+\_\+name)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-bigint_8cc_03_ab874908c7aa94a6af3cb3cdca4747418}\label{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-bigint_8cc_03_ab874908c7aa94a6af3cb3cdca4747418}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}builtins-\/bigint.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}builtins-\/bigint.cc\rcurly{}}!BigIntToStringImpl@{BigIntToStringImpl}}
+\index{BigIntToStringImpl@{BigIntToStringImpl}!v8::internal::anonymous\_namespace\lcurly{}builtins-\/bigint.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}builtins-\/bigint.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{BigIntToStringImpl()}{BigIntToStringImpl()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}}$>$ v8\+::internal\+::anonymous\+\_\+namespace\{builtins-\/bigint.\+cc\}\+::Big\+Int\+To\+String\+Impl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{receiver,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{radix,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{const char $\ast$}]{builtin\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Definition at line 97 of file builtins-\/bigint.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{98                                                                               \{}
+\DoxyCodeLine{99   \textcolor{comment}{// 1. Let x be ? thisBigIntValue(this value).}}
+\DoxyCodeLine{100   DirectHandle<BigInt> x;}
+\DoxyCodeLine{101   \mbox{\hyperlink{execution_2isolate_8h_a2ff064a43911dd1ec71bcb23989bd9d8}{ASSIGN\_RETURN\_FAILURE\_ON\_EXCEPTION}}(}
+\DoxyCodeLine{102       isolate, x, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-bigint_8cc_03_a1a91949dec832e2591687fdf9e6700fd}{ThisBigIntValue}}(isolate, receiver, builtin\_name));}
+\DoxyCodeLine{103   \textcolor{comment}{// 2. If radix is not present, let radixNumber be 10.}}
+\DoxyCodeLine{104   \textcolor{comment}{// 3. Else if radix is undefined, let radixNumber be 10.}}
+\DoxyCodeLine{105   \textcolor{keywordtype}{int} radix\_number = 10;}
+\DoxyCodeLine{106   \textcolor{keywordflow}{if} (!IsUndefined(*radix, isolate)) \{}
+\DoxyCodeLine{107     \textcolor{comment}{// 4. Else, let radixNumber be ? ToInteger(radix).}}
+\DoxyCodeLine{108     \textcolor{keywordtype}{double} radix\_double;}
+\DoxyCodeLine{109     \mbox{\hyperlink{execution_2isolate_8h_acd306e715cbfa1f800efa430a174a628}{MAYBE\_ASSIGN\_RETURN\_FAILURE\_ON\_EXCEPTION}}(}
+\DoxyCodeLine{110         isolate, radix\_double, Object::IntegerValue(isolate, radix));}
+\DoxyCodeLine{111     \textcolor{comment}{// 5. If radixNumber < 2 or radixNumber > 36, throw a RangeError exception.}}
+\DoxyCodeLine{112     \textcolor{keywordflow}{if} (radix\_double < 2 || radix\_double > 36) \{}
+\DoxyCodeLine{113       \mbox{\hyperlink{execution_2isolate_8h_a7fc5aec5f967fb5b39c24c8b0348634d}{THROW\_NEW\_ERROR\_RETURN\_FAILURE}}(}
+\DoxyCodeLine{114           isolate, NewRangeError(MessageTemplate::kToRadixFormatRange));}
+\DoxyCodeLine{115     \}}
+\DoxyCodeLine{116     radix\_number = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(radix\_double);}
+\DoxyCodeLine{117   \}}
+\DoxyCodeLine{118   \textcolor{comment}{// Return the String representation of this Number value using the radix}}
+\DoxyCodeLine{119   \textcolor{comment}{// specified by radixNumber.}}
+\DoxyCodeLine{120   \mbox{\hyperlink{execution_2isolate_8h_aca79e1963c131c77c0a496bac97c078d}{RETURN\_RESULT\_OR\_FAILURE}}(isolate, \mbox{\hyperlink{data-view-ops_8h_af22849720fbd54f8307292fe33c35a07}{BigInt::ToString}}(isolate, x, radix\_number));}
+\DoxyCodeLine{121 \}}
+
+\end{DoxyCode}
+
+
+References ASSIGN\+\_\+\+RETURN\+\_\+\+FAILURE\+\_\+\+ON\+\_\+\+EXCEPTION, v8\+::\+Value\+::\+Integer\+Value(), MAYBE\+\_\+\+ASSIGN\+\_\+\+RETURN\+\_\+\+FAILURE\+\_\+\+ON\+\_\+\+EXCEPTION, RETURN\+\_\+\+RESULT\+\_\+\+OR\+\_\+\+FAILURE, This\+Big\+Int\+Value(), THROW\+\_\+\+NEW\+\_\+\+ERROR\+\_\+\+RETURN\+\_\+\+FAILURE, and v8\+::internal\+::\+Big\+Int\+::\+To\+String().
+
+
+
+Referenced by v8\+::internal\+::\+BUILTIN().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-bigint_8cc_03_ab874908c7aa94a6af3cb3cdca4747418_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-bigint_8cc_03_ab874908c7aa94a6af3cb3cdca4747418_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-bigint_8cc_03_a1a91949dec832e2591687fdf9e6700fd}\label{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-bigint_8cc_03_a1a91949dec832e2591687fdf9e6700fd}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}builtins-\/bigint.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}builtins-\/bigint.cc\rcurly{}}!ThisBigIntValue@{ThisBigIntValue}}
+\index{ThisBigIntValue@{ThisBigIntValue}!v8::internal::anonymous\_namespace\lcurly{}builtins-\/bigint.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}builtins-\/bigint.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ThisBigIntValue()}{ThisBigIntValue()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MaybeHandle}{Maybe\+Handle}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1BigInt}{Big\+Int}}$>$ v8\+::internal\+::anonymous\+\_\+namespace\{builtins-\/bigint.\+cc\}\+::This\+Big\+Int\+Value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{value,  }\item[{const char $\ast$}]{caller }\end{DoxyParamCaption})}
+
+
+
+Definition at line 78 of file builtins-\/bigint.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{79                                                         \{}
+\DoxyCodeLine{80   \textcolor{comment}{// 1. If Type(value) is BigInt, return value.}}
+\DoxyCodeLine{81   \textcolor{keywordflow}{if} (IsBigInt(*\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})) \textcolor{keywordflow}{return} Cast<BigInt>(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});}
+\DoxyCodeLine{82   \textcolor{comment}{// 2. If Type(value) is Object and value has a [[BigIntData]] internal slot:}}
+\DoxyCodeLine{83   \textcolor{keywordflow}{if} (IsJSPrimitiveWrapper(*\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})) \{}
+\DoxyCodeLine{84     \textcolor{comment}{// 2a. Assert: value.[[BigIntData]] is a BigInt value.}}
+\DoxyCodeLine{85     \textcolor{comment}{// 2b. Return value.[[BigIntData]].}}
+\DoxyCodeLine{86     \mbox{\hyperlink{namespacev8_1_1internal_a5297fd2c72981b2220e6b9a831570fb3}{Tagged<Object>}} data = Cast<JSPrimitiveWrapper>(*value)-\/>value();}
+\DoxyCodeLine{87     \textcolor{keywordflow}{if} (IsBigInt(data)) \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a8c89f00da07e125218128b9fbf0a321c}{handle}}(Cast<BigInt>(data), isolate);}
+\DoxyCodeLine{88   \}}
+\DoxyCodeLine{89   \textcolor{comment}{// 3. Throw a TypeError exception.}}
+\DoxyCodeLine{90   \mbox{\hyperlink{execution_2isolate_8h_a6557667dd5be0768bd92d4bfd9a4d70f}{THROW\_NEW\_ERROR}}(}
+\DoxyCodeLine{91       isolate,}
+\DoxyCodeLine{92       NewTypeError(MessageTemplate::kNotGeneric,}
+\DoxyCodeLine{93                    isolate-\/>factory()-\/>NewStringFromAsciiChecked(caller),}
+\DoxyCodeLine{94                    isolate-\/>factory()-\/>BigInt\_string()));}
+\DoxyCodeLine{95 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::factory(), v8\+::internal\+::handle(), v8\+::internal\+::\+Factory\+Base$<$ Impl $>$\+::\+New\+String\+From\+Ascii\+Checked(), THROW\+\_\+\+NEW\+\_\+\+ERROR, and v8\+::internal\+::value.
+
+
+
+Referenced by Big\+Int\+To\+String\+Impl(), and v8\+::internal\+::\+BUILTIN().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-bigint_8cc_03_a1a91949dec832e2591687fdf9e6700fd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02builtins-bigint_8cc_03_a1a91949dec832e2591687fdf9e6700fd_icgraph}
+\end{center}
+\end{figure}

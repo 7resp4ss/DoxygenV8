@@ -1,0 +1,89 @@
+\hypertarget{namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-script_8cc_03}{}\doxysection{v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/debugger-\/script.cc\} Namespace Reference}
+\label{namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-script_8cc_03}\index{v8\_inspector::anonymous\_namespace\lcurly{}v8-\/debugger-\/script.cc\rcurly{}@{v8\_inspector::anonymous\_namespace\lcurly{}v8-\/debugger-\/script.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8__inspector_1_1String16}{String16}} \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-script_8cc_03_a65d0b3c6650820c8c4106df62bc3955f}{calculate\+Hash}} (\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1String}{v8\+::\+String}} $>$ source)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-script_8cc_03_ac40e1cfb558447e66c37384607ef821d}{k\+Global\+Debugger\+Script\+Handle\+Label}} \mbox{[}$\,$\mbox{]} = \char`\"{}Dev\+Tools debugger\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-script_8cc_03_a65d0b3c6650820c8c4106df62bc3955f}\label{namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-script_8cc_03_a65d0b3c6650820c8c4106df62bc3955f}} 
+\index{v8\_inspector::anonymous\_namespace\lcurly{}v8-\/debugger-\/script.cc\rcurly{}@{v8\_inspector::anonymous\_namespace\lcurly{}v8-\/debugger-\/script.cc\rcurly{}}!calculateHash@{calculateHash}}
+\index{calculateHash@{calculateHash}!v8\_inspector::anonymous\_namespace\lcurly{}v8-\/debugger-\/script.cc\rcurly{}@{v8\_inspector::anonymous\_namespace\lcurly{}v8-\/debugger-\/script.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{calculateHash()}{calculateHash()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8__inspector_1_1String16}{String16}} v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/debugger-\/script.\+cc\}\+::calculate\+Hash (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1String}{v8\+::\+String}} $>$}]{source }\end{DoxyParamCaption})}
+
+
+
+Definition at line 21 of file v8-\/debugger-\/script.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21                                                                      \{}
+\DoxyCodeLine{22   uint32\_t \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}} = source-\/>\mbox{\hyperlink{classv8_1_1String_afaa18eae27056bb7058f09920a238f53}{Length}}();}
+\DoxyCodeLine{23   std::unique\_ptr<UChar[]> buffer(\textcolor{keyword}{new} \mbox{\hyperlink{namespacev8__inspector_a4fee8aace8fb7617d4d1ca9a8e0444f0}{UChar}}[\mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}}]);}
+\DoxyCodeLine{24   source-\/>\mbox{\hyperlink{classv8_1_1String_a6c869509321f5b76bf1873d33c6b88d2}{WriteV2}}(isolate, 0, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}},}
+\DoxyCodeLine{25                   \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespaceunibrow_a0869a94c1a582a2b47889b990444deb9}{uint16\_t}}*\textcolor{keyword}{>}(buffer.get()));}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27   \textcolor{keyword}{const} uint8\_t* data = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{28   \textcolor{keywordtype}{size\_t} sizeInBytes = \textcolor{keyword}{sizeof}(\mbox{\hyperlink{namespacev8__inspector_a4fee8aace8fb7617d4d1ca9a8e0444f0}{UChar}}) * \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}};}
+\DoxyCodeLine{29   data = \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }uint8\_t*\textcolor{keyword}{>}(buffer.get());}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31   uint8\_t hash[\mbox{\hyperlink{sha-256_8h_aee19003e6860301c65bea78edbade98a}{kSizeOfSha256Digest}}];}
+\DoxyCodeLine{32   \mbox{\hyperlink{namespacev8_1_1internal_a7df672a53da331519f411995a9d64122}{v8::internal::SHA256\_hash}}(data, sizeInBytes, hash);}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34   String16Builder formatted\_hash;}
+\DoxyCodeLine{35   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{sha-256_8h_aee19003e6860301c65bea78edbade98a}{kSizeOfSha256Digest}}; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++)}
+\DoxyCodeLine{36     formatted\_hash.appendUnsignedAsHex(\textcolor{keyword}{static\_cast<}uint8\_t\textcolor{keyword}{>}(hash[\mbox{\hyperlink{namespacev8_1_1internal}{i}}]));}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38   \textcolor{keywordflow}{return} formatted\_hash.toString();}
+\DoxyCodeLine{39 \}}
+
+\end{DoxyCode}
+
+
+References v8\+\_\+inspector\+::\+String16\+Builder\+::append\+Unsigned\+As\+Hex(), k\+Size\+Of\+Sha256\+Digest, v8\+::\+String\+::\+Length(), v8\+::internal\+::length, v8\+::internal\+::\+SHA256\+\_\+hash(), v8\+\_\+inspector\+::\+String16\+Builder\+::to\+String(), and v8\+::\+String\+::\+Write\+V2().
+
+
+
+Referenced by v8\+\_\+inspector\+::\+V8\+Debugger\+Script\+::hash().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-script_8cc_03_a65d0b3c6650820c8c4106df62bc3955f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-script_8cc_03_a65d0b3c6650820c8c4106df62bc3955f_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-script_8cc_03_ac40e1cfb558447e66c37384607ef821d}\label{namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-script_8cc_03_ac40e1cfb558447e66c37384607ef821d}} 
+\index{v8\_inspector::anonymous\_namespace\lcurly{}v8-\/debugger-\/script.cc\rcurly{}@{v8\_inspector::anonymous\_namespace\lcurly{}v8-\/debugger-\/script.cc\rcurly{}}!kGlobalDebuggerScriptHandleLabel@{kGlobalDebuggerScriptHandleLabel}}
+\index{kGlobalDebuggerScriptHandleLabel@{kGlobalDebuggerScriptHandleLabel}!v8\_inspector::anonymous\_namespace\lcurly{}v8-\/debugger-\/script.cc\rcurly{}@{v8\_inspector::anonymous\_namespace\lcurly{}v8-\/debugger-\/script.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{kGlobalDebuggerScriptHandleLabel}{kGlobalDebuggerScriptHandleLabel}}
+{\footnotesize\ttfamily const char v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/debugger-\/script.\+cc\}\+::k\+Global\+Debugger\+Script\+Handle\+Label\mbox{[}$\,$\mbox{]} = \char`\"{}Dev\+Tools debugger\char`\"{}}
+
+
+
+Definition at line 19 of file v8-\/debugger-\/script.\+cc.
+
+
+
+Referenced by v8\+\_\+inspector\+::\+V8\+Debugger\+Script\+::\+Initialize().
+

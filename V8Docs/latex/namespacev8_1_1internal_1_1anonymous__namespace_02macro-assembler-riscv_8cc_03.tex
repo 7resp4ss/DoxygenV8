@@ -1,0 +1,90 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02macro-assembler-riscv_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{macro-\/assembler-\/riscv.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02macro-assembler-riscv_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}macro-\/assembler-\/riscv.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}macro-\/assembler-\/riscv.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02macro-assembler-riscv_8cc_03_a2b74744e24e60f1e3a467ff466467ef8}{Tail\+Call\+Optimized\+Code\+Slot}} (\mbox{\hyperlink{classv8_1_1internal_1_1MacroAssembler}{Macro\+Assembler}} $\ast$masm, \mbox{\hyperlink{classv8_1_1internal_1_1Register}{Register}} optimized\+\_\+code\+\_\+entry, \mbox{\hyperlink{classv8_1_1internal_1_1Register}{Register}} scratch1, \mbox{\hyperlink{classv8_1_1internal_1_1Register}{Register}} scratch2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02macro-assembler-riscv_8cc_03_a2b74744e24e60f1e3a467ff466467ef8}\label{namespacev8_1_1internal_1_1anonymous__namespace_02macro-assembler-riscv_8cc_03_a2b74744e24e60f1e3a467ff466467ef8}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}macro-\/assembler-\/riscv.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}macro-\/assembler-\/riscv.cc\rcurly{}}!TailCallOptimizedCodeSlot@{TailCallOptimizedCodeSlot}}
+\index{TailCallOptimizedCodeSlot@{TailCallOptimizedCodeSlot}!v8::internal::anonymous\_namespace\lcurly{}macro-\/assembler-\/riscv.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}macro-\/assembler-\/riscv.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{TailCallOptimizedCodeSlot()}{TailCallOptimizedCodeSlot()}}
+{\footnotesize\ttfamily static void v8\+::internal\+::anonymous\+\_\+namespace\{macro-\/assembler-\/riscv.\+cc\}\+::Tail\+Call\+Optimized\+Code\+Slot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MacroAssembler}{Macro\+Assembler}} $\ast$}]{masm,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Register}{Register}}}]{optimized\+\_\+code\+\_\+entry,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Register}{Register}}}]{scratch1,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Register}{Register}}}]{scratch2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 101 of file macro-\/assembler-\/riscv.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{103                                                                             \{}
+\DoxyCodeLine{104   \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ S t a t e -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{105   \textcolor{comment}{//  -\/-\/ a0 : actual argument count}}
+\DoxyCodeLine{106   \textcolor{comment}{//  -\/-\/ a3 : new target (preserved for callee if needed, and caller)}}
+\DoxyCodeLine{107   \textcolor{comment}{//  -\/-\/ a1 : target function (preserved for callee if needed, and caller)}}
+\DoxyCodeLine{108   \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{109   \mbox{\hyperlink{codegen_2assembler_8h_aa9b6b07d630b3249a10dea3be092a204}{ASM\_CODE\_COMMENT}}(masm);}
+\DoxyCodeLine{110   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{namespacev8_1_1internal_a976c6c26a43011a580e41e6f744290a4}{AreAliased}}(optimized\_code\_entry, a1, a3, scratch1, scratch2));}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112   \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter-generator_8cc_03_a219ad4847edd5647586f81d183a15c88}{Label}} heal\_optimized\_code\_slot;}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114   \textcolor{comment}{// If the optimized code is cleared, go to runtime to update the optimization}}
+\DoxyCodeLine{115   \textcolor{comment}{// marker field.}}
+\DoxyCodeLine{116   \mbox{\hyperlink{macro-assembler-riscv_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} LoadWeakValue(optimized\_code\_entry, optimized\_code\_entry,}
+\DoxyCodeLine{117                    \&heal\_optimized\_code\_slot);}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119   \textcolor{comment}{// The entry references a CodeWrapper object. Unwrap it now.}}
+\DoxyCodeLine{120   \mbox{\hyperlink{macro-assembler-riscv_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} LoadCodePointerField(}
+\DoxyCodeLine{121       optimized\_code\_entry,}
+\DoxyCodeLine{122       \mbox{\hyperlink{namespacev8_1_1internal_a6d90f6174f05f4140c8a212e6ac2e88c}{FieldMemOperand}}(optimized\_code\_entry, CodeWrapper::kCodeOffset));}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124   \textcolor{comment}{// Check if the optimized code is marked for deopt. If it is, call the}}
+\DoxyCodeLine{125   \textcolor{comment}{// runtime to clear it.}}
+\DoxyCodeLine{126   \mbox{\hyperlink{macro-assembler-riscv_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} JumpIfCodeIsMarkedForDeoptimization(optimized\_code\_entry, scratch1,}
+\DoxyCodeLine{127                                          \&heal\_optimized\_code\_slot);}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129   \textcolor{comment}{// Optimized code is good, get it into the closure and link the closure into}}
+\DoxyCodeLine{130   \textcolor{comment}{// the optimized functions list, then tail call the optimized code.}}
+\DoxyCodeLine{131   \textcolor{comment}{// The feedback vector is no longer used, so reuse it as a scratch}}
+\DoxyCodeLine{132   \textcolor{comment}{// register.}}
+\DoxyCodeLine{133   \mbox{\hyperlink{macro-assembler-riscv_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} ReplaceClosureCodeWithOptimizedCode(optimized\_code\_entry, a1);}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135   static\_assert(\mbox{\hyperlink{namespacev8_1_1internal_ab5b14dfcaeac00bc7e02cce6669ef0da}{kJavaScriptCallCodeStartRegister}} == a2, \textcolor{stringliteral}{"{}ABI mismatch"{}});}
+\DoxyCodeLine{136   \mbox{\hyperlink{macro-assembler-riscv_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} LoadCodeInstructionStart(a2, optimized\_code\_entry, \mbox{\hyperlink{namespacev8_1_1internal_a4d03c33de6286b42a8983faca58fa54bab715a16065798001ba865005ba7bc068}{kJSEntrypointTag}});}
+\DoxyCodeLine{137   \mbox{\hyperlink{macro-assembler-riscv_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} Jump(a2);}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139   \textcolor{comment}{// Optimized code slot contains deoptimized code or code is cleared and}}
+\DoxyCodeLine{140   \textcolor{comment}{// optimized code marker isn't updated. Evict the code, update the marker}}
+\DoxyCodeLine{141   \textcolor{comment}{// and re-\/enter the closure's code.}}
+\DoxyCodeLine{142   \mbox{\hyperlink{macro-assembler-riscv_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} bind(\&heal\_optimized\_code\_slot);}
+\DoxyCodeLine{143   \mbox{\hyperlink{macro-assembler-riscv_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} GenerateTailCallToReturnedCode(Runtime::kHealOptimizedCodeSlot);}
+\DoxyCodeLine{144 \}}
+
+\end{DoxyCode}
+
+
+References \+\_\+\+\_\+, v8\+::internal\+::\+Are\+Aliased(), ASM\+\_\+\+CODE\+\_\+\+COMMENT, v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Field\+Mem\+Operand(), v8\+::internal\+::k\+Java\+Script\+Call\+Code\+Start\+Register, and v8\+::internal\+::k\+JSEntrypoint\+Tag.
+
+
+
+Referenced by v8\+::internal\+::\+Macro\+Assembler\+::\+Optimize\+Code\+Or\+Tail\+Call\+Optimized\+Code\+Slot().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02macro-assembler-riscv_8cc_03_a2b74744e24e60f1e3a467ff466467ef8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02macro-assembler-riscv_8cc_03_a2b74744e24e60f1e3a467ff466467ef8_icgraph}
+\end{center}
+\end{figure}

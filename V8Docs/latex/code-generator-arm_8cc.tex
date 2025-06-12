@@ -1,5 +1,5 @@
-\hypertarget{code-generator-arm_8cc}{}\doxysection{code-\/generator-\/arm.cc File Reference}
-\label{code-generator-arm_8cc}\index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
+\hypertarget{code-generator-arm_8cc}{}\doxysection{/mnt/\+V8\+Source\+Code/src/compiler/backend/arm/code-\/generator-\/arm.cc File Reference}
+\label{code-generator-arm_8cc}\index{/mnt/V8SourceCode/src/compiler/backend/arm/code-\/generator-\/arm.cc@{/mnt/V8SourceCode/src/compiler/backend/arm/code-\/generator-\/arm.cc}}
 {\ttfamily \#include \char`\"{}src/base/numbers/double.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/codegen/arm/assembler-\/arm.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/codegen/arm/constants-\/arm.\+h\char`\"{}}\newline
@@ -30,15 +30,23 @@ Include dependency graph for code-\/generator-\/arm.cc\+:
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v8\+::internal\+::compiler\+::\+Arm\+Operand\+Converter}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_1_1OutOfLineRecordWrite}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/arm.\+cc\}\+::\+Out\+Of\+Line\+Record\+Write}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_1_1OutOfLineFloatMin}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/arm.\+cc\}\+::\+Out\+Of\+Line\+Float\+Min$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_1_1OutOfLineFloatMax}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/arm.\+cc\}\+::\+Out\+Of\+Line\+Float\+Max$<$ T $>$}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacev8}{v8}}
-\item 
+\begin{DoxyCompactList}\small\item\em This file provides additional API on top of the default one for making API calls, which come from embedder C++ functions. \end{DoxyCompactList}\item 
  \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
 \item 
  \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/arm.\+cc\}}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
@@ -57,11 +65,11 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \item 
 \#define \mbox{\hyperlink{code-generator-arm_8cc_a6c2783438b23597172fff271e4d9434f}{ASSEMBLE\+\_\+\+ATOMIC64\+\_\+\+ARITH\+\_\+\+BINOP}}(instr1,  instr2)
 \item 
-\#define \mbox{\hyperlink{code-generator-arm_8cc_a64b8601c3380abd380c0bc518d040dc7}{ASSEMBLE\+\_\+\+ATOMIC64\+\_\+\+LOGIC\+\_\+\+BINOP}}(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}})
+\#define \mbox{\hyperlink{code-generator-arm_8cc_a64b8601c3380abd380c0bc518d040dc7}{ASSEMBLE\+\_\+\+ATOMIC64\+\_\+\+LOGIC\+\_\+\+BINOP}}(instr)
 \item 
-\#define \mbox{\hyperlink{code-generator-arm_8cc_aba3d5f58b38940cb744131b1eb1d29c3}{ASSEMBLE\+\_\+\+IEEE754\+\_\+\+BINOP}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\#define \mbox{\hyperlink{code-generator-arm_8cc_aba3d5f58b38940cb744131b1eb1d29c3}{ASSEMBLE\+\_\+\+IEEE754\+\_\+\+BINOP}}(\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}})
 \item 
-\#define \mbox{\hyperlink{code-generator-arm_8cc_a4ea587b1e5207d4667d391ead19e55d1}{ASSEMBLE\+\_\+\+IEEE754\+\_\+\+UNOP}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\#define \mbox{\hyperlink{code-generator-arm_8cc_a4ea587b1e5207d4667d391ead19e55d1}{ASSEMBLE\+\_\+\+IEEE754\+\_\+\+UNOP}}(\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}})
 \item 
 \#define \mbox{\hyperlink{code-generator-arm_8cc_a39bee624a4dbe204df7bd35ce16e9bde}{ASSEMBLE\+\_\+\+NEON\+\_\+\+NARROWING\+\_\+\+OP}}(dt,  sdt)
 \item 
@@ -71,15 +79,35 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \item 
 \#define \mbox{\hyperlink{code-generator-arm_8cc_addcb0fd5e93251c9f79252c19a1907bb}{ASSEMBLE\+\_\+\+SIMD\+\_\+\+SHIFT\+\_\+\+RIGHT}}(asm\+\_\+imm,  width,  sz,  dt)
 \item 
-\#define \mbox{\hyperlink{code-generator-arm_8cc_ae676f244fe1ef44a5d68af028864b4f8}{S\+\_\+\+FROM\+\_\+Q}}(\mbox{\hyperlink{liftoff-compiler_8cc_a0b22b2be5dbaab38c23b09bdd78d7c43}{reg}},  lane)~Sw\+Vfp\+Register\+::from\+\_\+code(\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{reg.\+code}}() $\ast$ 4 + lane)
+\#define \mbox{\hyperlink{code-generator-arm_8cc_ae676f244fe1ef44a5d68af028864b4f8}{S\+\_\+\+FROM\+\_\+Q}}(reg,  lane)~Sw\+Vfp\+Register\+::from\+\_\+code(\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{reg.\+code}}() $\ast$ 4 + lane)
 \item 
-\#define \mbox{\hyperlink{code-generator-arm_8cc_ae676f244fe1ef44a5d68af028864b4f8}{S\+\_\+\+FROM\+\_\+Q}}(\mbox{\hyperlink{liftoff-compiler_8cc_a0b22b2be5dbaab38c23b09bdd78d7c43}{reg}},  lane)~Sw\+Vfp\+Register\+::from\+\_\+code(\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{reg.\+code}}() $\ast$ 4 + lane)
+\#define \mbox{\hyperlink{code-generator-arm_8cc_ae676f244fe1ef44a5d68af028864b4f8}{S\+\_\+\+FROM\+\_\+Q}}(reg,  lane)~Sw\+Vfp\+Register\+::from\+\_\+code(\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{reg.\+code}}() $\ast$ 4 + lane)
 \item 
 \#define \mbox{\hyperlink{code-generator-arm_8cc_a18f01a2f158b46d26f0f07d2bb25521e}{ATOMIC\+\_\+\+BINOP\+\_\+\+CASE}}(op,  inst)
 \item 
 \#define \mbox{\hyperlink{code-generator-arm_8cc_ac435d5b1eeceb506f4e51b9d61369ae2}{ATOMIC\+\_\+\+ARITH\+\_\+\+BINOP\+\_\+\+CASE}}(op,  instr1,  instr2)
 \item 
 \#define \mbox{\hyperlink{code-generator-arm_8cc_a69a8071641d491dc64d6c8354ab9786c}{ATOMIC\+\_\+\+LOGIC\+\_\+\+BINOP\+\_\+\+CASE}}(op,  instr1)
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_a1b003a3035c7f304c998793b2910e1af}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/arm.\+cc\}\+::\+Out\+Of\+Line\+Float32\+Min}} = Out\+Of\+Line\+Float\+Min$<$ Sw\+Vfp\+Register $>$
+\item 
+using \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_a9417ba0c68080425524eff1e5b6f2df6}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/arm.\+cc\}\+::\+Out\+Of\+Line\+Float64\+Min}} = Out\+Of\+Line\+Float\+Min$<$ Dw\+Vfp\+Register $>$
+\item 
+using \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_afc6f437047722fbeee41e63c45af6261}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/arm.\+cc\}\+::\+Out\+Of\+Line\+Float32\+Max}} = Out\+Of\+Line\+Float\+Max$<$ Sw\+Vfp\+Register $>$
+\item 
+using \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_a3d302c81cea6606e7b02c1254e1b2af9}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/arm.\+cc\}\+::\+Out\+Of\+Line\+Float64\+Max}} = Out\+Of\+Line\+Float\+Max$<$ Dw\+Vfp\+Register $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Condition \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_a5143ddf749d792686059c1fef5e23945}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/arm.\+cc\}\+::\+Flags\+Condition\+To\+Condition}} (Flags\+Condition condition)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_aea516a0747f9149de4764c57d8365e50}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/arm.\+cc\}\+::\+Flush\+Pending\+Push\+Registers}} (Macro\+Assembler $\ast$masm, Frame\+Access\+State $\ast$frame\+\_\+access\+\_\+state, Zone\+Vector$<$ Register $>$ $\ast$pending\+\_\+pushes)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-arm_8cc_03_a5dadd4aef21f30ec52e8d86028c1790a}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/arm.\+cc\}\+::\+Adjust\+Stack\+Pointer\+For\+Tail\+Call}} (Macro\+Assembler $\ast$masm, Frame\+Access\+State $\ast$state, \mbox{\hyperlink{classint}{int}} new\+\_\+slot\+\_\+above\+\_\+sp, Zone\+Vector$<$ Register $>$ $\ast$pending\+\_\+pushes=\mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}, bool allow\+\_\+shrinkage=\mbox{\hyperlink{flag-definitions_8h_ae56df915684f69fc6f5c0f3bd3b3c80c}{true}})
 \end{DoxyCompactItemize}
 
 
@@ -89,6 +117,10 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \index{\_\_@{\_\_}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
 \doxysubsubsection{\texorpdfstring{\_\_}{\_\_}}
 {\footnotesize\ttfamily \#define \+\_\+\+\_\+~masm()-\/$>$}
+
+
+
+Definition at line 33 of file code-\/generator-\/arm.\+cc.
 
 \mbox{\Hypertarget{code-generator-arm_8cc_a6c2783438b23597172fff271e4d9434f}\label{code-generator-arm_8cc_a6c2783438b23597172fff271e4d9434f}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!ASSEMBLE\_ATOMIC64\_ARITH\_BINOP@{ASSEMBLE\_ATOMIC64\_ARITH\_BINOP}}
@@ -115,11 +147,15 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
 
 \end{DoxyCode}
+
+
+Definition at line 378 of file code-\/generator-\/arm.\+cc.
+
 \mbox{\Hypertarget{code-generator-arm_8cc_a64b8601c3380abd380c0bc518d040dc7}\label{code-generator-arm_8cc_a64b8601c3380abd380c0bc518d040dc7}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!ASSEMBLE\_ATOMIC64\_LOGIC\_BINOP@{ASSEMBLE\_ATOMIC64\_LOGIC\_BINOP}}
 \index{ASSEMBLE\_ATOMIC64\_LOGIC\_BINOP@{ASSEMBLE\_ATOMIC64\_LOGIC\_BINOP}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
 \doxysubsubsection{\texorpdfstring{ASSEMBLE\_ATOMIC64\_LOGIC\_BINOP}{ASSEMBLE\_ATOMIC64\_LOGIC\_BINOP}}
-{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+ATOMIC64\+\_\+\+LOGIC\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+ATOMIC64\+\_\+\+LOGIC\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{instr }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
@@ -129,8 +165,8 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \DoxyCodeLine{    \_\_ dmb(\mbox{\hyperlink{namespacev8_1_1internal_a88838d1ca90e6701ab25b425efd221b4}{ISH}});                                                       \(\backslash\)}
 \DoxyCodeLine{    \_\_ bind(\&binop);                                                   \(\backslash\)}
 \DoxyCodeLine{    \_\_ ldrexd(r2, r3, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0));                              \(\backslash\)}
-\DoxyCodeLine{    \_\_ \mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), r2, Operand(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0)));      \(\backslash\)}
-\DoxyCodeLine{    \_\_ \mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), r3, Operand(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1)));      \(\backslash\)}
+\DoxyCodeLine{    \_\_ instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), r2, Operand(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0)));      \(\backslash\)}
+\DoxyCodeLine{    \_\_ instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), r3, Operand(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1)));      \(\backslash\)}
 \DoxyCodeLine{    \_\_ strexd(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(3), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), \(\backslash\)}
 \DoxyCodeLine{              \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0));                                      \(\backslash\)}
 \DoxyCodeLine{    \_\_ teq(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(3), Operand(0));                             \(\backslash\)}
@@ -139,6 +175,10 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
 
 \end{DoxyCode}
+
+
+Definition at line 395 of file code-\/generator-\/arm.\+cc.
+
 \mbox{\Hypertarget{code-generator-arm_8cc_ad6e2c58c6659474bd4d74542274cf2aa}\label{code-generator-arm_8cc_ad6e2c58c6659474bd4d74542274cf2aa}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!ASSEMBLE\_ATOMIC\_BINOP@{ASSEMBLE\_ATOMIC\_BINOP}}
 \index{ASSEMBLE\_ATOMIC\_BINOP@{ASSEMBLE\_ATOMIC\_BINOP}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
@@ -162,6 +202,10 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
 
 \end{DoxyCode}
+
+
+Definition at line 363 of file code-\/generator-\/arm.\+cc.
+
 \mbox{\Hypertarget{code-generator-arm_8cc_a46287322f3a67bb0c7b4353a7cf9541d}\label{code-generator-arm_8cc_a46287322f3a67bb0c7b4353a7cf9541d}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER@{ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER}}
 \index{ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER@{ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
@@ -186,6 +230,10 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
 
 \end{DoxyCode}
+
+
+Definition at line 346 of file code-\/generator-\/arm.\+cc.
+
 \mbox{\Hypertarget{code-generator-arm_8cc_abfc7b6209d45ce002d8207cec12d13de}\label{code-generator-arm_8cc_abfc7b6209d45ce002d8207cec12d13de}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER@{ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER}}
 \index{ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER@{ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
@@ -207,6 +255,10 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
 
 \end{DoxyCode}
+
+
+Definition at line 333 of file code-\/generator-\/arm.\+cc.
+
 \mbox{\Hypertarget{code-generator-arm_8cc_a38a07dc23db8ab556df14a93b99419bc}\label{code-generator-arm_8cc_a38a07dc23db8ab556df14a93b99419bc}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!ASSEMBLE\_ATOMIC\_LOAD\_INTEGER@{ASSEMBLE\_ATOMIC\_LOAD\_INTEGER}}
 \index{ASSEMBLE\_ATOMIC\_LOAD\_INTEGER@{ASSEMBLE\_ATOMIC\_LOAD\_INTEGER}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
@@ -222,6 +274,10 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
 
 \end{DoxyCode}
+
+
+Definition at line 319 of file code-\/generator-\/arm.\+cc.
+
 \mbox{\Hypertarget{code-generator-arm_8cc_ad5b87c2241a2fc3d5df68807a053c0d6}\label{code-generator-arm_8cc_ad5b87c2241a2fc3d5df68807a053c0d6}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!ASSEMBLE\_ATOMIC\_STORE\_INTEGER@{ASSEMBLE\_ATOMIC\_STORE\_INTEGER}}
 \index{ASSEMBLE\_ATOMIC\_STORE\_INTEGER@{ASSEMBLE\_ATOMIC\_STORE\_INTEGER}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
@@ -237,6 +293,10 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
 
 \end{DoxyCode}
+
+
+Definition at line 326 of file code-\/generator-\/arm.\+cc.
+
 \mbox{\Hypertarget{code-generator-arm_8cc_ac82ac052d3a25dc4fb017b8b2d9dae8b}\label{code-generator-arm_8cc_ac82ac052d3a25dc4fb017b8b2d9dae8b}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!ASSEMBLE\_F64X2\_ARITHMETIC\_BINOP@{ASSEMBLE\_F64X2\_ARITHMETIC\_BINOP}}
 \index{ASSEMBLE\_F64X2\_ARITHMETIC\_BINOP@{ASSEMBLE\_F64X2\_ARITHMETIC\_BINOP}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
@@ -253,11 +313,15 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
 
 \end{DoxyCode}
+
+
+Definition at line 455 of file code-\/generator-\/arm.\+cc.
+
 \mbox{\Hypertarget{code-generator-arm_8cc_aba3d5f58b38940cb744131b1eb1d29c3}\label{code-generator-arm_8cc_aba3d5f58b38940cb744131b1eb1d29c3}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!ASSEMBLE\_IEEE754\_BINOP@{ASSEMBLE\_IEEE754\_BINOP}}
 \index{ASSEMBLE\_IEEE754\_BINOP@{ASSEMBLE\_IEEE754\_BINOP}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
 \doxysubsubsection{\texorpdfstring{ASSEMBLE\_IEEE754\_BINOP}{ASSEMBLE\_IEEE754\_BINOP}}
-{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+IEEE754\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+IEEE754\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}} }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
@@ -268,18 +332,22 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \DoxyCodeLine{    \_\_ PrepareCallCFunction(0, 2);                                             \(\backslash\)}
 \DoxyCodeLine{    \_\_ MovToFloatParameters(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(0),                          \(\backslash\)}
 \DoxyCodeLine{                            \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(1));                         \(\backslash\)}
-\DoxyCodeLine{    \_\_ CallCFunction(ExternalReference::ieee754\_\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}\#\#\_function(), 0, 2);    \(\backslash\)}
+\DoxyCodeLine{    \_\_ CallCFunction(ExternalReference::ieee754\_\#\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}}\#\#\_function(), 0, 2);    \(\backslash\)}
 \DoxyCodeLine{    \textcolor{comment}{/* Move the result in the double result register. */}                       \(\backslash\)}
 \DoxyCodeLine{    \_\_ MovFromFloatResult(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputDoubleRegister());                           \(\backslash\)}
 \DoxyCodeLine{    DCHECK\_EQ(\mbox{\hyperlink{namespacev8_1_1internal_a4f48518ecf36583d3c1d585ada4784ee}{LeaveCC}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputSBit());                                        \(\backslash\)}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
 
 \end{DoxyCode}
+
+
+Definition at line 411 of file code-\/generator-\/arm.\+cc.
+
 \mbox{\Hypertarget{code-generator-arm_8cc_a4ea587b1e5207d4667d391ead19e55d1}\label{code-generator-arm_8cc_a4ea587b1e5207d4667d391ead19e55d1}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!ASSEMBLE\_IEEE754\_UNOP@{ASSEMBLE\_IEEE754\_UNOP}}
 \index{ASSEMBLE\_IEEE754\_UNOP@{ASSEMBLE\_IEEE754\_UNOP}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
 \doxysubsubsection{\texorpdfstring{ASSEMBLE\_IEEE754\_UNOP}{ASSEMBLE\_IEEE754\_UNOP}}
-{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+IEEE754\+\_\+\+UNOP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+IEEE754\+\_\+\+UNOP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}} }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
@@ -289,13 +357,17 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \DoxyCodeLine{    FrameScope scope(masm(), StackFrame::MANUAL);                              \(\backslash\)}
 \DoxyCodeLine{    \_\_ PrepareCallCFunction(0, 1);                                             \(\backslash\)}
 \DoxyCodeLine{    \_\_ MovToFloatParameter(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(0));                          \(\backslash\)}
-\DoxyCodeLine{    \_\_ CallCFunction(ExternalReference::ieee754\_\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}\#\#\_function(), 0, 1);    \(\backslash\)}
+\DoxyCodeLine{    \_\_ CallCFunction(ExternalReference::ieee754\_\#\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}}\#\#\_function(), 0, 1);    \(\backslash\)}
 \DoxyCodeLine{    \textcolor{comment}{/* Move the result in the double result register. */}                       \(\backslash\)}
 \DoxyCodeLine{    \_\_ MovFromFloatResult(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputDoubleRegister());                           \(\backslash\)}
 \DoxyCodeLine{    DCHECK\_EQ(\mbox{\hyperlink{namespacev8_1_1internal_a4f48518ecf36583d3c1d585ada4784ee}{LeaveCC}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputSBit());                                        \(\backslash\)}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
 
 \end{DoxyCode}
+
+
+Definition at line 425 of file code-\/generator-\/arm.\+cc.
+
 \mbox{\Hypertarget{code-generator-arm_8cc_a39bee624a4dbe204df7bd35ce16e9bde}\label{code-generator-arm_8cc_a39bee624a4dbe204df7bd35ce16e9bde}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!ASSEMBLE\_NEON\_NARROWING\_OP@{ASSEMBLE\_NEON\_NARROWING\_OP}}
 \index{ASSEMBLE\_NEON\_NARROWING\_OP@{ASSEMBLE\_NEON\_NARROWING\_OP}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
@@ -321,6 +393,10 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
 
 \end{DoxyCode}
+
+
+Definition at line 438 of file code-\/generator-\/arm.\+cc.
+
 \mbox{\Hypertarget{code-generator-arm_8cc_a9bd330f554caeceb5a916ec9f2f40b02}\label{code-generator-arm_8cc_a9bd330f554caeceb5a916ec9f2f40b02}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!ASSEMBLE\_SIMD\_SHIFT\_LEFT@{ASSEMBLE\_SIMD\_SHIFT\_LEFT}}
 \index{ASSEMBLE\_SIMD\_SHIFT\_LEFT@{ASSEMBLE\_SIMD\_SHIFT\_LEFT}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
@@ -332,20 +408,24 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                   \(\backslash\)}
 \DoxyCodeLine{    QwNeonRegister dst = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputSimd128Register();      \(\backslash\)}
 \DoxyCodeLine{    QwNeonRegister src = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(0);      \(\backslash\)}
-\DoxyCodeLine{    if (\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>InputAt(1)-\/>IsImmediate()) \{              \(\backslash\)}
+\DoxyCodeLine{    if (instr-\/>InputAt(1)-\/>IsImmediate()) \{              \(\backslash\)}
 \DoxyCodeLine{      \_\_ asm\_imm(dt, dst, src, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputInt\#\#width(1));    \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                             \(\backslash\)}
 \DoxyCodeLine{      UseScratchRegisterScope temps(masm());             \(\backslash\)}
-\DoxyCodeLine{      Simd128Register \mbox{\hyperlink{liftoff-compiler_8cc_a50f5e33a2768a7272ffd11d31200fdfe}{tmp}} = temps.AcquireQ();            \(\backslash\)}
+\DoxyCodeLine{      Simd128Register tmp = temps.AcquireQ();            \(\backslash\)}
 \DoxyCodeLine{      Register shift = temps.Acquire();                  \(\backslash\)}
-\DoxyCodeLine{      constexpr \textcolor{keywordtype}{int} \mbox{\hyperlink{machine-operator-reducer_8cc_a406af858c5259e17f9ddc64513999dac}{mask}} = (1 << width) -\/ 1;             \(\backslash\)}
-\DoxyCodeLine{      \_\_ and\_(shift, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1), Operand(\mbox{\hyperlink{machine-operator-reducer_8cc_a406af858c5259e17f9ddc64513999dac}{mask}})); \(\backslash\)}
-\DoxyCodeLine{      \_\_ vdup(sz, \mbox{\hyperlink{liftoff-compiler_8cc_a50f5e33a2768a7272ffd11d31200fdfe}{tmp}}, shift);                           \(\backslash\)}
-\DoxyCodeLine{      \_\_ vshl(dt, dst, src, \mbox{\hyperlink{liftoff-compiler_8cc_a50f5e33a2768a7272ffd11d31200fdfe}{tmp}});                        \(\backslash\)}
+\DoxyCodeLine{      constexpr \textcolor{keywordtype}{int} mask = (1 << width) -\/ 1;             \(\backslash\)}
+\DoxyCodeLine{      \_\_ and\_(shift, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1), Operand(mask)); \(\backslash\)}
+\DoxyCodeLine{      \_\_ vdup(sz, tmp, shift);                           \(\backslash\)}
+\DoxyCodeLine{      \_\_ vshl(dt, dst, src, tmp);                        \(\backslash\)}
 \DoxyCodeLine{    \}                                                    \(\backslash\)}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
 
 \end{DoxyCode}
+
+
+Definition at line 466 of file code-\/generator-\/arm.\+cc.
+
 \mbox{\Hypertarget{code-generator-arm_8cc_addcb0fd5e93251c9f79252c19a1907bb}\label{code-generator-arm_8cc_addcb0fd5e93251c9f79252c19a1907bb}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!ASSEMBLE\_SIMD\_SHIFT\_RIGHT@{ASSEMBLE\_SIMD\_SHIFT\_RIGHT}}
 \index{ASSEMBLE\_SIMD\_SHIFT\_RIGHT@{ASSEMBLE\_SIMD\_SHIFT\_RIGHT}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
@@ -357,21 +437,25 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                    \(\backslash\)}
 \DoxyCodeLine{    QwNeonRegister dst = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputSimd128Register();       \(\backslash\)}
 \DoxyCodeLine{    QwNeonRegister src = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(0);       \(\backslash\)}
-\DoxyCodeLine{    if (\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>InputAt(1)-\/>IsImmediate()) \{               \(\backslash\)}
+\DoxyCodeLine{    if (instr-\/>InputAt(1)-\/>IsImmediate()) \{               \(\backslash\)}
 \DoxyCodeLine{      \_\_ asm\_imm(dt, dst, src, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputInt\#\#width(1));     \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                              \(\backslash\)}
 \DoxyCodeLine{      UseScratchRegisterScope temps(masm());              \(\backslash\)}
-\DoxyCodeLine{      Simd128Register \mbox{\hyperlink{liftoff-compiler_8cc_a50f5e33a2768a7272ffd11d31200fdfe}{tmp}} = temps.AcquireQ();             \(\backslash\)}
+\DoxyCodeLine{      Simd128Register tmp = temps.AcquireQ();             \(\backslash\)}
 \DoxyCodeLine{      Register shift = temps.Acquire();                   \(\backslash\)}
-\DoxyCodeLine{      constexpr \textcolor{keywordtype}{int} \mbox{\hyperlink{machine-operator-reducer_8cc_a406af858c5259e17f9ddc64513999dac}{mask}} = (1 << width) -\/ 1;              \(\backslash\)}
-\DoxyCodeLine{      \_\_ and\_(shift, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1), Operand(\mbox{\hyperlink{machine-operator-reducer_8cc_a406af858c5259e17f9ddc64513999dac}{mask}}));  \(\backslash\)}
-\DoxyCodeLine{      \_\_ vdup(sz, \mbox{\hyperlink{liftoff-compiler_8cc_a50f5e33a2768a7272ffd11d31200fdfe}{tmp}}, shift);                            \(\backslash\)}
-\DoxyCodeLine{      \_\_ vneg(sz, \mbox{\hyperlink{liftoff-compiler_8cc_a50f5e33a2768a7272ffd11d31200fdfe}{tmp}}, \mbox{\hyperlink{liftoff-compiler_8cc_a50f5e33a2768a7272ffd11d31200fdfe}{tmp}});                              \(\backslash\)}
-\DoxyCodeLine{      \_\_ vshl(dt, dst, src, \mbox{\hyperlink{liftoff-compiler_8cc_a50f5e33a2768a7272ffd11d31200fdfe}{tmp}});                         \(\backslash\)}
+\DoxyCodeLine{      constexpr \textcolor{keywordtype}{int} mask = (1 << width) -\/ 1;              \(\backslash\)}
+\DoxyCodeLine{      \_\_ and\_(shift, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1), Operand(mask));  \(\backslash\)}
+\DoxyCodeLine{      \_\_ vdup(sz, tmp, shift);                            \(\backslash\)}
+\DoxyCodeLine{      \_\_ vneg(sz, tmp, tmp);                              \(\backslash\)}
+\DoxyCodeLine{      \_\_ vshl(dt, dst, src, tmp);                         \(\backslash\)}
 \DoxyCodeLine{    \}                                                     \(\backslash\)}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
 
 \end{DoxyCode}
+
+
+Definition at line 486 of file code-\/generator-\/arm.\+cc.
+
 \mbox{\Hypertarget{code-generator-arm_8cc_ac435d5b1eeceb506f4e51b9d61369ae2}\label{code-generator-arm_8cc_ac435d5b1eeceb506f4e51b9d61369ae2}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!ATOMIC\_ARITH\_BINOP\_CASE@{ATOMIC\_ARITH\_BINOP\_CASE}}
 \index{ATOMIC\_ARITH\_BINOP\_CASE@{ATOMIC\_ARITH\_BINOP\_CASE}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
@@ -381,7 +465,7 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{case} kArmWord32AtomicPair\#\#op: \{                            \(\backslash\)}
-\DoxyCodeLine{    DCHECK(VerifyOutputOfAtomicPairInstr(\&\mbox{\hyperlink{namespacev8_1_1internal}{i}}, \mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, r2, r3)); \(\backslash\)}
+\DoxyCodeLine{    DCHECK(VerifyOutputOfAtomicPairInstr(\&\mbox{\hyperlink{namespacev8_1_1internal}{i}}, instr, r2, r3)); \(\backslash\)}
 \DoxyCodeLine{    ASSEMBLE\_ATOMIC64\_ARITH\_BINOP(instr1, instr2);            \(\backslash\)}
 \DoxyCodeLine{    break;                                                    \(\backslash\)}
 \DoxyCodeLine{  \}}
@@ -423,7 +507,7 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{case} kArmWord32AtomicPair\#\#op: \{                            \(\backslash\)}
-\DoxyCodeLine{    DCHECK(VerifyOutputOfAtomicPairInstr(\&\mbox{\hyperlink{namespacev8_1_1internal}{i}}, \mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, r2, r3)); \(\backslash\)}
+\DoxyCodeLine{    DCHECK(VerifyOutputOfAtomicPairInstr(\&\mbox{\hyperlink{namespacev8_1_1internal}{i}}, instr, r2, r3)); \(\backslash\)}
 \DoxyCodeLine{    ASSEMBLE\_ATOMIC64\_LOGIC\_BINOP(instr1);                    \(\backslash\)}
 \DoxyCodeLine{    break;                                                    \(\backslash\)}
 \DoxyCodeLine{  \}}
@@ -433,11 +517,11 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArmOperandConverter}{v
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!S\_FROM\_Q@{S\_FROM\_Q}}
 \index{S\_FROM\_Q@{S\_FROM\_Q}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
 \doxysubsubsection{\texorpdfstring{S\_FROM\_Q}{S\_FROM\_Q}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \#define S\+\_\+\+FROM\+\_\+Q(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{liftoff-compiler_8cc_a0b22b2be5dbaab38c23b09bdd78d7c43}{reg}},  }\item[{}]{lane }\end{DoxyParamCaption})~Sw\+Vfp\+Register\+::from\+\_\+code(\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{reg.\+code}}() $\ast$ 4 + lane)}
+{\footnotesize\ttfamily \#define S\+\_\+\+FROM\+\_\+Q(\begin{DoxyParamCaption}\item[{}]{reg,  }\item[{}]{lane }\end{DoxyParamCaption})~Sw\+Vfp\+Register\+::from\+\_\+code(\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{reg.\+code}}() $\ast$ 4 + lane)}
 
 \mbox{\Hypertarget{code-generator-arm_8cc_ae676f244fe1ef44a5d68af028864b4f8}\label{code-generator-arm_8cc_ae676f244fe1ef44a5d68af028864b4f8}} 
 \index{code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}!S\_FROM\_Q@{S\_FROM\_Q}}
 \index{S\_FROM\_Q@{S\_FROM\_Q}!code-\/generator-\/arm.cc@{code-\/generator-\/arm.cc}}
 \doxysubsubsection{\texorpdfstring{S\_FROM\_Q}{S\_FROM\_Q}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \#define S\+\_\+\+FROM\+\_\+Q(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{liftoff-compiler_8cc_a0b22b2be5dbaab38c23b09bdd78d7c43}{reg}},  }\item[{}]{lane }\end{DoxyParamCaption})~Sw\+Vfp\+Register\+::from\+\_\+code(\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{reg.\+code}}() $\ast$ 4 + lane)}
+{\footnotesize\ttfamily \#define S\+\_\+\+FROM\+\_\+Q(\begin{DoxyParamCaption}\item[{}]{reg,  }\item[{}]{lane }\end{DoxyParamCaption})~Sw\+Vfp\+Register\+::from\+\_\+code(\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{reg.\+code}}() $\ast$ 4 + lane)}
 

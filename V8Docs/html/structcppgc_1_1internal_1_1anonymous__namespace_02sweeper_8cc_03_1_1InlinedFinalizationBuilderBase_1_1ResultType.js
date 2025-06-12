@@ -1,0 +1,5 @@
+var structcppgc_1_1internal_1_1anonymous__namespace_02sweeper_8cc_03_1_1InlinedFinalizationBuilderBase_1_1ResultType =
+[
+    [ "is_empty", "structcppgc_1_1internal_1_1anonymous__namespace_02sweeper_8cc_03_1_1InlinedFinalizationBuilderBase_1_1ResultType.html#af2d35c35c4e5cfe267da6122b7583aca", null ],
+    [ "largest_new_free_list_entry", "structcppgc_1_1internal_1_1anonymous__namespace_02sweeper_8cc_03_1_1InlinedFinalizationBuilderBase_1_1ResultType.html#a32c94bdb094f8bab1e9e977573612a9b", null ]
+];

@@ -90,13 +90,24 @@ $(document).ready(function(){initNavTree('structv8_1_1internal_1_1compiler_1_1tu
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="csa-effects-computation_8h_source.html">csa-effects-computation.h</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for v8::internal::compiler::turboshaft::CsaEffectsComputationPhase:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CsaEffectsComputationPhase__coll__graph.svg" width="306" height="103"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a97890a0d06622288c143d7af162e7ebc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CsaEffectsComputationPhase.html#a97890a0d06622288c143d7af162e7ebc">Run</a> (<a class="el" href="classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData.html">PipelineData</a> *<a class="el" href="builtins_8cc.html#ad2a98ce8e8b889a9843d6839653a11a1">data</a>, <a class="el" href="classv8_1_1internal_1_1Zone.html">Zone</a> *temp_zone)</td></tr>
+<tr class="memitem:a97890a0d06622288c143d7af162e7ebc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CsaEffectsComputationPhase.html#a97890a0d06622288c143d7af162e7ebc">Run</a> (<a class="el" href="classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData.html">PipelineData</a> *data, <a class="el" href="classv8_1_1internal_1_1Zone.html">Zone</a> *temp_zone)</td></tr>
 <tr class="separator:a97890a0d06622288c143d7af162e7ebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="csa-effects-computation_8h_source.html#l00037">37</a> of file <a class="el" href="csa-effects-computation_8h_source.html">csa-effects-computation.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a97890a0d06622288c143d7af162e7ebc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a97890a0d06622288c143d7af162e7ebc">&#9670;&nbsp;</a></span>Run()</h2>
 
@@ -123,11 +134,59 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="csa-effects-computation_8cc_source.html#l00101">101</a> of file <a class="el" href="csa-effects-computation_8cc_source.html">csa-effects-computation.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                                                                        {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="comment">// We need to unpark the local heap so that we can look if HeapConstants are</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="comment">// builtin code or not.</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  UnparkedScopeIfNeeded scope(data-&gt;broker());</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <a class="code" href="namespacev8_1_1internal.html#acc2e164143496f18b5ec68f8ab70af52">Builtin</a> builtin = data-&gt;info()-&gt;builtin();</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <a class="code" href="namespacev8_1_1internal.html#a1f7f145abd682ec728875afcbdd457e7">BuiltinAllocateEffect</a> can_allocate = <a class="code" href="namespacev8_1_1internal.html#ab4c18b4a7d8a0826207b43fd3fdf8589a8cc8e60acfa3ae6089df773013fd73a2">BuiltinAllocateEffect::kNo</a>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  std::unordered_set&lt;Builtin&gt; called_builtins;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code" href="operation_8h.html#a06c4955b824eb9d03ace9eca764f59b4">Operation</a>&amp; op : data-&gt;graph().AllOperations()) {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordflow">switch</span> (op.opcode) {</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      <span class="keywordflow">case</span> Opcode::kAllocate:</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        can_allocate = <a class="code" href="namespacev8_1_1internal.html#ab4c18b4a7d8a0826207b43fd3fdf8589a1ea590aa4a64767508460736ac0edaa9">BuiltinAllocateEffect::kYes</a>;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;      <span class="keywordflow">case</span> Opcode::kCall:</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      <span class="keywordflow">case</span> <a class="code" href="namespacev8_1_1internal_1_1wasm.html#a717424f76b6541eb5fb9bb6e2b101cdaabec77ef426159ad823ba4aef05c2e1ff">Opcode::kTailCall</a>:</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <a class="code" href="namespacev8_1_1internal_1_1compiler_1_1turboshaft.html#ad1ffdd11553170b5d12aa1378812e595">AnalyzeCall</a>(CallView{op}, called_builtins, &amp;can_allocate, data-&gt;graph(),</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                    builtin);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    }</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  }</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  data-&gt;isolate()-&gt;builtins_effects_analyzer()-&gt;RegisterInitialEffects(</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;      builtin, can_allocate, called_builtins);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;}</div>
+<div class="ttc" id="anamespacev8_1_1internal_1_1compiler_1_1turboshaft_html_ad1ffdd11553170b5d12aa1378812e595"><div class="ttname"><a href="namespacev8_1_1internal_1_1compiler_1_1turboshaft.html#ad1ffdd11553170b5d12aa1378812e595">v8::internal::compiler::turboshaft::AnalyzeCall</a></div><div class="ttdeci">void AnalyzeCall(CallView call, std::unordered_set&lt; Builtin &gt; &amp;called_builtins, BuiltinAllocateEffect *can_allocate, Graph &amp;graph, Builtin current_builtin)</div><div class="ttdef"><b>Definition:</b> <a href="csa-effects-computation_8cc_source.html#l00061">csa-effects-computation.cc:61</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_1_1wasm_html_a717424f76b6541eb5fb9bb6e2b101cdaabec77ef426159ad823ba4aef05c2e1ff"><div class="ttname"><a href="namespacev8_1_1internal_1_1wasm.html#a717424f76b6541eb5fb9bb6e2b101cdaabec77ef426159ad823ba4aef05c2e1ff">v8::internal::wasm::kTailCall</a></div><div class="ttdeci">@ kTailCall</div><div class="ttdef"><b>Definition:</b> <a href="liftoff-compiler_8h_source.html#l00044">liftoff-compiler.h:44</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_html_a1f7f145abd682ec728875afcbdd457e7"><div class="ttname"><a href="namespacev8_1_1internal.html#a1f7f145abd682ec728875afcbdd457e7">v8::internal::BuiltinAllocateEffect</a></div><div class="ttdeci">BuiltinAllocateEffect</div><div class="ttdef"><b>Definition:</b> <a href="builtins-effects-analyzer_8h_source.html#l00033">builtins-effects-analyzer.h:33</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_html_ab4c18b4a7d8a0826207b43fd3fdf8589a1ea590aa4a64767508460736ac0edaa9"><div class="ttname"><a href="namespacev8_1_1internal.html#ab4c18b4a7d8a0826207b43fd3fdf8589a1ea590aa4a64767508460736ac0edaa9">v8::internal::kYes</a></div><div class="ttdeci">@ kYes</div></div>
+<div class="ttc" id="anamespacev8_1_1internal_html_ab4c18b4a7d8a0826207b43fd3fdf8589a8cc8e60acfa3ae6089df773013fd73a2"><div class="ttname"><a href="namespacev8_1_1internal.html#ab4c18b4a7d8a0826207b43fd3fdf8589a8cc8e60acfa3ae6089df773013fd73a2">v8::internal::kNo</a></div><div class="ttdeci">@ kNo</div></div>
+<div class="ttc" id="anamespacev8_1_1internal_html_acc2e164143496f18b5ec68f8ab70af52"><div class="ttname"><a href="namespacev8_1_1internal.html#acc2e164143496f18b5ec68f8ab70af52">v8::internal::Builtin</a></div><div class="ttdeci">Builtin</div><div class="ttdef"><b>Definition:</b> <a href="builtins_8h_source.html#l00050">builtins.h:50</a></div></div>
+<div class="ttc" id="aoperation_8h_html_a06c4955b824eb9d03ace9eca764f59b4"><div class="ttname"><a href="operation_8h.html#a06c4955b824eb9d03ace9eca764f59b4">Operation</a></div><div class="ttdeci">Operation</div><div class="ttdef"><b>Definition:</b> <a href="operation_8h_source.html#l00043">operation.h:43</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="graph_8h_source.html#l00937">v8::internal::compiler::turboshaft::Graph::AllOperations()</a>, <a class="el" href="csa-effects-computation_8cc_source.html#l00061">v8::internal::compiler::turboshaft::AnalyzeCall()</a>, <a class="el" href="turboshaft_2phase_8h_source.html#l00331">v8::internal::compiler::turboshaft::PipelineData::broker()</a>, <a class="el" href="optimized-compilation-info_8h_source.html#l00137">v8::internal::OptimizedCompilationInfo::builtin()</a>, <a class="el" href="execution_2isolate_8h_source.html#l01459">v8::internal::Isolate::builtins_effects_analyzer()</a>, <a class="el" href="turboshaft_2phase_8h_source.html#l00355">v8::internal::compiler::turboshaft::PipelineData::graph()</a>, <a class="el" href="turboshaft_2phase_8h_source.html#l00329">v8::internal::compiler::turboshaft::PipelineData::info()</a>, <a class="el" href="turboshaft_2phase_8h_source.html#l00328">v8::internal::compiler::turboshaft::PipelineData::isolate()</a>, <a class="el" href="namespacev8_1_1internal.html#ab4c18b4a7d8a0826207b43fd3fdf8589a8cc8e60acfa3ae6089df773013fd73a2">v8::internal::kNo</a>, <a class="el" href="liftoff-compiler_8h_source.html#l00044">v8::internal::wasm::kTailCall</a>, <a class="el" href="namespacev8_1_1internal.html#ab4c18b4a7d8a0826207b43fd3fdf8589a1ea590aa4a64767508460736ac0edaa9">v8::internal::kYes</a>, and <a class="el" href="builtins-effects-analyzer_8cc_source.html#l00028">v8::internal::BuiltinsEffectsAnalyzer::RegisterInitialEffects()</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CsaEffectsComputationPhase_a97890a0d06622288c143d7af162e7ebc_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
-<li><a class="el" href="csa-effects-computation_8h_source.html">csa-effects-computation.h</a></li>
-<li><a class="el" href="csa-effects-computation_8cc.html">csa-effects-computation.cc</a></li>
+<li>/mnt/V8SourceCode/src/compiler/turboshaft/<a class="el" href="csa-effects-computation_8h_source.html">csa-effects-computation.h</a></li>
+<li>/mnt/V8SourceCode/src/compiler/turboshaft/<a class="el" href="csa-effects-computation_8cc_source.html">csa-effects-computation.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -135,7 +194,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacev8.html">v8</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal.html">internal</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal_1_1compiler.html">compiler</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal_1_1compiler_1_1turboshaft.html">turboshaft</a></li><li class="navelem"><a class="el" href="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CsaEffectsComputationPhase.html">CsaEffectsComputationPhase</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:46:10 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jun 12 2025 16:10:40 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

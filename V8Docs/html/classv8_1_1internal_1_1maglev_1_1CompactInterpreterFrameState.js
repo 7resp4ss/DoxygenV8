@@ -22,6 +22,11 @@ var classv8_1_1internal_1_1maglev_1_1CompactInterpreterFrameState =
     [ "operator=", "classv8_1_1internal_1_1maglev_1_1CompactInterpreterFrameState.html#a5f1207e49fae801950d5541486b8e5c0", null ],
     [ "set_virtual_objects", "classv8_1_1internal_1_1maglev_1_1CompactInterpreterFrameState.html#af85ca1f48fed7e669842757ba1aefab9", null ],
     [ "size", "classv8_1_1internal_1_1maglev_1_1CompactInterpreterFrameState.html#ad7e027036217cd13a5e333278e443d35", null ],
+    [ "SizeFor", "classv8_1_1internal_1_1maglev_1_1CompactInterpreterFrameState.html#ab40deeb0398ee82c3a53fa707236f9d8", null ],
     [ "virtual_objects", "classv8_1_1internal_1_1maglev_1_1CompactInterpreterFrameState.html#ae6ba5e3c7d04625c04f1b97a49fea801", null ],
-    [ "virtual_objects", "classv8_1_1internal_1_1maglev_1_1CompactInterpreterFrameState.html#ad9f1a10b8fcc5bf0633a9d3e34e58957", null ]
+    [ "virtual_objects", "classv8_1_1internal_1_1maglev_1_1CompactInterpreterFrameState.html#ad9f1a10b8fcc5bf0633a9d3e34e58957", null ],
+    [ "context_register_count_", "classv8_1_1internal_1_1maglev_1_1CompactInterpreterFrameState.html#afd51538dd3354d45a222c2a477e08785", null ],
+    [ "live_registers_and_accumulator_", "classv8_1_1internal_1_1maglev_1_1CompactInterpreterFrameState.html#aa0b701c29df7e648f4aed9eb4c38f705", null ],
+    [ "liveness_", "classv8_1_1internal_1_1maglev_1_1CompactInterpreterFrameState.html#a02bf47b8a5818002cd9febefe22042ac", null ],
+    [ "virtual_objects_", "classv8_1_1internal_1_1maglev_1_1CompactInterpreterFrameState.html#ad5b3b8461e14ad5757f8948b7abb48be", null ]
 ];

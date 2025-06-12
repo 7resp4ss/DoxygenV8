@@ -15,5 +15,6 @@ var classv8_1_1String_1_1ExternalStringResourceBase =
     [ "internal::ExternalString", "classv8_1_1String_1_1ExternalStringResourceBase.html#a84c5da35b8bb084a641ded1c1d42fa24", null ],
     [ "internal::ScopedExternalStringLock", "classv8_1_1String_1_1ExternalStringResourceBase.html#a9f11ab15863611529297dca3f21c2979", null ],
     [ "internal::StringForwardingTable", "classv8_1_1String_1_1ExternalStringResourceBase.html#a09ed2b70eab1744ce032e2517e7ddecd", null ],
-    [ "v8::String", "classv8_1_1String_1_1ExternalStringResourceBase.html#a74072e7f09bdb13330b20ba10dcb8b55", null ]
+    [ "v8::String", "classv8_1_1String_1_1ExternalStringResourceBase.html#a74072e7f09bdb13330b20ba10dcb8b55", null ],
+    [ "kDefaultMemoryEstimate", "classv8_1_1String_1_1ExternalStringResourceBase.html#a4c22c0c86953032668f6adb2dabfeca6", null ]
 ];

@@ -5,5 +5,7 @@ var classv8_1_1internal_1_1torque_1_1cpp_1_1IncludeGuardScope =
     [ "IncludeGuardScope", "classv8_1_1internal_1_1torque_1_1cpp_1_1IncludeGuardScope.html#a3e613b3025fa99a7b6f23af58fba5262", null ],
     [ "~IncludeGuardScope", "classv8_1_1internal_1_1torque_1_1cpp_1_1IncludeGuardScope.html#ae68e6acacb47ad921ae5eab634964389", null ],
     [ "operator=", "classv8_1_1internal_1_1torque_1_1cpp_1_1IncludeGuardScope.html#a8080e4d1fbf2650aa4644e5c7a85aa10", null ],
-    [ "operator=", "classv8_1_1internal_1_1torque_1_1cpp_1_1IncludeGuardScope.html#abfaff2f162b60e56f8382f41d23932c6", null ]
+    [ "operator=", "classv8_1_1internal_1_1torque_1_1cpp_1_1IncludeGuardScope.html#abfaff2f162b60e56f8382f41d23932c6", null ],
+    [ "file_", "classv8_1_1internal_1_1torque_1_1cpp_1_1IncludeGuardScope.html#ae79e5d6e9db77807bc6e46fbf69aa041", null ],
+    [ "name_", "classv8_1_1internal_1_1torque_1_1cpp_1_1IncludeGuardScope.html#a63a84d153037f15209a026e0b5913023", null ]
 ];

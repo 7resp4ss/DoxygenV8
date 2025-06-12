@@ -11,5 +11,7 @@ var classv8_1_1ScriptCompiler_1_1StreamedSource =
     [ "StreamedSource", "classv8_1_1ScriptCompiler_1_1StreamedSource.html#ac0024da49305c2d8de1a61348c1c8880", null ],
     [ "compilation_details", "classv8_1_1ScriptCompiler_1_1StreamedSource.html#a2c789f7454733728dc3d3a4eacb4a642", null ],
     [ "impl", "classv8_1_1ScriptCompiler_1_1StreamedSource.html#a45714bf012e619379d70707b535c8224", null ],
-    [ "operator=", "classv8_1_1ScriptCompiler_1_1StreamedSource.html#ab2425dcd427fcdfaf6ac0d0cd295bcbb", null ]
+    [ "operator=", "classv8_1_1ScriptCompiler_1_1StreamedSource.html#ab2425dcd427fcdfaf6ac0d0cd295bcbb", null ],
+    [ "compilation_details_", "classv8_1_1ScriptCompiler_1_1StreamedSource.html#aa0fee562067ee206ac24566df743c8bd", null ],
+    [ "impl_", "classv8_1_1ScriptCompiler_1_1StreamedSource.html#a367f17e9906431f52c9e82b3647253bf", null ]
 ];

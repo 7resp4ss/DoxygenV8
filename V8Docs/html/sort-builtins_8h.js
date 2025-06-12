@@ -2,6 +2,7 @@ var sort_builtins_8h =
 [
     [ "CallProbability", "structv8_1_1internal_1_1CallProbability.html", "structv8_1_1internal_1_1CallProbability" ],
     [ "BuiltinsSorter", "classv8_1_1internal_1_1BuiltinsSorter.html", "classv8_1_1internal_1_1BuiltinsSorter" ],
+    [ "BuiltinDensitySlot", "structv8_1_1internal_1_1BuiltinsSorter_1_1BuiltinDensitySlot.html", "structv8_1_1internal_1_1BuiltinsSorter_1_1BuiltinDensitySlot" ],
     [ "Cluster", "classv8_1_1internal_1_1Cluster.html", "classv8_1_1internal_1_1Cluster" ],
     [ "BuiltinClusterMap", "sort-builtins_8h.html#a8739b3c806ae53f6533d9e39414201c8", null ],
     [ "BuiltinDensityMap", "sort-builtins_8h.html#af44ccbddcf8c5cafc6f25f3836576ed8", null ],

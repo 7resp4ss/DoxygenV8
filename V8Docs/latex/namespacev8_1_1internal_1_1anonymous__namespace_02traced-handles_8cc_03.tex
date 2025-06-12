@@ -1,0 +1,69 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02traced-handles_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{traced-\/handles.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02traced-handles_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}traced-\/handles.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}traced-\/handles.cc\rcurly{}}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02traced-handles_8cc_03_1_1ParallelWeakHandlesProcessor}{Parallel\+Weak\+Handles\+Processor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02traced-handles_8cc_03_1_1ComputeWeaknessProcessor}{Compute\+Weakness\+Processor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02traced-handles_8cc_03_1_1ClearWeaknessProcessor}{Clear\+Weakness\+Processor}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02traced-handles_8cc_03_a2f52281c9e556f7a59f37b007fabebe3}{Mark\+Object}} (\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ obj, \mbox{\hyperlink{classv8_1_1internal_1_1TracedNode}{Traced\+Node}} \&node, \mbox{\hyperlink{classv8_1_1internal_1_1TracedHandles_aa663996b6ba69a6a6fd31a620072f868}{Traced\+Handles\+::\+Mark\+Mode}} mark\+\_\+mode)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02traced-handles_8cc_03_a2f52281c9e556f7a59f37b007fabebe3}\label{namespacev8_1_1internal_1_1anonymous__namespace_02traced-handles_8cc_03_a2f52281c9e556f7a59f37b007fabebe3}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}traced-\/handles.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}traced-\/handles.cc\rcurly{}}!MarkObject@{MarkObject}}
+\index{MarkObject@{MarkObject}!v8::internal::anonymous\_namespace\lcurly{}traced-\/handles.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}traced-\/handles.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{MarkObject()}{MarkObject()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}}$>$ v8\+::internal\+::anonymous\+\_\+namespace\{traced-\/handles.\+cc\}\+::Mark\+Object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{obj,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1TracedNode}{Traced\+Node}} \&}]{node,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1TracedHandles_aa663996b6ba69a6a6fd31a620072f868}{Traced\+Handles\+::\+Mark\+Mode}}}]{mark\+\_\+mode }\end{DoxyParamCaption})}
+
+
+
+Definition at line 793 of file traced-\/handles.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{794                                                            \{}
+\DoxyCodeLine{795   \textcolor{keywordflow}{if} (mark\_mode == TracedHandles::MarkMode::kOnlyYoung \&\&}
+\DoxyCodeLine{796       !node.is\_in\_young\_list())}
+\DoxyCodeLine{797     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3}{Smi::zero}}();}
+\DoxyCodeLine{798   node.set\_markbit();}
+\DoxyCodeLine{799   \textcolor{comment}{// Being in the young list, the node may still point to an old object, in}}
+\DoxyCodeLine{800   \textcolor{comment}{// which case we want to keep the node marked, but not follow the reference.}}
+\DoxyCodeLine{801   \textcolor{keywordflow}{if} (mark\_mode == TracedHandles::MarkMode::kOnlyYoung \&\&}
+\DoxyCodeLine{802       !HeapLayout::InYoungGeneration(obj))}
+\DoxyCodeLine{803     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3}{Smi::zero}}();}
+\DoxyCodeLine{804   \textcolor{keywordflow}{return} obj;}
+\DoxyCodeLine{805 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Heap\+Layout\+::\+In\+Young\+Generation(), v8\+::internal\+::\+Traced\+Node\+::is\+\_\+in\+\_\+young\+\_\+list(), v8\+::internal\+::\+Traced\+Handles\+::k\+Only\+Young, v8\+::internal\+::\+Traced\+Node\+::set\+\_\+markbit(), and v8\+::internal\+::\+Smi\+::zero().
+
+
+
+Referenced by v8\+::internal\+::\+Marking\+Visitor\+Base$<$ Reference\+Summarizer\+Marking\+Visitor $>$\+::\+Is\+Trivial\+Weak\+Reference\+Value(), v8\+::internal\+::\+Traced\+Handles\+::\+Mark(), v8\+::internal\+::\+Traced\+Handles\+::\+Mark\+Conservatively(), v8\+::internal\+::\+Full\+Marking\+Visitor\+Base$<$ Concurrent\+Marking\+Visitor $>$\+::\+Mark\+Pointer\+Table\+Entry(), v8\+::internal\+::\+Mark\+Compact\+Collector\+::\+Process\+Marking\+Worklist(), and v8\+::internal\+::\+Marking\+Visitor\+Base$<$ Concrete\+Visitor $>$\+::\+Visit\+JSFunction().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02traced-handles_8cc_03_a2f52281c9e556f7a59f37b007fabebe3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02traced-handles_8cc_03_a2f52281c9e556f7a59f37b007fabebe3_icgraph}
+\end{center}
+\end{figure}

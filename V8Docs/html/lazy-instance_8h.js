@@ -1,12 +1,12 @@
 var lazy_instance_8h =
 [
-    [ "LeakyInstanceTrait", "structv8_1_1base_1_1LeakyInstanceTrait.html", null ],
+    [ "LeakyInstanceTrait", "structv8_1_1base_1_1LeakyInstanceTrait.html", "structv8_1_1base_1_1LeakyInstanceTrait" ],
     [ "StaticallyAllocatedInstanceTrait", "structv8_1_1base_1_1StaticallyAllocatedInstanceTrait.html", "structv8_1_1base_1_1StaticallyAllocatedInstanceTrait" ],
     [ "DynamicallyAllocatedInstanceTrait", "structv8_1_1base_1_1DynamicallyAllocatedInstanceTrait.html", "structv8_1_1base_1_1DynamicallyAllocatedInstanceTrait" ],
-    [ "DefaultConstructTrait", "structv8_1_1base_1_1DefaultConstructTrait.html", null ],
-    [ "DefaultCreateTrait", "structv8_1_1base_1_1DefaultCreateTrait.html", null ],
-    [ "ThreadSafeInitOnceTrait", "structv8_1_1base_1_1ThreadSafeInitOnceTrait.html", null ],
-    [ "SingleThreadInitOnceTrait", "structv8_1_1base_1_1SingleThreadInitOnceTrait.html", null ],
+    [ "DefaultConstructTrait", "structv8_1_1base_1_1DefaultConstructTrait.html", "structv8_1_1base_1_1DefaultConstructTrait" ],
+    [ "DefaultCreateTrait", "structv8_1_1base_1_1DefaultCreateTrait.html", "structv8_1_1base_1_1DefaultCreateTrait" ],
+    [ "ThreadSafeInitOnceTrait", "structv8_1_1base_1_1ThreadSafeInitOnceTrait.html", "structv8_1_1base_1_1ThreadSafeInitOnceTrait" ],
+    [ "SingleThreadInitOnceTrait", "structv8_1_1base_1_1SingleThreadInitOnceTrait.html", "structv8_1_1base_1_1SingleThreadInitOnceTrait" ],
     [ "LazyInstanceImpl", "structv8_1_1base_1_1LazyInstanceImpl.html", "structv8_1_1base_1_1LazyInstanceImpl" ],
     [ "LazyStaticInstance", "structv8_1_1base_1_1LazyStaticInstance.html", "structv8_1_1base_1_1LazyStaticInstance" ],
     [ "LazyInstance", "structv8_1_1base_1_1LazyInstance.html", "structv8_1_1base_1_1LazyInstance" ],

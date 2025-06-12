@@ -9,5 +9,6 @@ var classv8_1_1ArrayBuffer_1_1Allocator =
     [ "AllocateUninitialized", "classv8_1_1ArrayBuffer_1_1Allocator.html#a92b2d5c0a826d3c435e12f3ee178f37a", null ],
     [ "Free", "classv8_1_1ArrayBuffer_1_1Allocator.html#a419f59d2a103a5a8863809d7977c9cd8", null ],
     [ "GetPageAllocator", "classv8_1_1ArrayBuffer_1_1Allocator.html#ac5200adcc22a4af47ac4589f6510b64a", null ],
-    [ "MaxAllocationSize", "classv8_1_1ArrayBuffer_1_1Allocator.html#a70f912717b359be1fb5abfe0b72afffe", null ]
+    [ "MaxAllocationSize", "classv8_1_1ArrayBuffer_1_1Allocator.html#a70f912717b359be1fb5abfe0b72afffe", null ],
+    [ "NewDefaultAllocator", "classv8_1_1ArrayBuffer_1_1Allocator.html#a2c95b1213b0a0a2996e1c63194fc6951", null ]
 ];

@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::JSArray\+Buffer\+View\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classv8_1_1internal_1_1JSArrayBufferView__inherit__graph}
+\includegraphics[width=264pt]{classv8_1_1internal_1_1JSArrayBufferView__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::JSArray\+Buffer\+View\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classv8_1_1internal_1_1JSArrayBufferView__coll__graph}
+\includegraphics[width=264pt]{classv8_1_1internal_1_1JSArrayBufferView__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Classes}
@@ -40,6 +40,13 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1JSArrayBufferView_1_1BodyDescripto
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 299 of file js-\/array-\/buffer.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSArrayBufferView_a2dcbf262a0eb73efb5b23653da892dff}\label{classv8_1_1internal_1_1JSArrayBufferView_a2dcbf262a0eb73efb5b23653da892dff}} 
 \index{v8::internal::JSArrayBufferView@{v8::internal::JSArrayBufferView}!IsDetachedOrOutOfBounds@{IsDetachedOrOutOfBounds}}
@@ -47,11 +54,55 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1JSArrayBufferView_1_1BodyDescripto
 \doxysubsubsection{\texorpdfstring{IsDetachedOrOutOfBounds()}{IsDetachedOrOutOfBounds()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+JSArray\+Buffer\+View\+::\+Is\+Detached\+Or\+Out\+Of\+Bounds (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 221 of file js-\/array-\/buffer-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{221                                                       \{}
+\DoxyCodeLine{222   \textcolor{keyword}{auto} backing\_buffer = Cast<JSArrayBuffer>(buffer());}
+\DoxyCodeLine{223   \textcolor{keywordflow}{if} (backing\_buffer-\/>was\_detached()) \{}
+\DoxyCodeLine{224     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{225   \}}
+\DoxyCodeLine{226   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9ee1d3648c04f8f1996801b766dc956}{is\_backed\_by\_rab}}()) \{}
+\DoxyCodeLine{227     \textcolor{comment}{// TypedArrays backed by GSABs or regular AB/SABs are never out of bounds.}}
+\DoxyCodeLine{228     \textcolor{comment}{// This shortcut is load-\/bearing; this enables determining}}
+\DoxyCodeLine{229     \textcolor{comment}{// IsDetachedOrOutOfBounds without consulting the BackingStore.}}
+\DoxyCodeLine{230     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{231   \}}
+\DoxyCodeLine{232   \textcolor{keywordtype}{size\_t} buffer\_byte\_length =}
+\DoxyCodeLine{233       backing\_buffer-\/>GetBackingStore()-\/>byte\_length();}
+\DoxyCodeLine{234   \textcolor{comment}{// Length-\/tracking ArrayBufferViews have byte\_length() == 0, so this math}}
+\DoxyCodeLine{235   \textcolor{comment}{// works.}}
+\DoxyCodeLine{236   \textcolor{keywordflow}{return} byte\_offset() + byte\_length() > buffer\_byte\_length;}
+\DoxyCodeLine{237 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::is\+\_\+backed\+\_\+by\+\_\+rab.
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSArrayBufferView_a2bd0f580c5f5106b433d1605bfb5129f}\label{classv8_1_1internal_1_1JSArrayBufferView_a2bd0f580c5f5106b433d1605bfb5129f}} 
 \index{v8::internal::JSArrayBufferView@{v8::internal::JSArrayBufferView}!IsVariableLength@{IsVariableLength}}
 \index{IsVariableLength@{IsVariableLength}!v8::internal::JSArrayBufferView@{v8::internal::JSArrayBufferView}}
 \doxysubsubsection{\texorpdfstring{IsVariableLength()}{IsVariableLength()}}
 {\footnotesize\ttfamily JSArray\+Buffer\+View\+::\+Is\+Backed\+By\+Rab\+Bit \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+JSArray\+Buffer\+View\+::\+Is\+Variable\+Length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 244 of file js-\/array-\/buffer-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{244                                                \{}
+\DoxyCodeLine{245   \textcolor{keywordflow}{return} is\_length\_tracking() || \mbox{\hyperlink{namespacev8_1_1internal_aa9ee1d3648c04f8f1996801b766dc956}{is\_backed\_by\_rab}}();}
+\DoxyCodeLine{246 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::is\+\_\+backed\+\_\+by\+\_\+rab.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSArrayBufferView_ab2a3db4a70ee069dedbf746513bafc56}\label{classv8_1_1internal_1_1JSArrayBufferView_ab2a3db4a70ee069dedbf746513bafc56}} 
 \index{v8::internal::JSArrayBufferView@{v8::internal::JSArrayBufferView}!WasDetached@{WasDetached}}
@@ -61,7 +112,18 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1JSArrayBufferView_1_1BodyDescripto
 
 
 
+Definition at line 217 of file js-\/array-\/buffer-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{217                                           \{}
+\DoxyCodeLine{218   \textcolor{keywordflow}{return} Cast<JSArrayBuffer>(buffer())-\/>was\_detached();}
+\DoxyCodeLine{219 \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{js-array-buffer_8h}{js-\/array-\/buffer.\+h}}\item 
-\mbox{\hyperlink{js-array-buffer-inl_8h}{js-\/array-\/buffer-\/inl.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{js-array-buffer_8h}{js-\/array-\/buffer.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{js-array-buffer-inl_8h}{js-\/array-\/buffer-\/inl.\+h}}\end{DoxyCompactItemize}

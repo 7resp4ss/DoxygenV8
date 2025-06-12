@@ -1,6 +1,8 @@
 var classv8_1_1internal_1_1ScavengeVisitor =
 [
     [ "ScavengeVisitor", "classv8_1_1internal_1_1ScavengeVisitor.html#a400905f58d82b48bf8d6cc690f377fb2", null ],
+    [ "CanEncounterFillerOrFreeSpace", "classv8_1_1internal_1_1ScavengeVisitor.html#a949d8bbe5d8b99b28441c61b6ad9631c", null ],
+    [ "Cast", "classv8_1_1internal_1_1ScavengeVisitor.html#aa667ac12a79d083ac0648834caa00f89", null ],
     [ "VisitCppHeapExternalObject", "classv8_1_1internal_1_1ScavengeVisitor.html#a54122f03d8756ed77558d6945c4f0b5f", null ],
     [ "VisitEphemeronHashTable", "classv8_1_1internal_1_1ScavengeVisitor.html#a5b584204d11c538a676a639e909b3a27", null ],
     [ "VisitExternalPointer", "classv8_1_1internal_1_1ScavengeVisitor.html#a5a1bea2697eac363e3e39d79a18be930", null ],
@@ -9,5 +11,6 @@ var classv8_1_1internal_1_1ScavengeVisitor =
     [ "VisitJSArrayBuffer", "classv8_1_1internal_1_1ScavengeVisitor.html#a2ab68827b0b8179ec3e2122fe8264c3d", null ],
     [ "VisitPointers", "classv8_1_1internal_1_1ScavengeVisitor.html#aca9f46a9229da04e1ffe196fd4cf6e69", null ],
     [ "VisitPointers", "classv8_1_1internal_1_1ScavengeVisitor.html#a1cf94d7c20b6f1fba659224eed08bd0e", null ],
-    [ "VisitPointersImpl", "classv8_1_1internal_1_1ScavengeVisitor.html#aec5de352b5321ea4931441cd8ee7e312", null ]
+    [ "VisitPointersImpl", "classv8_1_1internal_1_1ScavengeVisitor.html#aec5de352b5321ea4931441cd8ee7e312", null ],
+    [ "scavenger_", "classv8_1_1internal_1_1ScavengeVisitor.html#a6863b35f259cbb32ce766a915e5b8f30", null ]
 ];

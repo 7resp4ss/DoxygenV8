@@ -23,16 +23,28 @@ Collaboration diagram for v8\+::internal\+::Stress\+Concurrent\+Allocation\+Task
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1StressConcurrentAllocationTask_ad595752427c5e92864494e4812510aca}{Stress\+Concurrent\+Allocation\+Task}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+\mbox{\hyperlink{classv8_1_1internal_1_1StressConcurrentAllocationTask_ad595752427c5e92864494e4812510aca}{Stress\+Concurrent\+Allocation\+Task}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1StressConcurrentAllocationTask_aa6b2a764bde11938607ef86d3cd80ce4}{Run\+Internal}} () override
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{classv8_1_1internal_1_1StressConcurrentAllocationTask_a7b54e33b685530fa040c0875cd9b2c52}{Schedule}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+static void \mbox{\hyperlink{classv8_1_1internal_1_1StressConcurrentAllocationTask_a7b54e33b685530fa040c0875cd9b2c52}{Schedule}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1StressConcurrentAllocationTask_a9dcf88e27ec4063a7d3c0cbc871bec0b}{isolate\+\_\+}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 5870 of file heap.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -42,6 +54,15 @@ static void \mbox{\hyperlink{classv8_1_1internal_1_1StressConcurrentAllocationTa
 \doxysubsubsection{\texorpdfstring{StressConcurrentAllocationTask()}{StressConcurrentAllocationTask()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Stress\+Concurrent\+Allocation\+Task\+::\+Stress\+Concurrent\+Allocation\+Task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
+
+
+Definition at line 5872 of file heap.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5873       : \mbox{\hyperlink{classv8_1_1internal_1_1CancelableTask_aab16ea25b9ec26827f565eed805d6077}{CancelableTask}}(isolate), \mbox{\hyperlink{classv8_1_1internal_1_1StressConcurrentAllocationTask_a9dcf88e27ec4063a7d3c0cbc871bec0b}{isolate\_}}(isolate) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -55,6 +76,79 @@ static void \mbox{\hyperlink{classv8_1_1internal_1_1StressConcurrentAllocationTa
 
 Implements \mbox{\hyperlink{classv8_1_1internal_1_1CancelableTask_a9c4f61742dcb132b5b631e7bfce3242c}{v8\+::internal\+::\+Cancelable\+Task}}.
 
+
+
+Definition at line 5875 of file heap.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5875                               \{}
+\DoxyCodeLine{5876     Heap* \mbox{\hyperlink{namespaceheap}{heap}} = \mbox{\hyperlink{classv8_1_1internal_1_1StressConcurrentAllocationTask_a9dcf88e27ec4063a7d3c0cbc871bec0b}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac74a11613906581a9989b1cb7f7b3275}{heap}}();}
+\DoxyCodeLine{5877     LocalHeap local\_heap(\mbox{\hyperlink{namespaceheap}{heap}}, \mbox{\hyperlink{namespacev8_1_1internal_a34c412e70714b6b814e60c4b6883e0eea7c58afb43537a264dcd68e698a7b8e3b}{ThreadKind::kBackground}});}
+\DoxyCodeLine{5878     UnparkedScope unparked\_scope(\&local\_heap);}
+\DoxyCodeLine{5879 }
+\DoxyCodeLine{5880     \textcolor{keyword}{const} \textcolor{keywordtype}{int} kNumIterations = 2000;}
+\DoxyCodeLine{5881     \textcolor{keyword}{const} \textcolor{keywordtype}{int} kSmallObjectSize = 10 * \mbox{\hyperlink{namespacev8_1_1internal_a12d50d7bb2c9d8a916ff0785e6eff241}{kTaggedSize}};}
+\DoxyCodeLine{5882     \textcolor{keyword}{const} \textcolor{keywordtype}{int} kMediumObjectSize = 8 * \mbox{\hyperlink{namespacev8_1_1internal_a93b2e7c72fa0878021b495b6f3cec820}{KB}};}
+\DoxyCodeLine{5883     \textcolor{keyword}{const} \textcolor{keywordtype}{int} kLargeObjectSize =}
+\DoxyCodeLine{5884         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1MutablePageMetadata_a8ca68362b7531b2ab93a045cdcedfdde}{MutablePageMetadata::kPageSize}} -\/}
+\DoxyCodeLine{5885                          \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunkLayout_aefd3164493e69dd99c34a45bea6c5901}{MemoryChunkLayout::ObjectStartOffsetInDataPage}}());}
+\DoxyCodeLine{5886 }
+\DoxyCodeLine{5887     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < kNumIterations; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{5888       \textcolor{comment}{// Isolate tear down started, stop allocation...}}
+\DoxyCodeLine{5889       \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespaceheap}{heap}}-\/>gc\_state() == \mbox{\hyperlink{classv8_1_1internal_1_1Heap_aee3f8b2c700602c6e8546212a2ac0f65a2d879795c4433aa0e1a7bc634e6110c4}{Heap::TEAR\_DOWN}}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{5890 }
+\DoxyCodeLine{5891       AllocationResult \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = local\_heap.AllocateRaw(}
+\DoxyCodeLine{5892           kSmallObjectSize, \mbox{\hyperlink{namespacev8_1_1internal_a604d5beeb6fc8639670f737ed201e20aa0aa38c28f349d65a6819e03844b73dff}{AllocationType::kOld}}, \mbox{\hyperlink{namespacev8_1_1internal_abddbb63b815c1d69390fef2325df451aa0ba423944b12955cceecef2e60f3cb0e}{AllocationOrigin::kRuntime}},}
+\DoxyCodeLine{5893           \mbox{\hyperlink{namespacev8_1_1internal_ab6431cd9205265cf49909abcac939803a89dfe630590dbfe7004e6de0fabec67b}{AllocationAlignment::kTaggedAligned}});}
+\DoxyCodeLine{5894       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.IsFailure()) \{}
+\DoxyCodeLine{5895         \mbox{\hyperlink{namespaceheap}{heap}}-\/>CreateFillerObjectAtBackground(}
+\DoxyCodeLine{5896             \mbox{\hyperlink{classv8_1_1internal_1_1WritableFreeSpace_a1d0de8c10df4b35fd3338eb4e9dd9ab0}{WritableFreeSpace::ForNonExecutableMemory}}(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.ToAddress(),}
+\DoxyCodeLine{5897                                                       kSmallObjectSize));}
+\DoxyCodeLine{5898       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{5899         \mbox{\hyperlink{namespaceheap}{heap}}-\/>CollectGarbageFromAnyThread(\&local\_heap);}
+\DoxyCodeLine{5900       \}}
+\DoxyCodeLine{5901 }
+\DoxyCodeLine{5902       \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = local\_heap.AllocateRaw(kMediumObjectSize, \mbox{\hyperlink{namespacev8_1_1internal_a604d5beeb6fc8639670f737ed201e20aa0aa38c28f349d65a6819e03844b73dff}{AllocationType::kOld}},}
+\DoxyCodeLine{5903                                       \mbox{\hyperlink{namespacev8_1_1internal_abddbb63b815c1d69390fef2325df451aa0ba423944b12955cceecef2e60f3cb0e}{AllocationOrigin::kRuntime}},}
+\DoxyCodeLine{5904                                       \mbox{\hyperlink{namespacev8_1_1internal_ab6431cd9205265cf49909abcac939803a89dfe630590dbfe7004e6de0fabec67b}{AllocationAlignment::kTaggedAligned}});}
+\DoxyCodeLine{5905       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.IsFailure()) \{}
+\DoxyCodeLine{5906         \mbox{\hyperlink{namespaceheap}{heap}}-\/>CreateFillerObjectAtBackground(}
+\DoxyCodeLine{5907             \mbox{\hyperlink{classv8_1_1internal_1_1WritableFreeSpace_a1d0de8c10df4b35fd3338eb4e9dd9ab0}{WritableFreeSpace::ForNonExecutableMemory}}(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.ToAddress(),}
+\DoxyCodeLine{5908                                                       kMediumObjectSize));}
+\DoxyCodeLine{5909       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{5910         \mbox{\hyperlink{namespaceheap}{heap}}-\/>CollectGarbageFromAnyThread(\&local\_heap);}
+\DoxyCodeLine{5911       \}}
+\DoxyCodeLine{5912 }
+\DoxyCodeLine{5913       \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = local\_heap.AllocateRaw(kLargeObjectSize, \mbox{\hyperlink{namespacev8_1_1internal_a604d5beeb6fc8639670f737ed201e20aa0aa38c28f349d65a6819e03844b73dff}{AllocationType::kOld}},}
+\DoxyCodeLine{5914                                       \mbox{\hyperlink{namespacev8_1_1internal_abddbb63b815c1d69390fef2325df451aa0ba423944b12955cceecef2e60f3cb0e}{AllocationOrigin::kRuntime}},}
+\DoxyCodeLine{5915                                       \mbox{\hyperlink{namespacev8_1_1internal_ab6431cd9205265cf49909abcac939803a89dfe630590dbfe7004e6de0fabec67b}{AllocationAlignment::kTaggedAligned}});}
+\DoxyCodeLine{5916       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.IsFailure()) \{}
+\DoxyCodeLine{5917         \mbox{\hyperlink{namespaceheap}{heap}}-\/>CreateFillerObjectAtBackground(}
+\DoxyCodeLine{5918             \mbox{\hyperlink{classv8_1_1internal_1_1WritableFreeSpace_a1d0de8c10df4b35fd3338eb4e9dd9ab0}{WritableFreeSpace::ForNonExecutableMemory}}(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.ToAddress(),}
+\DoxyCodeLine{5919                                                       kLargeObjectSize));}
+\DoxyCodeLine{5920       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{5921         \mbox{\hyperlink{namespaceheap}{heap}}-\/>CollectGarbageFromAnyThread(\&local\_heap);}
+\DoxyCodeLine{5922       \}}
+\DoxyCodeLine{5923       local\_heap.Safepoint();}
+\DoxyCodeLine{5924     \}}
+\DoxyCodeLine{5925 }
+\DoxyCodeLine{5926     \mbox{\hyperlink{classv8_1_1internal_1_1StressConcurrentAllocationTask_a7b54e33b685530fa040c0875cd9b2c52}{Schedule}}(\mbox{\hyperlink{classv8_1_1internal_1_1StressConcurrentAllocationTask_a9dcf88e27ec4063a7d3c0cbc871bec0b}{isolate\_}});}
+\DoxyCodeLine{5927   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Local\+Heap\+::\+Allocate\+Raw(), v8\+::internal\+::\+Writable\+Free\+Space\+::\+For\+Non\+Executable\+Memory(), v8\+::internal\+::\+Isolate\+::heap(), isolate\+\_\+, v8\+::internal\+::\+KB, v8\+::internal\+::k\+Background, v8\+::internal\+::k\+Old, v8\+::internal\+::\+Mutable\+Page\+Metadata\+::k\+Page\+Size, v8\+::internal\+::k\+Runtime, v8\+::internal\+::k\+Tagged\+Aligned, v8\+::internal\+::k\+Tagged\+Size, v8\+::internal\+::\+Memory\+Chunk\+Layout\+::\+Object\+Start\+Offset\+In\+Data\+Page(), v8\+::base\+::internal\+::result, v8\+::internal\+::\+Local\+Heap\+::\+Safepoint(), Schedule(), and v8\+::internal\+::\+Heap\+::\+TEAR\+\_\+\+DOWN.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StressConcurrentAllocationTask_aa6b2a764bde11938607ef86d3cd80ce4_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1StressConcurrentAllocationTask_a7b54e33b685530fa040c0875cd9b2c52}\label{classv8_1_1internal_1_1StressConcurrentAllocationTask_a7b54e33b685530fa040c0875cd9b2c52}} 
 \index{v8::internal::StressConcurrentAllocationTask@{v8::internal::StressConcurrentAllocationTask}!Schedule@{Schedule}}
 \index{Schedule@{Schedule}!v8::internal::StressConcurrentAllocationTask@{v8::internal::StressConcurrentAllocationTask}}
@@ -63,6 +157,61 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1CancelableTask_a9c4f61742dcb1
 
 
 
+Definition at line 5930 of file heap.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5930                                          \{}
+\DoxyCodeLine{5931     \textcolor{keyword}{auto} task = std::make\_unique<StressConcurrentAllocationTask>(isolate);}
+\DoxyCodeLine{5932     \textcolor{keyword}{const} \textcolor{keywordtype}{double} kDelayInSeconds = 0.1;}
+\DoxyCodeLine{5933     \mbox{\hyperlink{classv8_1_1internal_1_1V8_a5eb1d47c492fa1e85e7d7c31dd5cf2bb}{V8::GetCurrentPlatform}}()-\/>\mbox{\hyperlink{classv8_1_1Platform_a2049d7024e1e9613360968867f0f70bd}{PostDelayedTaskOnWorkerThread}}(}
+\DoxyCodeLine{5934         \mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051a602dfdb2b16ea7a1f4392dc3d5761f7d}{TaskPriority::kUserVisible}}, std::move(task), kDelayInSeconds);}
+\DoxyCodeLine{5935   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+V8\+::\+Get\+Current\+Platform(), v8\+::k\+User\+Visible, and v8\+::\+Platform\+::\+Post\+Delayed\+Task\+On\+Worker\+Thread().
+
+
+
+Referenced by Run\+Internal(), and v8\+::internal\+::\+Stress\+Concurrent\+Allocation\+Observer\+::\+Step().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StressConcurrentAllocationTask_a7b54e33b685530fa040c0875cd9b2c52_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StressConcurrentAllocationTask_a7b54e33b685530fa040c0875cd9b2c52_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1StressConcurrentAllocationTask_a9dcf88e27ec4063a7d3c0cbc871bec0b}\label{classv8_1_1internal_1_1StressConcurrentAllocationTask_a9dcf88e27ec4063a7d3c0cbc871bec0b}} 
+\index{v8::internal::StressConcurrentAllocationTask@{v8::internal::StressConcurrentAllocationTask}!isolate\_@{isolate\_}}
+\index{isolate\_@{isolate\_}!v8::internal::StressConcurrentAllocationTask@{v8::internal::StressConcurrentAllocationTask}}
+\doxysubsubsection{\texorpdfstring{isolate\_}{isolate\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}}$\ast$ v8\+::internal\+::\+Stress\+Concurrent\+Allocation\+Task\+::isolate\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 5938 of file heap.\+cc.
+
+
+
+Referenced by Run\+Internal().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{heap_8cc}{heap.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{heap_8cc}{heap.\+cc}}\end{DoxyCompactItemize}

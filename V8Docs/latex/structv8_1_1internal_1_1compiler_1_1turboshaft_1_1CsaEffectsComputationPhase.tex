@@ -4,11 +4,28 @@
 
 {\ttfamily \#include $<$csa-\/effects-\/computation.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Csa\+Effects\+Computation\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=301pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CsaEffectsComputationPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CsaEffectsComputationPhase_a97890a0d06622288c143d7af162e7ebc}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData}{Pipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
+void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CsaEffectsComputationPhase_a97890a0d06622288c143d7af162e7ebc}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData}{Pipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 37 of file csa-\/effects-\/computation.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -20,7 +37,56 @@ void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CsaEffec
 
 
 
+Definition at line 101 of file csa-\/effects-\/computation.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{101                                                                         \{}
+\DoxyCodeLine{102   \textcolor{comment}{// We need to unpark the local heap so that we can look if HeapConstants are}}
+\DoxyCodeLine{103   \textcolor{comment}{// builtin code or not.}}
+\DoxyCodeLine{104   UnparkedScopeIfNeeded scope(data-\/>broker());}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106   \mbox{\hyperlink{namespacev8_1_1internal_acc2e164143496f18b5ec68f8ab70af52}{Builtin}} builtin = data-\/>info()-\/>builtin();}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108   \mbox{\hyperlink{namespacev8_1_1internal_a1f7f145abd682ec728875afcbdd457e7}{BuiltinAllocateEffect}} can\_allocate = \mbox{\hyperlink{namespacev8_1_1internal_ab4c18b4a7d8a0826207b43fd3fdf8589a8cc8e60acfa3ae6089df773013fd73a2}{BuiltinAllocateEffect::kNo}};}
+\DoxyCodeLine{109   std::unordered\_set<Builtin> called\_builtins;}
+\DoxyCodeLine{110   \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \mbox{\hyperlink{operation_8h_a06c4955b824eb9d03ace9eca764f59b4}{Operation}}\& op : data-\/>graph().AllOperations()) \{}
+\DoxyCodeLine{111     \textcolor{keywordflow}{switch} (op.opcode) \{}
+\DoxyCodeLine{112       \textcolor{keywordflow}{case} Opcode::kAllocate:}
+\DoxyCodeLine{113         can\_allocate = \mbox{\hyperlink{namespacev8_1_1internal_ab4c18b4a7d8a0826207b43fd3fdf8589a1ea590aa4a64767508460736ac0edaa9}{BuiltinAllocateEffect::kYes}};}
+\DoxyCodeLine{114         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116       \textcolor{keywordflow}{case} Opcode::kCall:}
+\DoxyCodeLine{117       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a717424f76b6541eb5fb9bb6e2b101cdaabec77ef426159ad823ba4aef05c2e1ff}{Opcode::kTailCall}}:}
+\DoxyCodeLine{118         \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ad1ffdd11553170b5d12aa1378812e595}{AnalyzeCall}}(CallView\{op\}, called\_builtins, \&can\_allocate, data-\/>graph(),}
+\DoxyCodeLine{119                     builtin);}
+\DoxyCodeLine{120         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122       \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{123         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{124     \}}
+\DoxyCodeLine{125   \}}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127   data-\/>isolate()-\/>builtins\_effects\_analyzer()-\/>RegisterInitialEffects(}
+\DoxyCodeLine{128       builtin, can\_allocate, called\_builtins);}
+\DoxyCodeLine{129 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::turboshaft\+::\+Graph\+::\+All\+Operations(), v8\+::internal\+::compiler\+::turboshaft\+::\+Analyze\+Call(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::broker(), v8\+::internal\+::\+Optimized\+Compilation\+Info\+::builtin(), v8\+::internal\+::\+Isolate\+::builtins\+\_\+effects\+\_\+analyzer(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::graph(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::info(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::isolate(), v8\+::internal\+::k\+No, v8\+::internal\+::wasm\+::k\+Tail\+Call, v8\+::internal\+::k\+Yes, and v8\+::internal\+::\+Builtins\+Effects\+Analyzer\+::\+Register\+Initial\+Effects().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CsaEffectsComputationPhase_a97890a0d06622288c143d7af162e7ebc_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{csa-effects-computation_8h}{csa-\/effects-\/computation.\+h}}\item 
-\mbox{\hyperlink{csa-effects-computation_8cc}{csa-\/effects-\/computation.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{csa-effects-computation_8h}{csa-\/effects-\/computation.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{csa-effects-computation_8cc}{csa-\/effects-\/computation.\+cc}}\end{DoxyCompactItemize}

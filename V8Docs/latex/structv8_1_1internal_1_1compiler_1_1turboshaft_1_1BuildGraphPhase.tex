@@ -4,11 +4,28 @@
 
 {\ttfamily \#include $<$build-\/graph-\/phase.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Build\+Graph\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuildGraphPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-std\+::optional$<$ \mbox{\hyperlink{namespacev8_1_1internal_a170d48425b861bac584bb286a25d977f}{Bailout\+Reason}} $>$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuildGraphPhase_a92702f31ec5bf1aefbf055dd9e8a8c7a}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData}{Pipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{compiler\+::\+TFPipeline\+Data}} $\ast$turbofan\+\_\+data, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Linkage}{Linkage}} $\ast$\mbox{\hyperlink{graph-builder_8cc_af97d4be930be06ad1e71c0c6a130dcff}{linkage}})
+std\+::optional$<$ \mbox{\hyperlink{namespacev8_1_1internal_a170d48425b861bac584bb286a25d977f}{Bailout\+Reason}} $>$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuildGraphPhase_a92702f31ec5bf1aefbf055dd9e8a8c7a}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData}{Pipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{compiler\+::\+TFPipeline\+Data}} $\ast$turbofan\+\_\+data, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Linkage}{Linkage}} $\ast$linkage)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 20 of file build-\/graph-\/phase.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -20,7 +37,55 @@ std\+::optional$<$ \mbox{\hyperlink{namespacev8_1_1internal_a170d48425b861bac584
 
 
 
+Definition at line 18 of file build-\/graph-\/phase.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{20                                                              \{}
+\DoxyCodeLine{21   Schedule* schedule = turbofan\_data-\/>schedule();}
+\DoxyCodeLine{22   turbofan\_data-\/>reset\_schedule();}
+\DoxyCodeLine{23   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(schedule);}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25   \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a002db3de44df33172d86af732b378c08}{JsWasmCallsSidetable}}* js\_wasm\_calls\_sidetable =}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#if V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{27       turbofan\_data-\/>js\_wasm\_calls\_sidetable();}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{29       \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32   UnparkedScopeIfNeeded scope(data-\/>broker());}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34   \textcolor{comment}{// Construct a new graph.}}
+\DoxyCodeLine{35   ZoneWithNamePointer<SourcePositionTable, kGraphZoneName> source\_positions(}
+\DoxyCodeLine{36       turbofan\_data-\/>source\_positions());}
+\DoxyCodeLine{37   ZoneWithNamePointer<NodeOriginTable, kGraphZoneName> node\_origins(}
+\DoxyCodeLine{38       turbofan\_data-\/>node\_origins());}
+\DoxyCodeLine{39   data-\/>InitializeGraphComponentWithGraphZone(turbofan\_data-\/>ReleaseGraphZone(),}
+\DoxyCodeLine{40                                               source\_positions, node\_origins);}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42   \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} bailout = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a24a60da57b59f466a1939002ec15693d}{turboshaft::BuildGraph}}(data, schedule, temp\_zone, linkage,}
+\DoxyCodeLine{43                                             js\_wasm\_calls\_sidetable)) \{}
+\DoxyCodeLine{44     \textcolor{keywordflow}{return} bailout;}
+\DoxyCodeLine{45   \}}
+\DoxyCodeLine{46   \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{47 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::broker(), v8\+::internal\+::compiler\+::turboshaft\+::\+Build\+Graph(), DCHECK\+\_\+\+NOT\+\_\+\+NULL, v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+Data\+::\+Initialize\+Graph\+Component\+With\+Graph\+Zone(), v8\+::internal\+::compiler\+::\+TFPipeline\+Data\+::node\+\_\+origins(), v8\+::internal\+::compiler\+::\+TFPipeline\+Data\+::\+Release\+Graph\+Zone(), v8\+::internal\+::compiler\+::\+TFPipeline\+Data\+::reset\+\_\+schedule(), v8\+::internal\+::compiler\+::\+TFPipeline\+Data\+::schedule(), and v8\+::internal\+::compiler\+::\+TFPipeline\+Data\+::source\+\_\+positions().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuildGraphPhase_a92702f31ec5bf1aefbf055dd9e8a8c7a_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{build-graph-phase_8h}{build-\/graph-\/phase.\+h}}\item 
-\mbox{\hyperlink{build-graph-phase_8cc}{build-\/graph-\/phase.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{build-graph-phase_8h}{build-\/graph-\/phase.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{build-graph-phase_8cc}{build-\/graph-\/phase.\+cc}}\end{DoxyCompactItemize}

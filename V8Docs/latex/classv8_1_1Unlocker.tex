@@ -2,19 +2,46 @@
 \label{classv8_1_1Unlocker}\index{v8::Unlocker@{v8::Unlocker}}
 
 
+Multiple threads in \mbox{\hyperlink{classv8_1_1V8}{V8}} are allowed, but only one thread at a time is allowed to use any given \mbox{\hyperlink{classv8_1_1V8}{V8}} isolate, see the comments in the \mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} class.  
+
+
+
+
 {\ttfamily \#include $<$v8-\/locker.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::Unlocker\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1Unlocker__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{classv8_1_1Unlocker_a2faeb117d7308b65ac85fdad390e4c1f}{Unlocker}} (\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
-\item 
+\mbox{\hyperlink{classv8_1_1Unlocker_aa6789fe804cc059d9554c7ae7958c440}{Unlocker}} (\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$isolate)
+\begin{DoxyCompactList}\small\item\em Initialize \mbox{\hyperlink{classv8_1_1Unlocker}{Unlocker}} for a given \mbox{\hyperlink{classv8_1_1Isolate}{Isolate}}. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classv8_1_1Unlocker_a0d597a18f1141fadf5c99e5b500df957}{$\sim$\+Unlocker}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1Unlocker_a20e9761b1b743edc6ac239c8ccbc6a59}{Initialize}} (\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$isolate)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{internal\+::\+Isolate}} $\ast$ \mbox{\hyperlink{classv8_1_1Unlocker_a209c97250a5a400c3efaf125735cdea3}{isolate\+\_\+}}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Multiple threads in \mbox{\hyperlink{classv8_1_1V8}{V8}} are allowed, but only one thread at a time is allowed to use any given \mbox{\hyperlink{classv8_1_1V8}{V8}} isolate, see the comments in the \mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} class. The definition of \textquotesingle{}using a \mbox{\hyperlink{classv8_1_1V8}{V8}} isolate\textquotesingle{} includes accessing handles or holding onto object pointers obtained from \mbox{\hyperlink{classv8_1_1V8}{V8}} handles while in the particular \mbox{\hyperlink{classv8_1_1V8}{V8}} isolate. It is up to the user of \mbox{\hyperlink{classv8_1_1V8}{V8}} to ensure, perhaps with locking, that this constraint is not violated. In addition to any other synchronization mechanism that may be used, the \mbox{\hyperlink{classv8_1_1Locker}{v8\+::\+Locker}} and \mbox{\hyperlink{classv8_1_1Unlocker}{v8\+::\+Unlocker}} classes must be used to signal thread switches to \mbox{\hyperlink{classv8_1_1V8}{V8}}.
+Multiple threads in \mbox{\hyperlink{classv8_1_1V8}{V8}} are allowed, but only one thread at a time is allowed to use any given \mbox{\hyperlink{classv8_1_1V8}{V8}} isolate, see the comments in the \mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} class. 
+
+The definition of \textquotesingle{}using a \mbox{\hyperlink{classv8_1_1V8}{V8}} isolate\textquotesingle{} includes accessing handles or holding onto object pointers obtained from \mbox{\hyperlink{classv8_1_1V8}{V8}} handles while in the particular \mbox{\hyperlink{classv8_1_1V8}{V8}} isolate. It is up to the user of \mbox{\hyperlink{classv8_1_1V8}{V8}} to ensure, perhaps with locking, that this constraint is not violated. In addition to any other synchronization mechanism that may be used, the \mbox{\hyperlink{classv8_1_1Locker}{v8\+::\+Locker}} and \mbox{\hyperlink{classv8_1_1Unlocker}{v8\+::\+Unlocker}} classes must be used to signal thread switches to \mbox{\hyperlink{classv8_1_1V8}{V8}}.
 
 \mbox{\hyperlink{classv8_1_1Locker}{v8\+::\+Locker}} is a scoped lock object. While it\textquotesingle{}s active, i.\+e. between its construction and destruction, the current thread is allowed to use the locked isolate. \mbox{\hyperlink{classv8_1_1V8}{V8}} guarantees that an isolate can be locked by at most one thread at any time. In other words, the scope of a \mbox{\hyperlink{classv8_1_1Locker}{v8\+::\+Locker}} is a critical section.
 
@@ -22,8 +49,8 @@ Sample usage\+:
 \begin{DoxyCode}{0}
 \DoxyCodeLine{...}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{  \mbox{\hyperlink{classv8_1_1Locker}{v8::Locker}} locker(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});}
-\DoxyCodeLine{  \mbox{\hyperlink{classv8_1_1Isolate_1_1Scope}{v8::Isolate::Scope}} isolate\_scope(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});}
+\DoxyCodeLine{  \mbox{\hyperlink{classv8_1_1Locker}{v8::Locker}} locker(isolate);}
+\DoxyCodeLine{  \mbox{\hyperlink{classv8_1_1Isolate_1_1Scope}{v8::Isolate::Scope}} isolate\_scope(isolate);}
 \DoxyCodeLine{  ...}
 \DoxyCodeLine{  \textcolor{comment}{// Code using V8 and isolate goes here.}}
 \DoxyCodeLine{  ...}
@@ -37,13 +64,13 @@ If you wish to stop using \mbox{\hyperlink{classv8_1_1V8}{V8}} in a thread A you
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{  \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}-\/>Exit();}
-\DoxyCodeLine{  \mbox{\hyperlink{classv8_1_1Unlocker}{v8::Unlocker}} unlocker(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});}
+\DoxyCodeLine{  isolate-\/>Exit();}
+\DoxyCodeLine{  \mbox{\hyperlink{classv8_1_1Unlocker}{v8::Unlocker}} unlocker(isolate);}
 \DoxyCodeLine{  ...}
 \DoxyCodeLine{  \textcolor{comment}{// Code not using V8 goes here while V8 can run in another thread.}}
 \DoxyCodeLine{  ...}
 \DoxyCodeLine{\} \textcolor{comment}{// Destructor called here.}}
-\DoxyCodeLine{\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}-\/>Enter();}
+\DoxyCodeLine{isolate-\/>Enter();}
 
 \end{DoxyCode}
 
@@ -58,18 +85,18 @@ An unlocker will unlock several lockers if it has to and reinstate the correct d
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{comment}{// V8 not locked.}}
 \DoxyCodeLine{\{}
-\DoxyCodeLine{  \mbox{\hyperlink{classv8_1_1Locker}{v8::Locker}} locker(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});}
-\DoxyCodeLine{  Isolate::Scope isolate\_scope(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});}
+\DoxyCodeLine{  \mbox{\hyperlink{classv8_1_1Locker}{v8::Locker}} locker(isolate);}
+\DoxyCodeLine{  Isolate::Scope isolate\_scope(isolate);}
 \DoxyCodeLine{  \textcolor{comment}{// V8 locked.}}
 \DoxyCodeLine{  \{}
-\DoxyCodeLine{    \mbox{\hyperlink{classv8_1_1Locker}{v8::Locker}} another\_locker(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});}
+\DoxyCodeLine{    \mbox{\hyperlink{classv8_1_1Locker}{v8::Locker}} another\_locker(isolate);}
 \DoxyCodeLine{    \textcolor{comment}{// V8 still locked (2 levels).}}
 \DoxyCodeLine{    \{}
-\DoxyCodeLine{      \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}-\/>Exit();}
-\DoxyCodeLine{      \mbox{\hyperlink{classv8_1_1Unlocker}{v8::Unlocker}} unlocker(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});}
+\DoxyCodeLine{      isolate-\/>Exit();}
+\DoxyCodeLine{      \mbox{\hyperlink{classv8_1_1Unlocker}{v8::Unlocker}} unlocker(isolate);}
 \DoxyCodeLine{      \textcolor{comment}{// V8 not locked.}}
 \DoxyCodeLine{    \}}
-\DoxyCodeLine{    \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}-\/>Enter();}
+\DoxyCodeLine{    isolate-\/>Enter();}
 \DoxyCodeLine{    \textcolor{comment}{// V8 locked again (2 levels).}}
 \DoxyCodeLine{  \}}
 \DoxyCodeLine{  \textcolor{comment}{// V8 still locked (1 level).}}
@@ -79,14 +106,31 @@ An unlocker will unlock several lockers if it has to and reinstate the correct d
 \end{DoxyCode}
  
 
+Definition at line 94 of file v8-\/locker.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classv8_1_1Unlocker_a2faeb117d7308b65ac85fdad390e4c1f}\label{classv8_1_1Unlocker_a2faeb117d7308b65ac85fdad390e4c1f}} 
+\mbox{\Hypertarget{classv8_1_1Unlocker_aa6789fe804cc059d9554c7ae7958c440}\label{classv8_1_1Unlocker_aa6789fe804cc059d9554c7ae7958c440}} 
 \index{v8::Unlocker@{v8::Unlocker}!Unlocker@{Unlocker}}
 \index{Unlocker@{Unlocker}!v8::Unlocker@{v8::Unlocker}}
 \doxysubsubsection{\texorpdfstring{Unlocker()}{Unlocker()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} v8\+::\+Unlocker\+::\+Unlocker (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+{\footnotesize\ttfamily v8\+::\+Unlocker\+::\+Unlocker (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
-Initialize \mbox{\hyperlink{classv8_1_1Unlocker}{Unlocker}} for a given \mbox{\hyperlink{classv8_1_1Isolate}{Isolate}}. \mbox{\Hypertarget{classv8_1_1Unlocker_a0d597a18f1141fadf5c99e5b500df957}\label{classv8_1_1Unlocker_a0d597a18f1141fadf5c99e5b500df957}} 
+
+
+Initialize \mbox{\hyperlink{classv8_1_1Unlocker}{Unlocker}} for a given \mbox{\hyperlink{classv8_1_1Isolate}{Isolate}}. 
+
+
+
+Definition at line 99 of file v8-\/locker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{99 \{ \mbox{\hyperlink{classv8_1_1Unlocker_a20e9761b1b743edc6ac239c8ccbc6a59}{Initialize}}(isolate); \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classv8_1_1Unlocker_a0d597a18f1141fadf5c99e5b500df957}\label{classv8_1_1Unlocker_a0d597a18f1141fadf5c99e5b500df957}} 
 \index{v8::Unlocker@{v8::Unlocker}!````~Unlocker@{$\sim$Unlocker}}
 \index{````~Unlocker@{$\sim$Unlocker}!v8::Unlocker@{v8::Unlocker}}
 \doxysubsubsection{\texorpdfstring{$\sim$Unlocker()}{~Unlocker()}}
@@ -94,7 +138,85 @@ Initialize \mbox{\hyperlink{classv8_1_1Unlocker}{Unlocker}} for a given \mbox{\h
 
 
 
+Definition at line 79 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{79                     \{}
+\DoxyCodeLine{80   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1Unlocker_a209c97250a5a400c3efaf125735cdea3}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac78415b3291d2f8842ab1448b20a43f2}{thread\_manager}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa010051a059cfda7e45228fc28a3ff52}{IsLockedByCurrentThread}}());}
+\DoxyCodeLine{81   \mbox{\hyperlink{classv8_1_1Unlocker_a209c97250a5a400c3efaf125735cdea3}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac78415b3291d2f8842ab1448b20a43f2}{thread\_manager}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a8de7abc8b0763f0e1117b61f074410da}{Lock}}();}
+\DoxyCodeLine{82   \mbox{\hyperlink{classv8_1_1Unlocker_a209c97250a5a400c3efaf125735cdea3}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac78415b3291d2f8842ab1448b20a43f2}{thread\_manager}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac7d4ad5d9a21d88fc2d50f5d91a62442}{RestoreThread}}();}
+\DoxyCodeLine{83 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK, v8\+::internal\+::\+Thread\+Manager\+::\+Is\+Locked\+By\+Current\+Thread(), isolate\+\_\+, v8\+::internal\+::\+Thread\+Manager\+::\+Lock(), v8\+::internal\+::\+Thread\+Manager\+::\+Restore\+Thread(), and v8\+::internal\+::\+Isolate\+::thread\+\_\+manager().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1Unlocker_a0d597a18f1141fadf5c99e5b500df957_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1Unlocker_a20e9761b1b743edc6ac239c8ccbc6a59}\label{classv8_1_1Unlocker_a20e9761b1b743edc6ac239c8ccbc6a59}} 
+\index{v8::Unlocker@{v8::Unlocker}!Initialize@{Initialize}}
+\index{Initialize@{Initialize}!v8::Unlocker@{v8::Unlocker}}
+\doxysubsubsection{\texorpdfstring{Initialize()}{Initialize()}}
+{\footnotesize\ttfamily void v8\+::\+Unlocker\+::\+Initialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 71 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{71                                             \{}
+\DoxyCodeLine{72   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(isolate);}
+\DoxyCodeLine{73   \mbox{\hyperlink{classv8_1_1Unlocker_a209c97250a5a400c3efaf125735cdea3}{isolate\_}} = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{i::Isolate}}*\textcolor{keyword}{>}(isolate);}
+\DoxyCodeLine{74   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{classv8_1_1Unlocker_a209c97250a5a400c3efaf125735cdea3}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac78415b3291d2f8842ab1448b20a43f2}{thread\_manager}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa010051a059cfda7e45228fc28a3ff52}{IsLockedByCurrentThread}}());}
+\DoxyCodeLine{75   \mbox{\hyperlink{classv8_1_1Unlocker_a209c97250a5a400c3efaf125735cdea3}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac78415b3291d2f8842ab1448b20a43f2}{thread\_manager}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a36506aaa6d781c749efe48996b48e2a0}{ArchiveThread}}();}
+\DoxyCodeLine{76   \mbox{\hyperlink{classv8_1_1Unlocker_a209c97250a5a400c3efaf125735cdea3}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac78415b3291d2f8842ab1448b20a43f2}{thread\_manager}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ab7d0f390011373f4b036548923add1bf}{Unlock}}();}
+\DoxyCodeLine{77 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Thread\+Manager\+::\+Archive\+Thread(), DCHECK, DCHECK\+\_\+\+NOT\+\_\+\+NULL, v8\+::internal\+::\+Thread\+Manager\+::\+Is\+Locked\+By\+Current\+Thread(), isolate\+\_\+, v8\+::internal\+::\+Isolate\+::thread\+\_\+manager(), and v8\+::internal\+::\+Thread\+Manager\+::\+Unlock().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1Unlocker_a20e9761b1b743edc6ac239c8ccbc6a59_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1Unlocker_a209c97250a5a400c3efaf125735cdea3}\label{classv8_1_1Unlocker_a209c97250a5a400c3efaf125735cdea3}} 
+\index{v8::Unlocker@{v8::Unlocker}!isolate\_@{isolate\_}}
+\index{isolate\_@{isolate\_}!v8::Unlocker@{v8::Unlocker}}
+\doxysubsubsection{\texorpdfstring{isolate\_}{isolate\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{internal\+::\+Isolate}}$\ast$ v8\+::\+Unlocker\+::isolate\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 106 of file v8-\/locker.\+h.
+
+
+
+Referenced by Initialize(), and $\sim$\+Unlocker().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-locker_8h}{v8-\/locker.\+h}}\item 
-\mbox{\hyperlink{v8threads_8cc}{v8threads.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/\mbox{\hyperlink{v8-locker_8h}{v8-\/locker.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/execution/\mbox{\hyperlink{v8threads_8cc}{v8threads.\+cc}}\end{DoxyCompactItemize}

@@ -6,5 +6,7 @@ var classv8_1_1base_1_1Hasher =
     [ "AddHash", "classv8_1_1base_1_1Hasher.html#a9ccbef469f06e23f2ed65875484ac568", null ],
     [ "AddRange", "classv8_1_1base_1_1Hasher.html#a0a39d6f7beb6608f8de8723c0fa15e31", null ],
     [ "AddRange", "classv8_1_1base_1_1Hasher.html#a20c5918a245c896fcfb7595d98401969", null ],
-    [ "hash", "classv8_1_1base_1_1Hasher.html#a70be1a634ad5c9c0d93ac9ead95ff163", null ]
+    [ "Combine", "classv8_1_1base_1_1Hasher.html#ad772e1d428ce380d67f34747a20f9902", null ],
+    [ "hash", "classv8_1_1base_1_1Hasher.html#a70be1a634ad5c9c0d93ac9ead95ff163", null ],
+    [ "hash_", "classv8_1_1base_1_1Hasher.html#acb7219f09dfbd8f20785480bee6a2222", null ]
 ];

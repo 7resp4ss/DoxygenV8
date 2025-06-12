@@ -1,5 +1,5 @@
-\hypertarget{json_2json-parser_8cc}{}\doxysection{json-\/parser.cc File Reference}
-\label{json_2json-parser_8cc}\index{json-\/parser.cc@{json-\/parser.cc}}
+\hypertarget{json_2json-parser_8cc}{}\doxysection{/mnt/\+V8\+Source\+Code/src/json/json-\/parser.cc File Reference}
+\label{json_2json-parser_8cc}\index{/mnt/V8SourceCode/src/json/json-\/parser.cc@{/mnt/V8SourceCode/src/json/json-\/parser.cc}}
 {\ttfamily \#include \char`\"{}src/json/json-\/parser.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$optional$>$}\newline
 {\ttfamily \#include \char`\"{}src/base/small-\/vector.\+h\char`\"{}}\newline
@@ -24,7 +24,7 @@
 {\ttfamily \#include \char`\"{}src/strings/char-\/predicates-\/inl.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/strings/string-\/hasher.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/utils/boxed-\/float.\+h\char`\"{}}\newline
-Include dependency graph for json/json-\/parser.cc\+:
+Include dependency graph for json-\/parser.cc\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -49,8 +49,10 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1JsonParser_1_1NamedPropertyIterato
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacev8}{v8}}
-\item 
+\begin{DoxyCompactList}\small\item\em This file provides additional API on top of the default one for making API calls, which come from embedder C++ functions. \end{DoxyCompactList}\item 
  \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
@@ -65,55 +67,102 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1JsonParser_1_1NamedPropertyIterato
 \item 
 \#define \mbox{\hyperlink{json_2json-parser_8cc_a21a070f68682498cc1bbe187e987c3fa}{CASES}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
 \item 
-\#define \mbox{\hyperlink{json_2json-parser_8cc_a41dd2d1da599f142e1fceae01f185c80}{CASE}}(\mbox{\hyperlink{mul-fft_8cc_a76f11d9a0a47b94f72c2d0e77fb32240}{n}})
+\#define \mbox{\hyperlink{json_2json-parser_8cc_a41dd2d1da599f142e1fceae01f185c80}{CASE}}(n)
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_aac7354a5199f6d9775f84adf1bc9d4f1}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::\+Escape\+Kind\+Field}} = base\+::\+Bit\+Field8$<$ Escape\+Kind, 0, 3 $>$
+\item 
+using \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_ad26f5d2eb07cea9833707479c44f3fe5}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::\+May\+Terminate\+String\+Field}} = Escape\+Kind\+Field\+::\+Next$<$ bool, 1 $>$
+\item 
+using \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_aae9e7f776726eaa2c40cf24c03b33b7d}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::\+Number\+Part\+Field}} = May\+Terminate\+String\+Field\+::\+Next$<$ bool, 1 $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a297dc6093351c000f7c35ab034ed9713}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::\+Escape\+Kind}} \+: uint8\+\_\+t \{ \newline
+\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a297dc6093351c000f7c35ab034ed9713a8477ecd90bfaa59c0f3adb1fef510a5c}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::k\+Illegal}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a297dc6093351c000f7c35ab034ed9713a90d72a87497daa9a69d3690f5582e573}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::k\+Self}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a297dc6093351c000f7c35ab034ed9713a8da66b98bdd258da8132205b960206ef}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::k\+Backspace}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a297dc6093351c000f7c35ab034ed9713a0fa3a54d8627d575611d75e3c4288834}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::k\+Tab}}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a297dc6093351c000f7c35ab034ed9713a46e9f6f9cb2ad55cd97d8d70c833cf46}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::k\+New\+Line}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a297dc6093351c000f7c35ab034ed9713a67ba6fd22251a3a85a45ca1446a46896}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::k\+Form\+Feed}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a297dc6093351c000f7c35ab034ed9713ac669dd7ddf8fd19b4a8fa6f94b81bdee}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::k\+Carriage\+Return}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a297dc6093351c000f7c35ab034ed9713abc08dda1acbdcde7cabac2bd81b48482}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::k\+Unicode}}
+ \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-Maybe\+Direct\+Handle$<$ Object $>$ \mbox{\hyperlink{namespacev8_1_1internal_aa34fae3c6a5b9bda2356371d1eadc7c3}{v8\+::internal\+::\+Internalize\+Json\+Property}} (Handle$<$ JSObject $>$ holder, Handle$<$ String $>$ \mbox{\hyperlink{js-locale_8cc_acd3d88da3c0e0313c3645ff34f62f542}{key}})
+constexpr Json\+Token \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_ac4e3d9235f8d1f4453d97d864be13db6}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::\+Get\+One\+Char\+Json\+Token}} (uint8\+\_\+t c)
+\item 
+constexpr bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_aed49dffab5a3b8936f263f957f07881e}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::\+May\+Terminate\+Json\+String}} (uint8\+\_\+t \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}})
+\item 
+constexpr Escape\+Kind \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_aa83448f4613c710f54695be7493bd4de}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::\+Get\+Escape\+Kind}} (uint8\+\_\+t \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}})
+\item 
+constexpr bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a708e1ce124fb9de05437eda8f6609a01}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::\+Is\+Number\+Part}} (uint8\+\_\+t \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}})
+\item 
+constexpr uint8\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a08c739570662a5b080b198b69614e514}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::\+Get\+Json\+Scan\+Flags}} (uint8\+\_\+t c)
+\item 
+Maybe\+Direct\+Handle$<$ Object $>$ \mbox{\hyperlink{namespacev8_1_1internal_aa34fae3c6a5b9bda2356371d1eadc7c3}{v8\+::internal\+::\+Internalize\+Json\+Property}} (Handle$<$ JSObject $>$ holder, Handle$<$ String $>$ key)
+\item 
+{\footnotesize template$<$typename Char $>$ }\\Json\+Token \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a163eea95f5edfdc0ddf1ed560cc0fd0b}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::\+Get\+Token\+For\+Character}} (Char c)
+\item 
+const uint8\+\_\+t $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a1ed63bc39d06cc207d2cdf8131693bf9}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::\+Get\+Fast\+Key\+Chars}} (Isolate $\ast$isolate, Tagged$<$ String $>$ key, Tagged$<$ Map $>$ map, const Disallow\+Garbage\+Collection \&no\+\_\+gc)
+\item 
+{\footnotesize template$<$typename Char $>$ }\\bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a93e375526338cd81eb218250556f3068}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::\+Matches}} (base\+::\+Vector$<$ const Char $>$ chars, Direct\+Handle$<$ String $>$ string)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr const Json\+Token \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_a4f2d6c12908c8dbf1d8875ad31c66dda}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::one\+\_\+char\+\_\+json\+\_\+tokens}} \mbox{[}256\mbox{]}
+\item 
+static constexpr const uint8\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-parser_8cc_03_aa91aa7de25d17a0a0e130a0e7180af1b}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/parser.\+cc\}\+::character\+\_\+json\+\_\+scan\+\_\+flags}} \mbox{[}256\mbox{]}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
 \mbox{\Hypertarget{json_2json-parser_8cc_ac6a7cf0a023626063046ccced38ee620}\label{json_2json-parser_8cc_ac6a7cf0a023626063046ccced38ee620}} 
-\index{json/json-\/parser.cc@{json/json-\/parser.cc}!CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}}
-\index{CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}!json/json-\/parser.cc@{json/json-\/parser.cc}}
+\index{json-\/parser.cc@{json-\/parser.cc}!CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}}
+\index{CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}!json-\/parser.cc@{json-\/parser.cc}}
 \doxysubsubsection{\texorpdfstring{CALL\_GET\_SCAN\_FLAGS}{CALL\_GET\_SCAN\_FLAGS}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
 {\footnotesize\ttfamily \#define CALL\+\_\+\+GET\+\_\+\+SCAN\+\_\+\+FLAGS(\begin{DoxyParamCaption}\item[{}]{N }\end{DoxyParamCaption})~Get\+One\+Char\+Json\+Token(N),}
 
 \mbox{\Hypertarget{json_2json-parser_8cc_ac6a7cf0a023626063046ccced38ee620}\label{json_2json-parser_8cc_ac6a7cf0a023626063046ccced38ee620}} 
-\index{json/json-\/parser.cc@{json/json-\/parser.cc}!CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}}
-\index{CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}!json/json-\/parser.cc@{json/json-\/parser.cc}}
+\index{json-\/parser.cc@{json-\/parser.cc}!CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}}
+\index{CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}!json-\/parser.cc@{json-\/parser.cc}}
 \doxysubsubsection{\texorpdfstring{CALL\_GET\_SCAN\_FLAGS}{CALL\_GET\_SCAN\_FLAGS}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
 {\footnotesize\ttfamily \#define CALL\+\_\+\+GET\+\_\+\+SCAN\+\_\+\+FLAGS(\begin{DoxyParamCaption}\item[{}]{N }\end{DoxyParamCaption})~Get\+One\+Char\+Json\+Token(128 + N),}
 
 \mbox{\Hypertarget{json_2json-parser_8cc_ac6a7cf0a023626063046ccced38ee620}\label{json_2json-parser_8cc_ac6a7cf0a023626063046ccced38ee620}} 
-\index{json/json-\/parser.cc@{json/json-\/parser.cc}!CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}}
-\index{CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}!json/json-\/parser.cc@{json/json-\/parser.cc}}
+\index{json-\/parser.cc@{json-\/parser.cc}!CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}}
+\index{CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}!json-\/parser.cc@{json-\/parser.cc}}
 \doxysubsubsection{\texorpdfstring{CALL\_GET\_SCAN\_FLAGS}{CALL\_GET\_SCAN\_FLAGS}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
 {\footnotesize\ttfamily \#define CALL\+\_\+\+GET\+\_\+\+SCAN\+\_\+\+FLAGS(\begin{DoxyParamCaption}\item[{}]{N }\end{DoxyParamCaption})~Get\+Json\+Scan\+Flags(N),}
 
 \mbox{\Hypertarget{json_2json-parser_8cc_ac6a7cf0a023626063046ccced38ee620}\label{json_2json-parser_8cc_ac6a7cf0a023626063046ccced38ee620}} 
-\index{json/json-\/parser.cc@{json/json-\/parser.cc}!CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}}
-\index{CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}!json/json-\/parser.cc@{json/json-\/parser.cc}}
+\index{json-\/parser.cc@{json-\/parser.cc}!CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}}
+\index{CALL\_GET\_SCAN\_FLAGS@{CALL\_GET\_SCAN\_FLAGS}!json-\/parser.cc@{json-\/parser.cc}}
 \doxysubsubsection{\texorpdfstring{CALL\_GET\_SCAN\_FLAGS}{CALL\_GET\_SCAN\_FLAGS}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
 {\footnotesize\ttfamily \#define CALL\+\_\+\+GET\+\_\+\+SCAN\+\_\+\+FLAGS(\begin{DoxyParamCaption}\item[{}]{N }\end{DoxyParamCaption})~Get\+Json\+Scan\+Flags(128 + N),}
 
 \mbox{\Hypertarget{json_2json-parser_8cc_a41dd2d1da599f142e1fceae01f185c80}\label{json_2json-parser_8cc_a41dd2d1da599f142e1fceae01f185c80}} 
-\index{json/json-\/parser.cc@{json/json-\/parser.cc}!CASE@{CASE}}
-\index{CASE@{CASE}!json/json-\/parser.cc@{json/json-\/parser.cc}}
+\index{json-\/parser.cc@{json-\/parser.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!json-\/parser.cc@{json-\/parser.cc}}
 \doxysubsubsection{\texorpdfstring{CASE}{CASE}}
-{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{mul-fft_8cc_a76f11d9a0a47b94f72c2d0e77fb32240}{n}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(\mbox{\hyperlink{mul-fft_8cc_a76f11d9a0a47b94f72c2d0e77fb32240}{n}}) -\/ 1: \(\backslash\)}
-\DoxyCodeLine{    return \mbox{\hyperlink{namespacev8_1_1internal_a75979deb107a3b8ddf9cd65c994d9a67}{CompareCharsEqual}}(chars\_ + \mbox{\hyperlink{instruction-selector-ia32_8cc_a97bd6c077f3c7769f575b82988b9b668}{offset}}, \mbox{\hyperlink{mul-fft_8cc_a76f11d9a0a47b94f72c2d0e77fb32240}{n}}, \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(\mbox{\hyperlink{mul-fft_8cc_a76f11d9a0a47b94f72c2d0e77fb32240}{n}}) -\/ 1);}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(n) -\/ 1: \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{namespacev8_1_1internal_a75979deb107a3b8ddf9cd65c994d9a67}{CompareCharsEqual}}(chars\_ + offset, n, \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(n) -\/ 1);}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{json_2json-parser_8cc_a21a070f68682498cc1bbe187e987c3fa}\label{json_2json-parser_8cc_a21a070f68682498cc1bbe187e987c3fa}} 
-\index{json/json-\/parser.cc@{json/json-\/parser.cc}!CASES@{CASES}}
-\index{CASES@{CASES}!json/json-\/parser.cc@{json/json-\/parser.cc}}
+\index{json-\/parser.cc@{json-\/parser.cc}!CASES@{CASES}}
+\index{CASES@{CASES}!json-\/parser.cc@{json-\/parser.cc}}
 \doxysubsubsection{\texorpdfstring{CASES}{CASES}}
 {\footnotesize\ttfamily \#define CASES(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
 

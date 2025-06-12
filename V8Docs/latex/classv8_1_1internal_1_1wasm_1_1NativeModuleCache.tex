@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$wasm-\/engine.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::wasm\+::Native\+Module\+Cache\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1NativeModuleCache__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -29,6 +39,22 @@ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1Native
 \item 
 static \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ac7e973c109cc4129f87b3cc3c775f10b}{Prefix\+Hash}} (\mbox{\hyperlink{classv8_1_1base_1_1Vector}{base\+::\+Vector}}$<$ const uint8\+\_\+t $>$ wire\+\_\+bytes)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::map$<$ \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1NativeModuleCache_1_1Key}{Key}}, std\+::optional$<$ std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModule}{Native\+Module}} $>$ $>$ $>$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a239a3130f501d05c2f64da95658b74a5}{mutex\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable}{base\+::\+Condition\+Variable}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ab7631f832d4e803c72fb5c2d299f130b}{cache\+\_\+cv\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 73 of file wasm-\/engine.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -38,36 +64,310 @@ static \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee9
 \doxysubsubsection{\texorpdfstring{empty()}{empty()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::wasm\+::\+Native\+Module\+Cache\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 130 of file wasm-\/engine.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{130 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.empty(); \}}
+
+\end{DoxyCode}
+
+
+References map\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Engine\+::$\sim$\+Wasm\+Engine().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a102c3cb3accdae6f764130d07b5729b5_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a3dfbde26d38f72095078ecc58caeaef9}\label{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a3dfbde26d38f72095078ecc58caeaef9}} 
 \index{v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}!Erase@{Erase}}
 \index{Erase@{Erase}!v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}}
 \doxysubsubsection{\texorpdfstring{Erase()}{Erase()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_ac81d27d6edb00aeed62a3e4745b8cba0}{void}} v8\+::internal\+::wasm\+::\+Native\+Module\+Cache\+::\+Erase (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModule}{Native\+Module}} $\ast$}]{native\+\_\+module }\end{DoxyParamCaption})}
 
+
+
+Definition at line 399 of file wasm-\/engine.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{399                                                          \{}
+\DoxyCodeLine{400   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.wasm\_native\_module\_cache) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{401   \textcolor{keywordflow}{if} (native\_module-\/>module()-\/>origin != \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a3adc957d22d860687fc2579215adeb80ad75c39b2587910e64fbca44ad513c9e0}{kWasmOrigin}}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{402   \textcolor{comment}{// Happens in some tests where bytes are set directly.}}
+\DoxyCodeLine{403   \textcolor{keywordflow}{if} (native\_module-\/>wire\_bytes().empty()) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{404   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} lock(\&\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a239a3130f501d05c2f64da95658b74a5}{mutex\_}});}
+\DoxyCodeLine{405   \textcolor{keywordtype}{size\_t} prefix\_hash = \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ac7e973c109cc4129f87b3cc3c775f10b}{PrefixHash}}(native\_module-\/>wire\_bytes());}
+\DoxyCodeLine{406   \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.erase(Key\{prefix\_hash, native\_module-\/>compile\_imports(),}
+\DoxyCodeLine{407                  native\_module-\/>wire\_bytes()\});}
+\DoxyCodeLine{408   \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ab7631f832d4e803c72fb5c2d299f130b}{cache\_cv\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable_a28caf62e21af81a016735dd9f11010d0}{NotifyAll}}();}
+\DoxyCodeLine{409 \}}
+
+\end{DoxyCode}
+
+
+References cache\+\_\+cv\+\_\+, v8\+::internal\+::wasm\+::\+Native\+Module\+::compile\+\_\+imports(), v8\+::base\+::\+Vector$<$ T $>$\+::empty(), v8\+::internal\+::wasm\+::k\+Wasm\+Origin, map\+\_\+, v8\+::internal\+::wasm\+::\+Native\+Module\+::module(), mutex\+\_\+, v8\+::base\+::\+Condition\+Variable\+::\+Notify\+All(), v8\+::internal\+::wasm\+::\+Wasm\+Module\+::origin, Prefix\+Hash(), v8\+::internal\+::v8\+\_\+flags, and v8\+::internal\+::wasm\+::\+Native\+Module\+::wire\+\_\+bytes().
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Engine\+::\+Free\+Native\+Module().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a3dfbde26d38f72095078ecc58caeaef9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a3dfbde26d38f72095078ecc58caeaef9_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_afad7f423900a5711a6fdeceaf7ebd9fb}\label{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_afad7f423900a5711a6fdeceaf7ebd9fb}} 
 \index{v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}!GetStreamingCompilationOwnership@{GetStreamingCompilationOwnership}}
 \index{GetStreamingCompilationOwnership@{GetStreamingCompilationOwnership}!v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}}
 \doxysubsubsection{\texorpdfstring{GetStreamingCompilationOwnership()}{GetStreamingCompilationOwnership()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::wasm\+::\+Native\+Module\+Cache\+::\+Get\+Streaming\+Compilation\+Ownership (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{prefix\+\_\+hash,  }\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1CompileTimeImports}{Compile\+Time\+Imports}} \&}]{compile\+\_\+imports }\end{DoxyParamCaption})}
 
+
+
+Definition at line 335 of file wasm-\/engine.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{336                                                                    \{}
+\DoxyCodeLine{337   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.wasm\_native\_module\_cache) \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{338   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} lock(\&\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a239a3130f501d05c2f64da95658b74a5}{mutex\_}});}
+\DoxyCodeLine{339   \textcolor{keyword}{auto} it = \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.lower\_bound(Key\{prefix\_hash, compile\_imports, \{\}\});}
+\DoxyCodeLine{340   \textcolor{keywordflow}{if} (it != \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.end() \&\& it-\/>first.prefix\_hash == prefix\_hash) \{}
+\DoxyCodeLine{341     \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(!it-\/>first.bytes.empty(),}
+\DoxyCodeLine{342                    \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ac7e973c109cc4129f87b3cc3c775f10b}{PrefixHash}}(it-\/>first.bytes) == prefix\_hash);}
+\DoxyCodeLine{343     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{344   \}}
+\DoxyCodeLine{345   Key \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}\{prefix\_hash, compile\_imports, \{\}\};}
+\DoxyCodeLine{346   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(0, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.count(\mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}));}
+\DoxyCodeLine{347   \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.emplace(\mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}, std::nullopt);}
+\DoxyCodeLine{348   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{349 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+EQ, DCHECK\+\_\+\+IMPLIES, v8\+::internal\+::key, map\+\_\+, mutex\+\_\+, Prefix\+Hash(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Engine\+::\+Get\+Streaming\+Compilation\+Ownership().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_afad7f423900a5711a6fdeceaf7ebd9fb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_afad7f423900a5711a6fdeceaf7ebd9fb_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a559f23d013462e166a90f82755428ebe}\label{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a559f23d013462e166a90f82755428ebe}} 
 \index{v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}!MaybeGetNativeModule@{MaybeGetNativeModule}}
 \index{MaybeGetNativeModule@{MaybeGetNativeModule}!v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}}
 \doxysubsubsection{\texorpdfstring{MaybeGetNativeModule()}{MaybeGetNativeModule()}}
 {\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModule}{Native\+Module}} $>$ v8\+::internal\+::wasm\+::\+Native\+Module\+Cache\+::\+Maybe\+Get\+Native\+Module (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a3adc957d22d860687fc2579215adeb80}{Module\+Origin}}}]{origin,  }\item[{\mbox{\hyperlink{classv8_1_1base_1_1Vector}{base\+::\+Vector}}$<$ const uint8\+\_\+t $>$}]{wire\+\_\+bytes,  }\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1CompileTimeImports}{Compile\+Time\+Imports}} \&}]{compile\+\_\+imports }\end{DoxyParamCaption})}
 
+
+
+Definition at line 295 of file wasm-\/engine.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{297                                                \{}
+\DoxyCodeLine{298   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.wasm\_native\_module\_cache) \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{299   \textcolor{keywordflow}{if} (origin != \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a3adc957d22d860687fc2579215adeb80ad75c39b2587910e64fbca44ad513c9e0}{kWasmOrigin}}) \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{300   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} lock(\&\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a239a3130f501d05c2f64da95658b74a5}{mutex\_}});}
+\DoxyCodeLine{301   \textcolor{keywordtype}{size\_t} prefix\_hash = \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ac7e973c109cc4129f87b3cc3c775f10b}{PrefixHash}}(wire\_bytes);}
+\DoxyCodeLine{302   NativeModuleCache::Key \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}\{prefix\_hash, compile\_imports, wire\_bytes\};}
+\DoxyCodeLine{303   \textcolor{keywordflow}{while} (\textcolor{keyword}{true}) \{}
+\DoxyCodeLine{304     \textcolor{keyword}{auto} it = \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.find(\mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}});}
+\DoxyCodeLine{305     \textcolor{keywordflow}{if} (it == \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.end()) \{}
+\DoxyCodeLine{306       \textcolor{comment}{// Even though this exact key is not in the cache, there might be a}}
+\DoxyCodeLine{307       \textcolor{comment}{// matching prefix hash indicating that a streaming compilation is}}
+\DoxyCodeLine{308       \textcolor{comment}{// currently compiling a module with the same prefix. \{OnFinishedStream\}}}
+\DoxyCodeLine{309       \textcolor{comment}{// happens on the main thread too, so waiting for streaming compilation to}}
+\DoxyCodeLine{310       \textcolor{comment}{// finish would create a deadlock. Instead, compile the module twice and}}
+\DoxyCodeLine{311       \textcolor{comment}{// handle the conflict in \{UpdateNativeModuleCache\}.}}
+\DoxyCodeLine{312 }
+\DoxyCodeLine{313       \textcolor{comment}{// Insert a \{nullopt\} entry to let other threads know that this}}
+\DoxyCodeLine{314       \textcolor{comment}{// \{NativeModule\} is already being created on another thread.}}
+\DoxyCodeLine{315       [[maybe\_unused]] \textcolor{keyword}{auto} [iterator, inserted] =}
+\DoxyCodeLine{316           \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.emplace(\mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}, std::nullopt);}
+\DoxyCodeLine{317       \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(inserted);}
+\DoxyCodeLine{318       \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{319     \}}
+\DoxyCodeLine{320     \textcolor{keywordflow}{if} (it-\/>second.has\_value()) \{}
+\DoxyCodeLine{321       \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} shared\_native\_module = it-\/>second.value().lock()) \{}
+\DoxyCodeLine{322         \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(}
+\DoxyCodeLine{323             shared\_native\_module-\/>compile\_imports().compare(compile\_imports),}
+\DoxyCodeLine{324             0);}
+\DoxyCodeLine{325         \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(shared\_native\_module-\/>wire\_bytes(), wire\_bytes);}
+\DoxyCodeLine{326         \textcolor{keywordflow}{return} shared\_native\_module;}
+\DoxyCodeLine{327       \}}
+\DoxyCodeLine{328     \}}
+\DoxyCodeLine{329     \textcolor{comment}{// TODO(11858): This deadlocks in predictable mode, because there is only a}}
+\DoxyCodeLine{330     \textcolor{comment}{// single thread.}}
+\DoxyCodeLine{331     \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ab7631f832d4e803c72fb5c2d299f130b}{cache\_cv\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable_a29ca064849ef418937bbedcb0900279c}{Wait}}(\&\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a239a3130f501d05c2f64da95658b74a5}{mutex\_}});}
+\DoxyCodeLine{332   \}}
+\DoxyCodeLine{333 \}}
+
+\end{DoxyCode}
+
+
+References cache\+\_\+cv\+\_\+, v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, v8\+::internal\+::key, v8\+::internal\+::wasm\+::k\+Wasm\+Origin, map\+\_\+, mutex\+\_\+, Prefix\+Hash(), v8\+::internal\+::v8\+\_\+flags, and v8\+::base\+::\+Condition\+Variable\+::\+Wait().
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Engine\+::\+Maybe\+Get\+Native\+Module().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a559f23d013462e166a90f82755428ebe_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a559f23d013462e166a90f82755428ebe_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ac7e973c109cc4129f87b3cc3c775f10b}\label{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ac7e973c109cc4129f87b3cc3c775f10b}} 
 \index{v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}!PrefixHash@{PrefixHash}}
 \index{PrefixHash@{PrefixHash}!v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}}
 \doxysubsubsection{\texorpdfstring{PrefixHash()}{PrefixHash()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::wasm\+::\+Native\+Module\+Cache\+::\+Prefix\+Hash (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1base_1_1Vector}{base\+::\+Vector}}$<$ const uint8\+\_\+t $>$}]{wire\+\_\+bytes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 412 of file wasm-\/engine.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{412                                                                          \{}
+\DoxyCodeLine{413   \textcolor{comment}{// Compute the hash as a combined hash of the sections up to the code section}}
+\DoxyCodeLine{414   \textcolor{comment}{// header, to mirror the way streaming compilation does it.}}
+\DoxyCodeLine{415   Decoder decoder(wire\_bytes.begin(), wire\_bytes.end());}
+\DoxyCodeLine{416   decoder.consume\_bytes(8, \textcolor{stringliteral}{"{}module header"{}});}
+\DoxyCodeLine{417   \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a42a2fc870f8946e6ffe986e629a5693b}{SectionCode}} section\_id = \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a42a2fc870f8946e6ffe986e629a5693ba8cfdeb9213a3d517aed3c0ca252a5e6f}{SectionCode::kUnknownSectionCode}};}
+\DoxyCodeLine{418   base::Hasher hasher;}
+\DoxyCodeLine{419   \textcolor{keywordflow}{while} (decoder.ok() \&\& decoder.more()) \{}
+\DoxyCodeLine{420     section\_id = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a42a2fc870f8946e6ffe986e629a5693b}{SectionCode}}\textcolor{keyword}{>}(decoder.consume\_u8());}
+\DoxyCodeLine{421     uint32\_t section\_size = decoder.consume\_u32v(\textcolor{stringliteral}{"{}section size"{}});}
+\DoxyCodeLine{422     \textcolor{keywordflow}{if} (section\_id == \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a42a2fc870f8946e6ffe986e629a5693ba559ebf46416f54a9ff8a655b7e313da7}{SectionCode::kCodeSectionCode}}) \{}
+\DoxyCodeLine{423       hasher.Add(section\_size);}
+\DoxyCodeLine{424       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{425     \}}
+\DoxyCodeLine{426     \textcolor{keyword}{const} uint8\_t* payload\_start = decoder.pc();}
+\DoxyCodeLine{427     decoder.consume\_bytes(section\_size, \textcolor{stringliteral}{"{}section payload"{}});}
+\DoxyCodeLine{428     hasher.AddRange(\mbox{\hyperlink{namespacev8_1_1base_a5bfc65f27076e49eb7752a4fb4d45acb}{base::VectorOf}}(payload\_start, section\_size));}
+\DoxyCodeLine{429   \}}
+\DoxyCodeLine{430   \textcolor{keywordflow}{return} hasher.hash();}
+\DoxyCodeLine{431 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Hasher\+::\+Add(), v8\+::base\+::\+Hasher\+::\+Add\+Range(), v8\+::base\+::\+Vector$<$ T $>$\+::begin(), v8\+::internal\+::wasm\+::\+Decoder\+::consume\+\_\+bytes(), v8\+::internal\+::wasm\+::\+Decoder\+::consume\+\_\+u32v(), v8\+::internal\+::wasm\+::\+Decoder\+::consume\+\_\+u8(), v8\+::base\+::\+Vector$<$ T $>$\+::end(), v8\+::base\+::\+Hasher\+::hash(), v8\+::internal\+::wasm\+::k\+Code\+Section\+Code, v8\+::internal\+::wasm\+::k\+Unknown\+Section\+Code, v8\+::internal\+::wasm\+::\+Decoder\+::more(), v8\+::internal\+::wasm\+::\+Decoder\+::ok(), v8\+::internal\+::wasm\+::\+Decoder\+::pc(), and v8\+::base\+::\+Vector\+Of().
+
+
+
+Referenced by Erase(), Get\+Streaming\+Compilation\+Ownership(), Maybe\+Get\+Native\+Module(), v8\+::internal\+::wasm\+::\+Async\+Streaming\+Processor\+::\+On\+Finished\+Stream(), and Update().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ac7e973c109cc4129f87b3cc3c775f10b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ac7e973c109cc4129f87b3cc3c775f10b_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a1f7bcde52e841f9779bf3ba25527bdfa}\label{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a1f7bcde52e841f9779bf3ba25527bdfa}} 
 \index{v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}!StreamingCompilationFailed@{StreamingCompilationFailed}}
 \index{StreamingCompilationFailed@{StreamingCompilationFailed}!v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}}
 \doxysubsubsection{\texorpdfstring{StreamingCompilationFailed()}{StreamingCompilationFailed()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_ac81d27d6edb00aeed62a3e4745b8cba0}{void}} v8\+::internal\+::wasm\+::\+Native\+Module\+Cache\+::\+Streaming\+Compilation\+Failed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{prefix\+\_\+hash,  }\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1CompileTimeImports}{Compile\+Time\+Imports}} \&}]{compile\+\_\+imports }\end{DoxyParamCaption})}
 
+
+
+Definition at line 351 of file wasm-\/engine.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{352                                                                    \{}
+\DoxyCodeLine{353   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.wasm\_native\_module\_cache) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{354   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} lock(\&\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a239a3130f501d05c2f64da95658b74a5}{mutex\_}});}
+\DoxyCodeLine{355   Key \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}\{prefix\_hash, compile\_imports, \{\}\};}
+\DoxyCodeLine{356   \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.erase(\mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}});}
+\DoxyCodeLine{357   \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ab7631f832d4e803c72fb5c2d299f130b}{cache\_cv\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable_a28caf62e21af81a016735dd9f11010d0}{NotifyAll}}();}
+\DoxyCodeLine{358 \}}
+
+\end{DoxyCode}
+
+
+References cache\+\_\+cv\+\_\+, v8\+::internal\+::key, map\+\_\+, mutex\+\_\+, v8\+::base\+::\+Condition\+Variable\+::\+Notify\+All(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Engine\+::\+Streaming\+Compilation\+Failed().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a1f7bcde52e841f9779bf3ba25527bdfa_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a1f7bcde52e841f9779bf3ba25527bdfa_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ae0ec3986cfa081f17475ecfea81b6899}\label{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ae0ec3986cfa081f17475ecfea81b6899}} 
 \index{v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}!Update@{Update}}
 \index{Update@{Update}!v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}}
@@ -76,7 +376,121 @@ static \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee9
 
 
 
+Definition at line 360 of file wasm-\/engine.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{361                                                            \{}
+\DoxyCodeLine{362   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(native\_module);}
+\DoxyCodeLine{363   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.wasm\_native\_module\_cache) \textcolor{keywordflow}{return} native\_module;}
+\DoxyCodeLine{364   \textcolor{keywordflow}{if} (native\_module-\/>module()-\/>origin != \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a3adc957d22d860687fc2579215adeb80ad75c39b2587910e64fbca44ad513c9e0}{kWasmOrigin}}) \textcolor{keywordflow}{return} native\_module;}
+\DoxyCodeLine{365   base::Vector<const uint8\_t> wire\_bytes = native\_module-\/>wire\_bytes();}
+\DoxyCodeLine{366   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!wire\_bytes.empty());}
+\DoxyCodeLine{367   \textcolor{keywordtype}{size\_t} prefix\_hash = \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ac7e973c109cc4129f87b3cc3c775f10b}{PrefixHash}}(native\_module-\/>wire\_bytes());}
+\DoxyCodeLine{368   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} lock(\&\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a239a3130f501d05c2f64da95658b74a5}{mutex\_}});}
+\DoxyCodeLine{369   \textcolor{keyword}{const} CompileTimeImports\& compile\_imports = native\_module-\/>compile\_imports();}
+\DoxyCodeLine{370   \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.erase(Key\{prefix\_hash, compile\_imports, \{\}\});}
+\DoxyCodeLine{371   \textcolor{keyword}{const} Key \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}\{prefix\_hash, compile\_imports, wire\_bytes\};}
+\DoxyCodeLine{372   \textcolor{keyword}{auto} it = \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.find(\mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}});}
+\DoxyCodeLine{373   \textcolor{keywordflow}{if} (it != \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.end()) \{}
+\DoxyCodeLine{374     \textcolor{keywordflow}{if} (it-\/>second.has\_value()) \{}
+\DoxyCodeLine{375       \textcolor{keyword}{auto} conflicting\_module = it-\/>second.value().lock();}
+\DoxyCodeLine{376       \textcolor{keywordflow}{if} (conflicting\_module != \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{377         \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(conflicting\_module-\/>wire\_bytes(), wire\_bytes);}
+\DoxyCodeLine{378         \textcolor{comment}{// This return might delete \{native\_module\} if we were the last holder.}}
+\DoxyCodeLine{379         \textcolor{comment}{// That in turn can call \{NativeModuleCache::Erase\}, which takes the}}
+\DoxyCodeLine{380         \textcolor{comment}{// mutex. This is not a problem though, since the \{MutexGuard\} above is}}
+\DoxyCodeLine{381         \textcolor{comment}{// released before the \{native\_module\}, per the definition order.}}
+\DoxyCodeLine{382         \textcolor{keywordflow}{return} conflicting\_module;}
+\DoxyCodeLine{383       \}}
+\DoxyCodeLine{384     \}}
+\DoxyCodeLine{385     \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.erase(it);}
+\DoxyCodeLine{386   \}}
+\DoxyCodeLine{387   \textcolor{keywordflow}{if} (!error) \{}
+\DoxyCodeLine{388     \textcolor{comment}{// The key now points to the new native module's owned copy of the bytes,}}
+\DoxyCodeLine{389     \textcolor{comment}{// so that it stays valid until the native module is freed and erased from}}
+\DoxyCodeLine{390     \textcolor{comment}{// the map.}}
+\DoxyCodeLine{391     [[maybe\_unused]] \textcolor{keyword}{auto} [iterator, inserted] = \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}{map\_}}.emplace(}
+\DoxyCodeLine{392         \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}, std::optional<std::weak\_ptr<NativeModule>>(native\_module));}
+\DoxyCodeLine{393     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(inserted);}
+\DoxyCodeLine{394   \}}
+\DoxyCodeLine{395   \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ab7631f832d4e803c72fb5c2d299f130b}{cache\_cv\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable_a28caf62e21af81a016735dd9f11010d0}{NotifyAll}}();}
+\DoxyCodeLine{396   \textcolor{keywordflow}{return} native\_module;}
+\DoxyCodeLine{397 \}}
+
+\end{DoxyCode}
+
+
+References cache\+\_\+cv\+\_\+, v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, DCHECK\+\_\+\+NOT\+\_\+\+NULL, v8\+::base\+::\+Vector$<$ T $>$\+::empty(), v8\+::internal\+::key, v8\+::internal\+::wasm\+::k\+Wasm\+Origin, map\+\_\+, mutex\+\_\+, v8\+::base\+::\+Condition\+Variable\+::\+Notify\+All(), Prefix\+Hash(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Engine\+::\+Update\+Native\+Module\+Cache().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ae0ec3986cfa081f17475ecfea81b6899_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ae0ec3986cfa081f17475ecfea81b6899_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ab7631f832d4e803c72fb5c2d299f130b}\label{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_ab7631f832d4e803c72fb5c2d299f130b}} 
+\index{v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}!cache\_cv\_@{cache\_cv\_}}
+\index{cache\_cv\_@{cache\_cv\_}!v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}}
+\doxysubsubsection{\texorpdfstring{cache\_cv\_}{cache\_cv\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable}{base\+::\+Condition\+Variable}} v8\+::internal\+::wasm\+::\+Native\+Module\+Cache\+::cache\+\_\+cv\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 157 of file wasm-\/engine.\+h.
+
+
+
+Referenced by Erase(), Maybe\+Get\+Native\+Module(), Streaming\+Compilation\+Failed(), and Update().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}\label{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a99a9239d0c5c528bd73bf36a70c4f3a9}} 
+\index{v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}!map\_@{map\_}}
+\index{map\_@{map\_}!v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}}
+\doxysubsubsection{\texorpdfstring{map\_}{map\_}}
+{\footnotesize\ttfamily std\+::map$<$\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1NativeModuleCache_1_1Key}{Key}}, std\+::optional$<$std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModule}{Native\+Module}}$>$ $>$ $>$ v8\+::internal\+::wasm\+::\+Native\+Module\+Cache\+::map\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 150 of file wasm-\/engine.\+h.
+
+
+
+Referenced by empty(), Erase(), Get\+Streaming\+Compilation\+Ownership(), Maybe\+Get\+Native\+Module(), Streaming\+Compilation\+Failed(), and Update().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a239a3130f501d05c2f64da95658b74a5}\label{classv8_1_1internal_1_1wasm_1_1NativeModuleCache_a239a3130f501d05c2f64da95658b74a5}} 
+\index{v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}!mutex\_@{mutex\_}}
+\index{mutex\_@{mutex\_}!v8::internal::wasm::NativeModuleCache@{v8::internal::wasm::NativeModuleCache}}
+\doxysubsubsection{\texorpdfstring{mutex\_}{mutex\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} v8\+::internal\+::wasm\+::\+Native\+Module\+Cache\+::mutex\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 152 of file wasm-\/engine.\+h.
+
+
+
+Referenced by Erase(), Get\+Streaming\+Compilation\+Ownership(), Maybe\+Get\+Native\+Module(), Streaming\+Compilation\+Failed(), and Update().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{wasm-engine_8h}{wasm-\/engine.\+h}}\item 
-\mbox{\hyperlink{wasm-engine_8cc}{wasm-\/engine.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{wasm-engine_8h}{wasm-\/engine.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{wasm-engine_8cc}{wasm-\/engine.\+cc}}\end{DoxyCompactItemize}

@@ -1,5 +1,6 @@
 var classv8_1_1Data =
 [
+    [ "Data", "classv8_1_1Data.html#abdc21d1bcc526313f62ae684fe1de070", null ],
     [ "IsContext", "classv8_1_1Data.html#a9d2b0b76e248930056307a9c2215655d", null ],
     [ "IsCppHeapExternal", "classv8_1_1Data.html#a106736af2a85663fffa31b7fa37e23d8", null ],
     [ "IsFixedArray", "classv8_1_1Data.html#af6c38f7bc27bb44d8b2ccdaca19de86e", null ],

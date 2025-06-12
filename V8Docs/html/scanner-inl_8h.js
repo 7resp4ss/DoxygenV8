@@ -23,8 +23,10 @@ var scanner_inl_8h =
     [ "IdentifierNeedsSlowPath", "scanner-inl_8h.html#a6bb48a52a63ce3aeb7c0a280dc6d31c6", null ],
     [ "IsInString", "scanner-inl_8h.html#a5e9be68dafa8be83f013a2a3b299e2e6", null ],
     [ "IsKeywordStart", "scanner-inl_8h.html#a325aff22e364ca9168c31b31675ef00d", null ],
-    [ "KeywordOrIdentifierToken", "scanner-inl_8h.html#ab19d281fb4b9813d6ba8c203cb7e0800", null ],
+    [ "KeywordOrIdentifierToken", "scanner-inl_8h.html#ab740c32aae8ae98db1db875c9f0a20ce", null ],
     [ "MayTerminateString", "scanner-inl_8h.html#a83633fac5db9b7aa5563bb53c2c69864", null ],
     [ "MultilineCommentCharacterNeedsSlowPath", "scanner-inl_8h.html#ab3495cab48dba9c170dff946cd7a4c3c", null ],
-    [ "TerminatesLiteral", "scanner-inl_8h.html#a6667ca9ebb607607c6ff855657fb2064", null ]
+    [ "TerminatesLiteral", "scanner-inl_8h.html#a6667ca9ebb607607c6ff855657fb2064", null ],
+    [ "character_scan_flags", "scanner-inl_8h.html#a6850ca10d05037cfb1862e4624b84668", null ],
+    [ "one_char_tokens", "scanner-inl_8h.html#a8432a549128377710522d944580f9508", null ]
 ];

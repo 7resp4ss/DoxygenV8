@@ -1,5 +1,7 @@
 var classv8_1_1internal_1_1maglev_1_1StoreMap =
 [
+    [ "Base", "classv8_1_1internal_1_1maglev_1_1StoreMap.html#a5223332db533ab1c60e65ab7262f7ae3", null ],
+    [ "KindField", "classv8_1_1internal_1_1maglev_1_1StoreMap.html#a56ddf2d926c2fe435a4e92fe57ae9959", null ],
     [ "Kind", "classv8_1_1internal_1_1maglev_1_1StoreMap.html#ab54852d48bd548917c1b807ec3ee19db", [
       [ "kInitializing", "classv8_1_1internal_1_1maglev_1_1StoreMap.html#ab54852d48bd548917c1b807ec3ee19dbaf2a73d6da4f1757992348e01f07c1abd", null ],
       [ "kInlinedAllocation", "classv8_1_1internal_1_1maglev_1_1StoreMap.html#ab54852d48bd548917c1b807ec3ee19dba07d245531f482434f6d46fea96d146fc", null ],
@@ -13,5 +15,9 @@ var classv8_1_1internal_1_1maglev_1_1StoreMap =
     [ "MaxCallStackArgs", "classv8_1_1internal_1_1maglev_1_1StoreMap.html#ad3fa53099686b4c511ff47cd09896e3c", null ],
     [ "object_input", "classv8_1_1internal_1_1maglev_1_1StoreMap.html#a74725752f11a45fc6afbde1b9bbc8991", null ],
     [ "PrintParams", "classv8_1_1internal_1_1maglev_1_1StoreMap.html#ac690a27eac9c3857e6e26bf5d13c0214", null ],
-    [ "SetValueLocationConstraints", "classv8_1_1internal_1_1maglev_1_1StoreMap.html#adf61652290c28779b7dd52d448cd86bf", null ]
+    [ "SetValueLocationConstraints", "classv8_1_1internal_1_1maglev_1_1StoreMap.html#adf61652290c28779b7dd52d448cd86bf", null ],
+    [ "kInputTypes", "classv8_1_1internal_1_1maglev_1_1StoreMap.html#aad182b376b3cd183dc7f905e2667d74d", null ],
+    [ "kObjectIndex", "classv8_1_1internal_1_1maglev_1_1StoreMap.html#aa58be034fae5099349329f6d4ed12e21", null ],
+    [ "kProperties", "classv8_1_1internal_1_1maglev_1_1StoreMap.html#a14c262bb190ed7c7f43f94a41627d425", null ],
+    [ "map_", "classv8_1_1internal_1_1maglev_1_1StoreMap.html#a027429ea1eab6c41137cc976766381e7", null ]
 ];

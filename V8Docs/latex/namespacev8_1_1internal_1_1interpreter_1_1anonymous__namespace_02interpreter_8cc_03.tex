@@ -1,0 +1,178 @@
+\hypertarget{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03}{}\doxysection{v8\+::internal\+::interpreter\+::anonymous\+\_\+namespace\{interpreter.\+cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03}\index{v8::internal::interpreter::anonymous\_namespace\lcurly{}interpreter.cc\rcurly{}@{v8::internal::interpreter::anonymous\_namespace\lcurly{}interpreter.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_acc2e164143496f18b5ec68f8ab70af52}{Builtin}} \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_a530439af9c14262012616b9b264bc832}{Builtin\+Index\+From\+Bytecode}} (\mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a11bcbd6d6c1eed58e8536b777ae09e16}{Bytecode}} bytecode, \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_af4cfe621e83bc78f064aa62806795d64}{Operand\+Scale}} operand\+\_\+scale)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_a168c5f64b6fb2d1c96c67cac236e91cf}{Maybe\+Print\+Ast}} (\mbox{\hyperlink{classv8_1_1internal_1_1ParseInfo}{Parse\+Info}} $\ast$parse\+\_\+info, \mbox{\hyperlink{classv8_1_1internal_1_1UnoptimizedCompilationInfo}{Unoptimized\+Compilation\+Info}} $\ast$compilation\+\_\+info)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_ae095100a4f175d44e16319bb9e78b241}{Should\+Print\+Bytecode}} (\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1SharedFunctionInfo}{Shared\+Function\+Info}} $>$ shared)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_a530439af9c14262012616b9b264bc832}\label{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_a530439af9c14262012616b9b264bc832}} 
+\index{v8::internal::interpreter::anonymous\_namespace\lcurly{}interpreter.cc\rcurly{}@{v8::internal::interpreter::anonymous\_namespace\lcurly{}interpreter.cc\rcurly{}}!BuiltinIndexFromBytecode@{BuiltinIndexFromBytecode}}
+\index{BuiltinIndexFromBytecode@{BuiltinIndexFromBytecode}!v8::internal::interpreter::anonymous\_namespace\lcurly{}interpreter.cc\rcurly{}@{v8::internal::interpreter::anonymous\_namespace\lcurly{}interpreter.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{BuiltinIndexFromBytecode()}{BuiltinIndexFromBytecode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_acc2e164143496f18b5ec68f8ab70af52}{Builtin}} v8\+::internal\+::interpreter\+::anonymous\+\_\+namespace\{interpreter.\+cc\}\+::Builtin\+Index\+From\+Bytecode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a11bcbd6d6c1eed58e8536b777ae09e16}{Bytecode}}}]{bytecode,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_af4cfe621e83bc78f064aa62806795d64}{Operand\+Scale}}}]{operand\+\_\+scale }\end{DoxyParamCaption})}
+
+
+
+Definition at line 85 of file interpreter.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{86                                                              \{}
+\DoxyCodeLine{87   \textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(bytecode);}
+\DoxyCodeLine{88   \textcolor{keywordflow}{if} (operand\_scale == OperandScale::kSingle) \{}
+\DoxyCodeLine{89     \textcolor{keywordflow}{if} (Bytecodes::IsShortStar(bytecode)) \{}
+\DoxyCodeLine{90       \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(Bytecode::kFirstShortStar);}
+\DoxyCodeLine{91     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (bytecode > Bytecode::kLastShortStar) \{}
+\DoxyCodeLine{92       \textcolor{comment}{// Adjust the index due to repeated handlers.}}
+\DoxyCodeLine{93       \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} -\/= Bytecodes::kShortStarCount -\/ 1;}
+\DoxyCodeLine{94     \}}
+\DoxyCodeLine{95   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{96     \textcolor{comment}{// The table contains uint8\_t offsets starting at 0 with}}
+\DoxyCodeLine{97     \textcolor{comment}{// kIllegalBytecodeHandlerEncoding for illegal bytecode/scale combinations.}}
+\DoxyCodeLine{98     uint8\_t offset = kWideBytecodeToBuiltinsMapping[\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}];}
+\DoxyCodeLine{99     \textcolor{keywordflow}{if} (offset == \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_aa0594c3f2339f966b3d795299f357952}{kIllegalBytecodeHandlerEncoding}}) \{}
+\DoxyCodeLine{100       \textcolor{keywordflow}{return} Builtin::kIllegalHandler;}
+\DoxyCodeLine{101     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{102       \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = kNumberOfBytecodeHandlers + offset;}
+\DoxyCodeLine{103       \textcolor{keywordflow}{if} (operand\_scale == OperandScale::kQuadruple) \{}
+\DoxyCodeLine{104         \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} += kNumberOfWideBytecodeHandlers;}
+\DoxyCodeLine{105       \}}
+\DoxyCodeLine{106     \}}
+\DoxyCodeLine{107   \}}
+\DoxyCodeLine{108   \textcolor{keywordflow}{return} Builtins::FromInt(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(Builtin::kFirstBytecodeHandler) +}
+\DoxyCodeLine{109                            \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}});}
+\DoxyCodeLine{110 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Builtins\+::\+From\+Int(), v8\+::internal\+::index, v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+Is\+Short\+Star(), v8\+::internal\+::interpreter\+::k\+First\+Short\+Star, v8\+::internal\+::interpreter\+::k\+Illegal\+Bytecode\+Handler\+Encoding, v8\+::internal\+::interpreter\+::k\+Last\+Short\+Star, and v8\+::internal\+::interpreter\+::\+Bytecodes\+::k\+Short\+Star\+Count.
+
+
+
+Referenced by v8\+::internal\+::interpreter\+::\+Interpreter\+::\+Get\+Bytecode\+Handler(), and v8\+::internal\+::interpreter\+::\+Interpreter\+::\+Initialize().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_a530439af9c14262012616b9b264bc832_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_a530439af9c14262012616b9b264bc832_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_a168c5f64b6fb2d1c96c67cac236e91cf}\label{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_a168c5f64b6fb2d1c96c67cac236e91cf}} 
+\index{v8::internal::interpreter::anonymous\_namespace\lcurly{}interpreter.cc\rcurly{}@{v8::internal::interpreter::anonymous\_namespace\lcurly{}interpreter.cc\rcurly{}}!MaybePrintAst@{MaybePrintAst}}
+\index{MaybePrintAst@{MaybePrintAst}!v8::internal::interpreter::anonymous\_namespace\lcurly{}interpreter.cc\rcurly{}@{v8::internal::interpreter::anonymous\_namespace\lcurly{}interpreter.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{MaybePrintAst()}{MaybePrintAst()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::anonymous\+\_\+namespace\{interpreter.\+cc\}\+::Maybe\+Print\+Ast (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1ParseInfo}{Parse\+Info}} $\ast$}]{parse\+\_\+info,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1UnoptimizedCompilationInfo}{Unoptimized\+Compilation\+Info}} $\ast$}]{compilation\+\_\+info }\end{DoxyParamCaption})}
+
+
+
+Definition at line 140 of file interpreter.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{141                                                                  \{}
+\DoxyCodeLine{142   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.print\_ast) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{144   StdoutStream os;}
+\DoxyCodeLine{145   std::unique\_ptr<char[]> \mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}} = compilation\_info-\/>literal()-\/>GetDebugName();}
+\DoxyCodeLine{146   os << \textcolor{stringliteral}{"{}[generating bytecode for function: "{}} << \mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}}.get() << \textcolor{stringliteral}{"{}]"{}} << std::endl;}
+\DoxyCodeLine{147 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{148   os << \textcolor{stringliteral}{"{}-\/-\/-\/ AST -\/-\/-\/"{}} << std::endl}
+\DoxyCodeLine{149      << AstPrinter(parse\_info-\/>stack\_limit())}
+\DoxyCodeLine{150             .PrintProgram(compilation\_info-\/>literal())}
+\DoxyCodeLine{151      << std::endl;}
+\DoxyCodeLine{152 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// DEBUG}}
+\DoxyCodeLine{153 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Function\+Literal\+::\+Get\+Debug\+Name(), v8\+::internal\+::\+Unoptimized\+Compilation\+Info\+::literal(), v8\+::internal\+::name, v8\+::internal\+::\+Parse\+Info\+::stack\+\_\+limit(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::interpreter\+::\+Interpreter\+Compilation\+Job\+::\+Execute\+Job\+Impl().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_a168c5f64b6fb2d1c96c67cac236e91cf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_a168c5f64b6fb2d1c96c67cac236e91cf_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_ae095100a4f175d44e16319bb9e78b241}\label{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_ae095100a4f175d44e16319bb9e78b241}} 
+\index{v8::internal::interpreter::anonymous\_namespace\lcurly{}interpreter.cc\rcurly{}@{v8::internal::interpreter::anonymous\_namespace\lcurly{}interpreter.cc\rcurly{}}!ShouldPrintBytecode@{ShouldPrintBytecode}}
+\index{ShouldPrintBytecode@{ShouldPrintBytecode}!v8::internal::interpreter::anonymous\_namespace\lcurly{}interpreter.cc\rcurly{}@{v8::internal::interpreter::anonymous\_namespace\lcurly{}interpreter.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ShouldPrintBytecode()}{ShouldPrintBytecode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::interpreter\+::anonymous\+\_\+namespace\{interpreter.\+cc\}\+::Should\+Print\+Bytecode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1SharedFunctionInfo}{Shared\+Function\+Info}} $>$}]{shared }\end{DoxyParamCaption})}
+
+
+
+Definition at line 155 of file interpreter.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{155                                                                   \{}
+\DoxyCodeLine{156   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.print\_bytecode) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158   \textcolor{comment}{// Checks whether function passed the filter.}}
+\DoxyCodeLine{159   \textcolor{keywordflow}{if} (shared-\/>is\_toplevel()) \{}
+\DoxyCodeLine{160     base::Vector<const char> filter =}
+\DoxyCodeLine{161         \mbox{\hyperlink{namespacev8_1_1base_aaa0a202e5ad0d494cc88496b8fafa571}{base::CStrVector}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.print\_bytecode\_filter);}
+\DoxyCodeLine{162     \textcolor{keywordflow}{return} filter.empty() || (filter.length() == 1 \&\& filter[0] == \textcolor{charliteral}{'*'});}
+\DoxyCodeLine{163   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{164     \textcolor{keywordflow}{return} shared-\/>PassesFilter(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.print\_bytecode\_filter);}
+\DoxyCodeLine{165   \}}
+\DoxyCodeLine{166 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+CStr\+Vector(), v8\+::base\+::\+Vector$<$ T $>$\+::empty(), v8\+::base\+::\+Vector$<$ T $>$\+::length(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::interpreter\+::\+Interpreter\+Compilation\+Job\+::\+Do\+Finalize\+Job\+Impl().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_ae095100a4f175d44e16319bb9e78b241_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_8cc_03_ae095100a4f175d44e16319bb9e78b241_icgraph}
+\end{center}
+\end{figure}

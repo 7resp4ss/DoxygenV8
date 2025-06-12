@@ -1,11 +1,15 @@
 var wasm_external_refs_8cc =
 [
+    [ "ThreadNotInWasmScope", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02wasm-external-refs_8cc_03_1_1ThreadNotInWasmScope.html", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02wasm-external-refs_8cc_03_1_1ThreadNotInWasmScope" ],
     [ "array_copy_wrapper", "wasm-external-refs_8cc.html#aaab3ecbfc9ef1da138ba300928f37b3a", null ],
     [ "array_fill_wrapper", "wasm-external-refs_8cc.html#ab0cdee62deef4d17fb81c96ca33bb12a", null ],
+    [ "ArrayElementAddress", "wasm-external-refs_8cc.html#a3fa4753ae2707d5f04125f751f9c77b4", null ],
+    [ "ArrayElementAddress", "wasm-external-refs_8cc.html#a86ad36e659536753c241bf55e1dbfdad", null ],
     [ "ConvertToF16S", "wasm-external-refs_8cc.html#a1add1594fa0a1ae345f43ab819f881c4", null ],
     [ "ConvertToF16U", "wasm-external-refs_8cc.html#a56362d3f58edb409926fc6d79372e74c", null ],
     [ "ConvertToIntS", "wasm-external-refs_8cc.html#ac6684b4a6d15ba1fc75badc12d9118c6", null ],
     [ "ConvertToIntU", "wasm-external-refs_8cc.html#a7c7a0dd0459f5a37f641e8607f45e026", null ],
+    [ "EffectiveAddress", "wasm-external-refs_8cc.html#ac25f972a96e68dce385fd0bb04279402", null ],
     [ "f16_abs", "wasm-external-refs_8cc.html#a1905ad0631579aabc19cadc9fa03cbc1", null ],
     [ "f16_add", "wasm-external-refs_8cc.html#ae8f0c85bdd7eea22298888a25a66a5bd", null ],
     [ "f16_ceil", "wasm-external-refs_8cc.html#aafaadf085cd1710a488cc2598c7d315e", null ],
@@ -92,6 +96,7 @@ var wasm_external_refs_8cc =
     [ "memory_init_wrapper", "wasm-external-refs_8cc.html#a3b6c9779521077c3a67992981046debf", null ],
     [ "Qfma", "wasm-external-refs_8cc.html#a4b4b4d020e8f3a27983ca9ba86b90059", null ],
     [ "Qfms", "wasm-external-refs_8cc.html#a66e46fdab0a07072c8000a79615aaf54", null ],
+    [ "ReadAndIncrementOffset", "wasm-external-refs_8cc.html#aecc59704085f5e5be9c814b06da014f5", null ],
     [ "return_switch", "wasm-external-refs_8cc.html#ac90d5992bbcd7b448908bcc0004a4bcb", null ],
     [ "shrink_stack", "wasm-external-refs_8cc.html#a27444542da4ef891ed0b08b6712adedf", null ],
     [ "simd_float16_bin_wrapper", "wasm-external-refs_8cc.html#a67690078677dba5fbcdffd44ce7267bc", null ],
@@ -110,5 +115,7 @@ var wasm_external_refs_8cc =
     [ "word32_rol_wrapper", "wasm-external-refs_8cc.html#a1b103fd45d63dd1bca945f6e7c799c5d", null ],
     [ "word32_ror_wrapper", "wasm-external-refs_8cc.html#a2cf8cd90863286922e3f8eb9db99595a", null ],
     [ "word64_rol_wrapper", "wasm-external-refs_8cc.html#a6138b7efe999f332e6dce6cc9a7013b2", null ],
-    [ "word64_ror_wrapper", "wasm-external-refs_8cc.html#a9b1960820ba722e42d5d1cc501361276", null ]
+    [ "word64_ror_wrapper", "wasm-external-refs_8cc.html#a9b1960820ba722e42d5d1cc501361276", null ],
+    [ "kOutOfBounds", "wasm-external-refs_8cc.html#a6dcfdf567dadebdee46defb34b5ff7db", null ],
+    [ "kSuccess", "wasm-external-refs_8cc.html#a202f609c30faf3aa82482e660203870e", null ]
 ];

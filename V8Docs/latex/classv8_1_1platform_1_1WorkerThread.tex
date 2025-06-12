@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::platform\+::Worker\+Thread\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=230pt]{classv8_1_1platform_1_1WorkerThread__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1platform_1_1WorkerThread__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -37,6 +37,18 @@ Collaboration diagram for v8\+::platform\+::Worker\+Thread\+:
 \item 
 void \mbox{\hyperlink{classv8_1_1platform_1_1WorkerThread_a229d931f339626962ce2e3e7ecdc1aa3}{Run}} () override
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue}{Task\+Queue}} $\ast$ \mbox{\hyperlink{classv8_1_1platform_1_1WorkerThread_ac917d7f4d0eba3d10201abacdbde1b68}{queue\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 20 of file worker-\/thread.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -46,12 +58,38 @@ void \mbox{\hyperlink{classv8_1_1platform_1_1WorkerThread_a229d931f339626962ce2e
 \doxysubsubsection{\texorpdfstring{WorkerThread()}{WorkerThread()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::platform\+::\+Worker\+Thread\+::\+Worker\+Thread (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue}{Task\+Queue}} $\ast$}]{queue }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
+
+
+Definition at line 13 of file worker-\/thread.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{14     : Thread(Options(\textcolor{stringliteral}{"{}V8 WorkerThread"{}})), \mbox{\hyperlink{classv8_1_1platform_1_1WorkerThread_ac917d7f4d0eba3d10201abacdbde1b68}{queue\_}}(queue) \{}
+\DoxyCodeLine{15   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(Start());}
+\DoxyCodeLine{16 \}}
+
+\end{DoxyCode}
+
+
+References CHECK.
+
 \mbox{\Hypertarget{classv8_1_1platform_1_1WorkerThread_a8c440f179f38ac5b88d7e79673f47125}\label{classv8_1_1platform_1_1WorkerThread_a8c440f179f38ac5b88d7e79673f47125}} 
 \index{v8::platform::WorkerThread@{v8::platform::WorkerThread}!````~WorkerThread@{$\sim$WorkerThread}}
 \index{````~WorkerThread@{$\sim$WorkerThread}!v8::platform::WorkerThread@{v8::platform::WorkerThread}}
 \doxysubsubsection{\texorpdfstring{$\sim$WorkerThread()}{~WorkerThread()}}
 {\footnotesize\ttfamily v8\+::platform\+::\+Worker\+Thread\+::$\sim$\+Worker\+Thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
 
+
+
+Definition at line 18 of file worker-\/thread.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18                             \{}
+\DoxyCodeLine{19   Join();}
+\DoxyCodeLine{20 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1platform_1_1WorkerThread_a72130671cb9a56ef417901e670e04f57}\label{classv8_1_1platform_1_1WorkerThread_a72130671cb9a56ef417901e670e04f57}} 
 \index{v8::platform::WorkerThread@{v8::platform::WorkerThread}!WorkerThread@{WorkerThread}}
 \index{WorkerThread@{WorkerThread}!v8::platform::WorkerThread@{v8::platform::WorkerThread}}
@@ -75,7 +113,49 @@ void \mbox{\hyperlink{classv8_1_1platform_1_1WorkerThread_a229d931f339626962ce2e
 
 
 
+Definition at line 22 of file worker-\/thread.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{22                        \{}
+\DoxyCodeLine{23   \textcolor{keywordflow}{while} (std::unique\_ptr<Task> task = \mbox{\hyperlink{classv8_1_1platform_1_1WorkerThread_ac917d7f4d0eba3d10201abacdbde1b68}{queue\_}}-\/>\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a168f8789c346eda3736d57a44db6a3bc}{GetNext}}()) \{}
+\DoxyCodeLine{24     task-\/>Run();}
+\DoxyCodeLine{25   \}}
+\DoxyCodeLine{26 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::platform\+::\+Task\+Queue\+::\+Get\+Next(), and queue\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1WorkerThread_a229d931f339626962ce2e3e7ecdc1aa3_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1platform_1_1WorkerThread_ac917d7f4d0eba3d10201abacdbde1b68}\label{classv8_1_1platform_1_1WorkerThread_ac917d7f4d0eba3d10201abacdbde1b68}} 
+\index{v8::platform::WorkerThread@{v8::platform::WorkerThread}!queue\_@{queue\_}}
+\index{queue\_@{queue\_}!v8::platform::WorkerThread@{v8::platform::WorkerThread}}
+\doxysubsubsection{\texorpdfstring{queue\_}{queue\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue}{Task\+Queue}}$\ast$ v8\+::platform\+::\+Worker\+Thread\+::queue\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 32 of file worker-\/thread.\+h.
+
+
+
+Referenced by Run().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{worker-thread_8h}{worker-\/thread.\+h}}\item 
-\mbox{\hyperlink{worker-thread_8cc}{worker-\/thread.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/libplatform/\mbox{\hyperlink{worker-thread_8h}{worker-\/thread.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/libplatform/\mbox{\hyperlink{worker-thread_8cc}{worker-\/thread.\+cc}}\end{DoxyCompactItemize}

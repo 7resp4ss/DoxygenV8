@@ -12,8 +12,12 @@ var handler_outside_8cc =
     [ "RemoveTrapHandler", "handler-outside_8cc.html#a8b6dacc7d22dd0cb7374505adb91d6fe", null ],
     [ "SetLandingPad", "handler-outside_8cc.html#a87d58bbc586c64ce44924a362dbac348", null ],
     [ "UnregisterV8Sandbox", "handler-outside_8cc.html#af01d0a8a445be8e9efff75451b6b532e", null ],
+    [ "ValidateCodeObjects", "handler-outside_8cc.html#a4f48689cd54466e3cd8f3db9c64737a5", null ],
+    [ "VerifyCodeRangeIsDisjoint", "handler-outside_8cc.html#afe876f75939896cb6ccbca2ead1478d4", null ],
     [ "g_can_enable_trap_handler", "handler-outside_8cc.html#a1f97f8b9c722981994b780f283b520e9", null ],
     [ "g_is_trap_handler_enabled", "handler-outside_8cc.html#a589b6d42b6e6074e3214e0a671f8a335", null ],
+    [ "gNextCodeObject", "handler-outside_8cc.html#a9031296d7c9d2a3715e1c7afa4cb0495", null ],
     [ "kCodeObjectGrowthFactor", "handler-outside_8cc.html#ac3d65b3222b0279c8fa31d8b039b7e98", null ],
+    [ "kEnableSlowChecks", "handler-outside_8cc.html#a43e929588b715ff8adfd7d0f563dccc3", null ],
     [ "kInitialCodeObjectSize", "handler-outside_8cc.html#a0f28fbca72ee036e4282dee0d7aacc25", null ]
 ];

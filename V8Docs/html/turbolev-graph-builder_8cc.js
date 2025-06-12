@@ -3,7 +3,11 @@ var turbolev_graph_builder_8cc =
     [ "BlockOriginTrackingReducer", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1BlockOriginTrackingReducer.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1BlockOriginTrackingReducer" ],
     [ "GeneratorAnalyzer", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1GeneratorAnalyzer.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1GeneratorAnalyzer" ],
     [ "GraphBuildingNodeProcessor", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1GraphBuildingNodeProcessor.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1GraphBuildingNodeProcessor" ],
+    [ "Deduplicator", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1GraphBuildingNodeProcessor_1_1Deduplicator.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1GraphBuildingNodeProcessor_1_1Deduplicator" ],
     [ "DuplicatedId", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1GraphBuildingNodeProcessor_1_1Deduplicator_1_1DuplicatedId.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1GraphBuildingNodeProcessor_1_1Deduplicator_1_1DuplicatedId" ],
+    [ "ThrowingScope", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1GraphBuildingNodeProcessor_1_1ThrowingScope.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1GraphBuildingNodeProcessor_1_1ThrowingScope" ],
+    [ "NoThrowingScopeRequired", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1GraphBuildingNodeProcessor_1_1NoThrowingScopeRequired.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1GraphBuildingNodeProcessor_1_1NoThrowingScopeRequired" ],
+    [ "GeneratorSplitEdge", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1GraphBuildingNodeProcessor_1_1GeneratorSplitEdge.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1GraphBuildingNodeProcessor_1_1GeneratorSplitEdge" ],
     [ "NodeProcessorBase", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1NodeProcessorBase.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1NodeProcessorBase" ],
     [ "BAILOUT_IF_TOO_MANY_ARGUMENTS_FOR_CALL", "turbolev-graph-builder_8cc.html#a5bab0b84573d9a2771259b1467ad5292", null ],
     [ "CASE", "turbolev-graph-builder_8cc.html#a50aa7a7c9e20b8193a67d7d04b8e6025", null ],
@@ -16,8 +20,9 @@ var turbolev_graph_builder_8cc =
     [ "PROCESS_INT32_BITWISE_BINOP", "turbolev-graph-builder_8cc.html#adbffdf21c65f1a9d7fd4812b5e9c3599", null ],
     [ "PROCESS_INT32_SHIFT", "turbolev-graph-builder_8cc.html#a508157791bf3bd497d27376502fe4e80", null ],
     [ "RETURN_IF_UNREACHABLE", "turbolev-graph-builder_8cc.html#ab2d4c51c6ba7026af16222c0f6c544c7", null ],
+    [ "MachineTypeFor", "turbolev-graph-builder_8cc.html#ade1af35b42a08791f91809757b6ce9a0", null ],
     [ "PrintBytecode", "turbolev-graph-builder_8cc.html#af53e4f61c6c90aa4287fd4ac2e9c6474", null ],
-    [ "PrintMaglevGraph", "turbolev-graph-builder_8cc.html#af2bc443ad2c86d33dee82a492c09949f", null ],
-    [ "RunMaglevOptimizations", "turbolev-graph-builder_8cc.html#a89f4a0f4aa40448e2d62ee0920f606ca", null ],
+    [ "PrintMaglevGraph", "turbolev-graph-builder_8cc.html#acdf5bf9275e5ee36b2d2997d7e4ed1af", null ],
+    [ "RunMaglevOptimizations", "turbolev-graph-builder_8cc.html#ad09a3d9d71e41defea744f36deeb1874", null ],
     [ "TooManyArgumentsForCall", "turbolev-graph-builder_8cc.html#af560201ba2e3c226bd1ee47fe72b1d16", null ]
 ];

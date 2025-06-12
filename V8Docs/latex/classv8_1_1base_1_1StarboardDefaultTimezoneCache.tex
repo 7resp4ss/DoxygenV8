@@ -7,7 +7,7 @@ Inheritance diagram for v8\+::base\+::Starboard\+Default\+Timezone\+Cache\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=239pt]{classv8_1_1base_1_1StarboardDefaultTimezoneCache__inherit__graph}
+\includegraphics[width=249pt]{classv8_1_1base_1_1StarboardDefaultTimezoneCache__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -17,7 +17,7 @@ Collaboration diagram for v8\+::base\+::Starboard\+Default\+Timezone\+Cache\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=309pt]{classv8_1_1base_1_1StarboardDefaultTimezoneCache__coll__graph}
+\includegraphics[width=314pt]{classv8_1_1base_1_1StarboardDefaultTimezoneCache__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -34,6 +34,13 @@ double \mbox{\hyperlink{classv8_1_1base_1_1StarboardDefaultTimezoneCache_a282075
 \doxysubsection*{Additional Inherited Members}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 437 of file platform-\/starboard.\+cc.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1base_1_1StarboardDefaultTimezoneCache_a7c552ef0ac515b7d1c54f36a73ee5751}\label{classv8_1_1base_1_1StarboardDefaultTimezoneCache_a7c552ef0ac515b7d1c54f36a73ee5751}} 
 \index{v8::base::StarboardDefaultTimezoneCache@{v8::base::StarboardDefaultTimezoneCache}!````~StarboardDefaultTimezoneCache@{$\sim$StarboardDefaultTimezoneCache}}
@@ -41,6 +48,15 @@ double \mbox{\hyperlink{classv8_1_1base_1_1StarboardDefaultTimezoneCache_a282075
 \doxysubsubsection{\texorpdfstring{$\sim$StarboardDefaultTimezoneCache()}{~StarboardDefaultTimezoneCache()}}
 {\footnotesize\ttfamily v8\+::base\+::\+Starboard\+Default\+Timezone\+Cache\+::$\sim$\+Starboard\+Default\+Timezone\+Cache (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
 
+
+
+Definition at line 461 of file platform-\/starboard.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{461 \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -54,6 +70,29 @@ double \mbox{\hyperlink{classv8_1_1base_1_1StarboardDefaultTimezoneCache_a282075
 
 Implements \mbox{\hyperlink{classv8_1_1base_1_1TimezoneCache_a6e4d71ee33819aad868e9cadc6d96cd8}{v8\+::base\+::\+Timezone\+Cache}}.
 
+
+
+Definition at line 449 of file platform-\/starboard.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{449                                                         \{}
+\DoxyCodeLine{450     int64\_t posix\_microseconds = starboard::CurrentPosixTime();}
+\DoxyCodeLine{451     EzTimeValue \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = \{}
+\DoxyCodeLine{452         posix\_microseconds / TimeConstants::kMicroSecondsPerSecond,}
+\DoxyCodeLine{453         (\mbox{\hyperlink{namespaceunibrow_ab0275d47f9778d486eafe88b18c5851d}{int32\_t}})(posix\_microseconds \% TimeConstants::kMicroSecondsPerSecond)}
+\DoxyCodeLine{454     \};}
+\DoxyCodeLine{455     EzTimeExploded ez\_exploded;}
+\DoxyCodeLine{456     \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} =}
+\DoxyCodeLine{457         EzTimeValueExplode(\&\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, kEzTimeZoneLocal, \&ez\_exploded, NULL);}
+\DoxyCodeLine{458     \textcolor{keywordflow}{return} ez\_exploded.tm\_isdst > 0 ? 3600 * \mbox{\hyperlink{classv8_1_1base_1_1StarboardTimezoneCache_a1218d795f93618d8da9b1c24e3853337}{msPerSecond}} : 0;}
+\DoxyCodeLine{459   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::internal\+::result, and v8\+::internal\+::value.
+
 \mbox{\Hypertarget{classv8_1_1base_1_1StarboardDefaultTimezoneCache_a1a10ff9c4744436ca01e10ef03c58b92}\label{classv8_1_1base_1_1StarboardDefaultTimezoneCache_a1a10ff9c4744436ca01e10ef03c58b92}} 
 \index{v8::base::StarboardDefaultTimezoneCache@{v8::base::StarboardDefaultTimezoneCache}!LocalTimeOffset@{LocalTimeOffset}}
 \index{LocalTimeOffset@{LocalTimeOffset}!v8::base::StarboardDefaultTimezoneCache@{v8::base::StarboardDefaultTimezoneCache}}
@@ -64,6 +103,21 @@ Implements \mbox{\hyperlink{classv8_1_1base_1_1TimezoneCache_a6e4d71ee33819aad86
 
 Implements \mbox{\hyperlink{classv8_1_1base_1_1TimezoneCache_a2be33f35f345692c7f667c1049d0a8aa}{v8\+::base\+::\+Timezone\+Cache}}.
 
+
+
+Definition at line 442 of file platform-\/starboard.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{442                                                                \{}
+\DoxyCodeLine{443     \textcolor{comment}{// SbTimeZoneGetCurrent returns an offset west of Greenwich, which has the}}
+\DoxyCodeLine{444     \textcolor{comment}{// opposite sign V8 expects.}}
+\DoxyCodeLine{445     \textcolor{comment}{// The starboard function returns offset in minutes. We convert to return}}
+\DoxyCodeLine{446     \textcolor{comment}{// value in milliseconds.}}
+\DoxyCodeLine{447     \textcolor{keywordflow}{return} SbTimeZoneGetCurrent() * 60.0 * \mbox{\hyperlink{classv8_1_1base_1_1StarboardTimezoneCache_a1218d795f93618d8da9b1c24e3853337}{msPerSecond}} * (-\/1);}
+\DoxyCodeLine{448   \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1base_1_1StarboardDefaultTimezoneCache_a7c61f078182c0788b75f9cf871bfea89}\label{classv8_1_1base_1_1StarboardDefaultTimezoneCache_a7c61f078182c0788b75f9cf871bfea89}} 
 \index{v8::base::StarboardDefaultTimezoneCache@{v8::base::StarboardDefaultTimezoneCache}!LocalTimezone@{LocalTimezone}}
 \index{LocalTimezone@{LocalTimezone}!v8::base::StarboardDefaultTimezoneCache@{v8::base::StarboardDefaultTimezoneCache}}
@@ -76,6 +130,17 @@ Implements \mbox{\hyperlink{classv8_1_1base_1_1TimezoneCache_a9ba134992875f89981
 
 
 
+Definition at line 439 of file platform-\/starboard.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{439                                                      \{}
+\DoxyCodeLine{440     \textcolor{keywordflow}{return} SbTimeZoneGetName();}
+\DoxyCodeLine{441   \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{platform-starboard_8cc}{platform-\/starboard.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/base/platform/\mbox{\hyperlink{platform-starboard_8cc}{platform-\/starboard.\+cc}}\end{DoxyCompactItemize}

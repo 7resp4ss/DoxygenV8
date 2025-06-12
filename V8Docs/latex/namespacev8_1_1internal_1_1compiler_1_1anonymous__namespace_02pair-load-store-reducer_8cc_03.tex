@@ -1,0 +1,84 @@
+\hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pair-load-store-reducer_8cc_03}{}\doxysection{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{pair-\/load-\/store-\/reducer.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pair-load-store-reducer_8cc_03}\index{v8::internal::compiler::anonymous\_namespace\lcurly{}pair-\/load-\/store-\/reducer.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}pair-\/load-\/store-\/reducer.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::optional$<$ std\+::tuple$<$ \mbox{\hyperlink{classint}{int}}, const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Operator}{Operator}} $\ast$ $>$ $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pair-load-store-reducer_8cc_03_a939ca4665bdb03ebbfa1a7cc35a88175}{Can\+Be\+Paired}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$node1, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$node2, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineOperatorBuilder}{Machine\+Operator\+Builder}} $\ast$machine, \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pair-load-store-reducer_8cc_03_a939ca4665bdb03ebbfa1a7cc35a88175}\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pair-load-store-reducer_8cc_03_a939ca4665bdb03ebbfa1a7cc35a88175}} 
+\index{v8::internal::compiler::anonymous\_namespace\lcurly{}pair-\/load-\/store-\/reducer.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}pair-\/load-\/store-\/reducer.cc\rcurly{}}!CanBePaired@{CanBePaired}}
+\index{CanBePaired@{CanBePaired}!v8::internal::compiler::anonymous\_namespace\lcurly{}pair-\/load-\/store-\/reducer.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}pair-\/load-\/store-\/reducer.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{CanBePaired()}{CanBePaired()}}
+{\footnotesize\ttfamily std\+::optional$<$std\+::tuple$<$\mbox{\hyperlink{classint}{int}}, const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Operator}{Operator}}$\ast$$>$ $>$ v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{pair-\/load-\/\mbox{\hyperlink{flag-definitions_8h_a88efda0d30f0789fdb73665260750735}{store}}-\/reducer.\+cc\}\+::Can\+Be\+Paired (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$}]{node1,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$}]{node2,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineOperatorBuilder}{Machine\+Operator\+Builder}} $\ast$}]{machine,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})}
+
+
+
+Definition at line 17 of file pair-\/load-\/store-\/reducer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19                       \{}
+\DoxyCodeLine{20   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(node1-\/>opcode() == IrOpcode::kStore \&\&}
+\DoxyCodeLine{21          node1-\/>opcode() == IrOpcode::kStore);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23   Node* base1 = node1-\/>InputAt(0);}
+\DoxyCodeLine{24   Node* base2 = node2-\/>InputAt(0);}
+\DoxyCodeLine{25   \textcolor{keywordflow}{if} (base1 != base2) \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27   \textcolor{keyword}{auto} rep1 = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a48f2ce0b37a26b2dde3f76c51123ebf7}{StoreRepresentationOf}}(node1-\/>op());}
+\DoxyCodeLine{28   \textcolor{keyword}{auto} rep2 = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a48f2ce0b37a26b2dde3f76c51123ebf7}{StoreRepresentationOf}}(node2-\/>op());}
+\DoxyCodeLine{29   \textcolor{keyword}{auto} combo = machine-\/>TryStorePair(rep1, rep2);}
+\DoxyCodeLine{30   \textcolor{keywordflow}{if} (!combo) \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32   Node* index1 = node1-\/>InputAt(1);}
+\DoxyCodeLine{33   Node* index2 = node2-\/>InputAt(1);}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35   \textcolor{keywordtype}{int} idx1, idx2;}
+\DoxyCodeLine{36   \textcolor{keywordflow}{if} (index1-\/>opcode() == IrOpcode::kInt64Constant) \{}
+\DoxyCodeLine{37     idx1 = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(OpParameter<int64\_t>(index1-\/>op()));}
+\DoxyCodeLine{38   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{39     \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{40   \}}
+\DoxyCodeLine{41   \textcolor{keywordflow}{if} (index2-\/>opcode() == IrOpcode::kInt64Constant) \{}
+\DoxyCodeLine{42     idx2 = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(OpParameter<int64\_t>(index2-\/>op()));}
+\DoxyCodeLine{43   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{44     \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{45   \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47   \textcolor{keywordtype}{int} bytesize = 1 << \mbox{\hyperlink{namespacev8_1_1internal_a6faf4fb681df462e0ff5dd779c1485d5}{ElementSizeLog2Of}}(rep1.representation());}
+\DoxyCodeLine{48   \textcolor{keywordtype}{int} diff = idx2 -\/ idx1;}
+\DoxyCodeLine{49   \textcolor{keywordflow}{if} (diff != bytesize \&\& diff != -\/bytesize) \{}
+\DoxyCodeLine{50     \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{51   \}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53   \textcolor{keywordflow}{return} \{\{diff, *combo\}\};}
+\DoxyCodeLine{54 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Element\+Size\+Log2\+Of(), v8\+::internal\+::compiler\+::\+Node\+::\+Input\+At(), v8\+::internal\+::compiler\+::\+Node\+::op(), v8\+::internal\+::compiler\+::\+Node\+::opcode(), v8\+::internal\+::compiler\+::\+Store\+Representation\+Of(), and v8\+::internal\+::compiler\+::\+Machine\+Operator\+Builder\+::\+Try\+Store\+Pair().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Pair\+Load\+Store\+Reducer\+::\+Reduce().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pair-load-store-reducer_8cc_03_a939ca4665bdb03ebbfa1a7cc35a88175_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pair-load-store-reducer_8cc_03_a939ca4665bdb03ebbfa1a7cc35a88175_icgraph}
+\end{center}
+\end{figure}

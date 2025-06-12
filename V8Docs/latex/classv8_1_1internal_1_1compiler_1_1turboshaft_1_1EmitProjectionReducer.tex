@@ -29,8 +29,23 @@ Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Emit\+Proj
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1EmitProjectionReducer_a2b7ab55ba16a399b97704cb0cc51ce99}{Reduce\+Catch\+Block\+Begin}} ()
 \item 
-{\footnotesize template$<$Opcode opcode, typename Continuation , typename... Args$>$ }\\\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpIndex}{Op\+Index}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1EmitProjectionReducer_a1e25a1dcbf907f74e23d0821a79f5b22}{Reduce\+Operation}} (Args... \mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}})
+{\footnotesize template$<$Opcode opcode, typename Continuation , typename... Args$>$ }\\\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpIndex}{Op\+Index}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1EmitProjectionReducer_a1e25a1dcbf907f74e23d0821a79f5b22}{Reduce\+Operation}} (Args... args)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Op $>$ }\\\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1Any}{Any}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1EmitProjectionReducer_afe72dff60ac233250bb1343c832c7afc}{Wrap\+In\+Tuple\+If\+Needed}} (const Op \&op, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1Any}{Any}} $>$ idx)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class Next$>$\newline
+class v8\+::internal\+::compiler\+::turboshaft\+::\+Emit\+Projection\+Reducer$<$ Next $>$}
+
+
+
+Definition at line 924 of file assembler.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -41,6 +56,22 @@ Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Emit\+Proj
 {\footnotesize\ttfamily template$<$class Next $>$ \\
 \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}}$>$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1EmitProjectionReducer}{v8\+::internal\+::compiler\+::turboshaft\+::\+Emit\+Projection\+Reducer}}$<$ Next $>$\+::Reduce\+Catch\+Block\+Begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 929 of file assembler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{929                                     \{}
+\DoxyCodeLine{930     \textcolor{comment}{// CatchBlockBegin have a single output, so they never have projections,}}
+\DoxyCodeLine{931     \textcolor{comment}{// but additionally split-\/edge can transform CatchBlockBeginOp into PhiOp,}}
+\DoxyCodeLine{932     \textcolor{comment}{// which means that there is no guarantee here that Next::CatchBlockBegin is}}
+\DoxyCodeLine{933     \textcolor{comment}{// indeed a CatchBlockBegin (which means that the .Cast<> of the generic}}
+\DoxyCodeLine{934     \textcolor{comment}{// ReduceOperation could fail on CatchBlockBegin).}}
+\DoxyCodeLine{935     \textcolor{keywordflow}{return} Next::ReduceCatchBlockBegin();}
+\DoxyCodeLine{936   \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1EmitProjectionReducer_a1e25a1dcbf907f74e23d0821a79f5b22}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1EmitProjectionReducer_a1e25a1dcbf907f74e23d0821a79f5b22}} 
 \index{v8::internal::compiler::turboshaft::EmitProjectionReducer$<$ Next $>$@{v8::internal::compiler::turboshaft::EmitProjectionReducer$<$ Next $>$}!ReduceOperation@{ReduceOperation}}
 \index{ReduceOperation@{ReduceOperation}!v8::internal::compiler::turboshaft::EmitProjectionReducer$<$ Next $>$@{v8::internal::compiler::turboshaft::EmitProjectionReducer$<$ Next $>$}}
@@ -51,6 +82,75 @@ template$<$Opcode opcode, typename Continuation , typename... Args$>$ \\
 
 
 
+Definition at line 939 of file assembler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{939                                         \{}
+\DoxyCodeLine{940     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} new\_idx = Continuation\{\textcolor{keyword}{this}\}.Reduce(\mbox{\hyperlink{namespacev8_1_1base_ad03b241da4e98adde3145092fe54be8b}{args}}...);}
+\DoxyCodeLine{941     \textcolor{keyword}{const} \mbox{\hyperlink{operation_8h_a06c4955b824eb9d03ace9eca764f59b4}{Operation}}\& op = Asm().output\_graph().Get(new\_idx);}
+\DoxyCodeLine{942     \textcolor{keywordflow}{if} constexpr (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a347baf86d21b906086a67e283baa56ae}{MayThrow}}(opcode)) \{}
+\DoxyCodeLine{943       \textcolor{comment}{// Operations that can throw are lowered to an Op+DidntThrow, and what we}}
+\DoxyCodeLine{944       \textcolor{comment}{// get from Next::Reduce is the DidntThrow.}}
+\DoxyCodeLine{945       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1EmitProjectionReducer_afe72dff60ac233250bb1343c832c7afc}{WrapInTupleIfNeeded}}(op.Cast<DidntThrowOp>(), new\_idx);}
+\DoxyCodeLine{946     \}}
+\DoxyCodeLine{947     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1EmitProjectionReducer_afe72dff60ac233250bb1343c832c7afc}{WrapInTupleIfNeeded}}(op.Cast<\textcolor{keyword}{typename} Continuation::Op>(), new\_idx);}
+\DoxyCodeLine{948   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::args, v8\+::internal\+::compiler\+::turboshaft\+::\+Operation\+::\+Cast(), and v8\+::internal\+::compiler\+::turboshaft\+::\+May\+Throw().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1EmitProjectionReducer_a1e25a1dcbf907f74e23d0821a79f5b22_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1EmitProjectionReducer_afe72dff60ac233250bb1343c832c7afc}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1EmitProjectionReducer_afe72dff60ac233250bb1343c832c7afc}} 
+\index{v8::internal::compiler::turboshaft::EmitProjectionReducer$<$ Next $>$@{v8::internal::compiler::turboshaft::EmitProjectionReducer$<$ Next $>$}!WrapInTupleIfNeeded@{WrapInTupleIfNeeded}}
+\index{WrapInTupleIfNeeded@{WrapInTupleIfNeeded}!v8::internal::compiler::turboshaft::EmitProjectionReducer$<$ Next $>$@{v8::internal::compiler::turboshaft::EmitProjectionReducer$<$ Next $>$}}
+\doxysubsubsection{\texorpdfstring{WrapInTupleIfNeeded()}{WrapInTupleIfNeeded()}}
+{\footnotesize\ttfamily template$<$class Next $>$ \\
+template$<$class Op $>$ \\
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1Any}{Any}}$>$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1EmitProjectionReducer}{v8\+::internal\+::compiler\+::turboshaft\+::\+Emit\+Projection\+Reducer}}$<$ Next $>$\+::Wrap\+In\+Tuple\+If\+Needed (\begin{DoxyParamCaption}\item[{const Op \&}]{op,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1V}{V}}$<$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1Any}{Any}} $>$}]{idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 952 of file assembler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{952                                                        \{}
+\DoxyCodeLine{953     \textcolor{keywordflow}{if} (op.outputs\_rep().size() > 1) \{}
+\DoxyCodeLine{954       base::SmallVector<V<Any>, 8> projections;}
+\DoxyCodeLine{955       \textcolor{keyword}{auto} reps = op.outputs\_rep();}
+\DoxyCodeLine{956       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; i < static\_cast<int>(reps.size()); \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{957         projections.push\_back(Asm().Projection(idx, \mbox{\hyperlink{namespacev8_1_1internal}{i}}, reps[\mbox{\hyperlink{namespacev8_1_1internal}{i}}]));}
+\DoxyCodeLine{958       \}}
+\DoxyCodeLine{959       \textcolor{keywordflow}{return} Asm().Tuple(\mbox{\hyperlink{namespacev8_1_1base_a5bfc65f27076e49eb7752a4fb4d45acb}{base::VectorOf}}(projections));}
+\DoxyCodeLine{960     \}}
+\DoxyCodeLine{961     \textcolor{keywordflow}{return} idx;}
+\DoxyCodeLine{962   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Small\+Vector$<$ T, k\+Size, Allocator $>$\+::push\+\_\+back(), and v8\+::base\+::\+Vector\+Of().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1EmitProjectionReducer_afe72dff60ac233250bb1343c832c7afc_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{compiler_2turboshaft_2assembler_8h}{compiler/turboshaft/assembler.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{compiler_2turboshaft_2assembler_8h}{assembler.\+h}}\end{DoxyCompactItemize}

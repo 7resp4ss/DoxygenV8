@@ -1,0 +1,70 @@
+\hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02basic-block-instrumentor_8cc_03}{}\doxysection{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{basic-\/block-\/instrumentor.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02basic-block-instrumentor_8cc_03}\index{v8::internal::compiler::anonymous\_namespace\lcurly{}basic-\/block-\/instrumentor.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}basic-\/block-\/instrumentor.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02basic-block-instrumentor_8cc_03_a9be49dd95e54d848bdc000c66653c958}{Store\+Builtin\+Call\+For\+Node}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$n, \mbox{\hyperlink{namespacev8_1_1internal_acc2e164143496f18b5ec68f8ab70af52}{Builtin}} builtin, \mbox{\hyperlink{classint}{int}} block\+\_\+id, \mbox{\hyperlink{classv8_1_1internal_1_1BuiltinsCallGraph}{Builtins\+Call\+Graph}} $\ast$bcc\+\_\+profiler)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02basic-block-instrumentor_8cc_03_a9be49dd95e54d848bdc000c66653c958}\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02basic-block-instrumentor_8cc_03_a9be49dd95e54d848bdc000c66653c958}} 
+\index{v8::internal::compiler::anonymous\_namespace\lcurly{}basic-\/block-\/instrumentor.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}basic-\/block-\/instrumentor.cc\rcurly{}}!StoreBuiltinCallForNode@{StoreBuiltinCallForNode}}
+\index{StoreBuiltinCallForNode@{StoreBuiltinCallForNode}!v8::internal::compiler::anonymous\_namespace\lcurly{}basic-\/block-\/instrumentor.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}basic-\/block-\/instrumentor.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{StoreBuiltinCallForNode()}{StoreBuiltinCallForNode()}}
+{\footnotesize\ttfamily void v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{basic-\/block-\/instrumentor.\+cc\}\+::Store\+Builtin\+Call\+For\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$}]{n,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_acc2e164143496f18b5ec68f8ab70af52}{Builtin}}}]{builtin,  }\item[{\mbox{\hyperlink{classint}{int}}}]{block\+\_\+id,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1BuiltinsCallGraph}{Builtins\+Call\+Graph}} $\ast$}]{bcc\+\_\+profiler }\end{DoxyParamCaption})}
+
+
+
+Definition at line 166 of file basic-\/block-\/instrumentor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{167                                                               \{}
+\DoxyCodeLine{168   \textcolor{keywordflow}{if} (n == \textcolor{keyword}{nullptr}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{169   IrOpcode::Value opcode = n-\/>opcode();}
+\DoxyCodeLine{170   \textcolor{keywordflow}{if} (opcode == IrOpcode::kCall || opcode == \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a717424f76b6541eb5fb9bb6e2b101cdaabec77ef426159ad823ba4aef05c2e1ff}{IrOpcode::kTailCall}}) \{}
+\DoxyCodeLine{171     \textcolor{keyword}{const} CallDescriptor* des = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a4fc674ae8591498c40e11ca25f992b3e}{CallDescriptorOf}}(n-\/>op());}
+\DoxyCodeLine{172     \textcolor{keywordflow}{if} (des-\/>kind() == CallDescriptor::kCallCodeObject) \{}
+\DoxyCodeLine{173       Node* callee = n-\/>InputAt(0);}
+\DoxyCodeLine{174       Operator* op = \textcolor{keyword}{const\_cast<}Operator*\textcolor{keyword}{>}(callee-\/>op());}
+\DoxyCodeLine{175       \textcolor{keywordflow}{if} (op-\/>opcode() == \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_1_1Opmask_a0ada1f75f62be73dabab73507ca7bc14}{IrOpcode::kHeapConstant}}) \{}
+\DoxyCodeLine{176         IndirectHandle<HeapObject> para =}
+\DoxyCodeLine{177             OpParameter<IndirectHandle<HeapObject>>(op);}
+\DoxyCodeLine{178         \textcolor{keywordflow}{if} (IsCode(*para)) \{}
+\DoxyCodeLine{179           DirectHandle<Code> \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}} = Cast<Code>(para);}
+\DoxyCodeLine{180           \textcolor{keywordflow}{if} (\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>is\_builtin()) \{}
+\DoxyCodeLine{181             bcc\_profiler-\/>AddBuiltinCall(builtin, \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>builtin\_id(), block\_id);}
+\DoxyCodeLine{182             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{183           \}}
+\DoxyCodeLine{184         \}}
+\DoxyCodeLine{185       \}}
+\DoxyCodeLine{186     \}}
+\DoxyCodeLine{187   \}}
+\DoxyCodeLine{188 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Builtins\+Call\+Graph\+::\+Add\+Builtin\+Call(), v8\+::internal\+::compiler\+::\+Call\+Descriptor\+Of(), code, v8\+::internal\+::compiler\+::\+Node\+::\+Input\+At(), v8\+::internal\+::compiler\+::\+Call\+Descriptor\+::k\+Call\+Code\+Object, v8\+::internal\+::compiler\+::\+Call\+Descriptor\+::kind(), v8\+::internal\+::wasm\+::k\+Tail\+Call, v8\+::internal\+::compiler\+::\+Node\+::op(), v8\+::internal\+::compiler\+::\+Node\+::opcode(), and v8\+::internal\+::compiler\+::\+Operator\+::opcode().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Basic\+Block\+Call\+Graph\+Profiler\+::\+Store\+Call\+Graph().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02basic-block-instrumentor_8cc_03_a9be49dd95e54d848bdc000c66653c958_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02basic-block-instrumentor_8cc_03_a9be49dd95e54d848bdc000c66653c958_icgraph}
+\end{center}
+\end{figure}

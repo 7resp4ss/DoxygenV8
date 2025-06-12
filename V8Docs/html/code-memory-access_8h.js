@@ -6,6 +6,7 @@ var code_memory_access_8h =
     [ "JitAllocation", "classv8_1_1internal_1_1ThreadIsolation_1_1JitAllocation.html", "classv8_1_1internal_1_1ThreadIsolation_1_1JitAllocation" ],
     [ "JitPageReference", "classv8_1_1internal_1_1ThreadIsolation_1_1JitPageReference.html", "classv8_1_1internal_1_1ThreadIsolation_1_1JitPageReference" ],
     [ "JitPage", "classv8_1_1internal_1_1ThreadIsolation_1_1JitPage.html", "classv8_1_1internal_1_1ThreadIsolation_1_1JitPage" ],
+    [ "TrustedData", "structv8_1_1internal_1_1ThreadIsolation_1_1TrustedData.html", "structv8_1_1internal_1_1ThreadIsolation_1_1TrustedData" ],
     [ "WritableJitAllocation", "classv8_1_1internal_1_1WritableJitAllocation.html", "classv8_1_1internal_1_1WritableJitAllocation" ],
     [ "WritableFreeSpace", "classv8_1_1internal_1_1WritableFreeSpace.html", "classv8_1_1internal_1_1WritableFreeSpace" ],
     [ "WritableJitPage", "classv8_1_1internal_1_1WritableJitPage.html", "classv8_1_1internal_1_1WritableJitPage" ],

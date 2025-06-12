@@ -6,6 +6,8 @@ var src_2heap_2heap_8h =
     [ "DevToolsTraceEventScope", "classv8_1_1internal_1_1Heap_1_1DevToolsTraceEventScope.html", "classv8_1_1internal_1_1Heap_1_1DevToolsTraceEventScope" ],
     [ "ExternalMemoryAccounting", "classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting.html", "classv8_1_1internal_1_1Heap_1_1ExternalMemoryAccounting" ],
     [ "Chunk", "structv8_1_1internal_1_1Heap_1_1Chunk.html", "structv8_1_1internal_1_1Heap_1_1Chunk" ],
+    [ "ExternalStringTable", "classv8_1_1internal_1_1Heap_1_1ExternalStringTable.html", "classv8_1_1internal_1_1Heap_1_1ExternalStringTable" ],
+    [ "LimitsCompuatationResult", "structv8_1_1internal_1_1Heap_1_1LimitsCompuatationResult.html", "structv8_1_1internal_1_1Heap_1_1LimitsCompuatationResult" ],
     [ "HeapStats", "classv8_1_1internal_1_1HeapStats.html", "classv8_1_1internal_1_1HeapStats" ],
     [ "AlwaysAllocateScope", "classv8_1_1internal_1_1AlwaysAllocateScope.html", "classv8_1_1internal_1_1AlwaysAllocateScope" ],
     [ "GCCallbacksScope", "classv8_1_1internal_1_1GCCallbacksScope.html", "classv8_1_1internal_1_1GCCallbacksScope" ],

@@ -27,5 +27,6 @@ var classv8_1_1internal_1_1WrappedIterator =
     [ "operator>", "classv8_1_1internal_1_1WrappedIterator.html#a8e3e63cd75ae3d886a37ad1d29ae0716", null ],
     [ "operator>=", "classv8_1_1internal_1_1WrappedIterator.html#a6359ba7b5118cd7979953988016f5a74", null ],
     [ "operator[]", "classv8_1_1internal_1_1WrappedIterator.html#a48bb12c4e677d522dd3b97f61396ba61", null ],
-    [ "operator+", "classv8_1_1internal_1_1WrappedIterator.html#ab5c743c263eb91fdd086dbcbd5a21282", null ]
+    [ "operator+", "classv8_1_1internal_1_1WrappedIterator.html#ab5c743c263eb91fdd086dbcbd5a21282", null ],
+    [ "it_", "classv8_1_1internal_1_1WrappedIterator.html#a94810ee51b7fe83a348fa2e21f35fc09", null ]
 ];

@@ -4,6 +4,7 @@ var maglev_assembler_8h =
     [ "StackSlot", "structv8_1_1internal_1_1maglev_1_1StackSlot.html", "structv8_1_1internal_1_1maglev_1_1StackSlot" ],
     [ "MapCompare", "classv8_1_1internal_1_1maglev_1_1MapCompare.html", "classv8_1_1internal_1_1maglev_1_1MapCompare" ],
     [ "MaglevAssembler", "classv8_1_1internal_1_1maglev_1_1MaglevAssembler.html", "classv8_1_1internal_1_1maglev_1_1MaglevAssembler" ],
+    [ "TemporaryRegisterScopeBase", "classv8_1_1internal_1_1maglev_1_1MaglevAssembler_1_1TemporaryRegisterScopeBase.html", "classv8_1_1internal_1_1maglev_1_1MaglevAssembler_1_1TemporaryRegisterScopeBase" ],
     [ "SavedData", "structv8_1_1internal_1_1maglev_1_1MaglevAssembler_1_1TemporaryRegisterScopeBase_1_1SavedData.html", "structv8_1_1internal_1_1maglev_1_1MaglevAssembler_1_1TemporaryRegisterScopeBase_1_1SavedData" ],
     [ "SaveRegisterStateForCall", "classv8_1_1internal_1_1maglev_1_1SaveRegisterStateForCall.html", "classv8_1_1internal_1_1maglev_1_1SaveRegisterStateForCall" ],
     [ "RepeatIterator", "classv8_1_1internal_1_1maglev_1_1RepeatIterator.html", "classv8_1_1internal_1_1maglev_1_1RepeatIterator" ],

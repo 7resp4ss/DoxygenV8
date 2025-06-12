@@ -5,5 +5,6 @@ var classv8_1_1internal_1_1JavaScriptStackFrameIterator =
     [ "Advance", "classv8_1_1internal_1_1JavaScriptStackFrameIterator.html#a717199c136879b1cb252a6fd40b0ee34", null ],
     [ "done", "classv8_1_1internal_1_1JavaScriptStackFrameIterator.html#a975e1fbc8068c09a2fc3c97a59aab5cc", null ],
     [ "frame", "classv8_1_1internal_1_1JavaScriptStackFrameIterator.html#aa226cfd2cdf441127aedc16ad1e47be6", null ],
-    [ "Reframe", "classv8_1_1internal_1_1JavaScriptStackFrameIterator.html#a77dacc6deacc115b95a31572ed403a4d", null ]
+    [ "Reframe", "classv8_1_1internal_1_1JavaScriptStackFrameIterator.html#a77dacc6deacc115b95a31572ed403a4d", null ],
+    [ "iterator_", "classv8_1_1internal_1_1JavaScriptStackFrameIterator.html#a75ab741ba76ebac7857b86507f8d593c", null ]
 ];

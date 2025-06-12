@@ -7,5 +7,8 @@ var classv8_1_1internal_1_1compiler_1_1GetTemplateObjectParameters =
     [ "hash_value", "classv8_1_1internal_1_1compiler_1_1GetTemplateObjectParameters.html#ac38fff4a7026b7e658e210f7ef85efe3", null ],
     [ "operator!=", "classv8_1_1internal_1_1compiler_1_1GetTemplateObjectParameters.html#ac523cea7748f9c4686110da278634b03", null ],
     [ "operator<<", "classv8_1_1internal_1_1compiler_1_1GetTemplateObjectParameters.html#a0f8c339efeb47c806a6be4677d04a847", null ],
-    [ "operator==", "classv8_1_1internal_1_1compiler_1_1GetTemplateObjectParameters.html#af0357f1c001e43b541729e2caf7bef2d", null ]
+    [ "operator==", "classv8_1_1internal_1_1compiler_1_1GetTemplateObjectParameters.html#af0357f1c001e43b541729e2caf7bef2d", null ],
+    [ "description_", "classv8_1_1internal_1_1compiler_1_1GetTemplateObjectParameters.html#ab38552b5642449ed8041cf352ebca2a6", null ],
+    [ "feedback_", "classv8_1_1internal_1_1compiler_1_1GetTemplateObjectParameters.html#a9b0602364e30befb0aa7ff1bfb7b4d5d", null ],
+    [ "shared_", "classv8_1_1internal_1_1compiler_1_1GetTemplateObjectParameters.html#a76a3baf63e6bec777f4d1e53e5f2e061", null ]
 ];

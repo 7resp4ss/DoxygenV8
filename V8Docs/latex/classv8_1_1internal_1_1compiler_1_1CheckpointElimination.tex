@@ -33,8 +33,20 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Checkpoint\+Elimination\
 \item 
 const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CheckpointElimination_a31cde25e266d1da05beb4f0d0e2853a9}{reducer\+\_\+name}} () const override
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reduction}{Reduction}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CheckpointElimination_acafedd52e6fea3a1bb90a4645aeceec3}{Reduce}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$\mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}}) final
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reduction}{Reduction}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CheckpointElimination_acafedd52e6fea3a1bb90a4645aeceec3}{Reduce}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$node) final
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reduction}{Reduction}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CheckpointElimination_ace2334db79073109cd020c1435d2fad5}{Reduce\+Checkpoint}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$node)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 16 of file checkpoint-\/elimination.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -44,6 +56,15 @@ const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Checkpoint
 \doxysubsubsection{\texorpdfstring{CheckpointElimination()}{CheckpointElimination()}}
 {\footnotesize\ttfamily v8\+::internal\+::compiler\+::\+Checkpoint\+Elimination\+::\+Checkpoint\+Elimination (\begin{DoxyParamCaption}\item[{Editor $\ast$}]{editor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
+
+
+Definition at line 14 of file checkpoint-\/elimination.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15     : AdvancedReducer(editor) \{\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1CheckpointElimination_ab1bd8ec141b40422ffa9043292d9e9c4}\label{classv8_1_1internal_1_1compiler_1_1CheckpointElimination_ab1bd8ec141b40422ffa9043292d9e9c4}} 
 \index{v8::internal::compiler::CheckpointElimination@{v8::internal::compiler::CheckpointElimination}!````~CheckpointElimination@{$\sim$CheckpointElimination}}
 \index{````~CheckpointElimination@{$\sim$CheckpointElimination}!v8::internal::compiler::CheckpointElimination@{v8::internal::compiler::CheckpointElimination}}
@@ -59,6 +80,81 @@ const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Checkpoint
 \doxysubsubsection{\texorpdfstring{Reduce()}{Reduce()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reduction}{Reduction}} v8\+::internal\+::compiler\+::\+Checkpoint\+Elimination\+::\+Reduce (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}}
 
+
+
+Definition at line 62 of file checkpoint-\/elimination.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{62                                                   \{}
+\DoxyCodeLine{63   \mbox{\hyperlink{namespacev8_1_1internal_ac888fc01ad46cd6bb6016f8859717a7e}{DisallowHeapAccess}} no\_heap\_access;}
+\DoxyCodeLine{64   \textcolor{keywordflow}{switch} (node-\/>opcode()) \{}
+\DoxyCodeLine{65     \textcolor{keywordflow}{case} IrOpcode::kCheckpoint:}
+\DoxyCodeLine{66       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CheckpointElimination_ace2334db79073109cd020c1435d2fad5}{ReduceCheckpoint}}(node);}
+\DoxyCodeLine{67     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{68       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{69   \}}
+\DoxyCodeLine{70   \textcolor{keywordflow}{return} NoChange();}
+\DoxyCodeLine{71 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Node\+::opcode(), and Reduce\+Checkpoint().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1CheckpointElimination_acafedd52e6fea3a1bb90a4645aeceec3_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1CheckpointElimination_ace2334db79073109cd020c1435d2fad5}\label{classv8_1_1internal_1_1compiler_1_1CheckpointElimination_ace2334db79073109cd020c1435d2fad5}} 
+\index{v8::internal::compiler::CheckpointElimination@{v8::internal::compiler::CheckpointElimination}!ReduceCheckpoint@{ReduceCheckpoint}}
+\index{ReduceCheckpoint@{ReduceCheckpoint}!v8::internal::compiler::CheckpointElimination@{v8::internal::compiler::CheckpointElimination}}
+\doxysubsubsection{\texorpdfstring{ReduceCheckpoint()}{ReduceCheckpoint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reduction}{Reduction}} v8\+::internal\+::compiler\+::\+Checkpoint\+Elimination\+::\+Reduce\+Checkpoint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 54 of file checkpoint-\/elimination.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54                                                             \{}
+\DoxyCodeLine{55   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(IrOpcode::kCheckpoint, node-\/>opcode());}
+\DoxyCodeLine{56   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02checkpoint-elimination_8cc_03_adf9e0d7ed47ceab19c5dd7dbd83f5559}{IsRedundantCheckpoint}}(node)) \{}
+\DoxyCodeLine{57     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02bitcast-elider_8cc_03_a46db900590e48599425e129304223dfe}{Replace}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_adddf4058eb3366375dd0ff88e716cee8}{NodeProperties::GetEffectInput}}(node));}
+\DoxyCodeLine{58   \}}
+\DoxyCodeLine{59   \textcolor{keywordflow}{return} NoChange();}
+\DoxyCodeLine{60 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+EQ, v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Get\+Effect\+Input(), v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{checkpoint-\/elimination.\+cc\}\+::\+Is\+Redundant\+Checkpoint(), v8\+::internal\+::compiler\+::\+Node\+::opcode(), and v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{bitcast-\/elider.\+cc\}\+::\+Replace().
+
+
+
+Referenced by Reduce().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1CheckpointElimination_ace2334db79073109cd020c1435d2fad5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1CheckpointElimination_ace2334db79073109cd020c1435d2fad5_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1CheckpointElimination_a31cde25e266d1da05beb4f0d0e2853a9}\label{classv8_1_1internal_1_1compiler_1_1CheckpointElimination_a31cde25e266d1da05beb4f0d0e2853a9}} 
 \index{v8::internal::compiler::CheckpointElimination@{v8::internal::compiler::CheckpointElimination}!reducer\_name@{reducer\_name}}
 \index{reducer\_name@{reducer\_name}!v8::internal::compiler::CheckpointElimination@{v8::internal::compiler::CheckpointElimination}}
@@ -67,7 +163,16 @@ const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Checkpoint
 
 
 
+Definition at line 22 of file checkpoint-\/elimination.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{22 \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}CheckpointElimination"{}}; \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{checkpoint-elimination_8h}{checkpoint-\/elimination.\+h}}\item 
-\mbox{\hyperlink{checkpoint-elimination_8cc}{checkpoint-\/elimination.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{checkpoint-elimination_8h}{checkpoint-\/elimination.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{checkpoint-elimination_8cc}{checkpoint-\/elimination.\+cc}}\end{DoxyCompactItemize}

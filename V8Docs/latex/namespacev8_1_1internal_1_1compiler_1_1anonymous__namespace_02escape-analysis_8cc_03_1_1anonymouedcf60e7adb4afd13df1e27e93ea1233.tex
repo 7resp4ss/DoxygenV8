@@ -1,0 +1,70 @@
+\hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02escape-analysis_8cc_03_1_1anonymouedcf60e7adb4afd13df1e27e93ea1233}{}\doxysection{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{escape-\/analysis.cc\}\+::anonymous\+\_\+namespace\{escape-\/analysis.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02escape-analysis_8cc_03_1_1anonymouedcf60e7adb4afd13df1e27e93ea1233}\index{v8::internal::compiler::anonymous\_namespace\lcurly{}escape-\/analysis.cc\rcurly{}::anonymous\_namespace\lcurly{}escape-\/analysis.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}escape-\/analysis.cc\rcurly{}::anonymous\_namespace\lcurly{}escape-\/analysis.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02escape-analysis_8cc_03_1_1anonymouedcf60e7adb4afd13df1e27e93ea1233_ae2dbc44c0f01692346e5f9eb47848a5d}{Check\+Maps\+Helper}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1EscapeAnalysisTracker_1_1Scope}{Escape\+Analysis\+Tracker\+::\+Scope}} $\ast$current, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$checked, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae61b4cdc86fc0fc35648c45d73936c20}{Zone\+Ref\+Set}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Map}{Map}} $>$ target)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02escape-analysis_8cc_03_1_1anonymouedcf60e7adb4afd13df1e27e93ea1233_ae2dbc44c0f01692346e5f9eb47848a5d}\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02escape-analysis_8cc_03_1_1anonymouedcf60e7adb4afd13df1e27e93ea1233_ae2dbc44c0f01692346e5f9eb47848a5d}} 
+\index{v8::internal::compiler::anonymous\_namespace\lcurly{}escape-\/analysis.cc\rcurly{}::anonymous\_namespace\lcurly{}escape-\/analysis.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}escape-\/analysis.cc\rcurly{}::anonymous\_namespace\lcurly{}escape-\/analysis.cc\rcurly{}}!CheckMapsHelper@{CheckMapsHelper}}
+\index{CheckMapsHelper@{CheckMapsHelper}!v8::internal::compiler::anonymous\_namespace\lcurly{}escape-\/analysis.cc\rcurly{}::anonymous\_namespace\lcurly{}escape-\/analysis.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}escape-\/analysis.cc\rcurly{}::anonymous\_namespace\lcurly{}escape-\/analysis.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{CheckMapsHelper()}{CheckMapsHelper()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{escape-\/analysis.\+cc\}\+::anonymous\+\_\+namespace\{escape-\/analysis.\+cc\}\+::Check\+Maps\+Helper (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1EscapeAnalysisTracker_1_1Scope}{Escape\+Analysis\+Tracker\+::\+Scope}} $\ast$}]{current,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$}]{checked,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae61b4cdc86fc0fc35648c45d73936c20}{Zone\+Ref\+Set}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Map}{Map}} $>$}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line 608 of file escape-\/analysis.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{609                                              \{}
+\DoxyCodeLine{610   \textcolor{keyword}{const} VirtualObject* vobject = current-\/>GetVirtualObject(checked);}
+\DoxyCodeLine{611   \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a360e859ecd2f20a4868a17f0a7ec8a57}{Variable}} map\_field;}
+\DoxyCodeLine{612   Node* map;}
+\DoxyCodeLine{613   \textcolor{keywordflow}{if} (vobject \&\& !vobject-\/>HasEscaped() \&\&}
+\DoxyCodeLine{614       vobject-\/>FieldAt(HeapObject::kMapOffset).To(\&map\_field) \&\&}
+\DoxyCodeLine{615       current-\/>Get(map\_field).To(\&map)) \{}
+\DoxyCodeLine{616     \textcolor{keywordflow}{if} (map) \{}
+\DoxyCodeLine{617       \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02js-display-names_8cc_03_a169d0b07e82f46d628050c890a0dacbe}{Type}} \textcolor{keyword}{const} map\_type = NodeProperties::GetType(map);}
+\DoxyCodeLine{618       \textcolor{keywordflow}{if} (map\_type.IsHeapConstant() \&\&}
+\DoxyCodeLine{619           target.contains(map\_type.AsHeapConstant()-\/>Ref().AsMap())) \{}
+\DoxyCodeLine{620         current-\/>MarkForDeletion();}
+\DoxyCodeLine{621         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{622       \}}
+\DoxyCodeLine{623     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{624       \textcolor{comment}{// If the variable has no value, we have not reached the fixed-\/point}}
+\DoxyCodeLine{625       \textcolor{comment}{// yet.}}
+\DoxyCodeLine{626       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{627     \}}
+\DoxyCodeLine{628   \}}
+\DoxyCodeLine{629   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{630 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Type\+::\+As\+Heap\+Constant(), v8\+::internal\+::\+Zone\+Compact\+Set$<$ T $>$\+::contains(), v8\+::internal\+::compiler\+::\+Virtual\+Object\+::\+Field\+At(), v8\+::internal\+::compiler\+::\+Variable\+Tracker\+::\+Scope\+::\+Get(), v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Get\+Type(), v8\+::internal\+::compiler\+::\+Escape\+Analysis\+Tracker\+::\+Scope\+::\+Get\+Virtual\+Object(), v8\+::internal\+::compiler\+::\+Virtual\+Object\+::\+Has\+Escaped(), v8\+::internal\+::compiler\+::\+Type\+::\+Is\+Heap\+Constant(), v8\+::internal\+::\+Heap\+Object\+::k\+Map\+Offset, v8\+::internal\+::compiler\+::\+Escape\+Analysis\+Tracker\+::\+Scope\+::\+Mark\+For\+Deletion(), and v8\+::internal\+::compiler\+::\+Heap\+Constant\+Type\+::\+Ref().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{escape-\/analysis.\+cc\}\+::\+Reduce\+Node().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02escape-analysis_8cc_03_1_1anonymouedcf60e7adb4afd13df1e27e93ea1233_ae2dbc44c0f01692346e5f9eb47848a5d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02escape-analysis_8cc_03_1_1anonymouedcf60e7adb4afd13df1e27e93ea1233_ae2dbc44c0f01692346e5f9eb47848a5d_icgraph}
+\end{center}
+\end{figure}

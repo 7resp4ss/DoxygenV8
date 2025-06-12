@@ -4,7 +4,7 @@ var v8_array_buffer_8h =
     [ "ArrayBuffer", "classv8_1_1ArrayBuffer.html", "classv8_1_1ArrayBuffer" ],
     [ "Allocator", "classv8_1_1ArrayBuffer_1_1Allocator.html", "classv8_1_1ArrayBuffer_1_1Allocator" ],
     [ "ArrayBufferView", "classv8_1_1ArrayBufferView.html", "classv8_1_1ArrayBufferView" ],
-    [ "DataView", "classv8_1_1DataView.html", null ],
+    [ "DataView", "classv8_1_1DataView.html", "classv8_1_1DataView" ],
     [ "SharedArrayBuffer", "classv8_1_1SharedArrayBuffer.html", "classv8_1_1SharedArrayBuffer" ],
     [ "V8_ARRAY_BUFFER_INTERNAL_FIELD_COUNT", "v8-array-buffer_8h.html#a089449088bc110a262e4cd4fff8fb60b", null ],
     [ "V8_ARRAY_BUFFER_VIEW_INTERNAL_FIELD_COUNT", "v8-array-buffer_8h.html#a7a1826d61dd6b81db386cde8e96e4018", null ],

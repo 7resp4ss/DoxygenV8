@@ -1,0 +1,128 @@
+\hypertarget{classv8_1_1Worker_1_1WorkerThread}{}\doxysection{v8\+::Worker\+::Worker\+Thread Class Reference}
+\label{classv8_1_1Worker_1_1WorkerThread}\index{v8::Worker::WorkerThread@{v8::Worker::WorkerThread}}
+
+
+Inheritance diagram for v8\+::Worker\+::Worker\+Thread\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{classv8_1_1Worker_1_1WorkerThread__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for v8\+::Worker\+::Worker\+Thread\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1Worker_1_1WorkerThread__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1Worker_1_1WorkerThread_a8454d05847fb1df80d6cc10f124b6a9b}{Worker\+Thread}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1Worker}{Worker}} $>$ worker, \mbox{\hyperlink{classv8_1_1base_1_1Thread_a2aa417033f76f771344890c3d9cf46a5}{base\+::\+Thread\+::\+Priority}} \mbox{\hyperlink{classv8_1_1base_1_1Thread_aa41824f46fde75c4832c531743d436d6}{priority}})
+\item 
+void \mbox{\hyperlink{classv8_1_1Worker_1_1WorkerThread_aa5348ac97d4d7f8c01d8d53184165eb9}{Run}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1Worker}{Worker}} $>$ \mbox{\hyperlink{classv8_1_1Worker_1_1WorkerThread_acf3192cb2599c2efe6b88eeb8ede9779}{worker\+\_\+}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 246 of file d8.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classv8_1_1Worker_1_1WorkerThread_a8454d05847fb1df80d6cc10f124b6a9b}\label{classv8_1_1Worker_1_1WorkerThread_a8454d05847fb1df80d6cc10f124b6a9b}} 
+\index{v8::Worker::WorkerThread@{v8::Worker::WorkerThread}!WorkerThread@{WorkerThread}}
+\index{WorkerThread@{WorkerThread}!v8::Worker::WorkerThread@{v8::Worker::WorkerThread}}
+\doxysubsubsection{\texorpdfstring{WorkerThread()}{WorkerThread()}}
+{\footnotesize\ttfamily v8\+::\+Worker\+::\+Worker\+Thread\+::\+Worker\+Thread (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1Worker}{Worker}} $>$}]{worker,  }\item[{\mbox{\hyperlink{classv8_1_1base_1_1Thread_a2aa417033f76f771344890c3d9cf46a5}{base\+::\+Thread\+::\+Priority}}}]{priority }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Definition at line 248 of file d8.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{250         : base::Thread(base::Thread::Options(\textcolor{stringliteral}{"{}WorkerThread"{}}, \mbox{\hyperlink{classv8_1_1base_1_1Thread_aa41824f46fde75c4832c531743d436d6}{priority}})),}
+\DoxyCodeLine{251           \mbox{\hyperlink{classv8_1_1Worker_1_1WorkerThread_acf3192cb2599c2efe6b88eeb8ede9779}{worker\_}}(std::move(worker)) \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1Worker_1_1WorkerThread_aa5348ac97d4d7f8c01d8d53184165eb9}\label{classv8_1_1Worker_1_1WorkerThread_aa5348ac97d4d7f8c01d8d53184165eb9}} 
+\index{v8::Worker::WorkerThread@{v8::Worker::WorkerThread}!Run@{Run}}
+\index{Run@{Run}!v8::Worker::WorkerThread@{v8::Worker::WorkerThread}}
+\doxysubsubsection{\texorpdfstring{Run()}{Run()}}
+{\footnotesize\ttfamily void v8\+::\+Worker\+::\+Worker\+Thread\+::\+Run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classv8_1_1base_1_1Thread_a04c541b44be4fe9e6a878684e5232a87}{v8\+::base\+::\+Thread}}.
+
+
+
+Definition at line 5400 of file d8.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5400                              \{}
+\DoxyCodeLine{5401   \textcolor{comment}{// Prevent a lifetime cycle from Worker -\/> WorkerThread -\/> Worker.}}
+\DoxyCodeLine{5402   \textcolor{comment}{// We must clear the worker\_ field of the thread, but we keep the}}
+\DoxyCodeLine{5403   \textcolor{comment}{// worker alive via a stack root until the thread finishes execution}}
+\DoxyCodeLine{5404   \textcolor{comment}{// and removes itself from the running set. Thereafter the only}}
+\DoxyCodeLine{5405   \textcolor{comment}{// remaining reference can be from a JavaScript object via a Managed.}}
+\DoxyCodeLine{5406   \textcolor{keyword}{auto} worker = std::move(\mbox{\hyperlink{classv8_1_1Worker_1_1WorkerThread_acf3192cb2599c2efe6b88eeb8ede9779}{worker\_}});}
+\DoxyCodeLine{5407   \mbox{\hyperlink{classv8_1_1Worker_1_1WorkerThread_acf3192cb2599c2efe6b88eeb8ede9779}{worker\_}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{5408   worker-\/>ExecuteInThread();}
+\DoxyCodeLine{5409   \mbox{\hyperlink{classv8_1_1Shell_aa573a1158e8806c655e9031ab56cdbb5}{Shell::RemoveRunningWorker}}(worker);}
+\DoxyCodeLine{5410 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Shell\+::\+Remove\+Running\+Worker(), and worker\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1Worker_1_1WorkerThread_aa5348ac97d4d7f8c01d8d53184165eb9_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1Worker_1_1WorkerThread_acf3192cb2599c2efe6b88eeb8ede9779}\label{classv8_1_1Worker_1_1WorkerThread_acf3192cb2599c2efe6b88eeb8ede9779}} 
+\index{v8::Worker::WorkerThread@{v8::Worker::WorkerThread}!worker\_@{worker\_}}
+\index{worker\_@{worker\_}!v8::Worker::WorkerThread@{v8::Worker::WorkerThread}}
+\doxysubsubsection{\texorpdfstring{worker\_}{worker\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1Worker}{Worker}}$>$ v8\+::\+Worker\+::\+Worker\+Thread\+::worker\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 256 of file d8.\+h.
+
+
+
+Referenced by Run().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/mnt/\+V8\+Source\+Code/src/d8/\mbox{\hyperlink{d8_8h}{d8.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/d8/\mbox{\hyperlink{d8_8cc}{d8.\+cc}}\end{DoxyCompactItemize}

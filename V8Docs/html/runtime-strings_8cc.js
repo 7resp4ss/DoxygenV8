@@ -1,5 +1,6 @@
 var runtime_strings_8cc =
 [
+    [ "ASVariant", "runtime-strings_8cc.html#a8414b5b78265ef6dc2022b6fe1e44d44", null ],
     [ "RUNTIME_FUNCTION", "runtime-strings_8cc.html#aced1a98e85807feb5368fe9b330d20d4", null ],
     [ "RUNTIME_FUNCTION", "runtime-strings_8cc.html#aeb460a5f99d36e31596855fd9f9bd3a2", null ],
     [ "RUNTIME_FUNCTION", "runtime-strings_8cc.html#a30655fec0f3512e31d19f96e356859a2", null ],
@@ -23,5 +24,6 @@ var runtime_strings_8cc =
     [ "RUNTIME_FUNCTION", "runtime-strings_8cc.html#a2d3ec381e8cdf394e71d3c760ccf1dcf", null ],
     [ "RUNTIME_FUNCTION", "runtime-strings_8cc.html#afd5f7addf2b691ee4378306eec4a866a", null ],
     [ "RUNTIME_FUNCTION", "runtime-strings_8cc.html#a0577a289d0c3b4e0bee86a8793801713", null ],
+    [ "StringAdd_StringConstant_Internalize", "runtime-strings_8cc.html#a518f4e3d1dd63018f18fc8e98cb99599", null ],
     [ "StringReplaceOneCharWithString", "runtime-strings_8cc.html#a49554ec045a92aac4a2616d77321d355", null ]
 ];

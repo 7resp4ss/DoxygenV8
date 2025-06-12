@@ -1,10 +1,27 @@
 \hypertarget{structv8_1_1internal_1_1compiler_1_1LoopPeelingPhase}{}\doxysection{v8\+::internal\+::compiler\+::Loop\+Peeling\+Phase Struct Reference}
 \label{structv8_1_1internal_1_1compiler_1_1LoopPeelingPhase}\index{v8::internal::compiler::LoopPeelingPhase@{v8::internal::compiler::LoopPeelingPhase}}
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Loop\+Peeling\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{structv8_1_1internal_1_1compiler_1_1LoopPeelingPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1LoopPeelingPhase_a3069a67a9f637a6240cb550f8da865ea}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
+void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1LoopPeelingPhase_a3069a67a9f637a6240cb550f8da865ea}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1199 of file pipeline.\+cc.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -16,6 +33,45 @@ void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1LoopPeelingPhase_a3069
 
 
 
+Definition at line 1202 of file pipeline.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1202                                                   \{}
+\DoxyCodeLine{1203     GraphTrimmer trimmer(temp\_zone, data-\/>graph());}
+\DoxyCodeLine{1204     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a4107c005c14e5351157d6a5d020f7bba}{NodeVector}} roots(temp\_zone);}
+\DoxyCodeLine{1205     data-\/>jsgraph()-\/>GetCachedNodes(\&roots);}
+\DoxyCodeLine{1206     \{}
+\DoxyCodeLine{1207       UnparkedScopeIfNeeded scope(data-\/>broker(),}
+\DoxyCodeLine{1208                                   \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_turbo\_trimming);}
+\DoxyCodeLine{1209       trimmer.TrimGraph(roots.begin(), roots.end());}
+\DoxyCodeLine{1210     \}}
+\DoxyCodeLine{1211 }
+\DoxyCodeLine{1212     LoopTree* loop\_tree = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1LoopFinder_adbc5a08789085e39664830ec69f63412}{LoopFinder::BuildLoopTree}}(}
+\DoxyCodeLine{1213         data-\/>jsgraph()-\/>graph(), \&data-\/>info()-\/>tick\_counter(), temp\_zone);}
+\DoxyCodeLine{1214     \textcolor{comment}{// We call the typer inside of PeelInnerLoopsOfTree which inspects heap}}
+\DoxyCodeLine{1215     \textcolor{comment}{// objects, so we need to unpark the local heap.}}
+\DoxyCodeLine{1216     UnparkedScopeIfNeeded scope(data-\/>broker());}
+\DoxyCodeLine{1217     LoopPeeler(data-\/>graph(), data-\/>common(), loop\_tree, temp\_zone,}
+\DoxyCodeLine{1218                data-\/>source\_positions(), data-\/>node\_origins())}
+\DoxyCodeLine{1219         .PeelInnerLoopsOfTree();}
+\DoxyCodeLine{1220   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::begin(), v8\+::internal\+::compiler\+::\+Loop\+Finder\+::\+Build\+Loop\+Tree(), v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::end(), v8\+::internal\+::compiler\+::\+Loop\+Peeler\+::\+Peel\+Inner\+Loops\+Of\+Tree(), v8\+::internal\+::compiler\+::\+Graph\+Trimmer\+::\+Trim\+Graph(), and v8\+::internal\+::v8\+\_\+flags.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1LoopPeelingPhase_a3069a67a9f637a6240cb550f8da865ea_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}

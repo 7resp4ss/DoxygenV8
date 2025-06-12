@@ -7,5 +7,7 @@ var classv8_1_1internal_1_1UnalignedSlot_1_1Reference =
     [ "operator=", "classv8_1_1internal_1_1UnalignedSlot_1_1Reference.html#a864d443b9a82a032adc4acf43318d6f6", null ],
     [ "operator=", "classv8_1_1internal_1_1UnalignedSlot_1_1Reference.html#aef790a273ea3237d5e0be1a20a4565d3", null ],
     [ "operator==", "classv8_1_1internal_1_1UnalignedSlot_1_1Reference.html#a01b14365cda2f5647c412bb74504e9cb", null ],
-    [ "swap", "classv8_1_1internal_1_1UnalignedSlot_1_1Reference.html#aeaeccb223e3bb841e5d1602e462c5a1d", null ]
+    [ "swap", "classv8_1_1internal_1_1UnalignedSlot_1_1Reference.html#aeaeccb223e3bb841e5d1602e462c5a1d", null ],
+    [ "value", "classv8_1_1internal_1_1UnalignedSlot_1_1Reference.html#a1d858cef153637d485014fb9ddeb500a", null ],
+    [ "address_", "classv8_1_1internal_1_1UnalignedSlot_1_1Reference.html#a11cec5c365e68f3b645e29b79c138490", null ]
 ];

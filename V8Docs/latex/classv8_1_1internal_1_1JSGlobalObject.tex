@@ -27,7 +27,7 @@ Collaboration diagram for v8\+::internal\+::JSGlobal\+Object\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1JSGlobalObject_a80e0b33e1282c3d34db221d18d02ba8f}{Is\+Detached}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1JSGlobalObject_a80e0b33e1282c3d34db221d18d02ba8f}{Is\+Detached}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1NativeContext}{Native\+Context}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1JSGlobalObject_afe57c0e94a99a2c8fef271582f90f6d8}{native\+\_\+context}} ()
 \end{DoxyCompactItemize}
@@ -38,6 +38,13 @@ static void \mbox{\hyperlink{classv8_1_1internal_1_1JSGlobalObject_a6efdee5c6d51
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1203 of file js-\/objects.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSGlobalObject_a6efdee5c6d51ac415894bf37f2dc6beb}\label{classv8_1_1internal_1_1JSGlobalObject_a6efdee5c6d51ac415894bf37f2dc6beb}} 
 \index{v8::internal::JSGlobalObject@{v8::internal::JSGlobalObject}!InvalidatePropertyCell@{InvalidatePropertyCell}}
@@ -45,12 +52,73 @@ static void \mbox{\hyperlink{classv8_1_1internal_1_1JSGlobalObject_a6efdee5c6d51
 \doxysubsubsection{\texorpdfstring{InvalidatePropertyCell()}{InvalidatePropertyCell()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+JSGlobal\+Object\+::\+Invalidate\+Property\+Cell (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSGlobalObject}{JSGlobal\+Object}} $>$}]{object,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Name}{Name}} $>$}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 5685 of file js-\/objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5686                                                                      \{}
+\DoxyCodeLine{5687   Isolate* isolate = \mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a05a2b08b2b0f2d5aef8dc053e2ea3d9b}{Isolate::Current}}();}
+\DoxyCodeLine{5688   \textcolor{comment}{// Regardless of whether the property is there or not invalidate}}
+\DoxyCodeLine{5689   \textcolor{comment}{// Load/StoreGlobalICs that load/store through global object's prototype.}}
+\DoxyCodeLine{5690   \mbox{\hyperlink{classv8_1_1internal_1_1JSObject_a0dd6e9e36cdd5af1c319da300aea0449}{JSObject::InvalidatePrototypeValidityCell}}(*global);}
+\DoxyCodeLine{5691   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!global-\/>HasFastProperties());}
+\DoxyCodeLine{5692   \textcolor{keyword}{auto} dictionary =}
+\DoxyCodeLine{5693       \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(global-\/>global\_dictionary(\mbox{\hyperlink{namespacev8_aee4e677b8d8a86416617b3330778b98a}{kAcquireLoad}}), isolate);}
+\DoxyCodeLine{5694   InternalIndex entry = dictionary-\/>FindEntry(isolate, \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}});}
+\DoxyCodeLine{5695   \textcolor{keywordflow}{if} (entry.is\_not\_found()) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{5696 }
+\DoxyCodeLine{5697   DirectHandle<PropertyCell> cell(dictionary-\/>CellAt(entry), isolate);}
+\DoxyCodeLine{5698   DirectHandle<Object> \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}(cell-\/>value(), isolate);}
+\DoxyCodeLine{5699   PropertyDetails details = cell-\/>property\_details();}
+\DoxyCodeLine{5700   details = details.set\_cell\_type(\mbox{\hyperlink{namespacev8_1_1internal_a48c5a22aafd447e85ec3b6cc71552757a32567d9e5f2d66c9b326c45e800abcf6}{PropertyCellType::kMutable}});}
+\DoxyCodeLine{5701   \mbox{\hyperlink{classv8_1_1internal_1_1PropertyCell_a9caf1467444c16764ba309eef5b64d87}{PropertyCell::InvalidateAndReplaceEntry}}(isolate, dictionary, entry, details,}
+\DoxyCodeLine{5702                                           \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});}
+\DoxyCodeLine{5703 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::\+Current(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::direct\+\_\+handle(), v8\+::internal\+::\+Property\+Cell\+::\+Invalidate\+And\+Replace\+Entry(), v8\+::internal\+::\+JSObject\+::\+Invalidate\+Prototype\+Validity\+Cell(), v8\+::internal\+::\+Internal\+Index\+::is\+\_\+not\+\_\+found(), v8\+::k\+Acquire\+Load, v8\+::internal\+::k\+Mutable, v8\+::internal\+::name, v8\+::internal\+::\+Property\+Details\+::set\+\_\+cell\+\_\+type(), and v8\+::internal\+::value.
+
+
+
+Referenced by v8\+::internal\+::anonymous\+\_\+namespace\{execution.\+cc\}\+::\+New\+Script\+Context().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSGlobalObject_a6efdee5c6d51ac415894bf37f2dc6beb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSGlobalObject_a6efdee5c6d51ac415894bf37f2dc6beb_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSGlobalObject_a80e0b33e1282c3d34db221d18d02ba8f}\label{classv8_1_1internal_1_1JSGlobalObject_a80e0b33e1282c3d34db221d18d02ba8f}} 
 \index{v8::internal::JSGlobalObject@{v8::internal::JSGlobalObject}!IsDetached@{IsDetached}}
 \index{IsDetached@{IsDetached}!v8::internal::JSGlobalObject@{v8::internal::JSGlobalObject}}
 \doxysubsubsection{\texorpdfstring{IsDetached()}{IsDetached()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+JSGlobal\+Object\+::\+Is\+Detached (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 1013 of file js-\/objects-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1013                                                 \{}
+\DoxyCodeLine{1014   \textcolor{keywordflow}{return} global\_proxy()-\/>IsDetachedFrom(isolate, *\textcolor{keyword}{this});}
+\DoxyCodeLine{1015 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JSGlobalObject_afe57c0e94a99a2c8fef271582f90f6d8}\label{classv8_1_1internal_1_1JSGlobalObject_afe57c0e94a99a2c8fef271582f90f6d8}} 
 \index{v8::internal::JSGlobalObject@{v8::internal::JSGlobalObject}!native\_context@{native\_context}}
 \index{native\_context@{native\_context}!v8::internal::JSGlobalObject@{v8::internal::JSGlobalObject}}
@@ -59,8 +127,31 @@ static void \mbox{\hyperlink{classv8_1_1internal_1_1JSGlobalObject_a6efdee5c6d51
 
 
 
+Definition at line 1009 of file js-\/objects-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1009                                                      \{}
+\DoxyCodeLine{1010   \textcolor{keywordflow}{return} *\mbox{\hyperlink{namespacev8_1_1debug_af88eea3705299d9b903e3e1d8ef35b45}{GetCreationContext}}();}
+\DoxyCodeLine{1011 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::debug\+::\+Get\+Creation\+Context().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JSGlobalObject_afe57c0e94a99a2c8fef271582f90f6d8_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{js-objects_8h}{js-\/objects.\+h}}\item 
-\mbox{\hyperlink{js-objects-inl_8h}{js-\/objects-\/inl.\+h}}\item 
-\mbox{\hyperlink{js-objects_8cc}{js-\/objects.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{js-objects_8h}{js-\/objects.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{js-objects-inl_8h}{js-\/objects-\/inl.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{js-objects_8cc}{js-\/objects.\+cc}}\end{DoxyCompactItemize}

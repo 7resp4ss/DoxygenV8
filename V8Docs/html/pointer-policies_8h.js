@@ -1,9 +1,11 @@
 var pointer_policies_8h =
 [
-    [ "DijkstraWriteBarrierPolicy", "structcppgc_1_1internal_1_1DijkstraWriteBarrierPolicy.html", null ],
-    [ "NoWriteBarrierPolicy", "structcppgc_1_1internal_1_1NoWriteBarrierPolicy.html", null ],
+    [ "DijkstraWriteBarrierPolicy", "structcppgc_1_1internal_1_1DijkstraWriteBarrierPolicy.html", "structcppgc_1_1internal_1_1DijkstraWriteBarrierPolicy" ],
+    [ "NoWriteBarrierPolicy", "structcppgc_1_1internal_1_1NoWriteBarrierPolicy.html", "structcppgc_1_1internal_1_1NoWriteBarrierPolicy" ],
     [ "SameThreadEnabledCheckingPolicyBase", "classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicyBase.html", "classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicyBase" ],
     [ "SameThreadEnabledCheckingPolicy", "classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicy.html", "classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicy" ],
+    [ "CheckPointersImplTrampoline", "structcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicy_1_1CheckPointersImplTrampoline.html", "structcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicy_1_1CheckPointersImplTrampoline" ],
+    [ "CheckPointersImplTrampoline< T, true >", "structcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicy_1_1CheckPointersImplTrampoline_3_01T_00_01true_01_4.html", "structcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicy_1_1CheckPointersImplTrampoline_3_01T_00_01true_01_4" ],
     [ "DisabledCheckingPolicy", "classcppgc_1_1internal_1_1DisabledCheckingPolicy.html", "classcppgc_1_1internal_1_1DisabledCheckingPolicy" ],
     [ "KeepLocationPolicy", "classcppgc_1_1internal_1_1KeepLocationPolicy.html", "classcppgc_1_1internal_1_1KeepLocationPolicy" ],
     [ "IgnoreLocationPolicy", "classcppgc_1_1internal_1_1IgnoreLocationPolicy.html", "classcppgc_1_1internal_1_1IgnoreLocationPolicy" ],

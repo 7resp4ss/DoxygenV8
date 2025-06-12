@@ -1,0 +1,4 @@
+var namespacev8_1_1internal_1_1anonymous__namespace_02microtask_queue_8cc_03 =
+[
+    [ "SetIsRunningMicrotasks", "classv8_1_1internal_1_1anonymous__namespace_02microtask-queue_8cc_03_1_1SetIsRunningMicrotasks.html", "classv8_1_1internal_1_1anonymous__namespace_02microtask-queue_8cc_03_1_1SetIsRunningMicrotasks" ]
+];

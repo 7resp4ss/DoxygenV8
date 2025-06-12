@@ -16,5 +16,8 @@ var objects_printer_8cc =
     [ "_v8_internal_Print_PropertyCallbackInfo", "objects-printer_8cc.html#a022e44e6fbacc109f4f88513b98a2755", null ],
     [ "_v8_internal_Print_StackTrace", "objects-printer_8cc.html#aac90e5c3d6a5b046c4f9872339702e57", null ],
     [ "_v8_internal_Print_StoreHandler", "objects-printer_8cc.html#a5628fdd011a8fe682a0c015258f17c4d", null ],
-    [ "_v8_internal_Print_TransitionTree", "objects-printer_8cc.html#acf86f811d94a155aad0d82f2d8ddbadb", null ]
+    [ "_v8_internal_Print_TransitionTree", "objects-printer_8cc.html#acf86f811d94a155aad0d82f2d8ddbadb", null ],
+    [ "GetObjectFromRaw", "objects-printer_8cc.html#ae72b138592b57222c604b6c7dbf2604d", null ],
+    [ "PrintDouble", "objects-printer_8cc.html#a8e8d3438bc028680d64c6fb5fbd82e91", null ],
+    [ "kUnavailableString", "objects-printer_8cc.html#a55089b12fa5a34e68dfa30ecdbf54352", null ]
 ];

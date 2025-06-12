@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$trap-\/handler-\/internal.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::trap\+\_\+handler\+::Sandbox\+Records\+Lock\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{classv8_1_1internal_1_1trap__handler_1_1SandboxRecordsLock__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -15,6 +25,18 @@
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1trap__handler_1_1SandboxRecordsLock_a396553876880b0cbdeab1d5c7f978dfe}{operator=}} (const \mbox{\hyperlink{classv8_1_1internal_1_1trap__handler_1_1SandboxRecordsLock}{Sandbox\+Records\+Lock}} \&)=delete
 \end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::atomic\+\_\+flag \mbox{\hyperlink{classv8_1_1internal_1_1trap__handler_1_1SandboxRecordsLock_af200b0e44f39c7daa5f570a88b84d1bb}{spinlock\+\_\+}} = ATOMIC\+\_\+\+FLAG\+\_\+\+INIT
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 64 of file trap-\/handler-\/internal.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -24,11 +46,42 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1trap__handler_1_1SandboxRecordsLock
 \doxysubsubsection{\texorpdfstring{SandboxRecordsLock()}{SandboxRecordsLock()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::internal\+::trap\+\_\+handler\+::\+Sandbox\+Records\+Lock\+::\+Sandbox\+Records\+Lock (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 68 of file handler-\/shared.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{68                                        \{}
+\DoxyCodeLine{69   \textcolor{keywordflow}{while} (\mbox{\hyperlink{classv8_1_1internal_1_1trap__handler_1_1SandboxRecordsLock_af200b0e44f39c7daa5f570a88b84d1bb}{spinlock\_}}.test\_and\_set(std::memory\_order\_acquire)) \{}
+\DoxyCodeLine{70   \}}
+\DoxyCodeLine{71 \}}
+
+\end{DoxyCode}
+
+
+References spinlock\+\_\+.
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1trap__handler_1_1SandboxRecordsLock_aa6cacc12a9911c92e6166375c70e59dc}\label{classv8_1_1internal_1_1trap__handler_1_1SandboxRecordsLock_aa6cacc12a9911c92e6166375c70e59dc}} 
 \index{v8::internal::trap\_handler::SandboxRecordsLock@{v8::internal::trap\_handler::SandboxRecordsLock}!````~SandboxRecordsLock@{$\sim$SandboxRecordsLock}}
 \index{````~SandboxRecordsLock@{$\sim$SandboxRecordsLock}!v8::internal::trap\_handler::SandboxRecordsLock@{v8::internal::trap\_handler::SandboxRecordsLock}}
 \doxysubsubsection{\texorpdfstring{$\sim$SandboxRecordsLock()}{~SandboxRecordsLock()}}
 {\footnotesize\ttfamily v8\+::internal\+::trap\+\_\+handler\+::\+Sandbox\+Records\+Lock\+::$\sim$\+Sandbox\+Records\+Lock (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 73 of file handler-\/shared.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{73                                         \{}
+\DoxyCodeLine{74   \mbox{\hyperlink{classv8_1_1internal_1_1trap__handler_1_1SandboxRecordsLock_af200b0e44f39c7daa5f570a88b84d1bb}{spinlock\_}}.clear(std::memory\_order\_release);}
+\DoxyCodeLine{75 \}}
+
+\end{DoxyCode}
+
+
+References spinlock\+\_\+.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1trap__handler_1_1SandboxRecordsLock_aaba5781d59d92111a9010c48cfa4b384}\label{classv8_1_1internal_1_1trap__handler_1_1SandboxRecordsLock_aaba5781d59d92111a9010c48cfa4b384}} 
 \index{v8::internal::trap\_handler::SandboxRecordsLock@{v8::internal::trap\_handler::SandboxRecordsLock}!SandboxRecordsLock@{SandboxRecordsLock}}
@@ -47,7 +100,24 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1trap__handler_1_1SandboxRecordsLock
 
 
 
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1trap__handler_1_1SandboxRecordsLock_af200b0e44f39c7daa5f570a88b84d1bb}\label{classv8_1_1internal_1_1trap__handler_1_1SandboxRecordsLock_af200b0e44f39c7daa5f570a88b84d1bb}} 
+\index{v8::internal::trap\_handler::SandboxRecordsLock@{v8::internal::trap\_handler::SandboxRecordsLock}!spinlock\_@{spinlock\_}}
+\index{spinlock\_@{spinlock\_}!v8::internal::trap\_handler::SandboxRecordsLock@{v8::internal::trap\_handler::SandboxRecordsLock}}
+\doxysubsubsection{\texorpdfstring{spinlock\_}{spinlock\_}}
+{\footnotesize\ttfamily std\+::atomic\+\_\+flag v8\+::internal\+::trap\+\_\+handler\+::\+Sandbox\+Records\+Lock\+::spinlock\+\_\+ = ATOMIC\+\_\+\+FLAG\+\_\+\+INIT\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 65 of file trap-\/handler-\/internal.\+h.
+
+
+
+Referenced by Sandbox\+Records\+Lock(), and $\sim$\+Sandbox\+Records\+Lock().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{trap-handler-internal_8h}{trap-\/handler-\/internal.\+h}}\item 
-\mbox{\hyperlink{handler-shared_8cc}{handler-\/shared.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/trap-\/handler/\mbox{\hyperlink{trap-handler-internal_8h}{trap-\/handler-\/internal.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/trap-\/handler/\mbox{\hyperlink{handler-shared_8cc}{handler-\/shared.\+cc}}\end{DoxyCompactItemize}

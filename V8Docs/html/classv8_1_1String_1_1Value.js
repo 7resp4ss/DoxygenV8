@@ -6,6 +6,6 @@ var classv8_1_1String_1_1Value =
     [ "operator*", "classv8_1_1String_1_1Value.html#ae4f44b1977968de2e9f2ff703437fde3", null ],
     [ "operator*", "classv8_1_1String_1_1Value.html#a15e247c80ec874daee13e6fca1b24629", null ],
     [ "operator=", "classv8_1_1String_1_1Value.html#adb46ab85e1def9411012c67cbefb3385", null ],
-    [ "V8_DEPRECATE_SOON", "classv8_1_1String_1_1Value.html#a43b0c981ec5854a1ca935b31735d0c08", null ],
-    [ "obj", "classv8_1_1String_1_1Value.html#a851771bd6ba2b6e52e1763eafcfe1c17", null ]
+    [ "length_", "classv8_1_1String_1_1Value.html#a377e0378c6f7bb312993bd66a2ca4121", null ],
+    [ "str_", "classv8_1_1String_1_1Value.html#ac929f3bce35eb780a6f50ae0e8e286da", null ]
 ];

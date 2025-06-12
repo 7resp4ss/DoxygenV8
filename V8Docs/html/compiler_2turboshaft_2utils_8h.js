@@ -3,7 +3,7 @@ var compiler_2turboshaft_2utils_8h =
     [ "any_of", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1any__of.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1any__of" ],
     [ "all_of", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1all__of.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1all__of" ],
     [ "ScopedModification", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ScopedModification.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ScopedModification" ],
-    [ "MultiSwitchIntegral", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1MultiSwitchIntegral.html", null ],
+    [ "MultiSwitchIntegral", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1MultiSwitchIntegral.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1MultiSwitchIntegral" ],
     [ "DEFINE_MULTI_SWITCH_INTEGRAL", "compiler_2turboshaft_2utils_8h.html#abe4788a1f6ff5923ac5f47cc0219a623", null ],
     [ "all_of", "compiler_2turboshaft_2utils_8h.html#a69eff72986adf8d5c6e0e8db3e06596e", null ],
     [ "any_of", "compiler_2turboshaft_2utils_8h.html#a2cbce91371c0abc5265685f2bf0f7c27", null ],

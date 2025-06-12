@@ -1,6 +1,10 @@
 var code_generator_ia32_8cc =
 [
     [ "IA32OperandConverter", "classv8_1_1internal_1_1compiler_1_1IA32OperandConverter.html", "classv8_1_1internal_1_1compiler_1_1IA32OperandConverter" ],
+    [ "OutOfLineLoadFloat32NaN", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-ia32_8cc_03_1_1OutOfLineLoadFloat32NaN.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-ia32_8cc_03_1_1OutOfLineLoadFloat32NaN" ],
+    [ "OutOfLineLoadFloat64NaN", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-ia32_8cc_03_1_1OutOfLineLoadFloat64NaN.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-ia32_8cc_03_1_1OutOfLineLoadFloat64NaN" ],
+    [ "OutOfLineTruncateDoubleToI", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-ia32_8cc_03_1_1OutOfLineTruncateDoubleToI.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-ia32_8cc_03_1_1OutOfLineTruncateDoubleToI" ],
+    [ "OutOfLineRecordWrite", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-ia32_8cc_03_1_1OutOfLineRecordWrite.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-ia32_8cc_03_1_1OutOfLineRecordWrite" ],
     [ "__", "code-generator-ia32_8cc.html#a0a87998f4e8cee4888f2a89df3d5639b", null ],
     [ "ASSEMBLE_ATOMIC_BINOP", "code-generator-ia32_8cc.html#a285b1bfe08e204c90636d20b1e2f8fa3", null ],
     [ "ASSEMBLE_BINOP", "code-generator-ia32_8cc.html#a494e529a26167fd63799df20dd0186f1", null ],
@@ -16,13 +20,9 @@ var code_generator_ia32_8cc =
     [ "ASSEMBLE_SIMD_SHIFT", "code-generator-ia32_8cc.html#aec4d64c2198b7f245a7a7c9fc91feb6d", null ],
     [ "ATOMIC_BINOP_CASE", "code-generator-ia32_8cc.html#a18f01a2f158b46d26f0f07d2bb25521e", null ],
     [ "ATOMIC_BINOP_CASE", "code-generator-ia32_8cc.html#a652a5112b5c9ddedf93305b32576c9be", null ],
-    [ "input_", "code-generator-ia32_8cc.html#a8136e0c518eae601ca3c84adba6a2e0b", null ],
-    [ "isolate_", "code-generator-ia32_8cc.html#a68072bca3fef7bd8b0d3cbac971cbf4b", null ],
-    [ "mode_", "code-generator-ia32_8cc.html#adc5709192230b7fde07de03eb2974043", null ],
-    [ "object_", "code-generator-ia32_8cc.html#a5563c55e446f92e237e9fb9b07b423b6", null ],
-    [ "operand_", "code-generator-ia32_8cc.html#a3c25bf72b3cb024cd811fc165a198db4", null ],
-    [ "result_", "code-generator-ia32_8cc.html#a39e85b51fb74a0c30b8d334dbde75396", null ],
-    [ "scratch_", "code-generator-ia32_8cc.html#a8f422ed0e21d35fd129f6e6e647a093a", null ],
-    [ "value_", "code-generator-ia32_8cc.html#ac1b34591c0a6bb909fcc2d34d0b5aaff", null ],
-    [ "zone_", "code-generator-ia32_8cc.html#a4979f6e7e64e9ee56f4229d03fa20c69", null ]
+    [ "AdjustStackPointerForTailCall", "code-generator-ia32_8cc.html#a31b41d2694e7efec805f12b586955fcf", null ],
+    [ "FlagsConditionToCondition", "code-generator-ia32_8cc.html#aa9d9b05a9e6b08795ab6f81ea10d8508", null ],
+    [ "HasAddressingMode", "code-generator-ia32_8cc.html#a360e54e72e91b647f42cbf968114a11a", null ],
+    [ "HasImmediateInput", "code-generator-ia32_8cc.html#acbc7822dcf6f4b374c84dc81d847b17f", null ],
+    [ "HasRegisterInput", "code-generator-ia32_8cc.html#ae3dfc68b5d11c9802ec194626b271b4a", null ]
 ];

@@ -1,0 +1,112 @@
+\hypertarget{namespacev8_1_1internal_1_1trap__handler_1_1anonymous__namespace_02handler-outside_8cc_03}{}\doxysection{v8\+::internal\+::trap\+\_\+handler\+::anonymous\+\_\+namespace\{handler-\/outside.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1trap__handler_1_1anonymous__namespace_02handler-outside_8cc_03}\index{v8::internal::trap\_handler::anonymous\_namespace\lcurly{}handler-\/outside.cc\rcurly{}@{v8::internal::trap\_handler::anonymous\_namespace\lcurly{}handler-\/outside.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1trap__handler_1_1anonymous__namespace_02handler-outside_8cc_03_afe876f75939896cb6ccbca2ead1478d4}{Verify\+Code\+Range\+Is\+Disjoint}} (const \mbox{\hyperlink{structv8_1_1internal_1_1trap__handler_1_1CodeProtectionInfo}{Code\+Protection\+Info}} $\ast$code\+\_\+info)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1trap__handler_1_1anonymous__namespace_02handler-outside_8cc_03_a4f48689cd54466e3cd8f3db9c64737a5}{Validate\+Code\+Objects}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1trap__handler_1_1anonymous__namespace_02handler-outside_8cc_03_a4f48689cd54466e3cd8f3db9c64737a5}\label{namespacev8_1_1internal_1_1trap__handler_1_1anonymous__namespace_02handler-outside_8cc_03_a4f48689cd54466e3cd8f3db9c64737a5}} 
+\index{v8::internal::trap\_handler::anonymous\_namespace\lcurly{}handler-\/outside.cc\rcurly{}@{v8::internal::trap\_handler::anonymous\_namespace\lcurly{}handler-\/outside.cc\rcurly{}}!ValidateCodeObjects@{ValidateCodeObjects}}
+\index{ValidateCodeObjects@{ValidateCodeObjects}!v8::internal::trap\_handler::anonymous\_namespace\lcurly{}handler-\/outside.cc\rcurly{}@{v8::internal::trap\_handler::anonymous\_namespace\lcurly{}handler-\/outside.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ValidateCodeObjects()}{ValidateCodeObjects()}}
+{\footnotesize\ttfamily void v8\+::internal\+::trap\+\_\+handler\+::anonymous\+\_\+namespace\{handler-\/outside.\+cc\}\+::Validate\+Code\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 72 of file handler-\/outside.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72                            \{}
+\DoxyCodeLine{73   \textcolor{comment}{// Sanity-\/check the code objects}}
+\DoxyCodeLine{74   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{namespacev8_1_1internal_1_1trap__handler_af6fd6201c38b588f1de8139037ce5360}{gNumCodeObjects}}; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{75     \textcolor{keyword}{const} \textcolor{keyword}{auto}* data = \mbox{\hyperlink{namespacev8_1_1internal_1_1trap__handler_a3cd8e548d1288136cd1b6d89669878b4}{gCodeObjects}}[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}].\mbox{\hyperlink{structv8_1_1internal_1_1trap__handler_1_1CodeProtectionInfoListEntry_adba12f3e5653ab085565de39ff7d8d64}{code\_info}};}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77     \textcolor{keywordflow}{if} (data == \textcolor{keyword}{nullptr}) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79     \textcolor{comment}{// Do some sanity checks on the protected instruction data}}
+\DoxyCodeLine{80     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} j = 0; j < data-\/>num\_protected\_instructions; ++j) \{}
+\DoxyCodeLine{81       \mbox{\hyperlink{trap-handler_8h_a650c158f7adddb0ec80a74d4706eef5c}{TH\_DCHECK}}(data-\/>instructions[j].instr\_offset >= 0);}
+\DoxyCodeLine{82       \mbox{\hyperlink{trap-handler_8h_a650c158f7adddb0ec80a74d4706eef5c}{TH\_DCHECK}}(data-\/>instructions[j].instr\_offset < data-\/>size);}
+\DoxyCodeLine{83     \}}
+\DoxyCodeLine{84   \}}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86   \textcolor{comment}{// Check the validity of the free list.}}
+\DoxyCodeLine{87 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{88   \textcolor{keywordtype}{size\_t} free\_count = 0;}
+\DoxyCodeLine{89   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = \mbox{\hyperlink{namespaceanonymous__namespace_02handler-outside_8cc_03_a9031296d7c9d2a3715e1c7afa4cb0495}{gNextCodeObject}}; \mbox{\hyperlink{namespacev8_1_1internal}{i}} != \mbox{\hyperlink{namespacev8_1_1internal_1_1trap__handler_af6fd6201c38b588f1de8139037ce5360}{gNumCodeObjects}};}
+\DoxyCodeLine{90        \mbox{\hyperlink{namespacev8_1_1internal}{i}} = \mbox{\hyperlink{namespacev8_1_1internal_1_1trap__handler_a3cd8e548d1288136cd1b6d89669878b4}{gCodeObjects}}[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}].\mbox{\hyperlink{structv8_1_1internal_1_1trap__handler_1_1CodeProtectionInfoListEntry_aedeabce121507064fe1812cfd55a9200}{next\_free}}) \{}
+\DoxyCodeLine{91     \mbox{\hyperlink{trap-handler_8h_a650c158f7adddb0ec80a74d4706eef5c}{TH\_DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{namespacev8_1_1internal_1_1trap__handler_af6fd6201c38b588f1de8139037ce5360}{gNumCodeObjects}});}
+\DoxyCodeLine{92     ++free\_count;}
+\DoxyCodeLine{93     \textcolor{comment}{// This check will fail if we encounter a cycle.}}
+\DoxyCodeLine{94     \mbox{\hyperlink{trap-handler_8h_a650c158f7adddb0ec80a74d4706eef5c}{TH\_DCHECK}}(free\_count <= \mbox{\hyperlink{namespacev8_1_1internal_1_1trap__handler_af6fd6201c38b588f1de8139037ce5360}{gNumCodeObjects}});}
+\DoxyCodeLine{95   \}}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97   \textcolor{comment}{// Check that all free entries are reachable via the free list.}}
+\DoxyCodeLine{98   \textcolor{keywordtype}{size\_t} free\_count2 = 0;}
+\DoxyCodeLine{99   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{namespacev8_1_1internal_1_1trap__handler_af6fd6201c38b588f1de8139037ce5360}{gNumCodeObjects}}; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{100     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1trap__handler_a3cd8e548d1288136cd1b6d89669878b4}{gCodeObjects}}[\mbox{\hyperlink{namespacev8_1_1internal}{i}}].code\_info == \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{101       ++free\_count2;}
+\DoxyCodeLine{102     \}}
+\DoxyCodeLine{103   \}}
+\DoxyCodeLine{104   \mbox{\hyperlink{trap-handler_8h_a650c158f7adddb0ec80a74d4706eef5c}{TH\_DCHECK}}(free\_count == free\_count2);}
+\DoxyCodeLine{105 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{106 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::trap\+\_\+handler\+::\+Code\+Protection\+Info\+List\+Entry\+::code\+\_\+info, v8\+::internal\+::trap\+\_\+handler\+::g\+Code\+Objects, anonymous\+\_\+namespace\{handler-\/outside.\+cc\}\+::g\+Next\+Code\+Object, v8\+::internal\+::trap\+\_\+handler\+::g\+Num\+Code\+Objects, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::trap\+\_\+handler\+::\+Code\+Protection\+Info\+List\+Entry\+::next\+\_\+free, and TH\+\_\+\+DCHECK.
+
+
+
+Referenced by v8\+::internal\+::trap\+\_\+handler\+::\+Register\+Handler\+Data(), and v8\+::internal\+::trap\+\_\+handler\+::\+Release\+Handler\+Data().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1trap__handler_1_1anonymous__namespace_02handler-outside_8cc_03_a4f48689cd54466e3cd8f3db9c64737a5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1trap__handler_1_1anonymous__namespace_02handler-outside_8cc_03_afe876f75939896cb6ccbca2ead1478d4}\label{namespacev8_1_1internal_1_1trap__handler_1_1anonymous__namespace_02handler-outside_8cc_03_afe876f75939896cb6ccbca2ead1478d4}} 
+\index{v8::internal::trap\_handler::anonymous\_namespace\lcurly{}handler-\/outside.cc\rcurly{}@{v8::internal::trap\_handler::anonymous\_namespace\lcurly{}handler-\/outside.cc\rcurly{}}!VerifyCodeRangeIsDisjoint@{VerifyCodeRangeIsDisjoint}}
+\index{VerifyCodeRangeIsDisjoint@{VerifyCodeRangeIsDisjoint}!v8::internal::trap\_handler::anonymous\_namespace\lcurly{}handler-\/outside.cc\rcurly{}@{v8::internal::trap\_handler::anonymous\_namespace\lcurly{}handler-\/outside.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{VerifyCodeRangeIsDisjoint()}{VerifyCodeRangeIsDisjoint()}}
+{\footnotesize\ttfamily void v8\+::internal\+::trap\+\_\+handler\+::anonymous\+\_\+namespace\{handler-\/outside.\+cc\}\+::Verify\+Code\+Range\+Is\+Disjoint (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structv8_1_1internal_1_1trap__handler_1_1CodeProtectionInfo}{Code\+Protection\+Info}} $\ast$}]{code\+\_\+info }\end{DoxyParamCaption})}
+
+
+
+Definition at line 66 of file handler-\/outside.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66                                                                     \{}
+\DoxyCodeLine{67   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{namespacev8_1_1internal_1_1trap__handler_af6fd6201c38b588f1de8139037ce5360}{gNumCodeObjects}}; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{68     \mbox{\hyperlink{trap-handler_8h_a650c158f7adddb0ec80a74d4706eef5c}{TH\_DCHECK}}(IsDisjoint(code\_info, \mbox{\hyperlink{namespacev8_1_1internal_1_1trap__handler_a3cd8e548d1288136cd1b6d89669878b4}{gCodeObjects}}[\mbox{\hyperlink{namespacev8_1_1internal}{i}}].code\_info));}
+\DoxyCodeLine{69   \}}
+\DoxyCodeLine{70 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::trap\+\_\+handler\+::g\+Code\+Objects, v8\+::internal\+::trap\+\_\+handler\+::g\+Num\+Code\+Objects, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, and TH\+\_\+\+DCHECK.
+
+
+
+Referenced by v8\+::internal\+::trap\+\_\+handler\+::\+Register\+Handler\+Data().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1trap__handler_1_1anonymous__namespace_02handler-outside_8cc_03_afe876f75939896cb6ccbca2ead1478d4_icgraph}
+\end{center}
+\end{figure}

@@ -17,7 +17,7 @@ Collaboration diagram for cppgc\+::internal\+::Weak\+Callback\+Job\+Task\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=244pt]{classcppgc_1_1internal_1_1WeakCallbackJobTask__coll__graph}
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1WeakCallbackJobTask__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -28,7 +28,23 @@ Collaboration diagram for cppgc\+::internal\+::Weak\+Callback\+Job\+Task\+:
 void \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_ad07e6131ff035b244b87fcfc4ce22005}{Run}} (\mbox{\hyperlink{namespacecppgc_a74aa606ef974ec10b401c6538a239245}{Job\+Delegate}} $\ast$delegate) override
 \item 
 size\+\_\+t \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a38a3e6093d3f029f37036335f71812b5}{Get\+Max\+Concurrency}} (size\+\_\+t worker\+\_\+count) const override
+\begin{DoxyCompactList}\small\item\em Controls the maximum number of threads calling \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_ad07e6131ff035b244b87fcfc4ce22005}{Run()}} concurrently, given the number of threads currently assigned to this job and executing \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_ad07e6131ff035b244b87fcfc4ce22005}{Run()}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase}{Marker\+Base}} $\ast$ \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a5dfce1fd26b2a685361593e21eaa98ac}{marker\+\_\+}}
+\item 
+\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_a1b37333527f11339fc47f1f9bee51311}{Marking\+Worklists\+::\+Weak\+Callback\+Worklist}} $\ast$ \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a202742b11a7a7e0507bfd37a0445caee}{callback\+\_\+worklist\+\_\+}}
+\item 
+\mbox{\hyperlink{classcppgc_1_1LivenessBroker}{Liveness\+Broker}} \& \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a68e58a802fc47a0f84751535ee8e4554}{broker\+\_\+}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 343 of file marker.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -40,6 +56,17 @@ size\+\_\+t \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a38a3
 
 
 
+Definition at line 345 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{348       : \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a5dfce1fd26b2a685361593e21eaa98ac}{marker\_}}(marker),}
+\DoxyCodeLine{349         \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a202742b11a7a7e0507bfd37a0445caee}{callback\_worklist\_}}(callback\_worklist),}
+\DoxyCodeLine{350         \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a68e58a802fc47a0f84751535ee8e4554}{broker\_}}(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1WeakCallbackJobTask_a38a3e6093d3f029f37036335f71812b5}\label{classcppgc_1_1internal_1_1WeakCallbackJobTask_a38a3e6093d3f029f37036335f71812b5}} 
 \index{cppgc::internal::WeakCallbackJobTask@{cppgc::internal::WeakCallbackJobTask}!GetMaxConcurrency@{GetMaxConcurrency}}
@@ -47,10 +74,26 @@ size\+\_\+t \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a38a3
 \doxysubsubsection{\texorpdfstring{GetMaxConcurrency()}{GetMaxConcurrency()}}
 {\footnotesize\ttfamily size\+\_\+t cppgc\+::internal\+::\+Weak\+Callback\+Job\+Task\+::\+Get\+Max\+Concurrency (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{worker\+\_\+count }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Controls the maximum number of threads calling \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_ad07e6131ff035b244b87fcfc4ce22005}{Run()}} concurrently, given the number of threads currently assigned to this job and executing \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_ad07e6131ff035b244b87fcfc4ce22005}{Run()}}. \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_ad07e6131ff035b244b87fcfc4ce22005}{Run()}} is only invoked if the number of threads previously running \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_ad07e6131ff035b244b87fcfc4ce22005}{Run()}} was less than the value returned. In general, this should return the latest number of incomplete work items (smallest unit of work) left to process, including items that are currently in progress. $\vert$worker\+\_\+count$\vert$ is the number of threads currently assigned to this job which some callers may need to determine their return value. Since \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a38a3e6093d3f029f37036335f71812b5}{Get\+Max\+Concurrency()}} is a leaf function, it must not call back any Job\+Handle methods. 
+
+
+Controls the maximum number of threads calling \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_ad07e6131ff035b244b87fcfc4ce22005}{Run()}} concurrently, given the number of threads currently assigned to this job and executing \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_ad07e6131ff035b244b87fcfc4ce22005}{Run()}}. 
+
+\mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_ad07e6131ff035b244b87fcfc4ce22005}{Run()}} is only invoked if the number of threads previously running \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_ad07e6131ff035b244b87fcfc4ce22005}{Run()}} was less than the value returned. In general, this should return the latest number of incomplete work items (smallest unit of work) left to process, including items that are currently in progress. $\vert$worker\+\_\+count$\vert$ is the number of threads currently assigned to this job which some callers may need to determine their return value. Since \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a38a3e6093d3f029f37036335f71812b5}{Get\+Max\+Concurrency()}} is a leaf function, it must not call back any Job\+Handle methods. 
 
 Implements \mbox{\hyperlink{classv8_1_1JobTask_a9f1505551639903b327baecbeb38f6f7}{v8\+::\+Job\+Task}}.
 
+
+
+Definition at line 363 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{363                                                                \{}
+\DoxyCodeLine{364     \textcolor{keywordflow}{return} std::min(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(1),}
+\DoxyCodeLine{365                     \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a202742b11a7a7e0507bfd37a0445caee}{callback\_worklist\_}}-\/>\mbox{\hyperlink{classheap_1_1base_1_1Worklist_aa4ee280c8190a5dc8834f565042d585f}{Size}}() + worker\_count);}
+\DoxyCodeLine{366   \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1WeakCallbackJobTask_ad07e6131ff035b244b87fcfc4ce22005}\label{classcppgc_1_1internal_1_1WeakCallbackJobTask_ad07e6131ff035b244b87fcfc4ce22005}} 
 \index{cppgc::internal::WeakCallbackJobTask@{cppgc::internal::WeakCallbackJobTask}!Run@{Run}}
 \index{Run@{Run}!cppgc::internal::WeakCallbackJobTask@{cppgc::internal::WeakCallbackJobTask}}
@@ -63,6 +106,61 @@ Implements \mbox{\hyperlink{classv8_1_1JobTask_a9b6d0cee5615420f30b0db8a4c5e8c3b
 
 
 
+Definition at line 352 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{352                                            \{}
+\DoxyCodeLine{353     \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a14b64b4a2b16d3eb1e5e5be64792d06a}{StatsCollector::EnabledConcurrentScope}} stats\_scope(}
+\DoxyCodeLine{354         \mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a5dfce1fd26b2a685361593e21eaa98ac}{marker\_}}-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_a2b71dc778a025435fa06a9129f05bb6e}{stats\_collector}}(),}
+\DoxyCodeLine{355         StatsCollector::kConcurrentWeakCallback);}
+\DoxyCodeLine{356     MarkingWorklists::WeakCallbackWorklist::Local local(*\mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a202742b11a7a7e0507bfd37a0445caee}{callback\_worklist\_}});}
+\DoxyCodeLine{357     MarkingWorklists::WeakCallbackItem item;}
+\DoxyCodeLine{358     \textcolor{keywordflow}{while} (local.Pop(\&item)) \{}
+\DoxyCodeLine{359       item.callback(\mbox{\hyperlink{classcppgc_1_1internal_1_1WeakCallbackJobTask_a68e58a802fc47a0f84751535ee8e4554}{broker\_}}, item.parameter);}
+\DoxyCodeLine{360     \}}
+\DoxyCodeLine{361   \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Marking\+Worklists\+::\+Weak\+Callback\+Item\+::callback, and cppgc\+::internal\+::\+Marking\+Worklists\+::\+Weak\+Callback\+Item\+::parameter.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1WeakCallbackJobTask_a68e58a802fc47a0f84751535ee8e4554}\label{classcppgc_1_1internal_1_1WeakCallbackJobTask_a68e58a802fc47a0f84751535ee8e4554}} 
+\index{cppgc::internal::WeakCallbackJobTask@{cppgc::internal::WeakCallbackJobTask}!broker\_@{broker\_}}
+\index{broker\_@{broker\_}!cppgc::internal::WeakCallbackJobTask@{cppgc::internal::WeakCallbackJobTask}}
+\doxysubsubsection{\texorpdfstring{broker\_}{broker\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1LivenessBroker}{Liveness\+Broker}}\& cppgc\+::internal\+::\+Weak\+Callback\+Job\+Task\+::broker\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 371 of file marker.\+cc.
+
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1WeakCallbackJobTask_a202742b11a7a7e0507bfd37a0445caee}\label{classcppgc_1_1internal_1_1WeakCallbackJobTask_a202742b11a7a7e0507bfd37a0445caee}} 
+\index{cppgc::internal::WeakCallbackJobTask@{cppgc::internal::WeakCallbackJobTask}!callback\_worklist\_@{callback\_worklist\_}}
+\index{callback\_worklist\_@{callback\_worklist\_}!cppgc::internal::WeakCallbackJobTask@{cppgc::internal::WeakCallbackJobTask}}
+\doxysubsubsection{\texorpdfstring{callback\_worklist\_}{callback\_worklist\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_a1b37333527f11339fc47f1f9bee51311}{Marking\+Worklists\+::\+Weak\+Callback\+Worklist}}$\ast$ cppgc\+::internal\+::\+Weak\+Callback\+Job\+Task\+::callback\+\_\+worklist\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 370 of file marker.\+cc.
+
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1WeakCallbackJobTask_a5dfce1fd26b2a685361593e21eaa98ac}\label{classcppgc_1_1internal_1_1WeakCallbackJobTask_a5dfce1fd26b2a685361593e21eaa98ac}} 
+\index{cppgc::internal::WeakCallbackJobTask@{cppgc::internal::WeakCallbackJobTask}!marker\_@{marker\_}}
+\index{marker\_@{marker\_}!cppgc::internal::WeakCallbackJobTask@{cppgc::internal::WeakCallbackJobTask}}
+\doxysubsubsection{\texorpdfstring{marker\_}{marker\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase}{Marker\+Base}}$\ast$ cppgc\+::internal\+::\+Weak\+Callback\+Job\+Task\+::marker\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 369 of file marker.\+cc.
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{marker_8cc}{marker.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/cppgc/\mbox{\hyperlink{marker_8cc}{marker.\+cc}}\end{DoxyCompactItemize}

@@ -14,12 +14,13 @@ var handles_8h =
     [ "DirectHandleSmallVector", "classv8_1_1internal_1_1DirectHandleSmallVector.html", "classv8_1_1internal_1_1DirectHandleSmallVector" ],
     [ "is_direct_handle< DirectHandle< T > >", "structv8_1_1internal_1_1is__direct__handle_3_01DirectHandle_3_01T_01_4_01_4.html", null ],
     [ "CanonicalHandlesMap", "handles_8h.html#a5265d75ff1f7e75c1d30b13a5a50f740", null ],
-    [ "indirect_handle", "handles_8h.html#abec19f689a13a5fec8c79b964d14f5df", null ],
-    [ "indirect_handle", "handles_8h.html#a2bc23b192ab59c1669d139b4c013b404", null ],
-    [ "indirect_handle", "handles_8h.html#a19bbac9657eef0637a9e3feb32387df2", null ],
-    [ "indirect_handle", "handles_8h.html#a5f6307de12a2425b377a848ae0d3a70b", null ],
+    [ "indirect_handle", "handles_8h.html#a15cafb1d1ed1ac577609eb5e764384e8", null ],
+    [ "indirect_handle", "handles_8h.html#a66d0f7376edc1d557dd410e6800fde77", null ],
+    [ "indirect_handle", "handles_8h.html#a077b9eb05a6ce07570fa19f6b4935d48", null ],
+    [ "indirect_handle", "handles_8h.html#a3bac53fc14a04f7c2328a9b3fd5066ed", null ],
     [ "operator<<", "handles_8h.html#a5bcf64c1b9cb00cbeeba691afe65d0d0", null ],
     [ "operator<<", "handles_8h.html#ae5aafca474f6b39b4cbb86aabe31e2e3", null ],
     [ "requires", "handles_8h.html#a36a7038a14420f718296215cbf007ed9", null ],
+    [ "is_direct_handle_v", "handles_8h.html#ac64a4aab23a8524723643a53256e5294", null ],
     [ "kTaggedNullAddress", "handles_8h.html#a175c065c1245d42fdbd4a853993be670", null ]
 ];

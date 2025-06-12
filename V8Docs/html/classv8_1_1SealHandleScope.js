@@ -7,5 +7,8 @@ var classv8_1_1SealHandleScope =
     [ "operator delete[]", "classv8_1_1SealHandleScope.html#a639205e3f86908018a6b11ec5bc74ce2", null ],
     [ "operator new", "classv8_1_1SealHandleScope.html#acfa28376caa714f8814082c81c7cb655", null ],
     [ "operator new[]", "classv8_1_1SealHandleScope.html#a4de147ecd3054c3287c02f7e8ae39f6d", null ],
-    [ "operator=", "classv8_1_1SealHandleScope.html#a61b69e50f3996e315c4d3f41c1f67956", null ]
+    [ "operator=", "classv8_1_1SealHandleScope.html#a61b69e50f3996e315c4d3f41c1f67956", null ],
+    [ "i_isolate_", "classv8_1_1SealHandleScope.html#ac9b11cafbd216f0ede5ef8d2d4287369", null ],
+    [ "prev_limit_", "classv8_1_1SealHandleScope.html#ae6ba7186ad34674e06e8ea4fa833291b", null ],
+    [ "prev_sealed_level_", "classv8_1_1SealHandleScope.html#a070f75eb0735b4b0bf7b29d69e6b4e21", null ]
 ];

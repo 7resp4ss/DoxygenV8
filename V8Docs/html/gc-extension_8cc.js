@@ -1,11 +1,24 @@
 var gc_extension_8cc =
 [
-    [ "ctx_", "gc-extension_8cc.html#a48073342b9bc83678ad98795bfec75a0", null ],
-    [ "execution", "gc-extension_8cc.html#ab920a3ec433a5956890bbc612e8cced2", null ],
-    [ "filename", "gc-extension_8cc.html#ae80f820219e45772366a2a68de6a54c4", null ],
-    [ "flavor", "gc-extension_8cc.html#aae162357ccec0fccc403fa708a4b5616", null ],
-    [ "isolate_", "gc-extension_8cc.html#aed72920819562776b28e463eed473d0d", null ],
-    [ "options_", "gc-extension_8cc.html#a8b2d6638d6a0333705428ca4b944d1dd", null ],
-    [ "resolver_", "gc-extension_8cc.html#a00fa11a25071aa074f09fb8376ba359f", null ],
-    [ "type", "gc-extension_8cc.html#a40e06ffaa7ed779d3b8b233a6052e258", null ]
+    [ "GCOptions", "structv8_1_1internal_1_1anonymous__namespace_02gc-extension_8cc_03_1_1GCOptions.html", "structv8_1_1internal_1_1anonymous__namespace_02gc-extension_8cc_03_1_1GCOptions" ],
+    [ "AsyncGC", "classv8_1_1internal_1_1anonymous__namespace_02gc-extension_8cc_03_1_1AsyncGC.html", "classv8_1_1internal_1_1anonymous__namespace_02gc-extension_8cc_03_1_1AsyncGC" ],
+    [ "ExecutionType", "gc-extension_8cc.html#a5e4da2437e00f4fa8e515ad625d28dde", [
+      [ "kAsync", "gc-extension_8cc.html#a5e4da2437e00f4fa8e515ad625d28ddea9f2b960005d2a3a5f35ac32809d84db7", null ],
+      [ "kSync", "gc-extension_8cc.html#a5e4da2437e00f4fa8e515ad625d28ddeae3bade32f12a5139b27ef40b3689b77c", null ]
+    ] ],
+    [ "Flavor", "gc-extension_8cc.html#ac33d7d76e821d925a13062a0f9222d1a", [
+      [ "kRegular", "gc-extension_8cc.html#ac33d7d76e821d925a13062a0f9222d1aa520ecade39431601ba732cd4f6de66fa", null ],
+      [ "kLastResort", "gc-extension_8cc.html#ac33d7d76e821d925a13062a0f9222d1aabd3503df2f82d8b3aa7d3385e6d3220f", null ]
+    ] ],
+    [ "GCType", "gc-extension_8cc.html#a2d65f2b545102f4ae758b474c19e1c4a", [
+      [ "kMinor", "gc-extension_8cc.html#a2d65f2b545102f4ae758b474c19e1c4aa1ce30a77d317111e321816f7cd2f6514", null ],
+      [ "kMajor", "gc-extension_8cc.html#a2d65f2b545102f4ae758b474c19e1c4aa94f16e44c50fb544fc2b1f177b913cbc", null ],
+      [ "kMajorWithSnapshot", "gc-extension_8cc.html#a2d65f2b545102f4ae758b474c19e1c4aabd2b90953b4df6f5b547caf15c73c3ac", null ]
+    ] ],
+    [ "InvokeGC", "gc-extension_8cc.html#ab3b70558345c3af565cfe36d268663b9", null ],
+    [ "Parse", "gc-extension_8cc.html#aca444866315381a8a364a0394163f745", null ],
+    [ "ParseExecution", "gc-extension_8cc.html#a52a2cb80dc40bc7abe9c2d1006782c2c", null ],
+    [ "ParseFlavor", "gc-extension_8cc.html#a10192e33d940fd9fbd07e8c4b262a772", null ],
+    [ "ParseType", "gc-extension_8cc.html#adce639f8a17f9b5a393a264a2eab7d38", null ],
+    [ "ReadProperty", "gc-extension_8cc.html#aeb48058a36a85a314766b57c3bb75c82", null ]
 ];

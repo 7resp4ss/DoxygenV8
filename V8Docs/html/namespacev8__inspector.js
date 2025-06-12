@@ -1,12 +1,139 @@
 var namespacev8__inspector =
 [
-    [ "ConsoleAgentState", "namespacev8__inspector_1_1ConsoleAgentState.html", null ],
-    [ "DebuggerAgentState", "namespacev8__inspector_1_1DebuggerAgentState.html", null ],
-    [ "HeapProfilerAgentState", "namespacev8__inspector_1_1HeapProfilerAgentState.html", null ],
+    [ "anonymous_namespace{custom-preview.cc}", "namespacev8__inspector_1_1anonymous__namespace_02custom-preview_8cc_03.html", [
+      [ "bodyCallback", "namespacev8__inspector_1_1anonymous__namespace_02custom-preview_8cc_03.html#a12e88da74cd086aad8deb576767b7015", null ],
+      [ "getInjectedScript", "namespacev8__inspector_1_1anonymous__namespace_02custom-preview_8cc_03.html#add6df416cb1b22a00cbf7642f390a3d7", null ],
+      [ "reportError", "namespacev8__inspector_1_1anonymous__namespace_02custom-preview_8cc_03.html#abe7a9287cfe4167d8b39f5dda717dace", null ],
+      [ "reportError", "namespacev8__inspector_1_1anonymous__namespace_02custom-preview_8cc_03.html#a2074e13dc2805acd991da38d2f60d57c", null ],
+      [ "substituteObjectTags", "namespacev8__inspector_1_1anonymous__namespace_02custom-preview_8cc_03.html#a5c8188f94a82f1ba20626a6f289ce52b", null ]
+    ] ],
+    [ "anonymous_namespace{injected-script.cc}", "namespacev8__inspector_1_1anonymous__namespace_02injected-script_8cc_03.html", "namespacev8__inspector_1_1anonymous__namespace_02injected-script_8cc_03" ],
+    [ "anonymous_namespace{remote-object-id.cc}", "namespacev8__inspector_1_1anonymous__namespace_02remote-object-id_8cc_03.html", [
+      [ "serializeId", "namespacev8__inspector_1_1anonymous__namespace_02remote-object-id_8cc_03.html#a311080525f00769795175810acdf5132", null ]
+    ] ],
+    [ "anonymous_namespace{search-util.cc}", "namespacev8__inspector_1_1anonymous__namespace_02search-util_8cc_03.html", [
+      [ "buildObjectForSearchMatch", "namespacev8__inspector_1_1anonymous__namespace_02search-util_8cc_03.html#aec611ef824b48b016015e2069914d179", null ],
+      [ "createSearchRegex", "namespacev8__inspector_1_1anonymous__namespace_02search-util_8cc_03.html#af4c8342396b1e15845b13a69ae555c9d", null ],
+      [ "createSearchRegexSource", "namespacev8__inspector_1_1anonymous__namespace_02search-util_8cc_03.html#a34f0c889d1d990fae6109972f78ab76f", null ],
+      [ "findMagicComment", "namespacev8__inspector_1_1anonymous__namespace_02search-util_8cc_03.html#a3657f01bf798a108babc7febabbe254f", null ],
+      [ "lineEndings", "namespacev8__inspector_1_1anonymous__namespace_02search-util_8cc_03.html#a5ca0fa155817e505e7b17f37699ce0ab", null ],
+      [ "scriptRegexpMatchesByLines", "namespacev8__inspector_1_1anonymous__namespace_02search-util_8cc_03.html#a4391e7c64379937f25e9b583b343acf5", null ]
+    ] ],
+    [ "anonymous_namespace{string-16.cc}", "namespacev8__inspector_1_1anonymous__namespace_02string-16_8cc_03.html", [
+      [ "charactersToInteger", "namespacev8__inspector_1_1anonymous__namespace_02string-16_8cc_03.html#ad1b4108c4421bc427a82a11609373994", null ],
+      [ "isASCII", "namespacev8__inspector_1_1anonymous__namespace_02string-16_8cc_03.html#ac2f06f85ad8980f614f43082c8317e21", null ],
+      [ "isSpaceOrNewLine", "namespacev8__inspector_1_1anonymous__namespace_02string-16_8cc_03.html#afc0c010e812fa018e941c74b2dcb02ac", null ]
+    ] ],
+    [ "anonymous_namespace{string-util.cc}", "namespacev8__inspector_1_1anonymous__namespace_02string-util_8cc_03.html", "namespacev8__inspector_1_1anonymous__namespace_02string-util_8cc_03" ],
+    [ "anonymous_namespace{v8-console-message.cc}", "namespacev8__inspector_1_1anonymous__namespace_02v8-console-message_8cc_03.html", "namespacev8__inspector_1_1anonymous__namespace_02v8-console-message_8cc_03" ],
+    [ "anonymous_namespace{v8-console.cc}", "namespacev8__inspector_1_1anonymous__namespace_02v8-console_8cc_03.html", "namespacev8__inspector_1_1anonymous__namespace_02v8-console_8cc_03" ],
+    [ "anonymous_namespace{v8-debugger-agent-impl.cc}", "namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-agent-impl_8cc_03.html", "namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-agent-impl_8cc_03" ],
+    [ "anonymous_namespace{v8-debugger-script.cc}", "namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-script_8cc_03.html", [
+      [ "calculateHash", "namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-script_8cc_03.html#a65d0b3c6650820c8c4106df62bc3955f", null ],
+      [ "kGlobalDebuggerScriptHandleLabel", "namespacev8__inspector_1_1anonymous__namespace_02v8-debugger-script_8cc_03.html#ac40e1cfb558447e66c37384607ef821d", null ]
+    ] ],
+    [ "anonymous_namespace{v8-debugger.cc}", "namespacev8__inspector_1_1anonymous__namespace_02v8-debugger_8cc_03.html", "namespacev8__inspector_1_1anonymous__namespace_02v8-debugger_8cc_03" ],
+    [ "anonymous_namespace{v8-deep-serializer.cc}", "namespacev8__inspector_1_1anonymous__namespace_02v8-deep-serializer_8cc_03.html", [
+      [ "DescriptionForDate", "namespacev8__inspector_1_1anonymous__namespace_02v8-deep-serializer_8cc_03.html#ac963b3a928c44cf6d8a653f27e935866", null ],
+      [ "DescriptionForRegExpFlags", "namespacev8__inspector_1_1anonymous__namespace_02v8-deep-serializer_8cc_03.html#a35b2d50627152614a89b98d6c882db21", null ],
+      [ "SerializeArray", "namespacev8__inspector_1_1anonymous__namespace_02v8-deep-serializer_8cc_03.html#aad15fa51efbfb989c75da0cae04a16b3", null ],
+      [ "SerializeArrayValue", "namespacev8__inspector_1_1anonymous__namespace_02v8-deep-serializer_8cc_03.html#a882c0383c20882b7153f30edd68956d0", null ],
+      [ "SerializeDate", "namespacev8__inspector_1_1anonymous__namespace_02v8-deep-serializer_8cc_03.html#ab9a0edbf9062cc0e660c91d269d90498", null ],
+      [ "SerializeMap", "namespacev8__inspector_1_1anonymous__namespace_02v8-deep-serializer_8cc_03.html#a316538e3dd50304694043d481c6ef5a2", null ],
+      [ "SerializeObject", "namespacev8__inspector_1_1anonymous__namespace_02v8-deep-serializer_8cc_03.html#a6041d0ac3d419532b2bc2fffb7d88c55", null ],
+      [ "SerializeObjectValue", "namespacev8__inspector_1_1anonymous__namespace_02v8-deep-serializer_8cc_03.html#aad1a034d80627bc98eb8fa72968a1200", null ],
+      [ "SerializeRegexp", "namespacev8__inspector_1_1anonymous__namespace_02v8-deep-serializer_8cc_03.html#a381bb6d8b32fe6a1e13d558bb3915d8c", null ],
+      [ "SerializeSet", "namespacev8__inspector_1_1anonymous__namespace_02v8-deep-serializer_8cc_03.html#adbf2c301f4d9b5f6381f7f50696df910", null ]
+    ] ],
+    [ "anonymous_namespace{v8-heap-profiler-agent-impl.cc}", "namespacev8__inspector_1_1anonymous__namespace_02v8-heap-profiler-agent-impl_8cc_03.html", "namespacev8__inspector_1_1anonymous__namespace_02v8-heap-profiler-agent-impl_8cc_03" ],
+    [ "anonymous_namespace{v8-inspector-session-impl.cc}", "namespacev8__inspector_1_1anonymous__namespace_02v8-inspector-session-impl_8cc_03.html", [
+      [ "ConvertToCBOR", "namespacev8__inspector_1_1anonymous__namespace_02v8-inspector-session-impl_8cc_03.html#aa140387fc33809b7645cf3cf29549fe4", null ],
+      [ "IsCBORMessage", "namespacev8__inspector_1_1anonymous__namespace_02v8-inspector-session-impl_8cc_03.html#a780e23a299fa39c1e0a9370e43e3184b", null ],
+      [ "ParseState", "namespacev8__inspector_1_1anonymous__namespace_02v8-inspector-session-impl_8cc_03.html#ad49b142e3dfaf7dbcfd0d580e3901658", null ]
+    ] ],
+    [ "anonymous_namespace{v8-profiler-agent-impl.cc}", "namespacev8__inspector_1_1anonymous__namespace_02v8-profiler-agent-impl_8cc_03.html", [
+      [ "buildInspectorObjectFor", "namespacev8__inspector_1_1anonymous__namespace_02v8-profiler-agent-impl_8cc_03.html#ace5831bdcb80a169e72eb7ac6d5deedb", null ],
+      [ "buildInspectorObjectForPositionTicks", "namespacev8__inspector_1_1anonymous__namespace_02v8-profiler-agent-impl_8cc_03.html#a3d9d00eb900a61d076eb23d0021d16fc", null ],
+      [ "buildInspectorObjectForSamples", "namespacev8__inspector_1_1anonymous__namespace_02v8-profiler-agent-impl_8cc_03.html#acb5c7b6cd185d01f6cf8b936913dd4c4", null ],
+      [ "buildInspectorObjectForTimestamps", "namespacev8__inspector_1_1anonymous__namespace_02v8-profiler-agent-impl_8cc_03.html#ab6c885a2855b45bd42263b8f6bd47ae1", null ],
+      [ "coverageToProtocol", "namespacev8__inspector_1_1anonymous__namespace_02v8-profiler-agent-impl_8cc_03.html#a4ca9915bd561e7b8dd487656a3cec514", null ],
+      [ "createCoverageRange", "namespacev8__inspector_1_1anonymous__namespace_02v8-profiler-agent-impl_8cc_03.html#a7c3e60436e0a03e45d78f5a46570447d", null ],
+      [ "createCPUProfile", "namespacev8__inspector_1_1anonymous__namespace_02v8-profiler-agent-impl_8cc_03.html#a5fec3850149426715a86bb1492547e07", null ],
+      [ "currentDebugLocation", "namespacev8__inspector_1_1anonymous__namespace_02v8-profiler-agent-impl_8cc_03.html#a51484422b2b0328a02d3c47d3e93fef3", null ],
+      [ "flattenNodesTree", "namespacev8__inspector_1_1anonymous__namespace_02v8-profiler-agent-impl_8cc_03.html#ac4acce6f5edc47ad673440daaee68c50", null ],
+      [ "resourceNameToUrl", "namespacev8__inspector_1_1anonymous__namespace_02v8-profiler-agent-impl_8cc_03.html#a491c8d819709825fc3054645085277a5", null ],
+      [ "s_lastProfileId", "namespacev8__inspector_1_1anonymous__namespace_02v8-profiler-agent-impl_8cc_03.html#a5afd5a9918f6be1282fa37fd022d0bd7", null ]
+    ] ],
+    [ "anonymous_namespace{v8-runtime-agent-impl.cc}", "namespacev8__inspector_1_1anonymous__namespace_02v8-runtime-agent-impl_8cc_03.html", "namespacev8__inspector_1_1anonymous__namespace_02v8-runtime-agent-impl_8cc_03" ],
+    [ "anonymous_namespace{v8-stack-trace-impl.cc}", "namespacev8__inspector_1_1anonymous__namespace_02v8-stack-trace-impl_8cc_03.html", [
+      [ "buildInspectorObjectCommon", "namespacev8__inspector_1_1anonymous__namespace_02v8-stack-trace-impl_8cc_03.html#afea3eee0e1a325029f52eea302047199", null ],
+      [ "toFramesVector", "namespacev8__inspector_1_1anonymous__namespace_02v8-stack-trace-impl_8cc_03.html#a15f60b3f7b184baf12b5db4dae598863", null ],
+      [ "kDebuggerId", "namespacev8__inspector_1_1anonymous__namespace_02v8-stack-trace-impl_8cc_03.html#a462a6b4ba7dc47fbf52045f512a4f9a4", null ],
+      [ "kId", "namespacev8__inspector_1_1anonymous__namespace_02v8-stack-trace-impl_8cc_03.html#a3b52e4161b79a31550ebaa2878908297", null ],
+      [ "kShouldPause", "namespacev8__inspector_1_1anonymous__namespace_02v8-stack-trace-impl_8cc_03.html#adf1914ff5751468b6399ac77ed296f45", null ],
+      [ "stackTraceOptions", "namespacev8__inspector_1_1anonymous__namespace_02v8-stack-trace-impl_8cc_03.html#a83db2c414a4c0baa353598ca037d16ea", null ]
+    ] ],
+    [ "anonymous_namespace{v8-string-conversions.cc}", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html", [
+      [ "UChar", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#a6e250094bcf5f843fdc7fbdd92bcd45f", null ],
+      [ "UChar32", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#a044c32d08d466bbb42eb7166e01065ae", null ],
+      [ "ConversionResult", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#ab66c2f92739c5fbf607d4e9a3c19c735", [
+        [ "conversionOK", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#ab66c2f92739c5fbf607d4e9a3c19c735a5538dc6c44d8db96a4229d26c6aa00c3", null ],
+        [ "sourceExhausted", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#ab66c2f92739c5fbf607d4e9a3c19c735ae2db84ff1f3d928cbf372cb96120e0bf", null ],
+        [ "targetExhausted", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#ab66c2f92739c5fbf607d4e9a3c19c735ac721d268fb43f99c33ade30e4653edab", null ],
+        [ "sourceIllegal", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#ab66c2f92739c5fbf607d4e9a3c19c735a0be387be7b9dd8ce0ef995a0d61bcdf4", null ]
+      ] ],
+      [ "convertUTF16ToUTF8", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#a431ac724485d755cb50e9810a3fe2b1d", null ],
+      [ "convertUTF8ToUTF16", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#aa6e19e5362c7d74ea500cffc07f7350b", null ],
+      [ "inlineUTF8SequenceLength", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#a241e8730eb17707f75fd235594bd1b67", null ],
+      [ "inlineUTF8SequenceLengthNonASCII", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#a5a71e1d61b4b571c8cf9651334b6119c", null ],
+      [ "isASCII", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#a2409c36727a1af4f66e1853cdcdd1b52", null ],
+      [ "isLegalUTF8", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#a8c2b4260e43ec2ff610a3e7b30a90fc6", null ],
+      [ "putUTF8Triple", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#a2e895e74eab24f8980ab29c96a4bbdaa", null ],
+      [ "readUTF8Sequence", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#a751e9d7353e05b5c2fa75cb0abbe3c93", null ],
+      [ "firstByteMark", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#aaa2e6d038add513ea2e4a775896aeeeb", null ],
+      [ "offsetsFromUTF8", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#ab4b1f91f708df0495cf1dd2f97ecd761", null ],
+      [ "replacementCharacter", "namespacev8__inspector_1_1anonymous__namespace_02v8-string-conversions_8cc_03.html#ab60d358caa7bc2a02efe0f560d48164a", null ]
+    ] ],
+    [ "anonymous_namespace{value-mirror.cc}", "namespacev8__inspector_1_1anonymous__namespace_02value-mirror_8cc_03.html", "namespacev8__inspector_1_1anonymous__namespace_02value-mirror_8cc_03" ],
+    [ "ConsoleAgentState", "namespacev8__inspector_1_1ConsoleAgentState.html", [
+      [ "consoleEnabled", "namespacev8__inspector_1_1ConsoleAgentState.html#aaee4fca59d1a89f129a1327fbc9e8b9c", null ]
+    ] ],
+    [ "DebuggerAgentState", "namespacev8__inspector_1_1DebuggerAgentState.html", [
+      [ "asyncCallStackDepth", "namespacev8__inspector_1_1DebuggerAgentState.html#af180b7e9ea105de7e0f3571559298ee2", null ],
+      [ "blackboxPattern", "namespacev8__inspector_1_1DebuggerAgentState.html#a12fe053b5b95fa7f3a2d7f8a30de0708", null ],
+      [ "breakpointHintPrefixHash", "namespacev8__inspector_1_1DebuggerAgentState.html#afe7067167349c2140caa5eafcb72e069", null ],
+      [ "breakpointHintPrefixLength", "namespacev8__inspector_1_1DebuggerAgentState.html#aaf4088021739c7d6bc69795f021f2a31", null ],
+      [ "breakpointHints", "namespacev8__inspector_1_1DebuggerAgentState.html#aaa8e3ab83c1bb649bf5cc2ee5f3be074", null ],
+      [ "breakpointHintText", "namespacev8__inspector_1_1DebuggerAgentState.html#aa3ebc32ff398b5af80548b6bcd2301f3", null ],
+      [ "breakpointsActiveWhenEnabled", "namespacev8__inspector_1_1DebuggerAgentState.html#a4efe963b65681c252111933def8e9de6", null ],
+      [ "breakpointsByRegex", "namespacev8__inspector_1_1DebuggerAgentState.html#a9ae1aa76bdc709c0a3cd04a9eb1495ec", null ],
+      [ "breakpointsByScriptHash", "namespacev8__inspector_1_1DebuggerAgentState.html#a4a5223b264cb3440d55040cc18c4da9d", null ],
+      [ "breakpointsByUrl", "namespacev8__inspector_1_1DebuggerAgentState.html#ab6d42dd6c0d164a395c5482ced54c27c", null ],
+      [ "debuggerEnabled", "namespacev8__inspector_1_1DebuggerAgentState.html#aadae04758b938e1d1944af2841c9db90", null ],
+      [ "instrumentationBreakpoints", "namespacev8__inspector_1_1DebuggerAgentState.html#a67f93d8e97e2df81fa49132cc63c08ba", null ],
+      [ "maxScriptCacheSize", "namespacev8__inspector_1_1DebuggerAgentState.html#a66b577ce8c0f20431bf2ca0e0fdc0e4d", null ],
+      [ "pauseOnExceptionsState", "namespacev8__inspector_1_1DebuggerAgentState.html#a2c0c3983286bedc863cc89a9e4a69878", null ],
+      [ "skipAllPauses", "namespacev8__inspector_1_1DebuggerAgentState.html#a1e7b1ed0da5a25d2ac0fdc50188185dc", null ],
+      [ "skipAnonymousScripts", "namespacev8__inspector_1_1DebuggerAgentState.html#ac5e15f1410c7810e7e09498e8af2d468", null ]
+    ] ],
     [ "internal", "namespacev8__inspector_1_1internal.html", "namespacev8__inspector_1_1internal" ],
-    [ "ProfilerAgentState", "namespacev8__inspector_1_1ProfilerAgentState.html", null ],
+    [ "ProfilerAgentState", "namespacev8__inspector_1_1ProfilerAgentState.html", [
+      [ "preciseCoverageAllowTriggeredUpdates", "namespacev8__inspector_1_1ProfilerAgentState.html#a36cdf1653f4726461f9cbc2be8e5efba", null ],
+      [ "preciseCoverageCallCount", "namespacev8__inspector_1_1ProfilerAgentState.html#a7423823af0d04254a55a151b5c437bb1", null ],
+      [ "preciseCoverageDetailed", "namespacev8__inspector_1_1ProfilerAgentState.html#ac8c9c0ea2311af983c28faca5002f73c", null ],
+      [ "preciseCoverageStarted", "namespacev8__inspector_1_1ProfilerAgentState.html#aa20eb792cf7dbff58f450bad1ca6af5b", null ],
+      [ "profilerEnabled", "namespacev8__inspector_1_1ProfilerAgentState.html#af1c9714af051f9fa331d27213857a57f", null ],
+      [ "samplingInterval", "namespacev8__inspector_1_1ProfilerAgentState.html#aac268b68923fa52eeb69acd6fabb3ec9", null ],
+      [ "userInitiatedProfiling", "namespacev8__inspector_1_1ProfilerAgentState.html#a5748ff0b815817aeee4c23a5f82889e9", null ]
+    ] ],
     [ "protocol", "namespacev8__inspector_1_1protocol.html", "namespacev8__inspector_1_1protocol" ],
-    [ "V8RuntimeAgentImplState", "namespacev8__inspector_1_1V8RuntimeAgentImplState.html", null ],
+    [ "V8RuntimeAgentImplState", "namespacev8__inspector_1_1V8RuntimeAgentImplState.html", [
+      [ "bindings", "namespacev8__inspector_1_1V8RuntimeAgentImplState.html#ac75ee702b151e25d6fe487b23b8627f3", null ],
+      [ "customObjectFormatterEnabled", "namespacev8__inspector_1_1V8RuntimeAgentImplState.html#ab738dc14f8b85865a0da0143a0c5fa67", null ],
+      [ "globalBindingsKey", "namespacev8__inspector_1_1V8RuntimeAgentImplState.html#a4711725dcd59169aa7659b6bdc6426dd", null ],
+      [ "maxCallStackSizeToCapture", "namespacev8__inspector_1_1V8RuntimeAgentImplState.html#acd8532731fbdee54dcd805bebcad2341", null ],
+      [ "runtimeEnabled", "namespacev8__inspector_1_1V8RuntimeAgentImplState.html#a2d5a5c58272008da9de72ad4372ca782", null ]
+    ] ],
     [ "EvaluateCallback", "classv8__inspector_1_1EvaluateCallback.html", "classv8__inspector_1_1EvaluateCallback" ],
     [ "InjectedScript", "classv8__inspector_1_1InjectedScript.html", "classv8__inspector_1_1InjectedScript" ],
     [ "PromiseHandlerTracker", "classv8__inspector_1_1PromiseHandlerTracker.html", "classv8__inspector_1_1PromiseHandlerTracker" ],
@@ -105,16 +232,20 @@ var namespacev8__inspector =
     [ "computeCrc32", "namespacev8__inspector.html#a40922965c3a227a0df3fcdc93b49878e", null ],
     [ "createDataProperty", "namespacev8__inspector.html#a9f2ca85ca82de16a563cc6b11753d405", null ],
     [ "createDataProperty", "namespacev8__inspector.html#a9a9cb7fd48cb5fe180706b5b80cd8ab4", null ],
-    [ "DumpAsyncTaskStacksStateForTest", "namespacev8__inspector.html#a7931d9851e97480a8f640a145dad64c5", null ],
+    [ "DumpAsyncTaskStacksStateForTest", "namespacev8__inspector.html#a17bd1f860ba1d447b62409b9d497328b", null ],
     [ "findDebugId", "namespacev8__inspector.html#acffb2de9adde297314bccd8cd924da15", null ],
     [ "findSourceMapURL", "namespacev8__inspector.html#aee19dab5c1b0bf30cc3b60b1d33f6cdf", null ],
     [ "findSourceURL", "namespacev8__inspector.html#aace821a31682180f1f35c2302250c804", null ],
     [ "generateCustomPreview", "namespacev8__inspector.html#a78c1186239f6dabcc71809df78b3c6db", null ],
     [ "generateCustomPreview", "namespacev8__inspector.html#a1e54fde6c533e26aee050e8bec43959e", null ],
+    [ "getScriptLanguage", "namespacev8__inspector.html#a07c2ef1d0f5ee4438f77c5d5c3446746", null ],
+    [ "inspectImpl", "namespacev8__inspector.html#a9d0caab276499ea29ed13c31eecb4587", null ],
+    [ "isCommandLineAPIGetter", "namespacev8__inspector.html#a3111982b62ff340b1564a175a57aa936", null ],
     [ "objectToProtocolValue", "namespacev8__inspector.html#a5f858f15810579bb8bcdd15980b46ab9", null ],
     [ "operator+", "namespacev8__inspector.html#a19c471a3adb1394ea720be9ba6118ad5", null ],
     [ "searchInTextByLinesImpl", "namespacev8__inspector.html#aa7a3f202eb5da44536d55968a8af3792", null ],
-    [ "SetMaxAsyncTaskStacksForTest", "namespacev8__inspector.html#a6c68a9eff1e41928b6ef4b5edb9aa336", null ],
+    [ "setFunctionBreakpoint", "namespacev8__inspector.html#a86f8799fc46407259cb892df52a0e7be", null ],
+    [ "SetMaxAsyncTaskStacksForTest", "namespacev8__inspector.html#a54da9f2d664326d83a067f3df51bfea2", null ],
     [ "stackTraceIdToString", "namespacev8__inspector.html#a5984e924a4b1ddb0f815abd0a8fc5322", null ],
     [ "StringBufferFrom", "namespacev8__inspector.html#af5294078c4e93d418e23aa2d7ceb9a6a", null ],
     [ "StringBufferFrom", "namespacev8__inspector.html#a76194db5d928fcddda1be7ebbcb288bc", null ],
@@ -133,5 +264,14 @@ var namespacev8__inspector =
     [ "toV8StringInternalized", "namespacev8__inspector.html#ae67dd6fa57f44895e7a7cdc8391e5bd8", null ],
     [ "UTF16ToUTF8", "namespacev8__inspector.html#a616a4988d37751c2608fe9e601773615", null ],
     [ "UTF8ToUTF16", "namespacev8__inspector.html#a0604bf8a00b61d291343a3b338ce8dac", null ],
-    [ "kMaxCustomPreviewDepth", "namespacev8__inspector.html#a7fed355797f9701b023480e59ae996b5", null ]
+    [ "kBacktraceObjectGroup", "namespacev8__inspector.html#af368e6275663f0262c06e21927a38116", null ],
+    [ "kBreakpointHintMaxLength", "namespacev8__inspector.html#a81adfb8fc4eb787f9b3bd1576199dd21", null ],
+    [ "kBreakpointHintMaxSearchOffset", "namespacev8__inspector.html#a0039cd5f1f8337c25bc71c33c93019de", null ],
+    [ "kCrcTable", "namespacev8__inspector.html#aff14cd485a374cc1b088fa2291c418b7", null ],
+    [ "kDebuggerNotEnabled", "namespacev8__inspector.html#a278fa1db9e59ca1239e304f201e411f6", null ],
+    [ "kDebuggerNotPaused", "namespacev8__inspector.html#a5846076882a3e438bd2a9b2dab79132e", null ],
+    [ "kDefaultTimerDelay", "namespacev8__inspector.html#a741c5cc963adc16e80a02ea3f952dac7", null ],
+    [ "kMaxCustomPreviewDepth", "namespacev8__inspector.html#a7fed355797f9701b023480e59ae996b5", null ],
+    [ "kMaxNumBreakpoints", "namespacev8__inspector.html#a18b24789dc6e668e74ff5ad505d93146", null ],
+    [ "kMaxProtocolDepth", "namespacev8__inspector.html#acf6ad40eb8c35ba26fe9683b736f03ef", null ]
 ];

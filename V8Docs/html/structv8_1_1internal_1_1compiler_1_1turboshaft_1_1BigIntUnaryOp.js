@@ -8,5 +8,6 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BigIntUnaryOp =
     [ "inputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BigIntUnaryOp.html#a746753dc1363a0cc21677191e035d5f4", null ],
     [ "options", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BigIntUnaryOp.html#a2408d32733b63f3744c39a235a5f92f6", null ],
     [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BigIntUnaryOp.html#aa65d5ff25120d2b62769d394156d063a", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BigIntUnaryOp.html#a6ce8cbed761b750a1a754d2ca376a9e3", null ],
     [ "kind", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BigIntUnaryOp.html#a75b77a577d7af07b8dab37f2eaf90bc9", null ]
 ];

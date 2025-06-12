@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$collection-\/barrier.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Collection\+Barrier\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CollectionBarrier__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -23,6 +33,34 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a9d9bbced2761571a
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_ac036f23498509cc7405c14bae963a32f}{Await\+Collection\+Background}} (\mbox{\hyperlink{classv8_1_1internal_1_1LocalHeap}{Local\+Heap}} $\ast$local\+\_\+heap)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_ab1e62ab4a7978d465af7a3e462550d00}{heap\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_acc539d9f884358ebd8e3a2a3089db671}{mutex\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable}{base\+::\+Condition\+Variable}} \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a999710d95bdec9ef19fc9bbea380d235}{cv\+\_\+wakeup\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer}{base\+::\+Elapsed\+Timer}} \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a277f749e95e1358eb24a96b9e13bb2a4}{timer\+\_\+}}
+\item 
+std\+::atomic$<$ \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_af62b394ac5e2211f5ffbd9c2bf1b6db0}{collection\+\_\+requested\+\_\+}} \{\mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a06d30fa97ea2b68280a8d0d8f1da3935}{block\+\_\+for\+\_\+collection\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a6bbda532e506fa7fe09f04c4002683a9}{collection\+\_\+performed\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_aa3dd911ec0384af378bdc7915d49610d}{shutdown\+\_\+requested\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1TaskRunner}{v8\+::\+Task\+Runner}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a15f7e20f0fad54316785ac0da24704dd}{foreground\+\_\+task\+\_\+runner\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 22 of file collection-\/barrier.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -34,6 +72,15 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a9d9bbced2761571a
 
 
 
+Definition at line 22 of file collection-\/barrier.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24     : \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_ab1e62ab4a7978d465af7a3e462550d00}{heap\_}}(\mbox{\hyperlink{namespaceheap}{heap}}), \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a15f7e20f0fad54316785ac0da24704dd}{foreground\_task\_runner\_}}(foreground\_task\_runner) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_ac036f23498509cc7405c14bae963a32f}\label{classv8_1_1internal_1_1CollectionBarrier_ac036f23498509cc7405c14bae963a32f}} 
 \index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!AwaitCollectionBackground@{AwaitCollectionBackground}}
@@ -41,36 +88,254 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a9d9bbced2761571a
 \doxysubsubsection{\texorpdfstring{AwaitCollectionBackground()}{AwaitCollectionBackground()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Collection\+Barrier\+::\+Await\+Collection\+Background (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1LocalHeap}{Local\+Heap}} $\ast$}]{local\+\_\+heap }\end{DoxyParamCaption})}
 
+
+
+Definition at line 91 of file collection-\/barrier.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{91                                                                        \{}
+\DoxyCodeLine{92   \textcolor{keywordtype}{bool} first\_thread;}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94   \{}
+\DoxyCodeLine{95     \textcolor{comment}{// Update flag before parking this thread, this guarantees that the flag is}}
+\DoxyCodeLine{96     \textcolor{comment}{// set before the next GC.}}
+\DoxyCodeLine{97     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_acc539d9f884358ebd8e3a2a3089db671}{mutex\_}});}
+\DoxyCodeLine{98     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_aa3dd911ec0384af378bdc7915d49610d}{shutdown\_requested\_}}) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100     \textcolor{comment}{// Collection was cancelled by the main thread.}}
+\DoxyCodeLine{101     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_af62b394ac5e2211f5ffbd9c2bf1b6db0}{collection\_requested\_}}.load()) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103     first\_thread = !\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a06d30fa97ea2b68280a8d0d8f1da3935}{block\_for\_collection\_}};}
+\DoxyCodeLine{104     \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a06d30fa97ea2b68280a8d0d8f1da3935}{block\_for\_collection\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{105     \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a277f749e95e1358eb24a96b9e13bb2a4}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_a14e1e398cec7a771e1dbb5a44734258d}{IsStarted}}());}
+\DoxyCodeLine{106   \}}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108   \textcolor{comment}{// The first thread needs to activate the stack guard and post the task.}}
+\DoxyCodeLine{109   \textcolor{keywordflow}{if} (first\_thread) \{}
+\DoxyCodeLine{110     Isolate* isolate = \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_ab1e62ab4a7978d465af7a3e462550d00}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ae5160ad63bc51ff7b36e8f247be48f63}{isolate}}();}
+\DoxyCodeLine{111     ExecutionAccess access(isolate);}
+\DoxyCodeLine{112     isolate-\/>stack\_guard()-\/>RequestGC();}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114     \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a15f7e20f0fad54316785ac0da24704dd}{foreground\_task\_runner\_}}-\/>PostTask(}
+\DoxyCodeLine{115         std::make\_unique<BackgroundCollectionInterruptTask>(\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_ab1e62ab4a7978d465af7a3e462550d00}{heap\_}}));}
+\DoxyCodeLine{116   \}}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118   \textcolor{keywordtype}{bool} collection\_performed = \textcolor{keyword}{false};}
+\DoxyCodeLine{119   local\_heap-\/>ExecuteWhileParked([\textcolor{keyword}{this}, \&collection\_performed]() \{}
+\DoxyCodeLine{120     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_acc539d9f884358ebd8e3a2a3089db671}{mutex\_}});}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122     \textcolor{keywordflow}{while} (\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a06d30fa97ea2b68280a8d0d8f1da3935}{block\_for\_collection\_}}) \{}
+\DoxyCodeLine{123       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_aa3dd911ec0384af378bdc7915d49610d}{shutdown\_requested\_}}) \{}
+\DoxyCodeLine{124         collection\_performed = \textcolor{keyword}{false};}
+\DoxyCodeLine{125         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{126       \}}
+\DoxyCodeLine{127       \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a999710d95bdec9ef19fc9bbea380d235}{cv\_wakeup\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable_a29ca064849ef418937bbedcb0900279c}{Wait}}(\&\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_acc539d9f884358ebd8e3a2a3089db671}{mutex\_}});}
+\DoxyCodeLine{128     \}}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130     \textcolor{comment}{// Collection may have been cancelled while blocking for it.}}
+\DoxyCodeLine{131     collection\_performed = \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a6bbda532e506fa7fe09f04c4002683a9}{collection\_performed\_}};}
+\DoxyCodeLine{132   \});}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134   \textcolor{keywordflow}{return} collection\_performed;}
+\DoxyCodeLine{135 \}}
+
+\end{DoxyCode}
+
+
+References block\+\_\+for\+\_\+collection\+\_\+, CHECK, collection\+\_\+performed\+\_\+, collection\+\_\+requested\+\_\+, cv\+\_\+wakeup\+\_\+, v8\+::internal\+::\+Local\+Heap\+::\+Execute\+While\+Parked(), foreground\+\_\+task\+\_\+runner\+\_\+, heap\+\_\+, v8\+::internal\+::\+Heap\+::isolate(), v8\+::base\+::\+Elapsed\+Timer\+::\+Is\+Started(), mutex\+\_\+, shutdown\+\_\+requested\+\_\+, v8\+::internal\+::\+Isolate\+::stack\+\_\+guard(), timer\+\_\+, and v8\+::base\+::\+Condition\+Variable\+::\+Wait().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CollectionBarrier_ac036f23498509cc7405c14bae963a32f_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_a9d9bbced2761571a068e356e9d557cb2}\label{classv8_1_1internal_1_1CollectionBarrier_a9d9bbced2761571a068e356e9d557cb2}} 
 \index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!CancelCollectionAndResumeThreads@{CancelCollectionAndResumeThreads}}
 \index{CancelCollectionAndResumeThreads@{CancelCollectionAndResumeThreads}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
 \doxysubsubsection{\texorpdfstring{CancelCollectionAndResumeThreads()}{CancelCollectionAndResumeThreads()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Collection\+Barrier\+::\+Cancel\+Collection\+And\+Resume\+Threads (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 82 of file collection-\/barrier.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{82                                                          \{}
+\DoxyCodeLine{83   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_acc539d9f884358ebd8e3a2a3089db671}{mutex\_}});}
+\DoxyCodeLine{84   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a277f749e95e1358eb24a96b9e13bb2a4}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_a14e1e398cec7a771e1dbb5a44734258d}{IsStarted}}()) \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a277f749e95e1358eb24a96b9e13bb2a4}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_ae6991b8f7a97d66db8a05fc4b36b6c98}{Stop}}();}
+\DoxyCodeLine{85   \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_af62b394ac5e2211f5ffbd9c2bf1b6db0}{collection\_requested\_}}.store(\textcolor{keyword}{false});}
+\DoxyCodeLine{86   \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a06d30fa97ea2b68280a8d0d8f1da3935}{block\_for\_collection\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{87   \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a6bbda532e506fa7fe09f04c4002683a9}{collection\_performed\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{88   \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a999710d95bdec9ef19fc9bbea380d235}{cv\_wakeup\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable_a28caf62e21af81a016735dd9f11010d0}{NotifyAll}}();}
+\DoxyCodeLine{89 \}}
+
+\end{DoxyCode}
+
+
+References block\+\_\+for\+\_\+collection\+\_\+, collection\+\_\+performed\+\_\+, collection\+\_\+requested\+\_\+, cv\+\_\+wakeup\+\_\+, v8\+::base\+::\+Elapsed\+Timer\+::\+Is\+Started(), mutex\+\_\+, v8\+::base\+::\+Condition\+Variable\+::\+Notify\+All(), v8\+::base\+::\+Elapsed\+Timer\+::\+Stop(), and timer\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CollectionBarrier_a9d9bbced2761571a068e356e9d557cb2_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_ac4e46ce1ce930586274ed3a2b5cc2327}\label{classv8_1_1internal_1_1CollectionBarrier_ac4e46ce1ce930586274ed3a2b5cc2327}} 
 \index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!NotifyShutdownRequested@{NotifyShutdownRequested}}
 \index{NotifyShutdownRequested@{NotifyShutdownRequested}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
 \doxysubsubsection{\texorpdfstring{NotifyShutdownRequested()}{NotifyShutdownRequested()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Collection\+Barrier\+::\+Notify\+Shutdown\+Requested (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 66 of file collection-\/barrier.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66                                                 \{}
+\DoxyCodeLine{67   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_acc539d9f884358ebd8e3a2a3089db671}{mutex\_}});}
+\DoxyCodeLine{68   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a277f749e95e1358eb24a96b9e13bb2a4}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_a14e1e398cec7a771e1dbb5a44734258d}{IsStarted}}()) \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a277f749e95e1358eb24a96b9e13bb2a4}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_ae6991b8f7a97d66db8a05fc4b36b6c98}{Stop}}();}
+\DoxyCodeLine{69   \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_aa3dd911ec0384af378bdc7915d49610d}{shutdown\_requested\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{70   \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a999710d95bdec9ef19fc9bbea380d235}{cv\_wakeup\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable_a28caf62e21af81a016735dd9f11010d0}{NotifyAll}}();}
+\DoxyCodeLine{71 \}}
+
+\end{DoxyCode}
+
+
+References cv\+\_\+wakeup\+\_\+, v8\+::base\+::\+Elapsed\+Timer\+::\+Is\+Started(), mutex\+\_\+, v8\+::base\+::\+Condition\+Variable\+::\+Notify\+All(), shutdown\+\_\+requested\+\_\+, v8\+::base\+::\+Elapsed\+Timer\+::\+Stop(), and timer\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CollectionBarrier_ac4e46ce1ce930586274ed3a2b5cc2327_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_a192625068f45e1dab38325eba1834423}\label{classv8_1_1internal_1_1CollectionBarrier_a192625068f45e1dab38325eba1834423}} 
 \index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!ResumeThreadsAwaitingCollection@{ResumeThreadsAwaitingCollection}}
 \index{ResumeThreadsAwaitingCollection@{ResumeThreadsAwaitingCollection}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
 \doxysubsubsection{\texorpdfstring{ResumeThreadsAwaitingCollection()}{ResumeThreadsAwaitingCollection()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Collection\+Barrier\+::\+Resume\+Threads\+Awaiting\+Collection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 73 of file collection-\/barrier.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{73                                                         \{}
+\DoxyCodeLine{74   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_acc539d9f884358ebd8e3a2a3089db671}{mutex\_}});}
+\DoxyCodeLine{75   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a277f749e95e1358eb24a96b9e13bb2a4}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_a14e1e398cec7a771e1dbb5a44734258d}{IsStarted}}());}
+\DoxyCodeLine{76   \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_af62b394ac5e2211f5ffbd9c2bf1b6db0}{collection\_requested\_}}.store(\textcolor{keyword}{false});}
+\DoxyCodeLine{77   \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a06d30fa97ea2b68280a8d0d8f1da3935}{block\_for\_collection\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{78   \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a6bbda532e506fa7fe09f04c4002683a9}{collection\_performed\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{79   \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a999710d95bdec9ef19fc9bbea380d235}{cv\_wakeup\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable_a28caf62e21af81a016735dd9f11010d0}{NotifyAll}}();}
+\DoxyCodeLine{80 \}}
+
+\end{DoxyCode}
+
+
+References block\+\_\+for\+\_\+collection\+\_\+, collection\+\_\+performed\+\_\+, collection\+\_\+requested\+\_\+, cv\+\_\+wakeup\+\_\+, v8\+::internal\+::\+DCHECK(), v8\+::base\+::\+Elapsed\+Timer\+::\+Is\+Started(), mutex\+\_\+, v8\+::base\+::\+Condition\+Variable\+::\+Notify\+All(), and timer\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CollectionBarrier_a192625068f45e1dab38325eba1834423_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_a8d8153d9601479b48877c6425e95446e}\label{classv8_1_1internal_1_1CollectionBarrier_a8d8153d9601479b48877c6425e95446e}} 
 \index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!StopTimeToCollectionTimer@{StopTimeToCollectionTimer}}
 \index{StopTimeToCollectionTimer@{StopTimeToCollectionTimer}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
 \doxysubsubsection{\texorpdfstring{StopTimeToCollectionTimer()}{StopTimeToCollectionTimer()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Collection\+Barrier\+::\+Stop\+Time\+To\+Collection\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 137 of file collection-\/barrier.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{137                                                   \{}
+\DoxyCodeLine{138   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_af62b394ac5e2211f5ffbd9c2bf1b6db0}{collection\_requested\_}}.load()) \{}
+\DoxyCodeLine{139     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_acc539d9f884358ebd8e3a2a3089db671}{mutex\_}});}
+\DoxyCodeLine{140     \textcolor{comment}{// The first thread that requests the GC, starts the timer first and *then*}}
+\DoxyCodeLine{141     \textcolor{comment}{// parks itself. Since we are in a safepoint here, the timer is always}}
+\DoxyCodeLine{142     \textcolor{comment}{// initialized here already.}}
+\DoxyCodeLine{143     \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a277f749e95e1358eb24a96b9e13bb2a4}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_a14e1e398cec7a771e1dbb5a44734258d}{IsStarted}}());}
+\DoxyCodeLine{144     base::TimeDelta delta = \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a277f749e95e1358eb24a96b9e13bb2a4}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_a322a9d18bf9a1a89a232fc014639207b}{Elapsed}}();}
+\DoxyCodeLine{145     \mbox{\hyperlink{trace-event-no-perfetto_8h_a76faba239b594211220dc4dc613025e4}{TRACE\_EVENT\_INSTANT1}}(\mbox{\hyperlink{trace-event-no-perfetto_8h_a97689377430b094caec680dd7dd230fe}{TRACE\_DISABLED\_BY\_DEFAULT}}(\textcolor{stringliteral}{"{}v8.gc"{}}),}
+\DoxyCodeLine{146                          \textcolor{stringliteral}{"{}V8.GC.TimeToCollectionOnBackground"{}},}
+\DoxyCodeLine{147                          \mbox{\hyperlink{trace-event-no-perfetto_8h_a8b5bca924ef796a311bb5ba5c8d7f57d}{TRACE\_EVENT\_SCOPE\_THREAD}}, \textcolor{stringliteral}{"{}duration"{}},}
+\DoxyCodeLine{148                          delta.InMillisecondsF());}
+\DoxyCodeLine{149     \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_ab1e62ab4a7978d465af7a3e462550d00}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ae5160ad63bc51ff7b36e8f247be48f63}{isolate}}()}
+\DoxyCodeLine{150         -\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a9690b82e4f9b4c8a9160630396cde0b3}{counters}}()}
+\DoxyCodeLine{151         -\/>gc\_time\_to\_collection\_on\_background()}
+\DoxyCodeLine{152         -\/>AddTimedSample(delta);}
+\DoxyCodeLine{153     \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a277f749e95e1358eb24a96b9e13bb2a4}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_ae6991b8f7a97d66db8a05fc4b36b6c98}{Stop}}();}
+\DoxyCodeLine{154   \}}
+\DoxyCodeLine{155 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, collection\+\_\+requested\+\_\+, v8\+::internal\+::\+Isolate\+::counters(), v8\+::base\+::\+Elapsed\+Timer\+::\+Elapsed(), heap\+\_\+, v8\+::base\+::\+Time\+Delta\+::\+In\+Milliseconds\+F(), v8\+::internal\+::\+Heap\+::isolate(), v8\+::base\+::\+Elapsed\+Timer\+::\+Is\+Started(), mutex\+\_\+, v8\+::base\+::\+Elapsed\+Timer\+::\+Stop(), timer\+\_\+, TRACE\+\_\+\+DISABLED\+\_\+\+BY\+\_\+\+DEFAULT, TRACE\+\_\+\+EVENT\+\_\+\+INSTANT1, and TRACE\+\_\+\+EVENT\+\_\+\+SCOPE\+\_\+\+THREAD.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CollectionBarrier_a8d8153d9601479b48877c6425e95446e_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_a99f364b4dc4da6af1f6f16162a6bcb2d}\label{classv8_1_1internal_1_1CollectionBarrier_a99f364b4dc4da6af1f6f16162a6bcb2d}} 
 \index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!TryRequestGC@{TryRequestGC}}
 \index{TryRequestGC@{TryRequestGC}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
 \doxysubsubsection{\texorpdfstring{TryRequestGC()}{TryRequestGC()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Collection\+Barrier\+::\+Try\+Request\+GC (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 30 of file collection-\/barrier.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30                                      \{}
+\DoxyCodeLine{31   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_acc539d9f884358ebd8e3a2a3089db671}{mutex\_}});}
+\DoxyCodeLine{32   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_aa3dd911ec0384af378bdc7915d49610d}{shutdown\_requested\_}}) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{33   \textcolor{keywordtype}{bool} was\_already\_requested = \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_af62b394ac5e2211f5ffbd9c2bf1b6db0}{collection\_requested\_}}.exchange(\textcolor{keyword}{true});}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35   \textcolor{keywordflow}{if} (!was\_already\_requested) \{}
+\DoxyCodeLine{36     \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a277f749e95e1358eb24a96b9e13bb2a4}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_a14e1e398cec7a771e1dbb5a44734258d}{IsStarted}}());}
+\DoxyCodeLine{37     \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a277f749e95e1358eb24a96b9e13bb2a4}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_a451f6e2636acacce40e1dad13fbf7a20}{Start}}();}
+\DoxyCodeLine{38   \}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{41 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, collection\+\_\+requested\+\_\+, v8\+::base\+::\+Elapsed\+Timer\+::\+Is\+Started(), mutex\+\_\+, shutdown\+\_\+requested\+\_\+, v8\+::base\+::\+Elapsed\+Timer\+::\+Start(), and timer\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CollectionBarrier_a99f364b4dc4da6af1f6f16162a6bcb2d_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_a0c3a947b0f6a347cc45f2dbfa7df3b5e}\label{classv8_1_1internal_1_1CollectionBarrier_a0c3a947b0f6a347cc45f2dbfa7df3b5e}} 
 \index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!WasGCRequested@{WasGCRequested}}
 \index{WasGCRequested@{WasGCRequested}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
@@ -79,7 +344,151 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_a9d9bbced2761571a
 
 
 
+Definition at line 26 of file collection-\/barrier.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26                                        \{}
+\DoxyCodeLine{27   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1CollectionBarrier_af62b394ac5e2211f5ffbd9c2bf1b6db0}{collection\_requested\_}}.load();}
+\DoxyCodeLine{28 \}}
+
+\end{DoxyCode}
+
+
+References collection\+\_\+requested\+\_\+.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_a06d30fa97ea2b68280a8d0d8f1da3935}\label{classv8_1_1internal_1_1CollectionBarrier_a06d30fa97ea2b68280a8d0d8f1da3935}} 
+\index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!block\_for\_collection\_@{block\_for\_collection\_}}
+\index{block\_for\_collection\_@{block\_for\_collection\_}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
+\doxysubsubsection{\texorpdfstring{block\_for\_collection\_}{block\_for\_collection\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Collection\+Barrier\+::block\+\_\+for\+\_\+collection\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 64 of file collection-\/barrier.\+h.
+
+
+
+Referenced by Await\+Collection\+Background(), Cancel\+Collection\+And\+Resume\+Threads(), and Resume\+Threads\+Awaiting\+Collection().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_a6bbda532e506fa7fe09f04c4002683a9}\label{classv8_1_1internal_1_1CollectionBarrier_a6bbda532e506fa7fe09f04c4002683a9}} 
+\index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!collection\_performed\_@{collection\_performed\_}}
+\index{collection\_performed\_@{collection\_performed\_}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
+\doxysubsubsection{\texorpdfstring{collection\_performed\_}{collection\_performed\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Collection\+Barrier\+::collection\+\_\+performed\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 68 of file collection-\/barrier.\+h.
+
+
+
+Referenced by Await\+Collection\+Background(), Cancel\+Collection\+And\+Resume\+Threads(), and Resume\+Threads\+Awaiting\+Collection().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_af62b394ac5e2211f5ffbd9c2bf1b6db0}\label{classv8_1_1internal_1_1CollectionBarrier_af62b394ac5e2211f5ffbd9c2bf1b6db0}} 
+\index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!collection\_requested\_@{collection\_requested\_}}
+\index{collection\_requested\_@{collection\_requested\_}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
+\doxysubsubsection{\texorpdfstring{collection\_requested\_}{collection\_requested\_}}
+{\footnotesize\ttfamily std\+::atomic$<$\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}}$>$ v8\+::internal\+::\+Collection\+Barrier\+::collection\+\_\+requested\+\_\+ \{\mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 59 of file collection-\/barrier.\+h.
+
+
+
+Referenced by Await\+Collection\+Background(), Cancel\+Collection\+And\+Resume\+Threads(), Resume\+Threads\+Awaiting\+Collection(), Stop\+Time\+To\+Collection\+Timer(), Try\+Request\+GC(), and Was\+GCRequested().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_a999710d95bdec9ef19fc9bbea380d235}\label{classv8_1_1internal_1_1CollectionBarrier_a999710d95bdec9ef19fc9bbea380d235}} 
+\index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!cv\_wakeup\_@{cv\_wakeup\_}}
+\index{cv\_wakeup\_@{cv\_wakeup\_}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
+\doxysubsubsection{\texorpdfstring{cv\_wakeup\_}{cv\_wakeup\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable}{base\+::\+Condition\+Variable}} v8\+::internal\+::\+Collection\+Barrier\+::cv\+\_\+wakeup\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 54 of file collection-\/barrier.\+h.
+
+
+
+Referenced by Await\+Collection\+Background(), Cancel\+Collection\+And\+Resume\+Threads(), Notify\+Shutdown\+Requested(), and Resume\+Threads\+Awaiting\+Collection().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_a15f7e20f0fad54316785ac0da24704dd}\label{classv8_1_1internal_1_1CollectionBarrier_a15f7e20f0fad54316785ac0da24704dd}} 
+\index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!foreground\_task\_runner\_@{foreground\_task\_runner\_}}
+\index{foreground\_task\_runner\_@{foreground\_task\_runner\_}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
+\doxysubsubsection{\texorpdfstring{foreground\_task\_runner\_}{foreground\_task\_runner\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1TaskRunner}{v8\+::\+Task\+Runner}}$>$ v8\+::internal\+::\+Collection\+Barrier\+::foreground\+\_\+task\+\_\+runner\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 74 of file collection-\/barrier.\+h.
+
+
+
+Referenced by Await\+Collection\+Background().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_ab1e62ab4a7978d465af7a3e462550d00}\label{classv8_1_1internal_1_1CollectionBarrier_ab1e62ab4a7978d465af7a3e462550d00}} 
+\index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!heap\_@{heap\_}}
+\index{heap\_@{heap\_}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
+\doxysubsubsection{\texorpdfstring{heap\_}{heap\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}}$\ast$ v8\+::internal\+::\+Collection\+Barrier\+::heap\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 52 of file collection-\/barrier.\+h.
+
+
+
+Referenced by Await\+Collection\+Background(), and Stop\+Time\+To\+Collection\+Timer().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_acc539d9f884358ebd8e3a2a3089db671}\label{classv8_1_1internal_1_1CollectionBarrier_acc539d9f884358ebd8e3a2a3089db671}} 
+\index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!mutex\_@{mutex\_}}
+\index{mutex\_@{mutex\_}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
+\doxysubsubsection{\texorpdfstring{mutex\_}{mutex\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} v8\+::internal\+::\+Collection\+Barrier\+::mutex\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 53 of file collection-\/barrier.\+h.
+
+
+
+Referenced by Await\+Collection\+Background(), Cancel\+Collection\+And\+Resume\+Threads(), Notify\+Shutdown\+Requested(), Resume\+Threads\+Awaiting\+Collection(), Stop\+Time\+To\+Collection\+Timer(), and Try\+Request\+GC().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_aa3dd911ec0384af378bdc7915d49610d}\label{classv8_1_1internal_1_1CollectionBarrier_aa3dd911ec0384af378bdc7915d49610d}} 
+\index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!shutdown\_requested\_@{shutdown\_requested\_}}
+\index{shutdown\_requested\_@{shutdown\_requested\_}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
+\doxysubsubsection{\texorpdfstring{shutdown\_requested\_}{shutdown\_requested\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Collection\+Barrier\+::shutdown\+\_\+requested\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 71 of file collection-\/barrier.\+h.
+
+
+
+Referenced by Await\+Collection\+Background(), Notify\+Shutdown\+Requested(), and Try\+Request\+GC().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1CollectionBarrier_a277f749e95e1358eb24a96b9e13bb2a4}\label{classv8_1_1internal_1_1CollectionBarrier_a277f749e95e1358eb24a96b9e13bb2a4}} 
+\index{v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}!timer\_@{timer\_}}
+\index{timer\_@{timer\_}!v8::internal::CollectionBarrier@{v8::internal::CollectionBarrier}}
+\doxysubsubsection{\texorpdfstring{timer\_}{timer\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer}{base\+::\+Elapsed\+Timer}} v8\+::internal\+::\+Collection\+Barrier\+::timer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 55 of file collection-\/barrier.\+h.
+
+
+
+Referenced by Await\+Collection\+Background(), Cancel\+Collection\+And\+Resume\+Threads(), Notify\+Shutdown\+Requested(), Resume\+Threads\+Awaiting\+Collection(), Stop\+Time\+To\+Collection\+Timer(), and Try\+Request\+GC().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{collection-barrier_8h}{collection-\/barrier.\+h}}\item 
-\mbox{\hyperlink{collection-barrier_8cc}{collection-\/barrier.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{collection-barrier_8h}{collection-\/barrier.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{collection-barrier_8cc}{collection-\/barrier.\+cc}}\end{DoxyCompactItemize}

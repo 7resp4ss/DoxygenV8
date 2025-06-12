@@ -6,5 +6,6 @@ var classcppgc_1_1internal_1_1CompactionWorklists =
     [ "CompactionWorklists", "classcppgc_1_1internal_1_1CompactionWorklists.html#a220efe82cccb87667a1bdd1610fc9c52", null ],
     [ "ClearForTesting", "classcppgc_1_1internal_1_1CompactionWorklists.html#aa6fc2f56119cc334850685a121b413da", null ],
     [ "movable_slots_worklist", "classcppgc_1_1internal_1_1CompactionWorklists.html#afbd1f0117fa0d4593c50023d5745ce1f", null ],
-    [ "operator=", "classcppgc_1_1internal_1_1CompactionWorklists.html#a730e1dbdf191455f27e403802e8f6e2f", null ]
+    [ "operator=", "classcppgc_1_1internal_1_1CompactionWorklists.html#a730e1dbdf191455f27e403802e8f6e2f", null ],
+    [ "movable_slots_worklist_", "classcppgc_1_1internal_1_1CompactionWorklists.html#aa90c5f04e6b21fff99d77bd2d793d588", null ]
 ];

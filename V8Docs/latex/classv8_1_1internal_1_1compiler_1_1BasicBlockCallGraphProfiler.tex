@@ -27,10 +27,17 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Basic\+Block\+Call\+Grap
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BasicBlockCallGraphProfiler_a900fb636e05acdda821b97ee97b6dd76}{Store\+Call\+Graph}} (\mbox{\hyperlink{classv8_1_1internal_1_1OptimizedCompilationInfo}{Optimized\+Compilation\+Info}} $\ast$\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Schedule}{Schedule}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a970e7f41771cbd0ccc6f2f1ab01faab0}{schedule}})
+static void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BasicBlockCallGraphProfiler_a900fb636e05acdda821b97ee97b6dd76}{Store\+Call\+Graph}} (\mbox{\hyperlink{classv8_1_1internal_1_1OptimizedCompilationInfo}{Optimized\+Compilation\+Info}} $\ast$info, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Schedule}{Schedule}} $\ast$schedule)
 \item 
-static void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BasicBlockCallGraphProfiler_aaf360c67b10fa21b1c08c56cf2f2e63c}{Store\+Call\+Graph}} (\mbox{\hyperlink{classv8_1_1internal_1_1OptimizedCompilationInfo}{Optimized\+Compilation\+Info}} $\ast$\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}}, const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Graph}{turboshaft\+::\+Graph}} \&\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}})
+static void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BasicBlockCallGraphProfiler_aaf360c67b10fa21b1c08c56cf2f2e63c}{Store\+Call\+Graph}} (\mbox{\hyperlink{classv8_1_1internal_1_1OptimizedCompilationInfo}{Optimized\+Compilation\+Info}} $\ast$info, const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Graph}{turboshaft\+::\+Graph}} \&\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}})
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 35 of file basic-\/block-\/instrumentor.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -40,6 +47,41 @@ static void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BasicBlockCallGr
 \doxysubsubsection{\texorpdfstring{StoreCallGraph()}{StoreCallGraph()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily void v8\+::internal\+::compiler\+::\+Basic\+Block\+Call\+Graph\+Profiler\+::\+Store\+Call\+Graph (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1OptimizedCompilationInfo}{Optimized\+Compilation\+Info}} $\ast$}]{info,  }\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Graph}{turboshaft\+::\+Graph}} \&}]{graph }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 252 of file basic-\/block-\/instrumentor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{253                                                                   \{}
+\DoxyCodeLine{254   \textcolor{keyword}{using namespace }turboshaft;  \textcolor{comment}{// NOLINT(build/namespaces)}}
+\DoxyCodeLine{255   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1Builtins_a9f4e993a04694469eb0eef27133908a1}{Builtins::IsBuiltinId}}(info-\/>builtin()));}
+\DoxyCodeLine{256   BuiltinsCallGraph* profiler = \mbox{\hyperlink{classv8_1_1internal_1_1BuiltinsCallGraph_ad1864af83dd2414950f28a86a6b22d07}{BuiltinsCallGraph::Get}}();}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{258   \textcolor{keywordflow}{for} (\textcolor{keyword}{const} Block* block : \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}.blocks\_vector()) \{}
+\DoxyCodeLine{259     \textcolor{keyword}{const} \textcolor{keywordtype}{int} block\_id = block-\/>index().id();}
+\DoxyCodeLine{260     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& op : \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}.operations(*block)) \{}
+\DoxyCodeLine{261       \mbox{\hyperlink{namespacev8_1_1internal_acc2e164143496f18b5ec68f8ab70af52}{Builtin}} called\_builtin;}
+\DoxyCodeLine{262       \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_aa91d5f788bb1f09c4351afe38fa21610}{IsBuiltinCall}}(op, \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}, \&called\_builtin)) \{}
+\DoxyCodeLine{263         profiler-\/>AddBuiltinCall(info-\/>builtin(), called\_builtin, block\_id);}
+\DoxyCodeLine{264       \}}
+\DoxyCodeLine{265     \}}
+\DoxyCodeLine{266   \}}
+\DoxyCodeLine{267 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Builtins\+Call\+Graph\+::\+Add\+Builtin\+Call(), v8\+::internal\+::\+Optimized\+Compilation\+Info\+::builtin(), CHECK, v8\+::internal\+::\+Builtins\+Call\+Graph\+::\+Get(), graph(), v8\+::internal\+::compiler\+::\+Is\+Builtin\+Call(), and v8\+::internal\+::\+Builtins\+::\+Is\+Builtin\+Id().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1BasicBlockCallGraphProfiler_aaf360c67b10fa21b1c08c56cf2f2e63c_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1BasicBlockCallGraphProfiler_a900fb636e05acdda821b97ee97b6dd76}\label{classv8_1_1internal_1_1compiler_1_1BasicBlockCallGraphProfiler_a900fb636e05acdda821b97ee97b6dd76}} 
 \index{v8::internal::compiler::BasicBlockCallGraphProfiler@{v8::internal::compiler::BasicBlockCallGraphProfiler}!StoreCallGraph@{StoreCallGraph}}
 \index{StoreCallGraph@{StoreCallGraph}!v8::internal::compiler::BasicBlockCallGraphProfiler@{v8::internal::compiler::BasicBlockCallGraphProfiler}}
@@ -48,7 +90,65 @@ static void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BasicBlockCallGr
 
 
 
+Definition at line 192 of file basic-\/block-\/instrumentor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{193                                                                      \{}
+\DoxyCodeLine{194   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1Builtins_a9f4e993a04694469eb0eef27133908a1}{Builtins::IsBuiltinId}}(info-\/>builtin()));}
+\DoxyCodeLine{195   \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_af7f325435904b8f37ff61a0ba3e6ba43}{BasicBlockVector}}* blocks = schedule-\/>rpo\_order();}
+\DoxyCodeLine{196   \textcolor{keywordtype}{size\_t} block\_number = 0;}
+\DoxyCodeLine{197   \textcolor{keywordtype}{size\_t} n\_blocks = schedule-\/>RpoBlockCount();}
+\DoxyCodeLine{198   \textcolor{keywordflow}{for} (\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector_a6c4c7526dcdcfec60a1d00461eb1697e}{BasicBlockVector::iterator}} it = blocks-\/>begin(); block\_number < n\_blocks;}
+\DoxyCodeLine{199        ++it, ++block\_number) \{}
+\DoxyCodeLine{200     BasicBlock* block = (*it);}
+\DoxyCodeLine{201     \textcolor{keywordflow}{if} (block == schedule-\/>end()) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{202     \textcolor{comment}{// Iteration is already in reverse post-\/order.}}
+\DoxyCodeLine{203     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(block-\/>rpo\_number(), block\_number);}
+\DoxyCodeLine{204     \textcolor{keywordtype}{int} block\_id = block-\/>id().ToInt();}
+\DoxyCodeLine{205 }
+\DoxyCodeLine{206     BuiltinsCallGraph* profiler = \mbox{\hyperlink{classv8_1_1internal_1_1BuiltinsCallGraph_ad1864af83dd2414950f28a86a6b22d07}{BuiltinsCallGraph::Get}}();}
+\DoxyCodeLine{207 }
+\DoxyCodeLine{208     \textcolor{keywordflow}{for} (Node* node : *block) \{}
+\DoxyCodeLine{209       \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02basic-block-instrumentor_8cc_03_a9be49dd95e54d848bdc000c66653c958}{StoreBuiltinCallForNode}}(node, info-\/>builtin(), block\_id, profiler);}
+\DoxyCodeLine{210     \}}
+\DoxyCodeLine{211 }
+\DoxyCodeLine{212     \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BasicBlock_a7162100f0572bd1e40481cb882497a9d}{BasicBlock::Control}} control = block-\/>control();}
+\DoxyCodeLine{213     \textcolor{keywordflow}{if} (control != \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BasicBlock_a7162100f0572bd1e40481cb882497a9dac8131ef78b7c9755140ef7d43bf312e0}{BasicBlock::kNone}}) \{}
+\DoxyCodeLine{214       Node* cnt\_node = block-\/>control\_input();}
+\DoxyCodeLine{215       \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02basic-block-instrumentor_8cc_03_a9be49dd95e54d848bdc000c66653c958}{StoreBuiltinCallForNode}}(cnt\_node, info-\/>builtin(), block\_id, profiler);}
+\DoxyCodeLine{216     \}}
+\DoxyCodeLine{217   \}}
+\DoxyCodeLine{218 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::begin(), v8\+::internal\+::\+Optimized\+Compilation\+Info\+::builtin(), CHECK, v8\+::internal\+::compiler\+::\+Basic\+Block\+::control(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::control\+\_\+input(), DCHECK\+\_\+\+EQ, v8\+::internal\+::compiler\+::\+Schedule\+::end(), v8\+::internal\+::\+Builtins\+Call\+Graph\+::\+Get(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::id(), v8\+::internal\+::\+Builtins\+::\+Is\+Builtin\+Id(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::k\+None, v8\+::internal\+::compiler\+::\+Basic\+Block\+::rpo\+\_\+number(), v8\+::internal\+::compiler\+::\+Schedule\+::rpo\+\_\+order(), v8\+::internal\+::compiler\+::\+Schedule\+::\+Rpo\+Block\+Count(), v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{basic-\/block-\/instrumentor.\+cc\}\+::\+Store\+Builtin\+Call\+For\+Node(), and v8\+::internal\+::compiler\+::\+Basic\+Block\+::\+Id\+::\+To\+Int().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+::\+Prepare\+For\+Instruction\+Selection().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1BasicBlockCallGraphProfiler_a900fb636e05acdda821b97ee97b6dd76_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1BasicBlockCallGraphProfiler_a900fb636e05acdda821b97ee97b6dd76_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{basic-block-instrumentor_8h}{basic-\/block-\/instrumentor.\+h}}\item 
-\mbox{\hyperlink{basic-block-instrumentor_8cc}{basic-\/block-\/instrumentor.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{basic-block-instrumentor_8h}{basic-\/block-\/instrumentor.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{basic-block-instrumentor_8cc}{basic-\/block-\/instrumentor.\+cc}}\end{DoxyCompactItemize}

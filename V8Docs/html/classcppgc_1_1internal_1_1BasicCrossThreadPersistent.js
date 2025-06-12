@@ -13,7 +13,12 @@ var classcppgc_1_1internal_1_1BasicCrossThreadPersistent =
     [ "BasicCrossThreadPersistent", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a2be294c7e3ac0b3e9fab63c441527098", null ],
     [ "BasicCrossThreadPersistent", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a1e1de9d75480579d14fe81dd56f126c6", null ],
     [ "BasicCrossThreadPersistent", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a976e173521c78452aacca392e4dcae50", null ],
+    [ "AssignSafe", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a0d600507d7dfa27e1495206d5f1bd72d", null ],
+    [ "AssignUnsafe", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a1b65f9a855a2320424d27c0d5db6002a", null ],
     [ "Clear", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a4101c15a02138c88ea1d29ef95b10b34", null ],
+    [ "ClearFromGC", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#acc5c74c5dd0b91cb0683f947bb226c90", null ],
+    [ "GetFromGC", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a48d747ec830e0ba5e9e9ed5944db6bc3", null ],
+    [ "IsValid", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a53f9712dab108fbf899be8150765a6ec", null ],
     [ "Lock", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#ac478d81bce2edb20612cb7553a461a23", null ],
     [ "operator bool", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a84f83cc8d906976362b01e2549638d1b", null ],
     [ "operator T*", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a1aec53f1cfad5e17e9eeec7b5dac1ac8", null ],
@@ -28,6 +33,7 @@ var classcppgc_1_1internal_1_1BasicCrossThreadPersistent =
     [ "operator=", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#ac4fed9b45a507ec8df84fdcec6cede12", null ],
     [ "Release", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a6e20aaa3cf3d3867f6c12fa44b89b057", null ],
     [ "To", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a5ec4cdc7f82f0172bb03c46c22291bf0", null ],
+    [ "TraceAsRoot", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a688bbe14c93a5dde26b7b535250d81fc", null ],
     [ "V8_CLANG_NO_SANITIZE", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a147b9d9aa1979b5fd66a9a92d4f06032", null ],
     [ "internal::RootVisitor", "classcppgc_1_1internal_1_1BasicCrossThreadPersistent.html#a1e8014cc4b0022f6f0d76d517579d510", null ]
 ];

@@ -15,5 +15,6 @@ var classv8_1_1internal_1_1compiler_1_1PipelineImpl =
     [ "OptimizeTurbofanGraph", "classv8_1_1internal_1_1compiler_1_1PipelineImpl.html#a529ff670a8c7aef1e6d93f5a5ab6a84b", null ],
     [ "Run", "classv8_1_1internal_1_1compiler_1_1PipelineImpl.html#a5ecf6e2341311560006ef572d06a4522", null ],
     [ "Run", "classv8_1_1internal_1_1compiler_1_1PipelineImpl.html#a4f5676a0de5455079fa818ceddf7a9a7", null ],
-    [ "RunPrintAndVerify", "classv8_1_1internal_1_1compiler_1_1PipelineImpl.html#a5902a52f83068f881b63cd17a20bea5d", null ]
+    [ "RunPrintAndVerify", "classv8_1_1internal_1_1compiler_1_1PipelineImpl.html#a5902a52f83068f881b63cd17a20bea5d", null ],
+    [ "data_", "classv8_1_1internal_1_1compiler_1_1PipelineImpl.html#a3972067f2bfdb85017db0c359cdba886", null ]
 ];

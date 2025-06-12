@@ -13,5 +13,12 @@ var classv8_1_1ResourceConstraints =
     [ "set_max_old_generation_size_in_bytes", "classv8_1_1ResourceConstraints.html#aef264dd9da3a87f39bb3147af26d9d40", null ],
     [ "set_max_young_generation_size_in_bytes", "classv8_1_1ResourceConstraints.html#adbc02006d8d704cf03dd111d016062ec", null ],
     [ "set_stack_limit", "classv8_1_1ResourceConstraints.html#a26ed3e89985a4afe34e84509fb093cf1", null ],
-    [ "stack_limit", "classv8_1_1ResourceConstraints.html#ac65767ca8638b69206a7a8f3651641f2", null ]
+    [ "stack_limit", "classv8_1_1ResourceConstraints.html#ac65767ca8638b69206a7a8f3651641f2", null ],
+    [ "code_range_size_", "classv8_1_1ResourceConstraints.html#ada688048046ed92c3efa99169541b8e3", null ],
+    [ "initial_old_generation_size_", "classv8_1_1ResourceConstraints.html#a07a877c604071ed15677e1880cc42547", null ],
+    [ "initial_young_generation_size_", "classv8_1_1ResourceConstraints.html#ab55090d8e9a4c8e69d8a2b47a858b51c", null ],
+    [ "kMB", "classv8_1_1ResourceConstraints.html#acf06d25e0c730f8b8dbf5b0bd8710058", null ],
+    [ "max_old_generation_size_", "classv8_1_1ResourceConstraints.html#a92c52080ff2e8d890bbbefd654ce8e7f", null ],
+    [ "max_young_generation_size_", "classv8_1_1ResourceConstraints.html#a4fa69a195364748ea9e3493d21009aa9", null ],
+    [ "stack_limit_", "classv8_1_1ResourceConstraints.html#a0b2084c6e0c3f857410d0f9326d7c5af", null ]
 ];

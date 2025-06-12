@@ -4,11 +4,28 @@
 
 {\ttfamily \#include $<$verifier.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Schedule\+Verifier\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{classv8_1_1internal_1_1compiler_1_1ScheduleVerifier__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ScheduleVerifier_ac9dd5c8cf231784a64601369e0b3d596}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Schedule}{Schedule}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a970e7f41771cbd0ccc6f2f1ab01faab0}{schedule}})
+static void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ScheduleVerifier_ac9dd5c8cf231784a64601369e0b3d596}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Schedule}{Schedule}} $\ast$schedule)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 61 of file verifier.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -20,7 +37,205 @@ static void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ScheduleVerifier
 
 
 
+Definition at line 2182 of file verifier.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2182                                              \{}
+\DoxyCodeLine{2183   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} count = schedule-\/>BasicBlockCount();}
+\DoxyCodeLine{2184   Zone tmp\_zone(schedule-\/>zone()-\/>allocator(), \mbox{\hyperlink{zone_8h_a6b1fd0a126df3f1b788cee19d9cce66e}{ZONE\_NAME}});}
+\DoxyCodeLine{2185   Zone* zone = \&tmp\_zone;}
+\DoxyCodeLine{2186   BasicBlock* start = schedule-\/>start();}
+\DoxyCodeLine{2187   \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_af7f325435904b8f37ff61a0ba3e6ba43}{BasicBlockVector}}* rpo\_order = schedule-\/>rpo\_order();}
+\DoxyCodeLine{2188 }
+\DoxyCodeLine{2189   \textcolor{comment}{// Verify the RPO order contains only blocks from this schedule.}}
+\DoxyCodeLine{2190   \mbox{\hyperlink{src_2base_2logging_8h_a1c7c9b7f14b9a33ea69cbe4578016a19}{CHECK\_GE}}(count, rpo\_order-\/>size());}
+\DoxyCodeLine{2191   \textcolor{keywordflow}{for} (\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector_a6c4c7526dcdcfec60a1d00461eb1697e}{BasicBlockVector::iterator}} b = rpo\_order-\/>begin(); b != rpo\_order-\/>end();}
+\DoxyCodeLine{2192        ++b) \{}
+\DoxyCodeLine{2193     \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}((*b), schedule-\/>GetBlockById((*b)-\/>id()));}
+\DoxyCodeLine{2194     \textcolor{comment}{// All predecessors and successors should be in rpo and in this schedule.}}
+\DoxyCodeLine{2195     \textcolor{keywordflow}{for} (BasicBlock \textcolor{keyword}{const}* predecessor : (*b)-\/>predecessors()) \{}
+\DoxyCodeLine{2196       \mbox{\hyperlink{src_2base_2logging_8h_a1c7c9b7f14b9a33ea69cbe4578016a19}{CHECK\_GE}}(predecessor-\/>rpo\_number(), 0);}
+\DoxyCodeLine{2197       \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(predecessor, schedule-\/>GetBlockById(predecessor-\/>id()));}
+\DoxyCodeLine{2198     \}}
+\DoxyCodeLine{2199     \textcolor{keywordflow}{for} (BasicBlock \textcolor{keyword}{const}* successor : (*b)-\/>successors()) \{}
+\DoxyCodeLine{2200       \mbox{\hyperlink{src_2base_2logging_8h_a1c7c9b7f14b9a33ea69cbe4578016a19}{CHECK\_GE}}(successor-\/>rpo\_number(), 0);}
+\DoxyCodeLine{2201       \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(successor, schedule-\/>GetBlockById(successor-\/>id()));}
+\DoxyCodeLine{2202     \}}
+\DoxyCodeLine{2203   \}}
+\DoxyCodeLine{2204 }
+\DoxyCodeLine{2205   \textcolor{comment}{// Verify RPO numbers of blocks.}}
+\DoxyCodeLine{2206   \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(start, rpo\_order-\/>at(0));  \textcolor{comment}{// Start should be first.}}
+\DoxyCodeLine{2207   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} b = 0; b < rpo\_order-\/>size(); b++) \{}
+\DoxyCodeLine{2208     BasicBlock* block = rpo\_order-\/>at(b);}
+\DoxyCodeLine{2209     \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(b), block-\/>rpo\_number());}
+\DoxyCodeLine{2210     BasicBlock* dom = block-\/>dominator();}
+\DoxyCodeLine{2211     \textcolor{keywordflow}{if} (b == 0) \{}
+\DoxyCodeLine{2212       \textcolor{comment}{// All blocks except start should have a dominator.}}
+\DoxyCodeLine{2213       \mbox{\hyperlink{src_2base_2logging_8h_a7bf1ad59490562f507223cd6ca2cc6fa}{CHECK\_NULL}}(dom);}
+\DoxyCodeLine{2214     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{2215       \textcolor{comment}{// Check that the immediate dominator appears somewhere before the block.}}
+\DoxyCodeLine{2216       \mbox{\hyperlink{src_2base_2logging_8h_a9154b181227e4b02e465befe50219158}{CHECK\_NOT\_NULL}}(dom);}
+\DoxyCodeLine{2217       \mbox{\hyperlink{src_2base_2logging_8h_a45a0717f39b7011dc823c1fe7b83e6fc}{CHECK\_LT}}(dom-\/>rpo\_number(), block-\/>rpo\_number());}
+\DoxyCodeLine{2218     \}}
+\DoxyCodeLine{2219   \}}
+\DoxyCodeLine{2220 }
+\DoxyCodeLine{2221   \textcolor{comment}{// Verify that all blocks reachable from start are in the RPO.}}
+\DoxyCodeLine{2222   BitVector marked(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(count), zone);}
+\DoxyCodeLine{2223   \{}
+\DoxyCodeLine{2224     ZoneQueue<BasicBlock*> queue(zone);}
+\DoxyCodeLine{2225     queue.push(start);}
+\DoxyCodeLine{2226     marked.Add(start-\/>id().ToInt());}
+\DoxyCodeLine{2227     \textcolor{keywordflow}{while} (!queue.empty()) \{}
+\DoxyCodeLine{2228       BasicBlock* block = queue.front();}
+\DoxyCodeLine{2229       queue.pop();}
+\DoxyCodeLine{2230       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} s = 0; s < block-\/>SuccessorCount(); s++) \{}
+\DoxyCodeLine{2231         BasicBlock* succ = block-\/>SuccessorAt(s);}
+\DoxyCodeLine{2232         \textcolor{keywordflow}{if} (!marked.Contains(succ-\/>id().ToInt())) \{}
+\DoxyCodeLine{2233           marked.Add(succ-\/>id().ToInt());}
+\DoxyCodeLine{2234           queue.push(succ);}
+\DoxyCodeLine{2235         \}}
+\DoxyCodeLine{2236       \}}
+\DoxyCodeLine{2237     \}}
+\DoxyCodeLine{2238   \}}
+\DoxyCodeLine{2239   \textcolor{comment}{// Verify marked blocks are in the RPO.}}
+\DoxyCodeLine{2240   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; i < static\_cast<int>(count); \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{2241     BasicBlock* block = schedule-\/>GetBlockById(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BasicBlock_1_1Id_a8e465370cd1b216b46c84a5bb42f4f97}{BasicBlock::Id::FromInt}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}));}
+\DoxyCodeLine{2242     \textcolor{keywordflow}{if} (marked.Contains(\mbox{\hyperlink{namespacev8_1_1internal}{i}})) \{}
+\DoxyCodeLine{2243       \mbox{\hyperlink{src_2base_2logging_8h_a1c7c9b7f14b9a33ea69cbe4578016a19}{CHECK\_GE}}(block-\/>rpo\_number(), 0);}
+\DoxyCodeLine{2244       \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(block, rpo\_order-\/>at(block-\/>rpo\_number()));}
+\DoxyCodeLine{2245     \}}
+\DoxyCodeLine{2246   \}}
+\DoxyCodeLine{2247   \textcolor{comment}{// Verify RPO blocks are marked.}}
+\DoxyCodeLine{2248   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} b = 0; b < rpo\_order-\/>size(); b++) \{}
+\DoxyCodeLine{2249     \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(marked.Contains(rpo\_order-\/>at(b)-\/>id().ToInt()));}
+\DoxyCodeLine{2250   \}}
+\DoxyCodeLine{2251 }
+\DoxyCodeLine{2252   \{}
+\DoxyCodeLine{2253     \textcolor{comment}{// Verify the dominance relation.}}
+\DoxyCodeLine{2254     ZoneVector<BitVector*> dominators(zone);}
+\DoxyCodeLine{2255     dominators.resize(count, \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{2256 }
+\DoxyCodeLine{2257     \textcolor{comment}{// Compute a set of all the nodes that dominate a given node by using}}
+\DoxyCodeLine{2258     \textcolor{comment}{// a forward fixpoint. O(n\string^2).}}
+\DoxyCodeLine{2259     ZoneQueue<BasicBlock*> queue(zone);}
+\DoxyCodeLine{2260     queue.push(start);}
+\DoxyCodeLine{2261     dominators[start-\/>id().ToSize()] =}
+\DoxyCodeLine{2262         zone-\/>New<BitVector>(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(count), zone);}
+\DoxyCodeLine{2263     \textcolor{keywordflow}{while} (!queue.empty()) \{}
+\DoxyCodeLine{2264       BasicBlock* block = queue.front();}
+\DoxyCodeLine{2265       queue.pop();}
+\DoxyCodeLine{2266       BitVector* block\_doms = dominators[block-\/>id().ToSize()];}
+\DoxyCodeLine{2267       BasicBlock* idom = block-\/>dominator();}
+\DoxyCodeLine{2268       \textcolor{keywordflow}{if} (idom != \textcolor{keyword}{nullptr} \&\& !block\_doms-\/>Contains(idom-\/>id().ToInt())) \{}
+\DoxyCodeLine{2269         \mbox{\hyperlink{src_2base_2logging_8h_a0d093cb749cfc7ab5993726392df681f}{FATAL}}(\textcolor{stringliteral}{"{}Block B\%d is not dominated by B\%d"{}}, block-\/>rpo\_number(),}
+\DoxyCodeLine{2270               idom-\/>rpo\_number());}
+\DoxyCodeLine{2271       \}}
+\DoxyCodeLine{2272       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} s = 0; s < block-\/>SuccessorCount(); s++) \{}
+\DoxyCodeLine{2273         BasicBlock* succ = block-\/>SuccessorAt(s);}
+\DoxyCodeLine{2274         BitVector* succ\_doms = dominators[succ-\/>id().ToSize()];}
+\DoxyCodeLine{2275 }
+\DoxyCodeLine{2276         \textcolor{keywordflow}{if} (succ\_doms == \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{2277           \textcolor{comment}{// First time visiting the node. S.doms = B U B.doms}}
+\DoxyCodeLine{2278           succ\_doms = zone-\/>New<BitVector>(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(count), zone);}
+\DoxyCodeLine{2279           succ\_doms-\/>CopyFrom(*block\_doms);}
+\DoxyCodeLine{2280           succ\_doms-\/>Add(block-\/>id().ToInt());}
+\DoxyCodeLine{2281           dominators[succ-\/>id().ToSize()] = succ\_doms;}
+\DoxyCodeLine{2282           queue.push(succ);}
+\DoxyCodeLine{2283         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{2284           \textcolor{comment}{// Nth time visiting the successor. S.doms = S.doms \string^ (B U B.doms)}}
+\DoxyCodeLine{2285           \textcolor{keywordtype}{bool} had = succ\_doms-\/>Contains(block-\/>id().ToInt());}
+\DoxyCodeLine{2286           \textcolor{keywordflow}{if} (had) succ\_doms-\/>Remove(block-\/>id().ToInt());}
+\DoxyCodeLine{2287           \textcolor{keywordflow}{if} (succ\_doms-\/>IntersectIsChanged(*block\_doms)) queue.push(succ);}
+\DoxyCodeLine{2288           \textcolor{keywordflow}{if} (had) succ\_doms-\/>Add(block-\/>id().ToInt());}
+\DoxyCodeLine{2289         \}}
+\DoxyCodeLine{2290       \}}
+\DoxyCodeLine{2291     \}}
+\DoxyCodeLine{2292 }
+\DoxyCodeLine{2293     \textcolor{comment}{// Verify the immediateness of dominators.}}
+\DoxyCodeLine{2294     \textcolor{keywordflow}{for} (\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector_a6c4c7526dcdcfec60a1d00461eb1697e}{BasicBlockVector::iterator}} b = rpo\_order-\/>begin();}
+\DoxyCodeLine{2295          b != rpo\_order-\/>end(); ++b) \{}
+\DoxyCodeLine{2296       BasicBlock* block = *b;}
+\DoxyCodeLine{2297       BasicBlock* idom = block-\/>dominator();}
+\DoxyCodeLine{2298       \textcolor{keywordflow}{if} (idom == \textcolor{keyword}{nullptr}) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{2299       BitVector* block\_doms = dominators[block-\/>id().ToSize()];}
+\DoxyCodeLine{2300 }
+\DoxyCodeLine{2301       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \textcolor{keywordtype}{id} : *block\_doms) \{}
+\DoxyCodeLine{2302         BasicBlock* dom = schedule-\/>GetBlockById(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BasicBlock_1_1Id_a8e465370cd1b216b46c84a5bb42f4f97}{BasicBlock::Id::FromInt}}(\textcolor{keywordtype}{id}));}
+\DoxyCodeLine{2303         \textcolor{keywordflow}{if} (dom != idom \&\&}
+\DoxyCodeLine{2304             !dominators[idom-\/>id().ToSize()]-\/>Contains(dom-\/>id().ToInt())) \{}
+\DoxyCodeLine{2305           \mbox{\hyperlink{src_2base_2logging_8h_a0d093cb749cfc7ab5993726392df681f}{FATAL}}(\textcolor{stringliteral}{"{}Block B\%d is not immediately dominated by B\%d"{}},}
+\DoxyCodeLine{2306                 block-\/>rpo\_number(), idom-\/>rpo\_number());}
+\DoxyCodeLine{2307         \}}
+\DoxyCodeLine{2308       \}}
+\DoxyCodeLine{2309     \}}
+\DoxyCodeLine{2310   \}}
+\DoxyCodeLine{2311 }
+\DoxyCodeLine{2312   \textcolor{comment}{// Verify phis are placed in the block of their control input.}}
+\DoxyCodeLine{2313   \textcolor{keywordflow}{for} (\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector_a6c4c7526dcdcfec60a1d00461eb1697e}{BasicBlockVector::iterator}} b = rpo\_order-\/>begin(); b != rpo\_order-\/>end();}
+\DoxyCodeLine{2314        ++b) \{}
+\DoxyCodeLine{2315     \textcolor{keywordflow}{for} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BasicBlock_a1835d16d38cb85cb692f82748c6f3f77}{BasicBlock::const\_iterator}} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = (*b)-\/>begin(); \mbox{\hyperlink{namespacev8_1_1internal}{i}} != (*b)-\/>end(); ++\mbox{\hyperlink{namespacev8_1_1internal}{i}}) \{}
+\DoxyCodeLine{2316       Node* phi = *\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}};}
+\DoxyCodeLine{2317       \textcolor{keywordflow}{if} (phi-\/>opcode() != IrOpcode::kPhi) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{2318       \textcolor{comment}{// TODO(titzer): Nasty special case. Phis from RawMachineAssembler}}
+\DoxyCodeLine{2319       \textcolor{comment}{// schedules don't have control inputs.}}
+\DoxyCodeLine{2320       \textcolor{keywordflow}{if} (phi-\/>InputCount() > phi-\/>op()-\/>ValueInputCount()) \{}
+\DoxyCodeLine{2321         Node* control = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a1dd28ca4d552fdf2edfef50070c8ac3d}{NodeProperties::GetControlInput}}(phi);}
+\DoxyCodeLine{2322         \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(control-\/>opcode() == IrOpcode::kMerge ||}
+\DoxyCodeLine{2323               control-\/>opcode() == IrOpcode::kLoop);}
+\DoxyCodeLine{2324         \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}((*b), schedule-\/>block(control));}
+\DoxyCodeLine{2325       \}}
+\DoxyCodeLine{2326     \}}
+\DoxyCodeLine{2327   \}}
+\DoxyCodeLine{2328 }
+\DoxyCodeLine{2329   \textcolor{comment}{// Verify that all uses are dominated by their definitions.}}
+\DoxyCodeLine{2330   \textcolor{keywordflow}{for} (\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector_a6c4c7526dcdcfec60a1d00461eb1697e}{BasicBlockVector::iterator}} b = rpo\_order-\/>begin(); b != rpo\_order-\/>end();}
+\DoxyCodeLine{2331        ++b) \{}
+\DoxyCodeLine{2332     BasicBlock* block = *b;}
+\DoxyCodeLine{2333 }
+\DoxyCodeLine{2334     \textcolor{comment}{// Check inputs to control for this block.}}
+\DoxyCodeLine{2335     Node* control = block-\/>control\_input();}
+\DoxyCodeLine{2336     \textcolor{keywordflow}{if} (control != \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{2337       \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(block, schedule-\/>block(control));}
+\DoxyCodeLine{2338       \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ad84fa099333bac40cbb61520d441eecc}{CheckInputsDominate}}(schedule, block, control,}
+\DoxyCodeLine{2339                           \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(block-\/>NodeCount()) -\/ 1);}
+\DoxyCodeLine{2340     \}}
+\DoxyCodeLine{2341     \textcolor{comment}{// Check inputs for all nodes in the block.}}
+\DoxyCodeLine{2342     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < block-\/>NodeCount(); \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{2343       Node* node = block-\/>NodeAt(\mbox{\hyperlink{namespacev8_1_1internal}{i}});}
+\DoxyCodeLine{2344       \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ad84fa099333bac40cbb61520d441eecc}{CheckInputsDominate}}(schedule, block, node, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}) -\/ 1);}
+\DoxyCodeLine{2345     \}}
+\DoxyCodeLine{2346   \}}
+\DoxyCodeLine{2347 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Bit\+Vector\+::\+Add(), v8\+::internal\+::\+Zone\+::allocator(), v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::at(), v8\+::internal\+::compiler\+::\+Schedule\+::\+Basic\+Block\+Count(), v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::begin(), v8\+::internal\+::compiler\+::\+Schedule\+::block(), CHECK, CHECK\+\_\+\+EQ, CHECK\+\_\+\+GE, CHECK\+\_\+\+LT, CHECK\+\_\+\+NOT\+\_\+\+NULL, CHECK\+\_\+\+NULL, v8\+::internal\+::compiler\+::\+Check\+Inputs\+Dominate(), v8\+::internal\+::\+Bit\+Vector\+::\+Contains(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::control\+\_\+input(), v8\+::internal\+::\+Bit\+Vector\+::\+Copy\+From(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::dominator(), v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::end(), FATAL, v8\+::internal\+::compiler\+::\+Basic\+Block\+::\+Id\+::\+From\+Int(), v8\+::internal\+::compiler\+::\+Schedule\+::\+Get\+Block\+By\+Id(), v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Get\+Control\+Input(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::compiler\+::\+Basic\+Block\+::id(), v8\+::internal\+::compiler\+::\+Node\+::\+Input\+Count(), v8\+::internal\+::\+Bit\+Vector\+::\+Intersect\+Is\+Changed(), v8\+::internal\+::\+Zone\+::\+New(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::\+Node\+At(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::\+Node\+Count(), v8\+::internal\+::compiler\+::\+Node\+::op(), v8\+::internal\+::compiler\+::\+Node\+::opcode(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::predecessors(), v8\+::internal\+::\+Bit\+Vector\+::\+Remove(), v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::resize(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::rpo\+\_\+number(), v8\+::internal\+::compiler\+::\+Schedule\+::rpo\+\_\+order(), v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::size(), v8\+::internal\+::compiler\+::\+Schedule\+::start(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::\+Successor\+At(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::\+Successor\+Count(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::successors(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::\+Id\+::\+To\+Int(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::\+Id\+::\+To\+Size(), v8\+::internal\+::compiler\+::\+Operator\+::\+Value\+Input\+Count(), v8\+::internal\+::compiler\+::\+Schedule\+::zone(), and ZONE\+\_\+\+NAME.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{pipeline.\+cc\}\+::\+Trace\+Schedule\+And\+Verify().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1compiler_1_1ScheduleVerifier_ac9dd5c8cf231784a64601369e0b3d596_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1ScheduleVerifier_ac9dd5c8cf231784a64601369e0b3d596_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{verifier_8h}{verifier.\+h}}\item 
-\mbox{\hyperlink{verifier_8cc}{verifier.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{verifier_8h}{verifier.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{verifier_8cc}{verifier.\+cc}}\end{DoxyCompactItemize}

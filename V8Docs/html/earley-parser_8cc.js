@@ -1,6 +1,5 @@
 var earley_parser_8cc =
 [
-    [ "RunEarleyAlgorithm", "earley-parser_8cc.html#a90b2ac47e42f7ef81a785738c5208a58", null ],
-    [ "current", "earley-parser_8cc.html#a69620d3d0bf3441e9802e4853271cad4", null ],
-    [ "previous", "earley-parser_8cc.html#a8a2b2ef92f1e05c391a8584a56d0672f", null ]
+    [ "LineAndColumnTracker", "structv8_1_1internal_1_1torque_1_1anonymous__namespace_02earley-parser_8cc_03_1_1LineAndColumnTracker.html", "structv8_1_1internal_1_1torque_1_1anonymous__namespace_02earley-parser_8cc_03_1_1LineAndColumnTracker" ],
+    [ "RunEarleyAlgorithm", "earley-parser_8cc.html#a814a8b36738fa40562d36df95be8d2e7", null ]
 ];

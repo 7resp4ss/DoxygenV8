@@ -7,10 +7,10 @@ var string_hasher_inl_8h =
       [ "kOverflow", "string-hasher-inl_8h.html#a065f2a0786f61ff0bd5e833781a87aeaa3b1913ef8acfe7fa06fab57970bd0bda", null ]
     ] ],
     [ "ConvertRawHashToUsableHash", "string-hasher-inl_8h.html#a73a0e39dbeef197cec171fd6d2d83e2b", null ],
-    [ "GetRapidHash", "string-hasher-inl_8h.html#ad20a54ad7846e59d4464659ec3d34677", null ],
-    [ "GetRapidHash", "string-hasher-inl_8h.html#aee3a5283967571164b8110f28d2171c5", null ],
-    [ "GetUsableRapidHash", "string-hasher-inl_8h.html#afd47babe02bb8a8fb66f207e4a4b0e1f", null ],
+    [ "GetRapidHash", "string-hasher-inl_8h.html#a675f4379aeeb5bcdc368ce90b64dacef", null ],
+    [ "GetRapidHash", "string-hasher-inl_8h.html#a69346a0ae4ec8a3730bf1fa2538c0a42", null ],
+    [ "GetUsableRapidHash", "string-hasher-inl_8h.html#a186c7cf4e5853213f0ba57f3c35f4f0f", null ],
     [ "HashConvertingTo8Bit", "string-hasher-inl_8h.html#a46e301eb08a46ecea138b0fbdbe3baf5", null ],
-    [ "IsOnly8Bit", "string-hasher-inl_8h.html#a093a51bd8df77c38600c0cec8bd2ec0f", null ],
-    [ "TryParseArrayIndex", "string-hasher-inl_8h.html#a67ff98c370b9dd21fd3d0edfca090ed9", null ]
+    [ "IsOnly8Bit", "string-hasher-inl_8h.html#afff7a3ae8fc25a510a26bd33a26a30cf", null ],
+    [ "TryParseArrayIndex", "string-hasher-inl_8h.html#aa8cb90fd2a12c6e636ee31c9fce365bb", null ]
 ];

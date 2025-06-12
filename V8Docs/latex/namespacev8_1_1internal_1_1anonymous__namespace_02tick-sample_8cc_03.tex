@@ -1,0 +1,136 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02tick-sample_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{tick-\/sample.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02tick-sample_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}tick-\/sample.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}tick-\/sample.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02tick-sample_8cc_03_a913139396b5c6ab8ab1dda3946cf24d3}{Is\+Same\+Page}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} ptr1, \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} ptr2)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02tick-sample_8cc_03_a6ff8be2d13e1c593db777a812d893689}{Is\+No\+Frame\+Region}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} address)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02tick-sample_8cc_03_a6ff8be2d13e1c593db777a812d893689}\label{namespacev8_1_1internal_1_1anonymous__namespace_02tick-sample_8cc_03_a6ff8be2d13e1c593db777a812d893689}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}tick-\/sample.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}tick-\/sample.cc\rcurly{}}!IsNoFrameRegion@{IsNoFrameRegion}}
+\index{IsNoFrameRegion@{IsNoFrameRegion}!v8::internal::anonymous\_namespace\lcurly{}tick-\/sample.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}tick-\/sample.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{IsNoFrameRegion()}{IsNoFrameRegion()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::anonymous\+\_\+namespace\{tick-\/sample.\+cc\}\+::Is\+No\+Frame\+Region (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}}}]{address }\end{DoxyParamCaption})}
+
+
+
+Definition at line 32 of file tick-\/sample.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{32                                        \{}
+\DoxyCodeLine{33   \textcolor{keyword}{struct }Pattern \{}
+\DoxyCodeLine{34     \textcolor{keywordtype}{int} bytes\_count;}
+\DoxyCodeLine{35     uint8\_t bytes[8];}
+\DoxyCodeLine{36     \textcolor{keywordtype}{int} offsets[4];}
+\DoxyCodeLine{37   \};}
+\DoxyCodeLine{38   \textcolor{keyword}{static} Pattern patterns[] = \{}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#if V8\_HOST\_ARCH\_IA32}}
+\DoxyCodeLine{40     \textcolor{comment}{// push \%ebp}}
+\DoxyCodeLine{41     \textcolor{comment}{// mov \%esp,\%ebp}}
+\DoxyCodeLine{42     \{3, \{0x55, 0x89, 0xE5\}, \{0, 1, -\/1\}\},}
+\DoxyCodeLine{43     \textcolor{comment}{// pop \%ebp}}
+\DoxyCodeLine{44     \textcolor{comment}{// ret N}}
+\DoxyCodeLine{45     \{2, \{0x5D, 0xC2\}, \{0, 1, -\/1\}\},}
+\DoxyCodeLine{46     \textcolor{comment}{// pop \%ebp}}
+\DoxyCodeLine{47     \textcolor{comment}{// ret}}
+\DoxyCodeLine{48     \{2, \{0x5D, 0xC3\}, \{0, 1, -\/1\}\},}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#elif V8\_HOST\_ARCH\_X64}}
+\DoxyCodeLine{50     \textcolor{comment}{// pushq \%rbp}}
+\DoxyCodeLine{51     \textcolor{comment}{// movq \%rsp,\%rbp}}
+\DoxyCodeLine{52     \{4, \{0x55, 0x48, 0x89, 0xE5\}, \{0, 1, -\/1\}\},}
+\DoxyCodeLine{53     \textcolor{comment}{// popq \%rbp}}
+\DoxyCodeLine{54     \textcolor{comment}{// ret N}}
+\DoxyCodeLine{55     \{2, \{0x5D, 0xC2\}, \{0, 1, -\/1\}\},}
+\DoxyCodeLine{56     \textcolor{comment}{// popq \%rbp}}
+\DoxyCodeLine{57     \textcolor{comment}{// ret}}
+\DoxyCodeLine{58     \{2, \{0x5D, 0xC3\}, \{0, 1, -\/1\}\},}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{60     \{0, \{\}, \{\}\}}
+\DoxyCodeLine{61   \};}
+\DoxyCodeLine{62   uint8\_t* pc = \textcolor{keyword}{reinterpret\_cast<}uint8\_t*\textcolor{keyword}{>}(address);}
+\DoxyCodeLine{63   \textcolor{keywordflow}{for} (Pattern* pattern = patterns; pattern-\/>bytes\_count; ++pattern) \{}
+\DoxyCodeLine{64     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int}* offset\_ptr = pattern-\/>offsets; *offset\_ptr != -\/1; ++offset\_ptr) \{}
+\DoxyCodeLine{65       \textcolor{keywordtype}{int} offset = *offset\_ptr;}
+\DoxyCodeLine{66       \textcolor{keywordflow}{if} (!offset || \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02tick-sample_8cc_03_a913139396b5c6ab8ab1dda3946cf24d3}{IsSamePage}}(address, address -\/ offset)) \{}
+\DoxyCodeLine{67         \mbox{\hyperlink{msan_8h_a3247bf8fa2f4372cc59ac92e7432cc9c}{MSAN\_MEMORY\_IS\_INITIALIZED}}(pc -\/ offset, pattern-\/>bytes\_count);}
+\DoxyCodeLine{68         \textcolor{keywordflow}{if} (!memcmp(pc -\/ offset, pattern-\/>bytes, pattern-\/>bytes\_count))}
+\DoxyCodeLine{69           \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{70       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{71         \textcolor{comment}{// It is not safe to examine bytes on another page as it might not be}}
+\DoxyCodeLine{72         \textcolor{comment}{// allocated thus causing a SEGFAULT.}}
+\DoxyCodeLine{73         \textcolor{comment}{// Check the pattern part that's on the same page and}}
+\DoxyCodeLine{74         \textcolor{comment}{// pessimistically assume it could be the entire pattern match.}}
+\DoxyCodeLine{75         \mbox{\hyperlink{msan_8h_a3247bf8fa2f4372cc59ac92e7432cc9c}{MSAN\_MEMORY\_IS\_INITIALIZED}}(pc, pattern-\/>bytes\_count -\/ offset);}
+\DoxyCodeLine{76         \textcolor{keywordflow}{if} (!memcmp(pc, pattern-\/>bytes + offset, pattern-\/>bytes\_count -\/ offset))}
+\DoxyCodeLine{77           \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{78       \}}
+\DoxyCodeLine{79     \}}
+\DoxyCodeLine{80   \}}
+\DoxyCodeLine{81   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{82 \}}
+
+\end{DoxyCode}
+
+
+References Is\+Same\+Page(), and MSAN\+\_\+\+MEMORY\+\_\+\+IS\+\_\+\+INITIALIZED.
+
+
+
+Referenced by v8\+::internal\+::\+Tick\+Sample\+::\+Get\+Stack\+Sample().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02tick-sample_8cc_03_a6ff8be2d13e1c593db777a812d893689_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02tick-sample_8cc_03_a6ff8be2d13e1c593db777a812d893689_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02tick-sample_8cc_03_a913139396b5c6ab8ab1dda3946cf24d3}\label{namespacev8_1_1internal_1_1anonymous__namespace_02tick-sample_8cc_03_a913139396b5c6ab8ab1dda3946cf24d3}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}tick-\/sample.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}tick-\/sample.cc\rcurly{}}!IsSamePage@{IsSamePage}}
+\index{IsSamePage@{IsSamePage}!v8::internal::anonymous\_namespace\lcurly{}tick-\/sample.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}tick-\/sample.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{IsSamePage()}{IsSamePage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::anonymous\+\_\+namespace\{tick-\/sample.\+cc\}\+::Is\+Same\+Page (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}}}]{ptr1,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}}}]{ptr2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 24 of file tick-\/sample.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24                                               \{}
+\DoxyCodeLine{25   \textcolor{keyword}{const} uint32\_t \mbox{\hyperlink{namespacecppgc_1_1internal_a31164e981f2a7080855c4ba02f1a910b}{kPageSize}} = 4096;}
+\DoxyCodeLine{26   \mbox{\hyperlink{classuintptr__t}{i::Address}} mask = \string~static\_cast<i::Address>(\mbox{\hyperlink{namespacecppgc_1_1internal_a31164e981f2a7080855c4ba02f1a910b}{kPageSize}} -\/ 1);}
+\DoxyCodeLine{27   \textcolor{keywordflow}{return} (ptr1 \& mask) == (ptr2 \& mask);}
+\DoxyCodeLine{28 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::k\+Page\+Size.
+
+
+
+Referenced by Is\+No\+Frame\+Region().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02tick-sample_8cc_03_a913139396b5c6ab8ab1dda3946cf24d3_icgraph}
+\end{center}
+\end{figure}

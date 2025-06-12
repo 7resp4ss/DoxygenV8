@@ -25,5 +25,7 @@ var classv8_1_1CpuProfileNode =
     [ "GetScriptResourceName", "classv8_1_1CpuProfileNode.html#aad0267a1f129380164bb9eff18ea60a7", null ],
     [ "GetScriptResourceNameStr", "classv8_1_1CpuProfileNode.html#a6efc31aba575973641d6ada68d9bf4ff", null ],
     [ "GetSourceType", "classv8_1_1CpuProfileNode.html#af3f8dcd4b8c71240f274423ad6d924b7", null ],
-    [ "IsScriptSharedCrossOrigin", "classv8_1_1CpuProfileNode.html#afb2191ca7d96a715deae40f8b8e1fabc", null ]
+    [ "IsScriptSharedCrossOrigin", "classv8_1_1CpuProfileNode.html#afb2191ca7d96a715deae40f8b8e1fabc", null ],
+    [ "kNoColumnNumberInfo", "classv8_1_1CpuProfileNode.html#a7c8c1dea3ae0cf4c219b7b1f15a8405b", null ],
+    [ "kNoLineNumberInfo", "classv8_1_1CpuProfileNode.html#ad54213fe8a795cb6669566f0272fc5ba", null ]
 ];

@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::compiler\+::Wasm\+Escape\+Analysis\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=208pt]{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Wasm\+Escape\+Analysis\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=208pt]{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -31,9 +31,26 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Wasm\+Escape\+Analysis\+
 \item 
 const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_afaeefbbfb4b65a2cbbab713eb82ea1dc}{reducer\+\_\+name}} () const override
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reduction}{Reduction}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a03f7fe1961607a50a1caf9789d2bfdcc}{Reduce}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$\mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}}) final
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reduction}{Reduction}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a03f7fe1961607a50a1caf9789d2bfdcc}{Reduce}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$node) final
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reduction}{Reduction}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a7005461c36a888b17b5a4d008c2cbefc}{Reduce\+Allocate\+Raw}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$call)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph}{Machine\+Graph}} $\ast$const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a47460bd4894aa67740d8c497e081708f}{mcgraph\+\_\+}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 22 of file wasm-\/escape-\/analysis.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -45,6 +62,15 @@ const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmEscape
 
 
 
+Definition at line 24 of file wasm-\/escape-\/analysis.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{25       : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1AdvancedReducer_abb941b5a245fa4b0c2e87c049fd78190}{AdvancedReducer}}(editor), \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a47460bd4894aa67740d8c497e081708f}{mcgraph\_}}(mcgraph) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a03f7fe1961607a50a1caf9789d2bfdcc}\label{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a03f7fe1961607a50a1caf9789d2bfdcc}} 
 \index{v8::internal::compiler::WasmEscapeAnalysis@{v8::internal::compiler::WasmEscapeAnalysis}!Reduce@{Reduce}}
@@ -54,8 +80,130 @@ const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmEscape
 
 
 
-Implements \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer}{v8\+::internal\+::compiler\+::\+Reducer}}.
+Implements \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_acc15b2ec184dc342fb3e7d77488952ff}{v8\+::internal\+::compiler\+::\+Reducer}}.
 
+
+
+Definition at line 14 of file wasm-\/escape-\/analysis.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{14                                                \{}
+\DoxyCodeLine{15   \textcolor{keywordflow}{switch} (node-\/>opcode()) \{}
+\DoxyCodeLine{16     \textcolor{keywordflow}{case} IrOpcode::kAllocateRaw:}
+\DoxyCodeLine{17       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a7005461c36a888b17b5a4d008c2cbefc}{ReduceAllocateRaw}}(node);}
+\DoxyCodeLine{18     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{19       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{20   \}}
+\DoxyCodeLine{21 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Reducer\+::\+No\+Change(), v8\+::internal\+::compiler\+::\+Node\+::opcode(), and Reduce\+Allocate\+Raw().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a03f7fe1961607a50a1caf9789d2bfdcc_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a7005461c36a888b17b5a4d008c2cbefc}\label{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a7005461c36a888b17b5a4d008c2cbefc}} 
+\index{v8::internal::compiler::WasmEscapeAnalysis@{v8::internal::compiler::WasmEscapeAnalysis}!ReduceAllocateRaw@{ReduceAllocateRaw}}
+\index{ReduceAllocateRaw@{ReduceAllocateRaw}!v8::internal::compiler::WasmEscapeAnalysis@{v8::internal::compiler::WasmEscapeAnalysis}}
+\doxysubsubsection{\texorpdfstring{ReduceAllocateRaw()}{ReduceAllocateRaw()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reduction}{Reduction}} v8\+::internal\+::compiler\+::\+Wasm\+Escape\+Analysis\+::\+Reduce\+Allocate\+Raw (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$}]{call }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 23 of file wasm-\/escape-\/analysis.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23                                                           \{}
+\DoxyCodeLine{24   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(node-\/>opcode(), IrOpcode::kAllocateRaw);}
+\DoxyCodeLine{25   \textcolor{comment}{// TODO(manoskouk): Account for phis that still have uses.}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27   \textcolor{comment}{// Collect all value edges of \{node\} in this vector.}}
+\DoxyCodeLine{28   std::vector<Edge> value\_edges;}
+\DoxyCodeLine{29   \textcolor{keywordflow}{for} (Edge edge : node-\/>use\_edges()) \{}
+\DoxyCodeLine{30     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a62b5b8411695450fe887937277a0e504}{NodeProperties::IsValueEdge}}(edge)) \{}
+\DoxyCodeLine{31       \textcolor{keywordflow}{if} ((edge.from()-\/>opcode() == IrOpcode::kPhi \&\&}
+\DoxyCodeLine{32            edge.from()-\/>use\_edges().empty()) ||}
+\DoxyCodeLine{33           (edge.index() == 0 \&\&}
+\DoxyCodeLine{34            (edge.from()-\/>opcode() == IrOpcode::kStoreToObject ||}
+\DoxyCodeLine{35             edge.from()-\/>opcode() == IrOpcode::kInitializeImmutableInObject))) \{}
+\DoxyCodeLine{36         \textcolor{comment}{// StoreToObject, InitializeImmutableInObject and phis without uses can}}
+\DoxyCodeLine{37         \textcolor{comment}{// be replaced and do not require the allocation.}}
+\DoxyCodeLine{38         value\_edges.push\_back(edge);}
+\DoxyCodeLine{39       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{40         \textcolor{comment}{// Allocation not reducible.}}
+\DoxyCodeLine{41         \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{42       \}}
+\DoxyCodeLine{43     \}}
+\DoxyCodeLine{44   \}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   \textcolor{comment}{// Remove all discovered stores from the effect chain.}}
+\DoxyCodeLine{47   \textcolor{keywordflow}{for} (Edge edge : value\_edges) \{}
+\DoxyCodeLine{48     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a62b5b8411695450fe887937277a0e504}{NodeProperties::IsValueEdge}}(edge));}
+\DoxyCodeLine{49     Node* \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}} = edge.from();}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51     \textcolor{keywordflow}{if} (\mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>opcode() == IrOpcode::kPhi) \{}
+\DoxyCodeLine{52       \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>use\_edges().empty());}
+\DoxyCodeLine{53       \textcolor{comment}{// Useless phi. Kill it.}}
+\DoxyCodeLine{54       \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>Kill();}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{57       \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(edge.index(), 0);}
+\DoxyCodeLine{58       \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>IsDead());}
+\DoxyCodeLine{59       \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>opcode() == IrOpcode::kStoreToObject ||}
+\DoxyCodeLine{60              \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>opcode() == IrOpcode::kInitializeImmutableInObject);}
+\DoxyCodeLine{61       \textcolor{comment}{// The value stored by this StoreToObject node might be another allocation}}
+\DoxyCodeLine{62       \textcolor{comment}{// which has no more uses. Therefore we have to revisit it. Note that this}}
+\DoxyCodeLine{63       \textcolor{comment}{// will not happen automatically: ReplaceWithValue does not trigger}}
+\DoxyCodeLine{64       \textcolor{comment}{// revisits of former inputs of the replaced node.}}
+\DoxyCodeLine{65       Node* stored\_value = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a7053cfe3857d7d48ad3d005d633c94cf}{NodeProperties::GetValueInput}}(\mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}, 2);}
+\DoxyCodeLine{66       \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1AdvancedReducer_a64cae7699553789a4534c549c9170816}{Revisit}}(stored\_value);}
+\DoxyCodeLine{67       \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1AdvancedReducer_a2573497dc120509db4c00a28d8d3a9cb}{ReplaceWithValue}}(\mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a47460bd4894aa67740d8c497e081708f}{mcgraph\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph_a67f9e238af2bf16fa391f87efb6b53d3}{Dead}}(),}
+\DoxyCodeLine{68                        \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_adddf4058eb3366375dd0ff88e716cee8}{NodeProperties::GetEffectInput}}(\mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}), \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a47460bd4894aa67740d8c497e081708f}{mcgraph\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph_a67f9e238af2bf16fa391f87efb6b53d3}{Dead}}());}
+\DoxyCodeLine{69       \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>Kill();}
+\DoxyCodeLine{70     \}}
+\DoxyCodeLine{71   \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73   \textcolor{comment}{// Remove the allocation from the effect and control chains.}}
+\DoxyCodeLine{74   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1AdvancedReducer_a2573497dc120509db4c00a28d8d3a9cb}{ReplaceWithValue}}(node, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a47460bd4894aa67740d8c497e081708f}{mcgraph\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph_a67f9e238af2bf16fa391f87efb6b53d3}{Dead}}(), \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_adddf4058eb3366375dd0ff88e716cee8}{NodeProperties::GetEffectInput}}(node),}
+\DoxyCodeLine{75                    \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a1dd28ca4d552fdf2edfef50070c8ac3d}{NodeProperties::GetControlInput}}(node));}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_a6309e9866a5be979111ffb8dc652a7af}{Changed}}(node);}
+\DoxyCodeLine{78 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Reducer\+::\+Changed(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, v8\+::internal\+::compiler\+::\+Machine\+Graph\+::\+Dead(), v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Get\+Control\+Input(), v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Get\+Effect\+Input(), v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Get\+Value\+Input(), v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Is\+Value\+Edge(), mcgraph\+\_\+, v8\+::internal\+::compiler\+::\+Reducer\+::\+No\+Change(), v8\+::internal\+::compiler\+::\+Node\+::opcode(), v8\+::internal\+::compiler\+::\+Advanced\+Reducer\+::\+Replace\+With\+Value(), v8\+::internal\+::compiler\+::\+Advanced\+Reducer\+::\+Revisit(), use(), and v8\+::internal\+::compiler\+::\+Node\+::use\+\_\+edges().
+
+
+
+Referenced by Reduce().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a7005461c36a888b17b5a4d008c2cbefc_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a7005461c36a888b17b5a4d008c2cbefc_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_afaeefbbfb4b65a2cbbab713eb82ea1dc}\label{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_afaeefbbfb4b65a2cbbab713eb82ea1dc}} 
 \index{v8::internal::compiler::WasmEscapeAnalysis@{v8::internal::compiler::WasmEscapeAnalysis}!reducer\_name@{reducer\_name}}
 \index{reducer\_name@{reducer\_name}!v8::internal::compiler::WasmEscapeAnalysis@{v8::internal::compiler::WasmEscapeAnalysis}}
@@ -68,7 +216,33 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_accff4b2e
 
 
 
+Definition at line 27 of file wasm-\/escape-\/analysis.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{27 \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}WasmEscapeAnalysis"{}}; \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a47460bd4894aa67740d8c497e081708f}\label{classv8_1_1internal_1_1compiler_1_1WasmEscapeAnalysis_a47460bd4894aa67740d8c497e081708f}} 
+\index{v8::internal::compiler::WasmEscapeAnalysis@{v8::internal::compiler::WasmEscapeAnalysis}!mcgraph\_@{mcgraph\_}}
+\index{mcgraph\_@{mcgraph\_}!v8::internal::compiler::WasmEscapeAnalysis@{v8::internal::compiler::WasmEscapeAnalysis}}
+\doxysubsubsection{\texorpdfstring{mcgraph\_}{mcgraph\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph}{Machine\+Graph}}$\ast$ const v8\+::internal\+::compiler\+::\+Wasm\+Escape\+Analysis\+::mcgraph\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 33 of file wasm-\/escape-\/analysis.\+h.
+
+
+
+Referenced by Reduce\+Allocate\+Raw().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{wasm-escape-analysis_8h}{wasm-\/escape-\/analysis.\+h}}\item 
-\mbox{\hyperlink{wasm-escape-analysis_8cc}{wasm-\/escape-\/analysis.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{wasm-escape-analysis_8h}{wasm-\/escape-\/analysis.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{wasm-escape-analysis_8cc}{wasm-\/escape-\/analysis.\+cc}}\end{DoxyCompactItemize}

@@ -1,0 +1,7 @@
+var classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff_compiler_8cc_03_1_1LiftoffCompiler_1_1MostlySmallValueKindSig =
+[
+    [ "MostlySmallValueKindSig", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompiler_1_1MostlySmallValueKindSig.html#a8a3b10b223bb927d90ee3295082cd756", null ],
+    [ "MakeKinds", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompiler_1_1MostlySmallValueKindSig.html#ad03aad117c23443549a5fb2cfc4bad81", null ],
+    [ "inline_storage_", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompiler_1_1MostlySmallValueKindSig.html#abeb8eb3a4cad9e88ee9aaac954df569a", null ],
+    [ "kInlineStorage", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompiler_1_1MostlySmallValueKindSig.html#ac843049d3327501b0a5d3b06c4249498", null ]
+];

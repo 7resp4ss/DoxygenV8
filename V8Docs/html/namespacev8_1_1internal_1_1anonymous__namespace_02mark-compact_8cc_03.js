@@ -1,0 +1,36 @@
+var namespacev8_1_1internal_1_1anonymous__namespace_02mark_compact_8cc_03 =
+[
+    [ "ParallelClearingJob", "classv8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03_1_1ParallelClearingJob.html", "classv8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03_1_1ParallelClearingJob" ],
+    [ "ClearStringTableJobItem", "classv8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03_1_1ClearStringTableJobItem.html", "classv8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03_1_1ClearStringTableJobItem" ],
+    [ "SharedStructTypeRegistryCleaner", "classv8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03_1_1SharedStructTypeRegistryCleaner.html", "classv8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03_1_1SharedStructTypeRegistryCleaner" ],
+    [ "ClearSharedStructTypeRegistryJobItem", "classv8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03_1_1ClearSharedStructTypeRegistryJobItem.html", "classv8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03_1_1ClearSharedStructTypeRegistryJobItem" ],
+    [ "RememberedSetUpdatingItem", "classv8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03_1_1RememberedSetUpdatingItem.html", "classv8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03_1_1RememberedSetUpdatingItem" ],
+    [ "MemoryReductionMode", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a06d1c585f64ca4267edf4dd4f4e55cce", [
+      [ "kNone", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a06d1c585f64ca4267edf4dd4f4e55ccea35c3ace1970663a16e5c65baa5941b13", null ],
+      [ "kShouldReduceMemory", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a06d1c585f64ca4267edf4dd4f4e55ccea2188fdd3c75318ecfec29810d5dde987", null ]
+    ] ],
+    [ "CollectRememberedSetUpdatingItems", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a5a7f4ec403000a5c1f0f0f70502e1774", null ],
+    [ "CreateAndExecuteEvacuationTasks", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#aea90dbf5b664542f92e8f0e7a13cfc01", null ],
+    [ "GetCodeFlushMode", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#add930103cc1c8f4e2b122d8a5086a7c7", null ],
+    [ "MakeSlotValue", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a9bbf08f1619cc116dd2a87e72c3055b3", null ],
+    [ "MakeSlotValue< MaybeObjectSlot, HeapObjectReferenceType::STRONG >", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a9c208b99db6f8ed83db916a39fc7fe0c", null ],
+    [ "MakeSlotValue< MaybeObjectSlot, HeapObjectReferenceType::WEAK >", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a63990fdcd633cd2bfb02e8d9fb5ee2f5", null ],
+    [ "MakeSlotValue< ObjectSlot, HeapObjectReferenceType::STRONG >", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a423b6cf80f8b18f18be0761cea505acb", null ],
+    [ "MakeSlotValue< OffHeapObjectSlot, HeapObjectReferenceType::STRONG >", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a6048b75927195b2bfd0238ac5421c3dd", null ],
+    [ "NewSpacePageEvacuationThreshold", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a1987eb4410159651be62f2c754440a26", null ],
+    [ "NumberOfAvailableCores", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a2d6091682608c63aa3aeb4bda6b52282", null ],
+    [ "NumberOfParallelCompactionTasks", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#ac96697cb73132b17cc8b6641fefb9b06", null ],
+    [ "ReRecordPage", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a58b90c1c7c35b855c401793183c9c13f", null ],
+    [ "ShouldMovePage", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a1c549e86327fe563e6aeb70af865fb4c", null ],
+    [ "ShouldPostponeFreeingEmptyPages", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a43d5122de51691bc0e40341d9be42cd4", null ],
+    [ "ShouldRetainMap", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a149d8c397d9b5e24f9f059e879b85ac2", null ],
+    [ "ShrinkPagesToObjectSizes", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a2f28540a451fde6740ec4100c5e186ea", null ],
+    [ "TraceEvacuation", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a8401873f434983f85f97f0b3ded61cd9", null ],
+    [ "UpdateOldToSharedSlot", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a8e179782425b7be1054e814f897f2f32", null ],
+    [ "UpdateSlot", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#ade0cd3259e3c53be85b4f6fdc226a63d", null ],
+    [ "UpdateSlot", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a3f7f3def67d792d8ca7b6fb3c9b1efdd", null ],
+    [ "UpdateStrongCodeSlot", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#acbc305d5a53430007c4921879d25e45b", null ],
+    [ "UpdateStrongOldToSharedSlot", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#ae2720d5d6d34c434f5882ea31fc87f83", null ],
+    [ "UpdateStrongSlot", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a84317ec4c7617a64055a013e9d07df51", null ],
+    [ "kDeadlineCheckInterval", "namespacev8_1_1internal_1_1anonymous__namespace_02mark-compact_8cc_03.html#a83d32f2ce33023f3050bedde123689c1", null ]
+];

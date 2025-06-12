@@ -1,7 +1,7 @@
 var torque_2ast_8h =
 [
     [ "AstNode", "structv8_1_1internal_1_1torque_1_1AstNode.html", "structv8_1_1internal_1_1torque_1_1AstNode" ],
-    [ "AstNodeClassCheck", "structv8_1_1internal_1_1torque_1_1AstNodeClassCheck.html", null ],
+    [ "AstNodeClassCheck", "structv8_1_1internal_1_1torque_1_1AstNodeClassCheck.html", "structv8_1_1internal_1_1torque_1_1AstNodeClassCheck" ],
     [ "Expression", "structv8_1_1internal_1_1torque_1_1Expression.html", "structv8_1_1internal_1_1torque_1_1Expression" ],
     [ "LocationExpression", "structv8_1_1internal_1_1torque_1_1LocationExpression.html", "structv8_1_1internal_1_1torque_1_1LocationExpression" ],
     [ "TypeExpression", "structv8_1_1internal_1_1torque_1_1TypeExpression.html", "structv8_1_1internal_1_1torque_1_1TypeExpression" ],
@@ -124,5 +124,6 @@ var torque_2ast_8h =
     [ "MakeIdentifierExpression", "torque_2ast_8h.html#af5568f360f9576e55d73fa624906a1d1", null ],
     [ "MakeNode", "torque_2ast_8h.html#ab06dddee1bd5f3557d1de377cf9b525b", null ],
     [ "MakeStructExpression", "torque_2ast_8h.html#a941120d41c058d1be90e2acfce158811", null ],
-    [ "operator<<", "torque_2ast_8h.html#ab935c8bd5e3a522c3603696123c28bbf", null ]
+    [ "operator<<", "torque_2ast_8h.html#ab935c8bd5e3a522c3603696123c28bbf", null ],
+    [ "kThisParameterName", "torque_2ast_8h.html#a0d665cfa9ab2b3f679393a4d2f9b3128", null ]
 ];

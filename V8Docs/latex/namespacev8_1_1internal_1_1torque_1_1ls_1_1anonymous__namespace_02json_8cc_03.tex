@@ -1,0 +1,75 @@
+\hypertarget{namespacev8_1_1internal_1_1torque_1_1ls_1_1anonymous__namespace_02json_8cc_03}{}\doxysection{v8\+::internal\+::torque\+::ls\+::anonymous\+\_\+namespace\{json.\+cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1torque_1_1ls_1_1anonymous__namespace_02json_8cc_03}\index{v8::internal::torque::ls::anonymous\_namespace\lcurly{}json.cc\rcurly{}@{v8::internal::torque::ls::anonymous\_namespace\lcurly{}json.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_1_1ls_1_1anonymous__namespace_02json_8cc_03_a979ed675148554aa2a393dfe73eb4f9e}{Serialize\+To\+String}} (std\+::stringstream \&str, const \mbox{\hyperlink{structv8_1_1internal_1_1torque_1_1ls_1_1JsonValue}{Json\+Value}} \&\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1torque_1_1ls_1_1anonymous__namespace_02json_8cc_03_a979ed675148554aa2a393dfe73eb4f9e}\label{namespacev8_1_1internal_1_1torque_1_1ls_1_1anonymous__namespace_02json_8cc_03_a979ed675148554aa2a393dfe73eb4f9e}} 
+\index{v8::internal::torque::ls::anonymous\_namespace\lcurly{}json.cc\rcurly{}@{v8::internal::torque::ls::anonymous\_namespace\lcurly{}json.cc\rcurly{}}!SerializeToString@{SerializeToString}}
+\index{SerializeToString@{SerializeToString}!v8::internal::torque::ls::anonymous\_namespace\lcurly{}json.cc\rcurly{}@{v8::internal::torque::ls::anonymous\_namespace\lcurly{}json.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{SerializeToString()}{SerializeToString()}}
+{\footnotesize\ttfamily void v8\+::internal\+::torque\+::ls\+::anonymous\+\_\+namespace\{json.\+cc\}\+::Serialize\+To\+String (\begin{DoxyParamCaption}\item[{std\+::stringstream \&}]{str,  }\item[{const \mbox{\hyperlink{structv8_1_1internal_1_1torque_1_1ls_1_1JsonValue}{Json\+Value}} \&}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 18 of file json.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18                                                                      \{}
+\DoxyCodeLine{19   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}.tag) \{}
+\DoxyCodeLine{20     \textcolor{keywordflow}{case} JsonValue::NUMBER:}
+\DoxyCodeLine{21       str << \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}.ToNumber();}
+\DoxyCodeLine{22       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{23     \textcolor{keywordflow}{case} JsonValue::STRING:}
+\DoxyCodeLine{24       str << \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_a2ae1dcc3b7a9169bd31c5097d22aa7a9}{StringLiteralQuote}}(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}.ToString());}
+\DoxyCodeLine{25       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{26     \textcolor{keywordflow}{case} JsonValue::IS\_NULL:}
+\DoxyCodeLine{27       str << \textcolor{stringliteral}{"{}null"{}};}
+\DoxyCodeLine{28       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{29     \textcolor{keywordflow}{case} \mbox{\hyperlink{win32-headers_8h_a050c65e107f0c828f856a231f4b4e788}{JsonValue::BOOL}}:}
+\DoxyCodeLine{30       str << (\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}.ToBool() ? \textcolor{stringliteral}{"{}true"{}} : \textcolor{stringliteral}{"{}false"{}});}
+\DoxyCodeLine{31       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{32     \textcolor{keywordflow}{case} JsonValue::OBJECT: \{}
+\DoxyCodeLine{33       str << \textcolor{stringliteral}{"{}\{"{}};}
+\DoxyCodeLine{34       \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0;}
+\DoxyCodeLine{35       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& pair : \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}.ToObject()) \{}
+\DoxyCodeLine{36         str << \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}} << pair.first << \textcolor{stringliteral}{"{}\(\backslash\)"{}:"{}};}
+\DoxyCodeLine{37         \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_1_1ls_ac8de670535698b4518b3b648f8837381}{SerializeToString}}(str, pair.second);}
+\DoxyCodeLine{38         \textcolor{keywordflow}{if} (++\mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}.ToObject().size()) str << \textcolor{stringliteral}{"{},"{}};}
+\DoxyCodeLine{39       \}}
+\DoxyCodeLine{40       str << \textcolor{stringliteral}{"{}\}"{}};}
+\DoxyCodeLine{41       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{42     \}}
+\DoxyCodeLine{43     \textcolor{keywordflow}{case} \mbox{\hyperlink{value-type_8h_af579248b8d4c16c0aeba3dff9ee8b10a}{JsonValue::ARRAY}}: \{}
+\DoxyCodeLine{44       str << \textcolor{stringliteral}{"{}["{}};}
+\DoxyCodeLine{45       \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0;}
+\DoxyCodeLine{46       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& element : \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}.ToArray()) \{}
+\DoxyCodeLine{47         \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_1_1ls_ac8de670535698b4518b3b648f8837381}{SerializeToString}}(str, element);}
+\DoxyCodeLine{48         \textcolor{keywordflow}{if} (++\mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}.ToArray().size()) str << \textcolor{stringliteral}{"{},"{}};}
+\DoxyCodeLine{49       \}}
+\DoxyCodeLine{50       str << \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{51       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{52     \}}
+\DoxyCodeLine{53     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{54       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{55   \}}
+\DoxyCodeLine{56 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::torque\+::ls\+::\+Json\+Value\+::\+ARRAY, v8\+::internal\+::torque\+::ls\+::\+Json\+Value\+::\+BOOL, v8\+::internal\+::torque\+::ls\+::\+Json\+Value\+::\+IS\+\_\+\+NULL, v8\+::internal\+::torque\+::ls\+::\+Json\+Value\+::\+NUMBER, v8\+::internal\+::torque\+::ls\+::\+Json\+Value\+::\+OBJECT, v8\+::internal\+::torque\+::ls\+::\+Serialize\+To\+String(), v8\+::internal\+::torque\+::ls\+::\+Json\+Value\+::\+STRING, v8\+::internal\+::torque\+::\+String\+Literal\+Quote(), and v8\+::internal\+::value.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1torque_1_1ls_1_1anonymous__namespace_02json_8cc_03_a979ed675148554aa2a393dfe73eb4f9e_cgraph}
+\end{center}
+\end{figure}

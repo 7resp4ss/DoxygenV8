@@ -1,5 +1,6 @@
 var parsing_8cc =
 [
+    [ "MaybeReportStatistics", "parsing_8cc.html#a1da16e3e19d8fe57814c999c6259494d", null ],
     [ "ParseAny", "parsing_8cc.html#a1bea69595ccb02e017aecb560f7037e3", null ],
     [ "ParseFunction", "parsing_8cc.html#a81c67c080e246bb45820e38fac18dc03", null ],
     [ "ParseProgram", "parsing_8cc.html#aa759188a435edef46da13e53a6668097", null ],

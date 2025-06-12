@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$loop-\/analysis.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Loop\+Finder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{classv8_1_1internal_1_1compiler_1_1LoopFinder__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -13,6 +23,13 @@ static \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc4886000
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 175 of file loop-\/analysis.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1LoopFinder_adbc5a08789085e39664830ec69f63412}\label{classv8_1_1internal_1_1compiler_1_1LoopFinder_adbc5a08789085e39664830ec69f63412}} 
 \index{v8::internal::compiler::LoopFinder@{v8::internal::compiler::LoopFinder}!BuildLoopTree@{BuildLoopTree}}
@@ -20,6 +37,48 @@ static \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc4886000
 \doxysubsubsection{\texorpdfstring{BuildLoopTree()}{BuildLoopTree()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1LoopTree}{Loop\+Tree}} $\ast$ v8\+::internal\+::compiler\+::\+Loop\+Finder\+::\+Build\+Loop\+Tree (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFGraph}{TFGraph}} $\ast$}]{graph,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1TickCounter}{Tick\+Counter}} $\ast$}]{tick\+\_\+counter,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$}]{temp\+\_\+zone }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 536 of file loop-\/analysis.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{537                                                 \{}
+\DoxyCodeLine{538   LoopTree* loop\_tree =}
+\DoxyCodeLine{539       \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>zone()-\/>New<LoopTree>(\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>NodeCount(), \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>zone());}
+\DoxyCodeLine{540   LoopFinderImpl finder(\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}, loop\_tree, tick\_counter, zone);}
+\DoxyCodeLine{541   finder.Run();}
+\DoxyCodeLine{542   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_turbo\_loop) \{}
+\DoxyCodeLine{543     finder.Print();}
+\DoxyCodeLine{544   \}}
+\DoxyCodeLine{545   \textcolor{keywordflow}{return} loop\_tree;}
+\DoxyCodeLine{546 \}}
+
+\end{DoxyCode}
+
+
+References graph(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Loop\+Peeling\+Phase\+::\+Run().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{classv8_1_1internal_1_1compiler_1_1LoopFinder_adbc5a08789085e39664830ec69f63412_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1LoopFinder_adbc5a08789085e39664830ec69f63412_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1LoopFinder_aa5e4d965a66abd4d5f9fbf033ec87d1d}\label{classv8_1_1internal_1_1compiler_1_1LoopFinder_aa5e4d965a66abd4d5f9fbf033ec87d1d}} 
 \index{v8::internal::compiler::LoopFinder@{v8::internal::compiler::LoopFinder}!HasMarkedExits@{HasMarkedExits}}
 \index{HasMarkedExits@{HasMarkedExits}!v8::internal::compiler::LoopFinder@{v8::internal::compiler::LoopFinder}}
@@ -28,7 +87,73 @@ static \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc4886000
 
 
 
+Definition at line 705 of file loop-\/analysis.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{706                                                           \{}
+\DoxyCodeLine{707   \textcolor{comment}{// Look for returns and if projections that are outside the loop but whose}}
+\DoxyCodeLine{708   \textcolor{comment}{// control input is inside the loop.}}
+\DoxyCodeLine{709   Node* loop\_node = loop\_tree-\/>GetLoopControl(loop);}
+\DoxyCodeLine{710   \textcolor{keywordflow}{for} (Node* node : loop\_tree-\/>LoopNodes(loop)) \{}
+\DoxyCodeLine{711     \textcolor{keywordflow}{for} (Node* \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}} : node-\/>uses()) \{}
+\DoxyCodeLine{712       \textcolor{keywordflow}{if} (!loop\_tree-\/>Contains(loop, \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}})) \{}
+\DoxyCodeLine{713         \textcolor{keywordtype}{bool} unmarked\_exit;}
+\DoxyCodeLine{714         \textcolor{keywordflow}{switch} (node-\/>opcode()) \{}
+\DoxyCodeLine{715           \textcolor{keywordflow}{case} IrOpcode::kLoopExit:}
+\DoxyCodeLine{716             unmarked\_exit = (node-\/>InputAt(1) != loop\_node);}
+\DoxyCodeLine{717             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{718           \textcolor{keywordflow}{case} IrOpcode::kLoopExitValue:}
+\DoxyCodeLine{719           \textcolor{keywordflow}{case} IrOpcode::kLoopExitEffect:}
+\DoxyCodeLine{720             unmarked\_exit = (node-\/>InputAt(1)-\/>InputAt(1) != loop\_node);}
+\DoxyCodeLine{721             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{722           \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{723             unmarked\_exit = (\mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>opcode() != IrOpcode::kTerminate);}
+\DoxyCodeLine{724         \}}
+\DoxyCodeLine{725         \textcolor{keywordflow}{if} (unmarked\_exit) \{}
+\DoxyCodeLine{726           \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_turbo\_loop) \{}
+\DoxyCodeLine{727             \mbox{\hyperlink{namespacev8_1_1internal_a3430752cde9f29d73e97ceed1bce0856}{PrintF}}(}
+\DoxyCodeLine{728                 \textcolor{stringliteral}{"{}Cannot peel loop \%i. Loop exit without explicit mark: Node \%i "{}}}
+\DoxyCodeLine{729                 \textcolor{stringliteral}{"{}(\%s) is inside loop, but its use \%i (\%s) is outside.\(\backslash\)n"{}},}
+\DoxyCodeLine{730                 loop\_node-\/>id(), node-\/>id(), node-\/>op()-\/>mnemonic(), \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>id(),}
+\DoxyCodeLine{731                 \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>op()-\/>mnemonic());}
+\DoxyCodeLine{732           \}}
+\DoxyCodeLine{733           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{734         \}}
+\DoxyCodeLine{735       \}}
+\DoxyCodeLine{736     \}}
+\DoxyCodeLine{737   \}}
+\DoxyCodeLine{738   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{739 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Loop\+Tree\+::\+Contains(), v8\+::internal\+::compiler\+::\+Loop\+Tree\+::\+Get\+Loop\+Control(), v8\+::internal\+::compiler\+::\+Node\+::id(), v8\+::internal\+::compiler\+::\+Node\+::\+Input\+At(), v8\+::internal\+::compiler\+::\+Loop\+Tree\+::\+Loop\+Nodes(), v8\+::internal\+::compiler\+::\+Operator\+::mnemonic(), v8\+::internal\+::compiler\+::\+Node\+::op(), v8\+::internal\+::compiler\+::\+Node\+::opcode(), v8\+::internal\+::\+Print\+F(), use(), v8\+::internal\+::compiler\+::\+Node\+::uses(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Loop\+Peeler\+::\+Can\+Peel().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1LoopFinder_aa5e4d965a66abd4d5f9fbf033ec87d1d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1LoopFinder_aa5e4d965a66abd4d5f9fbf033ec87d1d_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{loop-analysis_8h}{loop-\/analysis.\+h}}\item 
-\mbox{\hyperlink{loop-analysis_8cc}{loop-\/analysis.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{loop-analysis_8h}{loop-\/analysis.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{loop-analysis_8cc}{loop-\/analysis.\+cc}}\end{DoxyCompactItemize}

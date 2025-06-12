@@ -1,0 +1,4 @@
+var namespacecppgc_1_1internal_1_1anonymous__namespace_02marking_verifier_8cc_03 =
+[
+    [ "VerificationVisitor", "classcppgc_1_1internal_1_1anonymous__namespace_02marking-verifier_8cc_03_1_1VerificationVisitor.html", "classcppgc_1_1internal_1_1anonymous__namespace_02marking-verifier_8cc_03_1_1VerificationVisitor" ]
+];

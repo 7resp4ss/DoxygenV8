@@ -1,6 +1,7 @@
 var classv8_1_1internal_1_1InterceptorInfo =
 [
-    [ "BodyDescriptor", "classv8_1_1internal_1_1InterceptorInfo_1_1BodyDescriptor.html", null ],
+    [ "BodyDescriptor", "classv8_1_1internal_1_1InterceptorInfo_1_1BodyDescriptor.html", "classv8_1_1internal_1_1InterceptorInfo_1_1BodyDescriptor" ],
+    [ "AllocateExternalPointerEntries", "classv8_1_1internal_1_1InterceptorInfo.html#af5f6630797a9fa29ac76c63976c3ebf9", null ],
     [ "clear_padding", "classv8_1_1internal_1_1InterceptorInfo.html#a3db1eb3ee5d0837823d43d37647840f2", null ],
     [ "DECL_LAZY_EXTERNAL_POINTER_ACCESSORS_MAYBE_READ_ONLY_HOST", "classv8_1_1internal_1_1InterceptorInfo.html#a1d05deab3318a7a275feaa17ddfec3d5", null ],
     [ "DECL_LAZY_EXTERNAL_POINTER_ACCESSORS_MAYBE_READ_ONLY_HOST", "classv8_1_1internal_1_1InterceptorInfo.html#a2c884700aab41e83455fda4d6f5c4206", null ],

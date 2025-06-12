@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::Shared\+Heap\+Deserializer\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=217pt]{classv8_1_1internal_1_1SharedHeapDeserializer__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1SharedHeapDeserializer__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -31,7 +31,19 @@ Collaboration diagram for v8\+::internal\+::Shared\+Heap\+Deserializer\+:
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1SharedHeapDeserializer_a59fa92d3cbaf88d3b94f8d911eaadb6c}{Deserialize\+Into\+Isolate}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1SharedHeapDeserializer_a7678db6796d85567a8b145fd994fb3e6}{Deserialize\+String\+Table}} ()
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 16 of file shared-\/heap-\/deserializer.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -43,6 +55,16 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1SharedHeapDeserializer_a59fa92d3cba
 
 
 
+Definition at line 18 of file shared-\/heap-\/deserializer.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21       : \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_adb0b5891ab253b282d99b02d59e73752}{Deserializer}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}, shared\_heap\_data-\/>Payload(),}
+\DoxyCodeLine{22                      shared\_heap\_data-\/>GetMagicNumber(), \textcolor{keyword}{false}, can\_rehash) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SharedHeapDeserializer_a59fa92d3cbaf88d3b94f8d911eaadb6c}\label{classv8_1_1internal_1_1SharedHeapDeserializer_a59fa92d3cbaf88d3b94f8d911eaadb6c}} 
 \index{v8::internal::SharedHeapDeserializer@{v8::internal::SharedHeapDeserializer}!DeserializeIntoIsolate@{DeserializeIntoIsolate}}
@@ -52,7 +74,122 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1SharedHeapDeserializer_a59fa92d3cba
 
 
 
+Definition at line 12 of file shared-\/heap-\/deserializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{12                                                     \{}
+\DoxyCodeLine{13   \textcolor{comment}{// Don't deserialize into isolates that don't own their string table. If there}}
+\DoxyCodeLine{14   \textcolor{comment}{// are client Isolates, the shared heap object cache should already be}}
+\DoxyCodeLine{15   \textcolor{comment}{// populated.}}
+\DoxyCodeLine{16   \textcolor{comment}{// TODO(372493838): The shared heap object cache can only contain strings.}}
+\DoxyCodeLine{17   \textcolor{comment}{// Update name to reflect this.}}
+\DoxyCodeLine{18   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>OwnsStringTables()) \{}
+\DoxyCodeLine{19     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>shared\_heap\_object\_cache()-\/>empty());}
+\DoxyCodeLine{20     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{21   \}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>shared\_heap\_object\_cache()-\/>empty());}
+\DoxyCodeLine{24   HandleScope scope(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}());}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26   \mbox{\hyperlink{classv8_1_1internal_1_1SerializerDeserializer_acbf6fe75f1a92534301f84cda2e00907}{IterateSharedHeapObjectCache}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}(), \textcolor{keyword}{this});}
+\DoxyCodeLine{27   \mbox{\hyperlink{classv8_1_1internal_1_1SharedHeapDeserializer_a7678db6796d85567a8b145fd994fb3e6}{DeserializeStringTable}}();}
+\DoxyCodeLine{28   \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_af0a52009e7b41a4c3480b5602b5bfcd7}{DeserializeDeferredObjects}}();}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a3d107d726ed241fbde2020146bc4f19c}{should\_rehash}}()) \{}
+\DoxyCodeLine{31     \textcolor{comment}{// The hash seed has already been initialized in ReadOnlyDeserializer, thus}}
+\DoxyCodeLine{32     \textcolor{comment}{// there is no need to call `isolate()-\/>heap()-\/>InitializeHashSeed();`.}}
+\DoxyCodeLine{33     \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_ab0b69ae99f61286e8c56f718e4f74c8a}{Rehash}}();}
+\DoxyCodeLine{34   \}}
+\DoxyCodeLine{35 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::\+Deserialize\+Deferred\+Objects(), Deserialize\+String\+Table(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::isolate(), v8\+::internal\+::\+Serializer\+Deserializer\+::\+Iterate\+Shared\+Heap\+Object\+Cache(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::\+Rehash(), and v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::should\+\_\+rehash().
+
+
+
+Referenced by v8\+::internal\+::\+Isolate\+::\+Init().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SharedHeapDeserializer_a59fa92d3cbaf88d3b94f8d911eaadb6c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SharedHeapDeserializer_a59fa92d3cbaf88d3b94f8d911eaadb6c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1SharedHeapDeserializer_a7678db6796d85567a8b145fd994fb3e6}\label{classv8_1_1internal_1_1SharedHeapDeserializer_a7678db6796d85567a8b145fd994fb3e6}} 
+\index{v8::internal::SharedHeapDeserializer@{v8::internal::SharedHeapDeserializer}!DeserializeStringTable@{DeserializeStringTable}}
+\index{DeserializeStringTable@{DeserializeStringTable}!v8::internal::SharedHeapDeserializer@{v8::internal::SharedHeapDeserializer}}
+\doxysubsubsection{\texorpdfstring{DeserializeStringTable()}{DeserializeStringTable()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Shared\+Heap\+Deserializer\+::\+Deserialize\+String\+Table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 37 of file shared-\/heap-\/deserializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{37                                                     \{}
+\DoxyCodeLine{38   \textcolor{comment}{// See SharedHeapSerializer::SerializeStringTable.}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>OwnsStringTables());}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42   \textcolor{comment}{// Get the string table size.}}
+\DoxyCodeLine{43   \textcolor{keyword}{const} \textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}} = \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a3ac7521096ee0a9781447ca872936ffe}{source}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1SnapshotByteSource_ab5cbeb5c8cbd24ba02e72e62b8c8820f}{GetUint30}}();}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   \textcolor{comment}{// .. and the contents.}}
+\DoxyCodeLine{46   DirectHandleVector<String> strings(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}());}
+\DoxyCodeLine{47   strings.reserve(\mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}});}
+\DoxyCodeLine{48   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}}; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{49     strings.emplace\_back(Cast<String>(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a16fead842ed74030e1e5f73f306b3546}{ReadObject}}()));}
+\DoxyCodeLine{50   \}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   StringTable* t = \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a184abe8a4a39f941a2f33a937776315d}{string\_table}}();}
+\DoxyCodeLine{53   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(t-\/>NumberOfElements(), 0);}
+\DoxyCodeLine{54   t-\/>InsertForIsolateDeserialization(}
+\DoxyCodeLine{55       \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}(), \mbox{\hyperlink{namespacev8_1_1base_a5bfc65f27076e49eb7752a4fb4d45acb}{base::VectorOf}}(strings.data(), strings.size()));}
+\DoxyCodeLine{56   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(t-\/>NumberOfElements(), \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}});}
+\DoxyCodeLine{57 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Direct\+Handle\+Vector$<$ T $>$\+::data(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, v8\+::internal\+::\+Direct\+Handle\+Vector$<$ T $>$\+::emplace\+\_\+back(), v8\+::internal\+::\+Snapshot\+Byte\+Source\+::\+Get\+Uint30(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::\+String\+Table\+::\+Insert\+For\+Isolate\+Deserialization(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::isolate(), v8\+::internal\+::length, v8\+::internal\+::\+String\+Table\+::\+Number\+Of\+Elements(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::\+Read\+Object(), v8\+::internal\+::\+Direct\+Handle\+Vector$<$ T $>$\+::reserve(), v8\+::internal\+::\+Direct\+Handle\+Vector$<$ T $>$\+::size(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::source(), v8\+::internal\+::\+Isolate\+::string\+\_\+table(), and v8\+::base\+::\+Vector\+Of().
+
+
+
+Referenced by Deserialize\+Into\+Isolate().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SharedHeapDeserializer_a7678db6796d85567a8b145fd994fb3e6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SharedHeapDeserializer_a7678db6796d85567a8b145fd994fb3e6_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{shared-heap-deserializer_8h}{shared-\/heap-\/deserializer.\+h}}\item 
-\mbox{\hyperlink{shared-heap-deserializer_8cc}{shared-\/heap-\/deserializer.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/snapshot/\mbox{\hyperlink{shared-heap-deserializer_8h}{shared-\/heap-\/deserializer.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/snapshot/\mbox{\hyperlink{shared-heap-deserializer_8cc}{shared-\/heap-\/deserializer.\+cc}}\end{DoxyCompactItemize}

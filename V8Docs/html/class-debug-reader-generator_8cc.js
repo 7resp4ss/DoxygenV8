@@ -1,13 +1,16 @@
 var class_debug_reader_generator_8cc =
 [
-    [ "index_", "class-debug-reader-generator_8cc.html#a785d586ace5b36f2b0dab11f7dcd20f6", null ],
-    [ "kTqObjectOverrideDecls", "class-debug-reader-generator_8cc.html#aa1a64621440aa62cc0dc3c02acd55724", null ],
-    [ "name_and_type", "class-debug-reader-generator_8cc.html#a6b75807b07e0b7853386fd22203e8018", null ],
-    [ "name_and_type_", "class-debug-reader-generator_8cc.html#a94b19a79464a31e051c86d80b9245cc4", null ],
-    [ "num_bits", "class-debug-reader-generator_8cc.html#a3248b66d0aee4e118d186124a596f522", null ],
-    [ "offset_bytes", "class-debug-reader-generator_8cc.html#a726591740709bfb61e1db3e35d93ddcb", null ],
-    [ "pos", "class-debug-reader-generator_8cc.html#aede818ff693a0360e722300214ad6a52", null ],
-    [ "pos_", "class-debug-reader-generator_8cc.html#a5fbcb6729cd52b168bf0d80b74e01cf7", null ],
-    [ "shift_bits", "class-debug-reader-generator_8cc.html#aae663549ca88d6dc5092481c7123fa7a", null ],
-    [ "type_", "class-debug-reader-generator_8cc.html#abd3adda11a6d48495a56289fa9c9d67c", null ]
+    [ "ValueTypeFieldIterator", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02class-debug-reader-generator_8cc_03_1_1ValueTypeFieldIterator.html", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02class-debug-reader-generator_8cc_03_1_1ValueTypeFieldIterator" ],
+    [ "Result", "structv8_1_1internal_1_1torque_1_1anonymous__namespace_02class-debug-reader-generator_8cc_03_1_15b8138a6a53406182c8b5f3ae1f2b434.html", "structv8_1_1internal_1_1torque_1_1anonymous__namespace_02class-debug-reader-generator_8cc_03_1_15b8138a6a53406182c8b5f3ae1f2b434" ],
+    [ "ValueTypeFieldsRange", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02class-debug-reader-generator_8cc_03_1_1ValueTypeFieldsRange.html", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02class-debug-reader-generator_8cc_03_1_1ValueTypeFieldsRange" ],
+    [ "DebugFieldType", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02class-debug-reader-generator_8cc_03_1_1DebugFieldType.html", "classv8_1_1internal_1_1torque_1_1anonymous__namespace_02class-debug-reader-generator_8cc_03_1_1DebugFieldType" ],
+    [ "TypeStorage", "class-debug-reader-generator_8cc.html#a4c481093d4b23816a0bf1ca3411e5b43", [
+      [ "kAsStoredInHeap", "class-debug-reader-generator_8cc.html#a4c481093d4b23816a0bf1ca3411e5b43ab5b2290d32982c43582735038ecd87df", null ],
+      [ "kUncompressed", "class-debug-reader-generator_8cc.html#a4c481093d4b23816a0bf1ca3411e5b43a53a03bc10800f696bdcb2e5541b0101b", null ]
+    ] ],
+    [ "GenerateClassDebugReader", "class-debug-reader-generator_8cc.html#a7f9043fcfaa1201c23ee9cde90df403b", null ],
+    [ "GenerateFieldAddressAccessor", "class-debug-reader-generator_8cc.html#aef71a096b1bdf29ad4ecf01f186494ac", null ],
+    [ "GenerateFieldValueAccessor", "class-debug-reader-generator_8cc.html#aa2028ee01dc5cf614f3074e30c78c315", null ],
+    [ "GenerateGetPropsChunkForField", "class-debug-reader-generator_8cc.html#a9c4d2bb9f832c6e8b398c081aeb48b1b", null ],
+    [ "kTqObjectOverrideDecls", "class-debug-reader-generator_8cc.html#aa1a64621440aa62cc0dc3c02acd55724", null ]
 ];

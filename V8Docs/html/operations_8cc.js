@@ -1,5 +1,6 @@
 var operations_8cc =
 [
+    [ "InputsRepFactoryCheck", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1anonymous__namespace_02operations_8cc_03_1_1InputsRepFactoryCheck.html", null ],
     [ "NON_TERMINATOR_CASE", "operations_8cc.html#ab7b41a89392f1d503e9f8f5553b05ca9", null ],
     [ "OPCODE_NAME", "operations_8cc.html#a5f6ad124964c569a5edbecdbe1876e44", null ],
     [ "PRINT_KIND", "operations_8cc.html#a8d62ac6a1a170804dfd9f2f774bf59ce", null ],
@@ -8,6 +9,7 @@ var operations_8cc =
     [ "SWITCH_CASE", "operations_8cc.html#a3b7f64dfcc4028442f230ad4d75c9c0a", null ],
     [ "SWITCH_CASE", "operations_8cc.html#a3b7f64dfcc4028442f230ad4d75c9c0a", null ],
     [ "get_zone", "operations_8cc.html#ab50498452044afe9bceb10e03706774a", null ],
+    [ "index_for_bound_block", "operations_8cc.html#a36ab50b58faf5f57ea773a7ac4b4ad66", null ],
     [ "IsUnlikelySuccessor", "operations_8cc.html#aef0d63616aada936978ae0aaf51c87c7", null ],
     [ "OpcodeName", "operations_8cc.html#a4ad272da0f070a61833e3e7d4fcf9c5b", null ],
     [ "operator<<", "operations_8cc.html#a2f742f65976b89af4c37c45db10635d8", null ],

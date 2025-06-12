@@ -11,5 +11,10 @@ var classv8_1_1internal_1_1UnifiedHeapMarker =
     [ "schedule", "classv8_1_1internal_1_1UnifiedHeapMarker.html#afa7f23f4f287892bcddf6c4afc3a84d3", null ],
     [ "ScheduleIncrementalMarkingTask", "classv8_1_1internal_1_1UnifiedHeapMarker.html#a1a091df7bbdc646d92b34bce08cb78f6", null ],
     [ "stack_visitor", "classv8_1_1internal_1_1UnifiedHeapMarker.html#a209caed1323d1ccd4f8d8071aaca10d2", null ],
-    [ "visitor", "classv8_1_1internal_1_1UnifiedHeapMarker.html#a6d121215a18169a0a28af55cd4311c50", null ]
+    [ "visitor", "classv8_1_1internal_1_1UnifiedHeapMarker.html#a6d121215a18169a0a28af55cd4311c50", null ],
+    [ "concurrent_marker_", "classv8_1_1internal_1_1UnifiedHeapMarker.html#a68c6d4e4dce512f6a2cd46b8d5b46a1c", null ],
+    [ "conservative_marking_visitor_", "classv8_1_1internal_1_1UnifiedHeapMarker.html#aed0e485cb92b2c0b056083e5843e6131", null ],
+    [ "marking_visitor_", "classv8_1_1internal_1_1UnifiedHeapMarker.html#ad108b892ee54b95de4e23e38a85cec0c", null ],
+    [ "mutator_unified_heap_marking_state_", "classv8_1_1internal_1_1UnifiedHeapMarker.html#a07f6e03e9d954de8f5dc7c0f75ee5876", null ],
+    [ "schedule_", "classv8_1_1internal_1_1UnifiedHeapMarker.html#af306e9f143898f7353b6aa8e1ebf4244", null ]
 ];

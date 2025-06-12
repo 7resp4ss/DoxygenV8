@@ -1,6 +1,6 @@
 var v8_exception_8h =
 [
-    [ "Exception", "classv8_1_1Exception.html", null ],
+    [ "Exception", "classv8_1_1Exception.html", "classv8_1_1Exception" ],
     [ "ExceptionPropagationMessage", "classv8_1_1ExceptionPropagationMessage.html", "classv8_1_1ExceptionPropagationMessage" ],
     [ "TryCatch", "classv8_1_1TryCatch.html", "classv8_1_1TryCatch" ],
     [ "ExceptionPropagationCallback", "v8-exception_8h.html#a4ecaf3d522af803c0b84d9b23ba65f86", null ],

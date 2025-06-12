@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::compiler\+::Wasm\+Typer\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=201pt]{classv8_1_1internal_1_1compiler_1_1WasmTyper__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1compiler_1_1WasmTyper__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Wasm\+Typer\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=201pt]{classv8_1_1internal_1_1compiler_1_1WasmTyper__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1WasmTyper__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -31,9 +31,23 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Wasm\+Typer\+:
 \item 
 const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmTyper_a109fdb858bd8ee06e29b83a36865f187}{reducer\+\_\+name}} () const override
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reduction}{Reduction}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmTyper_a83c910a83ad75033af4a2012ce7b43a5}{Reduce}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$\mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}}) final
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reduction}{Reduction}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmTyper_a83c910a83ad75033af4a2012ce7b43a5}{Reduce}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$node) final
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmTyper_ad341deffc7274c5266bff3568fbd5371}{function\+\_\+index\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmTyper_a4b49d1e62f39ae9a7a4d64740207337b}{graph\+\_\+zone\+\_\+}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 26 of file wasm-\/typer.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -45,6 +59,17 @@ const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmTyper_
 
 
 
+Definition at line 26 of file wasm-\/typer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{28     : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1AdvancedReducer_abb941b5a245fa4b0c2e87c049fd78190}{AdvancedReducer}}(editor),}
+\DoxyCodeLine{29       \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmTyper_ad341deffc7274c5266bff3568fbd5371}{function\_index\_}}(function\_index),}
+\DoxyCodeLine{30       \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmTyper_a4b49d1e62f39ae9a7a4d64740207337b}{graph\_zone\_}}(mcgraph-\/>graph()-\/>zone()) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1WasmTyper_a83c910a83ad75033af4a2012ce7b43a5}\label{classv8_1_1internal_1_1compiler_1_1WasmTyper_a83c910a83ad75033af4a2012ce7b43a5}} 
 \index{v8::internal::compiler::WasmTyper@{v8::internal::compiler::WasmTyper}!Reduce@{Reduce}}
@@ -54,8 +79,214 @@ const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmTyper_
 
 
 
-Implements \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer}{v8\+::internal\+::compiler\+::\+Reducer}}.
+Implements \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_acc15b2ec184dc342fb3e7d77488952ff}{v8\+::internal\+::compiler\+::\+Reducer}}.
 
+
+
+Definition at line 43 of file wasm-\/typer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{43                                       \{}
+\DoxyCodeLine{44   \textcolor{keyword}{using} TypeInModule = wasm::TypeInModule;}
+\DoxyCodeLine{45   TypeInModule computed\_type;}
+\DoxyCodeLine{46   \textcolor{keywordflow}{switch} (node-\/>opcode()) \{}
+\DoxyCodeLine{47     \textcolor{keywordflow}{case} IrOpcode::kTypeGuard: \{}
+\DoxyCodeLine{48       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02wasm-typer_8cc_03_ad72d8a8aae75e747bc70f43f10f9d53d}{AllInputsTyped}}(node)) \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{49       \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02js-display-names_8cc_03_a169d0b07e82f46d628050c890a0dacbe}{Type}} guarded\_type = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a9a69d0536048a5288b5d7c8767cc23b7}{TypeGuardTypeOf}}(node-\/>op());}
+\DoxyCodeLine{50       \textcolor{keywordflow}{if} (!guarded\_type.IsWasm()) \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{51       \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02js-display-names_8cc_03_a169d0b07e82f46d628050c890a0dacbe}{Type}} input\_type =}
+\DoxyCodeLine{52           \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a7053cfe3857d7d48ad3d005d633c94cf}{NodeProperties::GetValueInput}}(node, 0));}
+\DoxyCodeLine{53       \textcolor{keywordflow}{if} (!input\_type.IsWasm()) \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{54       TypeInModule guarded\_wasm\_type = guarded\_type.AsWasm();}
+\DoxyCodeLine{55       TypeInModule input\_wasm\_type = input\_type.AsWasm();}
+\DoxyCodeLine{56       \textcolor{comment}{// Note: The intersection type might be bottom. In this case, we are in a}}
+\DoxyCodeLine{57       \textcolor{comment}{// dead branch: Type this node as bottom and wait for the}}
+\DoxyCodeLine{58       \textcolor{comment}{// WasmGCOperatorReducer to remove it.}}
+\DoxyCodeLine{59       \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(guarded\_wasm\_type.module, input\_wasm\_type.module);}
+\DoxyCodeLine{60       computed\_type = \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a8b60c7afa8be989dfa95173e18d2460f}{wasm::Intersection}}(}
+\DoxyCodeLine{61           guarded\_wasm\_type.type, input\_wasm\_type.type, input\_wasm\_type.module);}
+\DoxyCodeLine{62       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{63     \}}
+\DoxyCodeLine{64     \textcolor{keywordflow}{case} IrOpcode::kWasmTypeCast:}
+\DoxyCodeLine{65     \textcolor{keywordflow}{case} IrOpcode::kWasmTypeCastAbstract: \{}
+\DoxyCodeLine{66       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02wasm-typer_8cc_03_ad72d8a8aae75e747bc70f43f10f9d53d}{AllInputsTyped}}(node)) \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{67       TypeInModule object\_type =}
+\DoxyCodeLine{68           \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a7053cfe3857d7d48ad3d005d633c94cf}{NodeProperties::GetValueInput}}(node, 0))}
+\DoxyCodeLine{69               .AsWasm();}
+\DoxyCodeLine{70       wasm::ValueType to\_type = OpParameter<WasmTypeCheckConfig>(node-\/>op()).to;}
+\DoxyCodeLine{71       computed\_type =}
+\DoxyCodeLine{72           \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a8b60c7afa8be989dfa95173e18d2460f}{wasm::Intersection}}(object\_type.type, to\_type, object\_type.module);}
+\DoxyCodeLine{73       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{74     \}}
+\DoxyCodeLine{75     \textcolor{keywordflow}{case} IrOpcode::kAssertNotNull: \{}
+\DoxyCodeLine{76       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02wasm-typer_8cc_03_ad72d8a8aae75e747bc70f43f10f9d53d}{AllInputsTyped}}(node)) \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{77       TypeInModule object\_type =}
+\DoxyCodeLine{78           \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a7053cfe3857d7d48ad3d005d633c94cf}{NodeProperties::GetValueInput}}(node, 0))}
+\DoxyCodeLine{79               .AsWasm();}
+\DoxyCodeLine{80       computed\_type = \{object\_type.type.AsNonNull(), object\_type.module\};}
+\DoxyCodeLine{81       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{82     \}}
+\DoxyCodeLine{83     \textcolor{keywordflow}{case} IrOpcode::kPhi: \{}
+\DoxyCodeLine{84       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02wasm-typer_8cc_03_ad72d8a8aae75e747bc70f43f10f9d53d}{AllInputsTyped}}(node)) \{}
+\DoxyCodeLine{85         \textcolor{keywordtype}{bool} is\_loop\_phi =}
+\DoxyCodeLine{86             \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a1dd28ca4d552fdf2edfef50070c8ac3d}{NodeProperties::GetControlInput}}(node)-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node_a4503620c5a9219c781579fa834c11d87}{opcode}}() == IrOpcode::kLoop;}
+\DoxyCodeLine{87         \textcolor{comment}{// For a merge phi, we need all inputs to be typed.}}
+\DoxyCodeLine{88         \textcolor{keywordflow}{if} (!is\_loop\_phi) \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{89         \textcolor{comment}{// For a loop phi, we can forward the non-\/recursive-\/input type. We can}}
+\DoxyCodeLine{90         \textcolor{comment}{// recompute the type when the rest of the inputs' types are computed.}}
+\DoxyCodeLine{91         Node* non\_recursive\_input = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a7053cfe3857d7d48ad3d005d633c94cf}{NodeProperties::GetValueInput}}(node, 0);}
+\DoxyCodeLine{92         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a360819de483fa505a4a01aae2b390308}{NodeProperties::IsTyped}}(non\_recursive\_input) ||}
+\DoxyCodeLine{93             !\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(non\_recursive\_input).IsWasm()) \{}
+\DoxyCodeLine{94           \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{95         \}}
+\DoxyCodeLine{96         computed\_type = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(non\_recursive\_input).AsWasm();}
+\DoxyCodeLine{97         \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}function: \%d, loop phi node: \%d, type: \%s\(\backslash\)n"{}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmTyper_ad341deffc7274c5266bff3568fbd5371}{function\_index\_}},}
+\DoxyCodeLine{98               node-\/>id(), computed\_type.type.name().c\_str());}
+\DoxyCodeLine{99         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{100       \}}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102       \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02js-display-names_8cc_03_a169d0b07e82f46d628050c890a0dacbe}{Type}} first\_input\_type =}
+\DoxyCodeLine{103           \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a7053cfe3857d7d48ad3d005d633c94cf}{NodeProperties::GetValueInput}}(node, 0));}
+\DoxyCodeLine{104       \textcolor{keywordflow}{if} (!first\_input\_type.IsWasm()) \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{105       computed\_type = first\_input\_type.AsWasm();}
+\DoxyCodeLine{106       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 1; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < node-\/>op()-\/>ValueInputCount(); \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{107         Node* input = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a7053cfe3857d7d48ad3d005d633c94cf}{NodeProperties::GetValueInput}}(node, \mbox{\hyperlink{namespacev8_1_1internal}{i}});}
+\DoxyCodeLine{108         \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02js-display-names_8cc_03_a169d0b07e82f46d628050c890a0dacbe}{Type}} input\_type = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(input);}
+\DoxyCodeLine{109         \textcolor{keywordflow}{if} (!input\_type.IsWasm()) \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{110         TypeInModule wasm\_type = input\_type.AsWasm();}
+\DoxyCodeLine{111         \textcolor{keywordflow}{if} (computed\_type.type.is\_bottom()) \{}
+\DoxyCodeLine{112           \textcolor{comment}{// We have not found a non-\/bottom branch yet.}}
+\DoxyCodeLine{113           computed\_type = wasm\_type;}
+\DoxyCodeLine{114         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!wasm\_type.type.is\_bottom()) \{}
+\DoxyCodeLine{115           \textcolor{comment}{// We do not want union of types from unreachable branches.}}
+\DoxyCodeLine{116           \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(computed\_type.module, wasm\_type.module);}
+\DoxyCodeLine{117           computed\_type =}
+\DoxyCodeLine{118               \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a0b15777e978790a6aabab9d7f8f8a0ad}{wasm::Union}}(computed\_type.type, wasm\_type.type, wasm\_type.module);}
+\DoxyCodeLine{119         \}}
+\DoxyCodeLine{120       \}}
+\DoxyCodeLine{121       \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(}
+\DoxyCodeLine{122           \textcolor{stringliteral}{"{}function: \%d, phi node: \%d, input\#: \%d, input0:\%d:\%s, input1:\%d:\%s, "{}}}
+\DoxyCodeLine{123           \textcolor{stringliteral}{"{}type: \%s\(\backslash\)n"{}},}
+\DoxyCodeLine{124           \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmTyper_ad341deffc7274c5266bff3568fbd5371}{function\_index\_}}, node-\/>id(), node-\/>op()-\/>ValueInputCount(),}
+\DoxyCodeLine{125           node-\/>InputAt(0)-\/>id(),}
+\DoxyCodeLine{126           \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(node-\/>InputAt(0))}
+\DoxyCodeLine{127               .AsWasm()}
+\DoxyCodeLine{128               .type.name()}
+\DoxyCodeLine{129               .c\_str(),}
+\DoxyCodeLine{130           node-\/>InputAt(1)-\/>id(),}
+\DoxyCodeLine{131           node-\/>op()-\/>ValueInputCount() > 1}
+\DoxyCodeLine{132               ? \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(node-\/>InputAt(1))}
+\DoxyCodeLine{133                     .AsWasm()}
+\DoxyCodeLine{134                     .type.name()}
+\DoxyCodeLine{135                     .c\_str()}
+\DoxyCodeLine{136               : \textcolor{stringliteral}{"{}<control>"{}},}
+\DoxyCodeLine{137           computed\_type.type.name().c\_str());}
+\DoxyCodeLine{138       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{139     \}}
+\DoxyCodeLine{140     \textcolor{keywordflow}{case} IrOpcode::kWasmArrayGet: \{}
+\DoxyCodeLine{141       Node* \textcolor{keywordtype}{object} = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a7053cfe3857d7d48ad3d005d633c94cf}{NodeProperties::GetValueInput}}(node, 0);}
+\DoxyCodeLine{142       \textcolor{comment}{// This can happen either because the object has not been typed yet, or}}
+\DoxyCodeLine{143       \textcolor{comment}{// because it is an internal VM object (e.g. the instance).}}
+\DoxyCodeLine{144       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a360819de483fa505a4a01aae2b390308}{NodeProperties::IsTyped}}(\textcolor{keywordtype}{object})) \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{145       TypeInModule object\_type = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(\textcolor{keywordtype}{object}).AsWasm();}
+\DoxyCodeLine{146       \textcolor{comment}{// \{is\_uninhabited\} can happen in unreachable branches.}}
+\DoxyCodeLine{147       \textcolor{keywordflow}{if} (object\_type.type.is\_uninhabited() ||}
+\DoxyCodeLine{148           object\_type.type == \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a35add11211148f0fecbfa21568193917}{wasm::kWasmNullRef}}) \{}
+\DoxyCodeLine{149         computed\_type = \{\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_accd7a01a4feacf7239992e49a422c952}{wasm::kWasmBottom}}, object\_type.module\};}
+\DoxyCodeLine{150         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{151       \}}
+\DoxyCodeLine{152       wasm::ModuleTypeIndex ref\_index = object\_type.type.ref\_index();}
+\DoxyCodeLine{153       \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(object\_type.module-\/>has\_array(ref\_index));}
+\DoxyCodeLine{154       \textcolor{keyword}{const} wasm::ArrayType* type\_from\_object =}
+\DoxyCodeLine{155           object\_type.module-\/>type(ref\_index).array\_type;}
+\DoxyCodeLine{156       computed\_type = \{type\_from\_object-\/>element\_type().Unpacked(),}
+\DoxyCodeLine{157                        object\_type.module\};}
+\DoxyCodeLine{158       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{159     \}}
+\DoxyCodeLine{160     \textcolor{keywordflow}{case} IrOpcode::kWasmStructGet: \{}
+\DoxyCodeLine{161       Node* \textcolor{keywordtype}{object} = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a7053cfe3857d7d48ad3d005d633c94cf}{NodeProperties::GetValueInput}}(node, 0);}
+\DoxyCodeLine{162       \textcolor{comment}{// This can happen either because the object has not been typed yet.}}
+\DoxyCodeLine{163       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a360819de483fa505a4a01aae2b390308}{NodeProperties::IsTyped}}(\textcolor{keywordtype}{object})) \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{164       TypeInModule object\_type = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(\textcolor{keywordtype}{object}).AsWasm();}
+\DoxyCodeLine{165       \textcolor{comment}{// \{is\_uninhabited\} can happen in unreachable branches.}}
+\DoxyCodeLine{166       \textcolor{keywordflow}{if} (object\_type.type.is\_uninhabited() ||}
+\DoxyCodeLine{167           object\_type.type == \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a35add11211148f0fecbfa21568193917}{wasm::kWasmNullRef}}) \{}
+\DoxyCodeLine{168         computed\_type = \{\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_accd7a01a4feacf7239992e49a422c952}{wasm::kWasmBottom}}, object\_type.module\};}
+\DoxyCodeLine{169         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{170       \}}
+\DoxyCodeLine{171       WasmFieldInfo info = OpParameter<WasmFieldInfo>(node-\/>op());}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173       wasm::ModuleTypeIndex ref\_index = object\_type.type.ref\_index();}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{175       \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(object\_type.module-\/>has\_struct(ref\_index));}
+\DoxyCodeLine{176 }
+\DoxyCodeLine{177       \textcolor{keyword}{const} wasm::StructType* struct\_type\_from\_object =}
+\DoxyCodeLine{178           object\_type.module-\/>type(ref\_index).struct\_type;}
+\DoxyCodeLine{179 }
+\DoxyCodeLine{180       computed\_type = \{}
+\DoxyCodeLine{181           struct\_type\_from\_object-\/>field(info.field\_index).Unpacked(),}
+\DoxyCodeLine{182           object\_type.module\};}
+\DoxyCodeLine{183       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{184     \}}
+\DoxyCodeLine{185     \textcolor{keywordflow}{case} IrOpcode::kNull: \{}
+\DoxyCodeLine{186       TypeInModule from\_node = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(node).AsWasm();}
+\DoxyCodeLine{187       computed\_type = \{\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a0cadd459f634903125d7572357b610e8}{wasm::ToNullSentinel}}(from\_node), from\_node.module\};}
+\DoxyCodeLine{188       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{189     \}}
+\DoxyCodeLine{190     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{191       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{192   \}}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{194   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a360819de483fa505a4a01aae2b390308}{NodeProperties::IsTyped}}(node) \&\& \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(node).IsWasm()) \{}
+\DoxyCodeLine{195     TypeInModule current\_type = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(node).AsWasm();}
+\DoxyCodeLine{196     \textcolor{keywordflow}{if} (!(current\_type.type.is\_bottom() || computed\_type.type.is\_bottom() ||}
+\DoxyCodeLine{197           \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a3c8e5205c40b2156097780fb9e7d3f7b}{wasm::IsSubtypeOf}}(current\_type.type, computed\_type.type,}
+\DoxyCodeLine{198                             current\_type.module, computed\_type.module) ||}
+\DoxyCodeLine{199           \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a3c8e5205c40b2156097780fb9e7d3f7b}{wasm::IsSubtypeOf}}(computed\_type.type, current\_type.type,}
+\DoxyCodeLine{200                             computed\_type.module, current\_type.module) ||}
+\DoxyCodeLine{201           \textcolor{comment}{// Imported strings can have more precise types.}}
+\DoxyCodeLine{202           (current\_type.type.heap\_representation() == \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1HeapType_a3cb113c1c1bd610631ec536141d2b05faa9a632a937d4e6beaffc6f2b2e765951}{wasm::HeapType::kExtern}} \&\&}
+\DoxyCodeLine{203            computed\_type.type.heap\_representation() ==}
+\DoxyCodeLine{204                \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1HeapType_a3cb113c1c1bd610631ec536141d2b05fac4556d4417e6893fa9f6d8aa4506a401}{wasm::HeapType::kString}}))) \{}
+\DoxyCodeLine{205       \mbox{\hyperlink{src_2base_2logging_8h_a0d093cb749cfc7ab5993726392df681f}{FATAL}}(}
+\DoxyCodeLine{206           \textcolor{stringliteral}{"{}Error -\/ Incompatible types. function: \%d, node: \%d:\%s, input0:\%d, "{}}}
+\DoxyCodeLine{207           \textcolor{stringliteral}{"{}current \%s, computed \%s\(\backslash\)n"{}},}
+\DoxyCodeLine{208           \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmTyper_ad341deffc7274c5266bff3568fbd5371}{function\_index\_}}, node-\/>id(), node-\/>op()-\/>mnemonic(),}
+\DoxyCodeLine{209           node-\/>InputAt(0)-\/>id(), current\_type.type.name().c\_str(),}
+\DoxyCodeLine{210           computed\_type.type.name().c\_str());}
+\DoxyCodeLine{211     \}}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{213     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_aa1157b17e6a6b751edc709751e98195d}{wasm::EquivalentTypes}}(current\_type.type, computed\_type.type,}
+\DoxyCodeLine{214                               current\_type.module, computed\_type.module)) \{}
+\DoxyCodeLine{215       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{216     \}}
+\DoxyCodeLine{217   \}}
+\DoxyCodeLine{218 }
+\DoxyCodeLine{219   \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}function: \%d, node: \%d:\%s, from: \%s, to: \%s\(\backslash\)n"{}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmTyper_ad341deffc7274c5266bff3568fbd5371}{function\_index\_}},}
+\DoxyCodeLine{220         node-\/>id(), node-\/>op()-\/>mnemonic(),}
+\DoxyCodeLine{221         \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a360819de483fa505a4a01aae2b390308}{NodeProperties::IsTyped}}(node)}
+\DoxyCodeLine{222             ? \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0e71f1238e1a0ecb0bfc7236827b86eb}{NodeProperties::GetType}}(node).AsWasm().type.name().c\_str()}
+\DoxyCodeLine{223             : \textcolor{stringliteral}{"{}<untyped>"{}},}
+\DoxyCodeLine{224         computed\_type.type.name().c\_str());}
+\DoxyCodeLine{225 }
+\DoxyCodeLine{226   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_aa382a307462976c6ed9fcde25dfb426f}{NodeProperties::SetType}}(node, Type::Wasm(computed\_type, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmTyper_a4b49d1e62f39ae9a7a4d64740207337b}{graph\_zone\_}}));}
+\DoxyCodeLine{227   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_a6309e9866a5be979111ffb8dc652a7af}{Changed}}(node);}
+\DoxyCodeLine{228 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{wasm-\/typer.\+cc\}\+::\+All\+Inputs\+Typed(), v8\+::internal\+::compiler\+::\+Reducer\+::\+Changed(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, v8\+::internal\+::wasm\+::\+Array\+Type\+::element\+\_\+type(), v8\+::internal\+::wasm\+::\+Equivalent\+Types(), FATAL, v8\+::internal\+::wasm\+::\+Struct\+Type\+::field(), function\+\_\+index\+\_\+, v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Get\+Control\+Input(), v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Get\+Type(), v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Get\+Value\+Input(), graph\+\_\+zone\+\_\+, v8\+::internal\+::compiler\+::\+Node\+::id(), v8\+::internal\+::compiler\+::\+Node\+::\+Input\+At(), v8\+::internal\+::wasm\+::\+Intersection(), v8\+::internal\+::wasm\+::\+Is\+Subtype\+Of(), v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Is\+Typed(), v8\+::internal\+::wasm\+::\+Heap\+Type\+::k\+Extern, v8\+::internal\+::wasm\+::\+Heap\+Type\+::k\+String, v8\+::internal\+::wasm\+::k\+Wasm\+Bottom, v8\+::internal\+::wasm\+::k\+Wasm\+Null\+Ref, v8\+::internal\+::compiler\+::\+Operator\+::mnemonic(), v8\+::internal\+::compiler\+::\+Reducer\+::\+No\+Change(), v8\+::internal\+::compiler\+::\+Node\+::op(), v8\+::internal\+::compiler\+::\+Node\+::opcode(), v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Set\+Type(), v8\+::internal\+::wasm\+::\+To\+Null\+Sentinel(), v8\+::internal\+::\+TRACE(), v8\+::internal\+::compiler\+::\+Type\+Guard\+Type\+Of(), v8\+::internal\+::wasm\+::\+Union(), v8\+::internal\+::wasm\+::\+Value\+Type\+::\+Unpacked(), and v8\+::internal\+::compiler\+::\+Operator\+::\+Value\+Input\+Count().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1WasmTyper_a83c910a83ad75033af4a2012ce7b43a5_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1WasmTyper_a109fdb858bd8ee06e29b83a36865f187}\label{classv8_1_1internal_1_1compiler_1_1WasmTyper_a109fdb858bd8ee06e29b83a36865f187}} 
 \index{v8::internal::compiler::WasmTyper@{v8::internal::compiler::WasmTyper}!reducer\_name@{reducer\_name}}
 \index{reducer\_name@{reducer\_name}!v8::internal::compiler::WasmTyper@{v8::internal::compiler::WasmTyper}}
@@ -68,7 +299,47 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_accff4b2e
 
 
 
+Definition at line 30 of file wasm-\/typer.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30 \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}WasmTyper"{}}; \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1WasmTyper_ad341deffc7274c5266bff3568fbd5371}\label{classv8_1_1internal_1_1compiler_1_1WasmTyper_ad341deffc7274c5266bff3568fbd5371}} 
+\index{v8::internal::compiler::WasmTyper@{v8::internal::compiler::WasmTyper}!function\_index\_@{function\_index\_}}
+\index{function\_index\_@{function\_index\_}!v8::internal::compiler::WasmTyper@{v8::internal::compiler::WasmTyper}}
+\doxysubsubsection{\texorpdfstring{function\_index\_}{function\_index\_}}
+{\footnotesize\ttfamily uint32\+\_\+t v8\+::internal\+::compiler\+::\+Wasm\+Typer\+::function\+\_\+index\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 35 of file wasm-\/typer.\+h.
+
+
+
+Referenced by Reduce().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1WasmTyper_a4b49d1e62f39ae9a7a4d64740207337b}\label{classv8_1_1internal_1_1compiler_1_1WasmTyper_a4b49d1e62f39ae9a7a4d64740207337b}} 
+\index{v8::internal::compiler::WasmTyper@{v8::internal::compiler::WasmTyper}!graph\_zone\_@{graph\_zone\_}}
+\index{graph\_zone\_@{graph\_zone\_}!v8::internal::compiler::WasmTyper@{v8::internal::compiler::WasmTyper}}
+\doxysubsubsection{\texorpdfstring{graph\_zone\_}{graph\_zone\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}}$\ast$ v8\+::internal\+::compiler\+::\+Wasm\+Typer\+::graph\+\_\+zone\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 36 of file wasm-\/typer.\+h.
+
+
+
+Referenced by Reduce().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{wasm-typer_8h}{wasm-\/typer.\+h}}\item 
-\mbox{\hyperlink{wasm-typer_8cc}{wasm-\/typer.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{wasm-typer_8h}{wasm-\/typer.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{wasm-typer_8cc}{wasm-\/typer.\+cc}}\end{DoxyCompactItemize}

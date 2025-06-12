@@ -4,13 +4,30 @@
 
 {\ttfamily \#include $<$jump-\/threading.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Jump\+Threading\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{classv8_1_1internal_1_1compiler_1_1JumpThreading__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JumpThreading_a3bae3f96294b5a12e5cbd6c853bb9255}{Compute\+Forwarding}} (\mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$local\+\_\+zone, \mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector}{Zone\+Vector}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1RpoNumber}{Rpo\+Number}} $>$ $\ast$\mbox{\hyperlink{jump-threading_8cc_a41f8c58d2c01bf65b8ee199c3f87fc80}{result}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSequence}{Instruction\+Sequence}} $\ast$\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} frame\+\_\+at\+\_\+start)
+static \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JumpThreading_a3bae3f96294b5a12e5cbd6c853bb9255}{Compute\+Forwarding}} (\mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$local\+\_\+zone, \mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector}{Zone\+Vector}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1RpoNumber}{Rpo\+Number}} $>$ $\ast$result, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSequence}{Instruction\+Sequence}} $\ast$\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} frame\+\_\+at\+\_\+start)
 \item 
 static void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JumpThreading_ab4a1f4a562dd0ee71a188c70b8212d3e}{Apply\+Forwarding}} (\mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$local\+\_\+zone, \mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector}{Zone\+Vector}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1RpoNumber}{Rpo\+Number}} $>$ const \&forwarding, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSequence}{Instruction\+Sequence}} $\ast$\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}})
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 16 of file jump-\/threading.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -20,6 +37,106 @@ static void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JumpThreading_ab
 \doxysubsubsection{\texorpdfstring{ApplyForwarding()}{ApplyForwarding()}}
 {\footnotesize\ttfamily void v8\+::internal\+::compiler\+::\+Jump\+Threading\+::\+Apply\+Forwarding (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$}]{local\+\_\+zone,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector}{Zone\+Vector}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1RpoNumber}{Rpo\+Number}} $>$ const \&}]{forwarding,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSequence}{Instruction\+Sequence}} $\ast$}]{code }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 255 of file jump-\/threading.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{257                                                                \{}
+\DoxyCodeLine{258   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.turbo\_jt) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260   \textcolor{comment}{// Skip empty blocks except for the first block.}}
+\DoxyCodeLine{261   \textcolor{keywordtype}{int} ao = 0;}
+\DoxyCodeLine{262   \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} \textcolor{keyword}{const} block : \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>ao\_blocks()) \{}
+\DoxyCodeLine{263     RpoNumber block\_rpo = block-\/>rpo\_number();}
+\DoxyCodeLine{264     \textcolor{keywordtype}{int} block\_num = block\_rpo.ToInt();}
+\DoxyCodeLine{265     RpoNumber result\_rpo = \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}[block\_num];}
+\DoxyCodeLine{266     \textcolor{keywordtype}{bool} skip = block\_rpo != \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1RpoNumber_abb38c79e5fbf770062dfb5dc116b4495}{RpoNumber::FromInt}}(0) \&\& result\_rpo != block\_rpo;}
+\DoxyCodeLine{267 }
+\DoxyCodeLine{268     \textcolor{keywordflow}{if} (result\_rpo != block\_rpo) \{}
+\DoxyCodeLine{269       \textcolor{comment}{// We need the handler and switch target information to be propagated, so}}
+\DoxyCodeLine{270       \textcolor{comment}{// that branch targets are annotated as necessary for control flow}}
+\DoxyCodeLine{271       \textcolor{comment}{// integrity checks (when enabled).}}
+\DoxyCodeLine{272       \textcolor{keywordflow}{if} (\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>InstructionBlockAt(block\_rpo)-\/>IsHandler()) \{}
+\DoxyCodeLine{273         \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>InstructionBlockAt(result\_rpo)-\/>MarkHandler();}
+\DoxyCodeLine{274       \}}
+\DoxyCodeLine{275       \textcolor{keywordflow}{if} (\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>InstructionBlockAt(block\_rpo)-\/>IsTableSwitchTarget()) \{}
+\DoxyCodeLine{276         \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>InstructionBlockAt(result\_rpo)-\/>set\_table\_switch\_target(\textcolor{keyword}{true});}
+\DoxyCodeLine{277       \}}
+\DoxyCodeLine{278     \}}
+\DoxyCodeLine{279 }
+\DoxyCodeLine{280     \textcolor{keywordflow}{if} (skip) \{}
+\DoxyCodeLine{281       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} instr\_idx = block-\/>code\_start(); instr\_idx < block-\/>code\_end();}
+\DoxyCodeLine{282            ++instr\_idx) \{}
+\DoxyCodeLine{283         Instruction* instr = \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>InstructionAt(instr\_idx);}
+\DoxyCodeLine{284         \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(\mbox{\hyperlink{classv8_1_1base_1_1BitField_a554df4b9ae5f0dc36b4d092bfc2e004b}{FlagsModeField::decode}}(instr-\/>opcode()), \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_adc1767c7266218e2b2be41205983547aa99fe92d848ea37e005a6bfb156b8aaab}{kFlags\_branch}});}
+\DoxyCodeLine{285         \textcolor{keywordflow}{if} (instr-\/>arch\_opcode() == kArchJmp ||}
+\DoxyCodeLine{286             instr-\/>arch\_opcode() == kArchRet) \{}
+\DoxyCodeLine{287           \textcolor{comment}{// Overwrite a redundant jump with a nop.}}
+\DoxyCodeLine{288           \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}jt-\/fw nop @\%d\(\backslash\)n"{}}, instr\_idx);}
+\DoxyCodeLine{289           instr-\/>OverwriteWithNop();}
+\DoxyCodeLine{290           \textcolor{comment}{// Eliminate all the ParallelMoves.}}
+\DoxyCodeLine{291           \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Instruction_ac16ebb6b4b65e5787eebc6ddeb3ed53aa9021cbe7ad6b8f9c056ab8bc75237c58}{Instruction::FIRST\_GAP\_POSITION}};}
+\DoxyCodeLine{292                \mbox{\hyperlink{namespacev8_1_1internal}{i}} <= \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Instruction_ac16ebb6b4b65e5787eebc6ddeb3ed53aa11e45069c25ab5b77d5c250d7bae847a}{Instruction::LAST\_GAP\_POSITION}}; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{293             \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Instruction_ac16ebb6b4b65e5787eebc6ddeb3ed53a}{Instruction::GapPosition}} pos =}
+\DoxyCodeLine{294                 \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Instruction_ac16ebb6b4b65e5787eebc6ddeb3ed53a}{Instruction::GapPosition}}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}});}
+\DoxyCodeLine{295             ParallelMove* instr\_move = instr-\/>GetParallelMove(pos);}
+\DoxyCodeLine{296             \textcolor{keywordflow}{if} (instr\_move != \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{297               instr\_move-\/>Eliminate();}
+\DoxyCodeLine{298             \}}
+\DoxyCodeLine{299           \}}
+\DoxyCodeLine{300           \textcolor{comment}{// If this block was marked as a handler or a switch target, it can be}}
+\DoxyCodeLine{301           \textcolor{comment}{// unmarked now.}}
+\DoxyCodeLine{302           \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>InstructionBlockAt(block\_rpo)-\/>UnmarkHandler();}
+\DoxyCodeLine{303           \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>InstructionBlockAt(block\_rpo)-\/>set\_table\_switch\_target(\textcolor{keyword}{false});}
+\DoxyCodeLine{304           \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>InstructionBlockAt(block\_rpo)-\/>set\_omitted\_by\_jump\_threading();}
+\DoxyCodeLine{305         \}}
+\DoxyCodeLine{306       \}}
+\DoxyCodeLine{307     \}}
+\DoxyCodeLine{308 }
+\DoxyCodeLine{309     \textcolor{comment}{// Renumber the blocks so that IsNextInAssemblyOrder() will return true,}}
+\DoxyCodeLine{310     \textcolor{comment}{// even if there are skipped blocks in-\/between.}}
+\DoxyCodeLine{311     block-\/>set\_ao\_number(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1RpoNumber_abb38c79e5fbf770062dfb5dc116b4495}{RpoNumber::FromInt}}(ao));}
+\DoxyCodeLine{312     \textcolor{keywordflow}{if} (!skip) ao++;}
+\DoxyCodeLine{313   \}}
+\DoxyCodeLine{314 }
+\DoxyCodeLine{315   \textcolor{comment}{// Patch RPO immediates.}}
+\DoxyCodeLine{316   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1InstructionSequence_a3723db11ab113e0aa37e25fd23d58661}{InstructionSequence::RpoImmediates}}\& rpo\_immediates = \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>rpo\_immediates();}
+\DoxyCodeLine{317   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < rpo\_immediates.size(); \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{318     RpoNumber rpo = rpo\_immediates[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}];}
+\DoxyCodeLine{319     \textcolor{keywordflow}{if} (rpo.IsValid()) \{}
+\DoxyCodeLine{320       RpoNumber fw = \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}[rpo.ToInt()];}
+\DoxyCodeLine{321       \textcolor{keywordflow}{if} (fw != rpo) rpo\_immediates[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}] = fw;}
+\DoxyCodeLine{322     \}}
+\DoxyCodeLine{323   \}}
+\DoxyCodeLine{324 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Instruction\+::arch\+\_\+opcode(), code, DCHECK\+\_\+\+NE, v8\+::base\+::\+Bit\+Field$<$ T, shift, size, U $>$\+::decode(), v8\+::internal\+::compiler\+::\+Parallel\+Move\+::\+Eliminate(), v8\+::internal\+::compiler\+::\+Instruction\+::\+FIRST\+\_\+\+GAP\+\_\+\+POSITION, v8\+::internal\+::compiler\+::\+Rpo\+Number\+::\+From\+Int(), v8\+::internal\+::compiler\+::\+Instruction\+::\+Get\+Parallel\+Move(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::compiler\+::\+Rpo\+Number\+::\+Is\+Valid(), v8\+::internal\+::compiler\+::k\+Flags\+\_\+branch, v8\+::internal\+::compiler\+::\+Instruction\+::\+LAST\+\_\+\+GAP\+\_\+\+POSITION, v8\+::internal\+::compiler\+::\+Instruction\+::opcode(), v8\+::internal\+::compiler\+::\+Instruction\+::\+Overwrite\+With\+Nop(), v8\+::base\+::internal\+::result, v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::size(), v8\+::internal\+::compiler\+::\+Rpo\+Number\+::\+To\+Int(), v8\+::internal\+::\+TRACE(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::turboshaft\+::\+Jump\+Threading\+Phase\+::\+Run().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1JumpThreading_ab4a1f4a562dd0ee71a188c70b8212d3e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1JumpThreading_ab4a1f4a562dd0ee71a188c70b8212d3e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1JumpThreading_a3bae3f96294b5a12e5cbd6c853bb9255}\label{classv8_1_1internal_1_1compiler_1_1JumpThreading_a3bae3f96294b5a12e5cbd6c853bb9255}} 
 \index{v8::internal::compiler::JumpThreading@{v8::internal::compiler::JumpThreading}!ComputeForwarding@{ComputeForwarding}}
 \index{ComputeForwarding@{ComputeForwarding}!v8::internal::compiler::JumpThreading@{v8::internal::compiler::JumpThreading}}
@@ -28,7 +145,164 @@ static void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JumpThreading_ab
 
 
 
+Definition at line 126 of file jump-\/threading.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{129                                                            \{}
+\DoxyCodeLine{130   ZoneStack<RpoNumber> \mbox{\hyperlink{namespacev8_1_1internal_a2e748ee13f84c923e077d341045b1212}{stack}}(local\_zone);}
+\DoxyCodeLine{131   JumpThreadingState state = \{\textcolor{keyword}{false}, *\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}, \mbox{\hyperlink{namespacev8_1_1internal_a2e748ee13f84c923e077d341045b1212}{stack}}\};}
+\DoxyCodeLine{132   state.Clear(\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>InstructionBlockCount());}
+\DoxyCodeLine{133   RpoNumber empty\_deconstruct\_frame\_return\_block = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1RpoNumber_a743434cf5bbb839ad8944ac91274ada1}{RpoNumber::Invalid}}();}
+\DoxyCodeLine{134   \mbox{\hyperlink{namespaceunibrow_ab0275d47f9778d486eafe88b18c5851d}{int32\_t}} empty\_deconstruct\_frame\_return\_size;}
+\DoxyCodeLine{135   RpoNumber empty\_no\_deconstruct\_frame\_return\_block = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1RpoNumber_a743434cf5bbb839ad8944ac91274ada1}{RpoNumber::Invalid}}();}
+\DoxyCodeLine{136   \mbox{\hyperlink{namespaceunibrow_ab0275d47f9778d486eafe88b18c5851d}{int32\_t}} empty\_no\_deconstruct\_frame\_return\_size;}
+\DoxyCodeLine{137   GapJumpRecord record(local\_zone);}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139   \textcolor{comment}{// Iterate over the blocks forward, pushing the blocks onto the stack.}}
+\DoxyCodeLine{140   \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} \textcolor{keyword}{const} instruction\_block : \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>instruction\_blocks()) \{}
+\DoxyCodeLine{141     RpoNumber current = instruction\_block-\/>rpo\_number();}
+\DoxyCodeLine{142     state.PushIfUnvisited(current);}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{144     \textcolor{comment}{// Process the stack, which implements DFS through empty blocks.}}
+\DoxyCodeLine{145     \textcolor{keywordflow}{while} (!state.stack.empty()) \{}
+\DoxyCodeLine{146       InstructionBlock* block = \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>InstructionBlockAt(state.stack.top());}
+\DoxyCodeLine{147       \textcolor{comment}{// Process the instructions in a block up to a non-\/empty instruction.}}
+\DoxyCodeLine{148       \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}jt [\%d] B\%d\(\backslash\)n"{}}, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1internal_a2e748ee13f84c923e077d341045b1212}{stack}}.size()),}
+\DoxyCodeLine{149             block-\/>rpo\_number().ToInt());}
+\DoxyCodeLine{150       RpoNumber fw = block-\/>rpo\_number();}
+\DoxyCodeLine{151       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = block-\/>code\_start(); i < block-\/>code\_end(); ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{152         Instruction* instr = \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>InstructionAt(\mbox{\hyperlink{namespacev8_1_1internal}{i}});}
+\DoxyCodeLine{153         \textcolor{keywordflow}{if} (!instr-\/>AreMovesRedundant()) \{}
+\DoxyCodeLine{154           \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}  parallel move"{}});}
+\DoxyCodeLine{155           \textcolor{comment}{// can't skip instructions with non redundant moves, except when we}}
+\DoxyCodeLine{156           \textcolor{comment}{// can forward to a block with identical gap-\/moves.}}
+\DoxyCodeLine{157           \textcolor{keywordflow}{if} (instr-\/>arch\_opcode() == kArchJmp) \{}
+\DoxyCodeLine{158             \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{} jmp"{}});}
+\DoxyCodeLine{159             RpoNumber forward\_to;}
+\DoxyCodeLine{160             \textcolor{keywordflow}{if} ((frame\_at\_start || !(block-\/>must\_deconstruct\_frame() ||}
+\DoxyCodeLine{161                                      block-\/>must\_construct\_frame())) \&\&}
+\DoxyCodeLine{162                 record.CanForwardGapJump(instr, block-\/>rpo\_number(),}
+\DoxyCodeLine{163                                          \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>InputRpo(instr, 0),}
+\DoxyCodeLine{164                                          \&forward\_to)) \{}
+\DoxyCodeLine{165               \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(forward\_to.IsValid());}
+\DoxyCodeLine{166               fw = forward\_to;}
+\DoxyCodeLine{167               \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}\(\backslash\)n  merge B\%d into B\%d"{}}, block-\/>rpo\_number().ToInt(),}
+\DoxyCodeLine{168                     forward\_to.ToInt());}
+\DoxyCodeLine{169             \}}
+\DoxyCodeLine{170           \}}
+\DoxyCodeLine{171           \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{172         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1base_1_1BitField_a554df4b9ae5f0dc36b4d092bfc2e004b}{FlagsModeField::decode}}(instr-\/>opcode()) != \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_adc1767c7266218e2b2be41205983547aa5f89d38c41ee58a484a39c31a2f9edcf}{kFlags\_none}}) \{}
+\DoxyCodeLine{173           \textcolor{comment}{// can't skip instructions with flags continuations.}}
+\DoxyCodeLine{174           \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}  flags\(\backslash\)n"{}});}
+\DoxyCodeLine{175         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (instr-\/>IsNop()) \{}
+\DoxyCodeLine{176           \textcolor{comment}{// skip nops.}}
+\DoxyCodeLine{177           \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}  nop\(\backslash\)n"{}});}
+\DoxyCodeLine{178           \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{179         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (instr-\/>arch\_opcode() == kArchJmp) \{}
+\DoxyCodeLine{180           \textcolor{comment}{// try to forward the jump instruction.}}
+\DoxyCodeLine{181           \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}  jmp\(\backslash\)n"{}});}
+\DoxyCodeLine{182           \textcolor{comment}{// if this block deconstructs the frame, we can't forward it.}}
+\DoxyCodeLine{183           \textcolor{comment}{// TODO(mtrofin): we can still forward if we end up building}}
+\DoxyCodeLine{184           \textcolor{comment}{// the frame at start. So we should move the decision of whether}}
+\DoxyCodeLine{185           \textcolor{comment}{// to build a frame or not in the register allocator, and trickle it}}
+\DoxyCodeLine{186           \textcolor{comment}{// here and to the code generator.}}
+\DoxyCodeLine{187           \textcolor{keywordflow}{if} (frame\_at\_start || !(block-\/>must\_deconstruct\_frame() ||}
+\DoxyCodeLine{188                                   block-\/>must\_construct\_frame())) \{}
+\DoxyCodeLine{189             fw = \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}-\/>InputRpo(instr, 0);}
+\DoxyCodeLine{190           \}}
+\DoxyCodeLine{191         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (instr-\/>IsRet()) \{}
+\DoxyCodeLine{192           \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}  ret\(\backslash\)n"{}});}
+\DoxyCodeLine{193           \mbox{\hyperlink{src_2base_2logging_8h_a2c0c4cea27d0690467662bb05131b2af}{CHECK\_IMPLIES}}(block-\/>must\_construct\_frame(),}
+\DoxyCodeLine{194                         block-\/>must\_deconstruct\_frame());}
+\DoxyCodeLine{195           \textcolor{comment}{// Only handle returns with immediate/constant operands, since}}
+\DoxyCodeLine{196           \textcolor{comment}{// they must always be the same for all returns in a function.}}
+\DoxyCodeLine{197           \textcolor{comment}{// Dynamic return values might use different registers at}}
+\DoxyCodeLine{198           \textcolor{comment}{// different return sites and therefore cannot be shared.}}
+\DoxyCodeLine{199           \textcolor{keywordflow}{if} (instr-\/>InputAt(0)-\/>IsImmediate()) \{}
+\DoxyCodeLine{200             \mbox{\hyperlink{namespaceunibrow_ab0275d47f9778d486eafe88b18c5851d}{int32\_t}} return\_size =}
+\DoxyCodeLine{201                 ImmediateOperand::cast(instr-\/>InputAt(0))-\/>inline\_int32\_value();}
+\DoxyCodeLine{202             \textcolor{comment}{// Instructions can be shared only for blocks that share}}
+\DoxyCodeLine{203             \textcolor{comment}{// the same |must\_deconstruct\_frame| attribute.}}
+\DoxyCodeLine{204             \textcolor{keywordflow}{if} (block-\/>must\_deconstruct\_frame()) \{}
+\DoxyCodeLine{205               \textcolor{keywordflow}{if} (empty\_deconstruct\_frame\_return\_block ==}
+\DoxyCodeLine{206                   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1RpoNumber_a743434cf5bbb839ad8944ac91274ada1}{RpoNumber::Invalid}}()) \{}
+\DoxyCodeLine{207                 empty\_deconstruct\_frame\_return\_block = block-\/>rpo\_number();}
+\DoxyCodeLine{208                 empty\_deconstruct\_frame\_return\_size = return\_size;}
+\DoxyCodeLine{209               \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (empty\_deconstruct\_frame\_return\_size == return\_size) \{}
+\DoxyCodeLine{210                 fw = empty\_deconstruct\_frame\_return\_block;}
+\DoxyCodeLine{211                 block-\/>clear\_must\_deconstruct\_frame();}
+\DoxyCodeLine{212               \}}
+\DoxyCodeLine{213             \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{214               \textcolor{keywordflow}{if} (empty\_no\_deconstruct\_frame\_return\_block ==}
+\DoxyCodeLine{215                   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1RpoNumber_a743434cf5bbb839ad8944ac91274ada1}{RpoNumber::Invalid}}()) \{}
+\DoxyCodeLine{216                 empty\_no\_deconstruct\_frame\_return\_block = block-\/>rpo\_number();}
+\DoxyCodeLine{217                 empty\_no\_deconstruct\_frame\_return\_size = return\_size;}
+\DoxyCodeLine{218               \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (empty\_no\_deconstruct\_frame\_return\_size ==}
+\DoxyCodeLine{219                          return\_size) \{}
+\DoxyCodeLine{220                 fw = empty\_no\_deconstruct\_frame\_return\_block;}
+\DoxyCodeLine{221               \}}
+\DoxyCodeLine{222             \}}
+\DoxyCodeLine{223           \}}
+\DoxyCodeLine{224         \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{225           \textcolor{comment}{// can't skip other instructions.}}
+\DoxyCodeLine{226           \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}  other\(\backslash\)n"{}});}
+\DoxyCodeLine{227         \}}
+\DoxyCodeLine{228         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{229       \}}
+\DoxyCodeLine{230       state.Forward(fw);}
+\DoxyCodeLine{231     \}}
+\DoxyCodeLine{232   \}}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{234 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{235   \textcolor{keywordflow}{for} (RpoNumber num : *\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}) \{}
+\DoxyCodeLine{236     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(num.IsValid());}
+\DoxyCodeLine{237   \}}
+\DoxyCodeLine{238 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{239 }
+\DoxyCodeLine{240   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_turbo\_jt) \{}
+\DoxyCodeLine{241     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; i < static\_cast<int>(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}-\/>size()); \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{242       \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}B\%d "{}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}});}
+\DoxyCodeLine{243       \textcolor{keywordtype}{int} to = (*result)[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}].ToInt();}
+\DoxyCodeLine{244       \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal}{i}} != to) \{}
+\DoxyCodeLine{245         \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}-\/> B\%d\(\backslash\)n"{}}, to);}
+\DoxyCodeLine{246       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{247         \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{248       \}}
+\DoxyCodeLine{249     \}}
+\DoxyCodeLine{250   \}}
+\DoxyCodeLine{251 }
+\DoxyCodeLine{252   \textcolor{keywordflow}{return} state.forwarded;}
+\DoxyCodeLine{253 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Instruction\+::arch\+\_\+opcode(), v8\+::internal\+::compiler\+::\+Instruction\+::\+Are\+Moves\+Redundant(), CHECK\+\_\+\+IMPLIES, v8\+::internal\+::compiler\+::\+Instruction\+Block\+::clear\+\_\+must\+\_\+deconstruct\+\_\+frame(), code, v8\+::internal\+::compiler\+::\+Instruction\+Block\+::code\+\_\+start(), v8\+::internal\+::\+DCHECK(), v8\+::base\+::\+Bit\+Field$<$ T, shift, size, U $>$\+::decode(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::compiler\+::\+Instruction\+::\+Input\+At(), v8\+::internal\+::compiler\+::\+Rpo\+Number\+::\+Invalid(), v8\+::internal\+::compiler\+::\+Instruction\+::\+Is\+Nop(), v8\+::internal\+::compiler\+::\+Instruction\+::\+Is\+Ret(), v8\+::internal\+::compiler\+::\+Rpo\+Number\+::\+Is\+Valid(), v8\+::internal\+::compiler\+::k\+Flags\+\_\+none, v8\+::internal\+::compiler\+::\+Instruction\+Block\+::must\+\_\+construct\+\_\+frame(), v8\+::internal\+::compiler\+::\+Instruction\+Block\+::must\+\_\+deconstruct\+\_\+frame(), v8\+::internal\+::compiler\+::\+Instruction\+::opcode(), v8\+::base\+::internal\+::result, v8\+::internal\+::compiler\+::\+Instruction\+Block\+::rpo\+\_\+number(), v8\+::internal\+::stack, v8\+::internal\+::compiler\+::\+Rpo\+Number\+::\+To\+Int(), v8\+::internal\+::\+TRACE(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::turboshaft\+::\+Jump\+Threading\+Phase\+::\+Run().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1JumpThreading_a3bae3f96294b5a12e5cbd6c853bb9255_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1JumpThreading_a3bae3f96294b5a12e5cbd6c853bb9255_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{jump-threading_8h}{jump-\/threading.\+h}}\item 
-\mbox{\hyperlink{jump-threading_8cc}{jump-\/threading.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/backend/\mbox{\hyperlink{jump-threading_8h}{jump-\/threading.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/backend/\mbox{\hyperlink{jump-threading_8cc}{jump-\/threading.\+cc}}\end{DoxyCompactItemize}

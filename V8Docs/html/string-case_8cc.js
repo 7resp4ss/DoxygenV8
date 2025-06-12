@@ -1,6 +1,7 @@
 var string_case_8cc =
 [
     [ "word_t", "string-case_8cc.html#a0a82df140610383d25c3afbbdbede1d7", null ],
+    [ "AsciiRangeMask", "string-case_8cc.html#a9c206b1cc8ed5478008e67edf09185de", null ],
     [ "FastAsciiCasePrefixLength", "string-case_8cc.html#a99399b30d940070f87c2448e22bc04d8", null ],
     [ "FastAsciiCasePrefixLength< unibrow::ToLowercase >", "string-case_8cc.html#ae9e659cb4d2e0664e50108992a0e1ec1", null ],
     [ "FastAsciiCasePrefixLength< unibrow::ToUppercase >", "string-case_8cc.html#a1f7728a9318e8a21a963a9c4f69c683d", null ],

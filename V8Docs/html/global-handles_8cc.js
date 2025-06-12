@@ -10,5 +10,10 @@ var global_handles_8cc =
       [ "kCallback", "global-handles_8cc.html#a7346e5aac379aea374b92727740c37e6a288767e402655671f06cd5313e8bada9", null ],
       [ "kCallbackWithTwoEmbedderFields", "global-handles_8cc.html#a7346e5aac379aea374b92727740c37e6ab5dc3ed4be10ce9f8fca60ba55b81689", null ],
       [ "kNoCallback", "global-handles_8cc.html#a7346e5aac379aea374b92727740c37e6a271114a925112760c80d09b5b0463e8c", null ]
-    ] ]
+    ] ],
+    [ "ClearListOfYoungNodesImpl", "global-handles_8cc.html#aae5a503779f7feec5472f052571f87a2", null ],
+    [ "ExtractInternalFields", "global-handles_8cc.html#ab08ec521fbcd52817aa6b4aa2a68769b", null ],
+    [ "NeedsTrackingInYoungNodes", "global-handles_8cc.html#acd03fdba902237e68b1f4fe409ab4e96", null ],
+    [ "UpdateListOfYoungNodesImpl", "global-handles_8cc.html#a1788303d2f19ec8a6957ebb7651f61e3", null ],
+    [ "kBlockSize", "global-handles_8cc.html#a310ec535d39cdeecb62031a1bc9423a1", null ]
 ];

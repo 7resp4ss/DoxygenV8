@@ -1,6 +1,42 @@
 var ic_8cc =
 [
+    [ "FastCloneObjectMode", "ic_8cc.html#ae64d37a42564818f1ffe8985b37adf04", [
+      [ "kIdenticalMap", "ic_8cc.html#ae64d37a42564818f1ffe8985b37adf04a6888c41b92d074eb1268924d6b8ee9dc", null ],
+      [ "kEmptyObject", "ic_8cc.html#ae64d37a42564818f1ffe8985b37adf04a163e409b93325868bb87e3e8ad27600f", null ],
+      [ "kDifferentMap", "ic_8cc.html#ae64d37a42564818f1ffe8985b37adf04a21221eb8d6bd35336368e13e9c4b9b91", null ],
+      [ "kNotSupported", "ic_8cc.html#ae64d37a42564818f1ffe8985b37adf04acf1352147c4a48f0403e882668260188", null ],
+      [ "kMaybeSupported", "ic_8cc.html#ae64d37a42564818f1ffe8985b37adf04ac750efed541f61da9c66a278f942f236", null ]
+    ] ],
+    [ "KeyType", "ic_8cc.html#a4631bacb0230cb3812dd449094232bc8", [
+      [ "kIntPtr", "ic_8cc.html#a4631bacb0230cb3812dd449094232bc8a38a8b13c0eb02da9a968bf2c3b4af0f6", null ],
+      [ "kName", "ic_8cc.html#a4631bacb0230cb3812dd449094232bc8ab29ee0f200b80e06ab759be550b518d0", null ],
+      [ "kBailout", "ic_8cc.html#a4631bacb0230cb3812dd449094232bc8ac1bf99672669799ff250d470e94ccc63", null ]
+    ] ],
+    [ "AddOneReceiverMapIfMissing", "ic_8cc.html#a7082a88a52ee84d99867e63edae5fa90", null ],
+    [ "AddOneReceiverMapIfMissing", "ic_8cc.html#a71cfc1c77f97a43a04eb4641123eda6a", null ],
+    [ "AllowConvertHoleElementToUndefined", "ic_8cc.html#a42c0726f038aad5d70766fff6b3f6a44", null ],
     [ "AllowedHandlerChange", "ic_8cc.html#a85ef08bfe2ad420bc46f5c7eb5c795d5", null ],
+    [ "AllowReadingHoleElement", "ic_8cc.html#a3c7e181710337be25a77d485778a41ac", null ],
+    [ "CanCache", "ic_8cc.html#a4d39e6244fc405e12ddea56d027128bf", null ],
+    [ "CanCacheCloneTargetMapTransition", "ic_8cc.html#a4abe9b2860575f0b7a5b5bc4b40d471a", null ],
+    [ "CanFastCloneObjectToObjectLiteral", "ic_8cc.html#a78e5774d5b8f1cd6567e31143a6bca28", null ],
+    [ "CloneObjectSlowPath", "ic_8cc.html#aae8716379086bb3d22eb0c1b7b744536", null ],
+    [ "DefineOwnDataProperty", "ic_8cc.html#a9da85996d7cc7516ed98e45b55a088f2", null ],
+    [ "GetAccessorContext", "ic_8cc.html#a8ba509bdfecc788ece742f3739289fa0", null ],
+    [ "GetCloneModeForMap", "ic_8cc.html#ae9681ec6315eea0d3e7b9bbf0c7416e5", null ],
+    [ "GetCloneModeForMapPreCheck", "ic_8cc.html#ae378e3acbf2b12682def1b961865eda5", null ],
+    [ "GetCloneTargetMap", "ic_8cc.html#a5a1cbcac068e40270912291873e173e9", null ],
+    [ "GetModifier", "ic_8cc.html#a32ab7f0f6943abd00c6a601bca3b94e1", null ],
+    [ "GetModifier", "ic_8cc.html#a8bdfeb32cb629f69d2542640239d6a24", null ],
+    [ "GetNewKeyedLoadMode", "ic_8cc.html#a78feb750a643ecd2ddde367aaa2930bf", null ],
+    [ "GetStoreMode", "ic_8cc.html#aa89fcbf6c8bb58f2ee7c3b3f623050cd", null ],
+    [ "GetUpdatedLoadModeForMap", "ic_8cc.html#a06c4a0c0f256891470250fd578a478dc", null ],
+    [ "IntPtrKeyToSize", "ic_8cc.html#a91cafc3cb62c32cad72605ace31d954f", null ],
+    [ "IsOutOfBoundsAccess", "ic_8cc.html#ac7abea517e3dff96d87b022128b8baa2", null ],
+    [ "LookupForRead", "ic_8cc.html#a6f6d363b89c2af7cc183a5ca7683d0c5", null ],
+    [ "MaybeCanCloneObjectForObjectAssign", "ic_8cc.html#af81016d543364c4240bf7b5083430b38", null ],
+    [ "MayHaveTypedArrayInPrototypeChain", "ic_8cc.html#a247ee1782a53a84da11b8e2e44371556", null ],
+    [ "MigrateDeprecated", "ic_8cc.html#a0c7b2641f57ea334eba3157b04dfb4d6", null ],
     [ "RUNTIME_FUNCTION", "ic_8cc.html#ab1b7ebd9c89f4e4e01fbed4e04142d94", null ],
     [ "RUNTIME_FUNCTION", "ic_8cc.html#ad672d5b36aa5bcf7ff6913f8f665618d", null ],
     [ "RUNTIME_FUNCTION", "ic_8cc.html#a2c0210c0f0074270e163f6e22c862cf2", null ],
@@ -29,5 +65,9 @@ var ic_8cc =
     [ "RUNTIME_FUNCTION", "ic_8cc.html#a1aa8241301fef39c91039d9178caba7e", null ],
     [ "RUNTIME_FUNCTION", "ic_8cc.html#a4ec171543dbc5aef37d69027e0b23238", null ],
     [ "RUNTIME_FUNCTION", "ic_8cc.html#a3bb1a19428a8f6dd596f2f9ce28e5fae", null ],
-    [ "RUNTIME_FUNCTION", "ic_8cc.html#a4cb155740af6bc481c2a95a01cec8f96", null ]
+    [ "RUNTIME_FUNCTION", "ic_8cc.html#a4cb155740af6bc481c2a95a01cec8f96", null ],
+    [ "SetCloneTargetMap", "ic_8cc.html#ae0db4e3c11f3b0e42593b13308a42e58", null ],
+    [ "SetCloneTargetMapUnsupported", "ic_8cc.html#ae0ff4a5de9d8c12c596d8bf9ae54a20b", null ],
+    [ "StoreOwnElement", "ic_8cc.html#aa4848df69c3ebacece1f3eef997c5925", null ],
+    [ "TryConvertKey", "ic_8cc.html#a49026973f04a1f43dbedf8d3a843e1b8", null ]
 ];

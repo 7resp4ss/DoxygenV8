@@ -17,7 +17,7 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Object\+Data\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=214pt]{classv8_1_1internal_1_1compiler_1_1ObjectData__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1ObjectData__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -35,6 +35,20 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Object\+Data\+:
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_aea85f4e4c1bcb163eb7d5a08da6ef317}{Is\+Null}} () const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ac3ca492beb1ed3688e9047193656ecc4}{Indirect\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_accf85467293e91d2192a1b9ae5779fc9}{object\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae130e68a58845a321b0b68f8c46dd5c3}{Object\+Data\+Kind}} const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_a4ed86a047b3e97eb3b8379760ff32114}{kind\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 76 of file heap-\/refs.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -46,6 +60,61 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Object\+Data\+:
 
 
 
+Definition at line 78 of file heap-\/refs.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{80       : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_accf85467293e91d2192a1b9ae5779fc9}{object\_}}(\textcolor{keywordtype}{object}),}
+\DoxyCodeLine{81         \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_a4ed86a047b3e97eb3b8379760ff32114}{kind\_}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_aeb02124643ae49c8d8db02e6121acce2}{kind}})}
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{83         ,}
+\DoxyCodeLine{84         broker\_(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}})}
+\DoxyCodeLine{85 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// DEBUG}}
+\DoxyCodeLine{86   \{}
+\DoxyCodeLine{87     \textcolor{comment}{// This assignment ensures we don't end up inserting the same object}}
+\DoxyCodeLine{88     \textcolor{comment}{// in an endless recursion.}}
+\DoxyCodeLine{89     *storage = \textcolor{keyword}{this};}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91     \mbox{\hyperlink{namespacev8_1_1internal_a3762add7a183a4d1750c04e5fa1a6d17}{TRACE}}(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, \textcolor{stringliteral}{"{}Creating data "{}} << \textcolor{keyword}{this} << \textcolor{stringliteral}{"{} for handle "{}} << \textcolor{keywordtype}{object}.address()}
+\DoxyCodeLine{92                                    << \textcolor{stringliteral}{"{} ("{}} << Brief(*\textcolor{keywordtype}{object}) << \textcolor{stringliteral}{"{})"{}});}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94     \textcolor{comment}{// It is safe to access read only heap objects and builtins from a}}
+\DoxyCodeLine{95     \textcolor{comment}{// background thread. When we read fields of these objects, we may create}}
+\DoxyCodeLine{96     \textcolor{comment}{// ObjectData on the background thread.}}
+\DoxyCodeLine{97     \textcolor{comment}{// This is safe too since we don't create handles but just get handles from}}
+\DoxyCodeLine{98     \textcolor{comment}{// read only root table or builtins table.}}
+\DoxyCodeLine{99     \textcolor{comment}{// All other objects need to be canonicalized in a persistent handle scope.}}
+\DoxyCodeLine{100     \textcolor{comment}{// See CanonicalPersistentHandle().}}
+\DoxyCodeLine{101     Isolate* isolate = \mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}-\/>isolate();}
+\DoxyCodeLine{102     \mbox{\hyperlink{src_2base_2macros_8h_a280b0798f270f4b3f361c9ab64832956}{USE}}(isolate);}
+\DoxyCodeLine{103     \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}-\/>mode() == \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSHeapBroker_ac57beac71a436b2c1f6e145fa32363e4af3d9dcd544207113f2623468705a8d8f}{JSHeapBroker::kDisabled}} ||}
+\DoxyCodeLine{104                        \mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}-\/>mode() == \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSHeapBroker_ac57beac71a436b2c1f6e145fa32363e4ae4cef5ad83e3a12561739fdf89802093}{JSHeapBroker::kSerializing}},}
+\DoxyCodeLine{105                    \mbox{\hyperlink{classv8_1_1internal_1_1PersistentHandlesScope_a772cd54611007bc1f402da09b5b5806c}{PersistentHandlesScope::IsActive}}(isolate) \&\&}
+\DoxyCodeLine{106                        \mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}-\/>IsCanonicalHandle(\textcolor{keywordtype}{object}));}
+\DoxyCodeLine{107     \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}-\/>mode() == \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSHeapBroker_ac57beac71a436b2c1f6e145fa32363e4a04d734d9c12ff9b0db83d3868ee5c5f7}{JSHeapBroker::kSerialized}},}
+\DoxyCodeLine{108                    \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_aeb02124643ae49c8d8db02e6121acce2}{kind}} == \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae130e68a58845a321b0b68f8c46dd5c3a83bbc5cfd204bcedf00ec6bdec2bd453}{kUnserializedReadOnlyHeapObject}} || \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_aeb02124643ae49c8d8db02e6121acce2}{kind}} == \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae130e68a58845a321b0b68f8c46dd5c3a02ead3bbbca0d8eb6e6a88100c156f67}{kSmi}} ||}
+\DoxyCodeLine{109                        \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_aeb02124643ae49c8d8db02e6121acce2}{kind}} == \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae130e68a58845a321b0b68f8c46dd5c3a1c2db0e35406fe2dfaef54d3a02f3b26}{kNeverSerializedHeapObject}} ||}
+\DoxyCodeLine{110                        \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_aeb02124643ae49c8d8db02e6121acce2}{kind}} == \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae130e68a58845a321b0b68f8c46dd5c3ac02f938402b82a9ea2f7e2bcea5193fc}{kBackgroundSerializedHeapObject}});}
+\DoxyCodeLine{111     \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_aeb02124643ae49c8d8db02e6121acce2}{kind}} == \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae130e68a58845a321b0b68f8c46dd5c3a83bbc5cfd204bcedf00ec6bdec2bd453}{kUnserializedReadOnlyHeapObject}},}
+\DoxyCodeLine{112                    \mbox{\hyperlink{namespacev8_1_1internal_1_1InstanceTypeChecker_ad49d99267ef9853837edb5c3e212d954}{i::IsHeapObject}}(*\textcolor{keywordtype}{object}) \&\&}
+\DoxyCodeLine{113                        \mbox{\hyperlink{classv8_1_1internal_1_1ReadOnlyHeap_a27e42af8000235aeb8fc6695f6296aca}{ReadOnlyHeap::Contains}}(Cast<HeapObject>(*\textcolor{keywordtype}{object})));}
+\DoxyCodeLine{114   \}}
+
+\end{DoxyCode}
+
+
+References broker(), v8\+::internal\+::\+Read\+Only\+Heap\+::\+Contains(), DCHECK\+\_\+\+IMPLIES, v8\+::internal\+::\+Persistent\+Handles\+Scope\+::\+Is\+Active(), v8\+::internal\+::\+Instance\+Type\+Checker\+::\+Is\+Heap\+Object(), v8\+::internal\+::compiler\+::k\+Background\+Serialized\+Heap\+Object, v8\+::internal\+::compiler\+::\+JSHeap\+Broker\+::k\+Disabled, kind(), v8\+::internal\+::compiler\+::k\+Never\+Serialized\+Heap\+Object, v8\+::internal\+::compiler\+::\+JSHeap\+Broker\+::k\+Serialized, v8\+::internal\+::compiler\+::\+JSHeap\+Broker\+::k\+Serializing, v8\+::internal\+::compiler\+::k\+Smi, v8\+::internal\+::compiler\+::k\+Unserialized\+Read\+Only\+Heap\+Object, v8\+::internal\+::\+TRACE(), and USE.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1ObjectData_ae2a3f125e2c0cd2643dc8ee6df3fdd6e_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1ObjectData_a3f8e483124641d6455f8ffc82dc75563}\label{classv8_1_1internal_1_1compiler_1_1ObjectData_a3f8e483124641d6455f8ffc82dc75563}} 
 \index{v8::internal::compiler::ObjectData@{v8::internal::compiler::ObjectData}!is\_smi@{is\_smi}}
@@ -53,24 +122,108 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Object\+Data\+:
 \doxysubsubsection{\texorpdfstring{is\_smi()}{is\_smi()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::\+Object\+Data\+::is\+\_\+smi (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 126 of file heap-\/refs.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{126 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_a4ed86a047b3e97eb3b8379760ff32114}{kind\_}} == \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae130e68a58845a321b0b68f8c46dd5c3a02ead3bbbca0d8eb6e6a88100c156f67}{kSmi}}; \}}
+
+\end{DoxyCode}
+
+
+References kind\+\_\+, and v8\+::internal\+::compiler\+::k\+Smi.
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1ObjectData_aea85f4e4c1bcb163eb7d5a08da6ef317}\label{classv8_1_1internal_1_1compiler_1_1ObjectData_aea85f4e4c1bcb163eb7d5a08da6ef317}} 
 \index{v8::internal::compiler::ObjectData@{v8::internal::compiler::ObjectData}!IsNull@{IsNull}}
 \index{IsNull@{IsNull}!v8::internal::compiler::ObjectData@{v8::internal::compiler::ObjectData}}
 \doxysubsubsection{\texorpdfstring{IsNull()}{IsNull()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::\+Object\+Data\+::\+Is\+Null (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 132 of file heap-\/refs.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{132 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_aea9d736830d86242c4e1cb59a371d3a6}{i::IsNull}}(*\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_accf85467293e91d2192a1b9ae5779fc9}{object\_}}); \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Is\+Null(), and object\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1ObjectData_aea85f4e4c1bcb163eb7d5a08da6ef317_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1ObjectData_aeb02124643ae49c8d8db02e6121acce2}\label{classv8_1_1internal_1_1compiler_1_1ObjectData_aeb02124643ae49c8d8db02e6121acce2}} 
 \index{v8::internal::compiler::ObjectData@{v8::internal::compiler::ObjectData}!kind@{kind}}
 \index{kind@{kind}!v8::internal::compiler::ObjectData@{v8::internal::compiler::ObjectData}}
 \doxysubsubsection{\texorpdfstring{kind()}{kind()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae130e68a58845a321b0b68f8c46dd5c3}{Object\+Data\+Kind}} v8\+::internal\+::compiler\+::\+Object\+Data\+::kind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 125 of file heap-\/refs.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{125 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_a4ed86a047b3e97eb3b8379760ff32114}{kind\_}}; \}}
+
+\end{DoxyCode}
+
+
+References kind\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Heap\+Object\+Data\+::\+Get\+Map\+Instance\+Type(), v8\+::internal\+::compiler\+::\+Heap\+Object\+Data\+::\+Heap\+Object\+Data(), and Object\+Data().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1ObjectData_aeb02124643ae49c8d8db02e6121acce2_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1ObjectData_a7200934fa0540f2f4aa9e4f15e05e034}\label{classv8_1_1internal_1_1compiler_1_1ObjectData_a7200934fa0540f2f4aa9e4f15e05e034}} 
 \index{v8::internal::compiler::ObjectData@{v8::internal::compiler::ObjectData}!object@{object}}
 \index{object@{object}!v8::internal::compiler::ObjectData@{v8::internal::compiler::ObjectData}}
 \doxysubsubsection{\texorpdfstring{object()}{object()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_ac3ca492beb1ed3688e9047193656ecc4}{Indirect\+Handle}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}}$>$ v8\+::internal\+::compiler\+::\+Object\+Data\+::object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 124 of file heap-\/refs.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{124 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_accf85467293e91d2192a1b9ae5779fc9}{object\_}}; \}}
+
+\end{DoxyCode}
+
+
+References object\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+JSFunction\+Data\+::\+Cache(), v8\+::internal\+::compiler\+::\+Heap\+Object\+Data\+::\+Get\+Map\+Instance\+Type(), v8\+::internal\+::compiler\+::\+Heap\+Object\+Data\+::\+Heap\+Object\+Data(), v8\+::internal\+::compiler\+::\+JSFunction\+Data\+::\+Is\+Consistent\+With\+Heap\+State(), and v8\+::internal\+::compiler\+::\+Heap\+Object\+Data\+::\+Try\+Get\+Boolean\+Value\+Impl().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1ObjectData_a7200934fa0540f2f4aa9e4f15e05e034_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1ObjectData_a4bfdac0181c28fff003b47c86016e0e1}\label{classv8_1_1internal_1_1compiler_1_1ObjectData_a4bfdac0181c28fff003b47c86016e0e1}} 
 \index{v8::internal::compiler::ObjectData@{v8::internal::compiler::ObjectData}!should\_access\_heap@{should\_access\_heap}}
 \index{should\_access\_heap@{should\_access\_heap}!v8::internal::compiler::ObjectData@{v8::internal::compiler::ObjectData}}
@@ -79,6 +232,66 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Object\+Data\+:
 
 
 
+Definition at line 127 of file heap-\/refs.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{127                                   \{}
+\DoxyCodeLine{128     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_a4ed86a047b3e97eb3b8379760ff32114}{kind\_}} == \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae130e68a58845a321b0b68f8c46dd5c3a0963210ea24c6b3b378880ec33171c0e}{kUnserializedHeapObject}} ||}
+\DoxyCodeLine{129            \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_a4ed86a047b3e97eb3b8379760ff32114}{kind\_}} == \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae130e68a58845a321b0b68f8c46dd5c3a1c2db0e35406fe2dfaef54d3a02f3b26}{kNeverSerializedHeapObject}} ||}
+\DoxyCodeLine{130            \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_a4ed86a047b3e97eb3b8379760ff32114}{kind\_}} == \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae130e68a58845a321b0b68f8c46dd5c3a83bbc5cfd204bcedf00ec6bdec2bd453}{kUnserializedReadOnlyHeapObject}};}
+\DoxyCodeLine{131   \}}
+
+\end{DoxyCode}
+
+
+References kind\+\_\+, v8\+::internal\+::compiler\+::k\+Never\+Serialized\+Heap\+Object, v8\+::internal\+::compiler\+::k\+Unserialized\+Heap\+Object, and v8\+::internal\+::compiler\+::k\+Unserialized\+Read\+Only\+Heap\+Object.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Heap\+Object\+Data\+::\+Get\+Map\+Instance\+Type().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1ObjectData_a4bfdac0181c28fff003b47c86016e0e1_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1ObjectData_a4ed86a047b3e97eb3b8379760ff32114}\label{classv8_1_1internal_1_1compiler_1_1ObjectData_a4ed86a047b3e97eb3b8379760ff32114}} 
+\index{v8::internal::compiler::ObjectData@{v8::internal::compiler::ObjectData}!kind\_@{kind\_}}
+\index{kind\_@{kind\_}!v8::internal::compiler::ObjectData@{v8::internal::compiler::ObjectData}}
+\doxysubsubsection{\texorpdfstring{kind\_}{kind\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae130e68a58845a321b0b68f8c46dd5c3}{Object\+Data\+Kind}} const v8\+::internal\+::compiler\+::\+Object\+Data\+::kind\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 140 of file heap-\/refs.\+cc.
+
+
+
+Referenced by is\+\_\+smi(), kind(), and should\+\_\+access\+\_\+heap().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1ObjectData_accf85467293e91d2192a1b9ae5779fc9}\label{classv8_1_1internal_1_1compiler_1_1ObjectData_accf85467293e91d2192a1b9ae5779fc9}} 
+\index{v8::internal::compiler::ObjectData@{v8::internal::compiler::ObjectData}!object\_@{object\_}}
+\index{object\_@{object\_}!v8::internal::compiler::ObjectData@{v8::internal::compiler::ObjectData}}
+\doxysubsubsection{\texorpdfstring{object\_}{object\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_ac3ca492beb1ed3688e9047193656ecc4}{Indirect\+Handle}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}}$>$ const v8\+::internal\+::compiler\+::\+Object\+Data\+::object\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 139 of file heap-\/refs.\+cc.
+
+
+
+Referenced by Is\+Null(), and object().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{heap-refs_8cc}{heap-\/refs.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{heap-refs_8cc}{heap-\/refs.\+cc}}\end{DoxyCompactItemize}

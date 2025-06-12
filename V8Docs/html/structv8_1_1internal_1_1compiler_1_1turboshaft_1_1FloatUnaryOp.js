@@ -32,8 +32,10 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatUnaryOp =
     [ "FloatUnaryOp", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatUnaryOp.html#a25a1f7a2d51c0ea2371940671a9b3d0f", null ],
     [ "input", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatUnaryOp.html#a16b9d2824e5a17a885b7ea82ca9044a6", null ],
     [ "inputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatUnaryOp.html#a71202a306c2e5e731c7c90d794dc6175", null ],
+    [ "IsSupported", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatUnaryOp.html#a5180319897cd2c08c22caefe798ae5f0", null ],
     [ "options", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatUnaryOp.html#a8ff33462f6d67b821f5c0bb9d54cfc63", null ],
     [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatUnaryOp.html#a0bd3623006c2e16bf6fa42bcfd5f3333", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatUnaryOp.html#a371fba7ba77e3f0958df3bf2ecd58b84", null ],
     [ "kind", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatUnaryOp.html#adb62527f88ea0bf36af3e255f27938a5", null ],
     [ "rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatUnaryOp.html#aa6779cf8455e799af4d54d58461113ea", null ]
 ];

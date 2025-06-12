@@ -1,11 +1,13 @@
 var classv8_1_1internal_1_1WasmGlobalObject =
 [
+    [ "address", "classv8_1_1internal_1_1WasmGlobalObject.html#a345bd2764652dd59d9bae9ad8b617011", null ],
     [ "GetF32", "classv8_1_1internal_1_1WasmGlobalObject.html#af27fae8c51ec1632b99966c3a48a2133", null ],
     [ "GetF64", "classv8_1_1internal_1_1WasmGlobalObject.html#a7609ab5ee4ce0febafe724646fe723e0", null ],
     [ "GetI32", "classv8_1_1internal_1_1WasmGlobalObject.html#a8b83813b17edd0a13c1291132cfe9cd7", null ],
     [ "GetI64", "classv8_1_1internal_1_1WasmGlobalObject.html#a58eb910481c73e5dfdd798e039d9e453", null ],
     [ "GetRef", "classv8_1_1internal_1_1WasmGlobalObject.html#a301fffb501ac9de7097924c00c03cde3", null ],
     [ "GetS128RawBytes", "classv8_1_1internal_1_1WasmGlobalObject.html#a0dd24c30b78059f1c2b0b16cb4297a3d", null ],
+    [ "New", "classv8_1_1internal_1_1WasmGlobalObject.html#ade63c64025c7c0f0ba5a05b9d11e431f", null ],
     [ "SetF32", "classv8_1_1internal_1_1WasmGlobalObject.html#af4c70e0c0f0ecbebfcf09a62c508c0fe", null ],
     [ "SetF64", "classv8_1_1internal_1_1WasmGlobalObject.html#a03e439b424fb7450ed9903c0b648fcac", null ],
     [ "SetI32", "classv8_1_1internal_1_1WasmGlobalObject.html#a907bfae11f58b11d3880b92daaa64d0f", null ],

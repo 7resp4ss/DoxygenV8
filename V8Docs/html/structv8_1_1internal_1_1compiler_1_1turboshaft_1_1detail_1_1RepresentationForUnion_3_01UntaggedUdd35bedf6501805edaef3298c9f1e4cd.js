@@ -1,4 +1,6 @@
 var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1detail_1_1RepresentationForUnion_3_01UntaggedUdd35bedf6501805edaef3298c9f1e4cd =
 [
-    [ "rep_type", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1detail_1_1RepresentationForUnion_3_01UntaggedUdd35bedf6501805edaef3298c9f1e4cd.html#af73c4b28ed504c5a039b9df2067c8c62", null ]
+    [ "to_rep_type", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1detail_1_1RepresentationForUnion_3_01UntaggedUe5e5b88ec9b4cea032bda42747d080da.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1detail_1_1RepresentationForUnion_3_01UntaggedUe5e5b88ec9b4cea032bda42747d080da" ],
+    [ "rep_type", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1detail_1_1RepresentationForUnion_3_01UntaggedUdd35bedf6501805edaef3298c9f1e4cd.html#af73c4b28ed504c5a039b9df2067c8c62", null ],
+    [ "rep_types", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1detail_1_1RepresentationForUnion_3_01UntaggedUdd35bedf6501805edaef3298c9f1e4cd.html#ae5a7547524dc2da928fe386ad178d8cf", null ]
 ];

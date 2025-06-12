@@ -11,7 +11,7 @@ Inheritance diagram for cppgc\+::internal\+::Marker\+Base\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase__inherit__graph}
+\includegraphics[height=550pt]{classcppgc_1_1internal_1_1MarkerBase__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -173,12 +173,23 @@ static constexpr \mbox{\hyperlink{classv8_1_1base_1_1TimeDelta}{v8\+::base\+::\+
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 45 of file marker.\+h.
+
+
+
 \doxysubsection{Member Typedef Documentation}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a9c4c2729ab00faf1add912d2b953a2e8}\label{classcppgc_1_1internal_1_1MarkerBase_a9c4c2729ab00faf1add912d2b953a2e8}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!IncrementalMarkingTaskHandle@{IncrementalMarkingTaskHandle}}
 \index{IncrementalMarkingTaskHandle@{IncrementalMarkingTaskHandle}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{IncrementalMarkingTaskHandle}{IncrementalMarkingTaskHandle}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a9c4c2729ab00faf1add912d2b953a2e8}{cppgc\+::internal\+::\+Marker\+Base\+::\+Incremental\+Marking\+Task\+Handle}} =  \mbox{\hyperlink{structcppgc_1_1internal_1_1SingleThreadedHandle}{Single\+Threaded\+Handle}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 161 of file marker.\+h.
 
 
 
@@ -201,6 +212,18 @@ k\+Steele&\\
 \end{DoxyEnumFields}
 
 
+Definition at line 49 of file marker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49                               \{}
+\DoxyCodeLine{50     kDijkstra,}
+\DoxyCodeLine{51     kSteele,}
+\DoxyCodeLine{52   \};}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a6103428b4070a20917403a54e59f7aed}\label{classcppgc_1_1internal_1_1MarkerBase_a6103428b4070a20917403a54e59f7aed}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!````~MarkerBase@{$\sim$MarkerBase}}
@@ -208,6 +231,57 @@ k\+Steele&\\
 \doxysubsubsection{\texorpdfstring{$\sim$MarkerBase()}{~MarkerBase()}}
 {\footnotesize\ttfamily cppgc\+::internal\+::\+Marker\+Base\+::$\sim$\+Marker\+Base (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
+
+
+Definition at line 166 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{166                         \{}
+\DoxyCodeLine{167   \textcolor{comment}{// The fixed point iteration may have found not-\/fully-\/constructed objects.}}
+\DoxyCodeLine{168   \textcolor{comment}{// Such objects should have already been found through the stack scan though}}
+\DoxyCodeLine{169   \textcolor{comment}{// and should thus already be marked.}}
+\DoxyCodeLine{170   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_abba323146c1aed9d5cb31fe7ad83b21b}{marking\_worklists\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_a961945f4544128709c88ceee4ed13d76}{not\_fully\_constructed\_worklist}}()-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_1_1ExternalMarkingWorklist_a4a85a50c596fd7405ac6974cb0e17de5}{IsEmpty}}()) \{}
+\DoxyCodeLine{171 \textcolor{preprocessor}{\#if DEBUG}}
+\DoxyCodeLine{172     \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(StackState::kNoHeapPointers, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_aa64830f2f4730d02ce81a5602322436d}{stack\_state}});}
+\DoxyCodeLine{173     std::unordered\_set<HeapObjectHeader*> objects =}
+\DoxyCodeLine{174         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingStateBase_aa9c151656cb8d785d70be895cd16169e}{not\_fully\_constructed\_worklist}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_1_1ExternalMarkingWorklist_a5f58b301fcdbdc713655effefe31536c}{Extract}}();}
+\DoxyCodeLine{175     \textcolor{keywordflow}{for} (HeapObjectHeader* \textcolor{keywordtype}{object} : objects) \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(object-\/>IsMarked());}
+\DoxyCodeLine{176 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{177     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_abba323146c1aed9d5cb31fe7ad83b21b}{marking\_worklists\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_a961945f4544128709c88ceee4ed13d76}{not\_fully\_constructed\_worklist}}()-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_1_1ExternalMarkingWorklist_a5df39ca3c5d3cacea93945cd67ebfe93}{Clear}}();}
+\DoxyCodeLine{178 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{179   \}}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{181   \textcolor{comment}{// |discovered\_ephemeron\_pairs\_worklist\_| may still hold ephemeron pairs with}}
+\DoxyCodeLine{182   \textcolor{comment}{// dead keys.}}
+\DoxyCodeLine{183   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_abba323146c1aed9d5cb31fe7ad83b21b}{marking\_worklists\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_a6d54714da570bc3804c93aea713f0b9c}{discovered\_ephemeron\_pairs\_worklist}}()-\/>\mbox{\hyperlink{classheap_1_1base_1_1Worklist_a11633eca330d64bee3d8b411c47ee313}{IsEmpty}}()) \{}
+\DoxyCodeLine{184 \textcolor{preprocessor}{\#if DEBUG}}
+\DoxyCodeLine{185     MarkingWorklists::EphemeronPairItem item;}
+\DoxyCodeLine{186     \textcolor{keywordflow}{while} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_a5a4da8effccaf636a5ff734d9fa454ec}{discovered\_ephemeron\_pairs\_worklist}}().Pop(}
+\DoxyCodeLine{187         \&item)) \{}
+\DoxyCodeLine{188       \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader_a04b955c04b80d2a431dc2b96e4a85028}{HeapObjectHeader::FromObject}}(item.key).\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader_a328d2dfc7af3a7a8bd7f7618a3a41699}{IsMarked}}());}
+\DoxyCodeLine{189     \}}
+\DoxyCodeLine{190 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{191     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_abba323146c1aed9d5cb31fe7ad83b21b}{marking\_worklists\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_a6d54714da570bc3804c93aea713f0b9c}{discovered\_ephemeron\_pairs\_worklist}}()-\/>\mbox{\hyperlink{classheap_1_1base_1_1Worklist_a52ec1ec749eb8c58fcb7f4f679b0f4f0}{Clear}}();}
+\DoxyCodeLine{192 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{193   \}}
+\DoxyCodeLine{194 }
+\DoxyCodeLine{195   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_abba323146c1aed9d5cb31fe7ad83b21b}{marking\_worklists\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_af073b5bca33996756bcb3f4310801f52}{weak\_containers\_worklist}}()-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_1_1ExternalMarkingWorklist_a5df39ca3c5d3cacea93945cd67ebfe93}{Clear}}();}
+\DoxyCodeLine{196 \}}
+
+\end{DoxyCode}
+
+
+References heap\+::base\+::\+Worklist$<$ Entry\+Type, Min\+Segment\+Size $>$\+::\+Clear(), cppgc\+::internal\+::\+Marking\+Worklists\+::\+External\+Marking\+Worklist\+::\+Clear(), config\+\_\+, DCHECK, DCHECK\+\_\+\+NE, cppgc\+::internal\+::\+Basic\+Marking\+State\+::discovered\+\_\+ephemeron\+\_\+pairs\+\_\+worklist(), cppgc\+::internal\+::\+Marking\+Worklists\+::discovered\+\_\+ephemeron\+\_\+pairs\+\_\+worklist(), cppgc\+::internal\+::\+Marking\+Worklists\+::\+External\+Marking\+Worklist\+::\+Extract(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+From\+Object(), cppgc\+::internal\+::\+Marking\+Worklists\+::\+External\+Marking\+Worklist\+::\+Is\+Empty(), heap\+::base\+::\+Worklist$<$ Entry\+Type, Min\+Segment\+Size $>$\+::\+Is\+Empty(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Is\+Marked(), cppgc\+::internal\+::\+Marking\+Worklists\+::\+Ephemeron\+Pair\+Item\+::key, marking\+\_\+worklists\+\_\+, mutator\+\_\+marking\+\_\+state\+\_\+, cppgc\+::internal\+::\+Marking\+State\+Base\+::not\+\_\+fully\+\_\+constructed\+\_\+worklist(), cppgc\+::internal\+::\+Marking\+Worklists\+::not\+\_\+fully\+\_\+constructed\+\_\+worklist(), cppgc\+::internal\+::\+Marking\+Config\+::stack\+\_\+state, and cppgc\+::internal\+::\+Marking\+Worklists\+::weak\+\_\+containers\+\_\+worklist().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a6103428b4070a20917403a54e59f7aed_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a2ec64c2f109e9a90ed6c108886a58aa4}\label{classcppgc_1_1internal_1_1MarkerBase_a2ec64c2f109e9a90ed6c108886a58aa4}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!MarkerBase@{MarkerBase}}
 \index{MarkerBase@{MarkerBase}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
@@ -222,6 +296,36 @@ k\+Steele&\\
 
 
 
+Definition at line 153 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{155     : \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a879aea66b222e221d0cf291177f7a3bb}{heap\_}}(\mbox{\hyperlink{namespaceheap}{heap}}),}
+\DoxyCodeLine{156       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}(config),}
+\DoxyCodeLine{157       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a9b75327a85fa78050093e2a6b458b7a9}{platform\_}}(platform),}
+\DoxyCodeLine{158       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a38af60c75795ae044f7eb72c410953a6}{foreground\_task\_runner\_}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a9b75327a85fa78050093e2a6b458b7a9}{platform\_}}-\/>\mbox{\hyperlink{classcppgc_1_1Platform_a0dbe1a8407043f1cf645266b62dbf7f5}{GetForegroundTaskRunner}}()),}
+\DoxyCodeLine{159       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ac7ca5c0b521f9c5f271baa723ce7b8ec}{incremental\_marking\_allocation\_observer\_}}(*\textcolor{keyword}{this}),}
+\DoxyCodeLine{160       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}(\mbox{\hyperlink{namespaceheap}{heap}}, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_abba323146c1aed9d5cb31fe7ad83b21b}{marking\_worklists\_}},}
+\DoxyCodeLine{161                              \mbox{\hyperlink{namespaceheap}{heap}}.compactor().compaction\_worklists()) \{}
+\DoxyCodeLine{162   \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a146d9dd286e4b3af8d78682887f670fd}{collection\_type}} == \mbox{\hyperlink{namespacecppgc_1_1internal_a9a435919d5a4a3ecfdfe20fb93896a60a1ce30a77d317111e321816f7cd2f6514}{CollectionType::kMinor}},}
+\DoxyCodeLine{163                  \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a879aea66b222e221d0cf291177f7a3bb}{heap\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_a6c6edeb1412f64a9b9135222b30095d5}{generational\_gc\_supported}}());}
+\DoxyCodeLine{164 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Marking\+Config\+::collection\+\_\+type, config\+\_\+, DCHECK\+\_\+\+IMPLIES, cppgc\+::internal\+::\+Heap\+Base\+::generational\+\_\+gc\+\_\+supported(), heap\+\_\+, and cppgc\+::internal\+::k\+Minor.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a852892cdf4c3ec232b28a31d20642e86_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a268c555ab68d32762f2bd2d2182d7f84}\label{classcppgc_1_1internal_1_1MarkerBase_a268c555ab68d32762f2bd2d2182d7f84}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!AdvanceMarkingOnAllocation@{AdvanceMarkingOnAllocation}}
@@ -229,6 +333,33 @@ k\+Steele&\\
 \doxysubsubsection{\texorpdfstring{AdvanceMarkingOnAllocation()}{AdvanceMarkingOnAllocation()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Advance\+Marking\+On\+Allocation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 565 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{565                                             \{}
+\DoxyCodeLine{566   \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} stats\_scope(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(),}
+\DoxyCodeLine{567                                            StatsCollector::kIncrementalMark);}
+\DoxyCodeLine{568   \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} nested\_scope(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(),}
+\DoxyCodeLine{569                                             StatsCollector::kMarkOnAllocation);}
+\DoxyCodeLine{570   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_aa053f23e1d4bcc3b3e5afffcd837903f}{AdvanceMarkingOnAllocationImpl}}();}
+\DoxyCodeLine{571 \}}
+
+\end{DoxyCode}
+
+
+References Advance\+Marking\+On\+Allocation\+Impl(), and heap().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a268c555ab68d32762f2bd2d2182d7f84_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_aa053f23e1d4bcc3b3e5afffcd837903f}\label{classcppgc_1_1internal_1_1MarkerBase_aa053f23e1d4bcc3b3e5afffcd837903f}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!AdvanceMarkingOnAllocationImpl@{AdvanceMarkingOnAllocationImpl}}
 \index{AdvanceMarkingOnAllocationImpl@{AdvanceMarkingOnAllocationImpl}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
@@ -239,24 +370,192 @@ k\+Steele&\\
 
 Reimplemented in \mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapMarker_ae7ef09fa5d48b0a8e52b3d74f0b65fdd}{v8\+::internal\+::\+Unified\+Heap\+Marker}}.
 
+
+
+Definition at line 573 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{573                                                 \{}
+\DoxyCodeLine{574   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a5d83d19c2d169a9eba6d0206db05dc26}{AdvanceMarkingWithLimits}}()) \{}
+\DoxyCodeLine{575     \textcolor{comment}{// Schedule another incremental task for finalizing without a stack.}}
+\DoxyCodeLine{576     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ab0ad25ba802d8e1a4c544605c0dce68d}{ScheduleIncrementalMarkingTask}}();}
+\DoxyCodeLine{577   \}}
+\DoxyCodeLine{578 \}}
+
+\end{DoxyCode}
+
+
+References Advance\+Marking\+With\+Limits(), and Schedule\+Incremental\+Marking\+Task().
+
+
+
+Referenced by Advance\+Marking\+On\+Allocation().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_aa053f23e1d4bcc3b3e5afffcd837903f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_aa053f23e1d4bcc3b3e5afffcd837903f_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a5d83d19c2d169a9eba6d0206db05dc26}\label{classcppgc_1_1internal_1_1MarkerBase_a5d83d19c2d169a9eba6d0206db05dc26}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!AdvanceMarkingWithLimits@{AdvanceMarkingWithLimits}}
 \index{AdvanceMarkingWithLimits@{AdvanceMarkingWithLimits}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{AdvanceMarkingWithLimits()}{AdvanceMarkingWithLimits()}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Marker\+Base\+::\+Advance\+Marking\+With\+Limits (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1base_1_1TimeDelta}{v8\+::base\+::\+Time\+Delta}}}]{max\+\_\+duration = {\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a7b931b3f9541b3ca9f97798d50372383}{k\+Maximum\+Incremental\+Step\+Duration}}},  }\item[{size\+\_\+t}]{marked\+\_\+bytes\+\_\+limit = {\ttfamily 0} }\end{DoxyParamCaption})}
 
+
+
+Definition at line 610 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{611                                                                      \{}
+\DoxyCodeLine{612   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a1129f06fa55034b00bec6f84c4152694}{main\_marking\_disabled\_for\_testing\_}})) \{}
+\DoxyCodeLine{613     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a9e6d6753af37b7bdb6069e1eb41855ab}{AdvanceMarkingWithLimitsEpilogue}}();}
+\DoxyCodeLine{614     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{615   \}}
+\DoxyCodeLine{616 }
+\DoxyCodeLine{617   \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} deadline\_scope(}
+\DoxyCodeLine{618       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(),}
+\DoxyCodeLine{619       StatsCollector::kMarkTransitiveClosureWithDeadline, \textcolor{stringliteral}{"{}max\_duration\_ms"{}},}
+\DoxyCodeLine{620       max\_duration.\mbox{\hyperlink{classv8_1_1base_1_1TimeDelta_a494cc64764a7ba009367e2e8b64496de}{InMillisecondsF}}(), \textcolor{stringliteral}{"{}max\_bytes"{}}, marked\_bytes\_limit);}
+\DoxyCodeLine{621   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ab36c226dde726a149f04ae44a41afcc2}{last\_bytes\_marked\_}} = 0;}
+\DoxyCodeLine{622   \textcolor{keyword}{const} \textcolor{keyword}{auto} deadline = \mbox{\hyperlink{classv8_1_1base_1_1TimeTicks_ab0886bf0e84f1e1fcdc101021c2c0775}{v8::base::TimeTicks::Now}}() + max\_duration;}
+\DoxyCodeLine{623   \textcolor{keywordflow}{if} (marked\_bytes\_limit == 0) \{}
+\DoxyCodeLine{624     marked\_bytes\_limit = \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02marker_8cc_03_a7301b7fff4720adb7019847970c84f1c}{GetNextIncrementalStepDuration}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a897292d21b77c76e56c4c21ec3ce5f5f}{schedule}}(), \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a879aea66b222e221d0cf291177f7a3bb}{heap\_}});}
+\DoxyCodeLine{625   \}}
+\DoxyCodeLine{626   \textcolor{comment}{// `ProcessWorklistsWithDeadline()` below checks against `marked\_bytes()`}}
+\DoxyCodeLine{627   \textcolor{comment}{// which are never reset.}}
+\DoxyCodeLine{628   \textcolor{keywordtype}{size\_t} marked\_bytes\_deadline =}
+\DoxyCodeLine{629       marked\_bytes\_limit + \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_a33f1d2c6d8847884eac96eb913da9a99}{marked\_bytes}}();}
+\DoxyCodeLine{630   \textcolor{keywordflow}{if} (marked\_bytes\_deadline < marked\_bytes\_limit) \{}
+\DoxyCodeLine{631     marked\_bytes\_deadline = SIZE\_MAX;}
+\DoxyCodeLine{632   \}}
+\DoxyCodeLine{633   \textcolor{keyword}{const} \textcolor{keywordtype}{bool} is\_done =}
+\DoxyCodeLine{634       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_aba42325c5403acda45eca7a1af12129a}{ProcessWorklistsWithDeadline}}(marked\_bytes\_deadline, deadline);}
+\DoxyCodeLine{635   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ab36c226dde726a149f04ae44a41afcc2}{last\_bytes\_marked\_}} = \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_aadc15e182c2605b8c2661826b002a1ed}{RecentlyMarkedBytes}}();}
+\DoxyCodeLine{636   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a897292d21b77c76e56c4c21ec3ce5f5f}{schedule}}().\mbox{\hyperlink{classheap_1_1base_1_1IncrementalMarkingSchedule_a0817174d71e24e6c6c9bd163888c7079}{AddMutatorThreadMarkedBytes}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ab36c226dde726a149f04ae44a41afcc2}{last\_bytes\_marked\_}});}
+\DoxyCodeLine{637   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MutatorMarkingState_a763d7e5ff6b50a8adb2f56cd148ba6f9}{Publish}}();}
+\DoxyCodeLine{638   \textcolor{keywordflow}{if} (!is\_done) \{}
+\DoxyCodeLine{639     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a9e6d6753af37b7bdb6069e1eb41855ab}{AdvanceMarkingWithLimitsEpilogue}}();}
+\DoxyCodeLine{640   \}}
+\DoxyCodeLine{641   \textcolor{keywordflow}{return} is\_done;}
+\DoxyCodeLine{642 \}}
+
+\end{DoxyCode}
+
+
+References heap\+::base\+::\+Incremental\+Marking\+Schedule\+::\+Add\+Mutator\+Thread\+Marked\+Bytes(), Advance\+Marking\+With\+Limits\+Epilogue(), cppgc\+::internal\+::anonymous\+\_\+namespace\{marker.\+cc\}\+::\+Get\+Next\+Incremental\+Step\+Duration(), heap(), heap\+\_\+, v8\+::base\+::\+Time\+Delta\+::\+In\+Milliseconds\+F(), last\+\_\+bytes\+\_\+marked\+\_\+, main\+\_\+marking\+\_\+disabled\+\_\+for\+\_\+testing\+\_\+, cppgc\+::internal\+::\+Basic\+Marking\+State\+::marked\+\_\+bytes(), mutator\+\_\+marking\+\_\+state\+\_\+, v8\+::base\+::\+Time\+Ticks\+::\+Now(), Process\+Worklists\+With\+Deadline(), cppgc\+::internal\+::\+Mutator\+Marking\+State\+::\+Publish(), cppgc\+::internal\+::\+Basic\+Marking\+State\+::\+Recently\+Marked\+Bytes(), schedule(), and V8\+\_\+\+UNLIKELY.
+
+
+
+Referenced by Advance\+Marking\+On\+Allocation\+Impl(), Finish\+Marking(), and Incremental\+Marking\+Step().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a5d83d19c2d169a9eba6d0206db05dc26_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a5d83d19c2d169a9eba6d0206db05dc26_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a9e6d6753af37b7bdb6069e1eb41855ab}\label{classcppgc_1_1internal_1_1MarkerBase_a9e6d6753af37b7bdb6069e1eb41855ab}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!AdvanceMarkingWithLimitsEpilogue@{AdvanceMarkingWithLimitsEpilogue}}
 \index{AdvanceMarkingWithLimitsEpilogue@{AdvanceMarkingWithLimitsEpilogue}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{AdvanceMarkingWithLimitsEpilogue()}{AdvanceMarkingWithLimitsEpilogue()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Advance\+Marking\+With\+Limits\+Epilogue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 600 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{600                                                   \{}
+\DoxyCodeLine{601   \textcolor{comment}{// Epilogue is only needed when marking is not finished.}}
+\DoxyCodeLine{602   \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(\mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a726d9cf5163c50b3cf8e05800e3cef71}{MarkingConfig::MarkingType::kAtomic}}, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}});}
+\DoxyCodeLine{603   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ab0ad25ba802d8e1a4c544605c0dce68d}{ScheduleIncrementalMarkingTask}}();}
+\DoxyCodeLine{604   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}} ==}
+\DoxyCodeLine{605       \mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a13b93ce70f628c016cca112357cc51b1}{MarkingConfig::MarkingType::kIncrementalAndConcurrent}}) \{}
+\DoxyCodeLine{606     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a63a8c5c538faf70c577b3604d871b7d3}{concurrent\_marker}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a88d2675832a8339a30cd5e74fe939307}{NotifyIncrementalMutatorStepCompleted}}();}
+\DoxyCodeLine{607   \}}
+\DoxyCodeLine{608 \}}
+
+\end{DoxyCode}
+
+
+References concurrent\+\_\+marker(), config\+\_\+, DCHECK\+\_\+\+NE, cppgc\+::\+Heap\+::k\+Atomic, cppgc\+::\+Heap\+::k\+Incremental\+And\+Concurrent, cppgc\+::internal\+::\+Marking\+Config\+::marking\+\_\+type, cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Notify\+Incremental\+Mutator\+Step\+Completed(), and Schedule\+Incremental\+Marking\+Task().
+
+
+
+Referenced by Advance\+Marking\+With\+Limits().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a9e6d6753af37b7bdb6069e1eb41855ab_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a9e6d6753af37b7bdb6069e1eb41855ab_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a8dad8846c3836e8e09f8ac7507ce5789}\label{classcppgc_1_1internal_1_1MarkerBase_a8dad8846c3836e8e09f8ac7507ce5789}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!ClearAllWorklistsForTesting@{ClearAllWorklistsForTesting}}
 \index{ClearAllWorklistsForTesting@{ClearAllWorklistsForTesting}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{ClearAllWorklistsForTesting()}{ClearAllWorklistsForTesting()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Clear\+All\+Worklists\+For\+Testing (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 767 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{767                                              \{}
+\DoxyCodeLine{768   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_abba323146c1aed9d5cb31fe7ad83b21b}{marking\_worklists\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_a640069f4f4fa99b7a54c6cb71e517c73}{ClearForTesting}}();}
+\DoxyCodeLine{769   \textcolor{keyword}{auto}* compaction\_worklists = \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a879aea66b222e221d0cf291177f7a3bb}{heap\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_a324a8c481e3a08d54ce6eaf41e5ae262}{compactor}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1Compactor_a772a0173b2600df8ec6a8c366f21039c}{compaction\_worklists}}();}
+\DoxyCodeLine{770   \textcolor{keywordflow}{if} (compaction\_worklists) compaction\_worklists-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1CompactionWorklists_aa6fc2f56119cc334850685a121b413da}{ClearForTesting}}();}
+\DoxyCodeLine{771 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Compaction\+Worklists\+::\+Clear\+For\+Testing(), cppgc\+::internal\+::\+Marking\+Worklists\+::\+Clear\+For\+Testing(), cppgc\+::internal\+::\+Compactor\+::compaction\+\_\+worklists(), cppgc\+::internal\+::\+Heap\+Base\+::compactor(), heap\+\_\+, and marking\+\_\+worklists\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a8dad8846c3836e8e09f8ac7507ce5789_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a63a8c5c538faf70c577b3604d871b7d3}\label{classcppgc_1_1internal_1_1MarkerBase_a63a8c5c538faf70c577b3604d871b7d3}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!concurrent\_marker@{concurrent\_marker}}
 \index{concurrent\_marker@{concurrent\_marker}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
@@ -267,6 +566,18 @@ Reimplemented in \mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapMarker_ae7ef
 
 Implemented in \mbox{\hyperlink{classcppgc_1_1internal_1_1Marker_a10618b7b4a347461e2f155b59436454f}{cppgc\+::internal\+::\+Marker}}, and \mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapMarker_adf17fd589ed747726b82e0150e04b6d7}{v8\+::internal\+::\+Unified\+Heap\+Marker}}.
 
+
+
+Referenced by Advance\+Marking\+With\+Limits\+Epilogue(), Enter\+Atomic\+Pause(), Join\+Concurrent\+Marking\+If\+Needed(), Leave\+Atomic\+Pause(), Notify\+Concurrent\+Marking\+Of\+Work\+If\+Needed(), Re\+Enable\+Concurrent\+Marking(), Start\+Marking(), and Wait\+For\+Concurrent\+Marking\+For\+Testing().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a63a8c5c538faf70c577b3604d871b7d3_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_af82fd623c1b16c7b2326710387304573}\label{classcppgc_1_1internal_1_1MarkerBase_af82fd623c1b16c7b2326710387304573}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!conservative\_visitor@{conservative\_visitor}}
 \index{conservative\_visitor@{conservative\_visitor}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
@@ -277,102 +588,646 @@ Implemented in \mbox{\hyperlink{classcppgc_1_1internal_1_1Marker_a10618b7b4a3474
 
 Implemented in \mbox{\hyperlink{classcppgc_1_1internal_1_1Marker_ad305ea22365034f11333f50d59ca61ce}{cppgc\+::internal\+::\+Marker}}, and \mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapMarker_a0a87a083ac620a59907e460692dc3492}{v8\+::internal\+::\+Unified\+Heap\+Marker}}.
 
+
+
+Referenced by v8\+::internal\+::\+Cpp\+Heap\+::\+Enter\+Final\+Pause(), Mark\+Not\+Fully\+Constructed\+Objects(), and Visit\+Local\+Roots().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_af82fd623c1b16c7b2326710387304573_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a99c0d082f30fa4c8840dab62ee997959}\label{classcppgc_1_1internal_1_1MarkerBase_a99c0d082f30fa4c8840dab62ee997959}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!EnterAtomicPause@{EnterAtomicPause}}
 \index{EnterAtomicPause@{EnterAtomicPause}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{EnterAtomicPause()}{EnterAtomicPause()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Enter\+Atomic\+Pause (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacecppgc_a91b484d5d6eea7664c25f4050c0d6eb8}{Stack\+State}}}]{stack\+\_\+state }\end{DoxyParamCaption})}
 
+
+
+Definition at line 251 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{251                                                         \{}
+\DoxyCodeLine{252   \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} top\_stats\_scope(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(),}
+\DoxyCodeLine{253                                                StatsCollector::kAtomicMark);}
+\DoxyCodeLine{254   \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} stats\_scope(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(),}
+\DoxyCodeLine{255                                            StatsCollector::kMarkAtomicPrologue);}
+\DoxyCodeLine{256 }
+\DoxyCodeLine{257   \textcolor{keyword}{const} \mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_afd32ebc547135b77c57b7aa17644c1d2}{MarkingConfig::MarkingType}} old\_marking\_type = \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}};}
+\DoxyCodeLine{258 }
+\DoxyCodeLine{259   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02marker_8cc_03_ac19866449661f1db2935b32bc30edbe0}{ExitIncrementalMarkingIfNeeded}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}())) \{}
+\DoxyCodeLine{260     \textcolor{comment}{// Cancel remaining incremental tasks. Concurrent marking jobs are left to}}
+\DoxyCodeLine{261     \textcolor{comment}{// run in parallel with the atomic pause until the mutator thread runs out}}
+\DoxyCodeLine{262     \textcolor{comment}{// of work.}}
+\DoxyCodeLine{263     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a436becd16a59ee95beb330893777f2ac}{incremental\_marking\_handle\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1SingleThreadedHandle_a79992ab4db1c259471cee6a44795799d}{CancelIfNonEmpty}}();}
+\DoxyCodeLine{264     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_a2b71dc778a025435fa06a9129f05bb6e}{stats\_collector}}()-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a728aad7a1817a49929c0c813f524cc86}{UnregisterObserver}}(}
+\DoxyCodeLine{265         \&\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ac7ca5c0b521f9c5f271baa723ce7b8ec}{incremental\_marking\_allocation\_observer\_}});}
+\DoxyCodeLine{266   \}}
+\DoxyCodeLine{267   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_aa64830f2f4730d02ce81a5602322436d}{stack\_state}} = stack\_state;}
+\DoxyCodeLine{268   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}} = \mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a726d9cf5163c50b3cf8e05800e3cef71}{MarkingConfig::MarkingType::kAtomic}};}
+\DoxyCodeLine{269   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_a4bdaa06cfc58c8b271c2e0003bccb0ee}{set\_in\_atomic\_pause}}();}
+\DoxyCodeLine{270 }
+\DoxyCodeLine{271   \{}
+\DoxyCodeLine{272     \textcolor{comment}{// VisitLocalRoots() also resets the LABs.}}
+\DoxyCodeLine{273     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a197e956b19bcd29f22c5c80e7b4dea7e}{VisitLocalRoots}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_aa64830f2f4730d02ce81a5602322436d}{stack\_state}});}
+\DoxyCodeLine{274     \textcolor{comment}{// Early marking of strong cross-\/thread roots before parallel marking. Helps}}
+\DoxyCodeLine{275     \textcolor{comment}{// avoiding long single-\/threaded marking phases.}}
+\DoxyCodeLine{276     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a4afafb413ccc5654bfcf5c9d0905c2f2}{MarkStrongCrossThreadRoots}}();}
+\DoxyCodeLine{277     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a78cca489d01ebb1134b78f1f3f1e5de1}{HandleNotFullyConstructedObjects}}();}
+\DoxyCodeLine{278   \}}
+\DoxyCodeLine{279   \textcolor{keywordflow}{if} (old\_marking\_type ==}
+\DoxyCodeLine{280       \mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a13b93ce70f628c016cca112357cc51b1}{MarkingConfig::MarkingType::kIncrementalAndConcurrent}}) \{}
+\DoxyCodeLine{281     \textcolor{comment}{// Start parallel marking.}}
+\DoxyCodeLine{282     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MutatorMarkingState_a763d7e5ff6b50a8adb2f56cd148ba6f9}{Publish}}();}
+\DoxyCodeLine{283     ConcurrentMarkerBase\& marker = \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a63a8c5c538faf70c577b3604d871b7d3}{concurrent\_marker}}();}
+\DoxyCodeLine{284     \textcolor{keywordflow}{if} (marker.IsActive()) \{}
+\DoxyCodeLine{285       marker.NotifyIncrementalMutatorStepCompleted();}
+\DoxyCodeLine{286     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{287       marker.Start();}
+\DoxyCodeLine{288     \}}
+\DoxyCodeLine{289   \}}
+\DoxyCodeLine{290 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Single\+Threaded\+Handle\+::\+Cancel\+If\+Non\+Empty(), concurrent\+\_\+marker(), config\+\_\+, cppgc\+::internal\+::anonymous\+\_\+namespace\{marker.\+cc\}\+::\+Exit\+Incremental\+Marking\+If\+Needed(), Handle\+Not\+Fully\+Constructed\+Objects(), heap(), incremental\+\_\+marking\+\_\+allocation\+\_\+observer\+\_\+, incremental\+\_\+marking\+\_\+handle\+\_\+, cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Is\+Active(), cppgc\+::\+Heap\+::k\+Atomic, cppgc\+::\+Heap\+::k\+Incremental\+And\+Concurrent, cppgc\+::internal\+::\+Marking\+Config\+::marking\+\_\+type, Mark\+Strong\+Cross\+Thread\+Roots(), mutator\+\_\+marking\+\_\+state\+\_\+, cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Notify\+Incremental\+Mutator\+Step\+Completed(), cppgc\+::internal\+::\+Mutator\+Marking\+State\+::\+Publish(), cppgc\+::internal\+::\+Basic\+Marking\+State\+::set\+\_\+in\+\_\+atomic\+\_\+pause(), cppgc\+::internal\+::\+Marking\+Config\+::stack\+\_\+state, cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Start(), cppgc\+::internal\+::\+Heap\+Base\+::stats\+\_\+collector(), cppgc\+::internal\+::\+Stats\+Collector\+::\+Unregister\+Observer(), and Visit\+Local\+Roots().
+
+
+
+Referenced by v8\+::internal\+::\+Cpp\+Heap\+::\+Enter\+Final\+Pause(), and Finish\+Marking().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a99c0d082f30fa4c8840dab62ee997959_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a99c0d082f30fa4c8840dab62ee997959_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a057a0192d0585c2e5df641e58521cbb5}\label{classcppgc_1_1internal_1_1MarkerBase_a057a0192d0585c2e5df641e58521cbb5}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!EnterProcessGlobalAtomicPause@{EnterProcessGlobalAtomicPause}}
 \index{EnterProcessGlobalAtomicPause@{EnterProcessGlobalAtomicPause}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{EnterProcessGlobalAtomicPause()}{EnterProcessGlobalAtomicPause()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Enter\+Process\+Global\+Atomic\+Pause (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 325 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{325 \{ \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a97ea110eac647682c02a24b0e889e16e}{VisitCrossThreadRoots}}(); \}}
+
+\end{DoxyCode}
+
+
+References Visit\+Cross\+Thread\+Roots().
+
+
+
+Referenced by Finish\+Marking().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a057a0192d0585c2e5df641e58521cbb5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a057a0192d0585c2e5df641e58521cbb5_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a463a40a209eaead59fa7320bac41458e}\label{classcppgc_1_1internal_1_1MarkerBase_a463a40a209eaead59fa7320bac41458e}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!FinishMarking@{FinishMarking}}
 \index{FinishMarking@{FinishMarking}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{FinishMarking()}{FinishMarking()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Finish\+Marking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacecppgc_a91b484d5d6eea7664c25f4050c0d6eb8}{Stack\+State}}}]{stack\+\_\+state }\end{DoxyParamCaption})}
 
+
+
+Definition at line 327 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{327                                                      \{}
+\DoxyCodeLine{328   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a64ba78641c78c096683b68e92da0282d}{is\_marking\_}});}
+\DoxyCodeLine{329   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a99c0d082f30fa4c8840dab62ee997959}{EnterAtomicPause}}(stack\_state);}
+\DoxyCodeLine{330   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a057a0192d0585c2e5df641e58521cbb5}{EnterProcessGlobalAtomicPause}}();}
+\DoxyCodeLine{331   \{}
+\DoxyCodeLine{332     \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} stats\_scope(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(),}
+\DoxyCodeLine{333                                              StatsCollector::kAtomicMark);}
+\DoxyCodeLine{334     \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a5d83d19c2d169a9eba6d0206db05dc26}{AdvanceMarkingWithLimits}}(\mbox{\hyperlink{classv8_1_1base_1_1TimeDelta_a1330af8b50fc0206f46945ea8d6922cf}{v8::base::TimeDelta::Max}}(), SIZE\_MAX));}
+\DoxyCodeLine{335     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a9cd21c64ed232ec55732ab32486e9dd5}{JoinConcurrentMarkingIfNeeded}}()) \{}
+\DoxyCodeLine{336       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a5d83d19c2d169a9eba6d0206db05dc26}{AdvanceMarkingWithLimits}}(\mbox{\hyperlink{classv8_1_1base_1_1TimeDelta_a1330af8b50fc0206f46945ea8d6922cf}{v8::base::TimeDelta::Max}}(), SIZE\_MAX));}
+\DoxyCodeLine{337     \}}
+\DoxyCodeLine{338     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MutatorMarkingState_a763d7e5ff6b50a8adb2f56cd148ba6f9}{Publish}}();}
+\DoxyCodeLine{339   \}}
+\DoxyCodeLine{340   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_aded1ef74f44d969032f540a5150fd99e}{LeaveAtomicPause}}();}
+\DoxyCodeLine{341 \}}
+
+\end{DoxyCode}
+
+
+References Advance\+Marking\+With\+Limits(), CHECK, DCHECK, Enter\+Atomic\+Pause(), Enter\+Process\+Global\+Atomic\+Pause(), heap(), is\+\_\+marking\+\_\+, Join\+Concurrent\+Marking\+If\+Needed(), Leave\+Atomic\+Pause(), v8\+::base\+::\+Time\+Delta\+::\+Max(), mutator\+\_\+marking\+\_\+state\+\_\+, and cppgc\+::internal\+::\+Mutator\+Marking\+State\+::\+Publish().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classcppgc_1_1internal_1_1MarkerBase_a463a40a209eaead59fa7320bac41458e_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a78cca489d01ebb1134b78f1f3f1e5de1}\label{classcppgc_1_1internal_1_1MarkerBase_a78cca489d01ebb1134b78f1f3f1e5de1}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!HandleNotFullyConstructedObjects@{HandleNotFullyConstructedObjects}}
 \index{HandleNotFullyConstructedObjects@{HandleNotFullyConstructedObjects}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{HandleNotFullyConstructedObjects()}{HandleNotFullyConstructedObjects()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Handle\+Not\+Fully\+Constructed\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 243 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{243                                                   \{}
+\DoxyCodeLine{244   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_aa64830f2f4730d02ce81a5602322436d}{stack\_state}} == StackState::kNoHeapPointers) \{}
+\DoxyCodeLine{245     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MutatorMarkingState_ac6928e01ffcf3f6c6a5a3496b3ee60e4}{FlushNotFullyConstructedObjects}}();}
+\DoxyCodeLine{246   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{247     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a9e036700bc3ffd7849c3b8e56b4a7a9e}{MarkNotFullyConstructedObjects}}();}
+\DoxyCodeLine{248   \}}
+\DoxyCodeLine{249 \}}
+
+\end{DoxyCode}
+
+
+References config\+\_\+, cppgc\+::internal\+::\+Mutator\+Marking\+State\+::\+Flush\+Not\+Fully\+Constructed\+Objects(), Mark\+Not\+Fully\+Constructed\+Objects(), mutator\+\_\+marking\+\_\+state\+\_\+, and cppgc\+::internal\+::\+Marking\+Config\+::stack\+\_\+state.
+
+
+
+Referenced by Enter\+Atomic\+Pause(), and Join\+Concurrent\+Marking\+If\+Needed().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a78cca489d01ebb1134b78f1f3f1e5de1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a78cca489d01ebb1134b78f1f3f1e5de1_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}\label{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!heap@{heap}}
 \index{heap@{heap}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{heap()}{heap()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}}\& cppgc\+::internal\+::\+Marker\+Base\+::heap (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 130 of file marker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{130 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a879aea66b222e221d0cf291177f7a3bb}{heap\_}}; \}}
+
+\end{DoxyCode}
+
+
+Referenced by Advance\+Marking\+On\+Allocation(), Advance\+Marking\+With\+Limits(), Enter\+Atomic\+Pause(), Finish\+Marking(), Leave\+Atomic\+Pause(), Mark\+Not\+Fully\+Constructed\+Objects(), Mark\+Strong\+Cross\+Thread\+Roots(), cppgc\+::internal\+::\+Marker\+Base\+::\+Incremental\+Marking\+Task\+::\+Post(), Process\+Cross\+Thread\+Weakness\+If\+Needed(), Process\+Weakness(), Process\+Worklists\+With\+Deadline(), cppgc\+::internal\+::\+Marker\+Base\+::\+Incremental\+Marking\+Task\+::\+Run(), Start\+Marking(), Visit\+Cross\+Thread\+Roots(), and Visit\+Local\+Roots().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a81249571d350ce05e77d207365ab0cd7}\label{classcppgc_1_1internal_1_1MarkerBase_a81249571d350ce05e77d207365ab0cd7}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!IncrementalMarkingStep@{IncrementalMarkingStep}}
 \index{IncrementalMarkingStep@{IncrementalMarkingStep}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{IncrementalMarkingStep()}{IncrementalMarkingStep()}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Marker\+Base\+::\+Incremental\+Marking\+Step (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacecppgc_a91b484d5d6eea7664c25f4050c0d6eb8}{Stack\+State}}}]{stack\+\_\+state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 556 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{556                                                               \{}
+\DoxyCodeLine{557   \textcolor{keywordflow}{if} (stack\_state == StackState::kNoHeapPointers) \{}
+\DoxyCodeLine{558     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MutatorMarkingState_ac6928e01ffcf3f6c6a5a3496b3ee60e4}{FlushNotFullyConstructedObjects}}();}
+\DoxyCodeLine{559   \}}
+\DoxyCodeLine{560   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_aa64830f2f4730d02ce81a5602322436d}{stack\_state}} = stack\_state;}
+\DoxyCodeLine{561 }
+\DoxyCodeLine{562   \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a5d83d19c2d169a9eba6d0206db05dc26}{AdvanceMarkingWithLimits}}();}
+\DoxyCodeLine{563 \}}
+
+\end{DoxyCode}
+
+
+References Advance\+Marking\+With\+Limits(), config\+\_\+, cppgc\+::internal\+::\+Mutator\+Marking\+State\+::\+Flush\+Not\+Fully\+Constructed\+Objects(), mutator\+\_\+marking\+\_\+state\+\_\+, and cppgc\+::internal\+::\+Marking\+Config\+::stack\+\_\+state.
+
+
+
+Referenced by Incremental\+Marking\+Step\+For\+Testing(), and cppgc\+::internal\+::\+Marker\+Base\+::\+Incremental\+Marking\+Task\+::\+Run().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a81249571d350ce05e77d207365ab0cd7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a81249571d350ce05e77d207365ab0cd7_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a5090be2717ddd3a779de5f2328b38b3c}\label{classcppgc_1_1internal_1_1MarkerBase_a5090be2717ddd3a779de5f2328b38b3c}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!IncrementalMarkingStepForTesting@{IncrementalMarkingStepForTesting}}
 \index{IncrementalMarkingStepForTesting@{IncrementalMarkingStepForTesting}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{IncrementalMarkingStepForTesting()}{IncrementalMarkingStepForTesting()}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Marker\+Base\+::\+Incremental\+Marking\+Step\+For\+Testing (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacecppgc_a91b484d5d6eea7664c25f4050c0d6eb8}{Stack\+State}}}]{stack\+\_\+state }\end{DoxyParamCaption})}
 
+
+
+Definition at line 552 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{552                                                                         \{}
+\DoxyCodeLine{553   \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a81249571d350ce05e77d207365ab0cd7}{IncrementalMarkingStep}}(stack\_state);}
+\DoxyCodeLine{554 \}}
+
+\end{DoxyCode}
+
+
+References Incremental\+Marking\+Step().
+
+
+
+Referenced by cppgc\+::testing\+::\+Standalone\+Testing\+Heap\+::\+Perform\+Marking\+Step().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a5090be2717ddd3a779de5f2328b38b3c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a5090be2717ddd3a779de5f2328b38b3c_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a900f0c5604d95d6c483fe7beaf3c90c8}\label{classcppgc_1_1internal_1_1MarkerBase_a900f0c5604d95d6c483fe7beaf3c90c8}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!IsMarking@{IsMarking}}
 \index{IsMarking@{IsMarking}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{IsMarking()}{IsMarking()}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Marker\+Base\+::\+Is\+Marking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 134 of file marker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{134 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a64ba78641c78c096683b68e92da0282d}{is\_marking\_}}; \}}
+
+\end{DoxyCode}
+
+
+Referenced by cppgc\+::subtle\+::\+Heap\+State\+::\+Is\+Marking().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a900f0c5604d95d6c483fe7beaf3c90c8_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a9cd21c64ed232ec55732ab32486e9dd5}\label{classcppgc_1_1internal_1_1MarkerBase_a9cd21c64ed232ec55732ab32486e9dd5}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!JoinConcurrentMarkingIfNeeded@{JoinConcurrentMarkingIfNeeded}}
 \index{JoinConcurrentMarkingIfNeeded@{JoinConcurrentMarkingIfNeeded}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{JoinConcurrentMarkingIfNeeded()}{JoinConcurrentMarkingIfNeeded()}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Marker\+Base\+::\+Join\+Concurrent\+Marking\+If\+Needed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 580 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{580                                                \{}
+\DoxyCodeLine{581   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}} != \mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a726d9cf5163c50b3cf8e05800e3cef71}{MarkingConfig::MarkingType::kAtomic}} ||}
+\DoxyCodeLine{582       !\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a63a8c5c538faf70c577b3604d871b7d3}{concurrent\_marker}}().Join())}
+\DoxyCodeLine{583     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{584 }
+\DoxyCodeLine{585   \textcolor{comment}{// Concurrent markers may have pushed some "{}leftover"{} in-\/construction objects}}
+\DoxyCodeLine{586   \textcolor{comment}{// after flushing in EnterAtomicPause.}}
+\DoxyCodeLine{587   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a78cca489d01ebb1134b78f1f3f1e5de1}{HandleNotFullyConstructedObjects}}();}
+\DoxyCodeLine{588   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_abba323146c1aed9d5cb31fe7ad83b21b}{marking\_worklists\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_a961945f4544128709c88ceee4ed13d76}{not\_fully\_constructed\_worklist}}()-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_1_1ExternalMarkingWorklist_a4a85a50c596fd7405ac6974cb0e17de5}{IsEmpty}}());}
+\DoxyCodeLine{589   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{590 \}}
+
+\end{DoxyCode}
+
+
+References concurrent\+\_\+marker(), config\+\_\+, DCHECK, Handle\+Not\+Fully\+Constructed\+Objects(), cppgc\+::internal\+::\+Marking\+Worklists\+::\+External\+Marking\+Worklist\+::\+Is\+Empty(), cppgc\+::\+Heap\+::k\+Atomic, cppgc\+::internal\+::\+Marking\+Config\+::marking\+\_\+type, marking\+\_\+worklists\+\_\+, and cppgc\+::internal\+::\+Marking\+Worklists\+::not\+\_\+fully\+\_\+constructed\+\_\+worklist().
+
+
+
+Referenced by Finish\+Marking().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a9cd21c64ed232ec55732ab32486e9dd5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a9cd21c64ed232ec55732ab32486e9dd5_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a8ea4da02244c2b2bc9ed25be0642b247}\label{classcppgc_1_1internal_1_1MarkerBase_a8ea4da02244c2b2bc9ed25be0642b247}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!last\_bytes\_marked@{last\_bytes\_marked}}
 \index{last\_bytes\_marked@{last\_bytes\_marked}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{last\_bytes\_marked()}{last\_bytes\_marked()}}
 {\footnotesize\ttfamily size\+\_\+t cppgc\+::internal\+::\+Marker\+Base\+::last\+\_\+bytes\+\_\+marked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 103 of file marker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{103 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ab36c226dde726a149f04ae44a41afcc2}{last\_bytes\_marked\_}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_aded1ef74f44d969032f540a5150fd99e}\label{classcppgc_1_1internal_1_1MarkerBase_aded1ef74f44d969032f540a5150fd99e}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!LeaveAtomicPause@{LeaveAtomicPause}}
 \index{LeaveAtomicPause@{LeaveAtomicPause}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{LeaveAtomicPause()}{LeaveAtomicPause()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Leave\+Atomic\+Pause (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 308 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{308                                   \{}
+\DoxyCodeLine{309   \{}
+\DoxyCodeLine{310     \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} top\_stats\_scope(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(),}
+\DoxyCodeLine{311                                                  StatsCollector::kAtomicMark);}
+\DoxyCodeLine{312     \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} stats\_scope(}
+\DoxyCodeLine{313         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(), StatsCollector::kMarkAtomicEpilogue);}
+\DoxyCodeLine{314     \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a436becd16a59ee95beb330893777f2ac}{incremental\_marking\_handle\_}});}
+\DoxyCodeLine{315     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} overall\_marked\_bytes =}
+\DoxyCodeLine{316         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_a33f1d2c6d8847884eac96eb913da9a99}{marked\_bytes}}() +}
+\DoxyCodeLine{317         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a63a8c5c538faf70c577b3604d871b7d3}{concurrent\_marker}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a08a5def4df5c85fba581fe89f79e1cc8}{concurrently\_marked\_bytes}}();}
+\DoxyCodeLine{318     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_a2b71dc778a025435fa06a9129f05bb6e}{stats\_collector}}()-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a7eb687fe410d613574bed04a610915d4}{NotifyMarkingCompleted}}(overall\_marked\_bytes);}
+\DoxyCodeLine{319     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a64ba78641c78c096683b68e92da0282d}{is\_marking\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{320   \}}
+\DoxyCodeLine{321   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ab6125055892e1a14737fb59e1a602089}{ProcessWeakness}}();}
+\DoxyCodeLine{322   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_aecbf164b535cba389de001136ea4550c}{SetStackStateOfPrevGC}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_aa64830f2f4730d02ce81a5602322436d}{stack\_state}});}
+\DoxyCodeLine{323 \}}
+
+\end{DoxyCode}
+
+
+References concurrent\+\_\+marker(), cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::concurrently\+\_\+marked\+\_\+bytes(), config\+\_\+, DCHECK, heap(), incremental\+\_\+marking\+\_\+handle\+\_\+, is\+\_\+marking\+\_\+, cppgc\+::internal\+::\+Basic\+Marking\+State\+::marked\+\_\+bytes(), mutator\+\_\+marking\+\_\+state\+\_\+, cppgc\+::internal\+::\+Stats\+Collector\+::\+Notify\+Marking\+Completed(), Process\+Weakness(), cppgc\+::internal\+::\+Heap\+Base\+::\+Set\+Stack\+State\+Of\+Prev\+GC(), cppgc\+::internal\+::\+Marking\+Config\+::stack\+\_\+state, and cppgc\+::internal\+::\+Heap\+Base\+::stats\+\_\+collector().
+
+
+
+Referenced by Finish\+Marking().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_aded1ef74f44d969032f540a5150fd99e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_aded1ef74f44d969032f540a5150fd99e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_aa3cc64f45a4807416db68d7a31b492e2}\label{classcppgc_1_1internal_1_1MarkerBase_aa3cc64f45a4807416db68d7a31b492e2}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!MarkingWorklistsForTesting@{MarkingWorklistsForTesting}}
 \index{MarkingWorklistsForTesting@{MarkingWorklistsForTesting}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{MarkingWorklistsForTesting()}{MarkingWorklistsForTesting()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists}{Marking\+Worklists}}\& cppgc\+::internal\+::\+Marker\+Base\+::\+Marking\+Worklists\+For\+Testing (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 141 of file marker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{141 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_abba323146c1aed9d5cb31fe7ad83b21b}{marking\_worklists\_}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a9e036700bc3ffd7849c3b8e56b4a7a9e}\label{classcppgc_1_1internal_1_1MarkerBase_a9e036700bc3ffd7849c3b8e56b4a7a9e}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!MarkNotFullyConstructedObjects@{MarkNotFullyConstructedObjects}}
 \index{MarkNotFullyConstructedObjects@{MarkNotFullyConstructedObjects}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{MarkNotFullyConstructedObjects()}{MarkNotFullyConstructedObjects()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Mark\+Not\+Fully\+Constructed\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 746 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{746                                                 \{}
+\DoxyCodeLine{747   \textcolor{comment}{// Parallel marking may still be running which is why atomic extraction is}}
+\DoxyCodeLine{748   \textcolor{comment}{// required.}}
+\DoxyCodeLine{749   std::unordered\_set<HeapObjectHeader*> objects =}
+\DoxyCodeLine{750       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingStateBase_aa9c151656cb8d785d70be895cd16169e}{not\_fully\_constructed\_worklist}}()}
+\DoxyCodeLine{751           .\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_1_1ExternalMarkingWorklist_a5f58b301fcdbdc713655effefe31536c}{Extract}}<\mbox{\hyperlink{namespacecppgc_1_1internal_ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71}{AccessMode::kAtomic}}>();}
+\DoxyCodeLine{752   \textcolor{keywordflow}{if} (objects.empty()) \{}
+\DoxyCodeLine{753     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{754   \}}
+\DoxyCodeLine{755   \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a77627d8d1bfb30be9c6fc20175b08000}{StatsCollector::DisabledScope}} stats\_scope(}
+\DoxyCodeLine{756       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(),}
+\DoxyCodeLine{757       StatsCollector::kMarkVisitNotFullyConstructedObjects);}
+\DoxyCodeLine{758   \textcolor{keywordflow}{for} (HeapObjectHeader* \textcolor{keywordtype}{object} : objects) \{}
+\DoxyCodeLine{759     \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\textcolor{keywordtype}{object});}
+\DoxyCodeLine{760     \textcolor{comment}{// TraceConservativelyIfNeeded delegates to either in-\/construction or}}
+\DoxyCodeLine{761     \textcolor{comment}{// fully constructed handling. Both handlers have their own marked bytes}}
+\DoxyCodeLine{762     \textcolor{comment}{// accounting and markbit handling (bailout).}}
+\DoxyCodeLine{763     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_af82fd623c1b16c7b2326710387304573}{conservative\_visitor}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_ade80c90d390cc60399430d64a7e6682e}{TraceConservativelyIfNeeded}}(*\textcolor{keywordtype}{object});}
+\DoxyCodeLine{764   \}}
+\DoxyCodeLine{765 \}}
+
+\end{DoxyCode}
+
+
+References conservative\+\_\+visitor(), DCHECK, cppgc\+::internal\+::\+Marking\+Worklists\+::\+External\+Marking\+Worklist\+::\+Extract(), heap(), cppgc\+::internal\+::k\+Atomic, mutator\+\_\+marking\+\_\+state\+\_\+, cppgc\+::internal\+::\+Marking\+State\+Base\+::not\+\_\+fully\+\_\+constructed\+\_\+worklist(), and cppgc\+::internal\+::\+Conservative\+Tracing\+Visitor\+::\+Trace\+Conservatively\+If\+Needed().
+
+
+
+Referenced by Handle\+Not\+Fully\+Constructed\+Objects().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a9e036700bc3ffd7849c3b8e56b4a7a9e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a9e036700bc3ffd7849c3b8e56b4a7a9e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a4afafb413ccc5654bfcf5c9d0905c2f2}\label{classcppgc_1_1internal_1_1MarkerBase_a4afafb413ccc5654bfcf5c9d0905c2f2}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!MarkStrongCrossThreadRoots@{MarkStrongCrossThreadRoots}}
 \index{MarkStrongCrossThreadRoots@{MarkStrongCrossThreadRoots}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{MarkStrongCrossThreadRoots()}{MarkStrongCrossThreadRoots()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Mark\+Strong\+Cross\+Thread\+Roots (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 538 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{538                                             \{}
+\DoxyCodeLine{539   ProcessGlobalLock::Lock<ProcessGlobalLock::Reason::kForGC>();}
+\DoxyCodeLine{540   RootMarkingVisitor root\_marking\_visitor(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}});}
+\DoxyCodeLine{541   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_abbecf162b1c37bd08f78f3fa968f4ad3}{GetStrongCrossThreadPersistentRegion}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1CrossThreadPersistentRegion_af3e9c85ceb7c18861e3646e6afdac266}{Iterate}}(root\_marking\_visitor);}
+\DoxyCodeLine{542   ProcessGlobalLock::Unlock<ProcessGlobalLock::Reason::kForGC>();}
+\DoxyCodeLine{543 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Heap\+Base\+::\+Get\+Strong\+Cross\+Thread\+Persistent\+Region(), heap(), cppgc\+::internal\+::\+Cross\+Thread\+Persistent\+Region\+::\+Iterate(), and mutator\+\_\+marking\+\_\+state\+\_\+.
+
+
+
+Referenced by Enter\+Atomic\+Pause(), and Start\+Marking().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a4afafb413ccc5654bfcf5c9d0905c2f2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a4afafb413ccc5654bfcf5c9d0905c2f2_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_ae04b41c857901f77295c9bfb3a1f849b}\label{classcppgc_1_1internal_1_1MarkerBase_ae04b41c857901f77295c9bfb3a1f849b}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!MutatorMarkingStateForTesting@{MutatorMarkingStateForTesting}}
 \index{MutatorMarkingStateForTesting@{MutatorMarkingStateForTesting}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{MutatorMarkingStateForTesting()}{MutatorMarkingStateForTesting()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1MutatorMarkingState}{Mutator\+Marking\+State}}\& cppgc\+::internal\+::\+Marker\+Base\+::\+Mutator\+Marking\+State\+For\+Testing (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 142 of file marker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{142                                                        \{}
+\DoxyCodeLine{143     \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}};}
+\DoxyCodeLine{144   \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_aaadadedb63e7a54ffe9f60864503167e}\label{classcppgc_1_1internal_1_1MarkerBase_aaadadedb63e7a54ffe9f60864503167e}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!NotifyConcurrentMarkingOfWorkIfNeeded@{NotifyConcurrentMarkingOfWorkIfNeeded}}
 \index{NotifyConcurrentMarkingOfWorkIfNeeded@{NotifyConcurrentMarkingOfWorkIfNeeded}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{NotifyConcurrentMarkingOfWorkIfNeeded()}{NotifyConcurrentMarkingOfWorkIfNeeded()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Notify\+Concurrent\+Marking\+Of\+Work\+If\+Needed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051}{cppgc\+::\+Task\+Priority}}}]{priority }\end{DoxyParamCaption})}
 
+
+
+Definition at line 592 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{593                                 \{}
+\DoxyCodeLine{594   ConcurrentMarkerBase\& marker = \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a63a8c5c538faf70c577b3604d871b7d3}{concurrent\_marker}}();}
+\DoxyCodeLine{595   \textcolor{keywordflow}{if} (marker.IsActive()) \{}
+\DoxyCodeLine{596     marker.NotifyOfWorkIfNeeded(priority);}
+\DoxyCodeLine{597   \}}
+\DoxyCodeLine{598 \}}
+
+\end{DoxyCode}
+
+
+References concurrent\+\_\+marker(), cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Is\+Active(), and cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Notify\+Of\+Work\+If\+Needed().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_aaadadedb63e7a54ffe9f60864503167e_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_ad9792b952b0e9161b5becbb45e0440d2}\label{classcppgc_1_1internal_1_1MarkerBase_ad9792b952b0e9161b5becbb45e0440d2}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!operator=@{operator=}}
 \index{operator=@{operator=}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
@@ -385,24 +1240,368 @@ Implemented in \mbox{\hyperlink{classcppgc_1_1internal_1_1Marker_ad305ea22365034
 \doxysubsubsection{\texorpdfstring{ProcessCrossThreadWeaknessIfNeeded()}{ProcessCrossThreadWeaknessIfNeeded()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Process\+Cross\+Thread\+Weakness\+If\+Needed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 374 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{374                                                     \{}
+\DoxyCodeLine{375   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a726d9cf5163c50b3cf8e05800e3cef71}{MarkingConfig::MarkingType::kAtomic}}, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}});}
+\DoxyCodeLine{376 }
+\DoxyCodeLine{377   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a52df09b65929f7b6d9424e699544ecab}{processed\_cross\_thread\_weakness\_}}) \{}
+\DoxyCodeLine{378     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{379   \}}
+\DoxyCodeLine{380 }
+\DoxyCodeLine{381   \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} stats\_scope(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(),}
+\DoxyCodeLine{382                                            StatsCollector::kAtomicWeak);}
+\DoxyCodeLine{383   \textcolor{comment}{// Weakness callbacks are forbidden from allocating objects.}}
+\DoxyCodeLine{384   \mbox{\hyperlink{classcppgc_1_1subtle_1_1DisallowGarbageCollectionScope}{cppgc::subtle::DisallowGarbageCollectionScope}} disallow\_gc\_scope(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a879aea66b222e221d0cf291177f7a3bb}{heap\_}});}
+\DoxyCodeLine{385 }
+\DoxyCodeLine{386   RootMarkingVisitor root\_marking\_visitor(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}});}
+\DoxyCodeLine{387 }
+\DoxyCodeLine{388   \textcolor{comment}{// Processing cross-\/thread roots requires taking the global process lock.}}
+\DoxyCodeLine{389   \textcolor{comment}{// Process these weak roots first to minimize the time the lock is held.}}
+\DoxyCodeLine{390   \mbox{\hyperlink{classcppgc_1_1internal_1_1ProcessGlobalLock_a53319759424f1d5e7a30d5211aeb25a9}{ProcessGlobalLock::AssertHeld}}();}
+\DoxyCodeLine{391   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ae38b14fb5205bfecd590de6af4c7357e}{visited\_cross\_thread\_persistents\_in\_atomic\_pause\_}});}
+\DoxyCodeLine{392   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_adcb18d85d93d530c7c61faf851f29820}{GetWeakCrossThreadPersistentRegion}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1CrossThreadPersistentRegion_af3e9c85ceb7c18861e3646e6afdac266}{Iterate}}(root\_marking\_visitor);}
+\DoxyCodeLine{393   ProcessGlobalLock::Unlock<ProcessGlobalLock::Reason::kForGC>();}
+\DoxyCodeLine{394   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a52df09b65929f7b6d9424e699544ecab}{processed\_cross\_thread\_weakness\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{395 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Process\+Global\+Lock\+::\+Assert\+Held(), CHECK, config\+\_\+, DCHECK\+\_\+\+EQ, cppgc\+::internal\+::\+Heap\+Base\+::\+Get\+Weak\+Cross\+Thread\+Persistent\+Region(), heap(), heap\+\_\+, cppgc\+::internal\+::\+Cross\+Thread\+Persistent\+Region\+::\+Iterate(), cppgc\+::\+Heap\+::k\+Atomic, cppgc\+::internal\+::\+Marking\+Config\+::marking\+\_\+type, mutator\+\_\+marking\+\_\+state\+\_\+, processed\+\_\+cross\+\_\+thread\+\_\+weakness\+\_\+, and visited\+\_\+cross\+\_\+thread\+\_\+persistents\+\_\+in\+\_\+atomic\+\_\+pause\+\_\+.
+
+
+
+Referenced by Process\+Weakness().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a12819d132eeb08366220c1f567741338_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a12819d132eeb08366220c1f567741338_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_ab6125055892e1a14737fb59e1a602089}\label{classcppgc_1_1internal_1_1MarkerBase_ab6125055892e1a14737fb59e1a602089}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!ProcessWeakness@{ProcessWeakness}}
 \index{ProcessWeakness@{ProcessWeakness}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{ProcessWeakness()}{ProcessWeakness()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Process\+Weakness (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 397 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{397                                  \{}
+\DoxyCodeLine{398   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a726d9cf5163c50b3cf8e05800e3cef71}{MarkingConfig::MarkingType::kAtomic}}, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}});}
+\DoxyCodeLine{399 }
+\DoxyCodeLine{400   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a12819d132eeb08366220c1f567741338}{ProcessCrossThreadWeaknessIfNeeded}}();}
+\DoxyCodeLine{401 }
+\DoxyCodeLine{402   \textcolor{comment}{// Weakness callbacks are forbidden from allocating objects.}}
+\DoxyCodeLine{403   \mbox{\hyperlink{classcppgc_1_1subtle_1_1DisallowGarbageCollectionScope}{cppgc::subtle::DisallowGarbageCollectionScope}} disallow\_gc\_scope(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a879aea66b222e221d0cf291177f7a3bb}{heap\_}});}
+\DoxyCodeLine{404 }
+\DoxyCodeLine{405   \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} stats\_scope(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(),}
+\DoxyCodeLine{406                                            StatsCollector::kAtomicWeak);}
+\DoxyCodeLine{407 }
+\DoxyCodeLine{408   RootMarkingVisitor root\_marking\_visitor(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}});}
+\DoxyCodeLine{409 }
+\DoxyCodeLine{410   \textcolor{comment}{// Launch the parallel job before anything else to provide the maximum time}}
+\DoxyCodeLine{411   \textcolor{comment}{// slice for processing.}}
+\DoxyCodeLine{412   LivenessBroker \mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}} = \mbox{\hyperlink{classcppgc_1_1internal_1_1LivenessBrokerFactory_a164a90df7b416df21633caa893572791}{LivenessBrokerFactory::Create}}();}
+\DoxyCodeLine{413   std::unique\_ptr<cppgc::JobHandle> job\_handle\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{414   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().marking\_support() ==}
+\DoxyCodeLine{415       \mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a13b93ce70f628c016cca112357cc51b1}{cppgc::Heap::MarkingType::kIncrementalAndConcurrent}}) \{}
+\DoxyCodeLine{416     job\_handle = \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a9b75327a85fa78050093e2a6b458b7a9}{platform\_}}-\/>\mbox{\hyperlink{classcppgc_1_1Platform_a6cd9224a397cb79d4c56e3f0dc163c74}{PostJob}}(}
+\DoxyCodeLine{417         \mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051a495bb545d1c5053ead9743a8b7692209}{cppgc::TaskPriority::kUserBlocking}},}
+\DoxyCodeLine{418         std::make\_unique<WeakCallbackJobTask>(}
+\DoxyCodeLine{419             \textcolor{keyword}{this}, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_abba323146c1aed9d5cb31fe7ad83b21b}{marking\_worklists\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_a96e9d1ec3c29befd3d37c23c5e3139f7}{parallel\_weak\_callback\_worklist}}(),}
+\DoxyCodeLine{420             \mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}));}
+\DoxyCodeLine{421   \}}
+\DoxyCodeLine{422 }
+\DoxyCodeLine{423   \textcolor{comment}{// Process same-\/thread roots.}}
+\DoxyCodeLine{424   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_a9e14cc8eaa693ca1df4e829bd0f1d1f7}{GetWeakPersistentRegion}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1PersistentRegionBase_af86b0d6a8879bf5f0d91af7e5b30db4f}{Iterate}}(root\_marking\_visitor);}
+\DoxyCodeLine{425 }
+\DoxyCodeLine{426   \textcolor{comment}{// Call weak callbacks on objects that may now be pointing to dead objects.}}
+\DoxyCodeLine{427 \textcolor{preprocessor}{\#if defined(CPPGC\_YOUNG\_GENERATION)}}
+\DoxyCodeLine{428   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().generational\_gc\_supported()) \{}
+\DoxyCodeLine{429     \textcolor{keyword}{auto}\& remembered\_set = \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().remembered\_set();}
+\DoxyCodeLine{430     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a146d9dd286e4b3af8d78682887f670fd}{collection\_type}} == \mbox{\hyperlink{namespacecppgc_1_1internal_a9a435919d5a4a3ecfdfe20fb93896a60a1ce30a77d317111e321816f7cd2f6514}{CollectionType::kMinor}}) \{}
+\DoxyCodeLine{431       \textcolor{comment}{// Custom callbacks assume that untraced pointers point to not yet freed}}
+\DoxyCodeLine{432       \textcolor{comment}{// objects. They must make sure that upon callback completion no}}
+\DoxyCodeLine{433       \textcolor{comment}{// UntracedMember points to a freed object. This may not hold true if a}}
+\DoxyCodeLine{434       \textcolor{comment}{// custom callback for an old object operates with a reference to a young}}
+\DoxyCodeLine{435       \textcolor{comment}{// object that was freed on a minor collection cycle. To maintain the}}
+\DoxyCodeLine{436       \textcolor{comment}{// invariant that UntracedMembers always point to valid objects, execute}}
+\DoxyCodeLine{437       \textcolor{comment}{// custom callbacks for old objects on each minor collection cycle.}}
+\DoxyCodeLine{438       remembered\_set.ExecuteCustomCallbacks(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}});}
+\DoxyCodeLine{439     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{440       \textcolor{comment}{// For major GCs, just release all the remembered weak callbacks.}}
+\DoxyCodeLine{441       remembered\_set.ReleaseCustomCallbacks();}
+\DoxyCodeLine{442     \}}
+\DoxyCodeLine{443   \}}
+\DoxyCodeLine{444 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// defined(CPPGC\_YOUNG\_GENERATION)}}
+\DoxyCodeLine{445 }
+\DoxyCodeLine{446   \{}
+\DoxyCodeLine{447     \textcolor{comment}{// First, process weak container callbacks.}}
+\DoxyCodeLine{448     \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} inner\_stats\_scope(}
+\DoxyCodeLine{449         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(),}
+\DoxyCodeLine{450         StatsCollector::kWeakContainerCallbacksProcessing);}
+\DoxyCodeLine{451     MarkingWorklists::WeakCallbackItem item;}
+\DoxyCodeLine{452     MarkingWorklists::WeakCallbackWorklist::Local\& collections\_local =}
+\DoxyCodeLine{453         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_af094e4c7dedf3e28c0a101bbe4dc7f48}{weak\_container\_callback\_worklist}}();}
+\DoxyCodeLine{454     \textcolor{keywordflow}{while} (collections\_local.Pop(\&item)) \{}
+\DoxyCodeLine{455       item.callback(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, item.parameter);}
+\DoxyCodeLine{456     \}}
+\DoxyCodeLine{457   \}}
+\DoxyCodeLine{458   \{}
+\DoxyCodeLine{459     \textcolor{comment}{// Then, process custom weak callbacks.}}
+\DoxyCodeLine{460     \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} inner\_stats\_scope(}
+\DoxyCodeLine{461         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(), StatsCollector::kCustomCallbacksProcessing);}
+\DoxyCodeLine{462     MarkingWorklists::WeakCallbackItem item;}
+\DoxyCodeLine{463     MarkingWorklists::WeakCustomCallbackWorklist::Local\& custom\_callbacks =}
+\DoxyCodeLine{464         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_a83ffc8319e988ea927ec533b2efb8226}{weak\_custom\_callback\_worklist}}();}
+\DoxyCodeLine{465     \textcolor{keywordflow}{while} (custom\_callbacks.Pop(\&item)) \{}
+\DoxyCodeLine{466       item.callback(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, item.parameter);}
+\DoxyCodeLine{467 \textcolor{preprocessor}{\#if defined(CPPGC\_YOUNG\_GENERATION)}}
+\DoxyCodeLine{468       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().generational\_gc\_supported())}
+\DoxyCodeLine{469         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().remembered\_set().AddWeakCallback(item);}
+\DoxyCodeLine{470 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// defined(CPPGC\_YOUNG\_GENERATION)}}
+\DoxyCodeLine{471     \}}
+\DoxyCodeLine{472   \}}
+\DoxyCodeLine{473 }
+\DoxyCodeLine{474   \textcolor{keywordflow}{if} (job\_handle) \{}
+\DoxyCodeLine{475     job\_handle-\/>Join();}
+\DoxyCodeLine{476   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{477     MarkingWorklists::WeakCallbackItem item;}
+\DoxyCodeLine{478     MarkingWorklists::WeakCallbackWorklist::Local\& local =}
+\DoxyCodeLine{479         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_adffe612a550f8b37846fa2867a7a9d8f}{parallel\_weak\_callback\_worklist}}();}
+\DoxyCodeLine{480     \textcolor{keywordflow}{while} (local.Pop(\&item)) \{}
+\DoxyCodeLine{481       item.callback(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, item.parameter);}
+\DoxyCodeLine{482     \}}
+\DoxyCodeLine{483   \}}
+\DoxyCodeLine{484 }
+\DoxyCodeLine{485   \textcolor{comment}{// Weak callbacks should not add any new objects for marking.}}
+\DoxyCodeLine{486   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_abba323146c1aed9d5cb31fe7ad83b21b}{marking\_worklists\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_a8eba48b1cf60cafa4879db265c267171}{marking\_worklist}}()-\/>\mbox{\hyperlink{classheap_1_1base_1_1Worklist_a11633eca330d64bee3d8b411c47ee313}{IsEmpty}}());}
+\DoxyCodeLine{487 \}}
+
+\end{DoxyCode}
+
+
+References broker(), cppgc\+::internal\+::\+Marking\+Worklists\+::\+Weak\+Callback\+Item\+::callback, cppgc\+::internal\+::\+Marking\+Config\+::collection\+\_\+type, config\+\_\+, cppgc\+::internal\+::\+Liveness\+Broker\+Factory\+::\+Create(), DCHECK, DCHECK\+\_\+\+EQ, cppgc\+::internal\+::\+Heap\+Base\+::\+Get\+Weak\+Persistent\+Region(), heap(), heap\+\_\+, heap\+::base\+::\+Worklist$<$ Entry\+Type, Min\+Segment\+Size $>$\+::\+Is\+Empty(), cppgc\+::internal\+::\+Persistent\+Region\+Base\+::\+Iterate(), cppgc\+::\+Heap\+::k\+Atomic, cppgc\+::\+Heap\+::k\+Incremental\+And\+Concurrent, cppgc\+::internal\+::k\+Minor, v8\+::k\+User\+Blocking, cppgc\+::internal\+::\+Marking\+Config\+::marking\+\_\+type, cppgc\+::internal\+::\+Marking\+Worklists\+::marking\+\_\+worklist(), marking\+\_\+worklists\+\_\+, mutator\+\_\+marking\+\_\+state\+\_\+, cppgc\+::internal\+::\+Basic\+Marking\+State\+::parallel\+\_\+weak\+\_\+callback\+\_\+worklist(), cppgc\+::internal\+::\+Marking\+Worklists\+::parallel\+\_\+weak\+\_\+callback\+\_\+worklist(), cppgc\+::internal\+::\+Marking\+Worklists\+::\+Weak\+Callback\+Item\+::parameter, platform\+\_\+, cppgc\+::\+Platform\+::\+Post\+Job(), Process\+Cross\+Thread\+Weakness\+If\+Needed(), cppgc\+::internal\+::\+Basic\+Marking\+State\+::weak\+\_\+container\+\_\+callback\+\_\+worklist(), and cppgc\+::internal\+::\+Basic\+Marking\+State\+::weak\+\_\+custom\+\_\+callback\+\_\+worklist().
+
+
+
+Referenced by Leave\+Atomic\+Pause().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_ab6125055892e1a14737fb59e1a602089_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_ab6125055892e1a14737fb59e1a602089_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_aba42325c5403acda45eca7a1af12129a}\label{classcppgc_1_1internal_1_1MarkerBase_aba42325c5403acda45eca7a1af12129a}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!ProcessWorklistsWithDeadline@{ProcessWorklistsWithDeadline}}
 \index{ProcessWorklistsWithDeadline@{ProcessWorklistsWithDeadline}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{ProcessWorklistsWithDeadline()}{ProcessWorklistsWithDeadline()}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Marker\+Base\+::\+Process\+Worklists\+With\+Deadline (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{marked\+\_\+bytes\+\_\+deadline,  }\item[{\mbox{\hyperlink{classv8_1_1base_1_1TimeTicks}{v8\+::base\+::\+Time\+Ticks}}}]{time\+\_\+deadline }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 644 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{645                                                                  \{}
+\DoxyCodeLine{646   StatsCollector* stats\_collector = \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_a2b71dc778a025435fa06a9129f05bb6e}{stats\_collector}}();}
+\DoxyCodeLine{647   \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} stats\_scope(}
+\DoxyCodeLine{648       stats\_collector, StatsCollector::kMarkTransitiveClosure);}
+\DoxyCodeLine{649   \textcolor{keywordtype}{bool} saved\_did\_discover\_new\_ephemeron\_pairs;}
+\DoxyCodeLine{650   \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{651     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_a92dbbea59bb10462f388276fbd9b758a}{ResetDidDiscoverNewEphemeronPairs}}();}
+\DoxyCodeLine{652     \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}} == \mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a726d9cf5163c50b3cf8e05800e3cef71}{MarkingConfig::MarkingType::kAtomic}}) ||}
+\DoxyCodeLine{653         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a897292d21b77c76e56c4c21ec3ce5f5f}{schedule}}().ShouldFlushEphemeronPairs()) \{}
+\DoxyCodeLine{654       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MutatorMarkingState_ae8748ae095b8989acaa51c1a387f0929}{FlushDiscoveredEphemeronPairs}}();}
+\DoxyCodeLine{655     \}}
+\DoxyCodeLine{656 }
+\DoxyCodeLine{657     \textcolor{comment}{// Bailout objects may be complicated to trace and thus might take longer}}
+\DoxyCodeLine{658     \textcolor{comment}{// than other objects. Therefore we reduce the interval between deadline}}
+\DoxyCodeLine{659     \textcolor{comment}{// checks to guarantee the deadline is not exceeded.}}
+\DoxyCodeLine{660     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02marker_8cc_03_af08b4d6a3d28274fcb3e20dfc4a7dbe2}{DrainWorklistWithBytesAndTimeDeadline}}<}
+\DoxyCodeLine{661             StatsCollector::kMarkProcessBailOutObjects,}
+\DoxyCodeLine{662             \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02marker_8cc_03_a2487e35645782c195a5be271c72ad35f}{kDefaultDeadlineCheckInterval}} / 5>(}
+\DoxyCodeLine{663             stats\_collector, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}, SIZE\_MAX, time\_deadline,}
+\DoxyCodeLine{664             \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_aff56008478c53d8ef52d4b23edb17fbd}{concurrent\_marking\_bailout\_worklist}}(),}
+\DoxyCodeLine{665             [\textcolor{keyword}{this}](\textcolor{keyword}{const} MarkingWorklists::ConcurrentMarkingBailoutItem\& item) \{}
+\DoxyCodeLine{666               mutator\_marking\_state\_.AccountMarkedBytes(}
+\DoxyCodeLine{667                   BasePage::FromPayload(const\_cast<void*>(item.parameter)),}
+\DoxyCodeLine{668                   item.bailedout\_size);}
+\DoxyCodeLine{669               item.callback(\&visitor(), item.parameter);}
+\DoxyCodeLine{670             \})) \{}
+\DoxyCodeLine{671       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{672     \}}
+\DoxyCodeLine{673 }
+\DoxyCodeLine{674     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02marker_8cc_03_af08b4d6a3d28274fcb3e20dfc4a7dbe2}{DrainWorklistWithBytesAndTimeDeadline}}<}
+\DoxyCodeLine{675             StatsCollector::kMarkProcessNotFullyconstructedWorklist>(}
+\DoxyCodeLine{676             stats\_collector, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}, marked\_bytes\_deadline,}
+\DoxyCodeLine{677             time\_deadline,}
+\DoxyCodeLine{678             \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_aac7d7944698a840fe08af5df4805d259}{previously\_not\_fully\_constructed\_worklist}}(),}
+\DoxyCodeLine{679             [\textcolor{keyword}{this}](HeapObjectHeader* header) \{}
+\DoxyCodeLine{680               mutator\_marking\_state\_.AccountMarkedBytes(*header);}
+\DoxyCodeLine{681               DynamicallyTraceMarkedObject<AccessMode::kNonAtomic>(visitor(),}
+\DoxyCodeLine{682                                                                    *header);}
+\DoxyCodeLine{683             \})) \{}
+\DoxyCodeLine{684       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{685     \}}
+\DoxyCodeLine{686 }
+\DoxyCodeLine{687     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02marker_8cc_03_af08b4d6a3d28274fcb3e20dfc4a7dbe2}{DrainWorklistWithBytesAndTimeDeadline}}<}
+\DoxyCodeLine{688             StatsCollector::kMarkProcessMarkingWorklist>(}
+\DoxyCodeLine{689             stats\_collector, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}, marked\_bytes\_deadline,}
+\DoxyCodeLine{690             time\_deadline, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingStateBase_ae91cd2bc750da509ac6bb41fa02e6a79}{marking\_worklist}}(),}
+\DoxyCodeLine{691             [\textcolor{keyword}{this}](\textcolor{keyword}{const} \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_ab091df8916ffee6f61d06a6cc190506a}{MarkingWorklists::MarkingItem}}\& item) \{}
+\DoxyCodeLine{692               const HeapObjectHeader\& header =}
+\DoxyCodeLine{693                   HeapObjectHeader::FromObject(item.base\_object\_payload);}
+\DoxyCodeLine{694               DCHECK(!header.IsInConstruction<AccessMode::kNonAtomic>());}
+\DoxyCodeLine{695               DCHECK(header.IsMarked<AccessMode::kAtomic>());}
+\DoxyCodeLine{696               mutator\_marking\_state\_.AccountMarkedBytes(header);}
+\DoxyCodeLine{697               item.callback(\&visitor(), item.base\_object\_payload);}
+\DoxyCodeLine{698             \})) \{}
+\DoxyCodeLine{699       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{700     \}}
+\DoxyCodeLine{701 }
+\DoxyCodeLine{702     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02marker_8cc_03_af08b4d6a3d28274fcb3e20dfc4a7dbe2}{DrainWorklistWithBytesAndTimeDeadline}}<}
+\DoxyCodeLine{703             StatsCollector::kMarkProcessWriteBarrierWorklist>(}
+\DoxyCodeLine{704             stats\_collector, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}, marked\_bytes\_deadline,}
+\DoxyCodeLine{705             time\_deadline, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_a04a21fb664fd2b30ae70a0c6447365e4}{write\_barrier\_worklist}}(),}
+\DoxyCodeLine{706             [\textcolor{keyword}{this}](HeapObjectHeader* header) \{}
+\DoxyCodeLine{707               mutator\_marking\_state\_.AccountMarkedBytes(*header);}
+\DoxyCodeLine{708               DynamicallyTraceMarkedObject<AccessMode::kNonAtomic>(visitor(),}
+\DoxyCodeLine{709                                                                    *header);}
+\DoxyCodeLine{710             \})) \{}
+\DoxyCodeLine{711       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{712     \}}
+\DoxyCodeLine{713 }
+\DoxyCodeLine{714     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02marker_8cc_03_af08b4d6a3d28274fcb3e20dfc4a7dbe2}{DrainWorklistWithBytesAndTimeDeadline}}<}
+\DoxyCodeLine{715             StatsCollector::kMarkProcessRetraceWorklist>(}
+\DoxyCodeLine{716             stats\_collector, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}, marked\_bytes\_deadline,}
+\DoxyCodeLine{717             time\_deadline,}
+\DoxyCodeLine{718             \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MutatorMarkingState_a34831f2f1b7f108c73f5b994440cfdeb}{retrace\_marked\_objects\_worklist}}(),}
+\DoxyCodeLine{719             [\textcolor{keyword}{this}](HeapObjectHeader* header) \{}
+\DoxyCodeLine{720               \textcolor{comment}{// Retracing does not increment marked bytes as the object has}}
+\DoxyCodeLine{721               \textcolor{comment}{// already been processed before.}}
+\DoxyCodeLine{722               DynamicallyTraceMarkedObject<AccessMode::kNonAtomic>(visitor(),}
+\DoxyCodeLine{723                                                                    *header);}
+\DoxyCodeLine{724             \})) \{}
+\DoxyCodeLine{725       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{726     \}}
+\DoxyCodeLine{727 }
+\DoxyCodeLine{728     saved\_did\_discover\_new\_ephemeron\_pairs =}
+\DoxyCodeLine{729         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_a0623a5a0cbc0c18fb1f70dcec719044b}{DidDiscoverNewEphemeronPairs}}();}
+\DoxyCodeLine{730     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02marker_8cc_03_af08b4d6a3d28274fcb3e20dfc4a7dbe2}{DrainWorklistWithBytesAndTimeDeadline}}<}
+\DoxyCodeLine{731             StatsCollector::kMarkProcessEphemerons>(}
+\DoxyCodeLine{732             stats\_collector, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}, marked\_bytes\_deadline,}
+\DoxyCodeLine{733             time\_deadline,}
+\DoxyCodeLine{734             \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_a03800fd2812c339eb433711b87266103}{ephemeron\_pairs\_for\_processing\_worklist}}(),}
+\DoxyCodeLine{735             [\textcolor{keyword}{this}](\textcolor{keyword}{const} MarkingWorklists::EphemeronPairItem\& item) \{}
+\DoxyCodeLine{736               mutator\_marking\_state\_.ProcessEphemeron(}
+\DoxyCodeLine{737                   item.key, item.value, item.value\_desc, visitor());}
+\DoxyCodeLine{738             \})) \{}
+\DoxyCodeLine{739       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{740     \}}
+\DoxyCodeLine{741   \} \textcolor{keywordflow}{while} (!\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingStateBase_ae91cd2bc750da509ac6bb41fa02e6a79}{marking\_worklist}}().IsLocalAndGlobalEmpty() ||}
+\DoxyCodeLine{742            saved\_did\_discover\_new\_ephemeron\_pairs);}
+\DoxyCodeLine{743   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{744 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Basic\+Marking\+State\+::concurrent\+\_\+marking\+\_\+bailout\+\_\+worklist(), config\+\_\+, cppgc\+::internal\+::\+Basic\+Marking\+State\+::\+Did\+Discover\+New\+Ephemeron\+Pairs(), cppgc\+::internal\+::anonymous\+\_\+namespace\{marker.\+cc\}\+::\+Drain\+Worklist\+With\+Bytes\+And\+Time\+Deadline(), cppgc\+::internal\+::\+Basic\+Marking\+State\+::ephemeron\+\_\+pairs\+\_\+for\+\_\+processing\+\_\+worklist(), cppgc\+::internal\+::\+Mutator\+Marking\+State\+::\+Flush\+Discovered\+Ephemeron\+Pairs(), heap(), cppgc\+::\+Heap\+::k\+Atomic, cppgc\+::internal\+::anonymous\+\_\+namespace\{marker.\+cc\}\+::k\+Default\+Deadline\+Check\+Interval, cppgc\+::internal\+::\+Marking\+Config\+::marking\+\_\+type, cppgc\+::internal\+::\+Marking\+State\+Base\+::marking\+\_\+worklist(), mutator\+\_\+marking\+\_\+state\+\_\+, cppgc\+::internal\+::\+Basic\+Marking\+State\+::previously\+\_\+not\+\_\+fully\+\_\+constructed\+\_\+worklist(), cppgc\+::internal\+::\+Basic\+Marking\+State\+::\+Reset\+Did\+Discover\+New\+Ephemeron\+Pairs(), cppgc\+::internal\+::\+Mutator\+Marking\+State\+::retrace\+\_\+marked\+\_\+objects\+\_\+worklist(), schedule(), cppgc\+::internal\+::\+Heap\+Base\+::stats\+\_\+collector(), and cppgc\+::internal\+::\+Basic\+Marking\+State\+::write\+\_\+barrier\+\_\+worklist().
+
+
+
+Referenced by Advance\+Marking\+With\+Limits().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_aba42325c5403acda45eca7a1af12129a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_aba42325c5403acda45eca7a1af12129a_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_af16bc7793b830319a06d531ed3b49275}\label{classcppgc_1_1internal_1_1MarkerBase_af16bc7793b830319a06d531ed3b49275}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!ReEnableConcurrentMarking@{ReEnableConcurrentMarking}}
 \index{ReEnableConcurrentMarking@{ReEnableConcurrentMarking}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{ReEnableConcurrentMarking()}{ReEnableConcurrentMarking()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Re\+Enable\+Concurrent\+Marking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 292 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{292                                            \{}
+\DoxyCodeLine{293   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a64ba78641c78c096683b68e92da0282d}{is\_marking\_}});}
+\DoxyCodeLine{294 }
+\DoxyCodeLine{295   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}} == \mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a726d9cf5163c50b3cf8e05800e3cef71}{MarkingConfig::MarkingType::kAtomic}}) \{}
+\DoxyCodeLine{296     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{297   \}}
+\DoxyCodeLine{298 }
+\DoxyCodeLine{299   \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}}, \mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a4461e3132c6a68cc061f851d6b53fc15}{MarkingConfig::MarkingType::kIncremental}});}
+\DoxyCodeLine{300   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}} = \mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a13b93ce70f628c016cca112357cc51b1}{MarkingConfig::MarkingType::kIncrementalAndConcurrent}};}
+\DoxyCodeLine{301   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MutatorMarkingState_a763d7e5ff6b50a8adb2f56cd148ba6f9}{Publish}}();}
+\DoxyCodeLine{302   ConcurrentMarkerBase\& marker = \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a63a8c5c538faf70c577b3604d871b7d3}{concurrent\_marker}}();}
+\DoxyCodeLine{303   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(!marker.IsActive());}
+\DoxyCodeLine{304   marker.Start();}
+\DoxyCodeLine{305   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(marker.IsActive());}
+\DoxyCodeLine{306 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, CHECK\+\_\+\+EQ, concurrent\+\_\+marker(), config\+\_\+, is\+\_\+marking\+\_\+, cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Is\+Active(), cppgc\+::\+Heap\+::k\+Atomic, cppgc\+::\+Heap\+::k\+Incremental, cppgc\+::\+Heap\+::k\+Incremental\+And\+Concurrent, cppgc\+::internal\+::\+Marking\+Config\+::marking\+\_\+type, mutator\+\_\+marking\+\_\+state\+\_\+, cppgc\+::internal\+::\+Mutator\+Marking\+State\+::\+Publish(), and cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Start().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_af16bc7793b830319a06d531ed3b49275_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a897292d21b77c76e56c4c21ec3ce5f5f}\label{classcppgc_1_1internal_1_1MarkerBase_a897292d21b77c76e56c4c21ec3ce5f5f}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!schedule@{schedule}}
 \index{schedule@{schedule}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
@@ -413,6 +1612,18 @@ Implemented in \mbox{\hyperlink{classcppgc_1_1internal_1_1Marker_ad305ea22365034
 
 Implemented in \mbox{\hyperlink{classcppgc_1_1internal_1_1Marker_abc5e5f7f937b395b3b890499dfaa49fa}{cppgc\+::internal\+::\+Marker}}, and \mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapMarker_afa7f23f4f287892bcddf6c4afc3a84d3}{v8\+::internal\+::\+Unified\+Heap\+Marker}}.
 
+
+
+Referenced by Advance\+Marking\+With\+Limits(), Process\+Worklists\+With\+Deadline(), and Start\+Marking().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a897292d21b77c76e56c4c21ec3ce5f5f_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_ab0ad25ba802d8e1a4c544605c0dce68d}\label{classcppgc_1_1internal_1_1MarkerBase_ab0ad25ba802d8e1a4c544605c0dce68d}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!ScheduleIncrementalMarkingTask@{ScheduleIncrementalMarkingTask}}
 \index{ScheduleIncrementalMarkingTask@{ScheduleIncrementalMarkingTask}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
@@ -423,12 +1634,77 @@ Implemented in \mbox{\hyperlink{classcppgc_1_1internal_1_1Marker_abc5e5f7f937b39
 
 Reimplemented in \mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapMarker_a1a091df7bbdc646d92b34bce08cb78f6}{v8\+::internal\+::\+Unified\+Heap\+Marker}}.
 
+
+
+Definition at line 545 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{545                                                 \{}
+\DoxyCodeLine{546   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a9b75327a85fa78050093e2a6b458b7a9}{platform\_}});}
+\DoxyCodeLine{547   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a38af60c75795ae044f7eb72c410953a6}{foreground\_task\_runner\_}} || \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a436becd16a59ee95beb330893777f2ac}{incremental\_marking\_handle\_}}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{548   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a436becd16a59ee95beb330893777f2ac}{incremental\_marking\_handle\_}} =}
+\DoxyCodeLine{549       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_1_1IncrementalMarkingTask_a101587f0701aa584ab0ba4472f9e667e}{IncrementalMarkingTask::Post}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a38af60c75795ae044f7eb72c410953a6}{foreground\_task\_runner\_}}.get(), \textcolor{keyword}{this});}
+\DoxyCodeLine{550 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK, foreground\+\_\+task\+\_\+runner\+\_\+, incremental\+\_\+marking\+\_\+handle\+\_\+, platform\+\_\+, and cppgc\+::internal\+::\+Marker\+Base\+::\+Incremental\+Marking\+Task\+::\+Post().
+
+
+
+Referenced by Advance\+Marking\+On\+Allocation\+Impl(), Advance\+Marking\+With\+Limits\+Epilogue(), and Start\+Marking().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_ab0ad25ba802d8e1a4c544605c0dce68d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_ab0ad25ba802d8e1a4c544605c0dce68d_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_acaadd48506a29b3c3f1ea664be85e141}\label{classcppgc_1_1internal_1_1MarkerBase_acaadd48506a29b3c3f1ea664be85e141}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!SetMainThreadMarkingDisabledForTesting@{SetMainThreadMarkingDisabledForTesting}}
 \index{SetMainThreadMarkingDisabledForTesting@{SetMainThreadMarkingDisabledForTesting}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{SetMainThreadMarkingDisabledForTesting()}{SetMainThreadMarkingDisabledForTesting()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Set\+Main\+Thread\+Marking\+Disabled\+For\+Testing (\begin{DoxyParamCaption}\item[{bool}]{value }\end{DoxyParamCaption})}
 
+
+
+Definition at line 773 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{773                                                                   \{}
+\DoxyCodeLine{774   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a1129f06fa55034b00bec6f84c4152694}{main\_marking\_disabled\_for\_testing\_}} = \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}};}
+\DoxyCodeLine{775 \}}
+
+\end{DoxyCode}
+
+
+References main\+\_\+marking\+\_\+disabled\+\_\+for\+\_\+testing\+\_\+, and v8\+::internal\+::value.
+
+
+
+Referenced by cppgc\+::testing\+::\+Standalone\+Testing\+Heap\+::\+Toggle\+Main\+Thread\+Marking().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_acaadd48506a29b3c3f1ea664be85e141_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a7a0424af017459c7d228c23f619605b5}\label{classcppgc_1_1internal_1_1MarkerBase_a7a0424af017459c7d228c23f619605b5}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!stack\_visitor@{stack\_visitor}}
 \index{stack\_visitor@{stack\_visitor}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
@@ -439,12 +1715,75 @@ Reimplemented in \mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapMarker_a1a09
 
 Implemented in \mbox{\hyperlink{classcppgc_1_1internal_1_1Marker_a3e4a66e9e5aaeb0b022b33bdf036e6cf}{cppgc\+::internal\+::\+Marker}}, and \mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapMarker_a209caed1323d1ccd4f8d8071aaca10d2}{v8\+::internal\+::\+Unified\+Heap\+Marker}}.
 
+
+
+Referenced by Visit\+Local\+Roots().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a7a0424af017459c7d228c23f619605b5_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_ad5b59fbbe9eb89fb1015184ba412c353}\label{classcppgc_1_1internal_1_1MarkerBase_ad5b59fbbe9eb89fb1015184ba412c353}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!StartMarking@{StartMarking}}
 \index{StartMarking@{StartMarking}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{StartMarking()}{StartMarking()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Start\+Marking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 211 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{211                               \{}
+\DoxyCodeLine{212   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a64ba78641c78c096683b68e92da0282d}{is\_marking\_}});}
+\DoxyCodeLine{213   \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} stats\_scope(}
+\DoxyCodeLine{214       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(),}
+\DoxyCodeLine{215       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}} == \mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a726d9cf5163c50b3cf8e05800e3cef71}{MarkingConfig::MarkingType::kAtomic}}}
+\DoxyCodeLine{216           ? StatsCollector::kAtomicMark}
+\DoxyCodeLine{217           : StatsCollector::kIncrementalMark);}
+\DoxyCodeLine{218 }
+\DoxyCodeLine{219   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_a2b71dc778a025435fa06a9129f05bb6e}{stats\_collector}}()-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_abdcdfc9b3a8de7189a42999edbd23c94}{NotifyMarkingStarted}}(}
+\DoxyCodeLine{220       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a146d9dd286e4b3af8d78682887f670fd}{collection\_type}}, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}}, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_aed6a73d4526f06b669d22a824748a4b3}{is\_forced\_gc}});}
+\DoxyCodeLine{221 }
+\DoxyCodeLine{222   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a64ba78641c78c096683b68e92da0282d}{is\_marking\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{223   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02marker_8cc_03_a14facca4b22b13558b524b31d60b78f6}{EnterIncrementalMarkingIfNeeded}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}, \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}())) \{}
+\DoxyCodeLine{224     \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} inner\_stats\_scope(}
+\DoxyCodeLine{225         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(), StatsCollector::kMarkIncrementalStart);}
+\DoxyCodeLine{226 }
+\DoxyCodeLine{227     \textcolor{comment}{// Performing incremental or concurrent marking.}}
+\DoxyCodeLine{228     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a897292d21b77c76e56c4c21ec3ce5f5f}{schedule}}().\mbox{\hyperlink{classheap_1_1base_1_1IncrementalMarkingSchedule_a27f2595f829d144a2294b4a6e7c95fc2}{NotifyIncrementalMarkingStart}}();}
+\DoxyCodeLine{229     \textcolor{comment}{// Scanning the stack is expensive so we only do it at the atomic pause.}}
+\DoxyCodeLine{230     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a197e956b19bcd29f22c5c80e7b4dea7e}{VisitLocalRoots}}(StackState::kNoHeapPointers);}
+\DoxyCodeLine{231     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ab0ad25ba802d8e1a4c544605c0dce68d}{ScheduleIncrementalMarkingTask}}();}
+\DoxyCodeLine{232     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}} ==}
+\DoxyCodeLine{233         \mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a13b93ce70f628c016cca112357cc51b1}{MarkingConfig::MarkingType::kIncrementalAndConcurrent}}) \{}
+\DoxyCodeLine{234       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MutatorMarkingState_a763d7e5ff6b50a8adb2f56cd148ba6f9}{Publish}}();}
+\DoxyCodeLine{235       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a63a8c5c538faf70c577b3604d871b7d3}{concurrent\_marker}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a03d09306f716ce73f645748b24e91186}{Start}}();}
+\DoxyCodeLine{236     \}}
+\DoxyCodeLine{237     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a4afafb413ccc5654bfcf5c9d0905c2f2}{MarkStrongCrossThreadRoots}}();}
+\DoxyCodeLine{238     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_a2b71dc778a025435fa06a9129f05bb6e}{stats\_collector}}()-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a57cac0c9b6d4f9b1e21a61132642d70c}{RegisterObserver}}(}
+\DoxyCodeLine{239         \&\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ac7ca5c0b521f9c5f271baa723ce7b8ec}{incremental\_marking\_allocation\_observer\_}});}
+\DoxyCodeLine{240   \}}
+\DoxyCodeLine{241 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Marking\+Config\+::collection\+\_\+type, concurrent\+\_\+marker(), config\+\_\+, DCHECK, cppgc\+::internal\+::anonymous\+\_\+namespace\{marker.\+cc\}\+::\+Enter\+Incremental\+Marking\+If\+Needed(), heap(), incremental\+\_\+marking\+\_\+allocation\+\_\+observer\+\_\+, cppgc\+::internal\+::\+Marking\+Config\+::is\+\_\+forced\+\_\+gc, is\+\_\+marking\+\_\+, cppgc\+::\+Heap\+::k\+Atomic, cppgc\+::\+Heap\+::k\+Incremental\+And\+Concurrent, cppgc\+::internal\+::\+Marking\+Config\+::marking\+\_\+type, Mark\+Strong\+Cross\+Thread\+Roots(), mutator\+\_\+marking\+\_\+state\+\_\+, heap\+::base\+::\+Incremental\+Marking\+Schedule\+::\+Notify\+Incremental\+Marking\+Start(), cppgc\+::internal\+::\+Stats\+Collector\+::\+Notify\+Marking\+Started(), cppgc\+::internal\+::\+Mutator\+Marking\+State\+::\+Publish(), cppgc\+::internal\+::\+Stats\+Collector\+::\+Register\+Observer(), schedule(), Schedule\+Incremental\+Marking\+Task(), cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Start(), cppgc\+::internal\+::\+Heap\+Base\+::stats\+\_\+collector(), and Visit\+Local\+Roots().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_ad5b59fbbe9eb89fb1015184ba412c353_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a6c3aca266656b6683fa829eff76d0daf}\label{classcppgc_1_1internal_1_1MarkerBase_a6c3aca266656b6683fa829eff76d0daf}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!To@{To}}
 \index{To@{To}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
@@ -452,24 +1791,155 @@ Implemented in \mbox{\hyperlink{classcppgc_1_1internal_1_1Marker_a3e4a66e9e5aaeb
 {\footnotesize\ttfamily template$<$typename Class $>$ \\
 Class\& cppgc\+::internal\+::\+Marker\+Base\+::\+To (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 71 of file marker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{71               \{}
+\DoxyCodeLine{72     \textcolor{keywordflow}{return} *\textcolor{keyword}{static\_cast<}Class*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
+\DoxyCodeLine{73   \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a97ea110eac647682c02a24b0e889e16e}\label{classcppgc_1_1internal_1_1MarkerBase_a97ea110eac647682c02a24b0e889e16e}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!VisitCrossThreadRoots@{VisitCrossThreadRoots}}
 \index{VisitCrossThreadRoots@{VisitCrossThreadRoots}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{VisitCrossThreadRoots()}{VisitCrossThreadRoots()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Visit\+Cross\+Thread\+Roots (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 522 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{522                                        \{}
+\DoxyCodeLine{523   \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a77627d8d1bfb30be9c6fc20175b08000}{StatsCollector::DisabledScope}} inner\_stats\_scope(}
+\DoxyCodeLine{524       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(),}
+\DoxyCodeLine{525       StatsCollector::kMarkVisitCrossThreadPersistents);}
+\DoxyCodeLine{526   \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a66b8e90bc654c7b4e719309c5f895994}{marking\_type}}, \mbox{\hyperlink{classcppgc_1_1Heap_a3094861cfe8c736974723e4ad9ca3e20a726d9cf5163c50b3cf8e05800e3cef71}{MarkingConfig::MarkingType::kAtomic}});}
+\DoxyCodeLine{527   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(!\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ae38b14fb5205bfecd590de6af4c7357e}{visited\_cross\_thread\_persistents\_in\_atomic\_pause\_}});}
+\DoxyCodeLine{528   \textcolor{comment}{// Lock guards against changes to \{Weak\}CrossThreadPersistent handles, that}}
+\DoxyCodeLine{529   \textcolor{comment}{// may conflict with marking. E.g., a WeakCrossThreadPersistent may be}}
+\DoxyCodeLine{530   \textcolor{comment}{// converted into a CrossThreadPersistent which requires that the handle}}
+\DoxyCodeLine{531   \textcolor{comment}{// is either cleared or the object is retained.}}
+\DoxyCodeLine{532   ProcessGlobalLock::Lock<ProcessGlobalLock::Reason::kForGC>();}
+\DoxyCodeLine{533   RootMarkingVisitor root\_marking\_visitor(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}});}
+\DoxyCodeLine{534   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_abbecf162b1c37bd08f78f3fa968f4ad3}{GetStrongCrossThreadPersistentRegion}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1CrossThreadPersistentRegion_af3e9c85ceb7c18861e3646e6afdac266}{Iterate}}(root\_marking\_visitor);}
+\DoxyCodeLine{535   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ae38b14fb5205bfecd590de6af4c7357e}{visited\_cross\_thread\_persistents\_in\_atomic\_pause\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{536 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, CHECK\+\_\+\+EQ, config\+\_\+, cppgc\+::internal\+::\+Heap\+Base\+::\+Get\+Strong\+Cross\+Thread\+Persistent\+Region(), heap(), cppgc\+::internal\+::\+Cross\+Thread\+Persistent\+Region\+::\+Iterate(), cppgc\+::\+Heap\+::k\+Atomic, cppgc\+::internal\+::\+Marking\+Config\+::marking\+\_\+type, mutator\+\_\+marking\+\_\+state\+\_\+, and visited\+\_\+cross\+\_\+thread\+\_\+persistents\+\_\+in\+\_\+atomic\+\_\+pause\+\_\+.
+
+
+
+Referenced by Enter\+Process\+Global\+Atomic\+Pause().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a97ea110eac647682c02a24b0e889e16e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a97ea110eac647682c02a24b0e889e16e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a197e956b19bcd29f22c5c80e7b4dea7e}\label{classcppgc_1_1internal_1_1MarkerBase_a197e956b19bcd29f22c5c80e7b4dea7e}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!VisitLocalRoots@{VisitLocalRoots}}
 \index{VisitLocalRoots@{VisitLocalRoots}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{VisitLocalRoots()}{VisitLocalRoots()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Visit\+Local\+Roots (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacecppgc_a91b484d5d6eea7664c25f4050c0d6eb8}{Stack\+State}}}]{stack\+\_\+state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 489 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{489                                                        \{}
+\DoxyCodeLine{490   \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} stats\_scope(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(),}
+\DoxyCodeLine{491                                            StatsCollector::kMarkVisitRoots);}
+\DoxyCodeLine{492 }
+\DoxyCodeLine{493   \textcolor{comment}{// Reset LABs before scanning roots. LABs are cleared to allow}}
+\DoxyCodeLine{494   \textcolor{comment}{// ObjectStartBitmap handling without considering LABs.}}
+\DoxyCodeLine{495   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_a358b50366c16ce54f2270b2eb78c963c}{object\_allocator}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1ObjectAllocator_adbd79d8c4bb11ce40264af6d0669177c}{ResetLinearAllocationBuffers}}();}
+\DoxyCodeLine{496 }
+\DoxyCodeLine{497   \{}
+\DoxyCodeLine{498     \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a77627d8d1bfb30be9c6fc20175b08000}{StatsCollector::DisabledScope}} inner\_stats\_scope(}
+\DoxyCodeLine{499         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(), StatsCollector::kMarkVisitPersistents);}
+\DoxyCodeLine{500     RootMarkingVisitor root\_marking\_visitor(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}});}
+\DoxyCodeLine{501     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_af603f79df06d6bdaa3c839d6cc2fc783}{GetStrongPersistentRegion}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1PersistentRegionBase_af86b0d6a8879bf5f0d91af7e5b30db4f}{Iterate}}(root\_marking\_visitor);}
+\DoxyCodeLine{502   \}}
+\DoxyCodeLine{503 }
+\DoxyCodeLine{504   \textcolor{keywordflow}{if} (stack\_state != StackState::kNoHeapPointers) \{}
+\DoxyCodeLine{505     \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a77627d8d1bfb30be9c6fc20175b08000}{StatsCollector::DisabledScope}} stack\_stats\_scope(}
+\DoxyCodeLine{506         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(), StatsCollector::kMarkVisitStack);}
+\DoxyCodeLine{507     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_a0d368658814aff452ec55ab1ba46adf0}{stack}}()-\/>\mbox{\hyperlink{classheap_1_1base_1_1Stack_a9e58bf93ec943f705a2ba5e1a8298300}{SetMarkerIfNeededAndCallback}}([\textcolor{keyword}{this}]() \{}
+\DoxyCodeLine{508       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_a0d368658814aff452ec55ab1ba46adf0}{stack}}()-\/>\mbox{\hyperlink{classheap_1_1base_1_1Stack_a03360292496419b7b54d250c496a00ec}{IteratePointersUntilMarker}}(\&\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a7a0424af017459c7d228c23f619605b5}{stack\_visitor}}());}
+\DoxyCodeLine{509     \});}
+\DoxyCodeLine{510   \}}
+\DoxyCodeLine{511 }
+\DoxyCodeLine{512 \textcolor{preprocessor}{\#if defined(CPPGC\_YOUNG\_GENERATION)}}
+\DoxyCodeLine{513   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}{config\_}}.\mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a146d9dd286e4b3af8d78682887f670fd}{collection\_type}} == \mbox{\hyperlink{namespacecppgc_1_1internal_a9a435919d5a4a3ecfdfe20fb93896a60a1ce30a77d317111e321816f7cd2f6514}{CollectionType::kMinor}}) \{}
+\DoxyCodeLine{514     \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_a84f776d47ac0f9fb8a4cbb0dd5a86037}{StatsCollector::EnabledScope}} inner\_stats\_scope(}
+\DoxyCodeLine{515         \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().stats\_collector(), StatsCollector::kMarkVisitRememberedSets);}
+\DoxyCodeLine{516     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_ad4c054518558321eca9ba15b28f1d88a}{heap}}().remembered\_set().Visit(\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a5bc457312eabe5a6f2e8fa072090e2c8}{visitor}}(), \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_af82fd623c1b16c7b2326710387304573}{conservative\_visitor}}(),}
+\DoxyCodeLine{517                                   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}});}
+\DoxyCodeLine{518   \}}
+\DoxyCodeLine{519 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// defined(CPPGC\_YOUNG\_GENERATION)}}
+\DoxyCodeLine{520 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Marking\+Config\+::collection\+\_\+type, config\+\_\+, conservative\+\_\+visitor(), cppgc\+::internal\+::\+Heap\+Base\+::\+Get\+Strong\+Persistent\+Region(), heap(), cppgc\+::internal\+::\+Persistent\+Region\+Base\+::\+Iterate(), heap\+::base\+::\+Stack\+::\+Iterate\+Pointers\+Until\+Marker(), cppgc\+::internal\+::k\+Minor, mutator\+\_\+marking\+\_\+state\+\_\+, cppgc\+::internal\+::\+Heap\+Base\+::object\+\_\+allocator(), cppgc\+::internal\+::\+Object\+Allocator\+::\+Reset\+Linear\+Allocation\+Buffers(), heap\+::base\+::\+Stack\+::\+Set\+Marker\+If\+Needed\+And\+Callback(), cppgc\+::internal\+::\+Heap\+Base\+::stack(), stack\+\_\+visitor(), and visitor().
+
+
+
+Referenced by Enter\+Atomic\+Pause(), and Start\+Marking().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a197e956b19bcd29f22c5c80e7b4dea7e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a197e956b19bcd29f22c5c80e7b4dea7e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a1f619a362db8838165ae6b5f7e0836f5}\label{classcppgc_1_1internal_1_1MarkerBase_a1f619a362db8838165ae6b5f7e0836f5}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!Visitor@{Visitor}}
 \index{Visitor@{Visitor}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{Visitor()}{Visitor()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1Visitor}{cppgc\+::\+Visitor}}\& cppgc\+::internal\+::\+Marker\+Base\+::\+Visitor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 132 of file marker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{132 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a5bc457312eabe5a6f2e8fa072090e2c8}{visitor}}(); \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a5bc457312eabe5a6f2e8fa072090e2c8}\label{classcppgc_1_1internal_1_1MarkerBase_a5bc457312eabe5a6f2e8fa072090e2c8}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!visitor@{visitor}}
 \index{visitor@{visitor}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
@@ -480,12 +1950,47 @@ Class\& cppgc\+::internal\+::\+Marker\+Base\+::\+To (\begin{DoxyParamCaption}{ }
 
 Implemented in \mbox{\hyperlink{classcppgc_1_1internal_1_1Marker_a3d7e86a65ea0ac74df8e3fcd80e5eb37}{cppgc\+::internal\+::\+Marker}}, and \mbox{\hyperlink{classv8_1_1internal_1_1UnifiedHeapMarker_a6d121215a18169a0a28af55cd4311c50}{v8\+::internal\+::\+Unified\+Heap\+Marker}}.
 
+
+
+Referenced by Visit\+Local\+Roots().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a5bc457312eabe5a6f2e8fa072090e2c8_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_ae4214afd7e7ad0b860261cfb858168eb}\label{classcppgc_1_1internal_1_1MarkerBase_ae4214afd7e7ad0b860261cfb858168eb}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!WaitForConcurrentMarkingForTesting@{WaitForConcurrentMarkingForTesting}}
 \index{WaitForConcurrentMarkingForTesting@{WaitForConcurrentMarkingForTesting}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{WaitForConcurrentMarkingForTesting()}{WaitForConcurrentMarkingForTesting()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Marker\+Base\+::\+Wait\+For\+Concurrent\+Marking\+For\+Testing (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 777 of file marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{777                                                     \{}
+\DoxyCodeLine{778   \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a63a8c5c538faf70c577b3604d871b7d3}{concurrent\_marker}}().\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2ef9c91706a12188a4d85788c35a4a02}{Join}}();}
+\DoxyCodeLine{779 \}}
+
+\end{DoxyCode}
+
+
+References concurrent\+\_\+marker(), and cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Join().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_ae4214afd7e7ad0b860261cfb858168eb_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a0c25b36577bf96276d985c432f7c31b5}\label{classcppgc_1_1internal_1_1MarkerBase_a0c25b36577bf96276d985c432f7c31b5}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!WriteBarrierForObject@{WriteBarrierForObject}}
 \index{WriteBarrierForObject@{WriteBarrierForObject}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
@@ -495,6 +2000,65 @@ void cppgc\+::internal\+::\+Marker\+Base\+::\+Write\+Barrier\+For\+Object (\begi
 
 
 
+Definition at line 242 of file marker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{242                                                                \{}
+\DoxyCodeLine{243   \textcolor{comment}{// The barrier optimizes for the bailout cases:}}
+\DoxyCodeLine{244   \textcolor{comment}{// -\/ kDijkstra: Marked objects.}}
+\DoxyCodeLine{245   \textcolor{comment}{// -\/ kSteele: Unmarked objects.}}
+\DoxyCodeLine{246   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{namespacev8_1_1internal_1_1tracing_a96000282e12b2483531025283d63154d}{type}}) \{}
+\DoxyCodeLine{247     \textcolor{keywordflow}{case} \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a4581f0d04264e084a620b3ff5b8303e5a5c5c9a4d20a1c6630ceb206089fcd5d1}{MarkerBase::WriteBarrierType::kDijkstra}}:}
+\DoxyCodeLine{248       \textcolor{keywordflow}{if} (!header.TryMarkAtomic()) \{}
+\DoxyCodeLine{249         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{250       \}}
+\DoxyCodeLine{251       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{252     \textcolor{keywordflow}{case} \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a4581f0d04264e084a620b3ff5b8303e5a8d911e5ac9088cc1b0339702875f1e6e}{MarkerBase::WriteBarrierType::kSteele}}:}
+\DoxyCodeLine{253       \textcolor{keywordflow}{if} (!header.IsMarked<\mbox{\hyperlink{namespacecppgc_1_1internal_ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71}{AccessMode::kAtomic}}>()) \{}
+\DoxyCodeLine{254         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{255       \}}
+\DoxyCodeLine{256       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{257   \}}
+\DoxyCodeLine{258 }
+\DoxyCodeLine{259   \textcolor{comment}{// The barrier fired. Filter out in-\/construction objects here. This possibly}}
+\DoxyCodeLine{260   \textcolor{comment}{// requires unmarking the object again.}}
+\DoxyCodeLine{261   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(header.IsInConstruction<\mbox{\hyperlink{namespacecppgc_1_1internal_ac0b40b7e4ac65024fbfcf57d01fa808eab8d79eac5929c97b59b121e933e4438d}{AccessMode::kNonAtomic}}>())) \{}
+\DoxyCodeLine{262     \textcolor{comment}{// In construction objects are traced only if they are unmarked. If marking}}
+\DoxyCodeLine{263     \textcolor{comment}{// reaches this object again when it is fully constructed, it will re-\/mark}}
+\DoxyCodeLine{264     \textcolor{comment}{// it and tracing it as a previously not fully constructed object would know}}
+\DoxyCodeLine{265     \textcolor{comment}{// to bail out.}}
+\DoxyCodeLine{266     header.Unmark<\mbox{\hyperlink{namespacecppgc_1_1internal_ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71}{AccessMode::kAtomic}}>();}
+\DoxyCodeLine{267     \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingStateBase_aa9c151656cb8d785d70be895cd16169e}{not\_fully\_constructed\_worklist}}()}
+\DoxyCodeLine{268         .\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists_1_1ExternalMarkingWorklist_a75235b1145d7199964daa1d61c084dd3}{Push}}<\mbox{\hyperlink{namespacecppgc_1_1internal_ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71}{AccessMode::kAtomic}}>(\&header);}
+\DoxyCodeLine{269     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{270   \}}
+\DoxyCodeLine{271 }
+\DoxyCodeLine{272   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{namespacev8_1_1internal_1_1tracing_a96000282e12b2483531025283d63154d}{type}}) \{}
+\DoxyCodeLine{273     \textcolor{keywordflow}{case} \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a4581f0d04264e084a620b3ff5b8303e5a5c5c9a4d20a1c6630ceb206089fcd5d1}{MarkerBase::WriteBarrierType::kDijkstra}}:}
+\DoxyCodeLine{274       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1BasicMarkingState_a04a21fb664fd2b30ae70a0c6447365e4}{write\_barrier\_worklist}}().Push(\&header);}
+\DoxyCodeLine{275       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{276     \textcolor{keywordflow}{case} \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a4581f0d04264e084a620b3ff5b8303e5a8d911e5ac9088cc1b0339702875f1e6e}{MarkerBase::WriteBarrierType::kSteele}}:}
+\DoxyCodeLine{277       \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}{mutator\_marking\_state\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1MutatorMarkingState_a34831f2f1b7f108c73f5b994440cfdeb}{retrace\_marked\_objects\_worklist}}().Push(\&header);}
+\DoxyCodeLine{278       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{279   \}}
+\DoxyCodeLine{280 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Is\+In\+Construction(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Is\+Marked(), cppgc\+::internal\+::k\+Atomic, k\+Dijkstra, cppgc\+::internal\+::k\+Non\+Atomic, k\+Steele, mutator\+\_\+marking\+\_\+state\+\_\+, cppgc\+::internal\+::\+Marking\+State\+Base\+::not\+\_\+fully\+\_\+constructed\+\_\+worklist(), cppgc\+::internal\+::\+Marking\+Worklists\+::\+External\+Marking\+Worklist\+::\+Push(), cppgc\+::internal\+::\+Mutator\+Marking\+State\+::retrace\+\_\+marked\+\_\+objects\+\_\+worklist(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Try\+Mark\+Atomic(), v8\+::internal\+::tracing\+::type, cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Unmark(), V8\+\_\+\+UNLIKELY, and cppgc\+::internal\+::\+Basic\+Marking\+State\+::write\+\_\+barrier\+\_\+worklist().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1MarkerBase_a0c25b36577bf96276d985c432f7c31b5_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}\label{classcppgc_1_1internal_1_1MarkerBase_a11ae9c2c584050768f1c19dc0044765b}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!config\_@{config\_}}
@@ -502,11 +2066,27 @@ void cppgc\+::internal\+::\+Marker\+Base\+::\+Write\+Barrier\+For\+Object (\begi
 \doxysubsubsection{\texorpdfstring{config\_}{config\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig}{Marking\+Config}} cppgc\+::internal\+::\+Marker\+Base\+::config\+\_\+ = \mbox{\hyperlink{structcppgc_1_1internal_1_1MarkingConfig_a174a1b05fcfd33f1e60954bf6f3b1631}{Marking\+Config\+::\+Default}}()\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 199 of file marker.\+h.
+
+
+
+Referenced by Advance\+Marking\+With\+Limits\+Epilogue(), Enter\+Atomic\+Pause(), Handle\+Not\+Fully\+Constructed\+Objects(), Incremental\+Marking\+Step(), Join\+Concurrent\+Marking\+If\+Needed(), Leave\+Atomic\+Pause(), Marker\+Base(), Process\+Cross\+Thread\+Weakness\+If\+Needed(), Process\+Weakness(), Process\+Worklists\+With\+Deadline(), Re\+Enable\+Concurrent\+Marking(), Start\+Marking(), Visit\+Cross\+Thread\+Roots(), Visit\+Local\+Roots(), and $\sim$\+Marker\+Base().
+
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a38af60c75795ae044f7eb72c410953a6}\label{classcppgc_1_1internal_1_1MarkerBase_a38af60c75795ae044f7eb72c410953a6}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!foreground\_task\_runner\_@{foreground\_task\_runner\_}}
 \index{foreground\_task\_runner\_@{foreground\_task\_runner\_}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{foreground\_task\_runner\_}{foreground\_task\_runner\_}}
 {\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{namespacecppgc_a3c2b2bee060b35e6507a2d25c5e5abc7}{cppgc\+::\+Task\+Runner}}$>$ cppgc\+::internal\+::\+Marker\+Base\+::foreground\+\_\+task\+\_\+runner\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 201 of file marker.\+h.
+
+
+
+Referenced by Schedule\+Incremental\+Marking\+Task().
 
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a879aea66b222e221d0cf291177f7a3bb}\label{classcppgc_1_1internal_1_1MarkerBase_a879aea66b222e221d0cf291177f7a3bb}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!heap\_@{heap\_}}
@@ -514,11 +2094,27 @@ void cppgc\+::internal\+::\+Marker\+Base\+::\+Write\+Barrier\+For\+Object (\begi
 \doxysubsubsection{\texorpdfstring{heap\_}{heap\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}}\& cppgc\+::internal\+::\+Marker\+Base\+::heap\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 198 of file marker.\+h.
+
+
+
+Referenced by Advance\+Marking\+With\+Limits(), Clear\+All\+Worklists\+For\+Testing(), Marker\+Base(), Process\+Cross\+Thread\+Weakness\+If\+Needed(), and Process\+Weakness().
+
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_ac7ca5c0b521f9c5f271baa723ce7b8ec}\label{classcppgc_1_1internal_1_1MarkerBase_ac7ca5c0b521f9c5f271baa723ce7b8ec}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!incremental\_marking\_allocation\_observer\_@{incremental\_marking\_allocation\_observer\_}}
 \index{incremental\_marking\_allocation\_observer\_@{incremental\_marking\_allocation\_observer\_}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{incremental\_marking\_allocation\_observer\_}{incremental\_marking\_allocation\_observer\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_1_1IncrementalMarkingAllocationObserver}{Incremental\+Marking\+Allocation\+Observer}} cppgc\+::internal\+::\+Marker\+Base\+::incremental\+\_\+marking\+\_\+allocation\+\_\+observer\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 203 of file marker.\+h.
+
+
+
+Referenced by Enter\+Atomic\+Pause(), and Start\+Marking().
 
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a436becd16a59ee95beb330893777f2ac}\label{classcppgc_1_1internal_1_1MarkerBase_a436becd16a59ee95beb330893777f2ac}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!incremental\_marking\_handle\_@{incremental\_marking\_handle\_}}
@@ -526,11 +2122,27 @@ void cppgc\+::internal\+::\+Marker\+Base\+::\+Write\+Barrier\+For\+Object (\begi
 \doxysubsubsection{\texorpdfstring{incremental\_marking\_handle\_}{incremental\_marking\_handle\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkerBase_a9c4c2729ab00faf1add912d2b953a2e8}{Incremental\+Marking\+Task\+Handle}} cppgc\+::internal\+::\+Marker\+Base\+::incremental\+\_\+marking\+\_\+handle\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 202 of file marker.\+h.
+
+
+
+Referenced by Enter\+Atomic\+Pause(), Leave\+Atomic\+Pause(), and Schedule\+Incremental\+Marking\+Task().
+
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a64ba78641c78c096683b68e92da0282d}\label{classcppgc_1_1internal_1_1MarkerBase_a64ba78641c78c096683b68e92da0282d}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!is\_marking\_@{is\_marking\_}}
 \index{is\_marking\_@{is\_marking\_}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{is\_marking\_}{is\_marking\_}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Marker\+Base\+::is\+\_\+marking\+\_\+ \{\mbox{\hyperlink{namespacecppgc_1_1internal_a2a5dad15bdcff089a6dd4f1ab48d6433}{false}}\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 207 of file marker.\+h.
+
+
+
+Referenced by Finish\+Marking(), Leave\+Atomic\+Pause(), Re\+Enable\+Concurrent\+Marking(), and Start\+Marking().
 
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a7b931b3f9541b3ca9f97798d50372383}\label{classcppgc_1_1internal_1_1MarkerBase_a7b931b3f9541b3ca9f97798d50372383}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!kMaximumIncrementalStepDuration@{kMaximumIncrementalStepDuration}}
@@ -544,11 +2156,23 @@ void cppgc\+::internal\+::\+Marker\+Base\+::\+Write\+Barrier\+For\+Object (\begi
 \DoxyCodeLine{      \mbox{\hyperlink{classv8_1_1base_1_1TimeDelta_aedb23f3b7d15531e09b71883aaa96b6d}{v8::base::TimeDelta::FromMilliseconds}}(2)}
 
 \end{DoxyCode}
+
+
+Definition at line 163 of file marker.\+h.
+
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_ab36c226dde726a149f04ae44a41afcc2}\label{classcppgc_1_1internal_1_1MarkerBase_ab36c226dde726a149f04ae44a41afcc2}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!last\_bytes\_marked\_@{last\_bytes\_marked\_}}
 \index{last\_bytes\_marked\_@{last\_bytes\_marked\_}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{last\_bytes\_marked\_}{last\_bytes\_marked\_}}
 {\footnotesize\ttfamily size\+\_\+t cppgc\+::internal\+::\+Marker\+Base\+::last\+\_\+bytes\+\_\+marked\+\_\+ = 0\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 206 of file marker.\+h.
+
+
+
+Referenced by Advance\+Marking\+With\+Limits().
 
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a1129f06fa55034b00bec6f84c4152694}\label{classcppgc_1_1internal_1_1MarkerBase_a1129f06fa55034b00bec6f84c4152694}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!main\_marking\_disabled\_for\_testing\_@{main\_marking\_disabled\_for\_testing\_}}
@@ -556,11 +2180,27 @@ void cppgc\+::internal\+::\+Marker\+Base\+::\+Write\+Barrier\+For\+Object (\begi
 \doxysubsubsection{\texorpdfstring{main\_marking\_disabled\_for\_testing\_}{main\_marking\_disabled\_for\_testing\_}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Marker\+Base\+::main\+\_\+marking\+\_\+disabled\+\_\+for\+\_\+testing\+\_\+ \{\mbox{\hyperlink{namespacecppgc_1_1internal_a2a5dad15bdcff089a6dd4f1ab48d6433}{false}}\}\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 208 of file marker.\+h.
+
+
+
+Referenced by Advance\+Marking\+With\+Limits(), and Set\+Main\+Thread\+Marking\+Disabled\+For\+Testing().
+
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_abba323146c1aed9d5cb31fe7ad83b21b}\label{classcppgc_1_1internal_1_1MarkerBase_abba323146c1aed9d5cb31fe7ad83b21b}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!marking\_worklists\_@{marking\_worklists\_}}
 \index{marking\_worklists\_@{marking\_worklists\_}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{marking\_worklists\_}{marking\_worklists\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists}{Marking\+Worklists}} cppgc\+::internal\+::\+Marker\+Base\+::marking\+\_\+worklists\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 204 of file marker.\+h.
+
+
+
+Referenced by Clear\+All\+Worklists\+For\+Testing(), v8\+::internal\+::\+Unified\+Heap\+Marker\+::\+Get\+Marking\+Worklists(), Join\+Concurrent\+Marking\+If\+Needed(), Process\+Weakness(), and $\sim$\+Marker\+Base().
 
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}\label{classcppgc_1_1internal_1_1MarkerBase_a8b0ea9b34550eb488310ffd671d13793}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!mutator\_marking\_state\_@{mutator\_marking\_state\_}}
@@ -568,17 +2208,41 @@ void cppgc\+::internal\+::\+Marker\+Base\+::\+Write\+Barrier\+For\+Object (\begi
 \doxysubsubsection{\texorpdfstring{mutator\_marking\_state\_}{mutator\_marking\_state\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1MutatorMarkingState}{Mutator\+Marking\+State}} cppgc\+::internal\+::\+Marker\+Base\+::mutator\+\_\+marking\+\_\+state\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 205 of file marker.\+h.
+
+
+
+Referenced by Advance\+Marking\+With\+Limits(), Enter\+Atomic\+Pause(), Finish\+Marking(), Handle\+Not\+Fully\+Constructed\+Objects(), Incremental\+Marking\+Step(), Leave\+Atomic\+Pause(), Mark\+Not\+Fully\+Constructed\+Objects(), Mark\+Strong\+Cross\+Thread\+Roots(), Process\+Cross\+Thread\+Weakness\+If\+Needed(), Process\+Weakness(), Process\+Worklists\+With\+Deadline(), Re\+Enable\+Concurrent\+Marking(), Start\+Marking(), Visit\+Cross\+Thread\+Roots(), Visit\+Local\+Roots(), Write\+Barrier\+For\+Object(), and $\sim$\+Marker\+Base().
+
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a9b75327a85fa78050093e2a6b458b7a9}\label{classcppgc_1_1internal_1_1MarkerBase_a9b75327a85fa78050093e2a6b458b7a9}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!platform\_@{platform\_}}
 \index{platform\_@{platform\_}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{platform\_}{platform\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1Platform}{cppgc\+::\+Platform}}$\ast$ cppgc\+::internal\+::\+Marker\+Base\+::platform\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 200 of file marker.\+h.
+
+
+
+Referenced by Process\+Weakness(), and Schedule\+Incremental\+Marking\+Task().
+
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_a52df09b65929f7b6d9424e699544ecab}\label{classcppgc_1_1internal_1_1MarkerBase_a52df09b65929f7b6d9424e699544ecab}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!processed\_cross\_thread\_weakness\_@{processed\_cross\_thread\_weakness\_}}
 \index{processed\_cross\_thread\_weakness\_@{processed\_cross\_thread\_weakness\_}!cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}}
 \doxysubsubsection{\texorpdfstring{processed\_cross\_thread\_weakness\_}{processed\_cross\_thread\_weakness\_}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Marker\+Base\+::processed\+\_\+cross\+\_\+thread\+\_\+weakness\+\_\+ \{\mbox{\hyperlink{namespacecppgc_1_1internal_a2a5dad15bdcff089a6dd4f1ab48d6433}{false}}\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 210 of file marker.\+h.
+
+
+
+Referenced by Process\+Cross\+Thread\+Weakness\+If\+Needed().
 
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1MarkerBase_ae38b14fb5205bfecd590de6af4c7357e}\label{classcppgc_1_1internal_1_1MarkerBase_ae38b14fb5205bfecd590de6af4c7357e}} 
 \index{cppgc::internal::MarkerBase@{cppgc::internal::MarkerBase}!visited\_cross\_thread\_persistents\_in\_atomic\_pause\_@{visited\_cross\_thread\_persistents\_in\_atomic\_pause\_}}
@@ -588,7 +2252,15 @@ void cppgc\+::internal\+::\+Marker\+Base\+::\+Write\+Barrier\+For\+Object (\begi
 
 
 
+Definition at line 209 of file marker.\+h.
+
+
+
+Referenced by Process\+Cross\+Thread\+Weakness\+If\+Needed(), and Visit\+Cross\+Thread\+Roots().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{marker_8h}{marker.\+h}}\item 
-\mbox{\hyperlink{marker_8cc}{marker.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/cppgc/\mbox{\hyperlink{marker_8h}{marker.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/cppgc/\mbox{\hyperlink{marker_8cc}{marker.\+cc}}\end{DoxyCompactItemize}

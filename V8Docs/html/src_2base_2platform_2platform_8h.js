@@ -9,6 +9,7 @@ var src_2base_2platform_2platform_8h =
     [ "Thread", "classv8_1_1base_1_1Thread.html", "classv8_1_1base_1_1Thread" ],
     [ "Options", "classv8_1_1base_1_1Thread_1_1Options.html", "classv8_1_1base_1_1Thread_1_1Options" ],
     [ "Stack", "classv8_1_1base_1_1Stack.html", "classv8_1_1base_1_1Stack" ],
+    [ "PreventNonDefaultParameters", "structv8_1_1base_1_1Stack_1_1PreventNonDefaultParameters.html", null ],
     [ "StackSlot", "structv8_1_1base_1_1Stack_1_1StackSlot.html", "structv8_1_1base_1_1Stack_1_1StackSlot" ],
     [ "DEFAULT_CURRENT_FRAME_ADDRESS", "src_2base_2platform_2platform_8h.html#a041d6529a74d973f0ce3c4f9fc035de6", null ],
     [ "PERMISSION_MUTABLE_SECTION", "src_2base_2platform_2platform_8h.html#ab9c5d81492ffd49fe96df643da520afd", null ],

@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::platform\+::Default\+Job\+State\+::Job\+Delegate\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=214pt]{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate__inherit__graph}
+\includegraphics[width=247pt]{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::platform\+::Default\+Job\+State\+::Job\+Delegate
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=214pt]{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -32,13 +32,36 @@ Collaboration diagram for v8\+::platform\+::Default\+Job\+State\+::Job\+Delegate
 \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a5d450eb030f957832bcbda587a69977f}{$\sim$\+Job\+Delegate}} ()
 \item 
 void \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a43df1df4008e983685470dd5dee490c7}{Notify\+Concurrency\+Increase}} () override
-\item 
+\begin{DoxyCompactList}\small\item\em Notifies the scheduler that max concurrency was increased, and the number of worker should be adjusted accordingly. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a7c3f44647e764bc760912d9c681096e0}{Should\+Yield}} () override
-\item 
+\begin{DoxyCompactList}\small\item\em Returns true if this thread {\itshape must} return from the worker task on the current thread ASAP. \end{DoxyCompactList}\item 
 uint8\+\_\+t \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a970e965c1231f4302799a8ebbe754058}{Get\+Task\+Id}} () override
-\item 
+\begin{DoxyCompactList}\small\item\em Returns a task\+\_\+id unique among threads currently running this job, such that \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a970e965c1231f4302799a8ebbe754058}{Get\+Task\+Id()}} $<$ worker count. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a513406587d721af919ff3da795704170}{Is\+Joining\+Thread}} () const override
+\begin{DoxyCompactList}\small\item\em Returns true if the current task is called from the thread currently running \mbox{\hyperlink{classv8_1_1JobHandle_afd946040be3647f1ad2e609bd61f4854}{Job\+Handle\+::\+Join()}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState}{Default\+Job\+State}} $\ast$ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ad808131b7780fed1205271be248252ea}{outer\+\_\+}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ae744e61183a00fd4be0f8aeda8b0b88d}{task\+\_\+id\+\_\+}} = \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_aed70da365ecee8755b6f24e9465a5ccf}{k\+Invalid\+Task\+Id}}
+\item 
+bool \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a15eb10b809e9b03669079a51dfb38141}{is\+\_\+joining\+\_\+thread\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a42b38349480d7f8bd6522b96df5ceb35}{was\+\_\+told\+\_\+to\+\_\+yield\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}
 \end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr uint8\+\_\+t \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_aed70da365ecee8755b6f24e9465a5ccf}{k\+Invalid\+Task\+Id}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 22 of file default-\/job.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -48,12 +71,47 @@ bool \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a513
 \doxysubsubsection{\texorpdfstring{JobDelegate()}{JobDelegate()}}
 {\footnotesize\ttfamily v8\+::platform\+::\+Default\+Job\+State\+::\+Job\+Delegate\+::\+Job\+Delegate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState}{Default\+Job\+State}} $\ast$}]{outer,  }\item[{bool}]{is\+\_\+joining\+\_\+thread = {\ttfamily \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
+
+
+Definition at line 24 of file default-\/job.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{25         : \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ad808131b7780fed1205271be248252ea}{outer\_}}(outer), \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a15eb10b809e9b03669079a51dfb38141}{is\_joining\_thread\_}}(is\_joining\_thread) \{\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a5d450eb030f957832bcbda587a69977f}\label{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a5d450eb030f957832bcbda587a69977f}} 
 \index{v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}!````~JobDelegate@{$\sim$JobDelegate}}
 \index{````~JobDelegate@{$\sim$JobDelegate}!v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}}
 \doxysubsubsection{\texorpdfstring{$\sim$JobDelegate()}{~JobDelegate()}}
 {\footnotesize\ttfamily v8\+::platform\+::\+Default\+Job\+State\+::\+Job\+Delegate\+::$\sim$\+Job\+Delegate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 19 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19                                          \{}
+\DoxyCodeLine{20   static\_assert(\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_aed70da365ecee8755b6f24e9465a5ccf}{kInvalidTaskId}} >= \mbox{\hyperlink{namespacev8_1_1platform_1_1anonymous__namespace_02default-job_8cc_03_a52d8efaf907c85fd81d7d283bee06338}{kMaxWorkersPerJob}},}
+\DoxyCodeLine{21                 \textcolor{stringliteral}{"{}kInvalidTaskId must be outside of the range of valid task\_ids "{}}}
+\DoxyCodeLine{22                 \textcolor{stringliteral}{"{}[0, kMaxWorkersPerJob)"{}});}
+\DoxyCodeLine{23   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ae744e61183a00fd4be0f8aeda8b0b88d}{task\_id\_}} != \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_aed70da365ecee8755b6f24e9465a5ccf}{kInvalidTaskId}}) \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ad808131b7780fed1205271be248252ea}{outer\_}}-\/>\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a211cc69392b2147f603046a9e9dbee54}{ReleaseTaskId}}(\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ae744e61183a00fd4be0f8aeda8b0b88d}{task\_id\_}});}
+\DoxyCodeLine{24 \}}
+
+\end{DoxyCode}
+
+
+References k\+Invalid\+Task\+Id, v8\+::platform\+::anonymous\+\_\+namespace\{default-\/job.\+cc\}\+::k\+Max\+Workers\+Per\+Job, outer\+\_\+, v8\+::platform\+::\+Default\+Job\+State\+::\+Release\+Task\+Id(), and task\+\_\+id\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a5d450eb030f957832bcbda587a69977f_cgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Function Documentation}
@@ -63,43 +121,184 @@ bool \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a513
 \doxysubsubsection{\texorpdfstring{GetTaskId()}{GetTaskId()}}
 {\footnotesize\ttfamily uint8\+\_\+t v8\+::platform\+::\+Default\+Job\+State\+::\+Job\+Delegate\+::\+Get\+Task\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Returns a task\+\_\+id unique among threads currently running this job, such that \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a970e965c1231f4302799a8ebbe754058}{Get\+Task\+Id()}} $<$ worker count. To achieve this, the same task\+\_\+id may be reused by a different thread after a worker\+\_\+task returns. 
+
+
+Returns a task\+\_\+id unique among threads currently running this job, such that \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a970e965c1231f4302799a8ebbe754058}{Get\+Task\+Id()}} $<$ worker count. 
+
+To achieve this, the same task\+\_\+id may be reused by a different thread after a worker\+\_\+task returns. 
 
 Implements \mbox{\hyperlink{classv8_1_1JobDelegate_aeaea259d5f4fec4aaca6f9fc35126fda}{v8\+::\+Job\+Delegate}}.
 
+
+
+Definition at line 26 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26                                               \{}
+\DoxyCodeLine{27   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ae744e61183a00fd4be0f8aeda8b0b88d}{task\_id\_}} == \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_aed70da365ecee8755b6f24e9465a5ccf}{kInvalidTaskId}}) \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ae744e61183a00fd4be0f8aeda8b0b88d}{task\_id\_}} = \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ad808131b7780fed1205271be248252ea}{outer\_}}-\/>\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a85dff51705b98cf9a0e210bc7200fdac}{AcquireTaskId}}();}
+\DoxyCodeLine{28   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ae744e61183a00fd4be0f8aeda8b0b88d}{task\_id\_}};}
+\DoxyCodeLine{29 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a513406587d721af919ff3da795704170}\label{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a513406587d721af919ff3da795704170}} 
 \index{v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}!IsJoiningThread@{IsJoiningThread}}
 \index{IsJoiningThread@{IsJoiningThread}!v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}}
 \doxysubsubsection{\texorpdfstring{IsJoiningThread()}{IsJoiningThread()}}
 {\footnotesize\ttfamily bool v8\+::platform\+::\+Default\+Job\+State\+::\+Job\+Delegate\+::\+Is\+Joining\+Thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
+
+
 Returns true if the current task is called from the thread currently running \mbox{\hyperlink{classv8_1_1JobHandle_afd946040be3647f1ad2e609bd61f4854}{Job\+Handle\+::\+Join()}}. 
+
+
 
 Implements \mbox{\hyperlink{classv8_1_1JobDelegate_a93be293521d70bd38d5c69d35b1df790}{v8\+::\+Job\+Delegate}}.
 
+
+
+Definition at line 42 of file default-\/job.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{42 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a15eb10b809e9b03669079a51dfb38141}{is\_joining\_thread\_}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a43df1df4008e983685470dd5dee490c7}\label{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a43df1df4008e983685470dd5dee490c7}} 
 \index{v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}!NotifyConcurrencyIncrease@{NotifyConcurrencyIncrease}}
 \index{NotifyConcurrencyIncrease@{NotifyConcurrencyIncrease}!v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}}
 \doxysubsubsection{\texorpdfstring{NotifyConcurrencyIncrease()}{NotifyConcurrencyIncrease()}}
 {\footnotesize\ttfamily void v8\+::platform\+::\+Default\+Job\+State\+::\+Job\+Delegate\+::\+Notify\+Concurrency\+Increase (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Notifies the scheduler that max concurrency was increased, and the number of worker should be adjusted accordingly. See \mbox{\hyperlink{classv8_1_1Platform_adcf8355f078499e5b32541b849a656cf}{Platform\+::\+Post\+Job()}} for more details. 
+
+
+Notifies the scheduler that max concurrency was increased, and the number of worker should be adjusted accordingly. 
+
+See \mbox{\hyperlink{classv8_1_1Platform_adcf8355f078499e5b32541b849a656cf}{Platform\+::\+Post\+Job()}} for more details. 
 
 Implements \mbox{\hyperlink{classv8_1_1JobDelegate_a317e161b7601e6c973be26299eef8991}{v8\+::\+Job\+Delegate}}.
 
+
+
+Definition at line 28 of file default-\/job.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{28                                               \{}
+\DoxyCodeLine{29       \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ad808131b7780fed1205271be248252ea}{outer\_}}-\/>\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a39651c8abd166fc22b87553955da1e99}{NotifyConcurrencyIncrease}}();}
+\DoxyCodeLine{30     \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a7c3f44647e764bc760912d9c681096e0}\label{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a7c3f44647e764bc760912d9c681096e0}} 
 \index{v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}!ShouldYield@{ShouldYield}}
 \index{ShouldYield@{ShouldYield}!v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}}
 \doxysubsubsection{\texorpdfstring{ShouldYield()}{ShouldYield()}}
 {\footnotesize\ttfamily bool v8\+::platform\+::\+Default\+Job\+State\+::\+Job\+Delegate\+::\+Should\+Yield (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Returns true if this thread {\itshape must} return from the worker task on the current thread ASAP. Workers should periodically invoke Should\+Yield (or Yield\+If\+Needed()) as often as is reasonable. After this method returned true, Should\+Yield must not be called again. 
+
+
+Returns true if this thread {\itshape must} return from the worker task on the current thread ASAP. 
+
+Workers should periodically invoke Should\+Yield (or Yield\+If\+Needed()) as often as is reasonable. After this method returned true, Should\+Yield must not be called again. 
 
 Implements \mbox{\hyperlink{classv8_1_1JobDelegate_a7180a73d20fc8a240c742163001d8b3a}{v8\+::\+Job\+Delegate}}.
 
 
 
+Definition at line 31 of file default-\/job.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31                                 \{}
+\DoxyCodeLine{32       \textcolor{comment}{// After \{ShouldYield\} returned true, the job is expected to return and}}
+\DoxyCodeLine{33       \textcolor{comment}{// not call \{ShouldYield\} again. This resembles a similar DCHECK in the}}
+\DoxyCodeLine{34       \textcolor{comment}{// gin platform.}}
+\DoxyCodeLine{35       \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a42b38349480d7f8bd6522b96df5ceb35}{was\_told\_to\_yield\_}});}
+\DoxyCodeLine{36       \textcolor{comment}{// Thread-\/safe but may return an outdated result.}}
+\DoxyCodeLine{37       \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a42b38349480d7f8bd6522b96df5ceb35}{was\_told\_to\_yield\_}} |=}
+\DoxyCodeLine{38           \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ad808131b7780fed1205271be248252ea}{outer\_}}-\/>\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a02a353c9f9a5545c8c1d78d76aa77f69}{is\_canceled\_}}.load(std::memory\_order\_relaxed);}
+\DoxyCodeLine{39       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a42b38349480d7f8bd6522b96df5ceb35}{was\_told\_to\_yield\_}};}
+\DoxyCodeLine{40     \}}
+
+\end{DoxyCode}
+
+
+References DCHECK.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a15eb10b809e9b03669079a51dfb38141}\label{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a15eb10b809e9b03669079a51dfb38141}} 
+\index{v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}!is\_joining\_thread\_@{is\_joining\_thread\_}}
+\index{is\_joining\_thread\_@{is\_joining\_thread\_}!v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}}
+\doxysubsubsection{\texorpdfstring{is\_joining\_thread\_}{is\_joining\_thread\_}}
+{\footnotesize\ttfamily bool v8\+::platform\+::\+Default\+Job\+State\+::\+Job\+Delegate\+::is\+\_\+joining\+\_\+thread\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 50 of file default-\/job.\+h.
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_aed70da365ecee8755b6f24e9465a5ccf}\label{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_aed70da365ecee8755b6f24e9465a5ccf}} 
+\index{v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}!kInvalidTaskId@{kInvalidTaskId}}
+\index{kInvalidTaskId@{kInvalidTaskId}!v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}}
+\doxysubsubsection{\texorpdfstring{kInvalidTaskId}{kInvalidTaskId}}
+{\footnotesize\ttfamily constexpr uint8\+\_\+t v8\+::platform\+::\+Default\+Job\+State\+::\+Job\+Delegate\+::k\+Invalid\+Task\+Id\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [private]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{        std::numeric\_limits<uint8\_t>::max()}
+
+\end{DoxyCode}
+
+
+Definition at line 45 of file default-\/job.\+h.
+
+
+
+Referenced by $\sim$\+Job\+Delegate().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ad808131b7780fed1205271be248252ea}\label{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ad808131b7780fed1205271be248252ea}} 
+\index{v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}!outer\_@{outer\_}}
+\index{outer\_@{outer\_}!v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}}
+\doxysubsubsection{\texorpdfstring{outer\_}{outer\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState}{Default\+Job\+State}}$\ast$ v8\+::platform\+::\+Default\+Job\+State\+::\+Job\+Delegate\+::outer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 48 of file default-\/job.\+h.
+
+
+
+Referenced by $\sim$\+Job\+Delegate().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ae744e61183a00fd4be0f8aeda8b0b88d}\label{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_ae744e61183a00fd4be0f8aeda8b0b88d}} 
+\index{v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}!task\_id\_@{task\_id\_}}
+\index{task\_id\_@{task\_id\_}!v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}}
+\doxysubsubsection{\texorpdfstring{task\_id\_}{task\_id\_}}
+{\footnotesize\ttfamily uint8\+\_\+t v8\+::platform\+::\+Default\+Job\+State\+::\+Job\+Delegate\+::task\+\_\+id\+\_\+ = \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_aed70da365ecee8755b6f24e9465a5ccf}{k\+Invalid\+Task\+Id}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 49 of file default-\/job.\+h.
+
+
+
+Referenced by $\sim$\+Job\+Delegate().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a42b38349480d7f8bd6522b96df5ceb35}\label{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate_a42b38349480d7f8bd6522b96df5ceb35}} 
+\index{v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}!was\_told\_to\_yield\_@{was\_told\_to\_yield\_}}
+\index{was\_told\_to\_yield\_@{was\_told\_to\_yield\_}!v8::platform::DefaultJobState::JobDelegate@{v8::platform::DefaultJobState::JobDelegate}}
+\doxysubsubsection{\texorpdfstring{was\_told\_to\_yield\_}{was\_told\_to\_yield\_}}
+{\footnotesize\ttfamily bool v8\+::platform\+::\+Default\+Job\+State\+::\+Job\+Delegate\+::was\+\_\+told\+\_\+to\+\_\+yield\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 51 of file default-\/job.\+h.
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{default-job_8h}{default-\/job.\+h}}\item 
-\mbox{\hyperlink{default-job_8cc}{default-\/job.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/libplatform/\mbox{\hyperlink{default-job_8h}{default-\/job.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/libplatform/\mbox{\hyperlink{default-job_8cc}{default-\/job.\+cc}}\end{DoxyCompactItemize}

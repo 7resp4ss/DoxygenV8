@@ -7,5 +7,6 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ConvertJSPrimitiveToObject
     [ "options", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ConvertJSPrimitiveToObjectOp.html#a252e1a7177060d54e8369e94a5b49b3f", null ],
     [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ConvertJSPrimitiveToObjectOp.html#a5c5533cbfc837ccbd91a4e2934965d9e", null ],
     [ "value", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ConvertJSPrimitiveToObjectOp.html#a669085bbd8b3d58357b6eaa91589b74c", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ConvertJSPrimitiveToObjectOp.html#a47b16b229747f7c4ea0a8cefca8cc48c", null ],
     [ "mode", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ConvertJSPrimitiveToObjectOp.html#ab362d757130d1e2c8c3505732e6ea7d2", null ]
 ];

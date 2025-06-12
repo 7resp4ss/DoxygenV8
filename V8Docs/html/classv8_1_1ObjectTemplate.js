@@ -1,9 +1,13 @@
 var classv8_1_1ObjectTemplate =
 [
+    [ "ObjectTemplate", "classv8_1_1ObjectTemplate.html#a402d2434c21a7444c1733fdf0925152c", null ],
+    [ "Cast", "classv8_1_1ObjectTemplate.html#aba82061a19144380f44994c3e57c6e60", null ],
+    [ "CheckCast", "classv8_1_1ObjectTemplate.html#aac2e584ec2e635c7266ec8c5db851911", null ],
     [ "InternalFieldCount", "classv8_1_1ObjectTemplate.html#a326fc0536812cd33a1cf5b9d945afbea", null ],
     [ "IsCodeLike", "classv8_1_1ObjectTemplate.html#a2b2304308a7c92410ff2dd058aee32b1", null ],
     [ "IsImmutableProto", "classv8_1_1ObjectTemplate.html#a9f3b530e90524a933825c5ce64a4a45c", null ],
     [ "MarkAsUndetectable", "classv8_1_1ObjectTemplate.html#a7e40ef313b44c2ad336c73051523b4f8", null ],
+    [ "New", "classv8_1_1ObjectTemplate.html#a092e8adf656359d4dead412d28313ebb", null ],
     [ "NewInstance", "classv8_1_1ObjectTemplate.html#a29194679ebdc53d23c65e45ba60a93e4", null ],
     [ "SealAndPrepareForPromotionToReadOnly", "classv8_1_1ObjectTemplate.html#a7bd686f29c72521b1f7dbfb05b79cf05", null ],
     [ "SetAccessCheckCallback", "classv8_1_1ObjectTemplate.html#a5b0337016cd89fc72f3a9d75399c2487", null ],

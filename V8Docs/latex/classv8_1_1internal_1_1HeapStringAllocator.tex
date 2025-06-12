@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::Heap\+String\+Allocator\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=230pt]{classv8_1_1internal_1_1HeapStringAllocator__coll__graph}
+\includegraphics[width=286pt]{classv8_1_1internal_1_1HeapStringAllocator__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -33,6 +33,18 @@ char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapStringAllocator_ada8e942
 \item 
 char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapStringAllocator_afa64b8cd01c8a9000e09d37865f13bfd}{grow}} (unsigned $\ast$bytes) override
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapStringAllocator_a4d6602ac3023d9507a337286184f9314}{space\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 37 of file string-\/stream.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -41,6 +53,19 @@ char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapStringAllocator_afa64b8c
 \index{````~HeapStringAllocator@{$\sim$HeapStringAllocator}!v8::internal::HeapStringAllocator@{v8::internal::HeapStringAllocator}}
 \doxysubsubsection{\texorpdfstring{$\sim$HeapStringAllocator()}{~HeapStringAllocator()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Heap\+String\+Allocator\+::$\sim$\+Heap\+String\+Allocator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+Definition at line 39 of file string-\/stream.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39 \{ DeleteArray(\mbox{\hyperlink{classv8_1_1internal_1_1HeapStringAllocator_a4d6602ac3023d9507a337286184f9314}{space\_}}); \}}
+
+\end{DoxyCode}
+
+
+References space\+\_\+.
 
 
 
@@ -55,6 +80,22 @@ char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapStringAllocator_afa64b8c
 
 Implements \mbox{\hyperlink{classv8_1_1internal_1_1StringAllocator_a3e2a67fc8455cf91240490208789967d}{v8\+::internal\+::\+String\+Allocator}}.
 
+
+
+Definition at line 21 of file string-\/stream.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21                                                   \{}
+\DoxyCodeLine{22   \mbox{\hyperlink{classv8_1_1internal_1_1HeapStringAllocator_a4d6602ac3023d9507a337286184f9314}{space\_}} = NewArray<char>(bytes);}
+\DoxyCodeLine{23   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1HeapStringAllocator_a4d6602ac3023d9507a337286184f9314}{space\_}};}
+\DoxyCodeLine{24 \}}
+
+\end{DoxyCode}
+
+
+References space\+\_\+.
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1HeapStringAllocator_afa64b8cd01c8a9000e09d37865f13bfd}\label{classv8_1_1internal_1_1HeapStringAllocator_afa64b8cd01c8a9000e09d37865f13bfd}} 
 \index{v8::internal::HeapStringAllocator@{v8::internal::HeapStringAllocator}!grow@{grow}}
 \index{grow@{grow}!v8::internal::HeapStringAllocator@{v8::internal::HeapStringAllocator}}
@@ -67,7 +108,60 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1StringAllocator_ac27c6a95c5a5
 
 
 
+Definition at line 459 of file string-\/stream.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{459                                                \{}
+\DoxyCodeLine{460   \textcolor{keywordtype}{unsigned} new\_bytes = *bytes * 2;}
+\DoxyCodeLine{461   \textcolor{comment}{// Check for overflow.}}
+\DoxyCodeLine{462   \textcolor{keywordflow}{if} (new\_bytes <= *bytes) \{}
+\DoxyCodeLine{463     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1HeapStringAllocator_a4d6602ac3023d9507a337286184f9314}{space\_}};}
+\DoxyCodeLine{464   \}}
+\DoxyCodeLine{465   \textcolor{keywordtype}{char}* new\_space = NewArray<char>(new\_bytes);}
+\DoxyCodeLine{466   \textcolor{keywordflow}{if} (new\_space == \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{467     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1HeapStringAllocator_a4d6602ac3023d9507a337286184f9314}{space\_}};}
+\DoxyCodeLine{468   \}}
+\DoxyCodeLine{469   \mbox{\hyperlink{namespacev8_1_1internal_ae0ee98c9174e5955450c56da22cb8f6a}{MemCopy}}(new\_space, \mbox{\hyperlink{classv8_1_1internal_1_1HeapStringAllocator_a4d6602ac3023d9507a337286184f9314}{space\_}}, *bytes);}
+\DoxyCodeLine{470   *bytes = new\_bytes;}
+\DoxyCodeLine{471   DeleteArray(\mbox{\hyperlink{classv8_1_1internal_1_1HeapStringAllocator_a4d6602ac3023d9507a337286184f9314}{space\_}});}
+\DoxyCodeLine{472   \mbox{\hyperlink{classv8_1_1internal_1_1HeapStringAllocator_a4d6602ac3023d9507a337286184f9314}{space\_}} = new\_space;}
+\DoxyCodeLine{473   \textcolor{keywordflow}{return} new\_space;}
+\DoxyCodeLine{474 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Mem\+Copy(), and space\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1HeapStringAllocator_afa64b8cd01c8a9000e09d37865f13bfd_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1HeapStringAllocator_a4d6602ac3023d9507a337286184f9314}\label{classv8_1_1internal_1_1HeapStringAllocator_a4d6602ac3023d9507a337286184f9314}} 
+\index{v8::internal::HeapStringAllocator@{v8::internal::HeapStringAllocator}!space\_@{space\_}}
+\index{space\_@{space\_}!v8::internal::HeapStringAllocator@{v8::internal::HeapStringAllocator}}
+\doxysubsubsection{\texorpdfstring{space\_}{space\_}}
+{\footnotesize\ttfamily char$\ast$ v8\+::internal\+::\+Heap\+String\+Allocator\+::space\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 44 of file string-\/stream.\+h.
+
+
+
+Referenced by allocate(), grow(), and $\sim$\+Heap\+String\+Allocator().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{string-stream_8h}{string-\/stream.\+h}}\item 
-\mbox{\hyperlink{string-stream_8cc}{string-\/stream.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/strings/\mbox{\hyperlink{string-stream_8h}{string-\/stream.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/strings/\mbox{\hyperlink{string-stream_8cc}{string-\/stream.\+cc}}\end{DoxyCompactItemize}

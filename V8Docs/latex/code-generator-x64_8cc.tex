@@ -1,5 +1,5 @@
-\hypertarget{code-generator-x64_8cc}{}\doxysection{code-\/generator-\/x64.cc File Reference}
-\label{code-generator-x64_8cc}\index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
+\hypertarget{code-generator-x64_8cc}{}\doxysection{/mnt/\+V8\+Source\+Code/src/compiler/backend/x64/code-\/generator-\/x64.cc File Reference}
+\label{code-generator-x64_8cc}\index{/mnt/V8SourceCode/src/compiler/backend/x64/code-\/generator-\/x64.cc@{/mnt/V8SourceCode/src/compiler/backend/x64/code-\/generator-\/x64.cc}}
 {\ttfamily \#include $<$limits$>$}\newline
 {\ttfamily \#include $<$optional$>$}\newline
 {\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
@@ -39,15 +39,25 @@ Include dependency graph for code-\/generator-\/x64.cc\+:
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1X64OperandConverter}{v8\+::internal\+::compiler\+::\+X64\+Operand\+Converter}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_1_1OutOfLineLoadFloat32NaN}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Out\+Of\+Line\+Load\+Float32\+NaN}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_1_1OutOfLineLoadFloat64NaN}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Out\+Of\+Line\+Load\+Float64\+NaN}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_1_1OutOfLineTruncateDoubleToI}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Out\+Of\+Line\+Truncate\+Double\+ToI}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_1_1OutOfLineRecordWrite}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Out\+Of\+Line\+Record\+Write}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacev8}{v8}}
-\item 
+\begin{DoxyCompactList}\small\item\em This file provides additional API on top of the default one for making API calls, which come from embedder C++ functions. \end{DoxyCompactList}\item 
  \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
 \item 
  \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
@@ -74,9 +84,9 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1X64OperandConverter}{v
 \item 
 \#define \mbox{\hyperlink{code-generator-x64_8cc_a480c31c0570cf88bcf1e7b74f9f2243f}{ASSEMBLE\+\_\+\+AVX\+\_\+\+BINOP}}(asm\+\_\+instr)
 \item 
-\#define \mbox{\hyperlink{code-generator-x64_8cc_aba3d5f58b38940cb744131b1eb1d29c3}{ASSEMBLE\+\_\+\+IEEE754\+\_\+\+BINOP}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\#define \mbox{\hyperlink{code-generator-x64_8cc_aba3d5f58b38940cb744131b1eb1d29c3}{ASSEMBLE\+\_\+\+IEEE754\+\_\+\+BINOP}}(\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}})
 \item 
-\#define \mbox{\hyperlink{code-generator-x64_8cc_a4ea587b1e5207d4667d391ead19e55d1}{ASSEMBLE\+\_\+\+IEEE754\+\_\+\+UNOP}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\#define \mbox{\hyperlink{code-generator-x64_8cc_a4ea587b1e5207d4667d391ead19e55d1}{ASSEMBLE\+\_\+\+IEEE754\+\_\+\+UNOP}}(\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}})
 \item 
 \#define \mbox{\hyperlink{code-generator-x64_8cc_a285b1bfe08e204c90636d20b1e2f8fa3}{ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+BINOP}}(bin\+\_\+inst,  mov\+\_\+inst,  cmpxchg\+\_\+inst)
 \item 
@@ -84,15 +94,15 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1X64OperandConverter}{v
 \item 
 \#define \mbox{\hyperlink{code-generator-x64_8cc_aafd6b47d117adf6c550e0f7b12573e5b}{ASSEMBLE\+\_\+\+SIMD\+\_\+\+BINOP}}(opcode)
 \item 
-\#define \mbox{\hyperlink{code-generator-x64_8cc_a3cb6a0b34e370a6b35b2f0bdc4c805e8}{ASSEMBLE\+\_\+\+SIMD\+\_\+\+F16x8\+\_\+\+BINOP}}(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}})
+\#define \mbox{\hyperlink{code-generator-x64_8cc_a3cb6a0b34e370a6b35b2f0bdc4c805e8}{ASSEMBLE\+\_\+\+SIMD\+\_\+\+F16x8\+\_\+\+BINOP}}(instr)
 \item 
-\#define \mbox{\hyperlink{code-generator-x64_8cc_a063dc85535947f5de35dbb2fa4dc085e}{ASSEMBLE\+\_\+\+SIMD\+\_\+\+F16x8\+\_\+\+RELOP}}(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}})
+\#define \mbox{\hyperlink{code-generator-x64_8cc_a063dc85535947f5de35dbb2fa4dc085e}{ASSEMBLE\+\_\+\+SIMD\+\_\+\+F16x8\+\_\+\+RELOP}}(instr)
 \item 
 \#define \mbox{\hyperlink{code-generator-x64_8cc_a413eb8e9e69a7d74bf938740dce0f02a}{ASSEMBLE\+\_\+\+SIMD256\+\_\+\+BINOP}}(opcode,  cpu\+\_\+feature)
 \item 
-\#define \mbox{\hyperlink{code-generator-x64_8cc_a3a9d38704fd071358a14f47bcd84d55e}{ASSEMBLE\+\_\+\+SIMD\+\_\+\+INSTR}}(opcode,  dst\+\_\+operand,  \mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}})
+\#define \mbox{\hyperlink{code-generator-x64_8cc_a3a9d38704fd071358a14f47bcd84d55e}{ASSEMBLE\+\_\+\+SIMD\+\_\+\+INSTR}}(opcode,  dst\+\_\+operand,  index)
 \item 
-\#define \mbox{\hyperlink{code-generator-x64_8cc_a83eb4bf1f1ae5463a49904f4c6313fea}{ASSEMBLE\+\_\+\+SIMD\+\_\+\+IMM\+\_\+\+INSTR}}(opcode,  dst\+\_\+operand,  \mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}},  imm)
+\#define \mbox{\hyperlink{code-generator-x64_8cc_a83eb4bf1f1ae5463a49904f4c6313fea}{ASSEMBLE\+\_\+\+SIMD\+\_\+\+IMM\+\_\+\+INSTR}}(opcode,  dst\+\_\+operand,  index,  imm)
 \item 
 \#define \mbox{\hyperlink{code-generator-x64_8cc_a3de2494e1e2c64caa8ee8ffe80c88866}{ASSEMBLE\+\_\+\+SIMD\+\_\+\+PUNPCK\+\_\+\+SHUFFLE}}(opcode)
 \item 
@@ -133,11 +143,46 @@ enum class \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_afbcfce5e33ee104
 \item 
 bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a26f1041d287f0bb2fe8f6d8c142d3512}{v8\+::internal\+::compiler\+::\+Is\+Macro\+Fused}} (First\+Macro\+Fusion\+Inst\+Kind first\+\_\+kind, Second\+Macro\+Fusion\+Inst\+Kind second\+\_\+kind)
 \item 
-Second\+Macro\+Fusion\+Inst\+Kind \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac8319fbb96114e7c89c5b6c7bacf1d40}{v8\+::internal\+::compiler\+::\+Get\+Second\+Macro\+Fusion\+Inst\+Kind}} (Flags\+Condition \mbox{\hyperlink{machine-operator-reducer_8cc_a0e07aad9de22abf9b9b1b4b437beef30}{condition}})
+Second\+Macro\+Fusion\+Inst\+Kind \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac8319fbb96114e7c89c5b6c7bacf1d40}{v8\+::internal\+::compiler\+::\+Get\+Second\+Macro\+Fusion\+Inst\+Kind}} (Flags\+Condition condition)
 \item 
-bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ab48bda2589f8c50e94fa12c52b2c617f}{v8\+::internal\+::compiler\+::\+Should\+Align\+For\+JCCErratum}} (Instruction $\ast$\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, First\+Macro\+Fusion\+Inst\+Kind first\+\_\+kind)
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ab48bda2589f8c50e94fa12c52b2c617f}{v8\+::internal\+::compiler\+::\+Should\+Align\+For\+JCCErratum}} (Instruction $\ast$instr, First\+Macro\+Fusion\+Inst\+Kind first\+\_\+kind)
 \item 
-bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca021246781e218d1a14}{v8\+::internal\+::compiler\+::\+Should\+Clear\+Output\+Register\+Before\+Instruction}} (Code\+Generator $\ast$g, Instruction $\ast$\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}})
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a7c5988c14ed65f0767c14a2e991a53ee}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Has\+Addressing\+Mode}} (Instruction $\ast$instr)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_aa6171f339a4655ebcd69a4a97aa0ded5}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Has\+Immediate\+Input}} (Instruction $\ast$instr, size\+\_\+t index)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a6f57132f94f1e97d3014ba84a17f5ba6}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Has\+Register\+Input}} (Instruction $\ast$instr, size\+\_\+t index)
+\item 
+{\footnotesize template$<$std\+::memory\+\_\+order order$>$ }\\\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a86bc08f9746240db7268dafd005139cc}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Emit\+Store}} (Macro\+Assembler $\ast$masm, Operand operand, Register value, Machine\+Representation rep)
+\item 
+{\footnotesize template$<$std\+::memory\+\_\+order order$>$ }\\\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_ab5bde7ae69deaf6cb79e2462440f4005}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Emit\+Store}} (Macro\+Assembler $\ast$masm, Operand operand, Immediate value, Machine\+Representation rep)
+\item 
+template$<$$>$ \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_af68baa8d36988735212b3a25466677af}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Emit\+Store$<$ std\+::memory\+\_\+order\+\_\+relaxed $>$}} (Macro\+Assembler $\ast$masm, Operand operand, Immediate value, Machine\+Representation rep)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a69fcba8cd559f4586ac8579f0685d80d}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Record\+Trap\+Info\+If\+Needed}} (Zone $\ast$zone, Code\+Generator $\ast$codegen, Instruction\+Code opcode, Instruction $\ast$instr, \mbox{\hyperlink{classint}{int}} pc)
+\item 
+{\footnotesize template$<$std\+::memory\+\_\+order order, typename ValueT $>$ }\\void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a089a6c1326c0bf7298d4ae00ef04b687}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Emit\+TSANAware\+Store}} (Zone $\ast$zone, Code\+Generator $\ast$codegen, Macro\+Assembler $\ast$masm, Operand operand, ValueT value, X64\+Operand\+Converter \&i, Stub\+Call\+Mode stub\+\_\+call\+\_\+mode, Machine\+Representation rep, Instruction $\ast$instr)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a828525a40c80c1ade5ac23526d68af45}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Emit\+TSANRelaxed\+Load\+OOLIf\+Needed}} (Zone $\ast$zone, Code\+Generator $\ast$codegen, Macro\+Assembler $\ast$masm, Operand operand, X64\+Operand\+Converter \&i, Stub\+Call\+Mode \mbox{\hyperlink{flag-definitions_8h_adaf90f045d5cd2710edd625b8685472a}{mode}}, \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_aa693dadc811658b262ad530873ad036e}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Adjust\+Stack\+Pointer\+For\+Tail\+Call}} (Instruction $\ast$instr, Macro\+Assembler $\ast$assembler, Linkage $\ast$linkage, Optimized\+Compilation\+Info $\ast$info, Frame\+Access\+State $\ast$state, \mbox{\hyperlink{classint}{int}} new\+\_\+slot\+\_\+above\+\_\+sp, bool allow\+\_\+shrinkage=\mbox{\hyperlink{flag-definitions_8h_ae56df915684f69fc6f5c0f3bd3b3c80c}{true}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a89c927f6843ce7644ecc1d9e09f25830}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Setup\+Simd\+Immediate\+In\+Register}} (Macro\+Assembler $\ast$assembler, uint32\+\_\+t $\ast$imms, XMMRegister reg)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a8a8e947a8b10ee2f39cfb75a9abc4300}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Setup\+Simd256\+Immediate\+In\+Register}} (Macro\+Assembler $\ast$assembler, uint32\+\_\+t $\ast$imms, YMMRegister reg, XMMRegister scratch)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca021246781e218d1a14}{v8\+::internal\+::compiler\+::\+Should\+Clear\+Output\+Register\+Before\+Instruction}} (Code\+Generator $\ast$g, Instruction $\ast$instr)
+\item 
+constexpr Condition \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a6dc6bfd5051010eabed4f0b790fab656}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Flags\+Condition\+To\+Condition}} (Flags\+Condition condition)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a8c0567dea2a43b3e43b58964c0ea078c}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Is32\+Bit\+Operand}} (Instruction\+Operand $\ast$operand)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a78d488c46b4cff9a136afb81d28e707d}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::\+Use32\+Bit\+Move}} (Instruction\+Operand $\ast$source, Instruction\+Operand $\ast$destination)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a6ba20e4f76236e933571b9c5bb1eaf38}{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{code-\/generator-\/x64.\+cc\}\+::k\+Quad\+Word\+Size}} = 16
 \end{DoxyCompactItemize}
 
 
@@ -147,6 +192,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \index{\_\_@{\_\_}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
 \doxysubsubsection{\texorpdfstring{\_\_}{\_\_}}
 {\footnotesize\ttfamily \#define \+\_\+\+\_\+~masm()-\/$>$}
+
+
+
+Definition at line 41 of file code-\/generator-\/x64.\+cc.
 
 \mbox{\Hypertarget{code-generator-x64_8cc_a0d89578f514b53a0ae454f709488ee9f}\label{code-generator-x64_8cc_a0d89578f514b53a0ae454f709488ee9f}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_ATOMIC64\_BINOP@{ASSEMBLE\_ATOMIC64\_BINOP}}
@@ -159,7 +208,7 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                   \(\backslash\)}
 \DoxyCodeLine{    Label binop;                                                         \(\backslash\)}
 \DoxyCodeLine{    \_\_ bind(\&binop);                                                     \(\backslash\)}
-\DoxyCodeLine{    RecordTrapInfoIfNeeded(zone(), \textcolor{keyword}{this}, opcode, \mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, \mbox{\hyperlink{code-generator-x64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} \mbox{\hyperlink{liftoff-compiler_8cc_ac8403346601a16f8902bbe271ff3c261}{pc\_offset}}()); \(\backslash\)}
+\DoxyCodeLine{    RecordTrapInfoIfNeeded(zone(), \textcolor{keyword}{this}, opcode, instr, \mbox{\hyperlink{code-generator-x64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} pc\_offset()); \(\backslash\)}
 \DoxyCodeLine{    \_\_ mov\_inst(rax, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand(1));                                \(\backslash\)}
 \DoxyCodeLine{    \_\_ movq(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), rax);                                     \(\backslash\)}
 \DoxyCodeLine{    \_\_ bin\_inst(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0));                  \(\backslash\)}
@@ -169,6 +218,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1100 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a285b1bfe08e204c90636d20b1e2f8fa3}\label{code-generator-x64_8cc_a285b1bfe08e204c90636d20b1e2f8fa3}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_ATOMIC\_BINOP@{ASSEMBLE\_ATOMIC\_BINOP}}
 \index{ASSEMBLE\_ATOMIC\_BINOP@{ASSEMBLE\_ATOMIC\_BINOP}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -180,7 +233,7 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                   \(\backslash\)}
 \DoxyCodeLine{    Label binop;                                                         \(\backslash\)}
 \DoxyCodeLine{    \_\_ bind(\&binop);                                                     \(\backslash\)}
-\DoxyCodeLine{    RecordTrapInfoIfNeeded(zone(), \textcolor{keyword}{this}, opcode, \mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, \mbox{\hyperlink{code-generator-x64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} \mbox{\hyperlink{liftoff-compiler_8cc_ac8403346601a16f8902bbe271ff3c261}{pc\_offset}}()); \(\backslash\)}
+\DoxyCodeLine{    RecordTrapInfoIfNeeded(zone(), \textcolor{keyword}{this}, opcode, instr, \mbox{\hyperlink{code-generator-x64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} pc\_offset()); \(\backslash\)}
 \DoxyCodeLine{    \_\_ mov\_inst(rax, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand(1));                                \(\backslash\)}
 \DoxyCodeLine{    \_\_ movl(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), rax);                                     \(\backslash\)}
 \DoxyCodeLine{    \_\_ bin\_inst(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0));                  \(\backslash\)}
@@ -190,6 +243,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1087 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a480c31c0570cf88bcf1e7b74f9f2243f}\label{code-generator-x64_8cc_a480c31c0570cf88bcf1e7b74f9f2243f}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_AVX\_BINOP@{ASSEMBLE\_AVX\_BINOP}}
 \index{ASSEMBLE\_AVX\_BINOP@{ASSEMBLE\_AVX\_BINOP}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -200,12 +257,12 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                         \(\backslash\)}
 \DoxyCodeLine{    CpuFeatureScope avx\_scope(masm(), AVX);                                    \(\backslash\)}
-\DoxyCodeLine{    if (HasAddressingMode(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}})) \{                                            \(\backslash\)}
-\DoxyCodeLine{      size\_t \mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}} = 1;                                                        \(\backslash\)}
-\DoxyCodeLine{      Operand right = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand(\&\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}});                                 \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a7c5988c14ed65f0767c14a2e991a53ee}{HasAddressingMode}}(instr)) \{                                            \(\backslash\)}
+\DoxyCodeLine{      size\_t \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = 1;                                                        \(\backslash\)}
+\DoxyCodeLine{      Operand right = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand(\&\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}});                                 \(\backslash\)}
 \DoxyCodeLine{      \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputDoubleRegister(), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(0), right); \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                                   \(\backslash\)}
-\DoxyCodeLine{      if (\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>InputAt(1)-\/>IsFPRegister()) \{                                 \(\backslash\)}
+\DoxyCodeLine{      if (instr-\/>InputAt(1)-\/>IsFPRegister()) \{                                 \(\backslash\)}
 \DoxyCodeLine{        \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputDoubleRegister(), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(0),       \(\backslash\)}
 \DoxyCodeLine{                     \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(1));                                \(\backslash\)}
 \DoxyCodeLine{      \} \textcolor{keywordflow}{else} \{                                                                 \(\backslash\)}
@@ -216,6 +273,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1057 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a494e529a26167fd63799df20dd0186f1}\label{code-generator-x64_8cc_a494e529a26167fd63799df20dd0186f1}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_BINOP@{ASSEMBLE\_BINOP}}
 \index{ASSEMBLE\_BINOP@{ASSEMBLE\_BINOP}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -225,19 +286,19 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                           \(\backslash\)}
-\DoxyCodeLine{    if (HasAddressingMode(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}})) \{                              \(\backslash\)}
-\DoxyCodeLine{      size\_t \mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}} = 1;                                          \(\backslash\)}
-\DoxyCodeLine{      Operand right = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand(\&\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}});                   \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a7c5988c14ed65f0767c14a2e991a53ee}{HasAddressingMode}}(instr)) \{                              \(\backslash\)}
+\DoxyCodeLine{      size\_t \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = 1;                                          \(\backslash\)}
+\DoxyCodeLine{      Operand right = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand(\&\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}});                   \(\backslash\)}
 \DoxyCodeLine{      \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), right);                   \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                     \(\backslash\)}
-\DoxyCodeLine{      if (HasImmediateInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 1)) \{                         \(\backslash\)}
-\DoxyCodeLine{        if (HasRegisterInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 0)) \{                        \(\backslash\)}
+\DoxyCodeLine{      if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_aa6171f339a4655ebcd69a4a97aa0ded5}{HasImmediateInput}}(instr, 1)) \{                         \(\backslash\)}
+\DoxyCodeLine{        if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a6f57132f94f1e97d3014ba84a17f5ba6}{HasRegisterInput}}(instr, 0)) \{                        \(\backslash\)}
 \DoxyCodeLine{          \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputImmediate(1)); \(\backslash\)}
 \DoxyCodeLine{        \} \textcolor{keywordflow}{else} \{                                                 \(\backslash\)}
 \DoxyCodeLine{          \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputImmediate(1));  \(\backslash\)}
 \DoxyCodeLine{        \}                                                        \(\backslash\)}
 \DoxyCodeLine{      \} \textcolor{keywordflow}{else} \{                                                   \(\backslash\)}
-\DoxyCodeLine{        if (HasRegisterInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 1)) \{                        \(\backslash\)}
+\DoxyCodeLine{        if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a6f57132f94f1e97d3014ba84a17f5ba6}{HasRegisterInput}}(instr, 1)) \{                        \(\backslash\)}
 \DoxyCodeLine{          \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1));  \(\backslash\)}
 \DoxyCodeLine{        \} \textcolor{keywordflow}{else} \{                                                 \(\backslash\)}
 \DoxyCodeLine{          \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(1));   \(\backslash\)}
@@ -247,6 +308,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 904 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a4c9fd4217aff7210e1ea3937fcc27716}\label{code-generator-x64_8cc_a4c9fd4217aff7210e1ea3937fcc27716}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_COMPARE@{ASSEMBLE\_COMPARE}}
 \index{ASSEMBLE\_COMPARE@{ASSEMBLE\_COMPARE}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -256,18 +321,18 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                             \(\backslash\)}
-\DoxyCodeLine{    if (HasAddressingMode(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}})) \{                                \(\backslash\)}
-\DoxyCodeLine{      size\_t \mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}} = 0;                                            \(\backslash\)}
-\DoxyCodeLine{      Operand left = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand(\&\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}});                      \(\backslash\)}
-\DoxyCodeLine{      if (HasImmediateInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, \mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}})) \{                       \(\backslash\)}
-\DoxyCodeLine{        \_\_ cmp\_instr(left, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputImmediate(\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}));               \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a7c5988c14ed65f0767c14a2e991a53ee}{HasAddressingMode}}(instr)) \{                                \(\backslash\)}
+\DoxyCodeLine{      size\_t \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = 0;                                            \(\backslash\)}
+\DoxyCodeLine{      Operand left = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand(\&\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}});                      \(\backslash\)}
+\DoxyCodeLine{      if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_aa6171f339a4655ebcd69a4a97aa0ded5}{HasImmediateInput}}(instr, \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}})) \{                       \(\backslash\)}
+\DoxyCodeLine{        \_\_ cmp\_instr(left, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputImmediate(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}));               \(\backslash\)}
 \DoxyCodeLine{      \} \textcolor{keywordflow}{else} \{                                                     \(\backslash\)}
-\DoxyCodeLine{        \_\_ cmp\_instr(left, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}));                \(\backslash\)}
+\DoxyCodeLine{        \_\_ cmp\_instr(left, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}));                \(\backslash\)}
 \DoxyCodeLine{      \}                                                            \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                       \(\backslash\)}
-\DoxyCodeLine{      if (HasImmediateInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 1)) \{                           \(\backslash\)}
+\DoxyCodeLine{      if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_aa6171f339a4655ebcd69a4a97aa0ded5}{HasImmediateInput}}(instr, 1)) \{                           \(\backslash\)}
 \DoxyCodeLine{        Immediate right = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputImmediate(1);                     \(\backslash\)}
-\DoxyCodeLine{        if (HasRegisterInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 0)) \{                          \(\backslash\)}
+\DoxyCodeLine{        if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a6f57132f94f1e97d3014ba84a17f5ba6}{HasRegisterInput}}(instr, 0)) \{                          \(\backslash\)}
 \DoxyCodeLine{          if (right.value() == 0) \{                                \(\backslash\)}
 \DoxyCodeLine{            \_\_ test\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0)); \(\backslash\)}
 \DoxyCodeLine{          \} \textcolor{keywordflow}{else} \{                                                 \(\backslash\)}
@@ -277,7 +342,7 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{          \_\_ cmp\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(0), right);                  \(\backslash\)}
 \DoxyCodeLine{        \}                                                          \(\backslash\)}
 \DoxyCodeLine{      \} \textcolor{keywordflow}{else} \{                                                     \(\backslash\)}
-\DoxyCodeLine{        if (HasRegisterInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 1)) \{                          \(\backslash\)}
+\DoxyCodeLine{        if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a6f57132f94f1e97d3014ba84a17f5ba6}{HasRegisterInput}}(instr, 1)) \{                          \(\backslash\)}
 \DoxyCodeLine{          \_\_ cmp\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1));    \(\backslash\)}
 \DoxyCodeLine{        \} \textcolor{keywordflow}{else} \{                                                   \(\backslash\)}
 \DoxyCodeLine{          \_\_ cmp\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(1));     \(\backslash\)}
@@ -287,34 +352,46 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 927 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_aba3d5f58b38940cb744131b1eb1d29c3}\label{code-generator-x64_8cc_aba3d5f58b38940cb744131b1eb1d29c3}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_IEEE754\_BINOP@{ASSEMBLE\_IEEE754\_BINOP}}
 \index{ASSEMBLE\_IEEE754\_BINOP@{ASSEMBLE\_IEEE754\_BINOP}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
 \doxysubsubsection{\texorpdfstring{ASSEMBLE\_IEEE754\_BINOP}{ASSEMBLE\_IEEE754\_BINOP}}
-{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+IEEE754\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+IEEE754\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}} }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                   \(\backslash\)}
 \DoxyCodeLine{    \_\_ PrepareCallCFunction(2);                                          \(\backslash\)}
-\DoxyCodeLine{    \_\_ CallCFunction(ExternalReference::ieee754\_\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}\#\#\_function(), 2); \(\backslash\)}
+\DoxyCodeLine{    \_\_ CallCFunction(ExternalReference::ieee754\_\#\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}}\#\#\_function(), 2); \(\backslash\)}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1075 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a4ea587b1e5207d4667d391ead19e55d1}\label{code-generator-x64_8cc_a4ea587b1e5207d4667d391ead19e55d1}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_IEEE754\_UNOP@{ASSEMBLE\_IEEE754\_UNOP}}
 \index{ASSEMBLE\_IEEE754\_UNOP@{ASSEMBLE\_IEEE754\_UNOP}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
 \doxysubsubsection{\texorpdfstring{ASSEMBLE\_IEEE754\_UNOP}{ASSEMBLE\_IEEE754\_UNOP}}
-{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+IEEE754\+\_\+\+UNOP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+IEEE754\+\_\+\+UNOP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}} }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                   \(\backslash\)}
 \DoxyCodeLine{    \_\_ PrepareCallCFunction(1);                                          \(\backslash\)}
-\DoxyCodeLine{    \_\_ CallCFunction(ExternalReference::ieee754\_\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}\#\#\_function(), 1); \(\backslash\)}
+\DoxyCodeLine{    \_\_ CallCFunction(ExternalReference::ieee754\_\#\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}}\#\#\_function(), 1); \(\backslash\)}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1081 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_aee3bbeb269aa063c67985bc10b29654b}\label{code-generator-x64_8cc_aee3bbeb269aa063c67985bc10b29654b}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_MOVX@{ASSEMBLE\_MOVX}}
 \index{ASSEMBLE\_MOVX@{ASSEMBLE\_MOVX}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -324,9 +401,9 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                      \(\backslash\)}
-\DoxyCodeLine{    if (HasAddressingMode(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}})) \{                         \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a7c5988c14ed65f0767c14a2e991a53ee}{HasAddressingMode}}(instr)) \{                         \(\backslash\)}
 \DoxyCodeLine{      \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand());  \(\backslash\)}
-\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (HasRegisterInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 0)) \{                \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a6f57132f94f1e97d3014ba84a17f5ba6}{HasRegisterInput}}(instr, 0)) \{                \(\backslash\)}
 \DoxyCodeLine{      \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0)); \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                \(\backslash\)}
 \DoxyCodeLine{      \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(0));  \(\backslash\)}
@@ -334,6 +411,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1022 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_aeda515499a33376c063a7760558b11b6}\label{code-generator-x64_8cc_aeda515499a33376c063a7760558b11b6}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_MULT@{ASSEMBLE\_MULT}}
 \index{ASSEMBLE\_MULT@{ASSEMBLE\_MULT}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -343,8 +424,8 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                        \(\backslash\)}
-\DoxyCodeLine{    if (HasImmediateInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 1)) \{                        \(\backslash\)}
-\DoxyCodeLine{      if (HasRegisterInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 0)) \{                       \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_aa6171f339a4655ebcd69a4a97aa0ded5}{HasImmediateInput}}(instr, 1)) \{                        \(\backslash\)}
+\DoxyCodeLine{      if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a6f57132f94f1e97d3014ba84a17f5ba6}{HasRegisterInput}}(instr, 0)) \{                       \(\backslash\)}
 \DoxyCodeLine{        \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0),  \(\backslash\)}
 \DoxyCodeLine{                     \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputImmediate(1));                    \(\backslash\)}
 \DoxyCodeLine{      \} \textcolor{keywordflow}{else} \{                                                \(\backslash\)}
@@ -352,7 +433,7 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{                     \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputImmediate(1));                    \(\backslash\)}
 \DoxyCodeLine{      \}                                                       \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                  \(\backslash\)}
-\DoxyCodeLine{      if (HasRegisterInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 1)) \{                       \(\backslash\)}
+\DoxyCodeLine{      if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a6f57132f94f1e97d3014ba84a17f5ba6}{HasRegisterInput}}(instr, 1)) \{                       \(\backslash\)}
 \DoxyCodeLine{        \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1)); \(\backslash\)}
 \DoxyCodeLine{      \} \textcolor{keywordflow}{else} \{                                                \(\backslash\)}
 \DoxyCodeLine{        \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(1));  \(\backslash\)}
@@ -361,6 +442,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 986 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_af65e946cb0ade14a9602fab004bef6aa}\label{code-generator-x64_8cc_af65e946cb0ade14a9602fab004bef6aa}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_PINSR@{ASSEMBLE\_PINSR}}
 \index{ASSEMBLE\_PINSR@{ASSEMBLE\_PINSR}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -374,20 +459,24 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{    XMMRegister src = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(0);                         \(\backslash\)}
 \DoxyCodeLine{    uint8\_t laneidx = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputUint8(1);                                   \(\backslash\)}
 \DoxyCodeLine{    uint32\_t load\_offset;                                                \(\backslash\)}
-\DoxyCodeLine{    if (HasAddressingMode(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}})) \{                                      \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a7c5988c14ed65f0767c14a2e991a53ee}{HasAddressingMode}}(instr)) \{                                      \(\backslash\)}
 \DoxyCodeLine{      \_\_ ASM\_INSTR(dst, src, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand(2), laneidx, \&load\_offset); \(\backslash\)}
-\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>InputAt(2)-\/>IsFPRegister()) \{                      \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (instr-\/>InputAt(2)-\/>IsFPRegister()) \{                      \(\backslash\)}
 \DoxyCodeLine{      \_\_ Movq(\mbox{\hyperlink{namespacev8_1_1internal_a86d3328383670dd58368a5f91326793a}{kScratchRegister}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(2));               \(\backslash\)}
 \DoxyCodeLine{      \_\_ ASM\_INSTR(dst, src, \mbox{\hyperlink{namespacev8_1_1internal_a86d3328383670dd58368a5f91326793a}{kScratchRegister}}, laneidx, \&load\_offset);   \(\backslash\)}
-\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>InputAt(2)-\/>IsRegister()) \{                        \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (instr-\/>InputAt(2)-\/>IsRegister()) \{                        \(\backslash\)}
 \DoxyCodeLine{      \_\_ ASM\_INSTR(dst, src, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(2), laneidx, \&load\_offset); \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                             \(\backslash\)}
 \DoxyCodeLine{      \_\_ ASM\_INSTR(dst, src, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(2), laneidx, \&load\_offset);  \(\backslash\)}
 \DoxyCodeLine{    \}                                                                    \(\backslash\)}
-\DoxyCodeLine{    RecordTrapInfoIfNeeded(zone(), \textcolor{keyword}{this}, opcode, \mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, load\_offset);    \(\backslash\)}
+\DoxyCodeLine{    RecordTrapInfoIfNeeded(zone(), \textcolor{keyword}{this}, opcode, instr, load\_offset);    \(\backslash\)}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1266 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a0f8198c94d09b92728bab239ba1b9ecb}\label{code-generator-x64_8cc_a0f8198c94d09b92728bab239ba1b9ecb}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SEQ\_CST\_STORE@{ASSEMBLE\_SEQ\_CST\_STORE}}
 \index{ASSEMBLE\_SEQ\_CST\_STORE@{ASSEMBLE\_SEQ\_CST\_STORE}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -397,14 +486,18 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                         \(\backslash\)}
-\DoxyCodeLine{    Register \mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}} = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0);                                       \(\backslash\)}
+\DoxyCodeLine{    Register \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0);                                       \(\backslash\)}
 \DoxyCodeLine{    Operand operand = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand(1);                                      \(\backslash\)}
 \DoxyCodeLine{    EmitTSANAwareStore<std::memory\_order\_seq\_cst>(                             \(\backslash\)}
-\DoxyCodeLine{        zone(), \textcolor{keyword}{this}, masm(), operand, \mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}, DetermineStubCallMode(), rep, \(\backslash\)}
-\DoxyCodeLine{        \mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}});                                                                \(\backslash\)}
+\DoxyCodeLine{        zone(), \textcolor{keyword}{this}, masm(), operand, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}, DetermineStubCallMode(), rep, \(\backslash\)}
+\DoxyCodeLine{        instr);                                                                \(\backslash\)}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1285 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a03d0d8b58ed0b9830e96533cd386fafd}\label{code-generator-x64_8cc_a03d0d8b58ed0b9830e96533cd386fafd}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SHIFT@{ASSEMBLE\_SHIFT}}
 \index{ASSEMBLE\_SHIFT@{ASSEMBLE\_SHIFT}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -414,14 +507,14 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                     \(\backslash\)}
-\DoxyCodeLine{    if (HasImmediateInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 1)) \{                                     \(\backslash\)}
-\DoxyCodeLine{      if (\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>Output()-\/>IsRegister()) \{                                 \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_aa6171f339a4655ebcd69a4a97aa0ded5}{HasImmediateInput}}(instr, 1)) \{                                     \(\backslash\)}
+\DoxyCodeLine{      if (instr-\/>Output()-\/>IsRegister()) \{                                 \(\backslash\)}
 \DoxyCodeLine{        \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(), Immediate(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputInt\#\#width(1))); \(\backslash\)}
 \DoxyCodeLine{      \} \textcolor{keywordflow}{else} \{                                                             \(\backslash\)}
 \DoxyCodeLine{        \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputOperand(), Immediate(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputInt\#\#width(1)));  \(\backslash\)}
 \DoxyCodeLine{      \}                                                                    \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                               \(\backslash\)}
-\DoxyCodeLine{      if (\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>Output()-\/>IsRegister()) \{                                 \(\backslash\)}
+\DoxyCodeLine{      if (instr-\/>Output()-\/>IsRegister()) \{                                 \(\backslash\)}
 \DoxyCodeLine{        \_\_ asm\_instr\#\#\_cl(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister());                             \(\backslash\)}
 \DoxyCodeLine{      \} \textcolor{keywordflow}{else} \{                                                             \(\backslash\)}
 \DoxyCodeLine{        \_\_ asm\_instr\#\#\_cl(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputOperand());                              \(\backslash\)}
@@ -430,6 +523,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1005 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a413eb8e9e69a7d74bf938740dce0f02a}\label{code-generator-x64_8cc_a413eb8e9e69a7d74bf938740dce0f02a}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SIMD256\_BINOP@{ASSEMBLE\_SIMD256\_BINOP}}
 \index{ASSEMBLE\_SIMD256\_BINOP@{ASSEMBLE\_SIMD256\_BINOP}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -445,6 +542,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1152 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a1b917b42e13678f14a010518b72647db}\label{code-generator-x64_8cc_a1b917b42e13678f14a010518b72647db}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SIMD256\_SHIFT@{ASSEMBLE\_SIMD256\_SHIFT}}
 \index{ASSEMBLE\_SIMD256\_SHIFT@{ASSEMBLE\_SIMD256\_SHIFT}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -457,18 +558,22 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{    CpuFeatureScope avx\_scope(masm(), AVX2);                 \(\backslash\)}
 \DoxyCodeLine{    YMMRegister src = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd256Register(0);             \(\backslash\)}
 \DoxyCodeLine{    YMMRegister dst = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputSimd256Register();             \(\backslash\)}
-\DoxyCodeLine{    if (HasImmediateInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 1)) \{                       \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_aa6171f339a4655ebcd69a4a97aa0ded5}{HasImmediateInput}}(instr, 1)) \{                       \(\backslash\)}
 \DoxyCodeLine{      \_\_ v\#\#opcode(dst, src, uint8\_t\{\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputInt\#\#width(1)\}); \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                 \(\backslash\)}
-\DoxyCodeLine{      constexpr \textcolor{keywordtype}{int} \mbox{\hyperlink{machine-operator-reducer_8cc_a406af858c5259e17f9ddc64513999dac}{mask}} = (1 << width) -\/ 1;                 \(\backslash\)}
+\DoxyCodeLine{      constexpr \textcolor{keywordtype}{int} mask = (1 << width) -\/ 1;                 \(\backslash\)}
 \DoxyCodeLine{      \_\_ movq(\mbox{\hyperlink{namespacev8_1_1internal_a86d3328383670dd58368a5f91326793a}{kScratchRegister}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1));         \(\backslash\)}
-\DoxyCodeLine{      \_\_ andq(\mbox{\hyperlink{namespacev8_1_1internal_a86d3328383670dd58368a5f91326793a}{kScratchRegister}}, Immediate(\mbox{\hyperlink{machine-operator-reducer_8cc_a406af858c5259e17f9ddc64513999dac}{mask}}));            \(\backslash\)}
+\DoxyCodeLine{      \_\_ andq(\mbox{\hyperlink{namespacev8_1_1internal_a86d3328383670dd58368a5f91326793a}{kScratchRegister}}, Immediate(mask));            \(\backslash\)}
 \DoxyCodeLine{      \_\_ Movq(\mbox{\hyperlink{namespacev8_1_1internal_a3872092483d11583a20d7a89b5df8eed}{kScratchDoubleReg}}, \mbox{\hyperlink{namespacev8_1_1internal_a86d3328383670dd58368a5f91326793a}{kScratchRegister}});          \(\backslash\)}
 \DoxyCodeLine{      \_\_ v\#\#opcode(dst, src, \mbox{\hyperlink{namespacev8_1_1internal_a3872092483d11583a20d7a89b5df8eed}{kScratchDoubleReg}});             \(\backslash\)}
 \DoxyCodeLine{    \}                                                        \(\backslash\)}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1250 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a5023563517d288b32936d672dcbdaf78}\label{code-generator-x64_8cc_a5023563517d288b32936d672dcbdaf78}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SIMD\_ALL\_TRUE@{ASSEMBLE\_SIMD\_ALL\_TRUE}}
 \index{ASSEMBLE\_SIMD\_ALL\_TRUE@{ASSEMBLE\_SIMD\_ALL\_TRUE}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -487,6 +592,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1210 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_aafd6b47d117adf6c550e0f7b12573e5b}\label{code-generator-x64_8cc_aafd6b47d117adf6c550e0f7b12573e5b}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SIMD\_BINOP@{ASSEMBLE\_SIMD\_BINOP}}
 \index{ASSEMBLE\_SIMD\_BINOP@{ASSEMBLE\_SIMD\_BINOP}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -496,7 +605,7 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                   \(\backslash\)}
-\DoxyCodeLine{    if (CpuFeatures::IsSupported(AVX)) \{                                 \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-graph-builder_8cc_03_a278a2668b65fad2c48e230daf9a43e36}{CpuFeatures::IsSupported}}(AVX)) \{                                 \(\backslash\)}
 \DoxyCodeLine{      CpuFeatureScope avx\_scope(masm(), AVX);                            \(\backslash\)}
 \DoxyCodeLine{      \_\_ v\#\#opcode(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputSimd128Register(), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(0), \(\backslash\)}
 \DoxyCodeLine{                   \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(1));                           \(\backslash\)}
@@ -507,11 +616,15 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1116 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a3cb6a0b34e370a6b35b2f0bdc4c805e8}\label{code-generator-x64_8cc_a3cb6a0b34e370a6b35b2f0bdc4c805e8}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SIMD\_F16x8\_BINOP@{ASSEMBLE\_SIMD\_F16x8\_BINOP}}
 \index{ASSEMBLE\_SIMD\_F16x8\_BINOP@{ASSEMBLE\_SIMD\_F16x8\_BINOP}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
 \doxysubsubsection{\texorpdfstring{ASSEMBLE\_SIMD\_F16x8\_BINOP}{ASSEMBLE\_SIMD\_F16x8\_BINOP}}
-{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+SIMD\+\_\+\+F16x8\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+SIMD\+\_\+\+F16x8\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{instr }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
@@ -522,16 +635,20 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{    YMMRegister tmp2 = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempSimd256Register(1);      \(\backslash\)}
 \DoxyCodeLine{    \_\_ vcvtph2ps(tmp1, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(0));    \(\backslash\)}
 \DoxyCodeLine{    \_\_ vcvtph2ps(tmp2, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(1));    \(\backslash\)}
-\DoxyCodeLine{    \_\_ \mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}(tmp2, tmp1, tmp2);                       \(\backslash\)}
+\DoxyCodeLine{    \_\_ instr(tmp2, tmp1, tmp2);                       \(\backslash\)}
 \DoxyCodeLine{    \_\_ vcvtps2ph(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputSimd128Register(), tmp2, 0); \(\backslash\)}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1128 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a063dc85535947f5de35dbb2fa4dc085e}\label{code-generator-x64_8cc_a063dc85535947f5de35dbb2fa4dc085e}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SIMD\_F16x8\_RELOP@{ASSEMBLE\_SIMD\_F16x8\_RELOP}}
 \index{ASSEMBLE\_SIMD\_F16x8\_RELOP@{ASSEMBLE\_SIMD\_F16x8\_RELOP}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
 \doxysubsubsection{\texorpdfstring{ASSEMBLE\_SIMD\_F16x8\_RELOP}{ASSEMBLE\_SIMD\_F16x8\_RELOP}}
-{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+SIMD\+\_\+\+F16x8\+\_\+\+RELOP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+SIMD\+\_\+\+F16x8\+\_\+\+RELOP(\begin{DoxyParamCaption}\item[{}]{instr }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
@@ -542,28 +659,36 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{    YMMRegister tmp2 = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempSimd256Register(1);         \(\backslash\)}
 \DoxyCodeLine{    \_\_ vcvtph2ps(tmp1, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(0));       \(\backslash\)}
 \DoxyCodeLine{    \_\_ vcvtph2ps(tmp2, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(1));       \(\backslash\)}
-\DoxyCodeLine{    \_\_ \mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}(tmp2, tmp1, tmp2);                          \(\backslash\)}
+\DoxyCodeLine{    \_\_ instr(tmp2, tmp1, tmp2);                          \(\backslash\)}
 \DoxyCodeLine{    \_\_ vpackssdw(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputSimd128Register(), tmp2, tmp2); \(\backslash\)}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1140 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a83eb4bf1f1ae5463a49904f4c6313fea}\label{code-generator-x64_8cc_a83eb4bf1f1ae5463a49904f4c6313fea}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SIMD\_IMM\_INSTR@{ASSEMBLE\_SIMD\_IMM\_INSTR}}
 \index{ASSEMBLE\_SIMD\_IMM\_INSTR@{ASSEMBLE\_SIMD\_IMM\_INSTR}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
 \doxysubsubsection{\texorpdfstring{ASSEMBLE\_SIMD\_IMM\_INSTR}{ASSEMBLE\_SIMD\_IMM\_INSTR}}
-{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+SIMD\+\_\+\+IMM\+\_\+\+INSTR(\begin{DoxyParamCaption}\item[{}]{opcode,  }\item[{}]{dst\+\_\+operand,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}},  }\item[{}]{imm }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+SIMD\+\_\+\+IMM\+\_\+\+INSTR(\begin{DoxyParamCaption}\item[{}]{opcode,  }\item[{}]{dst\+\_\+operand,  }\item[{}]{index,  }\item[{}]{imm }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                            \(\backslash\)}
-\DoxyCodeLine{    if (\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>InputAt(\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}})-\/>IsSimd128Register()) \{             \(\backslash\)}
-\DoxyCodeLine{      \_\_ opcode(dst\_operand, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}), imm); \(\backslash\)}
+\DoxyCodeLine{    if (instr-\/>InputAt(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}})-\/>IsSimd128Register()) \{             \(\backslash\)}
+\DoxyCodeLine{      \_\_ opcode(dst\_operand, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}), imm); \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                      \(\backslash\)}
-\DoxyCodeLine{      \_\_ opcode(dst\_operand, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}), imm);         \(\backslash\)}
+\DoxyCodeLine{      \_\_ opcode(dst\_operand, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}), imm);         \(\backslash\)}
 \DoxyCodeLine{    \}                                                             \(\backslash\)}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1168 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_ae9036d9801a696e065f574a49ada1a58}\label{code-generator-x64_8cc_ae9036d9801a696e065f574a49ada1a58}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SIMD\_IMM\_SHUFFLE@{ASSEMBLE\_SIMD\_IMM\_SHUFFLE}}
 \index{ASSEMBLE\_SIMD\_IMM\_SHUFFLE@{ASSEMBLE\_SIMD\_IMM\_SHUFFLE}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -575,13 +700,13 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                        \(\backslash\)}
 \DoxyCodeLine{    XMMRegister dst = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputSimd128Register();              \(\backslash\)}
 \DoxyCodeLine{    XMMRegister src = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(0);              \(\backslash\)}
-\DoxyCodeLine{    if (CpuFeatures::IsSupported(AVX)) \{                      \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-graph-builder_8cc_03_a278a2668b65fad2c48e230daf9a43e36}{CpuFeatures::IsSupported}}(AVX)) \{                      \(\backslash\)}
 \DoxyCodeLine{      CpuFeatureScope avx\_scope(masm(), AVX);                 \(\backslash\)}
-\DoxyCodeLine{      DCHECK(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>InputAt(1)-\/>IsSimd128Register());         \(\backslash\)}
+\DoxyCodeLine{      DCHECK(instr-\/>InputAt(1)-\/>IsSimd128Register());         \(\backslash\)}
 \DoxyCodeLine{      \_\_ v\#\#opcode(dst, src, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(1), imm); \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                  \(\backslash\)}
 \DoxyCodeLine{      DCHECK\_EQ(dst, src);                                    \(\backslash\)}
-\DoxyCodeLine{      if (\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>InputAt(1)-\/>IsSimd128Register()) \{           \(\backslash\)}
+\DoxyCodeLine{      if (instr-\/>InputAt(1)-\/>IsSimd128Register()) \{           \(\backslash\)}
 \DoxyCodeLine{        \_\_ opcode(dst, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(1), imm);       \(\backslash\)}
 \DoxyCodeLine{      \} \textcolor{keywordflow}{else} \{                                                \(\backslash\)}
 \DoxyCodeLine{        \_\_ opcode(dst, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(1), imm);               \(\backslash\)}
@@ -590,23 +715,31 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1192 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a3a9d38704fd071358a14f47bcd84d55e}\label{code-generator-x64_8cc_a3a9d38704fd071358a14f47bcd84d55e}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SIMD\_INSTR@{ASSEMBLE\_SIMD\_INSTR}}
 \index{ASSEMBLE\_SIMD\_INSTR@{ASSEMBLE\_SIMD\_INSTR}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
 \doxysubsubsection{\texorpdfstring{ASSEMBLE\_SIMD\_INSTR}{ASSEMBLE\_SIMD\_INSTR}}
-{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+SIMD\+\_\+\+INSTR(\begin{DoxyParamCaption}\item[{}]{opcode,  }\item[{}]{dst\+\_\+operand,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+SIMD\+\_\+\+INSTR(\begin{DoxyParamCaption}\item[{}]{opcode,  }\item[{}]{dst\+\_\+operand,  }\item[{}]{index }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                       \(\backslash\)}
-\DoxyCodeLine{    if (\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>InputAt(\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}})-\/>IsSimd128Register()) \{        \(\backslash\)}
-\DoxyCodeLine{      \_\_ opcode(dst\_operand, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}})); \(\backslash\)}
+\DoxyCodeLine{    if (instr-\/>InputAt(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}})-\/>IsSimd128Register()) \{        \(\backslash\)}
+\DoxyCodeLine{      \_\_ opcode(dst\_operand, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}})); \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                 \(\backslash\)}
-\DoxyCodeLine{      \_\_ opcode(dst\_operand, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}));         \(\backslash\)}
+\DoxyCodeLine{      \_\_ opcode(dst\_operand, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}));         \(\backslash\)}
 \DoxyCodeLine{    \}                                                        \(\backslash\)}
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1159 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a3de2494e1e2c64caa8ee8ffe80c88866}\label{code-generator-x64_8cc_a3de2494e1e2c64caa8ee8ffe80c88866}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SIMD\_PUNPCK\_SHUFFLE@{ASSEMBLE\_SIMD\_PUNPCK\_SHUFFLE}}
 \index{ASSEMBLE\_SIMD\_PUNPCK\_SHUFFLE@{ASSEMBLE\_SIMD\_PUNPCK\_SHUFFLE}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -617,10 +750,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                          \(\backslash\)}
 \DoxyCodeLine{    XMMRegister dst = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputSimd128Register();                \(\backslash\)}
-\DoxyCodeLine{    uint8\_t input\_index = \mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>InputCount() == 2 ? 1 : 0;     \(\backslash\)}
-\DoxyCodeLine{    if (CpuFeatures::IsSupported(AVX)) \{                        \(\backslash\)}
+\DoxyCodeLine{    uint8\_t input\_index = instr-\/>InputCount() == 2 ? 1 : 0;     \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-graph-builder_8cc_03_a278a2668b65fad2c48e230daf9a43e36}{CpuFeatures::IsSupported}}(AVX)) \{                        \(\backslash\)}
 \DoxyCodeLine{      CpuFeatureScope avx\_scope(masm(), AVX);                   \(\backslash\)}
-\DoxyCodeLine{      DCHECK(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>InputAt(input\_index)-\/>IsSimd128Register()); \(\backslash\)}
+\DoxyCodeLine{      DCHECK(instr-\/>InputAt(input\_index)-\/>IsSimd128Register()); \(\backslash\)}
 \DoxyCodeLine{      \_\_ v\#\#opcode(dst, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(0),              \(\backslash\)}
 \DoxyCodeLine{                   \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(input\_index));        \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                    \(\backslash\)}
@@ -630,6 +763,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1177 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_aec4d64c2198b7f245a7a7c9fc91feb6d}\label{code-generator-x64_8cc_aec4d64c2198b7f245a7a7c9fc91feb6d}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SIMD\_SHIFT@{ASSEMBLE\_SIMD\_SHIFT}}
 \index{ASSEMBLE\_SIMD\_SHIFT@{ASSEMBLE\_SIMD\_SHIFT}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -640,8 +777,8 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                   \(\backslash\)}
 \DoxyCodeLine{    XMMRegister dst = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputSimd128Register();                         \(\backslash\)}
-\DoxyCodeLine{    if (HasImmediateInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 1)) \{                                   \(\backslash\)}
-\DoxyCodeLine{      if (CpuFeatures::IsSupported(AVX)) \{                               \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_aa6171f339a4655ebcd69a4a97aa0ded5}{HasImmediateInput}}(instr, 1)) \{                                   \(\backslash\)}
+\DoxyCodeLine{      if (\mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-graph-builder_8cc_03_a278a2668b65fad2c48e230daf9a43e36}{CpuFeatures::IsSupported}}(AVX)) \{                               \(\backslash\)}
 \DoxyCodeLine{        CpuFeatureScope avx\_scope(masm(), AVX);                          \(\backslash\)}
 \DoxyCodeLine{        \_\_ v\#\#opcode(dst, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(0),                     \(\backslash\)}
 \DoxyCodeLine{                     uint8\_t\{i.InputInt\#\#width(1)\});                     \(\backslash\)}
@@ -650,11 +787,11 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{        \_\_ opcode(dst, uint8\_t\{\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputInt\#\#width(1)\});                   \(\backslash\)}
 \DoxyCodeLine{      \}                                                                  \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                             \(\backslash\)}
-\DoxyCodeLine{      constexpr \textcolor{keywordtype}{int} \mbox{\hyperlink{machine-operator-reducer_8cc_a406af858c5259e17f9ddc64513999dac}{mask}} = (1 << width) -\/ 1;                             \(\backslash\)}
+\DoxyCodeLine{      constexpr \textcolor{keywordtype}{int} mask = (1 << width) -\/ 1;                             \(\backslash\)}
 \DoxyCodeLine{      \_\_ movq(\mbox{\hyperlink{namespacev8_1_1internal_a86d3328383670dd58368a5f91326793a}{kScratchRegister}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1));                     \(\backslash\)}
-\DoxyCodeLine{      \_\_ andq(\mbox{\hyperlink{namespacev8_1_1internal_a86d3328383670dd58368a5f91326793a}{kScratchRegister}}, Immediate(\mbox{\hyperlink{machine-operator-reducer_8cc_a406af858c5259e17f9ddc64513999dac}{mask}}));                        \(\backslash\)}
+\DoxyCodeLine{      \_\_ andq(\mbox{\hyperlink{namespacev8_1_1internal_a86d3328383670dd58368a5f91326793a}{kScratchRegister}}, Immediate(mask));                        \(\backslash\)}
 \DoxyCodeLine{      \_\_ Movq(\mbox{\hyperlink{namespacev8_1_1internal_a3872092483d11583a20d7a89b5df8eed}{kScratchDoubleReg}}, \mbox{\hyperlink{namespacev8_1_1internal_a86d3328383670dd58368a5f91326793a}{kScratchRegister}});                      \(\backslash\)}
-\DoxyCodeLine{      if (CpuFeatures::IsSupported(AVX)) \{                               \(\backslash\)}
+\DoxyCodeLine{      if (\mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-graph-builder_8cc_03_a278a2668b65fad2c48e230daf9a43e36}{CpuFeatures::IsSupported}}(AVX)) \{                               \(\backslash\)}
 \DoxyCodeLine{        CpuFeatureScope avx\_scope(masm(), AVX);                          \(\backslash\)}
 \DoxyCodeLine{        \_\_ v\#\#opcode(dst, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(0), \mbox{\hyperlink{namespacev8_1_1internal_a3872092483d11583a20d7a89b5df8eed}{kScratchDoubleReg}}); \(\backslash\)}
 \DoxyCodeLine{      \} \textcolor{keywordflow}{else} \{                                                           \(\backslash\)}
@@ -665,6 +802,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1223 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_aa29e89d6f50a8b8a18127436dc535c38}\label{code-generator-x64_8cc_aa29e89d6f50a8b8a18127436dc535c38}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SSE\_BINOP@{ASSEMBLE\_SSE\_BINOP}}
 \index{ASSEMBLE\_SSE\_BINOP@{ASSEMBLE\_SSE\_BINOP}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -674,12 +815,12 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                    \(\backslash\)}
-\DoxyCodeLine{    if (HasAddressingMode(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}})) \{                                       \(\backslash\)}
-\DoxyCodeLine{      size\_t \mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}} = 1;                                                   \(\backslash\)}
-\DoxyCodeLine{      Operand right = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand(\&\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}});                            \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a7c5988c14ed65f0767c14a2e991a53ee}{HasAddressingMode}}(instr)) \{                                       \(\backslash\)}
+\DoxyCodeLine{      size\_t \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = 1;                                                   \(\backslash\)}
+\DoxyCodeLine{      Operand right = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand(\&\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}});                            \(\backslash\)}
 \DoxyCodeLine{      \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(0), right);                      \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                              \(\backslash\)}
-\DoxyCodeLine{      if (\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>InputAt(1)-\/>IsFPRegister()) \{                            \(\backslash\)}
+\DoxyCodeLine{      if (instr-\/>InputAt(1)-\/>IsFPRegister()) \{                            \(\backslash\)}
 \DoxyCodeLine{        \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(1)); \(\backslash\)}
 \DoxyCodeLine{      \} \textcolor{keywordflow}{else} \{                                                            \(\backslash\)}
 \DoxyCodeLine{        \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(1));        \(\backslash\)}
@@ -688,6 +829,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1033 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a6314d61427cfdb42061c90fbfe8efa94}\label{code-generator-x64_8cc_a6314d61427cfdb42061c90fbfe8efa94}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_SSE\_UNOP@{ASSEMBLE\_SSE\_UNOP}}
 \index{ASSEMBLE\_SSE\_UNOP@{ASSEMBLE\_SSE\_UNOP}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -697,7 +842,7 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                  \(\backslash\)}
-\DoxyCodeLine{    if (\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>InputAt(0)-\/>IsFPRegister()) \{                            \(\backslash\)}
+\DoxyCodeLine{    if (instr-\/>InputAt(0)-\/>IsFPRegister()) \{                            \(\backslash\)}
 \DoxyCodeLine{      \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputDoubleRegister(), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(0)); \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                            \(\backslash\)}
 \DoxyCodeLine{      \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputDoubleRegister(), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(0));        \(\backslash\)}
@@ -705,6 +850,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 1048 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a4d91184dcdb23595c0601e011b416f5f}\label{code-generator-x64_8cc_a4d91184dcdb23595c0601e011b416f5f}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_TEST@{ASSEMBLE\_TEST}}
 \index{ASSEMBLE\_TEST@{ASSEMBLE\_TEST}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -714,23 +863,23 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                           \(\backslash\)}
-\DoxyCodeLine{    if (HasAddressingMode(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}})) \{                              \(\backslash\)}
-\DoxyCodeLine{      size\_t \mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}} = 0;                                          \(\backslash\)}
-\DoxyCodeLine{      Operand left = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand(\&\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}});                    \(\backslash\)}
-\DoxyCodeLine{      if (HasImmediateInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, \mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}})) \{                     \(\backslash\)}
-\DoxyCodeLine{        \_\_ asm\_instr(left, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputImmediate(\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}));             \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a7c5988c14ed65f0767c14a2e991a53ee}{HasAddressingMode}}(instr)) \{                              \(\backslash\)}
+\DoxyCodeLine{      size\_t \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = 0;                                          \(\backslash\)}
+\DoxyCodeLine{      Operand left = \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand(\&\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}});                    \(\backslash\)}
+\DoxyCodeLine{      if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_aa6171f339a4655ebcd69a4a97aa0ded5}{HasImmediateInput}}(instr, \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}})) \{                     \(\backslash\)}
+\DoxyCodeLine{        \_\_ asm\_instr(left, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputImmediate(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}));             \(\backslash\)}
 \DoxyCodeLine{      \} \textcolor{keywordflow}{else} \{                                                   \(\backslash\)}
-\DoxyCodeLine{        \_\_ asm\_instr(left, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}));              \(\backslash\)}
+\DoxyCodeLine{        \_\_ asm\_instr(left, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}));              \(\backslash\)}
 \DoxyCodeLine{      \}                                                          \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                     \(\backslash\)}
-\DoxyCodeLine{      if (HasImmediateInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 1)) \{                         \(\backslash\)}
-\DoxyCodeLine{        if (HasRegisterInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 0)) \{                        \(\backslash\)}
+\DoxyCodeLine{      if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_aa6171f339a4655ebcd69a4a97aa0ded5}{HasImmediateInput}}(instr, 1)) \{                         \(\backslash\)}
+\DoxyCodeLine{        if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a6f57132f94f1e97d3014ba84a17f5ba6}{HasRegisterInput}}(instr, 0)) \{                        \(\backslash\)}
 \DoxyCodeLine{          \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputImmediate(1)); \(\backslash\)}
 \DoxyCodeLine{        \} \textcolor{keywordflow}{else} \{                                                 \(\backslash\)}
 \DoxyCodeLine{          \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputImmediate(1));  \(\backslash\)}
 \DoxyCodeLine{        \}                                                        \(\backslash\)}
 \DoxyCodeLine{      \} \textcolor{keywordflow}{else} \{                                                   \(\backslash\)}
-\DoxyCodeLine{        if (HasRegisterInput(\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, 1)) \{                        \(\backslash\)}
+\DoxyCodeLine{        if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-x64_8cc_03_a6f57132f94f1e97d3014ba84a17f5ba6}{HasRegisterInput}}(instr, 1)) \{                        \(\backslash\)}
 \DoxyCodeLine{          \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1));  \(\backslash\)}
 \DoxyCodeLine{        \} \textcolor{keywordflow}{else} \{                                                 \(\backslash\)}
 \DoxyCodeLine{          \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOperand(1));   \(\backslash\)}
@@ -740,6 +889,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 959 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a41dd639e7b2309b8eb442184c83b2161}\label{code-generator-x64_8cc_a41dd639e7b2309b8eb442184c83b2161}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ASSEMBLE\_UNOP@{ASSEMBLE\_UNOP}}
 \index{ASSEMBLE\_UNOP@{ASSEMBLE\_UNOP}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}
@@ -749,7 +902,7 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                   \(\backslash\)}
-\DoxyCodeLine{    if (\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}-\/>Output()-\/>IsRegister()) \{ \(\backslash\)}
+\DoxyCodeLine{    if (instr-\/>Output()-\/>IsRegister()) \{ \(\backslash\)}
 \DoxyCodeLine{      \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister());  \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                             \(\backslash\)}
 \DoxyCodeLine{      \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputOperand());   \(\backslash\)}
@@ -757,6 +910,10 @@ bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a444af32b52e2ca0212467
 \DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
 
 \end{DoxyCode}
+
+
+Definition at line 895 of file code-\/generator-\/x64.\+cc.
+
 \mbox{\Hypertarget{code-generator-x64_8cc_a36403f5dae06a33eb396d86337b4b03f}\label{code-generator-x64_8cc_a36403f5dae06a33eb396d86337b4b03f}} 
 \index{code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}!ATOMIC\_BINOP\_CASE@{ATOMIC\_BINOP\_CASE}}
 \index{ATOMIC\_BINOP\_CASE@{ATOMIC\_BINOP\_CASE}!code-\/generator-\/x64.cc@{code-\/generator-\/x64.cc}}

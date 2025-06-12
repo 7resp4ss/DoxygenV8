@@ -4,10 +4,20 @@
 
 {\ttfamily \#include $<$address-\/map.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Root\+Index\+Map\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1RootIndexMap__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1RootIndexMap_a9536a6e36f64916b6af65519b9a5a34c}{Root\+Index\+Map}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+\mbox{\hyperlink{classv8_1_1internal_1_1RootIndexMap_a9536a6e36f64916b6af65519b9a5a34c}{Root\+Index\+Map}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1RootIndexMap_a1e58a57623d6c39b599fe7446e34b798}{Root\+Index\+Map}} (const \mbox{\hyperlink{classv8_1_1internal_1_1RootIndexMap}{Root\+Index\+Map}} \&)=delete
 \item 
@@ -15,6 +25,18 @@
 \item 
 \mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1RootIndexMap_a13900ad2d36d747420a8cc27fa26eae3}{Lookup}} (\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ obj, \mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{Root\+Index}} $\ast$out\+\_\+root\+\_\+list) const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1HeapObjectToIndexHashMap}{Heap\+Object\+To\+Index\+Hash\+Map}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1RootIndexMap_afdb0b26d103c9b1a216c397eef4b2036}{map\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 57 of file address-\/map.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -24,6 +46,52 @@
 \doxysubsubsection{\texorpdfstring{RootIndexMap()}{RootIndexMap()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Root\+Index\+Map\+::\+Root\+Index\+Map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
+
+
+Definition at line 13 of file address-\/map.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{13                                            \{}
+\DoxyCodeLine{14   \mbox{\hyperlink{classv8_1_1internal_1_1RootIndexMap_afdb0b26d103c9b1a216c397eef4b2036}{map\_}} = isolate-\/>root\_index\_map();}
+\DoxyCodeLine{15   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1RootIndexMap_afdb0b26d103c9b1a216c397eef4b2036}{map\_}} != \textcolor{keyword}{nullptr}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{16   \mbox{\hyperlink{classv8_1_1internal_1_1RootIndexMap_afdb0b26d103c9b1a216c397eef4b2036}{map\_}} = \textcolor{keyword}{new} HeapObjectToIndexHashMap();}
+\DoxyCodeLine{17   \textcolor{keywordflow}{for} (\mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{RootIndex}} root\_index = \mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977af0476fa3012953206037b922c688aac2}{RootIndex::kFirstStrongOrReadOnlyRoot}};}
+\DoxyCodeLine{18        root\_index <= \mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977af78ca9825dd2e7acfadf6460fa82bdcc}{RootIndex::kLastStrongOrReadOnlyRoot}}; ++root\_index) \{}
+\DoxyCodeLine{19     \mbox{\hyperlink{namespacev8_1_1internal_a5297fd2c72981b2220e6b9a831570fb3}{Tagged<Object>}} root = isolate-\/>root(root\_index);}
+\DoxyCodeLine{20     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_a0786c89c1004cb964dc034b138b263fd}{IsHeapObject}}(root)) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{21     \textcolor{comment}{// Omit root entries that can be written after initialization. They must}}
+\DoxyCodeLine{22     \textcolor{comment}{// not be referenced through the root list in the snapshot.}}
+\DoxyCodeLine{23     \textcolor{comment}{// Since we map the raw address of an root item to its root list index, the}}
+\DoxyCodeLine{24     \textcolor{comment}{// raw address must be constant, i.e. the object must be immovable.}}
+\DoxyCodeLine{25     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1RootsTable_ae3e6a29a5337c7e29ef16cf6ead8ba75}{RootsTable::IsImmortalImmovable}}(root\_index)) \{}
+\DoxyCodeLine{26       \mbox{\hyperlink{namespacev8_1_1internal_a57f5ecf71b9a2757b0555b2be4c640b8}{Tagged<HeapObject>}} heap\_object = Cast<HeapObject>(root);}
+\DoxyCodeLine{27       Maybe<uint32\_t> maybe\_index = \mbox{\hyperlink{classv8_1_1internal_1_1RootIndexMap_afdb0b26d103c9b1a216c397eef4b2036}{map\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1PointerToIndexHashMap_a6b3ae1b5f56a135d2f04a66582a57840}{Get}}(heap\_object);}
+\DoxyCodeLine{28       uint32\_t \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(root\_index);}
+\DoxyCodeLine{29       \textcolor{keywordflow}{if} (maybe\_index.IsJust()) \{}
+\DoxyCodeLine{30         \textcolor{comment}{// Some are initialized to a previous value in the root list.}}
+\DoxyCodeLine{31         \mbox{\hyperlink{src_2base_2logging_8h_af1a711c8d5520dff78858ddefd2ad668}{DCHECK\_LT}}(maybe\_index.FromJust(), \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}});}
+\DoxyCodeLine{32       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{33         \mbox{\hyperlink{classv8_1_1internal_1_1RootIndexMap_afdb0b26d103c9b1a216c397eef4b2036}{map\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1PointerToIndexHashMap_a370bd201d47721f8d4971116dfc62b01}{Set}}(heap\_object, \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}});}
+\DoxyCodeLine{34       \}}
+\DoxyCodeLine{35     \}}
+\DoxyCodeLine{36   \}}
+\DoxyCodeLine{37   isolate-\/>set\_root\_index\_map(\mbox{\hyperlink{classv8_1_1internal_1_1RootIndexMap_afdb0b26d103c9b1a216c397eef4b2036}{map\_}});}
+\DoxyCodeLine{38 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+LT, v8\+::\+Maybe$<$ T $>$\+::\+From\+Just(), v8\+::internal\+::\+Pointer\+To\+Index\+Hash\+Map$<$ Type $>$\+::\+Get(), v8\+::internal\+::index, v8\+::internal\+::\+Is\+Heap\+Object(), v8\+::internal\+::\+Roots\+Table\+::\+Is\+Immortal\+Immovable(), v8\+::\+Maybe$<$ T $>$\+::\+Is\+Just(), v8\+::internal\+::k\+First\+Strong\+Or\+Read\+Only\+Root, v8\+::internal\+::k\+Last\+Strong\+Or\+Read\+Only\+Root, map\+\_\+, v8\+::internal\+::\+Isolate\+::root(), and v8\+::internal\+::\+Pointer\+To\+Index\+Hash\+Map$<$ Type $>$\+::\+Set().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1RootIndexMap_a9536a6e36f64916b6af65519b9a5a34c_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1RootIndexMap_a1e58a57623d6c39b599fe7446e34b798}\label{classv8_1_1internal_1_1RootIndexMap_a1e58a57623d6c39b599fe7446e34b798}} 
 \index{v8::internal::RootIndexMap@{v8::internal::RootIndexMap}!RootIndexMap@{RootIndexMap}}
 \index{RootIndexMap@{RootIndexMap}!v8::internal::RootIndexMap@{v8::internal::RootIndexMap}}
@@ -39,6 +107,34 @@
 \doxysubsubsection{\texorpdfstring{Lookup()}{Lookup()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Root\+Index\+Map\+::\+Lookup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$}]{obj,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{Root\+Index}} $\ast$}]{out\+\_\+root\+\_\+list }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 64 of file address-\/map.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{65                                                                 \{}
+\DoxyCodeLine{66     Maybe<uint32\_t> maybe\_index = \mbox{\hyperlink{classv8_1_1internal_1_1RootIndexMap_afdb0b26d103c9b1a216c397eef4b2036}{map\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1PointerToIndexHashMap_a6b3ae1b5f56a135d2f04a66582a57840}{Get}}(obj);}
+\DoxyCodeLine{67     \textcolor{keywordflow}{if} (maybe\_index.IsJust()) \{}
+\DoxyCodeLine{68       *out\_root\_list = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{RootIndex}}\textcolor{keyword}{>}(maybe\_index.FromJust());}
+\DoxyCodeLine{69       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{70     \}}
+\DoxyCodeLine{71     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{72   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Maybe$<$ T $>$\+::\+From\+Just(), and v8\+::\+Maybe$<$ T $>$\+::\+Is\+Just().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1RootIndexMap_a13900ad2d36d747420a8cc27fa26eae3_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1RootIndexMap_a095489f6a6cf2e04cc115e7061791c17}\label{classv8_1_1internal_1_1RootIndexMap_a095489f6a6cf2e04cc115e7061791c17}} 
 \index{v8::internal::RootIndexMap@{v8::internal::RootIndexMap}!operator=@{operator=}}
 \index{operator=@{operator=}!v8::internal::RootIndexMap@{v8::internal::RootIndexMap}}
@@ -47,7 +143,24 @@
 
 
 
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1RootIndexMap_afdb0b26d103c9b1a216c397eef4b2036}\label{classv8_1_1internal_1_1RootIndexMap_afdb0b26d103c9b1a216c397eef4b2036}} 
+\index{v8::internal::RootIndexMap@{v8::internal::RootIndexMap}!map\_@{map\_}}
+\index{map\_@{map\_}!v8::internal::RootIndexMap@{v8::internal::RootIndexMap}}
+\doxysubsubsection{\texorpdfstring{map\_}{map\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1HeapObjectToIndexHashMap}{Heap\+Object\+To\+Index\+Hash\+Map}}$\ast$ v8\+::internal\+::\+Root\+Index\+Map\+::map\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 75 of file address-\/map.\+h.
+
+
+
+Referenced by Root\+Index\+Map().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{address-map_8h}{address-\/map.\+h}}\item 
-\mbox{\hyperlink{address-map_8cc}{address-\/map.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/utils/\mbox{\hyperlink{address-map_8h}{address-\/map.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/utils/\mbox{\hyperlink{address-map_8cc}{address-\/map.\+cc}}\end{DoxyCompactItemize}

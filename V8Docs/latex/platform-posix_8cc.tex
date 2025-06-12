@@ -1,11 +1,13 @@
-\hypertarget{platform-posix_8cc}{}\doxysection{platform-\/posix.cc File Reference}
-\label{platform-posix_8cc}\index{platform-\/posix.cc@{platform-\/posix.cc}}
+\hypertarget{platform-posix_8cc}{}\doxysection{/mnt/\+V8\+Source\+Code/src/base/platform/platform-\/posix.cc File Reference}
+\label{platform-posix_8cc}\index{/mnt/V8SourceCode/src/base/platform/platform-\/posix.cc@{/mnt/V8SourceCode/src/base/platform/platform-\/posix.cc}}
 {\ttfamily \#include $<$errno.\+h$>$}\newline
 {\ttfamily \#include $<$limits.\+h$>$}\newline
 {\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}src/base/fpu.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$fcntl.\+h$>$}\newline
 {\ttfamily \#include $<$sched.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$sys/mman.\+h$>$}\newline
 {\ttfamily \#include $<$sys/stat.\+h$>$}\newline
@@ -44,20 +46,54 @@ class \mbox{\hyperlink{classv8_1_1base_1_1Thread_1_1PlatformData}{v8\+::base\+::
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacev8}{v8}}
-\item 
+\begin{DoxyCompactList}\small\item\em This file provides additional API on top of the default one for making API calls, which come from embedder C++ functions. \end{DoxyCompactList}\item 
  \mbox{\hyperlink{namespacev8_1_1base}{v8\+::base}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1base_1_1anonymous__namespace_02platform-posix_8cc_03}{v8\+::base\+::anonymous\+\_\+namespace\{platform-\/posix.\+cc\}}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{platform-posix_8cc_a7d420787a1e1b5b4a56df37a6e23de05}{MADV\+\_\+\+FREE}}~MADV\+\_\+\+DONTNEED
 \end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacev8_1_1base_1_1anonymous__namespace_02platform-posix_8cc_03_a4ef276d52bf55b3dccb9109a7c0cd092}{v8\+::base\+::anonymous\+\_\+namespace\{platform-\/posix.\+cc\}\+::\+Page\+Type}} \{ \mbox{\hyperlink{namespacev8_1_1base_1_1anonymous__namespace_02platform-posix_8cc_03_a4ef276d52bf55b3dccb9109a7c0cd092a767e1337acb2aa20d7ce4e903a75ca16}{v8\+::base\+::anonymous\+\_\+namespace\{platform-\/posix.\+cc\}\+::k\+Shared}}
+, \mbox{\hyperlink{namespacev8_1_1base_1_1anonymous__namespace_02platform-posix_8cc_03_a4ef276d52bf55b3dccb9109a7c0cd092a23f56d95d0068609bb9b60b62af3a054}{v8\+::base\+::anonymous\+\_\+namespace\{platform-\/posix.\+cc\}\+::k\+Private}}
+ \}
+\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{namespacev8_1_1base_a17ca5a04ca6b2527ba088147ecde366e}{v8\+::base\+::\+Get\+Protection\+From\+Memory\+Permission}} (OS\+::\+Memory\+Permission access)
+\mbox{\hyperlink{namespacev8_1_1base_1_1anonymous__namespace_02platform-posix_8cc_03_a6f8cf27500051e3e1b6de43fb4e7739f}{v8\+::base\+::anonymous\+\_\+namespace\{platform-\/posix.\+cc\}\+::\+DEFINE\+\_\+\+LAZY\+\_\+\+LEAKY\+\_\+\+OBJECT\+\_\+\+GETTER}} (Random\+Number\+Generator, Get\+Platform\+Random\+Number\+Generator) static Lazy\+Mutex rng\+\_\+mutex
+\item 
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1base_1_1anonymous__namespace_02platform-posix_8cc_03_a7c70a0b34a19d343559783f4800d1e78}{v8\+::base\+::anonymous\+\_\+namespace\{platform-\/posix.\+cc\}\+::\+Get\+Flags\+For\+Memory\+Permission}} (OS\+::\+Memory\+Permission access, Page\+Type page\+\_\+type)
+\item 
+void $\ast$ \mbox{\hyperlink{namespacev8_1_1base_1_1anonymous__namespace_02platform-posix_8cc_03_a85c792759a8f677e481c149d6d9bb5f2}{v8\+::base\+::anonymous\+\_\+namespace\{platform-\/posix.\+cc\}\+::\+Allocate}} (void $\ast$hint, size\+\_\+t \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}}, OS\+::\+Memory\+Permission access, Page\+Type page\+\_\+type)
+\item 
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1base_a17ca5a04ca6b2527ba088147ecde366e}{v8\+::base\+::\+Get\+Protection\+From\+Memory\+Permission}} (OS\+::\+Memory\+Permission access)
 \item 
 void \mbox{\hyperlink{namespacev8_1_1base_aac058bdbc433b4383e4fc49567afced0}{v8\+::base\+::\+Posix\+Initialize\+Common}} (Abort\+Mode abort\+\_\+mode, const char $\ast$const gc\+\_\+fake\+\_\+mmap)
+\item 
+static void \mbox{\hyperlink{namespacev8_1_1base_af094bc238ba02598a9ef48172c7c727f}{v8\+::base\+::\+Set\+Thread\+Name}} (const char $\ast$\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}})
+\item 
+static void $\ast$ \mbox{\hyperlink{namespacev8_1_1base_a22715113081752efb170989afb975c02}{v8\+::base\+::\+Thread\+Entry}} (void $\ast$arg)
+\item 
+static Thread\+::\+Local\+Storage\+Key \mbox{\hyperlink{namespacev8_1_1base_a66352219ca9b5ed9d66d38dedc5ad9ad}{v8\+::base\+::\+Pthread\+Key\+To\+Local\+Key}} (pthread\+\_\+key\+\_\+t pthread\+\_\+key)
+\item 
+static pthread\+\_\+key\+\_\+t \mbox{\hyperlink{namespacev8_1_1base_a52de44047483e4b2294cd5cdcb8adf86}{v8\+::base\+::\+Local\+Key\+To\+Pthread\+Key}} (Thread\+::\+Local\+Storage\+Key local\+\_\+key)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const pthread\+\_\+t \mbox{\hyperlink{namespacev8_1_1base_1_1anonymous__namespace_02platform-posix_8cc_03_a9e35fa8dd1a02f109b88dfb8e068d5bd}{v8\+::base\+::anonymous\+\_\+namespace\{platform-\/posix.\+cc\}\+::k\+No\+Thread}} = static\+\_\+cast$<$pthread\+\_\+t$>$(0)
+\item 
+const char $\ast$ \mbox{\hyperlink{namespacev8_1_1base_1_1anonymous__namespace_02platform-posix_8cc_03_a0ee1d61728fffd29031ddc656f97c80d}{v8\+::base\+::anonymous\+\_\+namespace\{platform-\/posix.\+cc\}\+::g\+\_\+gc\+\_\+fake\+\_\+mmap}} = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}
+\item 
+const \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1base_1_1anonymous__namespace_02platform-posix_8cc_03_a462356e22a9580d1c447bea77b1e15d2}{v8\+::base\+::anonymous\+\_\+namespace\{platform-\/posix.\+cc\}\+::k\+Mmap\+Fd}} = -\/1
+\item 
+const \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1base_1_1anonymous__namespace_02platform-posix_8cc_03_a32df7c127c3c4c4e64563a7004111d49}{v8\+::base\+::anonymous\+\_\+namespace\{platform-\/posix.\+cc\}\+::k\+Mmap\+Fd\+Offset}} = 0
 \end{DoxyCompactItemize}
 
 
@@ -67,4 +103,8 @@ void \mbox{\hyperlink{namespacev8_1_1base_aac058bdbc433b4383e4fc49567afced0}{v8\
 \index{MADV\_FREE@{MADV\_FREE}!platform-\/posix.cc@{platform-\/posix.cc}}
 \doxysubsubsection{\texorpdfstring{MADV\_FREE}{MADV\_FREE}}
 {\footnotesize\ttfamily \#define MADV\+\_\+\+FREE~MADV\+\_\+\+DONTNEED}
+
+
+
+Definition at line 94 of file platform-\/posix.\+cc.
 

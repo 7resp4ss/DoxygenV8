@@ -1,0 +1,4 @@
+var structv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev_code_generator_8cc_03_1_1Registed966de7eabb93662c1528b3832f28346 =
+[
+    [ "kAllocatableRegisters", "structv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1Registed966de7eabb93662c1528b3832f28346.html#aa816b0e3e306ff0bb53a266ff5828d30", null ]
+];

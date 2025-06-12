@@ -3,7 +3,7 @@ var classv8_1_1internal_1_1WritableRelocInfo =
     [ "WritableRelocInfo", "classv8_1_1internal_1_1WritableRelocInfo.html#a4f7574f71a0fc96e1c3d14ed3e44a9bb", null ],
     [ "WritableRelocInfo", "classv8_1_1internal_1_1WritableRelocInfo.html#a1c505611e7319717bb7c96ed32f8138f", null ],
     [ "apply", "classv8_1_1internal_1_1WritableRelocInfo.html#ab877f7654038f92998f82de94fe50dd6", null ],
-    [ "jit_allocation", "classv8_1_1internal_1_1WritableRelocInfo.html#a5479a777d230b48ba04ecb5036be875b", null ],
+    [ "jit_allocation", "classv8_1_1internal_1_1WritableRelocInfo.html#a436d79166c594f745ec4992cfbc26167", null ],
     [ "set_js_dispatch_handle", "classv8_1_1internal_1_1WritableRelocInfo.html#a6095fafed1503438b91990347292e71a", null ],
     [ "set_target_address", "classv8_1_1internal_1_1WritableRelocInfo.html#a2fff0f05bbf3d55bc6b33269159f9d4b", null ],
     [ "set_target_address", "classv8_1_1internal_1_1WritableRelocInfo.html#a7778a4a461cacc40edfbca9f24d9adf5", null ],
@@ -13,5 +13,6 @@ var classv8_1_1internal_1_1WritableRelocInfo =
     [ "set_wasm_call_address", "classv8_1_1internal_1_1WritableRelocInfo.html#a07b77d75ab4172abbf521f061ccfd9a3", null ],
     [ "set_wasm_canonical_sig_id", "classv8_1_1internal_1_1WritableRelocInfo.html#afb672f86b71e3e0e7713bb5b66985ab3", null ],
     [ "set_wasm_code_pointer_table_entry", "classv8_1_1internal_1_1WritableRelocInfo.html#ab7efa4ab015f9c78957662ceb9cd4faa", null ],
-    [ "set_wasm_stub_call_address", "classv8_1_1internal_1_1WritableRelocInfo.html#a774c719eae7ef431515ad1bd6c11050c", null ]
+    [ "set_wasm_stub_call_address", "classv8_1_1internal_1_1WritableRelocInfo.html#a774c719eae7ef431515ad1bd6c11050c", null ],
+    [ "jit_allocation_", "classv8_1_1internal_1_1WritableRelocInfo.html#a93d7e6a916599e7d5f29391fe5ed1117", null ]
 ];

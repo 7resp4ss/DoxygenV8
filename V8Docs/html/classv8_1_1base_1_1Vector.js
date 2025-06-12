@@ -19,6 +19,7 @@ var classv8_1_1base_1_1Vector =
     [ "last", "classv8_1_1base_1_1Vector.html#ae72a5fc7794c3508b8641be20cb2a78f", null ],
     [ "last", "classv8_1_1base_1_1Vector.html#a0aa199333ce0e9d1310330074fef5551", null ],
     [ "length", "classv8_1_1base_1_1Vector.html#a1eb4ed5d322a219428bdb9f9a2cb6708", null ],
+    [ "New", "classv8_1_1base_1_1Vector.html#a5c67803d9ca3ac07161e6777abdb2700", null ],
     [ "operator+", "classv8_1_1base_1_1Vector.html#aaabe75454ec0eb221449d5532ad9ec46", null ],
     [ "operator+=", "classv8_1_1base_1_1Vector.html#a51d2262ad6c61d2f668ad5392d1a3cf0", null ],
     [ "operator[]", "classv8_1_1base_1_1Vector.html#a6acdd0c3233a5450f9940f674c8eca16", null ],

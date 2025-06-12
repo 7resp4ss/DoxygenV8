@@ -15,5 +15,16 @@ var classv8_1_1internal_1_1compiler_1_1CommonNodeCache =
     [ "FindRelocatableInt64Constant", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#aaff5443e2864ab3e31b47fe3d7d7982e", null ],
     [ "FindTaggedIndexConstant", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#ab9b9a3e82d815ae47fd2c1e244c5589c", null ],
     [ "GetCachedNodes", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#a2930de4936395cb0a586d1cd947ab15a", null ],
-    [ "operator=", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#aab00e71052a9205c430006a494d49852", null ]
+    [ "operator=", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#aab00e71052a9205c430006a494d49852", null ],
+    [ "external_constants_", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#a75382d0ed96611bd453a36b1a4e3bfd4", null ],
+    [ "float32_constants_", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#ae1a42da09d75316fdc638ce270ed0844", null ],
+    [ "float64_constants_", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#a4c9477ff91cac12817fab16a14b17af4", null ],
+    [ "heap_constants_", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#a90221cac63e72bf85f6898331115ab38", null ],
+    [ "int32_constants_", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#a9c9e50fe8808b95af9d6e407f380683d", null ],
+    [ "int64_constants_", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#a6a11f3c04f20a551f2f65700acfa57ae", null ],
+    [ "number_constants_", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#a3b4ed58ae7ff49f1c5606c584f6e5294", null ],
+    [ "pointer_constants_", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#a26760e4a442c735b059a5b1156db8454", null ],
+    [ "relocatable_int32_constants_", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#ab7ada00e129798a9f77c31c2b1600fa6", null ],
+    [ "relocatable_int64_constants_", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#a2ab3b17bc66ae9700bc8f5daabcf5156", null ],
+    [ "tagged_index_constants_", "classv8_1_1internal_1_1compiler_1_1CommonNodeCache.html#a6db0e62cf5325abb27262008a643d253", null ]
 ];

@@ -8,5 +8,7 @@ var classv8_1_1base_1_1internal_1_1RangeCheck =
     [ "IsUnderflow", "classv8_1_1base_1_1internal_1_1RangeCheck.html#ad00f9314b14e0070c8712105c54c9700", null ],
     [ "IsUnderflowFlagSet", "classv8_1_1base_1_1internal_1_1RangeCheck.html#a357022ad61209a2f98e521008677f86f", null ],
     [ "IsValid", "classv8_1_1base_1_1internal_1_1RangeCheck.html#accc302df3a713e70d84c9072dd994561", null ],
-    [ "operator==", "classv8_1_1base_1_1internal_1_1RangeCheck.html#ad8f91167877d9bd497c2472bab697947", null ]
+    [ "operator==", "classv8_1_1base_1_1internal_1_1RangeCheck.html#ad8f91167877d9bd497c2472bab697947", null ],
+    [ "is_overflow_", "classv8_1_1base_1_1internal_1_1RangeCheck.html#ab2d19e397558cf8e44295f0427fe9f7f", null ],
+    [ "is_underflow_", "classv8_1_1base_1_1internal_1_1RangeCheck.html#a70a86e3d08f35878d678637291b62ce3", null ]
 ];

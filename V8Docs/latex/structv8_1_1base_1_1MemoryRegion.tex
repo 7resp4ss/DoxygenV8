@@ -11,7 +11,7 @@ Collaboration diagram for v8\+::base\+::Memory\+Region\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=218pt]{structv8_1_1base_1_1MemoryRegion__coll__graph}
+\includegraphics[width=350pt]{structv8_1_1base_1_1MemoryRegion__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Static Public Member Functions}
@@ -22,9 +22,9 @@ static std\+::optional$<$ \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion}{Mem
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-uintptr\+\_\+t \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a2b5da50c7a2bc052b635924f40d52352}{start}}
+\mbox{\hyperlink{classuintptr__t}{uintptr\+\_\+t}} \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a2b5da50c7a2bc052b635924f40d52352}{start}}
 \item 
-uintptr\+\_\+t \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a408edd7c270a95c2e642c244d13f3c62}{end}}
+\mbox{\hyperlink{classuintptr__t}{uintptr\+\_\+t}} \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a408edd7c270a95c2e642c244d13f3c62}{end}}
 \item 
 char \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_af835f64aebcb46c47ac40e5e9d159b14}{permissions}} \mbox{[}5\mbox{]}
 \item 
@@ -38,6 +38,13 @@ std\+::string \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a5e7cb1c1810b39f
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 22 of file platform-\/linux.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{structv8_1_1base_1_1MemoryRegion_abd20813104908d9ee6dcc047661a56a5}\label{structv8_1_1base_1_1MemoryRegion_abd20813104908d9ee6dcc047661a56a5}} 
 \index{v8::base::MemoryRegion@{v8::base::MemoryRegion}!FromMapsLine@{FromMapsLine}}
@@ -47,6 +54,58 @@ std\+::string \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a5e7cb1c1810b39f
 
 
 
+Definition at line 143 of file platform-\/linux.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{143                                                                      \{}
+\DoxyCodeLine{144   MemoryRegion region;}
+\DoxyCodeLine{145   \textcolor{keywordtype}{unsigned} dev\_major = 0, dev\_minor = 0;}
+\DoxyCodeLine{146   \mbox{\hyperlink{classuintptr__t}{uintptr\_t}} \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a3afaa66017b038b9da1bd205baa3aac5}{inode}} = 0;}
+\DoxyCodeLine{147   \textcolor{keywordtype}{int} path\_index = 0;}
+\DoxyCodeLine{148   \mbox{\hyperlink{classuintptr__t}{uintptr\_t}} \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a8aedf9290d65a5b1f33bf1fb43497d41}{offset}} = 0;}
+\DoxyCodeLine{149   \textcolor{comment}{// The format is:}}
+\DoxyCodeLine{150   \textcolor{comment}{// address           perms offset  dev   inode   pathname}}
+\DoxyCodeLine{151   \textcolor{comment}{// 08048000-\/08056000 r-\/xp 00000000 03:0c 64593   /usr/sbin/gpm}}
+\DoxyCodeLine{152   \textcolor{comment}{//}}
+\DoxyCodeLine{153   \textcolor{comment}{// The final \%n term captures the offset in the input string, which is used}}
+\DoxyCodeLine{154   \textcolor{comment}{// to determine the path name. It *does not* increment the return value.}}
+\DoxyCodeLine{155   \textcolor{comment}{// Refer to man 3 sscanf for details.}}
+\DoxyCodeLine{156   \textcolor{keywordflow}{if} (sscanf(line,}
+\DoxyCodeLine{157              \textcolor{stringliteral}{"{}\%"{}} \mbox{\hyperlink{src_2base_2macros_8h_adafd98459092322383b0f5ebcc7c342f}{V8PRIxPTR}} \textcolor{stringliteral}{"{}-\/\%"{}} \mbox{\hyperlink{src_2base_2macros_8h_adafd98459092322383b0f5ebcc7c342f}{V8PRIxPTR}} \textcolor{stringliteral}{"{} \%4c \%"{}} \mbox{\hyperlink{src_2base_2macros_8h_adafd98459092322383b0f5ebcc7c342f}{V8PRIxPTR}}}
+\DoxyCodeLine{158              \textcolor{stringliteral}{"{} \%x:\%x \%"{}} \mbox{\hyperlink{src_2base_2macros_8h_a5647046a5349ec401aa3ae0c65a1b755}{V8PRIdPTR}} \textcolor{stringliteral}{"{} \%n"{}},}
+\DoxyCodeLine{159              \&region.start, \&region.end, region.permissions, \&\mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a8aedf9290d65a5b1f33bf1fb43497d41}{offset}},}
+\DoxyCodeLine{160              \&dev\_major, \&dev\_minor, \&\mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a3afaa66017b038b9da1bd205baa3aac5}{inode}}, \&path\_index) < 7) \{}
+\DoxyCodeLine{161     \textcolor{keywordflow}{return} std::nullopt;}
+\DoxyCodeLine{162   \}}
+\DoxyCodeLine{163   region.permissions[4] = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{164   region.inode = \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a3afaa66017b038b9da1bd205baa3aac5}{inode}};}
+\DoxyCodeLine{165   region.offset = \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a8aedf9290d65a5b1f33bf1fb43497d41}{offset}};}
+\DoxyCodeLine{166   region.dev = makedev(dev\_major, dev\_minor);}
+\DoxyCodeLine{167   region.pathname.assign(line + path\_index);}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{169   \textcolor{keywordflow}{return} region;}
+\DoxyCodeLine{170 \}}
+
+\end{DoxyCode}
+
+
+References dev, end, inode, offset, pathname, permissions, start, V8\+PRId\+PTR, and V8\+PRIx\+PTR.
+
+
+
+Referenced by v8\+::base\+::anonymous\+\_\+namespace\{platform-\/linux.\+cc\}\+::\+Parse\+Proc\+Self\+Maps().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1base_1_1MemoryRegion_abd20813104908d9ee6dcc047661a56a5_icgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{structv8_1_1base_1_1MemoryRegion_aaed18dccd5345d02d3ded2e9e9cba11c}\label{structv8_1_1base_1_1MemoryRegion_aaed18dccd5345d02d3ded2e9e9cba11c}} 
 \index{v8::base::MemoryRegion@{v8::base::MemoryRegion}!dev@{dev}}
@@ -54,11 +113,27 @@ std\+::string \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a5e7cb1c1810b39f
 \doxysubsubsection{\texorpdfstring{dev}{dev}}
 {\footnotesize\ttfamily dev\+\_\+t v8\+::base\+::\+Memory\+Region\+::dev}
 
+
+
+Definition at line 27 of file platform-\/linux.\+h.
+
+
+
+Referenced by From\+Maps\+Line().
+
 \mbox{\Hypertarget{structv8_1_1base_1_1MemoryRegion_a408edd7c270a95c2e642c244d13f3c62}\label{structv8_1_1base_1_1MemoryRegion_a408edd7c270a95c2e642c244d13f3c62}} 
 \index{v8::base::MemoryRegion@{v8::base::MemoryRegion}!end@{end}}
 \index{end@{end}!v8::base::MemoryRegion@{v8::base::MemoryRegion}}
 \doxysubsubsection{\texorpdfstring{end}{end}}
-{\footnotesize\ttfamily uintptr\+\_\+t v8\+::base\+::\+Memory\+Region\+::end}
+{\footnotesize\ttfamily \mbox{\hyperlink{classuintptr__t}{uintptr\+\_\+t}} v8\+::base\+::\+Memory\+Region\+::end}
+
+
+
+Definition at line 24 of file platform-\/linux.\+h.
+
+
+
+Referenced by v8\+::base\+::anonymous\+\_\+namespace\{platform-\/linux.\+cc\}\+::\+Find\+Enclosing\+Mapping(), From\+Maps\+Line(), and v8\+::base\+::\+Get\+Shared\+Library\+Addresses().
 
 \mbox{\Hypertarget{structv8_1_1base_1_1MemoryRegion_a3afaa66017b038b9da1bd205baa3aac5}\label{structv8_1_1base_1_1MemoryRegion_a3afaa66017b038b9da1bd205baa3aac5}} 
 \index{v8::base::MemoryRegion@{v8::base::MemoryRegion}!inode@{inode}}
@@ -66,11 +141,27 @@ std\+::string \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a5e7cb1c1810b39f
 \doxysubsubsection{\texorpdfstring{inode}{inode}}
 {\footnotesize\ttfamily ino\+\_\+t v8\+::base\+::\+Memory\+Region\+::inode}
 
+
+
+Definition at line 28 of file platform-\/linux.\+h.
+
+
+
+Referenced by From\+Maps\+Line().
+
 \mbox{\Hypertarget{structv8_1_1base_1_1MemoryRegion_a8aedf9290d65a5b1f33bf1fb43497d41}\label{structv8_1_1base_1_1MemoryRegion_a8aedf9290d65a5b1f33bf1fb43497d41}} 
 \index{v8::base::MemoryRegion@{v8::base::MemoryRegion}!offset@{offset}}
 \index{offset@{offset}!v8::base::MemoryRegion@{v8::base::MemoryRegion}}
 \doxysubsubsection{\texorpdfstring{offset}{offset}}
 {\footnotesize\ttfamily off\+\_\+t v8\+::base\+::\+Memory\+Region\+::offset}
+
+
+
+Definition at line 26 of file platform-\/linux.\+h.
+
+
+
+Referenced by From\+Maps\+Line(), and v8\+::base\+::\+Get\+Shared\+Library\+Addresses().
 
 \mbox{\Hypertarget{structv8_1_1base_1_1MemoryRegion_a5e7cb1c1810b39ffbe882baf2b947e76}\label{structv8_1_1base_1_1MemoryRegion_a5e7cb1c1810b39ffbe882baf2b947e76}} 
 \index{v8::base::MemoryRegion@{v8::base::MemoryRegion}!pathname@{pathname}}
@@ -78,21 +169,45 @@ std\+::string \mbox{\hyperlink{structv8_1_1base_1_1MemoryRegion_a5e7cb1c1810b39f
 \doxysubsubsection{\texorpdfstring{pathname}{pathname}}
 {\footnotesize\ttfamily std\+::string v8\+::base\+::\+Memory\+Region\+::pathname}
 
+
+
+Definition at line 29 of file platform-\/linux.\+h.
+
+
+
+Referenced by From\+Maps\+Line(), and v8\+::base\+::\+Get\+Shared\+Library\+Addresses().
+
 \mbox{\Hypertarget{structv8_1_1base_1_1MemoryRegion_af835f64aebcb46c47ac40e5e9d159b14}\label{structv8_1_1base_1_1MemoryRegion_af835f64aebcb46c47ac40e5e9d159b14}} 
 \index{v8::base::MemoryRegion@{v8::base::MemoryRegion}!permissions@{permissions}}
 \index{permissions@{permissions}!v8::base::MemoryRegion@{v8::base::MemoryRegion}}
 \doxysubsubsection{\texorpdfstring{permissions}{permissions}}
 {\footnotesize\ttfamily char v8\+::base\+::\+Memory\+Region\+::permissions\mbox{[}5\mbox{]}}
 
+
+
+Definition at line 25 of file platform-\/linux.\+h.
+
+
+
+Referenced by From\+Maps\+Line(), and v8\+::base\+::\+Get\+Shared\+Library\+Addresses().
+
 \mbox{\Hypertarget{structv8_1_1base_1_1MemoryRegion_a2b5da50c7a2bc052b635924f40d52352}\label{structv8_1_1base_1_1MemoryRegion_a2b5da50c7a2bc052b635924f40d52352}} 
 \index{v8::base::MemoryRegion@{v8::base::MemoryRegion}!start@{start}}
 \index{start@{start}!v8::base::MemoryRegion@{v8::base::MemoryRegion}}
 \doxysubsubsection{\texorpdfstring{start}{start}}
-{\footnotesize\ttfamily uintptr\+\_\+t v8\+::base\+::\+Memory\+Region\+::start}
+{\footnotesize\ttfamily \mbox{\hyperlink{classuintptr__t}{uintptr\+\_\+t}} v8\+::base\+::\+Memory\+Region\+::start}
+
+
+
+Definition at line 23 of file platform-\/linux.\+h.
+
+
+
+Referenced by v8\+::base\+::anonymous\+\_\+namespace\{platform-\/linux.\+cc\}\+::\+Find\+Enclosing\+Mapping(), From\+Maps\+Line(), and v8\+::base\+::\+Get\+Shared\+Library\+Addresses().
 
 
 
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{platform-linux_8h}{platform-\/linux.\+h}}\item 
-\mbox{\hyperlink{platform-linux_8cc}{platform-\/linux.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/base/platform/\mbox{\hyperlink{platform-linux_8h}{platform-\/linux.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/base/platform/\mbox{\hyperlink{platform-linux_8cc}{platform-\/linux.\+cc}}\end{DoxyCompactItemize}

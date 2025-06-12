@@ -6,6 +6,6 @@ var gdb_remote_util_8h =
     [ "Mem2Hex", "gdb-remote-util_8h.html#a1bb9a4bb82365af0392cb002ea59dd55", null ],
     [ "Mem2Hex", "gdb-remote-util_8h.html#a32f5ba113002411191219227c4107b88", null ],
     [ "NibbleToUInt8", "gdb-remote-util_8h.html#a6c2288ae167f6952fd29112b1a5ac82f", null ],
-    [ "StringSplit", "gdb-remote-util_8h.html#a0e4f012fed4406698442c00e3e9170ff", null ],
+    [ "StringSplit", "gdb-remote-util_8h.html#a7983d036d68226b36da620d885c9d44f", null ],
     [ "UInt8ToHex", "gdb-remote-util_8h.html#a1a719d52ccabfecbc5b880099019a790", null ]
 ];

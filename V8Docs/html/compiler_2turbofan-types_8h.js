@@ -1,6 +1,7 @@
 var compiler_2turbofan_types_8h =
 [
     [ "BitsetType", "classv8_1_1internal_1_1compiler_1_1BitsetType.html", "classv8_1_1internal_1_1compiler_1_1BitsetType" ],
+    [ "Boundary", "structv8_1_1internal_1_1compiler_1_1BitsetType_1_1Boundary.html", "structv8_1_1internal_1_1compiler_1_1BitsetType_1_1Boundary" ],
     [ "TypeBase", "classv8_1_1internal_1_1compiler_1_1TypeBase.html", "classv8_1_1internal_1_1compiler_1_1TypeBase" ],
     [ "RangeType", "classv8_1_1internal_1_1compiler_1_1RangeType.html", "classv8_1_1internal_1_1compiler_1_1RangeType" ],
     [ "Limits", "structv8_1_1internal_1_1compiler_1_1RangeType_1_1Limits.html", "structv8_1_1internal_1_1compiler_1_1RangeType_1_1Limits" ],
@@ -9,7 +10,7 @@ var compiler_2turbofan_types_8h =
     [ "HeapConstantType", "classv8_1_1internal_1_1compiler_1_1HeapConstantType.html", "classv8_1_1internal_1_1compiler_1_1HeapConstantType" ],
     [ "StructuralType", "classv8_1_1internal_1_1compiler_1_1StructuralType.html", "classv8_1_1internal_1_1compiler_1_1StructuralType" ],
     [ "TupleType", "classv8_1_1internal_1_1compiler_1_1TupleType.html", "classv8_1_1internal_1_1compiler_1_1TupleType" ],
-    [ "UnionType", "classv8_1_1internal_1_1compiler_1_1UnionType.html", null ],
+    [ "UnionType", "classv8_1_1internal_1_1compiler_1_1UnionType.html", "classv8_1_1internal_1_1compiler_1_1UnionType" ],
     [ "BITSET_TYPE_LIST", "compiler_2turbofan-types_8h.html#a99474449ada53b040ccf287d054a8897", null ],
     [ "DECLARE_TYPE", "compiler_2turbofan-types_8h.html#a2b886b8b915b643408776c0f2d9d752b", null ],
     [ "DEFINE_TYPE_CONSTRUCTOR", "compiler_2turbofan-types_8h.html#a3fc89cb24aaa7e06b199f0ac9a89d81a", null ],

@@ -1,22 +1,19 @@
 var maglev_code_generator_8cc =
 [
+    [ "RegisterTHelper< Register >", "structv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1RegisterTHelper_3_01Register_01_4.html", "structv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1RegisterTHelper_3_01Register_01_4" ],
+    [ "RegisterTHelper< DoubleRegister >", "structv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1Registed966de7eabb93662c1528b3832f28346.html", "structv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1Registed966de7eabb93662c1528b3832f28346" ],
+    [ "ParallelMoveResolver", "classv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1ParallelMoveResolver.html", "classv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1ParallelMoveResolver" ],
+    [ "DummyNeedsDecompression", "structv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1Parallea08b3e23fdf19c15319c4843b17e190d.html", "structv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1Parallea08b3e23fdf19c15319c4843b17e190d" ],
+    [ "GapMoveTargets", "structv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1ParallelMoveResolver_1_1GapMoveTargets.html", "structv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1ParallelMoveResolver_1_1GapMoveTargets" ],
+    [ "ExceptionHandlerTrampolineBuilder", "classv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1ExceptionHandlerTrampolineBuilder.html", "classv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1ExceptionHandlerTrampolineBuilder" ],
+    [ "Move", "structv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1Excepti2b93e292d2a5c8f331baf65507f850ce.html", "structv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1Excepti2b93e292d2a5c8f331baf65507f850ce" ],
+    [ "MaglevCodeGeneratingNodeProcessor", "classv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1MaglevCodeGeneratingNodeProcessor.html", "classv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1MaglevCodeGeneratingNodeProcessor" ],
+    [ "SafepointingNodeProcessor", "classv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1SafepointingNodeProcessor.html", "classv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1SafepointingNodeProcessor" ],
+    [ "MaglevFrameTranslationBuilder", "classv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1MaglevFrameTranslationBuilder.html", "classv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03_1_1MaglevFrameTranslationBuilder" ],
     [ "__", "maglev-code-generator_8cc.html#a0a87998f4e8cee4888f2a89df3d5639b", null ],
-    [ "deopt_literals_", "maglev-code-generator_8cc.html#a4154f33a50a44a13792b4063f5a48757", null ],
-    [ "local_isolate_", "maglev-code-generator_8cc.html#a5714dec757620f5816cac41f218da9bf", null ],
-    [ "masm_", "maglev-code-generator_8cc.html#adade6e3b43bc4bfc70490c9536cc70ba", null ],
-    [ "materializing_register_moves_", "maglev-code-generator_8cc.html#a1e9ffd536ec9bf1ef6218964682ce2e3", null ],
-    [ "materializing_stack_slot_moves_", "maglev-code-generator_8cc.html#ae206610237b9840f2fcdb2f987fe9fe7", null ],
-    [ "moves_from_register_", "maglev-code-generator_8cc.html#a4fa6d8d57b76a1fee815efce3a36bcfe", null ],
-    [ "moves_from_stack_slot_", "maglev-code-generator_8cc.html#a266f8c5d6dbaf4d892b1063e60ec6fee", null ],
-    [ "needs_decompression", "maglev-code-generator_8cc.html#a15dbaeb6e79be8ce6289c78f0fe19aab", null ],
-    [ "object_ids_", "maglev-code-generator_8cc.html#a001ffc982335e2bd498b01cd443b3032", null ],
-    [ "protected_deopt_literals_", "maglev-code-generator_8cc.html#a6cf406a104e39ed8582dc73d17a8e70b", null ],
-    [ "registers", "maglev-code-generator_8cc.html#ab6c2dc98768603fa8f30bd361f2c53d3", null ],
-    [ "scratch_", "maglev-code-generator_8cc.html#ae200aeba3c585a417a62171aa182ddd8", null ],
-    [ "scratch_has_cycle_start_", "maglev-code-generator_8cc.html#ac1de3d376189a19d799d7b9d563b6bb4", null ],
-    [ "source", "maglev-code-generator_8cc.html#ada8b48e004e823cabe5fcb41baf29163", null ],
-    [ "stack_slots", "maglev-code-generator_8cc.html#ab2db56d89ae9e1f5d8022a39e2c19a84", null ],
-    [ "target", "maglev-code-generator_8cc.html#a3c635dfb06e7090635c7fed4f7504693", null ],
-    [ "translation_array_builder_", "maglev-code-generator_8cc.html#a6fe83ee801517df10c3f03c58977b396", null ],
-    [ "zone_", "maglev-code-generator_8cc.html#a4979f6e7e64e9ee56f4229d03fa20c69", null ]
+    [ "NeedsDecompression", "maglev-code-generator_8cc.html#a072476a086ceec7ba30f6062058f2dfa", [
+      [ "kDoesNotNeedDecompression", "maglev-code-generator_8cc.html#a072476a086ceec7ba30f6062058f2dfaa15df86339d0b5a470a3c38bf8976ef7c", null ],
+      [ "kNeedsDecompression", "maglev-code-generator_8cc.html#a072476a086ceec7ba30f6062058f2dfaa5e2cc1ebe6fda2cda9d8b53953410c63", null ]
+    ] ],
+    [ "GetFrameCount", "maglev-code-generator_8cc.html#a1e2f45e314386fd3bf6252616e10c287", null ]
 ];

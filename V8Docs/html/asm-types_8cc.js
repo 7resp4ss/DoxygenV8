@@ -1,8 +1,6 @@
 var asm_types_8cc =
 [
-    [ "RETURN_TYPE_NAME", "asm-types_8cc.html#a31c188c303f4a57eefb762cbc1190f18", null ],
-    [ "arg_", "asm-types_8cc.html#a691e6b33e73ec87aeec9c833c2d53052", null ],
-    [ "AsmType", "asm-types_8cc.html#afcdc6dbbbbc9ef3e69689077dfdb6e13", null ],
-    [ "return_type_", "asm-types_8cc.html#a4f26dcc72afb96c401df9e9e6796f183", null ],
-    [ "Zone", "asm-types_8cc.html#a3ec7489f692d014c845cc17e64456793", null ]
+    [ "AsmFroundType", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02asm-types_8cc_03_1_1AsmFroundType.html", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02asm-types_8cc_03_1_1AsmFroundType" ],
+    [ "AsmMinMaxType", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02asm-types_8cc_03_1_1AsmMinMaxType.html", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02asm-types_8cc_03_1_1AsmMinMaxType" ],
+    [ "RETURN_TYPE_NAME", "asm-types_8cc.html#a31c188c303f4a57eefb762cbc1190f18", null ]
 ];

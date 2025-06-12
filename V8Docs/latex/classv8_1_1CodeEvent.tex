@@ -2,12 +2,27 @@
 \label{classv8_1_1CodeEvent}\index{v8::CodeEvent@{v8::CodeEvent}}
 
 
+Representation of a code creation event.  
+
+
+
+
 {\ttfamily \#include $<$v8-\/profiler.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::Code\+Event\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{classv8_1_1CodeEvent__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-uintptr\+\_\+t \mbox{\hyperlink{classv8_1_1CodeEvent_a4018eb2ab6907598649cde071c3e02b7}{Get\+Code\+Start\+Address}} ()
+\mbox{\hyperlink{classuintptr__t}{uintptr\+\_\+t}} \mbox{\hyperlink{classv8_1_1CodeEvent_a4018eb2ab6907598649cde071c3e02b7}{Get\+Code\+Start\+Address}} ()
 \item 
 size\+\_\+t \mbox{\hyperlink{classv8_1_1CodeEvent_ad0804f7a64f8bb1545204d6f4ca3d19b}{Get\+Code\+Size}} ()
 \item 
@@ -15,15 +30,15 @@ size\+\_\+t \mbox{\hyperlink{classv8_1_1CodeEvent_ad0804f7a64f8bb1545204d6f4ca3d
 \item 
 \mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1String}{String}} $>$ \mbox{\hyperlink{classv8_1_1CodeEvent_acad47ae1d84c4eb88edd7ef89f174537}{Get\+Script\+Name}} ()
 \item 
-int \mbox{\hyperlink{classv8_1_1CodeEvent_afb712b7e49428996ca2dbe56d0beaead}{Get\+Script\+Line}} ()
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1CodeEvent_afb712b7e49428996ca2dbe56d0beaead}{Get\+Script\+Line}} ()
 \item 
-int \mbox{\hyperlink{classv8_1_1CodeEvent_af24375d6cf1cf4f959f2458796f9d9dd}{Get\+Script\+Column}} ()
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1CodeEvent_af24375d6cf1cf4f959f2458796f9d9dd}{Get\+Script\+Column}} ()
 \item 
 \mbox{\hyperlink{namespacev8_af0ff31131cc32ced9b5279b321569bbc}{Code\+Event\+Type}} \mbox{\hyperlink{classv8_1_1CodeEvent_a3a6507024df2e1e0898c03bc35bbd293}{Get\+Code\+Type}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em NOTE (mmarchini)\+: We can\textquotesingle{}t allocate objects in the heap when we collect existing code, and both the code type and the comment are not stored in the heap, so we return those as const char$\ast$. \end{DoxyCompactList}\item 
 const char $\ast$ \mbox{\hyperlink{classv8_1_1CodeEvent_a8e1529fc3b6bde6cb37227d96eb7cdba}{Get\+Comment}} ()
 \item 
-uintptr\+\_\+t \mbox{\hyperlink{classv8_1_1CodeEvent_a7f6fd4983cbae7869b111fd7d202540d}{Get\+Previous\+Code\+Start\+Address}} ()
+\mbox{\hyperlink{classuintptr__t}{uintptr\+\_\+t}} \mbox{\hyperlink{classv8_1_1CodeEvent_a7f6fd4983cbae7869b111fd7d202540d}{Get\+Previous\+Code\+Start\+Address}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -33,7 +48,11 @@ static const char $\ast$ \mbox{\hyperlink{classv8_1_1CodeEvent_a7f37ec3b38dd1658
 
 
 \doxysubsection{Detailed Description}
-Representation of a code creation event 
+Representation of a code creation event. 
+
+Definition at line 1289 of file v8-\/profiler.\+h.
+
+
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1CodeEvent_a7f37ec3b38dd16582135eb6a1871c57e}\label{classv8_1_1CodeEvent_a7f37ec3b38dd16582135eb6a1871c57e}} 
@@ -42,54 +61,172 @@ Representation of a code creation event
 \doxysubsubsection{\texorpdfstring{GetCodeEventTypeName()}{GetCodeEventTypeName()}}
 {\footnotesize\ttfamily const char $\ast$ v8\+::\+Code\+Event\+::\+Get\+Code\+Event\+Type\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_af0ff31131cc32ced9b5279b321569bbc}{Code\+Event\+Type}}}]{code\+\_\+event\+\_\+type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 11566 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11566                                                                          \{}
+\DoxyCodeLine{11567   \textcolor{keywordflow}{switch} (code\_event\_type) \{}
+\DoxyCodeLine{11568     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_af0ff31131cc32ced9b5279b321569bbcaa58559ee416b2f68196c9f18b1073e6f}{kUnknownType}}:}
+\DoxyCodeLine{11569       \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}Unknown"{}};}
+\DoxyCodeLine{11570 \textcolor{preprocessor}{\#define V(Name)       \(\backslash\)}}
+\DoxyCodeLine{11571 \textcolor{preprocessor}{  case k\#\#Name\#\#Type: \(\backslash\)}}
+\DoxyCodeLine{11572 \textcolor{preprocessor}{    return \#Name;}}
+\DoxyCodeLine{11573       \mbox{\hyperlink{v8-profiler_8h_aed0f0821619c8df855be443d6c70cf4d}{CODE\_EVENTS\_LIST}}(V)}
+\DoxyCodeLine{11574 \textcolor{preprocessor}{\#undef V}}
+\DoxyCodeLine{11575   \}}
+\DoxyCodeLine{11576   \textcolor{comment}{// The execution should never pass here}}
+\DoxyCodeLine{11577   \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{11578 \}}
+
+\end{DoxyCode}
+
+
+References CODE\+\_\+\+EVENTS\+\_\+\+LIST, v8\+::k\+Unknown\+Type, UNREACHABLE, and V.
+
 \mbox{\Hypertarget{classv8_1_1CodeEvent_ad0804f7a64f8bb1545204d6f4ca3d19b}\label{classv8_1_1CodeEvent_ad0804f7a64f8bb1545204d6f4ca3d19b}} 
 \index{v8::CodeEvent@{v8::CodeEvent}!GetCodeSize@{GetCodeSize}}
 \index{GetCodeSize@{GetCodeSize}!v8::CodeEvent@{v8::CodeEvent}}
 \doxysubsubsection{\texorpdfstring{GetCodeSize()}{GetCodeSize()}}
 {\footnotesize\ttfamily size\+\_\+t v8\+::\+Code\+Event\+::\+Get\+Code\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 11532 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11532                               \{}
+\DoxyCodeLine{11533   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{structv8_1_1internal_1_1CodeEvent}{i::CodeEvent}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>code\_size;}
+\DoxyCodeLine{11534 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1CodeEvent_a4018eb2ab6907598649cde071c3e02b7}\label{classv8_1_1CodeEvent_a4018eb2ab6907598649cde071c3e02b7}} 
 \index{v8::CodeEvent@{v8::CodeEvent}!GetCodeStartAddress@{GetCodeStartAddress}}
 \index{GetCodeStartAddress@{GetCodeStartAddress}!v8::CodeEvent@{v8::CodeEvent}}
 \doxysubsubsection{\texorpdfstring{GetCodeStartAddress()}{GetCodeStartAddress()}}
-{\footnotesize\ttfamily uintptr\+\_\+t v8\+::\+Code\+Event\+::\+Get\+Code\+Start\+Address (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classuintptr__t}{uintptr\+\_\+t}} v8\+::\+Code\+Event\+::\+Get\+Code\+Start\+Address (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 11528 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11528                                          \{}
+\DoxyCodeLine{11529   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{structv8_1_1internal_1_1CodeEvent}{i::CodeEvent}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>code\_start\_address;}
+\DoxyCodeLine{11530 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1CodeEvent_a3a6507024df2e1e0898c03bc35bbd293}\label{classv8_1_1CodeEvent_a3a6507024df2e1e0898c03bc35bbd293}} 
 \index{v8::CodeEvent@{v8::CodeEvent}!GetCodeType@{GetCodeType}}
 \index{GetCodeType@{GetCodeType}!v8::CodeEvent@{v8::CodeEvent}}
 \doxysubsubsection{\texorpdfstring{GetCodeType()}{GetCodeType()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_af0ff31131cc32ced9b5279b321569bbc}{Code\+Event\+Type}} v8\+::\+Code\+Event\+::\+Get\+Code\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-NOTE (mmarchini)\+: We can\textquotesingle{}t allocate objects in the heap when we collect existing code, and both the code type and the comment are not stored in the heap, so we return those as const char$\ast$. \mbox{\Hypertarget{classv8_1_1CodeEvent_a8e1529fc3b6bde6cb37227d96eb7cdba}\label{classv8_1_1CodeEvent_a8e1529fc3b6bde6cb37227d96eb7cdba}} 
+
+
+NOTE (mmarchini)\+: We can\textquotesingle{}t allocate objects in the heap when we collect existing code, and both the code type and the comment are not stored in the heap, so we return those as const char$\ast$. 
+
+
+
+Definition at line 11554 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11554                                      \{}
+\DoxyCodeLine{11555   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{structv8_1_1internal_1_1CodeEvent}{i::CodeEvent}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>code\_type;}
+\DoxyCodeLine{11556 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classv8_1_1CodeEvent_a8e1529fc3b6bde6cb37227d96eb7cdba}\label{classv8_1_1CodeEvent_a8e1529fc3b6bde6cb37227d96eb7cdba}} 
 \index{v8::CodeEvent@{v8::CodeEvent}!GetComment@{GetComment}}
 \index{GetComment@{GetComment}!v8::CodeEvent@{v8::CodeEvent}}
 \doxysubsubsection{\texorpdfstring{GetComment()}{GetComment()}}
 {\footnotesize\ttfamily const char $\ast$ v8\+::\+Code\+Event\+::\+Get\+Comment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 11558 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11558                                   \{}
+\DoxyCodeLine{11559   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{structv8_1_1internal_1_1CodeEvent}{i::CodeEvent}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>comment;}
+\DoxyCodeLine{11560 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1CodeEvent_a58b4646a23461832a1263ba5e7b6da14}\label{classv8_1_1CodeEvent_a58b4646a23461832a1263ba5e7b6da14}} 
 \index{v8::CodeEvent@{v8::CodeEvent}!GetFunctionName@{GetFunctionName}}
 \index{GetFunctionName@{GetFunctionName}!v8::CodeEvent@{v8::CodeEvent}}
 \doxysubsubsection{\texorpdfstring{GetFunctionName()}{GetFunctionName()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1String}{String}} $>$ v8\+::\+Code\+Event\+::\+Get\+Function\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 11536 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11536                                          \{}
+\DoxyCodeLine{11537   \textcolor{keywordflow}{return} ToApiHandle<String>(}
+\DoxyCodeLine{11538       \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{structv8_1_1internal_1_1CodeEvent}{i::CodeEvent}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>function\_name);}
+\DoxyCodeLine{11539 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1CodeEvent_a7f6fd4983cbae7869b111fd7d202540d}\label{classv8_1_1CodeEvent_a7f6fd4983cbae7869b111fd7d202540d}} 
 \index{v8::CodeEvent@{v8::CodeEvent}!GetPreviousCodeStartAddress@{GetPreviousCodeStartAddress}}
 \index{GetPreviousCodeStartAddress@{GetPreviousCodeStartAddress}!v8::CodeEvent@{v8::CodeEvent}}
 \doxysubsubsection{\texorpdfstring{GetPreviousCodeStartAddress()}{GetPreviousCodeStartAddress()}}
-{\footnotesize\ttfamily uintptr\+\_\+t v8\+::\+Code\+Event\+::\+Get\+Previous\+Code\+Start\+Address (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classuintptr__t}{uintptr\+\_\+t}} v8\+::\+Code\+Event\+::\+Get\+Previous\+Code\+Start\+Address (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 11562 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11562                                                  \{}
+\DoxyCodeLine{11563   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{structv8_1_1internal_1_1CodeEvent}{i::CodeEvent}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>previous\_code\_start\_address;}
+\DoxyCodeLine{11564 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1CodeEvent_af24375d6cf1cf4f959f2458796f9d9dd}\label{classv8_1_1CodeEvent_af24375d6cf1cf4f959f2458796f9d9dd}} 
 \index{v8::CodeEvent@{v8::CodeEvent}!GetScriptColumn@{GetScriptColumn}}
 \index{GetScriptColumn@{GetScriptColumn}!v8::CodeEvent@{v8::CodeEvent}}
 \doxysubsubsection{\texorpdfstring{GetScriptColumn()}{GetScriptColumn()}}
-{\footnotesize\ttfamily int v8\+::\+Code\+Event\+::\+Get\+Script\+Column (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::\+Code\+Event\+::\+Get\+Script\+Column (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 11550 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11550                                \{}
+\DoxyCodeLine{11551   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{structv8_1_1internal_1_1CodeEvent}{i::CodeEvent}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>script\_column;}
+\DoxyCodeLine{11552 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1CodeEvent_afb712b7e49428996ca2dbe56d0beaead}\label{classv8_1_1CodeEvent_afb712b7e49428996ca2dbe56d0beaead}} 
 \index{v8::CodeEvent@{v8::CodeEvent}!GetScriptLine@{GetScriptLine}}
 \index{GetScriptLine@{GetScriptLine}!v8::CodeEvent@{v8::CodeEvent}}
 \doxysubsubsection{\texorpdfstring{GetScriptLine()}{GetScriptLine()}}
-{\footnotesize\ttfamily int v8\+::\+Code\+Event\+::\+Get\+Script\+Line (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::\+Code\+Event\+::\+Get\+Script\+Line (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 11546 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11546                              \{}
+\DoxyCodeLine{11547   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{structv8_1_1internal_1_1CodeEvent}{i::CodeEvent}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>script\_line;}
+\DoxyCodeLine{11548 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1CodeEvent_acad47ae1d84c4eb88edd7ef89f174537}\label{classv8_1_1CodeEvent_acad47ae1d84c4eb88edd7ef89f174537}} 
 \index{v8::CodeEvent@{v8::CodeEvent}!GetScriptName@{GetScriptName}}
 \index{GetScriptName@{GetScriptName}!v8::CodeEvent@{v8::CodeEvent}}
@@ -98,7 +235,19 @@ NOTE (mmarchini)\+: We can\textquotesingle{}t allocate objects in the heap when 
 
 
 
+Definition at line 11541 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11541                                        \{}
+\DoxyCodeLine{11542   \textcolor{keywordflow}{return} ToApiHandle<String>(}
+\DoxyCodeLine{11543       \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{structv8_1_1internal_1_1CodeEvent}{i::CodeEvent}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>script\_name);}
+\DoxyCodeLine{11544 \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-profiler_8h}{v8-\/profiler.\+h}}\item 
-\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/\mbox{\hyperlink{v8-profiler_8h}{v8-\/profiler.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/api/\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}

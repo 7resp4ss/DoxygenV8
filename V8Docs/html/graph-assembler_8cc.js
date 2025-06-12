@@ -1,6 +1,6 @@
 var graph_assembler_8cc =
 [
-    [ "GraphAssembler", "classv8_1_1internal_1_1compiler_1_1GraphAssembler.html", "classv8_1_1internal_1_1compiler_1_1GraphAssembler" ],
+    [ "BlockInlineReduction", "classv8_1_1internal_1_1compiler_1_1GraphAssembler_1_1BlockInlineReduction.html", "classv8_1_1internal_1_1compiler_1_1GraphAssembler_1_1BlockInlineReduction" ],
     [ "ArrayBufferViewAccessBuilder", "classv8_1_1internal_1_1compiler_1_1ArrayBufferViewAccessBuilder.html", "classv8_1_1internal_1_1compiler_1_1ArrayBufferViewAccessBuilder" ],
     [ "CHECKED_BINOP_DEF", "graph-assembler_8cc.html#ad9210b26b4146617e6d659b2ea0b9f38", null ],
     [ "PURE_BINOP_DEF", "graph-assembler_8cc.html#a296c6be29b500eb6f556d03f12adcce2", null ],

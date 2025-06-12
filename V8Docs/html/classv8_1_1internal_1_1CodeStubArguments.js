@@ -19,5 +19,9 @@ var classv8_1_1internal_1_1CodeStubArguments =
     [ "GetTorqueArguments", "classv8_1_1internal_1_1CodeStubArguments.html#ab2fcc9dcd2a0d62d73e09eac5d9990ea", null ],
     [ "MayHavePaddingArguments", "classv8_1_1internal_1_1CodeStubArguments.html#ab3ccf0411cc2f11ac23dc7ffac918da0", null ],
     [ "PopAndReturn", "classv8_1_1internal_1_1CodeStubArguments.html#abb6df7dc93aea908662658c6bfc4b2a4", null ],
-    [ "SetReceiver", "classv8_1_1internal_1_1CodeStubArguments.html#a4413975fb5d4d621e862ba887347b3a9", null ]
+    [ "SetReceiver", "classv8_1_1internal_1_1CodeStubArguments.html#a4413975fb5d4d621e862ba887347b3a9", null ],
+    [ "argc_", "classv8_1_1internal_1_1CodeStubArguments.html#a33b9b8ad45f106727a657f30d954e363", null ],
+    [ "assembler_", "classv8_1_1internal_1_1CodeStubArguments.html#ab9f5db6a51e68cf2b37aee8b5a6fae3d", null ],
+    [ "base_", "classv8_1_1internal_1_1CodeStubArguments.html#ab04f2769f2bcbd19a09518bac3556739", null ],
+    [ "fp_", "classv8_1_1internal_1_1CodeStubArguments.html#acbc94202f8a251a2d46710db39c9366c", null ]
 ];

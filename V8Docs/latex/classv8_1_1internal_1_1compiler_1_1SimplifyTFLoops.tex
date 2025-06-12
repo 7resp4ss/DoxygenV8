@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::compiler\+::Simplify\+TFLoops\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=201pt]{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops__inherit__graph}
+\includegraphics[width=235pt]{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Simplify\+TFLoops\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=201pt]{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -31,9 +31,21 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Simplify\+TFLoops\+:
 \item 
 const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_ae154716bb881ed6e97a12b6e755230c4}{reducer\+\_\+name}} () const override
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reduction}{Reduction}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_aabd365cfb7f7fd5dca9b3579063d91d9}{Reduce}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$\mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}}) final
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reduction}{Reduction}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_aabd365cfb7f7fd5dca9b3579063d91d9}{Reduce}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$node) final
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph}{Machine\+Graph}} $\ast$const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_a0f9f00db9e9b7ef3ef6b6931e53933d2}{mcgraph\+\_\+}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 16 of file simplify-\/tf-\/loops.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -45,6 +57,15 @@ const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTF
 
 
 
+Definition at line 18 of file simplify-\/tf-\/loops.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19       : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1AdvancedReducer_abb941b5a245fa4b0c2e87c049fd78190}{AdvancedReducer}}(editor), \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_a0f9f00db9e9b7ef3ef6b6931e53933d2}{mcgraph\_}}(mcgraph) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_aabd365cfb7f7fd5dca9b3579063d91d9}\label{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_aabd365cfb7f7fd5dca9b3579063d91d9}} 
 \index{v8::internal::compiler::SimplifyTFLoops@{v8::internal::compiler::SimplifyTFLoops}!Reduce@{Reduce}}
@@ -54,8 +75,72 @@ const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTF
 
 
 
-Implements \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer}{v8\+::internal\+::compiler\+::\+Reducer}}.
+Implements \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_acc15b2ec184dc342fb3e7d77488952ff}{v8\+::internal\+::compiler\+::\+Reducer}}.
 
+
+
+Definition at line 13 of file simplify-\/tf-\/loops.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{13                                             \{}
+\DoxyCodeLine{14   \textcolor{keywordflow}{if} (node-\/>opcode() != IrOpcode::kLoop) \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{15   \textcolor{keywordflow}{if} (node-\/>InputCount() <= 2) \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17   Node* new\_loop = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_a0f9f00db9e9b7ef3ef6b6931e53933d2}{mcgraph\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph_a453021fea6ef3030504bb24f34b8c5b6}{graph}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFGraph_acf1cedea6c7aa5e2aaaf3653ea8d5630}{NewNode}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_a0f9f00db9e9b7ef3ef6b6931e53933d2}{mcgraph\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph_a11c81af5c3b260688a80e107fc23d941}{common}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CommonOperatorBuilder_a1af1b203af66ebdf86be15eef47571b2}{Loop}}(2),}
+\DoxyCodeLine{18                                               node-\/>InputAt(0), node);}
+\DoxyCodeLine{19   node-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node_ad447cf9f6d941807e63312f94548d5c5}{RemoveInput}}(0);}
+\DoxyCodeLine{20   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0819fb9249218d0f7a50189f049925e6}{NodeProperties::ChangeOp}}(node, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_a0f9f00db9e9b7ef3ef6b6931e53933d2}{mcgraph\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph_a11c81af5c3b260688a80e107fc23d941}{common}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CommonOperatorBuilder_aa06c5951a68a77875f726b1b956477ff}{Merge}}(node-\/>InputCount()));}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22   base::SmallVector<Edge, 4> control\_uses;}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24   \textcolor{keywordflow}{for} (Edge edge : node-\/>use\_edges()) \{}
+\DoxyCodeLine{25     Node* \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}} = edge.from();}
+\DoxyCodeLine{26     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_ae330908c56dd5ffdf80e641b44d71a13}{NodeProperties::IsPhi}}(\mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}})) \{}
+\DoxyCodeLine{27       control\_uses.emplace\_back(edge);}
+\DoxyCodeLine{28       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{29     \}}
+\DoxyCodeLine{30     Node* dominating\_input = \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>InputAt(0);}
+\DoxyCodeLine{31     \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>RemoveInput(0);}
+\DoxyCodeLine{32     \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1NodeProperties_a0819fb9249218d0f7a50189f049925e6}{NodeProperties::ChangeOp}}(}
+\DoxyCodeLine{33         \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}, \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>opcode() == IrOpcode::kPhi}
+\DoxyCodeLine{34                  ? \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_a0f9f00db9e9b7ef3ef6b6931e53933d2}{mcgraph\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph_a11c81af5c3b260688a80e107fc23d941}{common}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CommonOperatorBuilder_a1554d7295b903ddb8ceefa684ca8fd21}{Phi}}(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae2ee518400e878a0a4893d14047f92de}{PhiRepresentationOf}}(\mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>op()),}
+\DoxyCodeLine{35                                            \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>InputCount() -\/ 1)}
+\DoxyCodeLine{36                  : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_a0f9f00db9e9b7ef3ef6b6931e53933d2}{mcgraph\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph_a11c81af5c3b260688a80e107fc23d941}{common}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CommonOperatorBuilder_a3e0b42241f674bd2a3a024edd67481d0}{EffectPhi}}(\mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>InputCount() -\/ 1));}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38     Node* new\_phi = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_a0f9f00db9e9b7ef3ef6b6931e53933d2}{mcgraph\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph_a453021fea6ef3030504bb24f34b8c5b6}{graph}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFGraph_acf1cedea6c7aa5e2aaaf3653ea8d5630}{NewNode}}(}
+\DoxyCodeLine{39         \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>opcode() == IrOpcode::kPhi}
+\DoxyCodeLine{40             ? \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_a0f9f00db9e9b7ef3ef6b6931e53933d2}{mcgraph\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph_a11c81af5c3b260688a80e107fc23d941}{common}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CommonOperatorBuilder_a1554d7295b903ddb8ceefa684ca8fd21}{Phi}}(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae2ee518400e878a0a4893d14047f92de}{PhiRepresentationOf}}(\mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}-\/>op()), 2)}
+\DoxyCodeLine{41             : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_a0f9f00db9e9b7ef3ef6b6931e53933d2}{mcgraph\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph_a11c81af5c3b260688a80e107fc23d941}{common}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CommonOperatorBuilder_a3e0b42241f674bd2a3a024edd67481d0}{EffectPhi}}(2),}
+\DoxyCodeLine{42         dominating\_input, \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}, new\_loop);}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44     \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1AdvancedReducer_a2573497dc120509db4c00a28d8d3a9cb}{ReplaceWithValue}}(\mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}}, new\_phi, new\_phi, new\_phi);}
+\DoxyCodeLine{45     \textcolor{comment}{// Restore the use <-\/ new\_phi edge we just broke.}}
+\DoxyCodeLine{46     new\_phi-\/>ReplaceInput(1, \mbox{\hyperlink{flag-definitions_8h_a2e89dcc15f540da766f7767b13e377e1}{use}});}
+\DoxyCodeLine{47   \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \textcolor{keywordflow}{for} (Edge edge : control\_uses) \{}
+\DoxyCodeLine{50     \textcolor{keywordflow}{if} (edge.from() != new\_loop) \{}
+\DoxyCodeLine{51       edge.from()-\/>ReplaceInput(edge.index(), new\_loop);}
+\DoxyCodeLine{52     \}}
+\DoxyCodeLine{53   \}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_af5fd251e94125282e7e21ad3280b407c}{NoChange}}();}
+\DoxyCodeLine{56 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Change\+Op(), v8\+::internal\+::compiler\+::\+Machine\+Graph\+::common(), v8\+::internal\+::compiler\+::\+Common\+Operator\+Builder\+::\+Effect\+Phi(), v8\+::base\+::\+Small\+Vector$<$ T, k\+Size, Allocator $>$\+::emplace\+\_\+back(), v8\+::internal\+::compiler\+::\+Machine\+Graph\+::graph(), v8\+::internal\+::compiler\+::\+Node\+::\+Input\+At(), v8\+::internal\+::compiler\+::\+Node\+::\+Input\+Count(), v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Is\+Phi(), v8\+::internal\+::compiler\+::\+Common\+Operator\+Builder\+::\+Loop(), mcgraph\+\_\+, v8\+::internal\+::compiler\+::\+Common\+Operator\+Builder\+::\+Merge(), v8\+::internal\+::compiler\+::\+TFGraph\+::\+New\+Node(), v8\+::internal\+::compiler\+::\+Reducer\+::\+No\+Change(), v8\+::internal\+::compiler\+::\+Node\+::opcode(), v8\+::internal\+::compiler\+::\+Common\+Operator\+Builder\+::\+Phi(), v8\+::internal\+::compiler\+::\+Phi\+Representation\+Of(), v8\+::internal\+::compiler\+::\+Node\+::\+Remove\+Input(), v8\+::internal\+::compiler\+::\+Node\+::\+Replace\+Input(), v8\+::internal\+::compiler\+::\+Advanced\+Reducer\+::\+Replace\+With\+Value(), use(), and v8\+::internal\+::compiler\+::\+Node\+::use\+\_\+edges().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_aabd365cfb7f7fd5dca9b3579063d91d9_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_ae154716bb881ed6e97a12b6e755230c4}\label{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_ae154716bb881ed6e97a12b6e755230c4}} 
 \index{v8::internal::compiler::SimplifyTFLoops@{v8::internal::compiler::SimplifyTFLoops}!reducer\_name@{reducer\_name}}
 \index{reducer\_name@{reducer\_name}!v8::internal::compiler::SimplifyTFLoops@{v8::internal::compiler::SimplifyTFLoops}}
@@ -68,7 +153,33 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Reducer_accff4b2e
 
 
 
+Definition at line 21 of file simplify-\/tf-\/loops.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21 \{ \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}SimplifyTFLoops"{}}; \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_a0f9f00db9e9b7ef3ef6b6931e53933d2}\label{classv8_1_1internal_1_1compiler_1_1SimplifyTFLoops_a0f9f00db9e9b7ef3ef6b6931e53933d2}} 
+\index{v8::internal::compiler::SimplifyTFLoops@{v8::internal::compiler::SimplifyTFLoops}!mcgraph\_@{mcgraph\_}}
+\index{mcgraph\_@{mcgraph\_}!v8::internal::compiler::SimplifyTFLoops@{v8::internal::compiler::SimplifyTFLoops}}
+\doxysubsubsection{\texorpdfstring{mcgraph\_}{mcgraph\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineGraph}{Machine\+Graph}}$\ast$ const v8\+::internal\+::compiler\+::\+Simplify\+TFLoops\+::mcgraph\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 26 of file simplify-\/tf-\/loops.\+h.
+
+
+
+Referenced by Reduce().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{simplify-tf-loops_8h}{simplify-\/tf-\/loops.\+h}}\item 
-\mbox{\hyperlink{simplify-tf-loops_8cc}{simplify-\/tf-\/loops.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{simplify-tf-loops_8h}{simplify-\/tf-\/loops.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{simplify-tf-loops_8cc}{simplify-\/tf-\/loops.\+cc}}\end{DoxyCompactItemize}

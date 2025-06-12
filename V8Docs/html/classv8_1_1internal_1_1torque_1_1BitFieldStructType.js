@@ -1,5 +1,6 @@
 var classv8_1_1internal_1_1torque_1_1BitFieldStructType =
 [
+    [ "BitFieldStructType", "classv8_1_1internal_1_1torque_1_1BitFieldStructType.html#a793aa4180af2958557a5a925caa123fc", null ],
     [ "ConstexprVersion", "classv8_1_1internal_1_1torque_1_1BitFieldStructType.html#a3b7d87186e3a51e6ee8002abb33d5ec8", null ],
     [ "fields", "classv8_1_1internal_1_1torque_1_1BitFieldStructType.html#a6ae783a822c78aa3a1ebcd9bdeb16229", null ],
     [ "GetGeneratedTNodeTypeNameImpl", "classv8_1_1internal_1_1torque_1_1BitFieldStructType.html#a5915b35b6d8227bbe7e9ba62aaccd3b7", null ],
@@ -10,6 +11,10 @@ var classv8_1_1internal_1_1torque_1_1BitFieldStructType =
     [ "name", "classv8_1_1internal_1_1torque_1_1BitFieldStructType.html#a3a92b28b46bbefdd02f8c247c444cd16", null ],
     [ "RegisterField", "classv8_1_1internal_1_1torque_1_1BitFieldStructType.html#ac1ddcac353e180231293b184b738a874", null ],
     [ "SetConstexprVersion", "classv8_1_1internal_1_1torque_1_1BitFieldStructType.html#affafec1c4ca7cf4970a7e877f769ca77", null ],
+    [ "SimpleNameImpl", "classv8_1_1internal_1_1torque_1_1BitFieldStructType.html#a90d2897b01196a180c3117f290bbb946", null ],
     [ "ToExplicitString", "classv8_1_1internal_1_1torque_1_1BitFieldStructType.html#a485aafd1d071c4f6a04afd23c1c25beb", null ],
-    [ "TypeOracle", "classv8_1_1internal_1_1torque_1_1BitFieldStructType.html#a7094142f1d9b95b74797a11decbf23e3", null ]
+    [ "TypeOracle", "classv8_1_1internal_1_1torque_1_1BitFieldStructType.html#a7094142f1d9b95b74797a11decbf23e3", null ],
+    [ "decl_", "classv8_1_1internal_1_1torque_1_1BitFieldStructType.html#ac22b69b30910016e5337c4ee92faf2b7", null ],
+    [ "fields_", "classv8_1_1internal_1_1torque_1_1BitFieldStructType.html#a8b7f9234cb0fd14f8b4ca83466300382", null ],
+    [ "namespace_", "classv8_1_1internal_1_1torque_1_1BitFieldStructType.html#a2e2e5da95b3aa9c17540c10f9ac1face", null ]
 ];

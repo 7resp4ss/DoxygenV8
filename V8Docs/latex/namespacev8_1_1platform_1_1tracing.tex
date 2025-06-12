@@ -38,21 +38,29 @@ enum \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_ad800349af589e39eee31a5
 \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a90c59ea84ec11a15958b22c5043350e8}{V8\+\_\+\+DECLARE\+\_\+\+TRACELOGGING\+\_\+\+PROVIDER}} (g\+\_\+v8\+Lib\+Provider)
 \item 
 \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a2f1cdf7ec5e92cef5aa432be93a34c1e}{V8\+\_\+\+DEFINE\+\_\+\+TRACELOGGING\+\_\+\+PROVIDER}} (g\+\_\+v8\+Lib\+Provider)
+\item 
+static size\+\_\+t \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_ab32e6b8d7ff98b62eaa8c67747621399}{Get\+Alloc\+Length}} (const char $\ast$str)
+\item 
+static void \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_aae448506f20021a746475acb923d8134}{Copy\+Trace\+Object\+Parameter}} (char $\ast$$\ast$buffer, const char $\ast$$\ast$member)
+\item 
+static void \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_ad65062364a0b8f7e44a589d3e0b95c3b}{Write\+JSONString\+To\+Stream}} (const char $\ast$str, std\+::ostream \&stream)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-const char $\ast$ \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_ae233fb291b5b2b1f491edf33a56d3df9}{g\+\_\+category\+\_\+groups}} \mbox{[}k\+Max\+Category\+Groups\mbox{]}
+static const size\+\_\+t \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a970b60b739f01e6c5331fe9760cf59f7}{k\+Max\+Category\+Groups}} = 200
 \item 
-unsigned char \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a0dd7ae611bce6273291fe4aed72ade32}{g\+\_\+category\+\_\+group\+\_\+enabled}} \mbox{[}k\+Max\+Category\+Groups\mbox{]} = \{0\}
+const char $\ast$ \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_ae233fb291b5b2b1f491edf33a56d3df9}{g\+\_\+category\+\_\+groups}} \mbox{[}\mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a970b60b739f01e6c5331fe9760cf59f7}{k\+Max\+Category\+Groups}}\mbox{]}
 \item 
-const int \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a4598331a3fd7530c6a4dfdf18eb14bee}{g\+\_\+category\+\_\+categories\+\_\+exhausted}} = 1
+unsigned char \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a0dd7ae611bce6273291fe4aed72ade32}{g\+\_\+category\+\_\+group\+\_\+enabled}} \mbox{[}\mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a970b60b739f01e6c5331fe9760cf59f7}{k\+Max\+Category\+Groups}}\mbox{]} = \{0\}
 \item 
-const int \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a26d1fc5cb7668c12014bc9cb17622cab}{g\+\_\+num\+\_\+builtin\+\_\+categories}} = 3
+const \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a4598331a3fd7530c6a4dfdf18eb14bee}{g\+\_\+category\+\_\+categories\+\_\+exhausted}} = 1
+\item 
+const \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a26d1fc5cb7668c12014bc9cb17622cab}{g\+\_\+num\+\_\+builtin\+\_\+categories}} = 3
 \item 
 \mbox{\hyperlink{namespacev8_1_1base_adeba7076324e70cd6ee49ff00d63b9fa}{v8\+::base\+::\+Atomic\+Word}} \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_ae3b3ef6819d708dd7b3623dfe2c7f52c}{g\+\_\+category\+\_\+index}} = \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a26d1fc5cb7668c12014bc9cb17622cab}{g\+\_\+num\+\_\+builtin\+\_\+categories}}
 \item 
-const int \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_aa4bc3f04d49eb52021ce9f38122da547}{k\+Trace\+Max\+Num\+Args}} = 2
+const \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_aa4bc3f04d49eb52021ce9f38122da547}{k\+Trace\+Max\+Num\+Args}} = 2
 \end{DoxyCompactItemize}
 
 
@@ -83,7 +91,95 @@ ECHO\+\_\+\+TO\+\_\+\+CONSOLE&\\
 \end{DoxyEnumFields}
 
 
+Definition at line 179 of file v8-\/tracing.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{179                      \{}
+\DoxyCodeLine{180   \textcolor{comment}{// Record until the trace buffer is full.}}
+\DoxyCodeLine{181   \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_ad800349af589e39eee31a5f67325216aa46ced0654714c9f4e8b71a1374bdbab2}{RECORD\_UNTIL\_FULL}},}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{183   \textcolor{comment}{// Record until the user ends the trace. The trace buffer is a fixed size}}
+\DoxyCodeLine{184   \textcolor{comment}{// and we use it as a ring buffer during recording.}}
+\DoxyCodeLine{185   \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_ad800349af589e39eee31a5f67325216aa829786b459175cb145c4b7a885bc16c9}{RECORD\_CONTINUOUSLY}},}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187   \textcolor{comment}{// Record until the trace buffer is full, but with a huge buffer size.}}
+\DoxyCodeLine{188   \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_ad800349af589e39eee31a5f67325216aab05388150ab77e86436fe6d561df3a1f}{RECORD\_AS\_MUCH\_AS\_POSSIBLE}},}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190   \textcolor{comment}{// Echo to console. Events are discarded.}}
+\DoxyCodeLine{191   \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_ad800349af589e39eee31a5f67325216aabf2190a1b214ff42dce0bd0adf39f2bb}{ECHO\_TO\_CONSOLE}},}
+\DoxyCodeLine{192 \};}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1platform_1_1tracing_aae448506f20021a746475acb923d8134}\label{namespacev8_1_1platform_1_1tracing_aae448506f20021a746475acb923d8134}} 
+\index{v8::platform::tracing@{v8::platform::tracing}!CopyTraceObjectParameter@{CopyTraceObjectParameter}}
+\index{CopyTraceObjectParameter@{CopyTraceObjectParameter}!v8::platform::tracing@{v8::platform::tracing}}
+\doxysubsubsection{\texorpdfstring{CopyTraceObjectParameter()}{CopyTraceObjectParameter()}}
+{\footnotesize\ttfamily static void v8\+::platform\+::tracing\+::\+Copy\+Trace\+Object\+Parameter (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{buffer,  }\item[{const char $\ast$$\ast$}]{member }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 23 of file trace-\/object.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24                                                                     \{}
+\DoxyCodeLine{25   \textcolor{keywordflow}{if} (*member == \textcolor{keyword}{nullptr}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{26   \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}} = strlen(*member) + 1;}
+\DoxyCodeLine{27   memcpy(*buffer, *member, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}});}
+\DoxyCodeLine{28   *member = *buffer;}
+\DoxyCodeLine{29   *buffer += \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}};}
+\DoxyCodeLine{30 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::length.
+
+
+
+Referenced by v8\+::platform\+::tracing\+::\+Trace\+Object\+::\+Initialize().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1platform_1_1tracing_aae448506f20021a746475acb923d8134_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1platform_1_1tracing_ab32e6b8d7ff98b62eaa8c67747621399}\label{namespacev8_1_1platform_1_1tracing_ab32e6b8d7ff98b62eaa8c67747621399}} 
+\index{v8::platform::tracing@{v8::platform::tracing}!GetAllocLength@{GetAllocLength}}
+\index{GetAllocLength@{GetAllocLength}!v8::platform::tracing@{v8::platform::tracing}}
+\doxysubsubsection{\texorpdfstring{GetAllocLength()}{GetAllocLength()}}
+{\footnotesize\ttfamily static size\+\_\+t v8\+::platform\+::tracing\+::\+Get\+Alloc\+Length (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 17 of file trace-\/object.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17                                                         \{}
+\DoxyCodeLine{18   \textcolor{keywordflow}{return} str ? strlen(str) + 1 : 0;}
+\DoxyCodeLine{19 \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::platform\+::tracing\+::\+Trace\+Object\+::\+Initialize().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1platform_1_1tracing_ab32e6b8d7ff98b62eaa8c67747621399_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{namespacev8_1_1platform_1_1tracing_a90c59ea84ec11a15958b22c5043350e8}\label{namespacev8_1_1platform_1_1tracing_a90c59ea84ec11a15958b22c5043350e8}} 
 \index{v8::platform::tracing@{v8::platform::tracing}!V8\_DECLARE\_TRACELOGGING\_PROVIDER@{V8\_DECLARE\_TRACELOGGING\_PROVIDER}}
 \index{V8\_DECLARE\_TRACELOGGING\_PROVIDER@{V8\_DECLARE\_TRACELOGGING\_PROVIDER}!v8::platform::tracing@{v8::platform::tracing}}
@@ -96,6 +192,73 @@ ECHO\+\_\+\+TO\+\_\+\+CONSOLE&\\
 \doxysubsubsection{\texorpdfstring{V8\_DEFINE\_TRACELOGGING\_PROVIDER()}{V8\_DEFINE\_TRACELOGGING\_PROVIDER()}}
 {\footnotesize\ttfamily v8\+::platform\+::tracing\+::\+V8\+\_\+\+DEFINE\+\_\+\+TRACELOGGING\+\_\+\+PROVIDER (\begin{DoxyParamCaption}\item[{g\+\_\+v8\+Lib\+Provider}]{ }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{namespacev8_1_1platform_1_1tracing_ad65062364a0b8f7e44a589d3e0b95c3b}\label{namespacev8_1_1platform_1_1tracing_ad65062364a0b8f7e44a589d3e0b95c3b}} 
+\index{v8::platform::tracing@{v8::platform::tracing}!WriteJSONStringToStream@{WriteJSONStringToStream}}
+\index{WriteJSONStringToStream@{WriteJSONStringToStream}!v8::platform::tracing@{v8::platform::tracing}}
+\doxysubsubsection{\texorpdfstring{WriteJSONStringToStream()}{WriteJSONStringToStream()}}
+{\footnotesize\ttfamily static void v8\+::platform\+::tracing\+::\+Write\+JSONString\+To\+Stream (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str,  }\item[{std\+::ostream \&}]{stream }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 23 of file trace-\/writer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24                                                                   \{}
+\DoxyCodeLine{25   \textcolor{keywordtype}{size\_t} len = strlen(str);}
+\DoxyCodeLine{26   stream << \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}};}
+\DoxyCodeLine{27   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < len; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{28     \textcolor{comment}{// All of the permitted escape sequences in JSON strings, as per}}
+\DoxyCodeLine{29     \textcolor{comment}{// https://mathiasbynens.be/notes/javascript-\/escapes}}
+\DoxyCodeLine{30     \textcolor{keywordflow}{switch} (str[\mbox{\hyperlink{namespacev8_1_1internal}{i}}]) \{}
+\DoxyCodeLine{31       \textcolor{keywordflow}{case} \textcolor{charliteral}{'\(\backslash\)b'}:}
+\DoxyCodeLine{32         stream << \textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)b"{}};}
+\DoxyCodeLine{33         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{34       \textcolor{keywordflow}{case} \textcolor{charliteral}{'\(\backslash\)f'}:}
+\DoxyCodeLine{35         stream << \textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)f"{}};}
+\DoxyCodeLine{36         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{37       \textcolor{keywordflow}{case} \textcolor{charliteral}{'\(\backslash\)n'}:}
+\DoxyCodeLine{38         stream << \textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)n"{}};}
+\DoxyCodeLine{39         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{40       \textcolor{keywordflow}{case} \textcolor{charliteral}{'\(\backslash\)r'}:}
+\DoxyCodeLine{41         stream << \textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)r"{}};}
+\DoxyCodeLine{42         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{43       \textcolor{keywordflow}{case} \textcolor{charliteral}{'\(\backslash\)t'}:}
+\DoxyCodeLine{44         stream << \textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)t"{}};}
+\DoxyCodeLine{45         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{46       \textcolor{keywordflow}{case} \textcolor{charliteral}{'\(\backslash\)"{}'}:}
+\DoxyCodeLine{47         stream << \textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)\(\backslash\)"{}"{}};}
+\DoxyCodeLine{48         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{49       \textcolor{keywordflow}{case} \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}:}
+\DoxyCodeLine{50         stream << \textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)\(\backslash\)\(\backslash\)"{}};}
+\DoxyCodeLine{51         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{52       \textcolor{comment}{// Note that because we use double quotes for JSON strings,}}
+\DoxyCodeLine{53       \textcolor{comment}{// we don't need to escape single quotes.}}
+\DoxyCodeLine{54       \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{55         stream << str[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}];}
+\DoxyCodeLine{56         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{57     \}}
+\DoxyCodeLine{58   \}}
+\DoxyCodeLine{59   stream << \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}};}
+\DoxyCodeLine{60 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i.
+
+
+
+Referenced by v8\+::platform\+::tracing\+::\+JSONTrace\+Writer\+::\+Append\+Arg\+Value().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1platform_1_1tracing_ad65062364a0b8f7e44a589d3e0b95c3b_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Variable Documentation}
@@ -103,19 +266,35 @@ ECHO\+\_\+\+TO\+\_\+\+CONSOLE&\\
 \index{v8::platform::tracing@{v8::platform::tracing}!g\_category\_categories\_exhausted@{g\_category\_categories\_exhausted}}
 \index{g\_category\_categories\_exhausted@{g\_category\_categories\_exhausted}!v8::platform::tracing@{v8::platform::tracing}}
 \doxysubsubsection{\texorpdfstring{g\_category\_categories\_exhausted}{g\_category\_categories\_exhausted}}
-{\footnotesize\ttfamily const int v8\+::platform\+::tracing\+::g\+\_\+category\+\_\+categories\+\_\+exhausted = 1}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classint}{int}} v8\+::platform\+::tracing\+::g\+\_\+category\+\_\+categories\+\_\+exhausted = 1}
+
+
+
+Definition at line 63 of file tracing-\/controller.\+cc.
+
+
+
+Referenced by v8\+::platform\+::tracing\+::\+Tracing\+Controller\+::\+Get\+Category\+Group\+Enabled().
 
 \mbox{\Hypertarget{namespacev8_1_1platform_1_1tracing_a0dd7ae611bce6273291fe4aed72ade32}\label{namespacev8_1_1platform_1_1tracing_a0dd7ae611bce6273291fe4aed72ade32}} 
 \index{v8::platform::tracing@{v8::platform::tracing}!g\_category\_group\_enabled@{g\_category\_group\_enabled}}
 \index{g\_category\_group\_enabled@{g\_category\_group\_enabled}!v8::platform::tracing@{v8::platform::tracing}}
 \doxysubsubsection{\texorpdfstring{g\_category\_group\_enabled}{g\_category\_group\_enabled}}
-{\footnotesize\ttfamily unsigned char v8\+::platform\+::tracing\+::g\+\_\+category\+\_\+group\+\_\+enabled\mbox{[}k\+Max\+Category\+Groups\mbox{]} = \{0\}}
+{\footnotesize\ttfamily unsigned char v8\+::platform\+::tracing\+::g\+\_\+category\+\_\+group\+\_\+enabled\mbox{[}\mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a970b60b739f01e6c5331fe9760cf59f7}{k\+Max\+Category\+Groups}}\mbox{]} = \{0\}}
+
+
+
+Definition at line 61 of file tracing-\/controller.\+cc.
+
+
+
+Referenced by v8\+::platform\+::tracing\+::\+Tracing\+Controller\+::\+Get\+Category\+Group\+Enabled(), v8\+::platform\+::tracing\+::\+Tracing\+Controller\+::\+Get\+Category\+Group\+Name(), and v8\+::platform\+::tracing\+::\+Tracing\+Controller\+::\+Update\+Category\+Group\+Enabled\+Flag().
 
 \mbox{\Hypertarget{namespacev8_1_1platform_1_1tracing_ae233fb291b5b2b1f491edf33a56d3df9}\label{namespacev8_1_1platform_1_1tracing_ae233fb291b5b2b1f491edf33a56d3df9}} 
 \index{v8::platform::tracing@{v8::platform::tracing}!g\_category\_groups@{g\_category\_groups}}
 \index{g\_category\_groups@{g\_category\_groups}!v8::platform::tracing@{v8::platform::tracing}}
 \doxysubsubsection{\texorpdfstring{g\_category\_groups}{g\_category\_groups}}
-{\footnotesize\ttfamily const char$\ast$ v8\+::platform\+::tracing\+::g\+\_\+category\+\_\+groups\mbox{[}k\+Max\+Category\+Groups\mbox{]}}
+{\footnotesize\ttfamily const char$\ast$ v8\+::platform\+::tracing\+::g\+\_\+category\+\_\+groups\mbox{[}\mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a970b60b739f01e6c5331fe9760cf59f7}{k\+Max\+Category\+Groups}}\mbox{]}}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
@@ -125,21 +304,67 @@ ECHO\+\_\+\+TO\+\_\+\+CONSOLE&\\
 \DoxyCodeLine{    \textcolor{stringliteral}{"{}\_\_metadata"{}}\}}
 
 \end{DoxyCode}
+
+
+Definition at line 55 of file tracing-\/controller.\+cc.
+
+
+
+Referenced by v8\+::platform\+::tracing\+::\+Tracing\+Controller\+::\+Get\+Category\+Group\+Enabled(), v8\+::platform\+::tracing\+::\+Tracing\+Controller\+::\+Get\+Category\+Group\+Name(), v8\+::platform\+::tracing\+::\+Tracing\+Controller\+::\+Update\+Category\+Group\+Enabled\+Flag(), and v8\+::platform\+::tracing\+::\+Tracing\+Controller\+::$\sim$\+Tracing\+Controller().
+
 \mbox{\Hypertarget{namespacev8_1_1platform_1_1tracing_ae3b3ef6819d708dd7b3623dfe2c7f52c}\label{namespacev8_1_1platform_1_1tracing_ae3b3ef6819d708dd7b3623dfe2c7f52c}} 
 \index{v8::platform::tracing@{v8::platform::tracing}!g\_category\_index@{g\_category\_index}}
 \index{g\_category\_index@{g\_category\_index}!v8::platform::tracing@{v8::platform::tracing}}
 \doxysubsubsection{\texorpdfstring{g\_category\_index}{g\_category\_index}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1base_adeba7076324e70cd6ee49ff00d63b9fa}{v8\+::base\+::\+Atomic\+Word}} v8\+::platform\+::tracing\+::g\+\_\+category\+\_\+index = \mbox{\hyperlink{namespacev8_1_1platform_1_1tracing_a26d1fc5cb7668c12014bc9cb17622cab}{g\+\_\+num\+\_\+builtin\+\_\+categories}}}
 
+
+
+Definition at line 69 of file tracing-\/controller.\+cc.
+
+
+
+Referenced by v8\+::platform\+::tracing\+::\+Tracing\+Controller\+::\+Get\+Category\+Group\+Enabled(), v8\+::platform\+::tracing\+::\+Tracing\+Controller\+::\+Update\+Category\+Group\+Enabled\+Flags(), and v8\+::platform\+::tracing\+::\+Tracing\+Controller\+::$\sim$\+Tracing\+Controller().
+
 \mbox{\Hypertarget{namespacev8_1_1platform_1_1tracing_a26d1fc5cb7668c12014bc9cb17622cab}\label{namespacev8_1_1platform_1_1tracing_a26d1fc5cb7668c12014bc9cb17622cab}} 
 \index{v8::platform::tracing@{v8::platform::tracing}!g\_num\_builtin\_categories@{g\_num\_builtin\_categories}}
 \index{g\_num\_builtin\_categories@{g\_num\_builtin\_categories}!v8::platform::tracing@{v8::platform::tracing}}
 \doxysubsubsection{\texorpdfstring{g\_num\_builtin\_categories}{g\_num\_builtin\_categories}}
-{\footnotesize\ttfamily const int v8\+::platform\+::tracing\+::g\+\_\+num\+\_\+builtin\+\_\+categories = 3}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classint}{int}} v8\+::platform\+::tracing\+::g\+\_\+num\+\_\+builtin\+\_\+categories = 3}
+
+
+
+Definition at line 66 of file tracing-\/controller.\+cc.
+
+
+
+Referenced by v8\+::platform\+::tracing\+::\+Tracing\+Controller\+::$\sim$\+Tracing\+Controller().
+
+\mbox{\Hypertarget{namespacev8_1_1platform_1_1tracing_a970b60b739f01e6c5331fe9760cf59f7}\label{namespacev8_1_1platform_1_1tracing_a970b60b739f01e6c5331fe9760cf59f7}} 
+\index{v8::platform::tracing@{v8::platform::tracing}!kMaxCategoryGroups@{kMaxCategoryGroups}}
+\index{kMaxCategoryGroups@{kMaxCategoryGroups}!v8::platform::tracing@{v8::platform::tracing}}
+\doxysubsubsection{\texorpdfstring{kMaxCategoryGroups}{kMaxCategoryGroups}}
+{\footnotesize\ttfamily const size\+\_\+t v8\+::platform\+::tracing\+::k\+Max\+Category\+Groups = 200\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 47 of file tracing-\/controller.\+cc.
+
+
+
+Referenced by v8\+::platform\+::tracing\+::\+Tracing\+Controller\+::\+Get\+Category\+Group\+Enabled(), and v8\+::platform\+::tracing\+::\+Tracing\+Controller\+::\+Get\+Category\+Group\+Name().
 
 \mbox{\Hypertarget{namespacev8_1_1platform_1_1tracing_aa4bc3f04d49eb52021ce9f38122da547}\label{namespacev8_1_1platform_1_1tracing_aa4bc3f04d49eb52021ce9f38122da547}} 
 \index{v8::platform::tracing@{v8::platform::tracing}!kTraceMaxNumArgs@{kTraceMaxNumArgs}}
 \index{kTraceMaxNumArgs@{kTraceMaxNumArgs}!v8::platform::tracing@{v8::platform::tracing}}
 \doxysubsubsection{\texorpdfstring{kTraceMaxNumArgs}{kTraceMaxNumArgs}}
-{\footnotesize\ttfamily const int v8\+::platform\+::tracing\+::k\+Trace\+Max\+Num\+Args = 2}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classint}{int}} v8\+::platform\+::tracing\+::k\+Trace\+Max\+Num\+Args = 2}
+
+
+
+Definition at line 34 of file v8-\/tracing.\+h.
+
+
+
+Referenced by v8\+::platform\+::tracing\+::\+Trace\+Object\+::\+Initialize().
 

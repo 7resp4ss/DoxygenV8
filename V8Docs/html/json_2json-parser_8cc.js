@@ -11,5 +11,28 @@ var json_2json_parser_8cc =
     [ "CALL_GET_SCAN_FLAGS", "json_2json-parser_8cc.html#ac6a7cf0a023626063046ccced38ee620", null ],
     [ "CASE", "json_2json-parser_8cc.html#a41dd2d1da599f142e1fceae01f185c80", null ],
     [ "CASES", "json_2json-parser_8cc.html#a21a070f68682498cc1bbe187e987c3fa", null ],
-    [ "InternalizeJsonProperty", "json_2json-parser_8cc.html#aa34fae3c6a5b9bda2356371d1eadc7c3", null ]
+    [ "EscapeKindField", "json_2json-parser_8cc.html#aac7354a5199f6d9775f84adf1bc9d4f1", null ],
+    [ "MayTerminateStringField", "json_2json-parser_8cc.html#ad26f5d2eb07cea9833707479c44f3fe5", null ],
+    [ "NumberPartField", "json_2json-parser_8cc.html#aae9e7f776726eaa2c40cf24c03b33b7d", null ],
+    [ "EscapeKind", "json_2json-parser_8cc.html#a297dc6093351c000f7c35ab034ed9713", [
+      [ "kIllegal", "json_2json-parser_8cc.html#a297dc6093351c000f7c35ab034ed9713a8477ecd90bfaa59c0f3adb1fef510a5c", null ],
+      [ "kSelf", "json_2json-parser_8cc.html#a297dc6093351c000f7c35ab034ed9713a90d72a87497daa9a69d3690f5582e573", null ],
+      [ "kBackspace", "json_2json-parser_8cc.html#a297dc6093351c000f7c35ab034ed9713a8da66b98bdd258da8132205b960206ef", null ],
+      [ "kTab", "json_2json-parser_8cc.html#a297dc6093351c000f7c35ab034ed9713a0fa3a54d8627d575611d75e3c4288834", null ],
+      [ "kNewLine", "json_2json-parser_8cc.html#a297dc6093351c000f7c35ab034ed9713a46e9f6f9cb2ad55cd97d8d70c833cf46", null ],
+      [ "kFormFeed", "json_2json-parser_8cc.html#a297dc6093351c000f7c35ab034ed9713a67ba6fd22251a3a85a45ca1446a46896", null ],
+      [ "kCarriageReturn", "json_2json-parser_8cc.html#a297dc6093351c000f7c35ab034ed9713ac669dd7ddf8fd19b4a8fa6f94b81bdee", null ],
+      [ "kUnicode", "json_2json-parser_8cc.html#a297dc6093351c000f7c35ab034ed9713abc08dda1acbdcde7cabac2bd81b48482", null ]
+    ] ],
+    [ "GetEscapeKind", "json_2json-parser_8cc.html#aa83448f4613c710f54695be7493bd4de", null ],
+    [ "GetFastKeyChars", "json_2json-parser_8cc.html#a1ed63bc39d06cc207d2cdf8131693bf9", null ],
+    [ "GetJsonScanFlags", "json_2json-parser_8cc.html#a08c739570662a5b080b198b69614e514", null ],
+    [ "GetOneCharJsonToken", "json_2json-parser_8cc.html#ac4e3d9235f8d1f4453d97d864be13db6", null ],
+    [ "GetTokenForCharacter", "json_2json-parser_8cc.html#a163eea95f5edfdc0ddf1ed560cc0fd0b", null ],
+    [ "InternalizeJsonProperty", "json_2json-parser_8cc.html#aa34fae3c6a5b9bda2356371d1eadc7c3", null ],
+    [ "IsNumberPart", "json_2json-parser_8cc.html#a708e1ce124fb9de05437eda8f6609a01", null ],
+    [ "Matches", "json_2json-parser_8cc.html#a93e375526338cd81eb218250556f3068", null ],
+    [ "MayTerminateJsonString", "json_2json-parser_8cc.html#aed49dffab5a3b8936f263f957f07881e", null ],
+    [ "character_json_scan_flags", "json_2json-parser_8cc.html#aa91aa7de25d17a0a0e130a0e7180af1b", null ],
+    [ "one_char_json_tokens", "json_2json-parser_8cc.html#a4f2d6c12908c8dbf1d8875ad31c66dda", null ]
 ];

@@ -2,7 +2,26 @@ var classv8_1_1internal_1_1compiler_1_1JSContextSpecialization =
 [
     [ "JSContextSpecialization", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a993a6ea82565f6813442d032ce532569", null ],
     [ "JSContextSpecialization", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a06ba7239e147cbd163dfdef5a5b1d369", null ],
+    [ "broker", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#af7cfdd9c17d0fda814063d41eba7d645", null ],
+    [ "closure", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a1e89046da01141113a0a3d45d9980b3f", null ],
+    [ "isolate", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a708edd9649ae9c0036c43b4d9565de11", null ],
+    [ "jsgraph", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#aae9d05ceec56bbe16896f10bc5fee652", null ],
     [ "operator=", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a0b0f762fbcb9b8d917f8cb64ce4cd7b1", null ],
+    [ "outer", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a81a0fc25fc28f4044e0184b646e16d35", null ],
     [ "Reduce", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a85165ee6b4f17c82b3f21c8f282ae82b", null ],
-    [ "reducer_name", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#ab9dfd7f4f01ad9ba75e61f447fda58c2", null ]
+    [ "ReduceJSGetImportMeta", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a73fafb9f7124af6885454029b50be4a5", null ],
+    [ "ReduceJSLoadContext", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a23e588dbf9eb63c8018043129072bab7", null ],
+    [ "ReduceJSLoadContextNoCell", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a94ba11a5e38df91d25df585fd788fbbd", null ],
+    [ "ReduceJSStoreContext", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#af673c7b896fbe86ec82dcbedb0633e89", null ],
+    [ "ReduceJSStoreContextNoCell", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#ae2581f7aae4e7412407461fb523fcc33", null ],
+    [ "ReduceParameter", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a23aaf6b54900386c78b6d70c2056c10a", null ],
+    [ "reducer_name", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#ab9dfd7f4f01ad9ba75e61f447fda58c2", null ],
+    [ "SimplifyJSLoadContext", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a324c7835562148df35b148e4e301d69c", null ],
+    [ "SimplifyJSLoadContextNoCell", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#aabb6320d79347cd11b6372192572b6b3", null ],
+    [ "SimplifyJSStoreContext", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a8c61a614942f7245c692b5535d7df466", null ],
+    [ "SimplifyJSStoreContextNoCell", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a2389659bdacddcbd844f4005291bf5c5", null ],
+    [ "broker_", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#afc2012f62ab027a374236a2efcf313c4", null ],
+    [ "closure_", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a0c8f98e2991f4d381ee438c8925efc16", null ],
+    [ "jsgraph_", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a02262e90511de397eac23df1f7239c29", null ],
+    [ "outer_", "classv8_1_1internal_1_1compiler_1_1JSContextSpecialization.html#a85b3d700a7793610d0cfaac738216057", null ]
 ];

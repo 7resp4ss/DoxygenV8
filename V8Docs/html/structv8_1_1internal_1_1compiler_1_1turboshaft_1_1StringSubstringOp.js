@@ -6,5 +6,6 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringSubstringOp =
     [ "options", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringSubstringOp.html#a3cb7bb02e8e8cffdb1c70905fe64357b", null ],
     [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringSubstringOp.html#af388e027dc0af91fa52f848c0d38f632", null ],
     [ "start", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringSubstringOp.html#ac08bf0dba6e7cafdb650e5766fd8f78f", null ],
-    [ "string", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringSubstringOp.html#a45a8f7a9159e24f25b2307610c7cad7d", null ]
+    [ "string", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringSubstringOp.html#a45a8f7a9159e24f25b2307610c7cad7d", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StringSubstringOp.html#a72a05f87f2587401ed5bde7a47e2f48c", null ]
 ];

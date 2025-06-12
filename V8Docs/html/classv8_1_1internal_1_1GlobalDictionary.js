@@ -3,6 +3,7 @@ var classv8_1_1internal_1_1GlobalDictionary =
     [ "CellAt", "classv8_1_1internal_1_1GlobalDictionary.html#ad7317c6941b144194315310ed10e249f", null ],
     [ "CellAt", "classv8_1_1internal_1_1GlobalDictionary.html#ab89ac437dbb3a920db35920ced217683", null ],
     [ "ClearEntry", "classv8_1_1internal_1_1GlobalDictionary.html#a44c892713b91f5fcf6e9e382a68c012f", null ],
+    [ "GetMap", "classv8_1_1internal_1_1GlobalDictionary.html#a9f903bb755bf3c9cdae3f327f5dbf426", null ],
     [ "NameAt", "classv8_1_1internal_1_1GlobalDictionary.html#a0d351c211a36a663d164f920f19027e8", null ],
     [ "NameAt", "classv8_1_1internal_1_1GlobalDictionary.html#a7dc3050fc474ca41a837bbc93c59769d", null ],
     [ "SetEntry", "classv8_1_1internal_1_1GlobalDictionary.html#a8e07324983c68ae0957160a82bfd862d", null ],

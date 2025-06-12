@@ -78,5 +78,5 @@ var wasm_module_8h =
     [ "operator<<", "wasm-module_8h.html#ab3b864dc99f161fea39d25bcd843fecc", null ],
     [ "operator<<", "wasm-module_8h.html#ad97956be173d69959a641fb8d028298f", null ],
     [ "PrintSignature", "wasm-module_8h.html#a1a35d07dee2f9693ac3d48ea8e7c8756", null ],
-    [ "UpdateComputedInformation", "wasm-module_8h.html#aa02730ff9efa862ab84d81fa3678b043", null ]
+    [ "UpdateComputedInformation", "wasm-module_8h.html#ac801100fa525dd5af8d06384ccfec308", null ]
 ];

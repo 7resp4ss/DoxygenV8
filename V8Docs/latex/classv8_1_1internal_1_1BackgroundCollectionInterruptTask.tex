@@ -31,7 +31,24 @@ Collaboration diagram for v8\+::internal\+::Background\+Collection\+Interrupt\+T
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1BackgroundCollectionInterruptTask}{Background\+Collection\+Interrupt\+Task}} \& \mbox{\hyperlink{classv8_1_1internal_1_1BackgroundCollectionInterruptTask_ad46b3beb27543dfb67a24343586147b5}{operator=}} (const \mbox{\hyperlink{classv8_1_1internal_1_1BackgroundCollectionInterruptTask}{Background\+Collection\+Interrupt\+Task}} \&)=delete
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1BackgroundCollectionInterruptTask_a88e7792ddd64cc405999daf1c2a337b2}{Run\+Internal}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1BackgroundCollectionInterruptTask_a8d33cbf8010892f3176962e76938143d}{heap\+\_\+}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 43 of file collection-\/barrier.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -41,6 +58,15 @@ Collaboration diagram for v8\+::internal\+::Background\+Collection\+Interrupt\+T
 \doxysubsubsection{\texorpdfstring{BackgroundCollectionInterruptTask()}{BackgroundCollectionInterruptTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Background\+Collection\+Interrupt\+Task\+::\+Background\+Collection\+Interrupt\+Task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$}]{heap }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
+
+
+Definition at line 45 of file collection-\/barrier.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{46       : \mbox{\hyperlink{classv8_1_1internal_1_1CancelableTask_aab16ea25b9ec26827f565eed805d6077}{CancelableTask}}(\mbox{\hyperlink{namespaceheap}{heap}}-\/>isolate()), \mbox{\hyperlink{classv8_1_1internal_1_1BackgroundCollectionInterruptTask_a8d33cbf8010892f3176962e76938143d}{heap\_}}(\mbox{\hyperlink{namespaceheap}{heap}}) \{\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1BackgroundCollectionInterruptTask_a7150e8552b1071ea4fd80866b228a932}\label{classv8_1_1internal_1_1BackgroundCollectionInterruptTask_a7150e8552b1071ea4fd80866b228a932}} 
 \index{v8::internal::BackgroundCollectionInterruptTask@{v8::internal::BackgroundCollectionInterruptTask}!````~BackgroundCollectionInterruptTask@{$\sim$BackgroundCollectionInterruptTask}}
 \index{````~BackgroundCollectionInterruptTask@{$\sim$BackgroundCollectionInterruptTask}!v8::internal::BackgroundCollectionInterruptTask@{v8::internal::BackgroundCollectionInterruptTask}}
@@ -62,8 +88,61 @@ Collaboration diagram for v8\+::internal\+::Background\+Collection\+Interrupt\+T
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1BackgroundCollectionInterruptTask}{Background\+Collection\+Interrupt\+Task}}\& v8\+::internal\+::\+Background\+Collection\+Interrupt\+Task\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1BackgroundCollectionInterruptTask}{Background\+Collection\+Interrupt\+Task}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
+\mbox{\Hypertarget{classv8_1_1internal_1_1BackgroundCollectionInterruptTask_a88e7792ddd64cc405999daf1c2a337b2}\label{classv8_1_1internal_1_1BackgroundCollectionInterruptTask_a88e7792ddd64cc405999daf1c2a337b2}} 
+\index{v8::internal::BackgroundCollectionInterruptTask@{v8::internal::BackgroundCollectionInterruptTask}!RunInternal@{RunInternal}}
+\index{RunInternal@{RunInternal}!v8::internal::BackgroundCollectionInterruptTask@{v8::internal::BackgroundCollectionInterruptTask}}
+\doxysubsubsection{\texorpdfstring{RunInternal()}{RunInternal()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Background\+Collection\+Interrupt\+Task\+::\+Run\+Internal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classv8_1_1internal_1_1CancelableTask_a9c4f61742dcb132b5b631e7bfce3242c}{v8\+::internal\+::\+Cancelable\+Task}}.
+
+
+
+Definition at line 56 of file collection-\/barrier.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{56                               \{}
+\DoxyCodeLine{57     \textcolor{comment}{// Set the current isolate such that trusted pointer tables etc are}}
+\DoxyCodeLine{58     \textcolor{comment}{// available and the cage base is set correctly for multi-\/cage mode.}}
+\DoxyCodeLine{59     SetCurrentIsolateScope isolate\_scope(\mbox{\hyperlink{classv8_1_1internal_1_1BackgroundCollectionInterruptTask_a8d33cbf8010892f3176962e76938143d}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ae5160ad63bc51ff7b36e8f247be48f63}{isolate}}());}
+\DoxyCodeLine{60     \mbox{\hyperlink{classv8_1_1internal_1_1BackgroundCollectionInterruptTask_a8d33cbf8010892f3176962e76938143d}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a48e6c74ffbd309678e5b0d8a8d2370b9}{CheckCollectionRequested}}();}
+\DoxyCodeLine{61   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Heap\+::\+Check\+Collection\+Requested(), heap\+\_\+, and v8\+::internal\+::\+Heap\+::isolate().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1BackgroundCollectionInterruptTask_a88e7792ddd64cc405999daf1c2a337b2_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1BackgroundCollectionInterruptTask_a8d33cbf8010892f3176962e76938143d}\label{classv8_1_1internal_1_1BackgroundCollectionInterruptTask_a8d33cbf8010892f3176962e76938143d}} 
+\index{v8::internal::BackgroundCollectionInterruptTask@{v8::internal::BackgroundCollectionInterruptTask}!heap\_@{heap\_}}
+\index{heap\_@{heap\_}!v8::internal::BackgroundCollectionInterruptTask@{v8::internal::BackgroundCollectionInterruptTask}}
+\doxysubsubsection{\texorpdfstring{heap\_}{heap\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}}$\ast$ v8\+::internal\+::\+Background\+Collection\+Interrupt\+Task\+::heap\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 63 of file collection-\/barrier.\+cc.
+
+
+
+Referenced by Run\+Internal().
+
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{collection-barrier_8cc}{collection-\/barrier.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{collection-barrier_8cc}{collection-\/barrier.\+cc}}\end{DoxyCompactItemize}

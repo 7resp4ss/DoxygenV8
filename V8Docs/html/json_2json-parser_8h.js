@@ -2,8 +2,9 @@ var json_2json_parser_8h =
 [
     [ "JsonString", "classv8_1_1internal_1_1JsonString.html", "classv8_1_1internal_1_1JsonString" ],
     [ "JsonProperty", "structv8_1_1internal_1_1JsonProperty.html", "structv8_1_1internal_1_1JsonProperty" ],
-    [ "JsonParseInternalizer", "classv8_1_1internal_1_1JsonParseInternalizer.html", null ],
+    [ "JsonParseInternalizer", "classv8_1_1internal_1_1JsonParseInternalizer.html", "classv8_1_1internal_1_1JsonParseInternalizer" ],
     [ "JsonParser", "classv8_1_1internal_1_1JsonParser.html", "classv8_1_1internal_1_1JsonParser" ],
+    [ "JsonContinuation", "structv8_1_1internal_1_1JsonParser_1_1JsonContinuation.html", "structv8_1_1internal_1_1JsonParser_1_1JsonContinuation" ],
     [ "JsonToken", "json_2json-parser_8h.html#a0cf5494f57cac9b83014a7cfeeb08b86", [
       [ "NUMBER", "json_2json-parser_8h.html#a0cf5494f57cac9b83014a7cfeeb08b86a34f55eca38e0605a84f169ff61a2a396", null ],
       [ "STRING", "json_2json-parser_8h.html#a0cf5494f57cac9b83014a7cfeeb08b86a63b588d5559f64f89a416e656880b949", null ],

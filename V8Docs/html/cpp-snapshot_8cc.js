@@ -7,6 +7,7 @@ var cpp_snapshot_8cc =
     [ "RootState", "classv8_1_1internal_1_1RootState.html", "classv8_1_1internal_1_1RootState" ],
     [ "StateStorage", "classv8_1_1internal_1_1StateStorage.html", "classv8_1_1internal_1_1StateStorage" ],
     [ "CppGraphBuilderImpl", "classv8_1_1internal_1_1CppGraphBuilderImpl.html", "classv8_1_1internal_1_1CppGraphBuilderImpl" ],
+    [ "MergedNodeItem", "structv8_1_1internal_1_1CppGraphBuilderImpl_1_1MergedNodeItem.html", "structv8_1_1internal_1_1CppGraphBuilderImpl_1_1MergedNodeItem" ],
     [ "LiveObjectsForVisibilityIterator", "classv8_1_1internal_1_1LiveObjectsForVisibilityIterator.html", "classv8_1_1internal_1_1LiveObjectsForVisibilityIterator" ],
     [ "ParentScope", "classv8_1_1internal_1_1ParentScope.html", "classv8_1_1internal_1_1ParentScope" ],
     [ "WeakVisitor", "classv8_1_1internal_1_1WeakVisitor.html", "classv8_1_1internal_1_1WeakVisitor" ],
@@ -17,8 +18,8 @@ var cpp_snapshot_8cc =
     [ "WorkstackItemBase", "classv8_1_1internal_1_1CppGraphBuilderImpl_1_1WorkstackItemBase.html", "classv8_1_1internal_1_1CppGraphBuilderImpl_1_1WorkstackItemBase" ],
     [ "VisitationDoneItem", "classv8_1_1internal_1_1CppGraphBuilderImpl_1_1VisitationDoneItem.html", "classv8_1_1internal_1_1CppGraphBuilderImpl_1_1VisitationDoneItem" ],
     [ "VisitationItem", "classv8_1_1internal_1_1CppGraphBuilderImpl_1_1VisitationItem.html", "classv8_1_1internal_1_1CppGraphBuilderImpl_1_1VisitationItem" ],
+    [ "GraphBuildingStackVisitor", "classv8_1_1internal_1_1anonymous__namespace_02cpp-snapshot_8cc_03_1_1GraphBuildingStackVisitor.html", "classv8_1_1internal_1_1anonymous__namespace_02cpp-snapshot_8cc_03_1_1GraphBuildingStackVisitor" ],
     [ "ExtractEmbedderDataBackref", "cpp-snapshot_8cc.html#a32c694b65230c871eac612cce8eb65cf", null ],
-    [ "graph_builder_", "cpp-snapshot_8cc.html#a763a3fcea837d3557f6f9f6ab078c65c", null ],
-    [ "kNoNativeAddress", "cpp-snapshot_8cc.html#a5f4e3993f531b6dfb671fa458c3abfd4", null ],
-    [ "root_visitor_", "cpp-snapshot_8cc.html#a33e5eb6a9ef453ea762c422c8f84dd97", null ]
+    [ "kEphemeronEdgeName", "cpp-snapshot_8cc.html#a5d3a4b9bed0979729f75e81f9f923000", null ],
+    [ "kNoNativeAddress", "cpp-snapshot_8cc.html#a5f4e3993f531b6dfb671fa458c3abfd4", null ]
 ];

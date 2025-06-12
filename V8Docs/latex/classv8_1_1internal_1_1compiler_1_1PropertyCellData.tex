@@ -7,7 +7,7 @@ Inheritance diagram for v8\+::internal\+::compiler\+::Property\+Cell\+Data\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=214pt]{classv8_1_1internal_1_1compiler_1_1PropertyCellData__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1compiler_1_1PropertyCellData__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -17,7 +17,7 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Property\+Cell\+Data\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=214pt]{classv8_1_1internal_1_1compiler_1_1PropertyCellData__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1PropertyCellData__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -31,6 +31,25 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Property\+Cell\+Data\+:
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData}{Object\+Data}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_ad17c4e44373203c17d42d2d7353f10b4}{value}} () const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a616cfb192eb2a091499dbb0a171618f6}{serialized}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1PropertyDetails}{Property\+Details}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a462170a0307da0b0856eb5495ba337c6}{property\+\_\+details\+\_\+}} = \mbox{\hyperlink{classv8_1_1internal_1_1PropertyDetails_aa655d92f27712f4e2e554e7f33ce4093}{Property\+Details\+::\+Empty}}()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData}{Object\+Data}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a8b1e15c5a3974e5322b080fcb85b4466}{value\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 161 of file heap-\/refs.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -42,6 +61,15 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Property\+Cell\+Data\+:
 
 
 
+Definition at line 216 of file heap-\/refs.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{219     : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1HeapObjectData_adf2ff385e4520c6557067b489880e49c}{HeapObjectData}}(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, storage, \textcolor{keywordtype}{object}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_aeb02124643ae49c8d8db02e6121acce2}{kind}}) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1PropertyCellData_ae95bb51a7c784ad597a0f0c9b4d3f472}\label{classv8_1_1internal_1_1compiler_1_1PropertyCellData_ae95bb51a7c784ad597a0f0c9b4d3f472}} 
 \index{v8::internal::compiler::PropertyCellData@{v8::internal::compiler::PropertyCellData}!Cache@{Cache}}
@@ -49,12 +77,151 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Property\+Cell\+Data\+:
 \doxysubsubsection{\texorpdfstring{Cache()}{Cache()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::\+Property\+Cell\+Data\+::\+Cache (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSHeapBroker}{JSHeap\+Broker}} $\ast$}]{broker }\end{DoxyParamCaption})}
 
+
+
+Definition at line 221 of file heap-\/refs.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{221                                                  \{}
+\DoxyCodeLine{222   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a616cfb192eb2a091499dbb0a171618f6}{serialized}}()) \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224   TraceScope tracer(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, \textcolor{keyword}{this}, \textcolor{stringliteral}{"{}PropertyCellData::Serialize"{}});}
+\DoxyCodeLine{225   \textcolor{keyword}{auto} cell = Cast<PropertyCell>(\textcolor{keywordtype}{object}());}
+\DoxyCodeLine{226 }
+\DoxyCodeLine{227   \textcolor{comment}{// While this code runs on a background thread, the property cell might}}
+\DoxyCodeLine{228   \textcolor{comment}{// undergo state transitions via calls to PropertyCell::Transition. These}}
+\DoxyCodeLine{229   \textcolor{comment}{// transitions follow a certain protocol on which we rely here to ensure that}}
+\DoxyCodeLine{230   \textcolor{comment}{// we only report success when we can guarantee consistent data. A key}}
+\DoxyCodeLine{231   \textcolor{comment}{// property is that after transitioning from cell type A to B (A != B), there}}
+\DoxyCodeLine{232   \textcolor{comment}{// will never be a transition back to A, unless A is kConstant and the new}}
+\DoxyCodeLine{233   \textcolor{comment}{// value is the hole (i.e. the property cell was invalidated, which is a final}}
+\DoxyCodeLine{234   \textcolor{comment}{// state).}}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{236   PropertyDetails \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a0d300a58198761c463a0d5342cde2435}{property\_details}} = cell-\/>property\_details(\mbox{\hyperlink{namespacev8_aee4e677b8d8a86416617b3330778b98a}{kAcquireLoad}});}
+\DoxyCodeLine{237 }
+\DoxyCodeLine{238   Handle<Object> \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_ad17c4e44373203c17d42d2d7353f10b4}{value}} =}
+\DoxyCodeLine{239       \mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}-\/>CanonicalPersistentHandle(cell-\/>value(\mbox{\hyperlink{namespacev8_aee4e677b8d8a86416617b3330778b98a}{kAcquireLoad}}));}
+\DoxyCodeLine{240   \textcolor{keywordflow}{if} (\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}-\/>ObjectMayBeUninitialized(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_ad17c4e44373203c17d42d2d7353f10b4}{value}})) \{}
+\DoxyCodeLine{241     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}-\/>IsMainThread());}
+\DoxyCodeLine{242     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{243   \}}
+\DoxyCodeLine{244 }
+\DoxyCodeLine{245   \{}
+\DoxyCodeLine{246     PropertyDetails property\_details\_again =}
+\DoxyCodeLine{247         cell-\/>property\_details(\mbox{\hyperlink{namespacev8_aee4e677b8d8a86416617b3330778b98a}{kAcquireLoad}});}
+\DoxyCodeLine{248     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a0d300a58198761c463a0d5342cde2435}{property\_details}} != property\_details\_again) \{}
+\DoxyCodeLine{249       \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}-\/>IsMainThread());}
+\DoxyCodeLine{250       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{251     \}}
+\DoxyCodeLine{252   \}}
+\DoxyCodeLine{253 }
+\DoxyCodeLine{254   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a0d300a58198761c463a0d5342cde2435}{property\_details}}.\mbox{\hyperlink{classv8_1_1internal_1_1PropertyDetails_a536f7bd0ad8d23bac25741b8c5255276}{cell\_type}}() == \mbox{\hyperlink{namespacev8_1_1internal_a48c5a22aafd447e85ec3b6cc71552757aea9c726f0c31bd2c65be9ebdcee27310}{PropertyCellType::kInTransition}}) \{}
+\DoxyCodeLine{255     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}-\/>IsMainThread());}
+\DoxyCodeLine{256     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{257   \}}
+\DoxyCodeLine{258 }
+\DoxyCodeLine{259   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData_ae2a3f125e2c0cd2643dc8ee6df3fdd6e}{ObjectData}}* value\_data = \mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}-\/>TryGetOrCreateData(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_ad17c4e44373203c17d42d2d7353f10b4}{value}});}
+\DoxyCodeLine{260   \textcolor{keywordflow}{if} (value\_data == \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{261     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}-\/>IsMainThread());}
+\DoxyCodeLine{262     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{263   \}}
+\DoxyCodeLine{264 }
+\DoxyCodeLine{265   \mbox{\hyperlink{classv8_1_1internal_1_1PropertyCell_a9bbf8a0528d9164368b43443925d72d6}{PropertyCell::CheckDataIsCompatible}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a0d300a58198761c463a0d5342cde2435}{property\_details}}, *\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_ad17c4e44373203c17d42d2d7353f10b4}{value}});}
+\DoxyCodeLine{266 }
+\DoxyCodeLine{267   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a616cfb192eb2a091499dbb0a171618f6}{serialized}}());}
+\DoxyCodeLine{268   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a462170a0307da0b0856eb5495ba337c6}{property\_details\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a0d300a58198761c463a0d5342cde2435}{property\_details}};}
+\DoxyCodeLine{269   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a8b1e15c5a3974e5322b080fcb85b4466}{value\_}} = value\_data;}
+\DoxyCodeLine{270   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a616cfb192eb2a091499dbb0a171618f6}{serialized}}());}
+\DoxyCodeLine{271   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{272 \}}
+
+\end{DoxyCode}
+
+
+References broker(), v8\+::internal\+::\+Property\+Details\+::cell\+\_\+type(), v8\+::internal\+::\+Property\+Cell\+::\+Check\+Data\+Is\+Compatible(), v8\+::internal\+::\+DCHECK(), v8\+::k\+Acquire\+Load, v8\+::internal\+::k\+In\+Transition, property\+\_\+details(), property\+\_\+details\+\_\+, serialized(), value(), and value\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1PropertyCellData_ae95bb51a7c784ad597a0f0c9b4d3f472_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a0d300a58198761c463a0d5342cde2435}\label{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a0d300a58198761c463a0d5342cde2435}} 
 \index{v8::internal::compiler::PropertyCellData@{v8::internal::compiler::PropertyCellData}!property\_details@{property\_details}}
 \index{property\_details@{property\_details}!v8::internal::compiler::PropertyCellData@{v8::internal::compiler::PropertyCellData}}
 \doxysubsubsection{\texorpdfstring{property\_details()}{property\_details()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1PropertyDetails}{Property\+Details}} v8\+::internal\+::compiler\+::\+Property\+Cell\+Data\+::property\+\_\+details (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 168 of file heap-\/refs.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{168                                            \{}
+\DoxyCodeLine{169     \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a616cfb192eb2a091499dbb0a171618f6}{serialized}}());}
+\DoxyCodeLine{170     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a462170a0307da0b0856eb5495ba337c6}{property\_details\_}};}
+\DoxyCodeLine{171   \}}
+
+\end{DoxyCode}
+
+
+References CHECK, property\+\_\+details\+\_\+, and serialized().
+
+
+
+Referenced by Cache().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a0d300a58198761c463a0d5342cde2435_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a0d300a58198761c463a0d5342cde2435_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a616cfb192eb2a091499dbb0a171618f6}\label{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a616cfb192eb2a091499dbb0a171618f6}} 
+\index{v8::internal::compiler::PropertyCellData@{v8::internal::compiler::PropertyCellData}!serialized@{serialized}}
+\index{serialized@{serialized}!v8::internal::compiler::PropertyCellData@{v8::internal::compiler::PropertyCellData}}
+\doxysubsubsection{\texorpdfstring{serialized()}{serialized()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::\+Property\+Cell\+Data\+::serialized (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 182 of file heap-\/refs.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{182 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a8b1e15c5a3974e5322b080fcb85b4466}{value\_}} != \textcolor{keyword}{nullptr}; \}}
+
+\end{DoxyCode}
+
+
+References value\+\_\+.
+
+
+
+Referenced by Cache(), property\+\_\+details(), and value().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a616cfb192eb2a091499dbb0a171618f6_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1PropertyCellData_ad17c4e44373203c17d42d2d7353f10b4}\label{classv8_1_1internal_1_1compiler_1_1PropertyCellData_ad17c4e44373203c17d42d2d7353f10b4}} 
 \index{v8::internal::compiler::PropertyCellData@{v8::internal::compiler::PropertyCellData}!value@{value}}
 \index{value@{value}!v8::internal::compiler::PropertyCellData@{v8::internal::compiler::PropertyCellData}}
@@ -63,6 +230,73 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Property\+Cell\+Data\+:
 
 
 
+Definition at line 173 of file heap-\/refs.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{173                             \{}
+\DoxyCodeLine{174     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a616cfb192eb2a091499dbb0a171618f6}{serialized}}());}
+\DoxyCodeLine{175     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a8b1e15c5a3974e5322b080fcb85b4466}{value\_}};}
+\DoxyCodeLine{176   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), serialized(), and value\+\_\+.
+
+
+
+Referenced by Cache().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1PropertyCellData_ad17c4e44373203c17d42d2d7353f10b4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1PropertyCellData_ad17c4e44373203c17d42d2d7353f10b4_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a462170a0307da0b0856eb5495ba337c6}\label{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a462170a0307da0b0856eb5495ba337c6}} 
+\index{v8::internal::compiler::PropertyCellData@{v8::internal::compiler::PropertyCellData}!property\_details\_@{property\_details\_}}
+\index{property\_details\_@{property\_details\_}!v8::internal::compiler::PropertyCellData@{v8::internal::compiler::PropertyCellData}}
+\doxysubsubsection{\texorpdfstring{property\_details\_}{property\_details\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1PropertyDetails}{Property\+Details}} v8\+::internal\+::compiler\+::\+Property\+Cell\+Data\+::property\+\_\+details\+\_\+ = \mbox{\hyperlink{classv8_1_1internal_1_1PropertyDetails_aa655d92f27712f4e2e554e7f33ce4093}{Property\+Details\+::\+Empty}}()\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 179 of file heap-\/refs.\+cc.
+
+
+
+Referenced by Cache(), and property\+\_\+details().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a8b1e15c5a3974e5322b080fcb85b4466}\label{classv8_1_1internal_1_1compiler_1_1PropertyCellData_a8b1e15c5a3974e5322b080fcb85b4466}} 
+\index{v8::internal::compiler::PropertyCellData@{v8::internal::compiler::PropertyCellData}!value\_@{value\_}}
+\index{value\_@{value\_}!v8::internal::compiler::PropertyCellData@{v8::internal::compiler::PropertyCellData}}
+\doxysubsubsection{\texorpdfstring{value\_}{value\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ObjectData}{Object\+Data}}$\ast$ v8\+::internal\+::compiler\+::\+Property\+Cell\+Data\+::value\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 180 of file heap-\/refs.\+cc.
+
+
+
+Referenced by Cache(), serialized(), and value().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{heap-refs_8cc}{heap-\/refs.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{heap-refs_8cc}{heap-\/refs.\+cc}}\end{DoxyCompactItemize}

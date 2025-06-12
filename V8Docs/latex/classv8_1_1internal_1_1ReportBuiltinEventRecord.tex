@@ -21,13 +21,13 @@ Collaboration diagram for v8\+::internal\+::Report\+Builtin\+Event\+Record\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=244pt]{classv8_1_1internal_1_1ReportBuiltinEventRecord__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ReportBuiltinEventRecord__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void \mbox{\hyperlink{classv8_1_1internal_1_1ReportBuiltinEventRecord_a33d5ecb18f80eaa5b1fe006a1c268768}{Update\+Code\+Map}} (\mbox{\hyperlink{classv8_1_1internal_1_1InstructionStreamMap}{Instruction\+Stream\+Map}} $\ast$instruction\+\_\+stream\+\_\+map)
+void \mbox{\hyperlink{classv8_1_1internal_1_1ReportBuiltinEventRecord_a33d5ecb18f80eaa5b1fe006a1c268768}{Update\+Code\+Map}} (\mbox{\hyperlink{classv8_1_1internal_1_1InstructionStreamMap}{Instruction\+Stream\+Map}} $\ast$instruction\+\_\+stream\+\_\+map)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -41,13 +41,63 @@ unsigned \mbox{\hyperlink{classv8_1_1internal_1_1ReportBuiltinEventRecord_aef986
 \doxysubsection*{Additional Inherited Members}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 101 of file cpu-\/profiler.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ReportBuiltinEventRecord_a33d5ecb18f80eaa5b1fe006a1c268768}\label{classv8_1_1internal_1_1ReportBuiltinEventRecord_a33d5ecb18f80eaa5b1fe006a1c268768}} 
 \index{v8::internal::ReportBuiltinEventRecord@{v8::internal::ReportBuiltinEventRecord}!UpdateCodeMap@{UpdateCodeMap}}
 \index{UpdateCodeMap@{UpdateCodeMap}!v8::internal::ReportBuiltinEventRecord@{v8::internal::ReportBuiltinEventRecord}}
 \doxysubsubsection{\texorpdfstring{UpdateCodeMap()}{UpdateCodeMap()}}
-{\footnotesize\ttfamily void v8\+::internal\+::\+Report\+Builtin\+Event\+Record\+::\+Update\+Code\+Map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1InstructionStreamMap}{Instruction\+Stream\+Map}} $\ast$}]{instruction\+\_\+stream\+\_\+map }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Report\+Builtin\+Event\+Record\+::\+Update\+Code\+Map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1InstructionStreamMap}{Instruction\+Stream\+Map}} $\ast$}]{instruction\+\_\+stream\+\_\+map }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 48 of file cpu-\/profiler-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49                                                   \{}
+\DoxyCodeLine{50   CodeEntry* entry = instruction\_stream\_map-\/>FindEntry(\mbox{\hyperlink{classv8_1_1internal_1_1ReportBuiltinEventRecord_a44fc6d8b654cad64ad52a92234b7f46c}{instruction\_start}});}
+\DoxyCodeLine{51   \textcolor{keywordflow}{if} (entry) \{}
+\DoxyCodeLine{52     entry-\/>SetBuiltinId(\mbox{\hyperlink{classv8_1_1internal_1_1ReportBuiltinEventRecord_acbc701d3b4646d6c7465e8be2370741b}{builtin}});}
+\DoxyCodeLine{53     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{54   \}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#if V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{56   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1ReportBuiltinEventRecord_acbc701d3b4646d6c7465e8be2370741b}{builtin}} == Builtin::kJSToWasmWrapper) \{}
+\DoxyCodeLine{57     \textcolor{comment}{// Make sure to add the generic js-\/to-\/wasm wrapper builtin, because that}}
+\DoxyCodeLine{58     \textcolor{comment}{// one is supposed to show up in profiles.}}
+\DoxyCodeLine{59     entry = instruction\_stream\_map-\/>code\_entries().Create(}
+\DoxyCodeLine{60         LogEventListener::CodeTag::kBuiltin, \textcolor{stringliteral}{"{}js-\/to-\/wasm"{}});}
+\DoxyCodeLine{61     instruction\_stream\_map-\/>AddCode(\mbox{\hyperlink{classv8_1_1internal_1_1ReportBuiltinEventRecord_a44fc6d8b654cad64ad52a92234b7f46c}{instruction\_start}}, entry, \mbox{\hyperlink{classv8_1_1internal_1_1ReportBuiltinEventRecord_aef98602b522b07f161540ead4106bc60}{instruction\_size}});}
+\DoxyCodeLine{62   \}}
+\DoxyCodeLine{63   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1ReportBuiltinEventRecord_acbc701d3b4646d6c7465e8be2370741b}{builtin}} == Builtin::kWasmToJsWrapperCSA) \{}
+\DoxyCodeLine{64     \textcolor{comment}{// Make sure to add the generic wasm-\/to-\/js wrapper builtin, because that}}
+\DoxyCodeLine{65     \textcolor{comment}{// one is supposed to show up in profiles.}}
+\DoxyCodeLine{66     entry = instruction\_stream\_map-\/>code\_entries().Create(}
+\DoxyCodeLine{67         LogEventListener::CodeTag::kBuiltin, \textcolor{stringliteral}{"{}wasm-\/to-\/js"{}});}
+\DoxyCodeLine{68     instruction\_stream\_map-\/>AddCode(\mbox{\hyperlink{classv8_1_1internal_1_1ReportBuiltinEventRecord_a44fc6d8b654cad64ad52a92234b7f46c}{instruction\_start}}, entry, \mbox{\hyperlink{classv8_1_1internal_1_1ReportBuiltinEventRecord_aef98602b522b07f161540ead4106bc60}{instruction\_size}});}
+\DoxyCodeLine{69   \}}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{71 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Instruction\+Stream\+Map\+::\+Add\+Code(), builtin, v8\+::internal\+::\+Instruction\+Stream\+Map\+::code\+\_\+entries(), v8\+::internal\+::\+Code\+Entry\+Storage\+::\+Create(), v8\+::internal\+::\+Instruction\+Stream\+Map\+::\+Find\+Entry(), instruction\+\_\+size, instruction\+\_\+start, and v8\+::internal\+::\+Code\+Entry\+::\+Set\+Builtin\+Id().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ReportBuiltinEventRecord_a33d5ecb18f80eaa5b1fe006a1c268768_cgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Data Documentation}
@@ -57,11 +107,27 @@ unsigned \mbox{\hyperlink{classv8_1_1internal_1_1ReportBuiltinEventRecord_aef986
 \doxysubsubsection{\texorpdfstring{builtin}{builtin}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_acc2e164143496f18b5ec68f8ab70af52}{Builtin}} v8\+::internal\+::\+Report\+Builtin\+Event\+Record\+::builtin}
 
+
+
+Definition at line 105 of file cpu-\/profiler.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Profiler\+Code\+Observer\+::\+Log\+Builtins(), and Update\+Code\+Map().
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1ReportBuiltinEventRecord_aef98602b522b07f161540ead4106bc60}\label{classv8_1_1internal_1_1ReportBuiltinEventRecord_aef98602b522b07f161540ead4106bc60}} 
 \index{v8::internal::ReportBuiltinEventRecord@{v8::internal::ReportBuiltinEventRecord}!instruction\_size@{instruction\_size}}
 \index{instruction\_size@{instruction\_size}!v8::internal::ReportBuiltinEventRecord@{v8::internal::ReportBuiltinEventRecord}}
 \doxysubsubsection{\texorpdfstring{instruction\_size}{instruction\_size}}
 {\footnotesize\ttfamily unsigned v8\+::internal\+::\+Report\+Builtin\+Event\+Record\+::instruction\+\_\+size}
+
+
+
+Definition at line 104 of file cpu-\/profiler.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Profiler\+Code\+Observer\+::\+Log\+Builtins(), and Update\+Code\+Map().
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1ReportBuiltinEventRecord_a44fc6d8b654cad64ad52a92234b7f46c}\label{classv8_1_1internal_1_1ReportBuiltinEventRecord_a44fc6d8b654cad64ad52a92234b7f46c}} 
 \index{v8::internal::ReportBuiltinEventRecord@{v8::internal::ReportBuiltinEventRecord}!instruction\_start@{instruction\_start}}
@@ -71,7 +137,15 @@ unsigned \mbox{\hyperlink{classv8_1_1internal_1_1ReportBuiltinEventRecord_aef986
 
 
 
+Definition at line 103 of file cpu-\/profiler.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Profiler\+Code\+Observer\+::\+Log\+Builtins(), and Update\+Code\+Map().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{cpu-profiler_8h}{cpu-\/profiler.\+h}}\item 
-\mbox{\hyperlink{cpu-profiler-inl_8h}{cpu-\/profiler-\/inl.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/profiler/\mbox{\hyperlink{cpu-profiler_8h}{cpu-\/profiler.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/profiler/\mbox{\hyperlink{cpu-profiler-inl_8h}{cpu-\/profiler-\/inl.\+h}}\end{DoxyCompactItemize}

@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$main-\/allocator.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Linear\+Area\+Original\+Data\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1LinearAreaOriginalData__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -13,6 +23,22 @@ std\+::pair$<$ \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1LinearAreaOriginalData_acc5aaca5c384137dd8ecedf55bfcc1af}{Set\+Top\+And\+Limit}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} top, \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} limit)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::atomic$<$ \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1LinearAreaOriginalData_a85cec1aca43c31613802a78ac2bfdda0}{original\+\_\+top\+\_\+}} = 0
+\item 
+std\+::atomic$<$ \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1LinearAreaOriginalData_a59ceab394f7267a396b37c3c61bb0e6e}{original\+\_\+limit\+\_\+}} = 0
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} \mbox{\hyperlink{classv8_1_1internal_1_1LinearAreaOriginalData_a877a2eb363db9cc159079eca4c666776}{mutex\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 119 of file main-\/allocator.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -22,12 +48,77 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1LinearAreaOriginalData_acc5aaca5c38
 \doxysubsubsection{\texorpdfstring{GetTopAndLimit()}{GetTopAndLimit()}}
 {\footnotesize\ttfamily std\+::pair$<$\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}, \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}$>$ v8\+::internal\+::\+Linear\+Area\+Original\+Data\+::\+Get\+Top\+And\+Limit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 131 of file main-\/allocator.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{131                                                    \{}
+\DoxyCodeLine{132     \textcolor{comment}{// The order of the two loads is important. See SetTopAndLimit().}}
+\DoxyCodeLine{133     \textcolor{keyword}{auto} top = \mbox{\hyperlink{classv8_1_1internal_1_1LinearAreaOriginalData_a85cec1aca43c31613802a78ac2bfdda0}{original\_top\_}}.load(std::memory\_order\_acquire);}
+\DoxyCodeLine{134     \textcolor{keyword}{auto} limit = \mbox{\hyperlink{classv8_1_1internal_1_1LinearAreaOriginalData_a59ceab394f7267a396b37c3c61bb0e6e}{original\_limit\_}}.load(std::memory\_order\_relaxed);}
+\DoxyCodeLine{135     \textcolor{keywordflow}{return} std::make\_pair(top, limit);}
+\DoxyCodeLine{136   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Get\+Top\+And\+Limit\+Locked().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1LinearAreaOriginalData_af7dedc196513fc5bbe0750fead5af78d_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1LinearAreaOriginalData_a85ee530b4fd5c67f983e1a11d817ebc4}\label{classv8_1_1internal_1_1LinearAreaOriginalData_a85ee530b4fd5c67f983e1a11d817ebc4}} 
 \index{v8::internal::LinearAreaOriginalData@{v8::internal::LinearAreaOriginalData}!GetTopAndLimitLocked@{GetTopAndLimitLocked}}
 \index{GetTopAndLimitLocked@{GetTopAndLimitLocked}!v8::internal::LinearAreaOriginalData@{v8::internal::LinearAreaOriginalData}}
 \doxysubsubsection{\texorpdfstring{GetTopAndLimitLocked()}{GetTopAndLimitLocked()}}
 {\footnotesize\ttfamily std\+::pair$<$ \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}, \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} $>$ v8\+::internal\+::\+Linear\+Area\+Original\+Data\+::\+Get\+Top\+And\+Limit\+Locked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Definition at line 944 of file main-\/allocator.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{945           \{}
+\DoxyCodeLine{946   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\mbox{\hyperlink{classv8_1_1internal_1_1LinearAreaOriginalData_a877a2eb363db9cc159079eca4c666776}{mutex\_}});}
+\DoxyCodeLine{947   \textcolor{keyword}{auto} [top, limit] = \mbox{\hyperlink{classv8_1_1internal_1_1LinearAreaOriginalData_af7dedc196513fc5bbe0750fead5af78d}{GetTopAndLimit}}();}
+\DoxyCodeLine{948   \textcolor{comment}{// This always holds because we load both fields while locking the mutex.}}
+\DoxyCodeLine{949   \mbox{\hyperlink{src_2base_2logging_8h_a16b382527f19b805fc8f856668f2270b}{DCHECK\_LE}}(top, limit);}
+\DoxyCodeLine{950   \textcolor{keywordflow}{return} std::make\_pair(top, limit);}
+\DoxyCodeLine{951 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+LE, Get\+Top\+And\+Limit(), and mutex\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Main\+Allocator\+::\+Is\+Pending\+Allocation().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1LinearAreaOriginalData_a85ee530b4fd5c67f983e1a11d817ebc4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1LinearAreaOriginalData_a85ee530b4fd5c67f983e1a11d817ebc4_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1LinearAreaOriginalData_acc5aaca5c384137dd8ecedf55bfcc1af}\label{classv8_1_1internal_1_1LinearAreaOriginalData_acc5aaca5c384137dd8ecedf55bfcc1af}} 
 \index{v8::internal::LinearAreaOriginalData@{v8::internal::LinearAreaOriginalData}!SetTopAndLimit@{SetTopAndLimit}}
 \index{SetTopAndLimit@{SetTopAndLimit}!v8::internal::LinearAreaOriginalData@{v8::internal::LinearAreaOriginalData}}
@@ -36,7 +127,84 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1LinearAreaOriginalData_acc5aaca5c38
 
 
 
+Definition at line 953 of file main-\/allocator.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{953                                                                       \{}
+\DoxyCodeLine{954   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\mbox{\hyperlink{classv8_1_1internal_1_1LinearAreaOriginalData_a877a2eb363db9cc159079eca4c666776}{mutex\_}});}
+\DoxyCodeLine{955   \textcolor{comment}{// The order of the two stores is important. See GetTopAndLimit().}}
+\DoxyCodeLine{956   \mbox{\hyperlink{classv8_1_1internal_1_1LinearAreaOriginalData_a59ceab394f7267a396b37c3c61bb0e6e}{original\_limit\_}}.store(limit, std::memory\_order\_relaxed);}
+\DoxyCodeLine{957   \textcolor{comment}{// Use acquire/release semantics here to prevent subsequent stores to move}}
+\DoxyCodeLine{958   \textcolor{comment}{// before this store here.}}
+\DoxyCodeLine{959   \mbox{\hyperlink{classv8_1_1internal_1_1LinearAreaOriginalData_a85cec1aca43c31613802a78ac2bfdda0}{original\_top\_}}.exchange(top, std::memory\_order\_acq\_rel);}
+\DoxyCodeLine{960 \}}
+
+\end{DoxyCode}
+
+
+References mutex\+\_\+, original\+\_\+limit\+\_\+, and original\+\_\+top\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Main\+Allocator\+::\+Move\+Original\+Top\+Forward(), and v8\+::internal\+::\+Main\+Allocator\+::\+Reset\+Lab().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1LinearAreaOriginalData_acc5aaca5c384137dd8ecedf55bfcc1af_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1LinearAreaOriginalData_a877a2eb363db9cc159079eca4c666776}\label{classv8_1_1internal_1_1LinearAreaOriginalData_a877a2eb363db9cc159079eca4c666776}} 
+\index{v8::internal::LinearAreaOriginalData@{v8::internal::LinearAreaOriginalData}!mutex\_@{mutex\_}}
+\index{mutex\_@{mutex\_}!v8::internal::LinearAreaOriginalData@{v8::internal::LinearAreaOriginalData}}
+\doxysubsubsection{\texorpdfstring{mutex\_}{mutex\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} v8\+::internal\+::\+Linear\+Area\+Original\+Data\+::mutex\+\_\+\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [private]}}
+
+
+
+Definition at line 150 of file main-\/allocator.\+h.
+
+
+
+Referenced by Get\+Top\+And\+Limit\+Locked(), and Set\+Top\+And\+Limit().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1LinearAreaOriginalData_a59ceab394f7267a396b37c3c61bb0e6e}\label{classv8_1_1internal_1_1LinearAreaOriginalData_a59ceab394f7267a396b37c3c61bb0e6e}} 
+\index{v8::internal::LinearAreaOriginalData@{v8::internal::LinearAreaOriginalData}!original\_limit\_@{original\_limit\_}}
+\index{original\_limit\_@{original\_limit\_}!v8::internal::LinearAreaOriginalData@{v8::internal::LinearAreaOriginalData}}
+\doxysubsubsection{\texorpdfstring{original\_limit\_}{original\_limit\_}}
+{\footnotesize\ttfamily std\+::atomic$<$\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}$>$ v8\+::internal\+::\+Linear\+Area\+Original\+Data\+::original\+\_\+limit\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 147 of file main-\/allocator.\+h.
+
+
+
+Referenced by Set\+Top\+And\+Limit().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1LinearAreaOriginalData_a85cec1aca43c31613802a78ac2bfdda0}\label{classv8_1_1internal_1_1LinearAreaOriginalData_a85cec1aca43c31613802a78ac2bfdda0}} 
+\index{v8::internal::LinearAreaOriginalData@{v8::internal::LinearAreaOriginalData}!original\_top\_@{original\_top\_}}
+\index{original\_top\_@{original\_top\_}!v8::internal::LinearAreaOriginalData@{v8::internal::LinearAreaOriginalData}}
+\doxysubsubsection{\texorpdfstring{original\_top\_}{original\_top\_}}
+{\footnotesize\ttfamily std\+::atomic$<$\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}$>$ v8\+::internal\+::\+Linear\+Area\+Original\+Data\+::original\+\_\+top\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 146 of file main-\/allocator.\+h.
+
+
+
+Referenced by Set\+Top\+And\+Limit().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{main-allocator_8h}{main-\/allocator.\+h}}\item 
-\mbox{\hyperlink{main-allocator_8cc}{main-\/allocator.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{main-allocator_8h}{main-\/allocator.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{main-allocator_8cc}{main-\/allocator.\+cc}}\end{DoxyCompactItemize}

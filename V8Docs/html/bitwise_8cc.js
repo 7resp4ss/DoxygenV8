@@ -16,5 +16,7 @@ var bitwise_8cc =
     [ "BitwiseXor_PosPos", "bitwise_8cc.html#a359e798016f09df5cee53fcd6e47ffb6", null ],
     [ "LeftShift", "bitwise_8cc.html#a39b5dc64b28f16fefab160e2e895138b", null ],
     [ "RightShift", "bitwise_8cc.html#ab9c5e659bb3ce2f1a908813f6ef15883", null ],
-    [ "RightShift_ResultLength", "bitwise_8cc.html#a1f90cb6cee8110d69ded57d876aa0c12", null ]
+    [ "RightShift_ResultLength", "bitwise_8cc.html#a1f90cb6cee8110d69ded57d876aa0c12", null ],
+    [ "TruncateAndSubFromPowerOfTwo", "bitwise_8cc.html#a548f089b86e9d5304444f38e337b9c65", null ],
+    [ "TruncateToNBits", "bitwise_8cc.html#ab09167d56f9d3f21fc9420f9f75aecec", null ]
 ];

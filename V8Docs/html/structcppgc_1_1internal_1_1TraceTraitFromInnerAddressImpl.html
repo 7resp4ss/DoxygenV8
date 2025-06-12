@@ -90,13 +90,24 @@ $(document).ready(function(){initNavTree('structcppgc_1_1internal_1_1TraceTraitF
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="trace-trait_8h_source.html">trace-trait.h</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for cppgc::internal::TraceTraitFromInnerAddressImpl:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structcppgc_1_1internal_1_1TraceTraitFromInnerAddressImpl__coll__graph.svg" width="199" height="103"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a4cf1491d34143a690583dceab0ae73d7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structcppgc_1_1TraceDescriptor.html">TraceDescriptor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcppgc_1_1internal_1_1TraceTraitFromInnerAddressImpl.html#a4cf1491d34143a690583dceab0ae73d7">GetTraceDescriptor</a> (const void *address)</td></tr>
 <tr class="separator:a4cf1491d34143a690583dceab0ae73d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="trace-trait_8h_source.html#l00065">65</a> of file <a class="el" href="trace-trait_8h_source.html">trace-trait.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4cf1491d34143a690583dceab0ae73d7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4cf1491d34143a690583dceab0ae73d7">&#9670;&nbsp;</a></span>GetTraceDescriptor()</h2>
 
@@ -121,11 +132,49 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="trace-trait_8cc_source.html#l00013">13</a> of file <a class="el" href="trace-trait_8cc_source.html">trace-trait.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                         {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="comment">// address is guaranteed to be on a normal page because this is used only for</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="comment">// mixins.</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">const</span> BasePage* page = <a class="code" href="classcppgc_1_1internal_1_1BasePage.html#aad13cafeed6c2ea494b7423b9c527b7a">BasePage::FromPayload</a>(address);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  page-&gt;SynchronizedLoad();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">const</span> HeapObjectHeader&amp; header =</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;      page-&gt;ObjectHeaderFromInnerAddress&lt;<a class="code" href="namespacecppgc_1_1internal.html#ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71">AccessMode::kAtomic</a>&gt;(address);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keywordflow">return</span> {header.ObjectStart(),</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;          <a class="code" href="classcppgc_1_1internal_1_1GlobalGCInfoTable.html#a51ab53b3ff91cd29a2206e41a8ad7b67">GlobalGCInfoTable::GCInfoFromIndex</a>(</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;              header.GetGCInfoIndex&lt;<a class="code" href="namespacecppgc_1_1internal.html#ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71">AccessMode::kAtomic</a>&gt;())</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;              .<a class="code" href="structcppgc_1_1internal_1_1GCInfo.html#a38d648a24eb18de96f6f9b9b9bda4f09">trace</a>};</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="ttc" id="aclasscppgc_1_1internal_1_1BasePage_html_aad13cafeed6c2ea494b7423b9c527b7a"><div class="ttname"><a href="classcppgc_1_1internal_1_1BasePage.html#aad13cafeed6c2ea494b7423b9c527b7a">cppgc::internal::BasePage::FromPayload</a></div><div class="ttdeci">static BasePage * FromPayload(void *)</div><div class="ttdef"><b>Definition:</b> <a href="heap-page_8h_source.html#l00314">heap-page.h:314</a></div></div>
+<div class="ttc" id="aclasscppgc_1_1internal_1_1GlobalGCInfoTable_html_a51ab53b3ff91cd29a2206e41a8ad7b67"><div class="ttname"><a href="classcppgc_1_1internal_1_1GlobalGCInfoTable.html#a51ab53b3ff91cd29a2206e41a8ad7b67">cppgc::internal::GlobalGCInfoTable::GCInfoFromIndex</a></div><div class="ttdeci">static const GCInfo &amp; GCInfoFromIndex(GCInfoIndex index)</div><div class="ttdef"><b>Definition:</b> <a href="gc-info-table_8h_source.html#l00115">gc-info-table.h:115</a></div></div>
+<div class="ttc" id="anamespacecppgc_1_1internal_html_ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71"><div class="ttname"><a href="namespacecppgc_1_1internal.html#ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71">cppgc::internal::AccessMode::kAtomic</a></div><div class="ttdeci">@ kAtomic</div></div>
+<div class="ttc" id="astructcppgc_1_1internal_1_1GCInfo_html_a38d648a24eb18de96f6f9b9b9bda4f09"><div class="ttname"><a href="structcppgc_1_1internal_1_1GCInfo.html#a38d648a24eb18de96f6f9b9b9bda4f09">cppgc::internal::GCInfo::trace</a></div><div class="ttdeci">TraceCallback trace</div><div class="ttdef"><b>Definition:</b> <a href="gc-info-table_8h_source.html#l00030">gc-info-table.h:30</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="heap-page_8h_source.html#l00314">cppgc::internal::BasePage::FromPayload()</a>, <a class="el" href="gc-info-table_8h_source.html#l00115">cppgc::internal::GlobalGCInfoTable::GCInfoFromIndex()</a>, <a class="el" href="heap-object-header_8h_source.html#l00221">cppgc::internal::HeapObjectHeader::GetGCInfoIndex()</a>, <a class="el" href="namespacecppgc_1_1internal.html#ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71">cppgc::internal::kAtomic</a>, <a class="el" href="heap-page_8h_source.html#l00339">cppgc::internal::BasePage::ObjectHeaderFromInnerAddress()</a>, <a class="el" href="heap-object-header_8h_source.html#l00208">cppgc::internal::HeapObjectHeader::ObjectStart()</a>, <a class="el" href="heap-page_8h_source.html#l00080">cppgc::internal::BasePage::SynchronizedLoad()</a>, and <a class="el" href="gc-info-table_8h_source.html#l00030">cppgc::internal::GCInfo::trace</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="trace-trait_8h_source.html#l00119">cppgc::internal::TraceTraitImpl&lt; T, true &gt;::GetTraceDescriptor()</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="structcppgc_1_1internal_1_1TraceTraitFromInnerAddressImpl_a4cf1491d34143a690583dceab0ae73d7_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structcppgc_1_1internal_1_1TraceTraitFromInnerAddressImpl_a4cf1491d34143a690583dceab0ae73d7_icgraph.svg" width="615" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
-<li><a class="el" href="trace-trait_8h_source.html">trace-trait.h</a></li>
-<li><a class="el" href="trace-trait_8cc.html">trace-trait.cc</a></li>
+<li>/mnt/V8SourceCode/include/cppgc/<a class="el" href="trace-trait_8h_source.html">trace-trait.h</a></li>
+<li>/mnt/V8SourceCode/src/heap/cppgc/<a class="el" href="trace-trait_8cc_source.html">trace-trait.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -133,7 +182,7 @@ Static Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacecppgc.html">cppgc</a></li><li class="navelem"><a class="el" href="namespacecppgc_1_1internal.html">internal</a></li><li class="navelem"><a class="el" href="structcppgc_1_1internal_1_1TraceTraitFromInnerAddressImpl.html">TraceTraitFromInnerAddressImpl</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:42:51 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jun 12 2025 16:01:51 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

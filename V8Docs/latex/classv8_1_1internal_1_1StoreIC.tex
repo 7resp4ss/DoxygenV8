@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::Store\+IC\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classv8_1_1internal_1_1StoreIC__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1StoreIC__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::Store\+IC\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=193pt]{classv8_1_1internal_1_1StoreIC__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StoreIC__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -38,12 +38,24 @@ Collaboration diagram for v8\+::internal\+::Store\+IC\+:
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1StoreIC_ad9e1ff3b6c2ec9ebf6747d58bfc64699}{Update\+Caches}} (\mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator}{Lookup\+Iterator}} $\ast$lookup, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, \mbox{\hyperlink{namespacev8_1_1internal_a5a9c953b927bbae6c9e0091778fc4e96}{Store\+Origin}} store\+\_\+origin)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1MaybeObjectHandle}{Maybe\+Object\+Handle}} \mbox{\hyperlink{classv8_1_1internal_1_1StoreIC_aa8b27a3e6b7f01598abe43f2e28aaf5b}{Compute\+Handler}} (\mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator}{Lookup\+Iterator}} $\ast$lookup)
+\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1StoreIC_ae59e849648858af1fd22081890d47b78}{IC}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 264 of file ic.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -55,25 +67,685 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1StoreIC_ae59e849648858af1fd2208189
 
 
 
+Definition at line 266 of file ic.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{268       : \mbox{\hyperlink{classv8_1_1internal_1_1StoreIC_ae59e849648858af1fd22081890d47b78}{IC}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}, vector, slot, \mbox{\hyperlink{classv8_1_1internal_1_1IC_a8b5bd465d7121a9addc65b6f47c1e321}{kind}}) \{}
+\DoxyCodeLine{269     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a64f78feb5543ca5ee45209e1b853f902}{IsAnyStore}}());}
+\DoxyCodeLine{270   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), and v8\+::internal\+::\+IC\+::\+Is\+Any\+Store().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StoreIC_ae93a2be70e62921efe5525c434143131_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1StoreIC_aa8b27a3e6b7f01598abe43f2e28aaf5b}\label{classv8_1_1internal_1_1StoreIC_aa8b27a3e6b7f01598abe43f2e28aaf5b}} 
+\index{v8::internal::StoreIC@{v8::internal::StoreIC}!ComputeHandler@{ComputeHandler}}
+\index{ComputeHandler@{ComputeHandler}!v8::internal::StoreIC@{v8::internal::StoreIC}}
+\doxysubsubsection{\texorpdfstring{ComputeHandler()}{ComputeHandler()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MaybeObjectHandle}{Maybe\+Object\+Handle}} v8\+::internal\+::\+Store\+IC\+::\+Compute\+Handler (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator}{Lookup\+Iterator}} $\ast$}]{lookup }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 2006 of file ic.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2006                                                                 \{}
+\DoxyCodeLine{2007   \textcolor{keywordflow}{switch} (lookup-\/>state()) \{}
+\DoxyCodeLine{2008     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9a938c1d30b08c4867801921d2ed2f3bca}{LookupIterator::TRANSITION}}: \{}
+\DoxyCodeLine{2009       DirectHandle<JSObject> store\_target = lookup-\/>GetStoreTarget<JSObject>();}
+\DoxyCodeLine{2010       \textcolor{keywordflow}{if} (IsJSGlobalObject(*store\_target)) \{}
+\DoxyCodeLine{2011         \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_StoreGlobalTransitionDH);}
+\DoxyCodeLine{2012 }
+\DoxyCodeLine{2013         \textcolor{keywordflow}{if} (IsJSGlobalObject(*\mbox{\hyperlink{classv8_1_1internal_1_1IC_ae20194b8a7f4b424b7f4a27feeecd7cd}{lookup\_start\_object\_map}}())) \{}
+\DoxyCodeLine{2014           \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a4916bdf96d92457bc57891c26aba560d}{IsStoreGlobalIC}}());}
+\DoxyCodeLine{2015 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{2016           DirectHandle<JSObject> holder = lookup-\/>GetHolder<JSObject>();}
+\DoxyCodeLine{2017           \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(*lookup-\/>GetReceiver(), *holder);}
+\DoxyCodeLine{2018           \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(*store\_target, *holder);}
+\DoxyCodeLine{2019 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{2020           \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a67ff02217ff0b7e1f3024b5b75705229}{StoreHandler::StoreGlobal}}(}
+\DoxyCodeLine{2021               \mbox{\hyperlink{namespacev8_1_1internal_a15cafb1d1ed1ac577609eb5e764384e8}{indirect\_handle}}(lookup-\/>transition\_cell(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2022         \}}
+\DoxyCodeLine{2023         \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1IC_a4375ca63976ad5a71a0714e1028510dd}{IsDefineKeyedOwnIC}}()) \{}
+\DoxyCodeLine{2024           \textcolor{comment}{// Private field can't be deleted from this global object and can't}}
+\DoxyCodeLine{2025           \textcolor{comment}{// be overwritten, so install slow handler in order to make store IC}}
+\DoxyCodeLine{2026           \textcolor{comment}{// throw if a private name already exists.}}
+\DoxyCodeLine{2027           \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_SlowStub);}
+\DoxyCodeLine{2028           \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2029         \}}
+\DoxyCodeLine{2030 }
+\DoxyCodeLine{2031         DirectHandle<Smi> smi\_handler =}
+\DoxyCodeLine{2032             \mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a5f12c7945553325e88f50d55560c8d4f}{StoreHandler::StoreGlobalProxy}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}());}
+\DoxyCodeLine{2033         Handle<Object> handler = \mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3646130a116f1908f19ae9318d406540}{StoreHandler::StoreThroughPrototype}}(}
+\DoxyCodeLine{2034             \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_ae20194b8a7f4b424b7f4a27feeecd7cd}{lookup\_start\_object\_map}}(), store\_target, *smi\_handler,}
+\DoxyCodeLine{2035             \mbox{\hyperlink{classv8_1_1internal_1_1MaybeObjectDirectHandle_af39f668bdaaf25432eb7cdbc4066f4d6}{MaybeObjectDirectHandle::Weak}}(lookup-\/>transition\_cell()));}
+\DoxyCodeLine{2036         \textcolor{keywordflow}{return} MaybeObjectHandle(handler);}
+\DoxyCodeLine{2037       \}}
+\DoxyCodeLine{2038       \textcolor{comment}{// Dictionary-\/to-\/fast transitions are not expected and not supported.}}
+\DoxyCodeLine{2039       \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(!lookup-\/>transition\_map()-\/>is\_dictionary\_map(),}
+\DoxyCodeLine{2040                      !\mbox{\hyperlink{classv8_1_1internal_1_1IC_ae20194b8a7f4b424b7f4a27feeecd7cd}{lookup\_start\_object\_map}}()-\/>is\_dictionary\_map());}
+\DoxyCodeLine{2041 }
+\DoxyCodeLine{2042       \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(lookup-\/>IsCacheableTransition());}
+\DoxyCodeLine{2043       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1IC_acce8d19441c402ec93edcb7d04aeefb1}{IsAnyDefineOwn}}()) \{}
+\DoxyCodeLine{2044         \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_ab6919537db4e8712e6a37856a4920b7b}{StoreHandler::StoreOwnTransition}}(}
+\DoxyCodeLine{2045             \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \mbox{\hyperlink{namespacev8_1_1internal_a15cafb1d1ed1ac577609eb5e764384e8}{indirect\_handle}}(lookup-\/>transition\_map(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2046       \}}
+\DoxyCodeLine{2047       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a6b22fdda926710b720c446ab3bf90e73}{StoreHandler::StoreTransition}}(}
+\DoxyCodeLine{2048           \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \mbox{\hyperlink{namespacev8_1_1internal_a15cafb1d1ed1ac577609eb5e764384e8}{indirect\_handle}}(lookup-\/>transition\_map(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2049     \}}
+\DoxyCodeLine{2050 }
+\DoxyCodeLine{2051     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9ae5d9ae449f12b851ace03c851d967736}{LookupIterator::INTERCEPTOR}}: \{}
+\DoxyCodeLine{2052       DirectHandle<JSObject> holder = lookup-\/>GetHolder<JSObject>();}
+\DoxyCodeLine{2053       Tagged<InterceptorInfo> info = holder-\/>GetNamedInterceptor();}
+\DoxyCodeLine{2054 }
+\DoxyCodeLine{2055       \textcolor{comment}{// If the interceptor is on the receiver...}}
+\DoxyCodeLine{2056       \textcolor{keywordflow}{if} (lookup-\/>HolderIsReceiverOrHiddenPrototype() \&\& !info-\/>non\_masking()) \{}
+\DoxyCodeLine{2057         \textcolor{comment}{// ...return a store interceptor Smi handler if there is a setter}}
+\DoxyCodeLine{2058         \textcolor{comment}{// interceptor and it's not DefineNamedOwnIC or DefineKeyedOwnIC}}
+\DoxyCodeLine{2059         \textcolor{comment}{// (which should call the definer)...}}
+\DoxyCodeLine{2060         \textcolor{keywordflow}{if} (info-\/>has\_setter() \&\& !\mbox{\hyperlink{classv8_1_1internal_1_1IC_acce8d19441c402ec93edcb7d04aeefb1}{IsAnyDefineOwn}}()) \{}
+\DoxyCodeLine{2061           \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a8e54a53b270c72fb45c0a39f7793b1fe}{StoreHandler::StoreInterceptor}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2062         \}}
+\DoxyCodeLine{2063         \textcolor{comment}{// ...otherwise return a slow-\/case Smi handler, which invokes the}}
+\DoxyCodeLine{2064         \textcolor{comment}{// definer for DefineNamedOwnIC.}}
+\DoxyCodeLine{2065         \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2066       \}}
+\DoxyCodeLine{2067 }
+\DoxyCodeLine{2068       \textcolor{comment}{// If the interceptor is a getter/query interceptor on the prototype}}
+\DoxyCodeLine{2069       \textcolor{comment}{// chain, return an invalidatable slow handler so it can turn fast if the}}
+\DoxyCodeLine{2070       \textcolor{comment}{// interceptor is masked by a regular property later.}}
+\DoxyCodeLine{2071       \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(info-\/>has\_getter() || info-\/>has\_query());}
+\DoxyCodeLine{2072       Handle<Object> handler = \mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3646130a116f1908f19ae9318d406540}{StoreHandler::StoreThroughPrototype}}(}
+\DoxyCodeLine{2073           \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_ae20194b8a7f4b424b7f4a27feeecd7cd}{lookup\_start\_object\_map}}(), holder,}
+\DoxyCodeLine{2074           *\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2075       \textcolor{keywordflow}{return} MaybeObjectHandle(handler);}
+\DoxyCodeLine{2076     \}}
+\DoxyCodeLine{2077 }
+\DoxyCodeLine{2078     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9ad99a7962d13270cc7a3e9f385ce04aa8}{LookupIterator::ACCESSOR}}: \{}
+\DoxyCodeLine{2079       \textcolor{comment}{// This is currently guaranteed by checks in StoreIC::Store.}}
+\DoxyCodeLine{2080       DirectHandle<JSReceiver> receiver =}
+\DoxyCodeLine{2081           Cast<JSReceiver>(lookup-\/>GetReceiver());}
+\DoxyCodeLine{2082       Handle<JSObject> holder =}
+\DoxyCodeLine{2083           \mbox{\hyperlink{namespacev8_1_1internal_a15cafb1d1ed1ac577609eb5e764384e8}{indirect\_handle}}(lookup-\/>GetHolder<JSObject>(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}());}
+\DoxyCodeLine{2084       \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!IsAccessCheckNeeded(*receiver) || lookup-\/>name()-\/>IsPrivate());}
+\DoxyCodeLine{2085 }
+\DoxyCodeLine{2086       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1IC_acce8d19441c402ec93edcb7d04aeefb1}{IsAnyDefineOwn}}()) \{}
+\DoxyCodeLine{2087         \mbox{\hyperlink{classv8_1_1internal_1_1IC_a3258c0d1f71f6a32353cf3319455d073}{set\_slow\_stub\_reason}}(\textcolor{stringliteral}{"{}define own with existing accessor"{}});}
+\DoxyCodeLine{2088         \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_SlowStub);}
+\DoxyCodeLine{2089         \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2090       \}}
+\DoxyCodeLine{2091       \textcolor{keywordflow}{if} (!holder-\/>HasFastProperties()) \{}
+\DoxyCodeLine{2092         \mbox{\hyperlink{classv8_1_1internal_1_1IC_a3258c0d1f71f6a32353cf3319455d073}{set\_slow\_stub\_reason}}(\textcolor{stringliteral}{"{}accessor on slow map"{}});}
+\DoxyCodeLine{2093         \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_SlowStub);}
+\DoxyCodeLine{2094         MaybeObjectHandle handler =}
+\DoxyCodeLine{2095             MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2096         \textcolor{keywordflow}{return} handler;}
+\DoxyCodeLine{2097       \}}
+\DoxyCodeLine{2098       DirectHandle<Object> accessors = lookup-\/>GetAccessors();}
+\DoxyCodeLine{2099       \textcolor{keywordflow}{if} (IsAccessorInfo(*accessors)) \{}
+\DoxyCodeLine{2100         DirectHandle<AccessorInfo> info = Cast<AccessorInfo>(accessors);}
+\DoxyCodeLine{2101         \textcolor{keywordflow}{if} (!info-\/>has\_setter(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}())) \{}
+\DoxyCodeLine{2102           \mbox{\hyperlink{classv8_1_1internal_1_1IC_a3258c0d1f71f6a32353cf3319455d073}{set\_slow\_stub\_reason}}(\textcolor{stringliteral}{"{}setter == kNullAddress"{}});}
+\DoxyCodeLine{2103           \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_SlowStub);}
+\DoxyCodeLine{2104           \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2105         \}}
+\DoxyCodeLine{2106         \textcolor{keywordflow}{if} (!lookup-\/>HolderIsReceiverOrHiddenPrototype()) \{}
+\DoxyCodeLine{2107           \mbox{\hyperlink{classv8_1_1internal_1_1IC_a3258c0d1f71f6a32353cf3319455d073}{set\_slow\_stub\_reason}}(\textcolor{stringliteral}{"{}native data property in prototype chain"{}});}
+\DoxyCodeLine{2108           \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_SlowStub);}
+\DoxyCodeLine{2109           \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2110         \}}
+\DoxyCodeLine{2111 }
+\DoxyCodeLine{2112         Handle<Smi> smi\_handler = \mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a57e97e408250e9b808def49ae6a54da3}{StoreHandler::StoreNativeDataProperty}}(}
+\DoxyCodeLine{2113             \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), lookup-\/>GetAccessorIndex());}
+\DoxyCodeLine{2114         \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_StoreNativeDataPropertyDH);}
+\DoxyCodeLine{2115         \textcolor{keywordflow}{if} (receiver.is\_identical\_to(holder)) \{}
+\DoxyCodeLine{2116           \textcolor{keywordflow}{return} MaybeObjectHandle(smi\_handler);}
+\DoxyCodeLine{2117         \}}
+\DoxyCodeLine{2118         \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(),}
+\DoxyCodeLine{2119                             StoreIC\_StoreNativeDataPropertyOnPrototypeDH);}
+\DoxyCodeLine{2120         \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3646130a116f1908f19ae9318d406540}{StoreHandler::StoreThroughPrototype}}(}
+\DoxyCodeLine{2121             \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_ae20194b8a7f4b424b7f4a27feeecd7cd}{lookup\_start\_object\_map}}(), holder, *smi\_handler));}
+\DoxyCodeLine{2122 }
+\DoxyCodeLine{2123       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (IsAccessorPair(*accessors)) \{}
+\DoxyCodeLine{2124         DirectHandle<AccessorPair> accessor\_pair =}
+\DoxyCodeLine{2125             Cast<AccessorPair>(accessors);}
+\DoxyCodeLine{2126         Handle<Object> \mbox{\hyperlink{namespacev8_1_1internal_a55eed44eaa9dbd54a74a0390def124b6}{setter}}(accessor\_pair-\/>setter(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}());}
+\DoxyCodeLine{2127         \textcolor{keywordflow}{if} (!IsCallableJSFunction(*\mbox{\hyperlink{namespacev8_1_1internal_a55eed44eaa9dbd54a74a0390def124b6}{setter}}) \&\&}
+\DoxyCodeLine{2128             !IsFunctionTemplateInfo(*\mbox{\hyperlink{namespacev8_1_1internal_a55eed44eaa9dbd54a74a0390def124b6}{setter}})) \{}
+\DoxyCodeLine{2129           \mbox{\hyperlink{classv8_1_1internal_1_1IC_a3258c0d1f71f6a32353cf3319455d073}{set\_slow\_stub\_reason}}(\textcolor{stringliteral}{"{}setter not a function"{}});}
+\DoxyCodeLine{2130           \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_SlowStub);}
+\DoxyCodeLine{2131           \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2132         \}}
+\DoxyCodeLine{2133 }
+\DoxyCodeLine{2134         \textcolor{keywordflow}{if} ((IsFunctionTemplateInfo(*\mbox{\hyperlink{namespacev8_1_1internal_a55eed44eaa9dbd54a74a0390def124b6}{setter}}) \&\&}
+\DoxyCodeLine{2135              Cast<FunctionTemplateInfo>(*setter)-\/>BreakAtEntry(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}())) ||}
+\DoxyCodeLine{2136             (IsJSFunction(*\mbox{\hyperlink{namespacev8_1_1internal_a55eed44eaa9dbd54a74a0390def124b6}{setter}}) \&\&}
+\DoxyCodeLine{2137              Cast<JSFunction>(*setter)-\/>shared()-\/>BreakAtEntry(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()))) \{}
+\DoxyCodeLine{2138           \textcolor{comment}{// Do not install an IC if the api function has a breakpoint.}}
+\DoxyCodeLine{2139           \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_SlowStub);}
+\DoxyCodeLine{2140           \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2141         \}}
+\DoxyCodeLine{2142 }
+\DoxyCodeLine{2143         CallOptimization call\_optimization(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \mbox{\hyperlink{namespacev8_1_1internal_a55eed44eaa9dbd54a74a0390def124b6}{setter}});}
+\DoxyCodeLine{2144         \textcolor{keywordflow}{if} (call\_optimization.is\_simple\_api\_call()) \{}
+\DoxyCodeLine{2145           \mbox{\hyperlink{classv8_1_1internal_1_1CallOptimization_a0e0a49814579066e63f71cde5caa02db}{CallOptimization::HolderLookup}} holder\_lookup;}
+\DoxyCodeLine{2146           DirectHandle<JSObject> api\_holder =}
+\DoxyCodeLine{2147               call\_optimization.LookupHolderOfExpectedType(}
+\DoxyCodeLine{2148                   \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_ae20194b8a7f4b424b7f4a27feeecd7cd}{lookup\_start\_object\_map}}(), \&holder\_lookup);}
+\DoxyCodeLine{2149           \textcolor{keywordflow}{if} (call\_optimization.IsCompatibleReceiverMap(api\_holder, holder,}
+\DoxyCodeLine{2150                                                         holder\_lookup)) \{}
+\DoxyCodeLine{2151             DirectHandle<Smi> smi\_handler =}
+\DoxyCodeLine{2152                 \mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a6325b09058c76e34e46b74be8abf0801}{StoreHandler::StoreApiSetter}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}());}
+\DoxyCodeLine{2153 }
+\DoxyCodeLine{2154             DirectHandle<NativeContext> accessor\_context =}
+\DoxyCodeLine{2155                 \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02ic_8cc_03_a8ba509bdfecc788ece742f3739289fa0}{GetAccessorContext}}(call\_optimization, holder-\/>map(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}());}
+\DoxyCodeLine{2156 }
+\DoxyCodeLine{2157             \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_StoreApiSetterOnPrototypeDH);}
+\DoxyCodeLine{2158             \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3646130a116f1908f19ae9318d406540}{StoreHandler::StoreThroughPrototype}}(}
+\DoxyCodeLine{2159                 \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_ae20194b8a7f4b424b7f4a27feeecd7cd}{lookup\_start\_object\_map}}(), holder, *smi\_handler,}
+\DoxyCodeLine{2160                 \mbox{\hyperlink{classv8_1_1internal_1_1MaybeObjectDirectHandle_af39f668bdaaf25432eb7cdbc4066f4d6}{MaybeObjectDirectHandle::Weak}}(}
+\DoxyCodeLine{2161                     call\_optimization.api\_call\_info()),}
+\DoxyCodeLine{2162                 \mbox{\hyperlink{classv8_1_1internal_1_1MaybeObjectDirectHandle_af39f668bdaaf25432eb7cdbc4066f4d6}{MaybeObjectDirectHandle::Weak}}(accessor\_context)));}
+\DoxyCodeLine{2163           \}}
+\DoxyCodeLine{2164           \mbox{\hyperlink{classv8_1_1internal_1_1IC_a3258c0d1f71f6a32353cf3319455d073}{set\_slow\_stub\_reason}}(\textcolor{stringliteral}{"{}incompatible receiver"{}});}
+\DoxyCodeLine{2165           \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_SlowStub);}
+\DoxyCodeLine{2166           \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2167         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (IsFunctionTemplateInfo(*\mbox{\hyperlink{namespacev8_1_1internal_a55eed44eaa9dbd54a74a0390def124b6}{setter}})) \{}
+\DoxyCodeLine{2168           \mbox{\hyperlink{classv8_1_1internal_1_1IC_a3258c0d1f71f6a32353cf3319455d073}{set\_slow\_stub\_reason}}(\textcolor{stringliteral}{"{}setter non-\/simple template"{}});}
+\DoxyCodeLine{2169           \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_SlowStub);}
+\DoxyCodeLine{2170           \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2171         \}}
+\DoxyCodeLine{2172 }
+\DoxyCodeLine{2173         \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(IsCallableJSFunction(*\mbox{\hyperlink{namespacev8_1_1internal_a55eed44eaa9dbd54a74a0390def124b6}{setter}}));}
+\DoxyCodeLine{2174         \textcolor{keywordflow}{if} (receiver.is\_identical\_to(holder)) \{}
+\DoxyCodeLine{2175           \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_StoreAccessorDH);}
+\DoxyCodeLine{2176           \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1MaybeObjectHandle_a89e192adef6d752735b0845ee76cc1a2}{MaybeObjectHandle::Weak}}(}
+\DoxyCodeLine{2177               \mbox{\hyperlink{namespacev8_1_1internal_a15cafb1d1ed1ac577609eb5e764384e8}{indirect\_handle}}(accessor\_pair, \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2178         \}}
+\DoxyCodeLine{2179         \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_StoreAccessorOnPrototypeDH);}
+\DoxyCodeLine{2180 }
+\DoxyCodeLine{2181         \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3646130a116f1908f19ae9318d406540}{StoreHandler::StoreThroughPrototype}}(}
+\DoxyCodeLine{2182             \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_ae20194b8a7f4b424b7f4a27feeecd7cd}{lookup\_start\_object\_map}}(), holder,}
+\DoxyCodeLine{2183             *\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a6ab50e4ae705543df6ba3a7262cff697}{StoreHandler::StoreAccessorFromPrototype}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()),}
+\DoxyCodeLine{2184             \mbox{\hyperlink{classv8_1_1internal_1_1MaybeObjectDirectHandle_af39f668bdaaf25432eb7cdbc4066f4d6}{MaybeObjectDirectHandle::Weak}}(\mbox{\hyperlink{namespacev8_1_1internal_a55eed44eaa9dbd54a74a0390def124b6}{setter}})));}
+\DoxyCodeLine{2185       \}}
+\DoxyCodeLine{2186       \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_SlowStub);}
+\DoxyCodeLine{2187       \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2188     \}}
+\DoxyCodeLine{2189 }
+\DoxyCodeLine{2190     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9ad248749ef6fff604a5df3ec251488d4b}{LookupIterator::DATA}}: \{}
+\DoxyCodeLine{2191       \textcolor{comment}{// This is currently guaranteed by checks in StoreIC::Store.}}
+\DoxyCodeLine{2192       DirectHandle<JSObject> receiver = Cast<JSObject>(lookup-\/>GetReceiver());}
+\DoxyCodeLine{2193       \mbox{\hyperlink{src_2base_2macros_8h_a280b0798f270f4b3f361c9ab64832956}{USE}}(receiver);}
+\DoxyCodeLine{2194       DirectHandle<JSObject> holder = lookup-\/>GetHolder<JSObject>();}
+\DoxyCodeLine{2195       \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!IsAccessCheckNeeded(*receiver) || lookup-\/>name()-\/>IsPrivate());}
+\DoxyCodeLine{2196 }
+\DoxyCodeLine{2197       \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{namespacev8_1_1internal_ace7045d9fc96e0d36ce22ba112661a81a0ac87546e8b36fcb3034694d4d909ea3}{PropertyKind::kData}}, lookup-\/>property\_details().kind());}
+\DoxyCodeLine{2198       \textcolor{keywordflow}{if} (lookup-\/>is\_dictionary\_holder()) \{}
+\DoxyCodeLine{2199         \textcolor{keywordflow}{if} (IsJSGlobalObject(*holder)) \{}
+\DoxyCodeLine{2200           \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_StoreGlobalDH);}
+\DoxyCodeLine{2201           \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a67ff02217ff0b7e1f3024b5b75705229}{StoreHandler::StoreGlobal}}(}
+\DoxyCodeLine{2202               \mbox{\hyperlink{namespacev8_1_1internal_a15cafb1d1ed1ac577609eb5e764384e8}{indirect\_handle}}(lookup-\/>GetPropertyCell(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}())));}
+\DoxyCodeLine{2203         \}}
+\DoxyCodeLine{2204         \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_StoreNormalDH);}
+\DoxyCodeLine{2205         \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(holder.is\_identical\_to(receiver));}
+\DoxyCodeLine{2206         \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(!\mbox{\hyperlink{common_2globals_8h_a544c1107780c525423597864a93aa6a7}{V8\_DICT\_PROPERTY\_CONST\_TRACKING\_BOOL}},}
+\DoxyCodeLine{2207                        lookup-\/>constness() == \mbox{\hyperlink{namespacev8_1_1internal_ac328869a355886739965287befcc49aca32567d9e5f2d66c9b326c45e800abcf6}{PropertyConstness::kMutable}});}
+\DoxyCodeLine{2208 }
+\DoxyCodeLine{2209         Handle<Smi> handler = \mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a16b1eb56c827571852da4f896218a31b}{StoreHandler::StoreNormal}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}());}
+\DoxyCodeLine{2210         \textcolor{keywordflow}{return} MaybeObjectHandle(handler);}
+\DoxyCodeLine{2211       \}}
+\DoxyCodeLine{2212 }
+\DoxyCodeLine{2213       \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ Elements (for TypedArrays) -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{2214       \textcolor{keywordflow}{if} (lookup-\/>IsElement(*holder)) \{}
+\DoxyCodeLine{2215         \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_SlowStub);}
+\DoxyCodeLine{2216         \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2217       \}}
+\DoxyCodeLine{2218 }
+\DoxyCodeLine{2219       \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ Fields -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{2220       \textcolor{keywordflow}{if} (lookup-\/>property\_details().location() == \mbox{\hyperlink{namespacev8_1_1internal_ae9b0a1942f337021ffd0954056894cc4a7be01c1ae587bb8938b2097146b0499f}{PropertyLocation::kField}}) \{}
+\DoxyCodeLine{2221         \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_StoreFieldDH);}
+\DoxyCodeLine{2222         \textcolor{keywordtype}{int} descriptor = lookup-\/>GetFieldDescriptorIndex();}
+\DoxyCodeLine{2223         FieldIndex \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = lookup-\/>GetFieldIndex();}
+\DoxyCodeLine{2224         \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(IsJSSharedStruct(*holder))) \{}
+\DoxyCodeLine{2225           \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a44536ef49074194334d27beac7dfcaa6}{StoreHandler::StoreSharedStructField}}(}
+\DoxyCodeLine{2226               \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), descriptor, \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}, lookup-\/>representation()));}
+\DoxyCodeLine{2227         \}}
+\DoxyCodeLine{2228         \mbox{\hyperlink{namespacev8_1_1internal_ac328869a355886739965287befcc49ac}{PropertyConstness}} constness = lookup-\/>constness();}
+\DoxyCodeLine{2229         \textcolor{keywordflow}{if} (constness == \mbox{\hyperlink{namespacev8_1_1internal_ac328869a355886739965287befcc49acad1efdc0f2aa096a47586b448aa73f414}{PropertyConstness::kConst}} \&\&}
+\DoxyCodeLine{2230             \mbox{\hyperlink{namespacev8_1_1internal_a1dbda9cc8567528c2438261d70b5618d}{IsDefineNamedOwnICKind}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_ac10e141b7bede2f69f8af8340a90d384}{nexus}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1IC_a8b5bd465d7121a9addc65b6f47c1e321}{kind}}())) \{}
+\DoxyCodeLine{2231           \textcolor{comment}{// DefineNamedOwnICs are used for initializing object literals}}
+\DoxyCodeLine{2232           \textcolor{comment}{// therefore we must store the value unconditionally even to}}
+\DoxyCodeLine{2233           \textcolor{comment}{// VariableMode::kConst fields.}}
+\DoxyCodeLine{2234           constness = \mbox{\hyperlink{namespacev8_1_1internal_ac328869a355886739965287befcc49aca32567d9e5f2d66c9b326c45e800abcf6}{PropertyConstness::kMutable}};}
+\DoxyCodeLine{2235         \}}
+\DoxyCodeLine{2236         \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a5e48a5230f15ecfad678320d08c4e85f}{StoreHandler::StoreField}}(}
+\DoxyCodeLine{2237             \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), descriptor, \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}, constness, lookup-\/>representation()));}
+\DoxyCodeLine{2238       \}}
+\DoxyCodeLine{2239 }
+\DoxyCodeLine{2240       \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ Constant properties -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{2241       \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{namespacev8_1_1internal_ae9b0a1942f337021ffd0954056894cc4a454ab7e845efd9a5fa1826a1e9a69295}{PropertyLocation::kDescriptor}},}
+\DoxyCodeLine{2242                 lookup-\/>property\_details().location());}
+\DoxyCodeLine{2243       \mbox{\hyperlink{classv8_1_1internal_1_1IC_a3258c0d1f71f6a32353cf3319455d073}{set\_slow\_stub\_reason}}(\textcolor{stringliteral}{"{}constant property"{}});}
+\DoxyCodeLine{2244       \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_SlowStub);}
+\DoxyCodeLine{2245       \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2246     \}}
+\DoxyCodeLine{2247     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9ae0202e647e47ba723c6868a386653f00}{LookupIterator::JSPROXY}}: \{}
+\DoxyCodeLine{2248       DirectHandle<JSReceiver> receiver =}
+\DoxyCodeLine{2249           Cast<JSReceiver>(lookup-\/>GetReceiver());}
+\DoxyCodeLine{2250       Handle<JSProxy> holder =}
+\DoxyCodeLine{2251           \mbox{\hyperlink{namespacev8_1_1internal_a15cafb1d1ed1ac577609eb5e764384e8}{indirect\_handle}}(lookup-\/>GetHolder<JSProxy>(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}());}
+\DoxyCodeLine{2252 }
+\DoxyCodeLine{2253       \textcolor{comment}{// IsDefineNamedOwnIC() is true when we are defining public fields on a}}
+\DoxyCodeLine{2254       \textcolor{comment}{// Proxy. IsDefineKeyedOwnIC() is true when we are defining computed}}
+\DoxyCodeLine{2255       \textcolor{comment}{// fields in a Proxy. In these cases use the slow stub to invoke the}}
+\DoxyCodeLine{2256       \textcolor{comment}{// define trap.}}
+\DoxyCodeLine{2257       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1IC_a2cce958902e2d45089819be6a55eb082}{IsDefineNamedOwnIC}}() || \mbox{\hyperlink{classv8_1_1internal_1_1IC_a4375ca63976ad5a71a0714e1028510dd}{IsDefineKeyedOwnIC}}()) \{}
+\DoxyCodeLine{2258         \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_SlowStub);}
+\DoxyCodeLine{2259         \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{2260       \}}
+\DoxyCodeLine{2261 }
+\DoxyCodeLine{2262       \textcolor{keywordflow}{return} MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_aa17c9254e967d6013d36765f84a53de1}{StoreHandler::StoreProxy}}(}
+\DoxyCodeLine{2263           \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \mbox{\hyperlink{classv8_1_1internal_1_1IC_ae20194b8a7f4b424b7f4a27feeecd7cd}{lookup\_start\_object\_map}}(), holder, receiver));}
+\DoxyCodeLine{2264     \}}
+\DoxyCodeLine{2265 }
+\DoxyCodeLine{2266     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9a66d623919565e6e652d519df27a21303}{LookupIterator::TYPED\_ARRAY\_INDEX\_NOT\_FOUND}}:}
+\DoxyCodeLine{2267     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9a1ff440ac6899e12e66dde578124852e8}{LookupIterator::ACCESS\_CHECK}}:}
+\DoxyCodeLine{2268     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9a872f2154f3e6d7f5b6780d8de08eaf4b}{LookupIterator::NOT\_FOUND}}:}
+\DoxyCodeLine{2269     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9a276760ba9d667569e49b94e1da1c1aa7}{LookupIterator::WASM\_OBJECT}}:}
+\DoxyCodeLine{2270     \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9ab6b48e02c0bdaedda0011015f1bdc761}{LookupIterator::STRING\_LOOKUP\_START\_OBJECT}}:}
+\DoxyCodeLine{2271       \mbox{\hyperlink{namespacev8_1_1internal_acdec713c25068019f935e35976f5b666}{UNREACHABLE}}();}
+\DoxyCodeLine{2272   \}}
+\DoxyCodeLine{2273   \textcolor{keywordflow}{return} MaybeObjectHandle();}
+\DoxyCodeLine{2274 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Lookup\+Iterator\+::\+ACCESS\+\_\+\+CHECK, v8\+::internal\+::\+Lookup\+Iterator\+::\+ACCESSOR, v8\+::internal\+::\+Call\+Optimization\+::api\+\_\+call\+\_\+info(), v8\+::internal\+::\+Lookup\+Iterator\+::constness(), v8\+::internal\+::\+Lookup\+Iterator\+::\+DATA, v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, DCHECK\+\_\+\+IMPLIES, v8\+::internal\+::anonymous\+\_\+namespace\{ic.\+cc\}\+::\+Get\+Accessor\+Context(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Accessor\+Index(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Accessors(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Field\+Descriptor\+Index(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Field\+Index(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Holder(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Property\+Cell(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Receiver(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Store\+Target(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Holder\+Is\+Receiver\+Or\+Hidden\+Prototype(), v8\+::internal\+::index, v8\+::internal\+::indirect\+\_\+handle(), v8\+::internal\+::\+Lookup\+Iterator\+::\+INTERCEPTOR, v8\+::internal\+::\+Lookup\+Iterator\+::is\+\_\+dictionary\+\_\+holder(), v8\+::internal\+::\+Direct\+Handle$<$ T $>$\+::is\+\_\+identical\+\_\+to(), v8\+::internal\+::\+Call\+Optimization\+::is\+\_\+simple\+\_\+api\+\_\+call(), v8\+::internal\+::\+IC\+::\+Is\+Any\+Define\+Own(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Is\+Cacheable\+Transition(), v8\+::internal\+::\+Call\+Optimization\+::\+Is\+Compatible\+Receiver\+Map(), v8\+::internal\+::\+IC\+::\+Is\+Define\+Keyed\+Own\+IC(), v8\+::internal\+::\+IC\+::\+Is\+Define\+Named\+Own\+IC(), v8\+::internal\+::\+Is\+Define\+Named\+Own\+ICKind(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Is\+Element(), v8\+::internal\+::\+IC\+::isolate(), v8\+::internal\+::\+IC\+::\+Is\+Store\+Global\+IC(), v8\+::internal\+::\+Lookup\+Iterator\+::\+JSPROXY, v8\+::internal\+::k\+Const, v8\+::internal\+::k\+Data, v8\+::internal\+::k\+Descriptor, v8\+::internal\+::k\+Field, v8\+::internal\+::\+IC\+::kind(), v8\+::internal\+::\+Property\+Details\+::kind(), v8\+::internal\+::k\+Mutable, v8\+::internal\+::\+Property\+Details\+::location(), v8\+::internal\+::\+IC\+::lookup\+\_\+start\+\_\+object\+\_\+map(), v8\+::internal\+::\+Call\+Optimization\+::\+Lookup\+Holder\+Of\+Expected\+Type(), v8\+::internal\+::\+Lookup\+Iterator\+::name(), v8\+::internal\+::\+IC\+::nexus(), v8\+::internal\+::\+Lookup\+Iterator\+::\+NOT\+\_\+\+FOUND, v8\+::internal\+::\+Lookup\+Iterator\+::property\+\_\+details(), v8\+::internal\+::\+Lookup\+Iterator\+::representation(), v8\+::internal\+::\+IC\+::set\+\_\+slow\+\_\+stub\+\_\+reason(), v8\+::internal\+::setter, v8\+::internal\+::\+Lookup\+Iterator\+::state(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Accessor\+From\+Prototype(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Api\+Setter(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Field(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Global(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Global\+Proxy(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Interceptor(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Native\+Data\+Property(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Normal(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Own\+Transition(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Proxy(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Shared\+Struct\+Field(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Slow(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Through\+Prototype(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Transition(), v8\+::internal\+::\+Lookup\+Iterator\+::\+STRING\+\_\+\+LOOKUP\+\_\+\+START\+\_\+\+OBJECT, TRACE\+\_\+\+HANDLER\+\_\+\+STATS, v8\+::internal\+::\+Lookup\+Iterator\+::\+TRANSITION, v8\+::internal\+::\+Lookup\+Iterator\+::transition\+\_\+cell(), v8\+::internal\+::\+Lookup\+Iterator\+::transition\+\_\+map(), v8\+::internal\+::\+Lookup\+Iterator\+::\+TYPED\+\_\+\+ARRAY\+\_\+\+INDEX\+\_\+\+NOT\+\_\+\+FOUND, v8\+::internal\+::\+UNREACHABLE(), USE, V8\+\_\+\+DICT\+\_\+\+PROPERTY\+\_\+\+CONST\+\_\+\+TRACKING\+\_\+\+BOOL, V8\+\_\+\+UNLIKELY, v8\+::internal\+::\+Lookup\+Iterator\+::\+WASM\+\_\+\+OBJECT, v8\+::internal\+::\+Maybe\+Object\+Handle\+::\+Weak(), and v8\+::internal\+::\+Maybe\+Object\+Direct\+Handle\+::\+Weak().
+
+
+
+Referenced by Update\+Caches().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1StoreIC_aa8b27a3e6b7f01598abe43f2e28aaf5b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StoreIC_aa8b27a3e6b7f01598abe43f2e28aaf5b_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1StoreIC_a30cc8a121d0e99db5a1dd3708bfeb0e7}\label{classv8_1_1internal_1_1StoreIC_a30cc8a121d0e99db5a1dd3708bfeb0e7}} 
 \index{v8::internal::StoreIC@{v8::internal::StoreIC}!LookupForWrite@{LookupForWrite}}
 \index{LookupForWrite@{LookupForWrite}!v8::internal::StoreIC@{v8::internal::StoreIC}}
 \doxysubsubsection{\texorpdfstring{LookupForWrite()}{LookupForWrite()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Store\+IC\+::\+Lookup\+For\+Write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator}{Lookup\+Iterator}} $\ast$}]{it,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{value,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a5a9c953b927bbae6c9e0091778fc4e96}{Store\+Origin}}}]{store\+\_\+origin }\end{DoxyParamCaption})}
 
+
+
+Definition at line 1638 of file ic.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1639                                                        \{}
+\DoxyCodeLine{1640   \textcolor{comment}{// Disable ICs for non-\/JSObjects for now.}}
+\DoxyCodeLine{1641   DirectHandle<Object> \textcolor{keywordtype}{object} = it-\/>GetReceiver();}
+\DoxyCodeLine{1642   \textcolor{keywordflow}{if} (IsJSProxy(*\textcolor{keywordtype}{object})) \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{1643   \textcolor{keywordflow}{if} (!IsJSObject(*\textcolor{keywordtype}{object}) \&\& !\mbox{\hyperlink{namespacev8_1_1internal_ac0d35c8179c45edd3b691c60f6173f75}{IsWasmObject}}(*\textcolor{keywordtype}{object})) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{1644   DirectHandle<JSReceiver> receiver = Cast<JSReceiver>(\textcolor{keywordtype}{object});}
+\DoxyCodeLine{1645   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!receiver-\/>map()-\/>is\_deprecated());}
+\DoxyCodeLine{1646 }
+\DoxyCodeLine{1647   \textcolor{keywordflow}{for} (;; it-\/>Next()) \{}
+\DoxyCodeLine{1648     \textcolor{keywordflow}{switch} (it-\/>state()) \{}
+\DoxyCodeLine{1649       \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9a938c1d30b08c4867801921d2ed2f3bca}{LookupIterator::TRANSITION}}:}
+\DoxyCodeLine{1650         \mbox{\hyperlink{namespacev8_1_1internal_acdec713c25068019f935e35976f5b666}{UNREACHABLE}}();}
+\DoxyCodeLine{1651       \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9a276760ba9d667569e49b94e1da1c1aa7}{LookupIterator::WASM\_OBJECT}}:}
+\DoxyCodeLine{1652         \textcolor{keywordflow}{continue};  \textcolor{comment}{// Continue to the prototype, if present.}}
+\DoxyCodeLine{1653       \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9ae0202e647e47ba723c6868a386653f00}{LookupIterator::JSPROXY}}:}
+\DoxyCodeLine{1654         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{1655       \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9ae5d9ae449f12b851ace03c851d967736}{LookupIterator::INTERCEPTOR}}: \{}
+\DoxyCodeLine{1656         DirectHandle<JSObject> holder = it-\/>GetHolder<JSObject>();}
+\DoxyCodeLine{1657         Tagged<InterceptorInfo> info = holder-\/>GetNamedInterceptor();}
+\DoxyCodeLine{1658         \textcolor{keywordflow}{if} (it-\/>HolderIsReceiverOrHiddenPrototype() || info-\/>has\_getter() ||}
+\DoxyCodeLine{1659             info-\/>has\_query()) \{}
+\DoxyCodeLine{1660           \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{1661         \}}
+\DoxyCodeLine{1662         \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{1663       \}}
+\DoxyCodeLine{1664       \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9a1ff440ac6899e12e66dde578124852e8}{LookupIterator::ACCESS\_CHECK}}:}
+\DoxyCodeLine{1665         \textcolor{keywordflow}{if} (IsAccessCheckNeeded(*it-\/>GetHolder<JSObject>())) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{1666         \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{1667       \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9ad99a7962d13270cc7a3e9f385ce04aa8}{LookupIterator::ACCESSOR}}:}
+\DoxyCodeLine{1668         \textcolor{keywordflow}{return} !it-\/>IsReadOnly();}
+\DoxyCodeLine{1669       \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9a66d623919565e6e652d519df27a21303}{LookupIterator::TYPED\_ARRAY\_INDEX\_NOT\_FOUND}}:}
+\DoxyCodeLine{1670         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{1671       \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9ad248749ef6fff604a5df3ec251488d4b}{LookupIterator::DATA}}: \{}
+\DoxyCodeLine{1672         \textcolor{keywordflow}{if} (it-\/>IsReadOnly()) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{1673         \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1IC_acce8d19441c402ec93edcb7d04aeefb1}{IsAnyDefineOwn}}() \&\& it-\/>property\_attributes() != \mbox{\hyperlink{namespacev8_1_1internal_a352f65439007f2f1b85c997c1ba11436a0e9b4052bcf7e2475e8bbf8f436bf370}{NONE}}) \{}
+\DoxyCodeLine{1674           \textcolor{comment}{// IC doesn't support reconfiguration of property attributes,}}
+\DoxyCodeLine{1675           \textcolor{comment}{// so just bail out to the slow handler.}}
+\DoxyCodeLine{1676           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{1677         \}}
+\DoxyCodeLine{1678         DirectHandle<JSObject> holder = it-\/>GetHolder<JSObject>();}
+\DoxyCodeLine{1679         \textcolor{keywordflow}{if} (receiver.is\_identical\_to(holder)) \{}
+\DoxyCodeLine{1680           it-\/>PrepareForDataProperty(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});}
+\DoxyCodeLine{1681           \textcolor{comment}{// The previous receiver map might just have been deprecated,}}
+\DoxyCodeLine{1682           \textcolor{comment}{// so reload it.}}
+\DoxyCodeLine{1683           \mbox{\hyperlink{classv8_1_1internal_1_1IC_a440da6a2ce87dd14775c5f962c24a2b3}{update\_lookup\_start\_object\_map}}(receiver);}
+\DoxyCodeLine{1684           \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{1685         \}}
+\DoxyCodeLine{1686 }
+\DoxyCodeLine{1687         \textcolor{comment}{// Receiver != holder.}}
+\DoxyCodeLine{1688         \textcolor{keywordflow}{if} (IsJSGlobalProxy(*receiver)) \{}
+\DoxyCodeLine{1689           PrototypeIterator iter(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), receiver);}
+\DoxyCodeLine{1690           \textcolor{keywordflow}{return} it-\/>GetHolder<\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae40ecf79ba420ba01bc347350bd6176f}{Object}}>().is\_identical\_to(}
+\DoxyCodeLine{1691               \mbox{\hyperlink{classv8_1_1internal_1_1PrototypeIterator_a26481a979735c0ebeb651583386c0ebf}{PrototypeIterator::GetCurrent}}(iter));}
+\DoxyCodeLine{1692         \}}
+\DoxyCodeLine{1693 }
+\DoxyCodeLine{1694         \textcolor{keywordflow}{if} (it-\/>HolderIsReceiverOrHiddenPrototype()) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{1695 }
+\DoxyCodeLine{1696         \textcolor{keywordflow}{if} (it-\/>ExtendingNonExtensible(receiver)) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{1697         it-\/>PrepareTransitionToDataProperty(receiver, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, \mbox{\hyperlink{namespacev8_1_1internal_a352f65439007f2f1b85c997c1ba11436a0e9b4052bcf7e2475e8bbf8f436bf370}{NONE}},}
+\DoxyCodeLine{1698                                             store\_origin);}
+\DoxyCodeLine{1699         \textcolor{keywordflow}{return} it-\/>IsCacheableTransition();}
+\DoxyCodeLine{1700       \}}
+\DoxyCodeLine{1701       \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9ab6b48e02c0bdaedda0011015f1bdc761}{LookupIterator::STRING\_LOOKUP\_START\_OBJECT}}:}
+\DoxyCodeLine{1702         \mbox{\hyperlink{namespacev8_1_1internal_acdec713c25068019f935e35976f5b666}{UNREACHABLE}}();}
+\DoxyCodeLine{1703 }
+\DoxyCodeLine{1704       \textcolor{keywordflow}{case} \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9a872f2154f3e6d7f5b6780d8de08eaf4b}{LookupIterator::NOT\_FOUND}}:}
+\DoxyCodeLine{1705         \textcolor{comment}{// If we are in StoreGlobal then check if we should throw on}}
+\DoxyCodeLine{1706         \textcolor{comment}{// non-\/existent properties.}}
+\DoxyCodeLine{1707         \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1IC_a4916bdf96d92457bc57891c26aba560d}{IsStoreGlobalIC}}() \&\&}
+\DoxyCodeLine{1708             (\mbox{\hyperlink{namespacev8_1_1internal_a830937758884582b80db9aa4d85361b6}{GetShouldThrow}}(it-\/>isolate(), Nothing<ShouldThrow>()) ==}
+\DoxyCodeLine{1709              \mbox{\hyperlink{namespacev8_1_1internal_adbf2c933630f2f4bb419ce1ba04ce760ac8c06c0e5cdd46711981e472881756de}{ShouldThrow::kThrowOnError}})) \{}
+\DoxyCodeLine{1710           \textcolor{comment}{// ICs typically does the store in two steps: prepare receiver for the}}
+\DoxyCodeLine{1711           \textcolor{comment}{// transition followed by the actual store. For global objects we}}
+\DoxyCodeLine{1712           \textcolor{comment}{// create a property cell when preparing for transition and install}}
+\DoxyCodeLine{1713           \textcolor{comment}{// this cell in the handler. In strict mode, we throw and never}}
+\DoxyCodeLine{1714           \textcolor{comment}{// initialize this property cell. The IC handler assumes that the}}
+\DoxyCodeLine{1715           \textcolor{comment}{// property cell it is holding is for a property that is existing.}}
+\DoxyCodeLine{1716           \textcolor{comment}{// This case violates this assumption. If we happen to invalidate this}}
+\DoxyCodeLine{1717           \textcolor{comment}{// property cell later, it leads to incorrect behaviour. For now just}}
+\DoxyCodeLine{1718           \textcolor{comment}{// use a slow stub and don't install the property cell for these}}
+\DoxyCodeLine{1719           \textcolor{comment}{// cases. Hopefully these cases are not frequent enough to impact}}
+\DoxyCodeLine{1720           \textcolor{comment}{// performance.}}
+\DoxyCodeLine{1721           \textcolor{comment}{//}}
+\DoxyCodeLine{1722           \textcolor{comment}{// TODO(mythria): If we find this to be happening often, we could}}
+\DoxyCodeLine{1723           \textcolor{comment}{// install a new kind of handler for non-\/existent properties. These}}
+\DoxyCodeLine{1724           \textcolor{comment}{// handlers can then miss to runtime if the value is not hole (i.e.}}
+\DoxyCodeLine{1725           \textcolor{comment}{// cell got invalidated) and handle these stores correctly.}}
+\DoxyCodeLine{1726           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{1727         \}}
+\DoxyCodeLine{1728         receiver = it-\/>GetStoreTarget<JSReceiver>();}
+\DoxyCodeLine{1729         \textcolor{keywordflow}{if} (it-\/>ExtendingNonExtensible(receiver)) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{1730         it-\/>PrepareTransitionToDataProperty(receiver, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, \mbox{\hyperlink{namespacev8_1_1internal_a352f65439007f2f1b85c997c1ba11436a0e9b4052bcf7e2475e8bbf8f436bf370}{NONE}},}
+\DoxyCodeLine{1731                                             store\_origin);}
+\DoxyCodeLine{1732         \textcolor{keywordflow}{return} it-\/>IsCacheableTransition();}
+\DoxyCodeLine{1733     \}}
+\DoxyCodeLine{1734     \mbox{\hyperlink{namespacev8_1_1internal_acdec713c25068019f935e35976f5b666}{UNREACHABLE}}();}
+\DoxyCodeLine{1735   \}}
+\DoxyCodeLine{1736 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Lookup\+Iterator\+::\+ACCESS\+\_\+\+CHECK, v8\+::internal\+::\+Lookup\+Iterator\+::\+ACCESSOR, v8\+::internal\+::\+Lookup\+Iterator\+::\+DATA, v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Extending\+Non\+Extensible(), v8\+::internal\+::\+Prototype\+Iterator\+::\+Get\+Current(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Holder(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Receiver(), v8\+::internal\+::\+Get\+Should\+Throw(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Store\+Target(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Holder\+Is\+Receiver\+Or\+Hidden\+Prototype(), v8\+::internal\+::\+Lookup\+Iterator\+::\+INTERCEPTOR, v8\+::internal\+::\+Direct\+Handle$<$ T $>$\+::is\+\_\+identical\+\_\+to(), v8\+::internal\+::\+IC\+::\+Is\+Any\+Define\+Own(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Is\+Cacheable\+Transition(), v8\+::internal\+::\+IC\+::isolate(), v8\+::internal\+::\+Lookup\+Iterator\+::isolate(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Is\+Read\+Only(), v8\+::internal\+::\+IC\+::\+Is\+Store\+Global\+IC(), v8\+::internal\+::\+Is\+Wasm\+Object(), v8\+::internal\+::\+Lookup\+Iterator\+::\+JSPROXY, v8\+::internal\+::k\+Throw\+On\+Error, v8\+::internal\+::\+Lookup\+Iterator\+::\+Next(), v8\+::internal\+::\+NONE, v8\+::internal\+::\+Lookup\+Iterator\+::\+NOT\+\_\+\+FOUND, v8\+::internal\+::\+Lookup\+Iterator\+::\+Prepare\+For\+Data\+Property(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Prepare\+Transition\+To\+Data\+Property(), v8\+::internal\+::\+Lookup\+Iterator\+::property\+\_\+attributes(), v8\+::internal\+::\+Lookup\+Iterator\+::state(), v8\+::internal\+::\+Lookup\+Iterator\+::\+STRING\+\_\+\+LOOKUP\+\_\+\+START\+\_\+\+OBJECT, v8\+::internal\+::\+Lookup\+Iterator\+::\+TRANSITION, v8\+::internal\+::\+Lookup\+Iterator\+::\+TYPED\+\_\+\+ARRAY\+\_\+\+INDEX\+\_\+\+NOT\+\_\+\+FOUND, v8\+::internal\+::\+UNREACHABLE(), v8\+::internal\+::\+IC\+::update\+\_\+lookup\+\_\+start\+\_\+object\+\_\+map(), v8\+::internal\+::value, and v8\+::internal\+::\+Lookup\+Iterator\+::\+WASM\+\_\+\+OBJECT.
+
+
+
+Referenced by Update\+Caches().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1StoreIC_a30cc8a121d0e99db5a1dd3708bfeb0e7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StoreIC_a30cc8a121d0e99db5a1dd3708bfeb0e7_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1StoreIC_afb1a555bd6ba5b424d5d3e4133b81ac6}\label{classv8_1_1internal_1_1StoreIC_afb1a555bd6ba5b424d5d3e4133b81ac6}} 
 \index{v8::internal::StoreIC@{v8::internal::StoreIC}!Store@{Store}}
 \index{Store@{Store}!v8::internal::StoreIC@{v8::internal::StoreIC}}
 \doxysubsubsection{\texorpdfstring{Store()}{Store()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MaybeDirectHandle}{Maybe\+Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ v8\+::internal\+::\+Store\+IC\+::\+Store (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{namespacev8_1_1internal_a03f078cfc6f1c8041efc00c7fcc7a39d}{JSAny}} $>$}]{object,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Name}{Name}} $>$}]{name,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{value,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a5a9c953b927bbae6c9e0091778fc4e96}{Store\+Origin}}}]{store\+\_\+origin = {\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a5a9c953b927bbae6c9e0091778fc4e96a3de65b7d55d7330a42c36baee8e0333b}{Store\+Origin\+::k\+Named}}} }\end{DoxyParamCaption})}
 
+
+
+Definition at line 1864 of file ic.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1867                                                                    \{}
+\DoxyCodeLine{1868   \textcolor{comment}{// TODO(verwaest): Let SetProperty do the migration, since storing a property}}
+\DoxyCodeLine{1869   \textcolor{comment}{// might deprecate the current map again, if value does not fit.}}
+\DoxyCodeLine{1870   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02ic_8cc_03_a0c7b2641f57ea334eba3157b04dfb4d6}{MigrateDeprecated}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \textcolor{keywordtype}{object})) \{}
+\DoxyCodeLine{1871     \textcolor{comment}{// KeyedStoreIC should handle DefineKeyedOwnIC with deprecated maps directly}}
+\DoxyCodeLine{1872     \textcolor{comment}{// instead of reusing this method.}}
+\DoxyCodeLine{1873     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1IC_a4375ca63976ad5a71a0714e1028510dd}{IsDefineKeyedOwnIC}}());}
+\DoxyCodeLine{1874     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}}-\/>IsPrivateName());}
+\DoxyCodeLine{1875 }
+\DoxyCodeLine{1876     PropertyKey \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}});}
+\DoxyCodeLine{1877     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1IC_a2cce958902e2d45089819be6a55eb082}{IsDefineNamedOwnIC}}()) \{}
+\DoxyCodeLine{1878       \mbox{\hyperlink{execution_2isolate_8h_ab5d928a437f4650b919b2a90012068c7}{MAYBE\_RETURN\_NULL}}(\mbox{\hyperlink{classv8_1_1internal_1_1JSReceiver_ab0d496ab5c687ec63fed2abbc354df25}{JSReceiver::CreateDataProperty}}(}
+\DoxyCodeLine{1879           \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \textcolor{keywordtype}{object}, \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, Nothing<ShouldThrow>()));}
+\DoxyCodeLine{1880     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{1881       LookupIterator it(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \textcolor{keywordtype}{object}, \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}, \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_ab4619027a1f080b1d2d82bfc2462fadaae9909721f5ce7ac79ad5c6bdc4679c6e}{LookupIterator::DEFAULT}});}
+\DoxyCodeLine{1882       \mbox{\hyperlink{execution_2isolate_8h_ab5d928a437f4650b919b2a90012068c7}{MAYBE\_RETURN\_NULL}}(\mbox{\hyperlink{classv8_1_1internal_1_1Object_a2e8108d7b7d2b826ab90a71b20be7a9d}{Object::SetProperty}}(\&it, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, \mbox{\hyperlink{namespacev8_1_1internal_a5a9c953b927bbae6c9e0091778fc4e96a3de65b7d55d7330a42c36baee8e0333b}{StoreOrigin::kNamed}}));}
+\DoxyCodeLine{1883     \}}
+\DoxyCodeLine{1884     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}};}
+\DoxyCodeLine{1885   \}}
+\DoxyCodeLine{1886 }
+\DoxyCodeLine{1887   \textcolor{keywordtype}{bool} use\_ic = (\mbox{\hyperlink{classv8_1_1internal_1_1IC_a44761904b47f546a821e76605ba889df}{state}}() != \mbox{\hyperlink{namespacev8_1_1internal_aeef5aadaecbd08b3fcbb9ec1faa36c01a5e21ad0652f710f392b8fb78d6247921}{NO\_FEEDBACK}}) \&\& \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.use\_ic;}
+\DoxyCodeLine{1888   \textcolor{comment}{// If the object is undefined or null it's illegal to try to set any}}
+\DoxyCodeLine{1889   \textcolor{comment}{// properties on it; throw a TypeError in that case.}}
+\DoxyCodeLine{1890   \mbox{\hyperlink{namespacev8_1_1internal_aa583abbe977ca41df2196a083796b84a}{if}} (\mbox{\hyperlink{namespacev8_1_1internal_a6db5c47c190e9de94a96948682b877c8}{IsNullOrUndefined}}(*\textcolor{keywordtype}{object}, \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}())) \{}
+\DoxyCodeLine{1891     \textcolor{keywordflow}{if} (use\_ic) \{}
+\DoxyCodeLine{1892       \textcolor{comment}{// Ensure the IC state progresses.}}
+\DoxyCodeLine{1893       \mbox{\hyperlink{runtime-call-stats_8h_a0f7fe432da7171d27d037b1f2c36f9d5}{TRACE\_HANDLER\_STATS}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), StoreIC\_NonReceiver);}
+\DoxyCodeLine{1894       \mbox{\hyperlink{classv8_1_1internal_1_1IC_a440da6a2ce87dd14775c5f962c24a2b3}{update\_lookup\_start\_object\_map}}(\textcolor{keywordtype}{object});}
+\DoxyCodeLine{1895       \mbox{\hyperlink{classv8_1_1internal_1_1IC_ae44fb28293e95b0fa78da8c92946302e}{SetCache}}(\mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}}, \mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{1896       \mbox{\hyperlink{classv8_1_1internal_1_1IC_a1f89dd078deea90d36984a2ccd956c8b}{TraceIC}}(\textcolor{stringliteral}{"{}StoreIC"{}}, \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}});}
+\DoxyCodeLine{1897     \}}
+\DoxyCodeLine{1898     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1IC_a8d0647b14439fd066247138003ee394a}{TypeError}}(MessageTemplate::kNonObjectPropertyStoreWithProperty, \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}},}
+\DoxyCodeLine{1899                      \textcolor{keywordtype}{object});}
+\DoxyCodeLine{1900   \}}
+\DoxyCodeLine{1901 }
+\DoxyCodeLine{1902   \mbox{\hyperlink{classv8_1_1internal_1_1JSObject_aa21de02f20ef01460b97e179d7e1d60f}{JSObject::MakePrototypesFast}}(\textcolor{keywordtype}{object}, \mbox{\hyperlink{namespacev8_1_1internal_aeca996efa44e101da3b6e65e616b0540affcb8a1b2c948a91e9ab5d60b194320f}{kStartAtPrototype}}, \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}());}
+\DoxyCodeLine{1903   PropertyKey \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}});}
+\DoxyCodeLine{1904   LookupIterator it(}
+\DoxyCodeLine{1905       \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \textcolor{keywordtype}{object}, \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}},}
+\DoxyCodeLine{1906       \mbox{\hyperlink{classv8_1_1internal_1_1IC_acce8d19441c402ec93edcb7d04aeefb1}{IsAnyDefineOwn}}() ? \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_ab4619027a1f080b1d2d82bfc2462fadaa1a5797cfcbf8149aff092ae88e42338a}{LookupIterator::OWN}} : \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_ab4619027a1f080b1d2d82bfc2462fadaae9909721f5ce7ac79ad5c6bdc4679c6e}{LookupIterator::DEFAULT}});}
+\DoxyCodeLine{1907 }
+\DoxyCodeLine{1908   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}}-\/>IsPrivate()) \{}
+\DoxyCodeLine{1909     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}}-\/>IsPrivateName()) \{}
+\DoxyCodeLine{1910       \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1IC_a2cce958902e2d45089819be6a55eb082}{IsDefineNamedOwnIC}}());}
+\DoxyCodeLine{1911       Maybe<bool> can\_store =}
+\DoxyCodeLine{1912           \mbox{\hyperlink{classv8_1_1internal_1_1JSReceiver_ace3bc63f6cdcdd56d3b231f613bce47a}{JSReceiver::CheckPrivateNameStore}}(\&it, \mbox{\hyperlink{classv8_1_1internal_1_1IC_a4375ca63976ad5a71a0714e1028510dd}{IsDefineKeyedOwnIC}}());}
+\DoxyCodeLine{1913       \mbox{\hyperlink{execution_2isolate_8h_ab5d928a437f4650b919b2a90012068c7}{MAYBE\_RETURN\_NULL}}(can\_store);}
+\DoxyCodeLine{1914       \textcolor{keywordflow}{if} (!can\_store.FromJust()) \{}
+\DoxyCodeLine{1915         \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a7e2962359009581ba84e6a361f574f61}{factory}}()-\/>undefined\_value();}
+\DoxyCodeLine{1916       \}}
+\DoxyCodeLine{1917     \}}
+\DoxyCodeLine{1918 }
+\DoxyCodeLine{1919     \textcolor{comment}{// IC handling of private fields/symbols stores on JSProxy is not}}
+\DoxyCodeLine{1920     \textcolor{comment}{// supported.}}
+\DoxyCodeLine{1921     \textcolor{keywordflow}{if} (IsJSProxy(*\textcolor{keywordtype}{object})) \{}
+\DoxyCodeLine{1922       use\_ic = \textcolor{keyword}{false};}
+\DoxyCodeLine{1923     \}}
+\DoxyCodeLine{1924   \}}
+\DoxyCodeLine{1925 }
+\DoxyCodeLine{1926   \textcolor{comment}{// For IsAnyDefineOwn(), we can't simply do CreateDataProperty below}}
+\DoxyCodeLine{1927   \textcolor{comment}{// because we need to check the attributes before UpdateCaches updates}}
+\DoxyCodeLine{1928   \textcolor{comment}{// the state of the LookupIterator.}}
+\DoxyCodeLine{1929   \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9}{LookupIterator::State}} original\_state = it.state();}
+\DoxyCodeLine{1930   \textcolor{comment}{// We'll defer the check for JSProxy and objects with named interceptors,}}
+\DoxyCodeLine{1931   \textcolor{comment}{// because the defineProperty traps need to be called first if they are}}
+\DoxyCodeLine{1932   \textcolor{comment}{// present. We can also skip this for private names since they are not}}
+\DoxyCodeLine{1933   \textcolor{comment}{// bound by configurability or extensibility checks, and errors would've}}
+\DoxyCodeLine{1934   \textcolor{comment}{// been thrown if the private field already exists in the object.}}
+\DoxyCodeLine{1935   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1IC_acce8d19441c402ec93edcb7d04aeefb1}{IsAnyDefineOwn}}() \&\& !\mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}}-\/>IsPrivateName() \&\& IsJSObject(*\textcolor{keywordtype}{object}) \&\&}
+\DoxyCodeLine{1936       !Cast<JSObject>(\textcolor{keywordtype}{object})-\/>HasNamedInterceptor()) \{}
+\DoxyCodeLine{1937     Maybe<bool> can\_define = \mbox{\hyperlink{classv8_1_1internal_1_1JSObject_a9800d95d0ae6601f44d76850fa130080}{JSObject::CheckIfCanDefineAsConfigurable}}(}
+\DoxyCodeLine{1938         \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}(), \&it, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, Nothing<ShouldThrow>());}
+\DoxyCodeLine{1939     \mbox{\hyperlink{execution_2isolate_8h_ab5d928a437f4650b919b2a90012068c7}{MAYBE\_RETURN\_NULL}}(can\_define);}
+\DoxyCodeLine{1940     \textcolor{keywordflow}{if} (!can\_define.FromJust()) \{}
+\DoxyCodeLine{1941       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a7e2962359009581ba84e6a361f574f61}{factory}}()-\/>undefined\_value();}
+\DoxyCodeLine{1942     \}}
+\DoxyCodeLine{1943     \textcolor{comment}{// Restart the lookup iterator updated by CheckIfCanDefineAsConfigurable()}}
+\DoxyCodeLine{1944     \textcolor{comment}{// for UpdateCaches() to handle access checks.}}
+\DoxyCodeLine{1945     \textcolor{keywordflow}{if} (use\_ic \&\& IsAccessCheckNeeded(*\textcolor{keywordtype}{object})) \{}
+\DoxyCodeLine{1946       it.Restart();}
+\DoxyCodeLine{1947     \}}
+\DoxyCodeLine{1948   \}}
+\DoxyCodeLine{1949 }
+\DoxyCodeLine{1950   \textcolor{keywordflow}{if} (use\_ic) \{}
+\DoxyCodeLine{1951     \mbox{\hyperlink{classv8_1_1internal_1_1StoreIC_ad9e1ff3b6c2ec9ebf6747d58bfc64699}{UpdateCaches}}(\&it, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, store\_origin);}
+\DoxyCodeLine{1952   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1IC_a44761904b47f546a821e76605ba889df}{state}}() == NO\_FEEDBACK) \{}
+\DoxyCodeLine{1953     \textcolor{comment}{// Tracing IC Stats for No Feedback State.}}
+\DoxyCodeLine{1954     \mbox{\hyperlink{classv8_1_1internal_1_1IC_a4916bdf96d92457bc57891c26aba560d}{IsStoreGlobalIC}}() ? \mbox{\hyperlink{classv8_1_1internal_1_1IC_a1f89dd078deea90d36984a2ccd956c8b}{TraceIC}}(\textcolor{stringliteral}{"{}StoreGlobalIC"{}}, \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}})}
+\DoxyCodeLine{1955                       : \mbox{\hyperlink{classv8_1_1internal_1_1IC_a1f89dd078deea90d36984a2ccd956c8b}{TraceIC}}(\textcolor{stringliteral}{"{}StoreIC"{}}, \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}});}
+\DoxyCodeLine{1956   \}}
+\DoxyCodeLine{1957 }
+\DoxyCodeLine{1958   \textcolor{comment}{// TODO(v8:12548): refactor DefinedNamedOwnIC and SetNamedIC as subclasses}}
+\DoxyCodeLine{1959   \textcolor{comment}{// of StoreIC so their logic doesn't get mixed here.}}
+\DoxyCodeLine{1960   \textcolor{comment}{// ES \#sec-\/definefield}}
+\DoxyCodeLine{1961   \textcolor{comment}{// ES \#sec-\/runtime-\/semantics-\/propertydefinitionevaluation}}
+\DoxyCodeLine{1962   \textcolor{comment}{// IsAnyDefineOwn() can be true when this method is reused by KeyedStoreIC.}}
+\DoxyCodeLine{1963   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1IC_acce8d19441c402ec93edcb7d04aeefb1}{IsAnyDefineOwn}}()) \{}
+\DoxyCodeLine{1964     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}}-\/>IsPrivateName()) \{}
+\DoxyCodeLine{1965       \textcolor{comment}{// We should define private fields without triggering traps or checking}}
+\DoxyCodeLine{1966       \textcolor{comment}{// extensibility.}}
+\DoxyCodeLine{1967       \mbox{\hyperlink{execution_2isolate_8h_ab5d928a437f4650b919b2a90012068c7}{MAYBE\_RETURN\_NULL}}(}
+\DoxyCodeLine{1968           \mbox{\hyperlink{classv8_1_1internal_1_1JSReceiver_ae6f4d5d72f9f94ff0eb40209bad84f95}{JSReceiver::AddPrivateField}}(\&it, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, Nothing<ShouldThrow>()));}
+\DoxyCodeLine{1969     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{1970       \mbox{\hyperlink{execution_2isolate_8h_ab5d928a437f4650b919b2a90012068c7}{MAYBE\_RETURN\_NULL}}(}
+\DoxyCodeLine{1971           \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02ic_8cc_03_a9da85996d7cc7516ed98e45b55a088f2}{DefineOwnDataProperty}}(\&it, original\_state, Cast<JSAny>(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}),}
+\DoxyCodeLine{1972                                 Nothing<ShouldThrow>(), store\_origin));}
+\DoxyCodeLine{1973     \}}
+\DoxyCodeLine{1974   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{1975     \mbox{\hyperlink{execution_2isolate_8h_ab5d928a437f4650b919b2a90012068c7}{MAYBE\_RETURN\_NULL}}(\mbox{\hyperlink{classv8_1_1internal_1_1Object_a2e8108d7b7d2b826ab90a71b20be7a9d}{Object::SetProperty}}(\&it, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, store\_origin));}
+\DoxyCodeLine{1976   \}}
+\DoxyCodeLine{1977   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}};}
+\DoxyCodeLine{1978 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+JSReceiver\+::\+Add\+Private\+Field(), v8\+::internal\+::\+JSObject\+::\+Check\+If\+Can\+Define\+As\+Configurable(), v8\+::internal\+::\+JSReceiver\+::\+Check\+Private\+Name\+Store(), v8\+::internal\+::\+JSReceiver\+::\+Create\+Data\+Property(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Lookup\+Iterator\+::\+DEFAULT, v8\+::internal\+::anonymous\+\_\+namespace\{ic.\+cc\}\+::\+Define\+Own\+Data\+Property(), v8\+::internal\+::\+Isolate\+::factory(), v8\+::\+Maybe$<$ T $>$\+::\+From\+Just(), v8\+::internal\+::if(), v8\+::internal\+::\+IC\+::\+Is\+Any\+Define\+Own(), v8\+::internal\+::\+IC\+::\+Is\+Define\+Keyed\+Own\+IC(), v8\+::internal\+::\+IC\+::\+Is\+Define\+Named\+Own\+IC(), v8\+::internal\+::\+Is\+Null\+Or\+Undefined(), v8\+::internal\+::\+IC\+::isolate(), v8\+::internal\+::\+IC\+::\+Is\+Store\+Global\+IC(), v8\+::internal\+::key, v8\+::internal\+::k\+Named, v8\+::internal\+::k\+Start\+At\+Prototype, v8\+::internal\+::\+JSObject\+::\+Make\+Prototypes\+Fast(), MAYBE\+\_\+\+RETURN\+\_\+\+NULL, v8\+::internal\+::anonymous\+\_\+namespace\{ic.\+cc\}\+::\+Migrate\+Deprecated(), v8\+::internal\+::name, v8\+::internal\+::\+NO\+\_\+\+FEEDBACK, v8\+::internal\+::\+Lookup\+Iterator\+::\+OWN, v8\+::internal\+::\+Lookup\+Iterator\+::\+Restart(), v8\+::internal\+::\+IC\+::\+Set\+Cache(), v8\+::internal\+::\+Object\+::\+Set\+Property(), v8\+::internal\+::\+IC\+::state(), v8\+::internal\+::\+Lookup\+Iterator\+::state(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Slow(), TRACE\+\_\+\+HANDLER\+\_\+\+STATS, v8\+::internal\+::\+IC\+::\+Trace\+IC(), v8\+::internal\+::\+IC\+::\+Type\+Error(), v8\+::internal\+::\+IC\+::update\+\_\+lookup\+\_\+start\+\_\+object\+\_\+map(), Update\+Caches(), v8\+::internal\+::v8\+\_\+flags, and v8\+::internal\+::value.
+
+
+
+Referenced by v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION(), v8\+::internal\+::\+Keyed\+Store\+IC\+::\+Store(), and v8\+::internal\+::\+Store\+Global\+IC\+::\+Store().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1StoreIC_afb1a555bd6ba5b424d5d3e4133b81ac6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StoreIC_afb1a555bd6ba5b424d5d3e4133b81ac6_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1StoreIC_ad9e1ff3b6c2ec9ebf6747d58bfc64699}\label{classv8_1_1internal_1_1StoreIC_ad9e1ff3b6c2ec9ebf6747d58bfc64699}} 
 \index{v8::internal::StoreIC@{v8::internal::StoreIC}!UpdateCaches@{UpdateCaches}}
 \index{UpdateCaches@{UpdateCaches}!v8::internal::StoreIC@{v8::internal::StoreIC}}
 \doxysubsubsection{\texorpdfstring{UpdateCaches()}{UpdateCaches()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Store\+IC\+::\+Update\+Caches (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator}{Lookup\+Iterator}} $\ast$}]{lookup,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{value,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a5a9c953b927bbae6c9e0091778fc4e96}{Store\+Origin}}}]{store\+\_\+origin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 1980 of file ic.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1981                                                      \{}
+\DoxyCodeLine{1982   MaybeObjectHandle handler;}
+\DoxyCodeLine{1983   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1StoreIC_a30cc8a121d0e99db5a1dd3708bfeb0e7}{LookupForWrite}}(lookup, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, store\_origin)) \{}
+\DoxyCodeLine{1984     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1IC_a4916bdf96d92457bc57891c26aba560d}{IsStoreGlobalIC}}()) \{}
+\DoxyCodeLine{1985       \textcolor{keywordflow}{if} (lookup-\/>state() == \mbox{\hyperlink{classv8_1_1internal_1_1LookupIterator_aa7fbcb80d73cb5ee869915438ee81ca9ad248749ef6fff604a5df3ec251488d4b}{LookupIterator::DATA}} \&\&}
+\DoxyCodeLine{1986           lookup-\/>GetReceiver().is\_identical\_to(lookup-\/>GetHolder<\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ae40ecf79ba420ba01bc347350bd6176f}{Object}}>())) \{}
+\DoxyCodeLine{1987         \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(IsJSGlobalObject(*lookup-\/>GetReceiver()));}
+\DoxyCodeLine{1988         \textcolor{comment}{// Now update the cell in the feedback vector.}}
+\DoxyCodeLine{1989         \mbox{\hyperlink{classv8_1_1internal_1_1IC_ac10e141b7bede2f69f8af8340a90d384}{nexus}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1FeedbackNexus_abb504483858df0f5bdf3fcd6daea4115}{ConfigurePropertyCellMode}}(lookup-\/>GetPropertyCell());}
+\DoxyCodeLine{1990         \mbox{\hyperlink{classv8_1_1internal_1_1IC_a1f89dd078deea90d36984a2ccd956c8b}{TraceIC}}(\textcolor{stringliteral}{"{}StoreGlobalIC"{}}, lookup-\/>GetName());}
+\DoxyCodeLine{1991         \textcolor{keywordflow}{return};}
+\DoxyCodeLine{1992       \}}
+\DoxyCodeLine{1993     \}}
+\DoxyCodeLine{1994     handler = \mbox{\hyperlink{classv8_1_1internal_1_1StoreIC_aa8b27a3e6b7f01598abe43f2e28aaf5b}{ComputeHandler}}(lookup);}
+\DoxyCodeLine{1995   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{1996     \mbox{\hyperlink{classv8_1_1internal_1_1IC_a3258c0d1f71f6a32353cf3319455d073}{set\_slow\_stub\_reason}}(\textcolor{stringliteral}{"{}LookupForWrite said 'false'"{}});}
+\DoxyCodeLine{1997     handler = MaybeObjectHandle(\mbox{\hyperlink{classv8_1_1internal_1_1StoreHandler_a3958bbd24407f5c3970e7048e9412b14}{StoreHandler::StoreSlow}}(\mbox{\hyperlink{classv8_1_1internal_1_1IC_a790b764e0094402a9a27322fab61c7c8}{isolate}}()));}
+\DoxyCodeLine{1998   \}}
+\DoxyCodeLine{1999   \textcolor{comment}{// Can't use \{lookup-\/>name()\} because the LookupIterator might be in}}
+\DoxyCodeLine{2000   \textcolor{comment}{// "{}elements"{} mode for keys that are strings representing integers above}}
+\DoxyCodeLine{2001   \textcolor{comment}{// JSArray::kMaxIndex.}}
+\DoxyCodeLine{2002   \mbox{\hyperlink{classv8_1_1internal_1_1IC_ae44fb28293e95b0fa78da8c92946302e}{SetCache}}(lookup-\/>GetName(), handler);}
+\DoxyCodeLine{2003   \mbox{\hyperlink{classv8_1_1internal_1_1IC_a1f89dd078deea90d36984a2ccd956c8b}{TraceIC}}(\textcolor{stringliteral}{"{}StoreIC"{}}, lookup-\/>GetName());}
+\DoxyCodeLine{2004 \}}
+
+\end{DoxyCode}
+
+
+References Compute\+Handler(), v8\+::internal\+::\+Feedback\+Nexus\+::\+Configure\+Property\+Cell\+Mode(), v8\+::internal\+::\+Lookup\+Iterator\+::\+DATA, v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Holder(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Name(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Property\+Cell(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Receiver(), v8\+::internal\+::\+IC\+::isolate(), v8\+::internal\+::\+IC\+::\+Is\+Store\+Global\+IC(), Lookup\+For\+Write(), v8\+::internal\+::\+IC\+::nexus(), v8\+::internal\+::\+IC\+::set\+\_\+slow\+\_\+stub\+\_\+reason(), v8\+::internal\+::\+IC\+::\+Set\+Cache(), v8\+::internal\+::\+Lookup\+Iterator\+::state(), v8\+::internal\+::\+Store\+Handler\+::\+Store\+Slow(), v8\+::internal\+::\+IC\+::\+Trace\+IC(), and v8\+::internal\+::value.
+
+
+
+Referenced by Store().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1StoreIC_ad9e1ff3b6c2ec9ebf6747d58bfc64699_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StoreIC_ad9e1ff3b6c2ec9ebf6747d58bfc64699_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Friends And Related Function Documentation}
@@ -85,7 +757,11 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1StoreIC_ae59e849648858af1fd2208189
 
 
 
+Definition at line 289 of file ic.\+h.
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{ic_8h}{ic.\+h}}\item 
-\mbox{\hyperlink{ic_8cc}{ic.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/ic/\mbox{\hyperlink{ic_8h}{ic.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/ic/\mbox{\hyperlink{ic_8cc}{ic.\+cc}}\end{DoxyCompactItemize}

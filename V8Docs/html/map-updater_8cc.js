@@ -1,7 +1,9 @@
 var map_updater_8cc =
 [
-    [ "has_integrity_level_transition", "map-updater_8cc.html#a6c94a6eb4baa0d0669fd253d1fe19d91", null ],
-    [ "integrity_level", "map-updater_8cc.html#aa1d8418338b652496b6bf3ca16695471", null ],
-    [ "integrity_level_source_map", "map-updater_8cc.html#ab0c7a62c6b2f38fda161c855c4f12997", null ],
-    [ "integrity_level_symbol", "map-updater_8cc.html#a3947ef6737b193024c0f915e800d821c", null ]
+    [ "IntegrityLevelTransitionInfo", "structv8_1_1internal_1_1anonymous__namespace_02map-updater_8cc_03_1_1IntegrityLevelTransitionInfo.html", "structv8_1_1internal_1_1anonymous__namespace_02map-updater_8cc_03_1_1IntegrityLevelTransitionInfo" ],
+    [ "DetectIntegrityLevelTransitions", "map-updater_8cc.html#a5204267fe2437415119dd2979b447302", null ],
+    [ "EqualImmutableValues", "map-updater_8cc.html#af46b0880f0e51ee10e8e6e61fe38084a", null ],
+    [ "GeneralizeFieldType", "map-updater_8cc.html#a7eae755681e278977f2ae4a11bf949d9", null ],
+    [ "PrintGeneralization", "map-updater_8cc.html#a11017d5e0e07217626b7dcb7acf267a3", null ],
+    [ "PrintReconfiguration", "map-updater_8cc.html#abd99109fc05f1421f7f4b7d2962dbecc", null ]
 ];

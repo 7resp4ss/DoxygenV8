@@ -17,7 +17,7 @@ Collaboration diagram for v8\+::internal\+::wasm\+::Async\+Compile\+Job\+::Compi
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=253pt]{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -27,7 +27,19 @@ Collaboration diagram for v8\+::internal\+::wasm\+::Async\+Compile\+Job\+::Compi
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_ac81d27d6edb00aeed62a3e4745b8cba0}{void}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_af03a6f2a5c03d334ec0a8337e73b1da3}{call}} (\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a020d8fcab0133f11030d7b8ef6259e29}{Compilation\+Event}} event) override
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob}{Async\+Compile\+Job}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_a78e60c61e792a9b4a003ec26ba892749}{job\+\_\+}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 2860 of file module-\/compiler.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -37,6 +49,15 @@ Collaboration diagram for v8\+::internal\+::wasm\+::Async\+Compile\+Job\+::Compi
 \doxysubsubsection{\texorpdfstring{CompilationStateCallback()}{CompilationStateCallback()}}
 {\footnotesize\ttfamily v8\+::internal\+::wasm\+::\+Async\+Compile\+Job\+::\+Compilation\+State\+Callback\+::\+Compilation\+State\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob}{Async\+Compile\+Job}} $\ast$}]{job }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
+
+
+Definition at line 2863 of file module-\/compiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2863 : \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_a78e60c61e792a9b4a003ec26ba892749}{job\_}}(job) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -52,6 +73,81 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1CompilationEventCallb
 
 
 
+Definition at line 2865 of file module-\/compiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2865                                              \{}
+\DoxyCodeLine{2866     \textcolor{comment}{// This callback is only being called from a foreground task.}}
+\DoxyCodeLine{2867     \textcolor{keywordflow}{switch} (event) \{}
+\DoxyCodeLine{2868       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a020d8fcab0133f11030d7b8ef6259e29a41b18f40e8022b599bc6360f216daba4}{CompilationEvent::kFinishedBaselineCompilation}}:}
+\DoxyCodeLine{2869         \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!last\_event\_.has\_value());}
+\DoxyCodeLine{2870         \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_a78e60c61e792a9b4a003ec26ba892749}{job\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_a0f21c0af12e028ae3c120b03fbe2c835}{DecrementAndCheckFinisherCount}}()) \{}
+\DoxyCodeLine{2871           \textcolor{comment}{// Install the native module in the cache, or reuse a conflicting one.}}
+\DoxyCodeLine{2872           \textcolor{comment}{// If we get a conflicting module, wait until we are back in the}}
+\DoxyCodeLine{2873           \textcolor{comment}{// main thread to update \{job\_-\/>native\_module\_\} to avoid a data race.}}
+\DoxyCodeLine{2874           std::shared\_ptr<NativeModule> cached\_native\_module =}
+\DoxyCodeLine{2875               \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_abc12fc3b25ebfb54c20b8479642acb94}{GetWasmEngine}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmEngine_ae049eb40219a3e542bf2811e42ac1bb8}{UpdateNativeModuleCache}}(}
+\DoxyCodeLine{2876                   \textcolor{keyword}{false}, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_a78e60c61e792a9b4a003ec26ba892749}{job\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_a7a578d0a0c6dc346c8b242ff3ba6708a}{native\_module\_}}, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_a78e60c61e792a9b4a003ec26ba892749}{job\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_a5770958190200f2689b976a6a38ed15b}{isolate\_}});}
+\DoxyCodeLine{2877           \textcolor{keywordflow}{if} (cached\_native\_module == \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_a78e60c61e792a9b4a003ec26ba892749}{job\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_a7a578d0a0c6dc346c8b242ff3ba6708a}{native\_module\_}}) \{}
+\DoxyCodeLine{2878             \textcolor{comment}{// There was no cached module.}}
+\DoxyCodeLine{2879             cached\_native\_module = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{2880           \}}
+\DoxyCodeLine{2881           \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_a78e60c61e792a9b4a003ec26ba892749}{job\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_af40a1ad30e0fb57f80aa1d76af7bdc84}{DoSync}}<FinishCompilation>(std::move(cached\_native\_module));}
+\DoxyCodeLine{2882         \}}
+\DoxyCodeLine{2883         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{2884       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a020d8fcab0133f11030d7b8ef6259e29a9ac6b83a7cebbcdae83cb92173c10599}{CompilationEvent::kFinishedCompilationChunk}}:}
+\DoxyCodeLine{2885         \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a020d8fcab0133f11030d7b8ef6259e29a41b18f40e8022b599bc6360f216daba4}{CompilationEvent::kFinishedBaselineCompilation}} == last\_event\_ ||}
+\DoxyCodeLine{2886                \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a020d8fcab0133f11030d7b8ef6259e29a9ac6b83a7cebbcdae83cb92173c10599}{CompilationEvent::kFinishedCompilationChunk}} == last\_event\_);}
+\DoxyCodeLine{2887         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{2888       \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a020d8fcab0133f11030d7b8ef6259e29af90d51f0b738cedabb652e72ffd7b8ed}{CompilationEvent::kFailedCompilation}}:}
+\DoxyCodeLine{2889         \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!last\_event\_.has\_value());}
+\DoxyCodeLine{2890         \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_a78e60c61e792a9b4a003ec26ba892749}{job\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_a0f21c0af12e028ae3c120b03fbe2c835}{DecrementAndCheckFinisherCount}}()) \{}
+\DoxyCodeLine{2891           \textcolor{comment}{// Don't update \{job\_-\/>native\_module\_\} to avoid data races with other}}
+\DoxyCodeLine{2892           \textcolor{comment}{// compilation threads. Use a copy of the shared pointer instead.}}
+\DoxyCodeLine{2893           \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_abc12fc3b25ebfb54c20b8479642acb94}{GetWasmEngine}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmEngine_ae049eb40219a3e542bf2811e42ac1bb8}{UpdateNativeModuleCache}}(\textcolor{keyword}{true}, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_a78e60c61e792a9b4a003ec26ba892749}{job\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_a7a578d0a0c6dc346c8b242ff3ba6708a}{native\_module\_}},}
+\DoxyCodeLine{2894                                                    \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_a78e60c61e792a9b4a003ec26ba892749}{job\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_a5770958190200f2689b976a6a38ed15b}{isolate\_}});}
+\DoxyCodeLine{2895           \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_a78e60c61e792a9b4a003ec26ba892749}{job\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_af40a1ad30e0fb57f80aa1d76af7bdc84}{DoSync}}<Fail>();}
+\DoxyCodeLine{2896         \}}
+\DoxyCodeLine{2897         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{2898     \}}
+\DoxyCodeLine{2899 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{2900     last\_event\_ = event;}
+\DoxyCodeLine{2901 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{2902   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), v8\+::internal\+::wasm\+::\+Async\+Compile\+Job\+::\+Decrement\+And\+Check\+Finisher\+Count(), v8\+::internal\+::wasm\+::\+Async\+Compile\+Job\+::\+Do\+Sync(), v8\+::internal\+::wasm\+::\+Get\+Wasm\+Engine(), v8\+::internal\+::wasm\+::\+Async\+Compile\+Job\+::isolate\+\_\+, job\+\_\+, v8\+::internal\+::wasm\+::k\+Failed\+Compilation, v8\+::internal\+::wasm\+::k\+Finished\+Baseline\+Compilation, v8\+::internal\+::wasm\+::k\+Finished\+Compilation\+Chunk, v8\+::internal\+::wasm\+::\+Async\+Compile\+Job\+::native\+\_\+module\+\_\+, and v8\+::internal\+::wasm\+::\+Wasm\+Engine\+::\+Update\+Native\+Module\+Cache().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_af03a6f2a5c03d334ec0a8337e73b1da3_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_a78e60c61e792a9b4a003ec26ba892749}\label{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob_1_1CompilationStateCallback_a78e60c61e792a9b4a003ec26ba892749}} 
+\index{v8::internal::wasm::AsyncCompileJob::CompilationStateCallback@{v8::internal::wasm::AsyncCompileJob::CompilationStateCallback}!job\_@{job\_}}
+\index{job\_@{job\_}!v8::internal::wasm::AsyncCompileJob::CompilationStateCallback@{v8::internal::wasm::AsyncCompileJob::CompilationStateCallback}}
+\doxysubsubsection{\texorpdfstring{job\_}{job\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsyncCompileJob}{Async\+Compile\+Job}}$\ast$ v8\+::internal\+::wasm\+::\+Async\+Compile\+Job\+::\+Compilation\+State\+Callback\+::job\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 2905 of file module-\/compiler.\+cc.
+
+
+
+Referenced by call().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{module-compiler_8cc}{module-\/compiler.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{module-compiler_8cc}{module-\/compiler.\+cc}}\end{DoxyCompactItemize}

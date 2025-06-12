@@ -7,5 +7,7 @@ var classv8_1_1internal_1_1maglev_1_1MaglevGraphVerifier =
     [ "PreProcessBasicBlock", "classv8_1_1internal_1_1maglev_1_1MaglevGraphVerifier.html#aa847188d532b2a166cf9077a67d2f91c", null ],
     [ "PreProcessGraph", "classv8_1_1internal_1_1maglev_1_1MaglevGraphVerifier.html#aa0bcef3853e448306b9944b373dc879f", null ],
     [ "Process", "classv8_1_1internal_1_1maglev_1_1MaglevGraphVerifier.html#a80087850de20713545bf06e7e2310498", null ],
-    [ "Process", "classv8_1_1internal_1_1maglev_1_1MaglevGraphVerifier.html#a7026eaf603b020a9cd23d4daa557b739", null ]
+    [ "Process", "classv8_1_1internal_1_1maglev_1_1MaglevGraphVerifier.html#a7026eaf603b020a9cd23d4daa557b739", null ],
+    [ "graph_labeller_", "classv8_1_1internal_1_1maglev_1_1MaglevGraphVerifier.html#ae1aef54025292cc080ad2e9d000e7c36", null ],
+    [ "seen_", "classv8_1_1internal_1_1maglev_1_1MaglevGraphVerifier.html#a0d60e6856a13e056a0da91080f098c31", null ]
 ];

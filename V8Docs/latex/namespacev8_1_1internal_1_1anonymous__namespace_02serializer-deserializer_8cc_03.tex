@@ -1,0 +1,61 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02serializer-deserializer_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{serializer-\/deserializer.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02serializer-deserializer_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}serializer-\/deserializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}serializer-\/deserializer.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{src_2base_2macros_8h_ac20eb29837d5d6e1d4f2dec2673da85d}{DISABLE\+\_\+\+CFI\+\_\+\+PERF}} void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02serializer-deserializer_8cc_03_a87dfd9edc6ff8e67f4a468839e26128b}{Iterate\+Object\+Cache}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, std\+::vector$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$$>$ $\ast$cache, \mbox{\hyperlink{namespacev8_1_1internal_ae1439207c9f98c41dbdea3eca3572d54}{Root}} root\+\_\+id, \mbox{\hyperlink{classv8_1_1internal_1_1RootVisitor}{Root\+Visitor}} $\ast$visitor)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02serializer-deserializer_8cc_03_a87dfd9edc6ff8e67f4a468839e26128b}\label{namespacev8_1_1internal_1_1anonymous__namespace_02serializer-deserializer_8cc_03_a87dfd9edc6ff8e67f4a468839e26128b}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}serializer-\/deserializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}serializer-\/deserializer.cc\rcurly{}}!IterateObjectCache@{IterateObjectCache}}
+\index{IterateObjectCache@{IterateObjectCache}!v8::internal::anonymous\_namespace\lcurly{}serializer-\/deserializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}serializer-\/deserializer.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{IterateObjectCache()}{IterateObjectCache()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{src_2base_2macros_8h_ac20eb29837d5d6e1d4f2dec2673da85d}{DISABLE\+\_\+\+CFI\+\_\+\+PERF}} void v8\+::internal\+::anonymous\+\_\+namespace\{serializer-\/deserializer.\+cc\}\+::Iterate\+Object\+Cache (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{std\+::vector$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$$>$ $\ast$}]{cache,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_ae1439207c9f98c41dbdea3eca3572d54}{Root}}}]{root\+\_\+id,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1RootVisitor}{Root\+Visitor}} $\ast$}]{visitor }\end{DoxyParamCaption})}
+
+
+
+Definition at line 15 of file serializer-\/deserializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16                                                             \{}
+\DoxyCodeLine{17   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0;; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{18     \textcolor{comment}{// Extend the array ready to get a value when deserializing.}}
+\DoxyCodeLine{19     \textcolor{keywordflow}{if} (cache-\/>size() <= \mbox{\hyperlink{namespacev8_1_1internal}{i}}) cache-\/>push\_back(\mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3}{Smi::zero}}());}
+\DoxyCodeLine{20     \textcolor{comment}{// During deserialization, the visitor populates the object cache and}}
+\DoxyCodeLine{21     \textcolor{comment}{// eventually terminates the cache with undefined.}}
+\DoxyCodeLine{22     visitor-\/>VisitRootPointer(root\_id, \textcolor{keyword}{nullptr}, FullObjectSlot(\&cache-\/>at(\mbox{\hyperlink{namespacev8_1_1internal}{i}})));}
+\DoxyCodeLine{23     \textcolor{comment}{// We may see objects in trusted space here (outside of the main pointer}}
+\DoxyCodeLine{24     \textcolor{comment}{// compression cage), so have to use SafeEquals.}}
+\DoxyCodeLine{25     \mbox{\hyperlink{namespacev8_1_1internal_a5297fd2c72981b2220e6b9a831570fb3}{Tagged<Object>}} \mbox{\hyperlink{namespacev8_1_1internal_ab165da27eb70b7cac315ad3c2c991c06}{undefined}} = ReadOnlyRoots(isolate).undefined\_value();}
+\DoxyCodeLine{26     \textcolor{keywordflow}{if} (cache-\/>at(\mbox{\hyperlink{namespacev8_1_1internal}{i}}).SafeEquals(\mbox{\hyperlink{namespacev8_1_1internal_ab165da27eb70b7cac315ad3c2c991c06}{undefined}})) \textcolor{keywordflow}{break};}
+\DoxyCodeLine{27   \}}
+\DoxyCodeLine{28 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::undefined, v8\+::internal\+::\+Root\+Visitor\+::\+Visit\+Root\+Pointer(), and v8\+::internal\+::\+Smi\+::zero().
+
+
+
+Referenced by v8\+::internal\+::\+Serializer\+Deserializer\+::\+Iterate\+Shared\+Heap\+Object\+Cache(), and v8\+::internal\+::\+Serializer\+Deserializer\+::\+Iterate\+Startup\+Object\+Cache().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02serializer-deserializer_8cc_03_a87dfd9edc6ff8e67f4a468839e26128b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02serializer-deserializer_8cc_03_a87dfd9edc6ff8e67f4a468839e26128b_icgraph}
+\end{center}
+\end{figure}

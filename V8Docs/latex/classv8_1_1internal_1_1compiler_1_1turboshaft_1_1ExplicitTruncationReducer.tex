@@ -21,14 +21,31 @@ Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Explicit\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer__coll__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\footnotesize template$<$Opcode opcode, typename Continuation , typename... Ts$>$ }\\\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpIndex}{Op\+Index}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer_a987435c8d2f2ee865f575b9b3e1260be}{Reduce\+Operation}} (Ts... \mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}})
+{\footnotesize template$<$Opcode opcode, typename Continuation , typename... Ts$>$ }\\\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpIndex}{Op\+Index}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer_a987435c8d2f2ee865f575b9b3e1260be}{Reduce\+Operation}} (Ts... args)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector}{Zone\+Vector}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1MaybeRegisterRepresentation}{Maybe\+Register\+Representation}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer_acff765793b0a42bd45aac88bc08ac609}{inputs\+\_\+rep\+\_\+storage\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1SmallVector}{base\+::\+Small\+Vector}}$<$ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a41b4e0c62a7e1e5f3b3a15e9284c2313}{Operation\+Storage\+Slot}}, 32 $>$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer_a8916863ee88ebfc8f02dafd88ee7ffa5}{storage\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class Next$>$\newline
+class v8\+::internal\+::compiler\+::turboshaft\+::\+Explicit\+Truncation\+Reducer$<$ Next $>$}
+
+
+
+Definition at line 21 of file explicit-\/truncation-\/reducer.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -42,6 +59,106 @@ template$<$Opcode opcode, typename Continuation , typename... Ts$>$ \\
 
 
 
+Definition at line 27 of file explicit-\/truncation-\/reducer.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{27                                       \{}
+\DoxyCodeLine{28     \textcolor{comment}{// Construct a temporary operation. The operation is needed for generic}}
+\DoxyCodeLine{29     \textcolor{comment}{// access to the inputs and the inputs representation.}}
+\DoxyCodeLine{30     \textcolor{keyword}{using} Op = \textcolor{keyword}{typename} opcode\_to\_operation\_map<opcode>::Op;}
+\DoxyCodeLine{31     Op* operation = CreateOperation<Op>(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer_a8916863ee88ebfc8f02dafd88ee7ffa5}{storage\_}}, \mbox{\hyperlink{namespacev8_1_1base_ad03b241da4e98adde3145092fe54be8b}{args}}...);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     base::Vector<const MaybeRegisterRepresentation> reps =}
+\DoxyCodeLine{34         operation-\/>inputs\_rep(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer_acff765793b0a42bd45aac88bc08ac609}{inputs\_rep\_storage\_}});}
+\DoxyCodeLine{35     base::Vector<OpIndex> inputs = operation-\/>inputs();}
+\DoxyCodeLine{36     \textcolor{keywordtype}{bool} has\_truncation = \textcolor{keyword}{false};}
+\DoxyCodeLine{37     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < reps.size(); ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{38       \textcolor{keywordflow}{if} (reps[\mbox{\hyperlink{namespacev8_1_1internal}{i}}] == \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1MaybeRegisterRepresentation_aaf5e55ffc76107084978c316df5d4c32}{MaybeRegisterRepresentation::Word32}}()) \{}
+\DoxyCodeLine{39         base::Vector<const RegisterRepresentation> actual\_inputs\_rep =}
+\DoxyCodeLine{40             Asm().input\_graph().Get(inputs[\mbox{\hyperlink{namespacev8_1_1internal}{i}}]).outputs\_rep();}
+\DoxyCodeLine{41         \textcolor{comment}{// We ignore any input operation that produces more than one value.}}
+\DoxyCodeLine{42         \textcolor{comment}{// These cannot be consumed directly and therefore require a projection.}}
+\DoxyCodeLine{43         \textcolor{comment}{// Assumption: A projection never performs an implicit truncation from}}
+\DoxyCodeLine{44         \textcolor{comment}{// word64 to word32.}}
+\DoxyCodeLine{45         \textcolor{keywordflow}{if} (actual\_inputs\_rep.size() == 1 \&\&}
+\DoxyCodeLine{46             actual\_inputs\_rep[0] == \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_ab5e3c653af2621026db9a5ebf587d368}{RegisterRepresentation::Word64}}()) \{}
+\DoxyCodeLine{47           has\_truncation = \textcolor{keyword}{true};}
+\DoxyCodeLine{48           inputs[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}] = Next::ReduceChange(inputs[\mbox{\hyperlink{namespacev8_1_1internal}{i}}], \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_ac2287f30e4d60e796ef8fcbb5cb3b6d3a6393f5467404a20b7754c5032eb69bfd}{ChangeOp::Kind::kTruncate}},}
+\DoxyCodeLine{49                                          \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ChangeOp_a1164c4351eb2febe0afa2038c603a669a9d3b26adf94c2e6dfc57564bcef5a30d}{ChangeOp::Assumption::kNoAssumption}},}
+\DoxyCodeLine{50                                          \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_ab5e3c653af2621026db9a5ebf587d368}{RegisterRepresentation::Word64}}(),}
+\DoxyCodeLine{51                                          \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_a598694a7b6b5c3ceffe89a31a8fdde8b}{RegisterRepresentation::Word32}}());}
+\DoxyCodeLine{52         \}}
+\DoxyCodeLine{53       \}}
+\DoxyCodeLine{54     \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56     \textcolor{keywordflow}{if} (!has\_truncation) \{}
+\DoxyCodeLine{57       \textcolor{comment}{// Just call the regular Reduce without any remapped values.}}
+\DoxyCodeLine{58       \textcolor{keywordflow}{return} Continuation\{\textcolor{keyword}{this}\}.Reduce(\mbox{\hyperlink{namespacev8_1_1base_ad03b241da4e98adde3145092fe54be8b}{args}}...);}
+\DoxyCodeLine{59     \}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61     Operation::IdentityMapper mapper;}
+\DoxyCodeLine{62     \textcolor{keywordflow}{return} operation-\/>Explode(}
+\DoxyCodeLine{63         [\textcolor{keyword}{this}](\textcolor{keyword}{auto}... \mbox{\hyperlink{namespacev8_1_1base_ad03b241da4e98adde3145092fe54be8b}{args}}) -\/> \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} \{}
+\DoxyCodeLine{64           \textcolor{keywordflow}{return} Continuation\{\textcolor{keyword}{this}\}.Reduce(\mbox{\hyperlink{namespacev8_1_1base_ad03b241da4e98adde3145092fe54be8b}{args}}...);}
+\DoxyCodeLine{65         \},}
+\DoxyCodeLine{66         mapper);}
+\DoxyCodeLine{67   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::args, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::compiler\+::turboshaft\+::\+Explicit\+Truncation\+Reducer$<$ Next $>$\+::inputs\+\_\+rep\+\_\+storage\+\_\+, v8\+::internal\+::compiler\+::turboshaft\+::\+Change\+Op\+::k\+No\+Assumption, v8\+::internal\+::compiler\+::turboshaft\+::\+Change\+Op\+::k\+Truncate, v8\+::base\+::\+Vector$<$ T $>$\+::size(), v8\+::internal\+::compiler\+::turboshaft\+::\+Explicit\+Truncation\+Reducer$<$ Next $>$\+::storage\+\_\+, v8\+::internal\+::compiler\+::turboshaft\+::\+Maybe\+Register\+Representation\+::\+Word32(), v8\+::internal\+::compiler\+::turboshaft\+::\+Register\+Representation\+::\+Word32(), and v8\+::internal\+::compiler\+::turboshaft\+::\+Register\+Representation\+::\+Word64().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer_a987435c8d2f2ee865f575b9b3e1260be_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer_acff765793b0a42bd45aac88bc08ac609}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer_acff765793b0a42bd45aac88bc08ac609}} 
+\index{v8::internal::compiler::turboshaft::ExplicitTruncationReducer$<$ Next $>$@{v8::internal::compiler::turboshaft::ExplicitTruncationReducer$<$ Next $>$}!inputs\_rep\_storage\_@{inputs\_rep\_storage\_}}
+\index{inputs\_rep\_storage\_@{inputs\_rep\_storage\_}!v8::internal::compiler::turboshaft::ExplicitTruncationReducer$<$ Next $>$@{v8::internal::compiler::turboshaft::ExplicitTruncationReducer$<$ Next $>$}}
+\doxysubsubsection{\texorpdfstring{inputs\_rep\_storage\_}{inputs\_rep\_storage\_}}
+{\footnotesize\ttfamily template$<$class Next $>$ \\
+\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector}{Zone\+Vector}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1MaybeRegisterRepresentation}{Maybe\+Register\+Representation}}$>$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer}{v8\+::internal\+::compiler\+::turboshaft\+::\+Explicit\+Truncation\+Reducer}}$<$ Next $>$\+::inputs\+\_\+rep\+\_\+storage\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{      Asm().phase\_zone()\}}
+
+\end{DoxyCode}
+
+
+Definition at line 70 of file explicit-\/truncation-\/reducer.\+h.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::turboshaft\+::\+Explicit\+Truncation\+Reducer$<$ Next $>$\+::\+Reduce\+Operation().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer_a8916863ee88ebfc8f02dafd88ee7ffa5}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer_a8916863ee88ebfc8f02dafd88ee7ffa5}} 
+\index{v8::internal::compiler::turboshaft::ExplicitTruncationReducer$<$ Next $>$@{v8::internal::compiler::turboshaft::ExplicitTruncationReducer$<$ Next $>$}!storage\_@{storage\_}}
+\index{storage\_@{storage\_}!v8::internal::compiler::turboshaft::ExplicitTruncationReducer$<$ Next $>$@{v8::internal::compiler::turboshaft::ExplicitTruncationReducer$<$ Next $>$}}
+\doxysubsubsection{\texorpdfstring{storage\_}{storage\_}}
+{\footnotesize\ttfamily template$<$class Next $>$ \\
+\mbox{\hyperlink{classv8_1_1base_1_1SmallVector}{base\+::\+Small\+Vector}}$<$\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a41b4e0c62a7e1e5f3b3a15e9284c2313}{Operation\+Storage\+Slot}}, 32$>$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ExplicitTruncationReducer}{v8\+::internal\+::compiler\+::turboshaft\+::\+Explicit\+Truncation\+Reducer}}$<$ Next $>$\+::storage\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 72 of file explicit-\/truncation-\/reducer.\+h.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::turboshaft\+::\+Explicit\+Truncation\+Reducer$<$ Next $>$\+::\+Reduce\+Operation().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{explicit-truncation-reducer_8h}{explicit-\/truncation-\/reducer.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{explicit-truncation-reducer_8h}{explicit-\/truncation-\/reducer.\+h}}\end{DoxyCompactItemize}

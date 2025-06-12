@@ -1,5 +1,13 @@
 var namespaceheap_1_1base =
 [
+    [ "anonymous_namespace{incremental-marking-schedule.cc}", "namespaceheap_1_1base_1_1anonymous__namespace_02incremental-marking-schedule_8cc_03.html", [
+      [ "kTimeDeltaForPredictableSchedule", "namespaceheap_1_1base_1_1anonymous__namespace_02incremental-marking-schedule_8cc_03.html#a9247ccde558c2ffcd0bdf64327c707c3", null ]
+    ] ],
+    [ "anonymous_namespace{stack.cc}", "namespaceheap_1_1base_1_1anonymous__namespace_02stack_8cc_03.html", [
+      [ "IterateAsanFakeFrameIfNecessary", "namespaceheap_1_1base_1_1anonymous__namespace_02stack_8cc_03.html#acd7d60a77042f77fc3f8e3aed50d3c15", null ],
+      [ "IteratePointersInStack", "namespaceheap_1_1base_1_1anonymous__namespace_02stack_8cc_03.html#a20edc2eb37d6e996c491755c84d023b9", null ],
+      [ "IteratePointersInUnsafeStackIfNecessary", "namespaceheap_1_1base_1_1anonymous__namespace_02stack_8cc_03.html#a72f98bab4b5fc968d49953eb266e911e", null ]
+    ] ],
     [ "internal", "namespaceheap_1_1base_1_1internal.html", "namespaceheap_1_1base_1_1internal" ],
     [ "ActiveSystemPages", "classheap_1_1base_1_1ActiveSystemPages.html", "classheap_1_1base_1_1ActiveSystemPages" ],
     [ "BasicSlotSet", "classheap_1_1base_1_1BasicSlotSet.html", "classheap_1_1base_1_1BasicSlotSet" ],
@@ -10,7 +18,7 @@ var namespaceheap_1_1base =
     [ "SuspendTagCheckingScope", "classheap_1_1base_1_1SuspendTagCheckingScope.html", "classheap_1_1base_1_1SuspendTagCheckingScope" ],
     [ "StackVisitor", "classheap_1_1base_1_1StackVisitor.html", "classheap_1_1base_1_1StackVisitor" ],
     [ "Stack", "classheap_1_1base_1_1Stack.html", "classheap_1_1base_1_1Stack" ],
-    [ "WorklistBase", "classheap_1_1base_1_1WorklistBase.html", null ],
+    [ "WorklistBase", "classheap_1_1base_1_1WorklistBase.html", "classheap_1_1base_1_1WorklistBase" ],
     [ "Worklist", "classheap_1_1base_1_1Worklist.html", "classheap_1_1base_1_1Worklist" ],
     [ "BytesAndDurationBuffer", "namespaceheap_1_1base.html#a135f7d6cb3dca980930858d1cb319348", null ],
     [ "IterateStackCallback", "namespaceheap_1_1base.html#a40ce1b33507119fdcb28a96862703fd9", null ],

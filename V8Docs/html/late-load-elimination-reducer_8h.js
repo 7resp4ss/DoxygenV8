@@ -9,6 +9,7 @@ var late_load_elimination_reducer_8h =
     [ "LoadEliminationReplacement", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoadEliminationReplacement.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoadEliminationReplacement" ],
     [ "MemoryContentTable", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1MemoryContentTable.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1MemoryContentTable" ],
     [ "LateLoadEliminationAnalyzer", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1LateLoadEliminationAnalyzer.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1LateLoadEliminationAnalyzer" ],
+    [ "Snapshot", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LateLoadEliminationAnalyzer_1_1Snapshot.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LateLoadEliminationAnalyzer_1_1Snapshot" ],
     [ "LateLoadEliminationReducer", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1LateLoadEliminationReducer.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1LateLoadEliminationReducer" ],
     [ "TRACE", "late-load-elimination-reducer_8h.html#a494d31903e7b0333dfa03b0778679113", null ],
     [ "MapMask", "late-load-elimination-reducer_8h.html#a7c81d344d8c2fa45e2d03e8ff0742255", null ],

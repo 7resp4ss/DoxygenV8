@@ -2,8 +2,23 @@
 \label{classv8_1_1IsolateGroup}\index{v8::IsolateGroup@{v8::IsolateGroup}}
 
 
+The set of \mbox{\hyperlink{classv8_1_1V8}{V8}} isolates in a process is partitioned into groups.  
+
+
+
+
 {\ttfamily \#include $<$v8-\/isolate.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::Isolate\+Group\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1IsolateGroup__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -21,16 +36,26 @@ bool \mbox{\hyperlink{classv8_1_1IsolateGroup_adadfdae35e0aa36f808f80be3831963c}
 \item 
 bool \mbox{\hyperlink{classv8_1_1IsolateGroup_a5e0c5b83ed65ae9fad4a8a50445d6f76}{operator!=}} (const \mbox{\hyperlink{classv8_1_1IsolateGroup}{Isolate\+Group}} \&other) const
 \item 
-\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} bool \mbox{\hyperlink{classv8_1_1IsolateGroup_a22de6f66d550c7163776470ae7ea4405}{Sandbox\+Contains}} (void $\ast$pointer) const
+bool \mbox{\hyperlink{classv8_1_1IsolateGroup_a757876b899bfc96d28fcaf6ed04a72a8}{Sandbox\+Contains}} (void $\ast$pointer) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{classv8_1_1IsolateGroup}{Isolate\+Group}} \mbox{\hyperlink{classv8_1_1IsolateGroup_ab3112f1c99b586098d7d576cc58df91f}{Get\+Default}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Get the default isolate group. \end{DoxyCompactList}\item 
 static bool \mbox{\hyperlink{classv8_1_1IsolateGroup_a14fe01d833df9c867d6a07c4e5bade6d}{Can\+Create\+New\+Groups}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Return true if new isolate groups can be created at run-\/time, or false if all isolates must be in the same group. \end{DoxyCompactList}\item 
 static \mbox{\hyperlink{classv8_1_1IsolateGroup}{Isolate\+Group}} \mbox{\hyperlink{classv8_1_1IsolateGroup_aa0d020376b185d2199b48ede62f9ed13}{Create}} ()
+\begin{DoxyCompactList}\small\item\em Create a new isolate group. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1IsolateGroup_a1536297f5a768183b03de9f36da3dee6}{Isolate\+Group}} (\mbox{\hyperlink{classv8_1_1internal_1_1IsolateGroup}{internal\+::\+Isolate\+Group}} $\ast$\&\&isolate\+\_\+group)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1IsolateGroup}{internal\+::\+Isolate\+Group}} $\ast$ \mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\+\_\+group\+\_\+}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -42,7 +67,9 @@ class \mbox{\hyperlink{classv8_1_1IsolateGroup_aeaaff17d16575ba0adadb01d7793abe2
 
 
 \doxysubsection{Detailed Description}
-The set of \mbox{\hyperlink{classv8_1_1V8}{V8}} isolates in a process is partitioned into groups. Each group has its own sandbox (if \mbox{\hyperlink{classv8_1_1V8}{V8}} was configured with support for the sandbox) and pointer-\/compression cage (if configured with pointer compression).
+The set of \mbox{\hyperlink{classv8_1_1V8}{V8}} isolates in a process is partitioned into groups. 
+
+Each group has its own sandbox (if \mbox{\hyperlink{classv8_1_1V8}{V8}} was configured with support for the sandbox) and pointer-\/compression cage (if configured with pointer compression).
 
 By default, all isolates are placed in the same group. This is the most efficient configuration in terms of speed and memory use. However, with pointer compression enabled, total heap usage of isolates in a group cannot exceed 4 GB, not counting array buffers and other off-\/heap storage. Using multiple isolate groups can allow embedders to allocate more than 4GB of objects with pointer compression enabled, if the embedder\textquotesingle{}s use case can span multiple isolates.
 
@@ -52,24 +79,128 @@ Note that \mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} groups are reference co
 
 Note that it\textquotesingle{}s not going to be possible to pass shared JS objects across \mbox{\hyperlink{classv8_1_1IsolateGroup}{Isolate\+Group}} boundary. 
 
+Definition at line 218 of file v8-\/isolate.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1IsolateGroup_ab6d7eac1b0a8c674c9cd0d2bdc055e0c}\label{classv8_1_1IsolateGroup_ab6d7eac1b0a8c674c9cd0d2bdc055e0c}} 
 \index{v8::IsolateGroup@{v8::IsolateGroup}!IsolateGroup@{IsolateGroup}}
 \index{IsolateGroup@{IsolateGroup}!v8::IsolateGroup@{v8::IsolateGroup}}
-\doxysubsubsection{\texorpdfstring{IsolateGroup()}{IsolateGroup()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+\doxysubsubsection{\texorpdfstring{IsolateGroup()}{IsolateGroup()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily v8\+::\+Isolate\+Group\+::\+Isolate\+Group (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1IsolateGroup}{Isolate\+Group}} \&\&}]{other }\end{DoxyParamCaption})}
 
+
+
+Definition at line 9684 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9684                                                \{}
+\DoxyCodeLine{9685   \mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}} = other.isolate\_group\_;}
+\DoxyCodeLine{9686   other.isolate\_group\_ = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{9687 \}}
+
+\end{DoxyCode}
+
+
+References isolate\+\_\+group\+\_\+.
+
+
+
+Referenced by Create(), and Get\+Default().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1IsolateGroup_ab6d7eac1b0a8c674c9cd0d2bdc055e0c_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1IsolateGroup_abed5222ce3fa7a84cbd939f2a3c29098}\label{classv8_1_1IsolateGroup_abed5222ce3fa7a84cbd939f2a3c29098}} 
 \index{v8::IsolateGroup@{v8::IsolateGroup}!IsolateGroup@{IsolateGroup}}
 \index{IsolateGroup@{IsolateGroup}!v8::IsolateGroup@{v8::IsolateGroup}}
-\doxysubsubsection{\texorpdfstring{IsolateGroup()}{IsolateGroup()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+\doxysubsubsection{\texorpdfstring{IsolateGroup()}{IsolateGroup()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily v8\+::\+Isolate\+Group\+::\+Isolate\+Group (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1IsolateGroup}{Isolate\+Group}} \&}]{other }\end{DoxyParamCaption})}
 
+
+
+Definition at line 9646 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9647     : \mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}}(other.isolate\_group\_) \{}
+\DoxyCodeLine{9648   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}}) \mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1IsolateGroup_a78cf1beb3e57853b94d68a700d895814}{Acquire}}();}
+\DoxyCodeLine{9649 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+Group\+::\+Acquire(), and isolate\+\_\+group\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1IsolateGroup_abed5222ce3fa7a84cbd939f2a3c29098_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1IsolateGroup_aeefbfe2486bc813f5929330d48f2ea03}\label{classv8_1_1IsolateGroup_aeefbfe2486bc813f5929330d48f2ea03}} 
 \index{v8::IsolateGroup@{v8::IsolateGroup}!````~IsolateGroup@{$\sim$IsolateGroup}}
 \index{````~IsolateGroup@{$\sim$IsolateGroup}!v8::IsolateGroup@{v8::IsolateGroup}}
 \doxysubsubsection{\texorpdfstring{$\sim$IsolateGroup()}{~IsolateGroup()}}
 {\footnotesize\ttfamily v8\+::\+Isolate\+Group\+::$\sim$\+Isolate\+Group (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 9660 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9660                             \{}
+\DoxyCodeLine{9661   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}}) \{}
+\DoxyCodeLine{9662     \mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1IsolateGroup_afcf77c7f638cc45112046f26b2cc83fd}{Release}}();}
+\DoxyCodeLine{9663 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{9664     \mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{9665 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{9666   \}}
+\DoxyCodeLine{9667 \}}
+
+\end{DoxyCode}
+
+
+References isolate\+\_\+group\+\_\+, and v8\+::internal\+::\+Isolate\+Group\+::\+Release().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1IsolateGroup_aeefbfe2486bc813f5929330d48f2ea03_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1IsolateGroup_a1536297f5a768183b03de9f36da3dee6}\label{classv8_1_1IsolateGroup_a1536297f5a768183b03de9f36da3dee6}} 
+\index{v8::IsolateGroup@{v8::IsolateGroup}!IsolateGroup@{IsolateGroup}}
+\index{IsolateGroup@{IsolateGroup}!v8::IsolateGroup@{v8::IsolateGroup}}
+\doxysubsubsection{\texorpdfstring{IsolateGroup()}{IsolateGroup()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily v8\+::\+Isolate\+Group\+::\+Isolate\+Group (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1IsolateGroup}{internal\+::\+Isolate\+Group}} $\ast$\&\&}]{isolate\+\_\+group }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [private]}}
+
+
+
+Definition at line 9641 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9642     : \mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}}(isolate\_group) \{}
+\DoxyCodeLine{9643   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(\mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}});}
+\DoxyCodeLine{9644 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+NOT\+\_\+\+NULL, and isolate\+\_\+group\+\_\+.
 
 
 
@@ -80,35 +211,203 @@ Note that it\textquotesingle{}s not going to be possible to pass shared JS objec
 \doxysubsubsection{\texorpdfstring{CanCreateNewGroups()}{CanCreateNewGroups()}}
 {\footnotesize\ttfamily bool v8\+::\+Isolate\+Group\+::\+Can\+Create\+New\+Groups (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
-Return true if new isolate groups can be created at run-\/time, or false if all isolates must be in the same group. \mbox{\Hypertarget{classv8_1_1IsolateGroup_aa0d020376b185d2199b48ede62f9ed13}\label{classv8_1_1IsolateGroup_aa0d020376b185d2199b48ede62f9ed13}} 
+
+
+Return true if new isolate groups can be created at run-\/time, or false if all isolates must be in the same group. 
+
+
+
+Definition at line 9675 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9675                                       \{}
+\DoxyCodeLine{9676   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1IsolateGroup_a602bca331ea7e3f4ad724493a484851f}{i::IsolateGroup::CanCreateNewGroups}}();}
+\DoxyCodeLine{9677 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+Group\+::\+Can\+Create\+New\+Groups().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1IsolateGroup_a14fe01d833df9c867d6a07c4e5bade6d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1IsolateGroup_aa0d020376b185d2199b48ede62f9ed13}\label{classv8_1_1IsolateGroup_aa0d020376b185d2199b48ede62f9ed13}} 
 \index{v8::IsolateGroup@{v8::IsolateGroup}!Create@{Create}}
 \index{Create@{Create}!v8::IsolateGroup@{v8::IsolateGroup}}
 \doxysubsubsection{\texorpdfstring{Create()}{Create()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1IsolateGroup}{Isolate\+Group}} v8\+::\+Isolate\+Group\+::\+Create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
-Create a new isolate group. If this \mbox{\hyperlink{classv8_1_1V8}{V8}}\textquotesingle{}s build configuration only supports a single group, abort. \mbox{\Hypertarget{classv8_1_1IsolateGroup_ab3112f1c99b586098d7d576cc58df91f}\label{classv8_1_1IsolateGroup_ab3112f1c99b586098d7d576cc58df91f}} 
+
+
+Create a new isolate group. 
+
+If this \mbox{\hyperlink{classv8_1_1V8}{V8}}\textquotesingle{}s build configuration only supports a single group, abort. 
+
+Definition at line 9680 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9680                                   \{}
+\DoxyCodeLine{9681   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1IsolateGroup_ab6d7eac1b0a8c674c9cd0d2bdc055e0c}{IsolateGroup}}(\mbox{\hyperlink{classv8_1_1internal_1_1IsolateGroup_a83015b56edf55bcd72bd1867dc6266d2}{i::IsolateGroup::New}}());}
+\DoxyCodeLine{9682 \}}
+
+\end{DoxyCode}
+
+
+References Isolate\+Group(), and v8\+::internal\+::\+Isolate\+Group\+::\+New().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1IsolateGroup_aa0d020376b185d2199b48ede62f9ed13_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1IsolateGroup_ab3112f1c99b586098d7d576cc58df91f}\label{classv8_1_1IsolateGroup_ab3112f1c99b586098d7d576cc58df91f}} 
 \index{v8::IsolateGroup@{v8::IsolateGroup}!GetDefault@{GetDefault}}
 \index{GetDefault@{GetDefault}!v8::IsolateGroup@{v8::IsolateGroup}}
 \doxysubsubsection{\texorpdfstring{GetDefault()}{GetDefault()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1IsolateGroup}{Isolate\+Group}} v8\+::\+Isolate\+Group\+::\+Get\+Default (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
-Get the default isolate group. If this \mbox{\hyperlink{classv8_1_1V8}{V8}}\textquotesingle{}s build configuration only supports a single group, this is a reference to that single group. Otherwise this is a group like any other, distinguished only in that it is the first group. \mbox{\Hypertarget{classv8_1_1IsolateGroup_a5e0c5b83ed65ae9fad4a8a50445d6f76}\label{classv8_1_1IsolateGroup_a5e0c5b83ed65ae9fad4a8a50445d6f76}} 
+
+
+Get the default isolate group. 
+
+If this \mbox{\hyperlink{classv8_1_1V8}{V8}}\textquotesingle{}s build configuration only supports a single group, this is a reference to that single group. Otherwise this is a group like any other, distinguished only in that it is the first group. 
+
+Definition at line 9670 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9670                                       \{}
+\DoxyCodeLine{9671   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1IsolateGroup_ab6d7eac1b0a8c674c9cd0d2bdc055e0c}{IsolateGroup}}(\mbox{\hyperlink{classv8_1_1internal_1_1IsolateGroup_a99fc49a7d88e29bab2c31352dbe34763}{i::IsolateGroup::AcquireDefault}}());}
+\DoxyCodeLine{9672 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+Group\+::\+Acquire\+Default(), and Isolate\+Group().
+
+
+
+Referenced by v8\+::\+Isolate\+::\+Allocate(), and v8\+::\+Isolate\+::\+New().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1IsolateGroup_ab3112f1c99b586098d7d576cc58df91f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1IsolateGroup_ab3112f1c99b586098d7d576cc58df91f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1IsolateGroup_a5e0c5b83ed65ae9fad4a8a50445d6f76}\label{classv8_1_1IsolateGroup_a5e0c5b83ed65ae9fad4a8a50445d6f76}} 
 \index{v8::IsolateGroup@{v8::IsolateGroup}!operator"!=@{operator"!=}}
 \index{operator"!=@{operator"!=}!v8::IsolateGroup@{v8::IsolateGroup}}
 \doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
 {\footnotesize\ttfamily bool v8\+::\+Isolate\+Group\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1IsolateGroup}{Isolate\+Group}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 252 of file v8-\/isolate.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{252                                                    \{}
+\DoxyCodeLine{253     \textcolor{keywordflow}{return} !\mbox{\hyperlink{classv8_1_1IsolateGroup_adadfdae35e0aa36f808f80be3831963c}{operator==}}(other);}
+\DoxyCodeLine{254   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::operator==().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1IsolateGroup_a5e0c5b83ed65ae9fad4a8a50445d6f76_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1IsolateGroup_a97c7e1c611173b72c608b7bd604e5116}\label{classv8_1_1IsolateGroup_a97c7e1c611173b72c608b7bd604e5116}} 
 \index{v8::IsolateGroup@{v8::IsolateGroup}!operator=@{operator=}}
 \index{operator=@{operator=}!v8::IsolateGroup@{v8::IsolateGroup}}
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1IsolateGroup}{Isolate\+Group}} \& v8\+::\+Isolate\+Group\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1IsolateGroup}{Isolate\+Group}} \&}]{other }\end{DoxyParamCaption})}
 
+
+
+Definition at line 9651 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9651                                                                \{}
+\DoxyCodeLine{9652   \textcolor{keywordflow}{if} (\textcolor{keyword}{this} != \&other \&\& \mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}} != other.isolate\_group\_) \{}
+\DoxyCodeLine{9653     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}}) \mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1IsolateGroup_afcf77c7f638cc45112046f26b2cc83fd}{Release}}();}
+\DoxyCodeLine{9654     \mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}} = other.isolate\_group\_;}
+\DoxyCodeLine{9655     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}}) \mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1IsolateGroup_a78cf1beb3e57853b94d68a700d895814}{Acquire}}();}
+\DoxyCodeLine{9656   \}}
+\DoxyCodeLine{9657   \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{9658 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+Group\+::\+Acquire(), isolate\+\_\+group\+\_\+, and v8\+::internal\+::\+Isolate\+Group\+::\+Release().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1IsolateGroup_a97c7e1c611173b72c608b7bd604e5116_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1IsolateGroup_ae57961da3bfd263f0150518c1179b0c6}\label{classv8_1_1IsolateGroup_ae57961da3bfd263f0150518c1179b0c6}} 
 \index{v8::IsolateGroup@{v8::IsolateGroup}!operator=@{operator=}}
 \index{operator=@{operator=}!v8::IsolateGroup@{v8::IsolateGroup}}
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1IsolateGroup}{Isolate\+Group}} \& v8\+::\+Isolate\+Group\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1IsolateGroup}{Isolate\+Group}} \&\&}]{other }\end{DoxyParamCaption})}
+
+
+
+Definition at line 9689 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9689                                                             \{}
+\DoxyCodeLine{9690   \textcolor{keywordflow}{if} (\textcolor{keyword}{this} == \&other) \{}
+\DoxyCodeLine{9691     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{9692   \}}
+\DoxyCodeLine{9693 }
+\DoxyCodeLine{9694   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}}) \{}
+\DoxyCodeLine{9695     \mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1IsolateGroup_afcf77c7f638cc45112046f26b2cc83fd}{Release}}();}
+\DoxyCodeLine{9696   \}}
+\DoxyCodeLine{9697   \mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}} = other.isolate\_group\_;}
+\DoxyCodeLine{9698   other.isolate\_group\_ = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{9699   \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{9700 \}}
+
+\end{DoxyCode}
+
+
+References isolate\+\_\+group\+\_\+.
 
 \mbox{\Hypertarget{classv8_1_1IsolateGroup_adadfdae35e0aa36f808f80be3831963c}\label{classv8_1_1IsolateGroup_adadfdae35e0aa36f808f80be3831963c}} 
 \index{v8::IsolateGroup@{v8::IsolateGroup}!operator==@{operator==}}
@@ -116,12 +415,36 @@ Get the default isolate group. If this \mbox{\hyperlink{classv8_1_1V8}{V8}}\text
 \doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
 {\footnotesize\ttfamily bool v8\+::\+Isolate\+Group\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1IsolateGroup}{Isolate\+Group}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
-\mbox{\Hypertarget{classv8_1_1IsolateGroup_a22de6f66d550c7163776470ae7ea4405}\label{classv8_1_1IsolateGroup_a22de6f66d550c7163776470ae7ea4405}} 
+
+
+Definition at line 248 of file v8-\/isolate.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{248                                                    \{}
+\DoxyCodeLine{249     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}{isolate\_group\_}} == other.isolate\_group\_;}
+\DoxyCodeLine{250   \}}
+
+\end{DoxyCode}
+
+
+References isolate\+\_\+group\+\_\+.
+
+\mbox{\Hypertarget{classv8_1_1IsolateGroup_a757876b899bfc96d28fcaf6ed04a72a8}\label{classv8_1_1IsolateGroup_a757876b899bfc96d28fcaf6ed04a72a8}} 
 \index{v8::IsolateGroup@{v8::IsolateGroup}!SandboxContains@{SandboxContains}}
 \index{SandboxContains@{SandboxContains}!v8::IsolateGroup@{v8::IsolateGroup}}
 \doxysubsubsection{\texorpdfstring{SandboxContains()}{SandboxContains()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} bool v8\+::\+Isolate\+Group\+::\+Sandbox\+Contains (\begin{DoxyParamCaption}\item[{void $\ast$}]{pointer }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily bool v8\+::\+Isolate\+Group\+::\+Sandbox\+Contains (\begin{DoxyParamCaption}\item[{void $\ast$}]{pointer }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 264 of file v8-\/isolate.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{264 \{ \textcolor{keywordflow}{return} \textcolor{keyword}{true}; \}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Friends And Related Function Documentation}
@@ -131,6 +454,10 @@ Get the default isolate group. If this \mbox{\hyperlink{classv8_1_1V8}{V8}}\text
 \doxysubsubsection{\texorpdfstring{ArrayBuffer::Allocator}{ArrayBuffer::Allocator}}
 {\footnotesize\ttfamily friend class \mbox{\hyperlink{classv8_1_1ArrayBuffer_1_1Allocator}{Array\+Buffer\+::\+Allocator}}\hspace{0.3cm}{\ttfamily [friend]}}
 
+
+
+Definition at line 269 of file v8-\/isolate.\+h.
+
 \mbox{\Hypertarget{classv8_1_1IsolateGroup_aba4f0964bdacf2bbf62cf876e5d28d0a}\label{classv8_1_1IsolateGroup_aba4f0964bdacf2bbf62cf876e5d28d0a}} 
 \index{v8::IsolateGroup@{v8::IsolateGroup}!Isolate@{Isolate}}
 \index{Isolate@{Isolate}!v8::IsolateGroup@{v8::IsolateGroup}}
@@ -139,7 +466,28 @@ Get the default isolate group. If this \mbox{\hyperlink{classv8_1_1V8}{V8}}\text
 
 
 
+Definition at line 268 of file v8-\/isolate.\+h.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}\label{classv8_1_1IsolateGroup_a035ea24e3152ec9088dc1723a2ec1801}} 
+\index{v8::IsolateGroup@{v8::IsolateGroup}!isolate\_group\_@{isolate\_group\_}}
+\index{isolate\_group\_@{isolate\_group\_}!v8::IsolateGroup@{v8::IsolateGroup}}
+\doxysubsubsection{\texorpdfstring{isolate\_group\_}{isolate\_group\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1IsolateGroup}{internal\+::\+Isolate\+Group}}$\ast$ v8\+::\+Isolate\+Group\+::isolate\+\_\+group\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 274 of file v8-\/isolate.\+h.
+
+
+
+Referenced by v8\+::\+Isolate\+::\+Allocate(), Isolate\+Group(), operator=(), operator==(), and $\sim$\+Isolate\+Group().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-isolate_8h}{v8-\/isolate.\+h}}\item 
-\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/\mbox{\hyperlink{v8-isolate_8h}{v8-\/isolate.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/api/\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}

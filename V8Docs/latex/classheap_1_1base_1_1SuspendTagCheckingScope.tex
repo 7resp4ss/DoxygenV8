@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$memory-\/tagging.\+h$>$}
 
+
+
+Collaboration diagram for heap\+::base\+::Suspend\+Tag\+Checking\+Scope\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{classheap_1_1base_1_1SuspendTagCheckingScope__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -13,6 +23,13 @@
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 15 of file memory-\/tagging.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classheap_1_1base_1_1SuspendTagCheckingScope_a4e6962a55637b297875bfa0cfba2fd8d}\label{classheap_1_1base_1_1SuspendTagCheckingScope_a4e6962a55637b297875bfa0cfba2fd8d}} 
 \index{heap::base::SuspendTagCheckingScope@{heap::base::SuspendTagCheckingScope}!SuspendTagCheckingScope@{SuspendTagCheckingScope}}
@@ -20,6 +37,41 @@
 \doxysubsubsection{\texorpdfstring{SuspendTagCheckingScope()}{SuspendTagCheckingScope()}}
 {\footnotesize\ttfamily heap\+::base\+::\+Suspend\+Tag\+Checking\+Scope\+::\+Suspend\+Tag\+Checking\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
 
+
+
+Definition at line 15 of file memory-\/tagging.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15                                                           \{}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#if SUPPORTS\_MTE}}
+\DoxyCodeLine{17   \mbox{\hyperlink{classv8_1_1base_1_1CPU}{v8::base::CPU}} cpu;}
+\DoxyCodeLine{18   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(cpu.\mbox{\hyperlink{classv8_1_1base_1_1CPU_a64a6b85c817409332d95be2e008b707b}{has\_mte}}())) \{}
+\DoxyCodeLine{19     uint64\_t val;}
+\DoxyCodeLine{20     \textcolor{comment}{// Do a test to see if anything else has interfered with TCO.}}
+\DoxyCodeLine{21     \textcolor{comment}{// We expect TCO to be unset here.}}
+\DoxyCodeLine{22     \textcolor{keyword}{asm} \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}.arch\_extension memtag \(\backslash\)n mrs \%0, tco"{}} : \textcolor{stringliteral}{"{}=r"{}}(val));}
+\DoxyCodeLine{23     \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(val, 0);}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     \textcolor{comment}{// Suspend tag checks via PSTATE.TCO.}}
+\DoxyCodeLine{26     \textcolor{keyword}{asm} \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}.arch\_extension memtag \(\backslash\)n msr tco, \#1"{}} ::: \textcolor{stringliteral}{"{}memory"{}});}
+\DoxyCodeLine{27   \}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{29 \}}
+
+\end{DoxyCode}
+
+
+References CHECK\+\_\+\+EQ, v8\+::base\+::\+CPU\+::has\+\_\+mte(), and V8\+\_\+\+UNLIKELY.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classheap_1_1base_1_1SuspendTagCheckingScope_a4e6962a55637b297875bfa0cfba2fd8d_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classheap_1_1base_1_1SuspendTagCheckingScope_a43a87aefba04045aabfaeaec88bb2d28}\label{classheap_1_1base_1_1SuspendTagCheckingScope_a43a87aefba04045aabfaeaec88bb2d28}} 
 \index{heap::base::SuspendTagCheckingScope@{heap::base::SuspendTagCheckingScope}!````~SuspendTagCheckingScope@{$\sim$SuspendTagCheckingScope}}
 \index{````~SuspendTagCheckingScope@{$\sim$SuspendTagCheckingScope}!heap::base::SuspendTagCheckingScope@{heap::base::SuspendTagCheckingScope}}
@@ -28,7 +80,41 @@
 
 
 
+Definition at line 31 of file memory-\/tagging.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31                                                   \{}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#if SUPPORTS\_MTE}}
+\DoxyCodeLine{33   \mbox{\hyperlink{classv8_1_1base_1_1CPU}{v8::base::CPU}} cpu;}
+\DoxyCodeLine{34   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(cpu.\mbox{\hyperlink{classv8_1_1base_1_1CPU_a64a6b85c817409332d95be2e008b707b}{has\_mte}}())) \{}
+\DoxyCodeLine{35     uint64\_t val;}
+\DoxyCodeLine{36     \textcolor{comment}{// Do a test to see if anything else has interfered with TCO.}}
+\DoxyCodeLine{37     \textcolor{comment}{// We expect TCO to be set here.}}
+\DoxyCodeLine{38     \textcolor{keyword}{asm} \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}.arch\_extension memtag \(\backslash\)n mrs \%0, tco"{}} : \textcolor{stringliteral}{"{}=r"{}}(val));}
+\DoxyCodeLine{39     \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(val, 1u << 25);}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     \textcolor{keyword}{asm} \textcolor{keyword}{volatile}(\textcolor{stringliteral}{"{}.arch\_extension memtag \(\backslash\)n msr tco, \#0"{}} ::: \textcolor{stringliteral}{"{}memory"{}});}
+\DoxyCodeLine{42   \}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{44 \}}
+
+\end{DoxyCode}
+
+
+References CHECK\+\_\+\+EQ, v8\+::base\+::\+CPU\+::has\+\_\+mte(), and V8\+\_\+\+UNLIKELY.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classheap_1_1base_1_1SuspendTagCheckingScope_a43a87aefba04045aabfaeaec88bb2d28_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{memory-tagging_8h}{memory-\/tagging.\+h}}\item 
-\mbox{\hyperlink{memory-tagging_8cc}{memory-\/tagging.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/base/\mbox{\hyperlink{memory-tagging_8h}{memory-\/tagging.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/base/\mbox{\hyperlink{memory-tagging_8cc}{memory-\/tagging.\+cc}}\end{DoxyCompactItemize}

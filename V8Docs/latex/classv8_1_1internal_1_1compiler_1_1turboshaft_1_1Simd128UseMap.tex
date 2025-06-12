@@ -31,6 +31,13 @@ Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Simd128\+U
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 49 of file use-\/map.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Simd128UseMap_a4a8e12c50bf8b279a39b0f950b768b84}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Simd128UseMap_a4a8e12c50bf8b279a39b0f950b768b84}} 
 \index{v8::internal::compiler::turboshaft::Simd128UseMap@{v8::internal::compiler::turboshaft::Simd128UseMap}!Simd128UseMap@{Simd128UseMap}}
@@ -40,6 +47,60 @@ Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Simd128\+U
 
 
 
+Definition at line 51 of file use-\/map.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{52       : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1UseMap_aa57def331b483ceac682f680e50396b0}{UseMap}}(}
+\DoxyCodeLine{53             \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}, zone,}
+\DoxyCodeLine{54             [](\textcolor{keyword}{const} Graph\& \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}, \textcolor{keyword}{const} \mbox{\hyperlink{operation_8h_a06c4955b824eb9d03ace9eca764f59b4}{Operation}}\& op, Zone* zone) \{}
+\DoxyCodeLine{55               \textcolor{keyword}{auto} has\_revectorizable\_simd128\_output = [](\textcolor{keyword}{const} \mbox{\hyperlink{operation_8h_a06c4955b824eb9d03ace9eca764f59b4}{Operation}}\& op) \{}
+\DoxyCodeLine{56                 \textcolor{comment}{// Revectorizable Simd128 operations only have single output.}}
+\DoxyCodeLine{57                 \textcolor{keywordflow}{return} op.outputs\_rep().size() == 1 \&\&}
+\DoxyCodeLine{58                        op.outputs\_rep()[0] == \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RegisterRepresentation_a49ef31a09de67cdeb2a1babcafca9170}{RegisterRepresentation::Simd128}}();}
+\DoxyCodeLine{59               \};}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61               \textcolor{keywordflow}{if} (has\_revectorizable\_simd128\_output(op)) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63               \textcolor{comment}{// Identify input\_reps of ReturnOp and FrameStateOp (which doesn't}}
+\DoxyCodeLine{64               \textcolor{comment}{// track inputs\_rep, except for the Word32 popcount input of}}
+\DoxyCodeLine{65               \textcolor{comment}{// ReturnOp).}}
+\DoxyCodeLine{66               \textcolor{keywordflow}{if} (op.TryCast<ReturnOp>() || op.TryCast<FrameStateOp>()) \{}
+\DoxyCodeLine{67                 \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} input : op.inputs()) \{}
+\DoxyCodeLine{68                   \textcolor{keyword}{const} \mbox{\hyperlink{operation_8h_a06c4955b824eb9d03ace9eca764f59b4}{Operation}}\& input\_op = \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}.Get(input);}
+\DoxyCodeLine{69                   \textcolor{keywordflow}{if} (has\_revectorizable\_simd128\_output(input\_op)) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{70                 \}}
+\DoxyCodeLine{71                 \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{72               \}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74               ZoneVector<MaybeRegisterRepresentation> storage(zone);}
+\DoxyCodeLine{75               \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} rep : op.inputs\_rep(storage)) \{}
+\DoxyCodeLine{76                 \textcolor{keywordflow}{if} (rep == \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1MaybeRegisterRepresentation_ac0f48e4f7fd6352579a50b0e0f7869af}{MaybeRegisterRepresentation::Simd128}}()) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{77               \}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79               \mbox{\hyperlink{checks_8h_a8c8b326bb3d6944234eb74fbd0952061}{SLOW\_DCHECK}}(\mbox{\hyperlink{namespacev8_1_1base_a1f740bf76b79ac1c15bb5e0a2f3eff3d}{std::none\_of}}(}
+\DoxyCodeLine{80                   op.inputs().begin(), op.inputs().end(),}
+\DoxyCodeLine{81                   [\&](\textcolor{keyword}{const} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} input) \{}
+\DoxyCodeLine{82                     return has\_revectorizable\_simd128\_output(graph.Get(input));}
+\DoxyCodeLine{83                   \}));}
+\DoxyCodeLine{84               \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{85             \}) \{\}}
+
+\end{DoxyCode}
+
+
+References graph(), v8\+::base\+::none\+\_\+of(), v8\+::internal\+::compiler\+::turboshaft\+::\+Maybe\+Register\+Representation\+::\+Simd128(), v8\+::internal\+::compiler\+::turboshaft\+::\+Register\+Representation\+::\+Simd128(), SLOW\+\_\+\+DCHECK, and v8\+::internal\+::compiler\+::turboshaft\+::\+Operation\+::\+Try\+Cast().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Simd128UseMap_a4a8e12c50bf8b279a39b0f950b768b84_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{use-map_8h}{use-\/map.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{use-map_8h}{use-\/map.\+h}}\end{DoxyCompactItemize}

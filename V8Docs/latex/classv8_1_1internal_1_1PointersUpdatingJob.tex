@@ -17,22 +17,44 @@ Collaboration diagram for v8\+::internal\+::Pointers\+Updating\+Job\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=257pt]{classv8_1_1internal_1_1PointersUpdatingJob__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1PointersUpdatingJob__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_aa3d0957e4c1417454541158b16b7b008}{Pointers\+Updating\+Job}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactCollector}{Mark\+Compact\+Collector}} $\ast$collector, std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1UpdatingItem}{Updating\+Item}} $>$$>$ updating\+\_\+items)
+\mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_aa3d0957e4c1417454541158b16b7b008}{Pointers\+Updating\+Job}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactCollector}{Mark\+Compact\+Collector}} $\ast$collector, std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1UpdatingItem}{Updating\+Item}} $>$$>$ updating\+\_\+items)
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a4bfd19244863f76434a26a28bd0224dd}{Run}} (\mbox{\hyperlink{classv8_1_1JobDelegate}{Job\+Delegate}} $\ast$delegate) override
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a8758fac2f08ea645f7ada1c6881dd8cc}{Update\+Pointers}} (\mbox{\hyperlink{classv8_1_1JobDelegate}{Job\+Delegate}} $\ast$delegate)
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a1e85c703f3a66ede1250d045df8717a3}{Get\+Max\+Concurrency}} (\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} worker\+\_\+count) const override
-\item 
+\begin{DoxyCompactList}\small\item\em Controls the maximum number of threads calling \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a4bfd19244863f76434a26a28bd0224dd}{Run()}} concurrently, given the number of threads currently assigned to this job and executing \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a4bfd19244863f76434a26a28bd0224dd}{Run()}}. \end{DoxyCompactList}\item 
 uint64\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_acaff2a4c6b079a1726d1afe9b8b56e88}{trace\+\_\+id}} () const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactCollector}{Mark\+Compact\+Collector}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a280637d4978a064a2271d39ba1b0e4d3}{collector\+\_\+}}
+\item 
+std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1UpdatingItem}{Updating\+Item}} $>$ $>$ \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a1cbe583c4be85a5143c421bb339d1035}{updating\+\_\+items\+\_\+}}
+\item 
+std\+::atomic$<$ \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a86025be382ed3ac52809d77d313341d0}{remaining\+\_\+updating\+\_\+items\+\_\+}} \{0\}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1IndexGenerator}{Index\+Generator}} \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_adb8873d6958f89b2ac21a42f7325ba87}{generator\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1GCTracer}{GCTracer}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a5cb4dffb32e800db7173a1d48ef62b76}{tracer\+\_\+}}
+\item 
+const uint64\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_adf6d02ac6bbd7bc6fa4657086fec7564}{trace\+\_\+id\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 5141 of file mark-\/compact.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -44,6 +66,21 @@ uint64\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_acaff2
 
 
 
+Definition at line 5143 of file mark-\/compact.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5146       : \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a280637d4978a064a2271d39ba1b0e4d3}{collector\_}}(collector),}
+\DoxyCodeLine{5147         \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a1cbe583c4be85a5143c421bb339d1035}{updating\_items\_}}(std::move(updating\_items)),}
+\DoxyCodeLine{5148         \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a86025be382ed3ac52809d77d313341d0}{remaining\_updating\_items\_}}(\mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a1cbe583c4be85a5143c421bb339d1035}{updating\_items\_}}.size()),}
+\DoxyCodeLine{5149         \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_adb8873d6958f89b2ac21a42f7325ba87}{generator\_}}(\mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a1cbe583c4be85a5143c421bb339d1035}{updating\_items\_}}.size()),}
+\DoxyCodeLine{5150         \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a5cb4dffb32e800db7173a1d48ef62b76}{tracer\_}}(isolate-\/>heap()-\/>tracer()),}
+\DoxyCodeLine{5151         \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_adf6d02ac6bbd7bc6fa4657086fec7564}{trace\_id\_}}(\textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keyword}{this}) \string^}
+\DoxyCodeLine{5152                   \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a5cb4dffb32e800db7173a1d48ef62b76}{tracer\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1GCTracer_a92a304cc0ff8ef761bdbd6220c64dec0}{CurrentEpoch}}(GCTracer::Scope::MC\_EVACUATE)) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1PointersUpdatingJob_a1e85c703f3a66ede1250d045df8717a3}\label{classv8_1_1internal_1_1PointersUpdatingJob_a1e85c703f3a66ede1250d045df8717a3}} 
 \index{v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}!GetMaxConcurrency@{GetMaxConcurrency}}
@@ -51,9 +88,36 @@ uint64\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_acaff2
 \doxysubsubsection{\texorpdfstring{GetMaxConcurrency()}{GetMaxConcurrency()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Pointers\+Updating\+Job\+::\+Get\+Max\+Concurrency (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{worker\+\_\+count }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Controls the maximum number of threads calling \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a4bfd19244863f76434a26a28bd0224dd}{Run()}} concurrently, given the number of threads currently assigned to this job and executing \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a4bfd19244863f76434a26a28bd0224dd}{Run()}}. \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a4bfd19244863f76434a26a28bd0224dd}{Run()}} is only invoked if the number of threads previously running \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a4bfd19244863f76434a26a28bd0224dd}{Run()}} was less than the value returned. In general, this should return the latest number of incomplete work items (smallest unit of work) left to process, including items that are currently in progress. $\vert$worker\+\_\+count$\vert$ is the number of threads currently assigned to this job which some callers may need to determine their return value. Since \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a1e85c703f3a66ede1250d045df8717a3}{Get\+Max\+Concurrency()}} is a leaf function, it must not call back any \mbox{\hyperlink{classv8_1_1JobHandle}{Job\+Handle}} methods. 
+
+
+Controls the maximum number of threads calling \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a4bfd19244863f76434a26a28bd0224dd}{Run()}} concurrently, given the number of threads currently assigned to this job and executing \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a4bfd19244863f76434a26a28bd0224dd}{Run()}}. 
+
+\mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a4bfd19244863f76434a26a28bd0224dd}{Run()}} is only invoked if the number of threads previously running \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a4bfd19244863f76434a26a28bd0224dd}{Run()}} was less than the value returned. In general, this should return the latest number of incomplete work items (smallest unit of work) left to process, including items that are currently in progress. $\vert$worker\+\_\+count$\vert$ is the number of threads currently assigned to this job which some callers may need to determine their return value. Since \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a1e85c703f3a66ede1250d045df8717a3}{Get\+Max\+Concurrency()}} is a leaf function, it must not call back any \mbox{\hyperlink{classv8_1_1JobHandle}{Job\+Handle}} methods. 
 
 Implements \mbox{\hyperlink{classv8_1_1JobTask_a9f1505551639903b327baecbeb38f6f7}{v8\+::\+Job\+Task}}.
+
+
+
+Definition at line 5188 of file mark-\/compact.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5188                                                                \{}
+\DoxyCodeLine{5189     \textcolor{keywordtype}{size\_t} items = \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a86025be382ed3ac52809d77d313341d0}{remaining\_updating\_items\_}}.load(std::memory\_order\_relaxed);}
+\DoxyCodeLine{5190     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.parallel\_pointer\_update ||}
+\DoxyCodeLine{5191         !\mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a280637d4978a064a2271d39ba1b0e4d3}{collector\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactCollector_aa709baf43b9629ff0df85d2700caa88b}{UseBackgroundThreadsInCycle}}()) \{}
+\DoxyCodeLine{5192       \textcolor{keywordflow}{return} std::min<size\_t>(items, 1);}
+\DoxyCodeLine{5193     \}}
+\DoxyCodeLine{5194     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} kMaxPointerUpdateTasks = 8;}
+\DoxyCodeLine{5195     \textcolor{keywordtype}{size\_t} max\_concurrency = std::min<size\_t>(kMaxPointerUpdateTasks, items);}
+\DoxyCodeLine{5196     \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(items > 0, max\_concurrency > 0);}
+\DoxyCodeLine{5197     \textcolor{keywordflow}{return} max\_concurrency;}
+\DoxyCodeLine{5198   \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+IMPLIES, and v8\+::internal\+::v8\+\_\+flags.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1PointersUpdatingJob_a4bfd19244863f76434a26a28bd0224dd}\label{classv8_1_1internal_1_1PointersUpdatingJob_a4bfd19244863f76434a26a28bd0224dd}} 
 \index{v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}!Run@{Run}}
@@ -65,12 +129,58 @@ Implements \mbox{\hyperlink{classv8_1_1JobTask_a9f1505551639903b327baecbeb38f6f7
 
 Implements \mbox{\hyperlink{classv8_1_1JobTask_a9b6d0cee5615420f30b0db8a4c5e8c3b}{v8\+::\+Job\+Task}}.
 
+
+
+Definition at line 5154 of file mark-\/compact.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5154                                            \{}
+\DoxyCodeLine{5155     \textcolor{comment}{// Set the current isolate such that trusted pointer tables etc are}}
+\DoxyCodeLine{5156     \textcolor{comment}{// available and the cage base is set correctly for multi-\/cage mode.}}
+\DoxyCodeLine{5157     SetCurrentIsolateScope isolate\_scope(\mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a280637d4978a064a2271d39ba1b0e4d3}{collector\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactCollector_ae19c3ac5994087b78c51c64221e1771c}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ae5160ad63bc51ff7b36e8f247be48f63}{isolate}}());}
+\DoxyCodeLine{5158 }
+\DoxyCodeLine{5159     \textcolor{keywordflow}{if} (delegate-\/>IsJoiningThread()) \{}
+\DoxyCodeLine{5160       \mbox{\hyperlink{gc-tracer_8h_a4b6fc205b8b8bbe4275672c2a66c5b94}{TRACE\_GC\_WITH\_FLOW}}(\mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a5cb4dffb32e800db7173a1d48ef62b76}{tracer\_}},}
+\DoxyCodeLine{5161                          GCTracer::Scope::MC\_EVACUATE\_UPDATE\_POINTERS\_PARALLEL,}
+\DoxyCodeLine{5162                          \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_adf6d02ac6bbd7bc6fa4657086fec7564}{trace\_id\_}}, \mbox{\hyperlink{trace-event-no-perfetto_8h_afd116bac8e67a7eafb2b21a62f0a383f}{TRACE\_EVENT\_FLAG\_FLOW\_IN}});}
+\DoxyCodeLine{5163       \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a8758fac2f08ea645f7ada1c6881dd8cc}{UpdatePointers}}(delegate);}
+\DoxyCodeLine{5164     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{5165       \mbox{\hyperlink{gc-tracer_8h_a44d6debe5f608aa9654172245625ef38}{TRACE\_GC\_EPOCH\_WITH\_FLOW}}(}
+\DoxyCodeLine{5166           \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a5cb4dffb32e800db7173a1d48ef62b76}{tracer\_}}, GCTracer::Scope::MC\_BACKGROUND\_EVACUATE\_UPDATE\_POINTERS,}
+\DoxyCodeLine{5167           \mbox{\hyperlink{namespacev8_1_1internal_a34c412e70714b6b814e60c4b6883e0eea7c58afb43537a264dcd68e698a7b8e3b}{ThreadKind::kBackground}}, \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_adf6d02ac6bbd7bc6fa4657086fec7564}{trace\_id\_}}, \mbox{\hyperlink{trace-event-no-perfetto_8h_afd116bac8e67a7eafb2b21a62f0a383f}{TRACE\_EVENT\_FLAG\_FLOW\_IN}});}
+\DoxyCodeLine{5168       \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a8758fac2f08ea645f7ada1c6881dd8cc}{UpdatePointers}}(delegate);}
+\DoxyCodeLine{5169     \}}
+\DoxyCodeLine{5170   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Job\+Delegate\+::\+Is\+Joining\+Thread(), TRACE\+\_\+\+EVENT\+\_\+\+FLAG\+\_\+\+FLOW\+\_\+\+IN, TRACE\+\_\+\+GC\+\_\+\+EPOCH\+\_\+\+WITH\+\_\+\+FLOW, and TRACE\+\_\+\+GC\+\_\+\+WITH\+\_\+\+FLOW.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1PointersUpdatingJob_a4bfd19244863f76434a26a28bd0224dd_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1PointersUpdatingJob_acaff2a4c6b079a1726d1afe9b8b56e88}\label{classv8_1_1internal_1_1PointersUpdatingJob_acaff2a4c6b079a1726d1afe9b8b56e88}} 
 \index{v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}!trace\_id@{trace\_id}}
 \index{trace\_id@{trace\_id}!v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}}
 \doxysubsubsection{\texorpdfstring{trace\_id()}{trace\_id()}}
 {\footnotesize\ttfamily uint64\+\_\+t v8\+::internal\+::\+Pointers\+Updating\+Job\+::trace\+\_\+id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 5200 of file mark-\/compact.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5200 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_adf6d02ac6bbd7bc6fa4657086fec7564}{trace\_id\_}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1PointersUpdatingJob_a8758fac2f08ea645f7ada1c6881dd8cc}\label{classv8_1_1internal_1_1PointersUpdatingJob_a8758fac2f08ea645f7ada1c6881dd8cc}} 
 \index{v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}!UpdatePointers@{UpdatePointers}}
 \index{UpdatePointers@{UpdatePointers}!v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}}
@@ -79,6 +189,96 @@ Implements \mbox{\hyperlink{classv8_1_1JobTask_a9b6d0cee5615420f30b0db8a4c5e8c3b
 
 
 
+Definition at line 5172 of file mark-\/compact.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5172                                              \{}
+\DoxyCodeLine{5173     \textcolor{keywordflow}{while} (\mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a86025be382ed3ac52809d77d313341d0}{remaining\_updating\_items\_}}.load(std::memory\_order\_relaxed) > 0) \{}
+\DoxyCodeLine{5174       std::optional<size\_t> \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_adb8873d6958f89b2ac21a42f7325ba87}{generator\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1IndexGenerator_adfb137b19962c0251975c079e6cedb39}{GetNext}}();}
+\DoxyCodeLine{5175       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{5176       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = *\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a1cbe583c4be85a5143c421bb339d1035}{updating\_items\_}}.size(); ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{5177         \textcolor{keyword}{auto}\& work\_item = \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a1cbe583c4be85a5143c421bb339d1035}{updating\_items\_}}[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}];}
+\DoxyCodeLine{5178         \textcolor{keywordflow}{if} (!work\_item-\/>TryAcquire()) \textcolor{keywordflow}{break};}
+\DoxyCodeLine{5179         work\_item-\/>Process();}
+\DoxyCodeLine{5180         \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob_a86025be382ed3ac52809d77d313341d0}{remaining\_updating\_items\_}}.fetch\_sub(1, std::memory\_order\_relaxed) <=}
+\DoxyCodeLine{5181             1) \{}
+\DoxyCodeLine{5182           \textcolor{keywordflow}{return};}
+\DoxyCodeLine{5183         \}}
+\DoxyCodeLine{5184       \}}
+\DoxyCodeLine{5185     \}}
+\DoxyCodeLine{5186   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, and v8\+::internal\+::index.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1PointersUpdatingJob_a280637d4978a064a2271d39ba1b0e4d3}\label{classv8_1_1internal_1_1PointersUpdatingJob_a280637d4978a064a2271d39ba1b0e4d3}} 
+\index{v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}!collector\_@{collector\_}}
+\index{collector\_@{collector\_}!v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}}
+\doxysubsubsection{\texorpdfstring{collector\_}{collector\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactCollector}{Mark\+Compact\+Collector}}$\ast$ v8\+::internal\+::\+Pointers\+Updating\+Job\+::collector\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 5203 of file mark-\/compact.\+cc.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1PointersUpdatingJob_adb8873d6958f89b2ac21a42f7325ba87}\label{classv8_1_1internal_1_1PointersUpdatingJob_adb8873d6958f89b2ac21a42f7325ba87}} 
+\index{v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}!generator\_@{generator\_}}
+\index{generator\_@{generator\_}!v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}}
+\doxysubsubsection{\texorpdfstring{generator\_}{generator\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1IndexGenerator}{Index\+Generator}} v8\+::internal\+::\+Pointers\+Updating\+Job\+::generator\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 5206 of file mark-\/compact.\+cc.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1PointersUpdatingJob_a86025be382ed3ac52809d77d313341d0}\label{classv8_1_1internal_1_1PointersUpdatingJob_a86025be382ed3ac52809d77d313341d0}} 
+\index{v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}!remaining\_updating\_items\_@{remaining\_updating\_items\_}}
+\index{remaining\_updating\_items\_@{remaining\_updating\_items\_}!v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}}
+\doxysubsubsection{\texorpdfstring{remaining\_updating\_items\_}{remaining\_updating\_items\_}}
+{\footnotesize\ttfamily std\+::atomic$<$\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}$>$ v8\+::internal\+::\+Pointers\+Updating\+Job\+::remaining\+\_\+updating\+\_\+items\+\_\+ \{0\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 5205 of file mark-\/compact.\+cc.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1PointersUpdatingJob_adf6d02ac6bbd7bc6fa4657086fec7564}\label{classv8_1_1internal_1_1PointersUpdatingJob_adf6d02ac6bbd7bc6fa4657086fec7564}} 
+\index{v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}!trace\_id\_@{trace\_id\_}}
+\index{trace\_id\_@{trace\_id\_}!v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}}
+\doxysubsubsection{\texorpdfstring{trace\_id\_}{trace\_id\_}}
+{\footnotesize\ttfamily const uint64\+\_\+t v8\+::internal\+::\+Pointers\+Updating\+Job\+::trace\+\_\+id\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 5209 of file mark-\/compact.\+cc.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1PointersUpdatingJob_a5cb4dffb32e800db7173a1d48ef62b76}\label{classv8_1_1internal_1_1PointersUpdatingJob_a5cb4dffb32e800db7173a1d48ef62b76}} 
+\index{v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}!tracer\_@{tracer\_}}
+\index{tracer\_@{tracer\_}!v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}}
+\doxysubsubsection{\texorpdfstring{tracer\_}{tracer\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1GCTracer}{GCTracer}}$\ast$ v8\+::internal\+::\+Pointers\+Updating\+Job\+::tracer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 5208 of file mark-\/compact.\+cc.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1PointersUpdatingJob_a1cbe583c4be85a5143c421bb339d1035}\label{classv8_1_1internal_1_1PointersUpdatingJob_a1cbe583c4be85a5143c421bb339d1035}} 
+\index{v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}!updating\_items\_@{updating\_items\_}}
+\index{updating\_items\_@{updating\_items\_}!v8::internal::PointersUpdatingJob@{v8::internal::PointersUpdatingJob}}
+\doxysubsubsection{\texorpdfstring{updating\_items\_}{updating\_items\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1internal_1_1UpdatingItem}{Updating\+Item}}$>$ $>$ v8\+::internal\+::\+Pointers\+Updating\+Job\+::updating\+\_\+items\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 5204 of file mark-\/compact.\+cc.
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{mark-compact_8cc}{mark-\/compact.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{mark-compact_8cc}{mark-\/compact.\+cc}}\end{DoxyCompactItemize}

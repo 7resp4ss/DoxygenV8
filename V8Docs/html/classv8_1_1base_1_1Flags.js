@@ -23,5 +23,6 @@ var classv8_1_1base_1_1Flags =
     [ "operator~", "classv8_1_1base_1_1Flags.html#a265630f2ecc687b55b568718161fbf29", null ],
     [ "set", "classv8_1_1base_1_1Flags.html#afa50258b67c661a9b9b86a32b291f04d", null ],
     [ "without", "classv8_1_1base_1_1Flags.html#a80afbd7aabf7734cfb21040461a54d41", null ],
-    [ "hash_value", "classv8_1_1base_1_1Flags.html#a798e1ab62fe51cbaa2525ac9f01f460b", null ]
+    [ "hash_value", "classv8_1_1base_1_1Flags.html#a798e1ab62fe51cbaa2525ac9f01f460b", null ],
+    [ "mask_", "classv8_1_1base_1_1Flags.html#a9348c4082ac26aa0f95b615879bab584", null ]
 ];

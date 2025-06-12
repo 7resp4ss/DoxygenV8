@@ -1,0 +1,168 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02profile-data-reader_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{profile-\/data-\/reader.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02profile-data-reader_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}profile-\/data-\/reader.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}profile-\/data-\/reader.cc\rcurly{}}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02profile-data-reader_8cc_03_1_1ProfileDataFromFileInternal}{Profile\+Data\+From\+File\+Internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02profile-data-reader_8cc_03_1_1ProfileDataFromFileInternal}{Profile\+Data\+From\+File\+Internal}} $>$ \& \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02profile-data-reader_8cc_03_a9148f9948013bdbdc32fe2932db6da86}{Ensure\+Init\+Profile\+Data}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02profile-data-reader_8cc_03_a9148f9948013bdbdc32fe2932db6da86}\label{namespacev8_1_1internal_1_1anonymous__namespace_02profile-data-reader_8cc_03_a9148f9948013bdbdc32fe2932db6da86}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}profile-\/data-\/reader.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}profile-\/data-\/reader.cc\rcurly{}}!EnsureInitProfileData@{EnsureInitProfileData}}
+\index{EnsureInitProfileData@{EnsureInitProfileData}!v8::internal::anonymous\_namespace\lcurly{}profile-\/data-\/reader.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}profile-\/data-\/reader.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{EnsureInitProfileData()}{EnsureInitProfileData()}}
+{\footnotesize\ttfamily const std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02profile-data-reader_8cc_03_1_1ProfileDataFromFileInternal}{Profile\+Data\+From\+File\+Internal}}$>$\& v8\+::internal\+::anonymous\+\_\+namespace\{profile-\/data-\/reader.\+cc\}\+::Ensure\+Init\+Profile\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 47 of file profile-\/data-\/reader.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{47                         \{}
+\DoxyCodeLine{48   \textcolor{keyword}{static} base::LeakyObject<}
+\DoxyCodeLine{49       std::unordered\_map<std::string, ProfileDataFromFileInternal>>}
+\DoxyCodeLine{50       data;}
+\DoxyCodeLine{51   \textcolor{keyword}{static} \textcolor{keywordtype}{bool} initialized = \textcolor{keyword}{false};}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53   \textcolor{keywordflow}{if} (initialized) \textcolor{keywordflow}{return} *data.get();}
+\DoxyCodeLine{54   initialized = \textcolor{keyword}{true};}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#ifdef LOG\_BUILTIN\_BLOCK\_COUNT}}
+\DoxyCodeLine{56   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.turbo\_log\_builtins\_count\_input) \{}
+\DoxyCodeLine{57     std::ifstream raw\_count\_file(}
+\DoxyCodeLine{58         \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.turbo\_log\_builtins\_count\_input.value());}
+\DoxyCodeLine{59     \mbox{\hyperlink{src_2base_2logging_8h_a7b0fb5d6be902959a80a9a33cc4e73fe}{CHECK\_WITH\_MSG}}(raw\_count\_file.good(),}
+\DoxyCodeLine{60                    \textcolor{stringliteral}{"{}Can't read raw count file for log builtin hotness."{}});}
+\DoxyCodeLine{61     \textcolor{keywordflow}{for} (\mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{std::string}} line; std::getline(raw\_count\_file, line);) \{}
+\DoxyCodeLine{62       \mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{std::string}} token;}
+\DoxyCodeLine{63       std::istringstream line\_stream(line);}
+\DoxyCodeLine{64       \textcolor{keywordflow}{if} (!std::getline(line\_stream, token, \textcolor{charliteral}{'\(\backslash\)t'})) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{65       \textcolor{keywordflow}{if} (token == \mbox{\hyperlink{namespacev8_1_1internal_1_1ProfileDataFromFileConstants_a12e0ba768299a6a8f7999850f07eb331}{ProfileDataFromFileConstants::kBlockCounterMarker}}) \{}
+\DoxyCodeLine{66         \textcolor{comment}{// Any line starting with kBlockCounterMarker is a basic block execution}}
+\DoxyCodeLine{67         \textcolor{comment}{// count. The format is:}}
+\DoxyCodeLine{68         \textcolor{comment}{//   literal kBlockCounterMarker \(\backslash\)t builtin\_name \(\backslash\)t block\_id \(\backslash\)t count}}
+\DoxyCodeLine{69         \mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{std::string}} builtin\_name;}
+\DoxyCodeLine{70         \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(std::getline(line\_stream, builtin\_name, \textcolor{charliteral}{'\(\backslash\)t'}));}
+\DoxyCodeLine{71         \mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{std::string}} block\_id\_str;}
+\DoxyCodeLine{72         \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(std::getline(line\_stream, block\_id\_str, \textcolor{charliteral}{'\(\backslash\)t'}));}
+\DoxyCodeLine{73         \textcolor{keywordtype}{char}* \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{74         errno = 0;}
+\DoxyCodeLine{75         uint32\_t block\_id =}
+\DoxyCodeLine{76             \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(strtoul(block\_id\_str.c\_str(), \&\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}}, 10));}
+\DoxyCodeLine{77         \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(errno == 0);}
+\DoxyCodeLine{78         \mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{std::string}} executed\_count\_str;}
+\DoxyCodeLine{79         \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(std::getline(line\_stream, executed\_count\_str, \textcolor{charliteral}{'\(\backslash\)t'}));}
+\DoxyCodeLine{80         uint64\_t executed\_count = \textcolor{keyword}{static\_cast<}uint64\_t\textcolor{keyword}{>}(}
+\DoxyCodeLine{81             strtoul(executed\_count\_str.c\_str(), \&\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}}, 10));}
+\DoxyCodeLine{82         \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(errno == 0 \&\& \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}} != token.c\_str());}
+\DoxyCodeLine{83         std::getline(line\_stream, token, \textcolor{charliteral}{'\(\backslash\)t'});}
+\DoxyCodeLine{84         ProfileDataFromFileInternal\& block\_count = (*data.get())[builtin\_name];}
+\DoxyCodeLine{85         block\_count.AddBlockExecutionCount(block\_id, executed\_count);}
+\DoxyCodeLine{86         \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(line\_stream.eof());}
+\DoxyCodeLine{87       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (token == \mbox{\hyperlink{namespacev8_1_1internal_1_1ProfileDataFromFileConstants_a02e277729b8411b52cecc23a803889a2}{ProfileDataFromFileConstants::kBuiltinHashMarker}}) \{}
+\DoxyCodeLine{88         \textcolor{comment}{// Any line starting with kBuiltinHashMarker is a function hash record.}}
+\DoxyCodeLine{89         \textcolor{comment}{// As defined by V8FileLogger::BuiltinHashEvent, the format is:}}
+\DoxyCodeLine{90         \textcolor{comment}{//   literal kBuiltinHashMarker \(\backslash\)t builtin\_name \(\backslash\)t hash}}
+\DoxyCodeLine{91         \mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{std::string}} builtin\_name;}
+\DoxyCodeLine{92         \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(std::getline(line\_stream, builtin\_name, \textcolor{charliteral}{'\(\backslash\)t'}));}
+\DoxyCodeLine{93         std::getline(line\_stream, token, \textcolor{charliteral}{'\(\backslash\)t'});}
+\DoxyCodeLine{94         \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(line\_stream.eof());}
+\DoxyCodeLine{95         \textcolor{keywordtype}{char}* \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{96         \textcolor{keywordtype}{int} hash = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(strtol(token.c\_str(), \&\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}}, 0));}
+\DoxyCodeLine{97         \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(errno == 0 \&\& \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}} != token.c\_str());}
+\DoxyCodeLine{98         ProfileDataFromFileInternal\& block\_count = (*data.get())[builtin\_name];}
+\DoxyCodeLine{99         \mbox{\hyperlink{src_2base_2logging_8h_a2c0c4cea27d0690467662bb05131b2af}{CHECK\_IMPLIES}}(block\_count.hash\_has\_value(), block\_count.hash() == hash);}
+\DoxyCodeLine{100         block\_count.set\_hash(hash);}
+\DoxyCodeLine{101       \}}
+\DoxyCodeLine{102     \}}
+\DoxyCodeLine{103   \}}
+\DoxyCodeLine{104 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{105   \textcolor{keyword}{const} \textcolor{keywordtype}{char}* filename = \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.turbo\_profiling\_input;}
+\DoxyCodeLine{106   \textcolor{keywordflow}{if} (filename == \textcolor{keyword}{nullptr}) \textcolor{keywordflow}{return} *data.get();}
+\DoxyCodeLine{107   std::ifstream \mbox{\hyperlink{flag-definitions_8h_a583245cb1ce76ddbc0cf3db5354b33c1}{file}}(filename);}
+\DoxyCodeLine{108   \mbox{\hyperlink{src_2base_2logging_8h_a7b0fb5d6be902959a80a9a33cc4e73fe}{CHECK\_WITH\_MSG}}(\mbox{\hyperlink{flag-definitions_8h_a583245cb1ce76ddbc0cf3db5354b33c1}{file}}.good(), \textcolor{stringliteral}{"{}Can't read log file"{}});}
+\DoxyCodeLine{109   \textcolor{keywordflow}{for} (\mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{std::string}} line; std::getline(\mbox{\hyperlink{flag-definitions_8h_a583245cb1ce76ddbc0cf3db5354b33c1}{file}}, line);) \{}
+\DoxyCodeLine{110     \mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{std::string}} token;}
+\DoxyCodeLine{111     std::istringstream line\_stream(line);}
+\DoxyCodeLine{112     \textcolor{keywordflow}{if} (!std::getline(line\_stream, token, \textcolor{charliteral}{','})) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{113     \textcolor{keywordflow}{if} (token == \mbox{\hyperlink{namespacev8_1_1internal_1_1ProfileDataFromFileConstants_a6fc41976dbb0b1a7e0843004abce55fa}{ProfileDataFromFileConstants::kBlockHintMarker}}) \{}
+\DoxyCodeLine{114       \textcolor{comment}{// Any line starting with kBlockHintMarker is a basic block branch hint.}}
+\DoxyCodeLine{115       \textcolor{comment}{// The format is:}}
+\DoxyCodeLine{116       \textcolor{comment}{//   literal kBlockHintMarker , builtin\_name , true\_id , false\_id , hint}}
+\DoxyCodeLine{117       \mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{std::string}} builtin\_name;}
+\DoxyCodeLine{118       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(std::getline(line\_stream, builtin\_name, \textcolor{charliteral}{','}));}
+\DoxyCodeLine{119       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(std::getline(line\_stream, token, \textcolor{charliteral}{','}));}
+\DoxyCodeLine{120       \textcolor{keywordtype}{char}* \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{121       errno = 0;}
+\DoxyCodeLine{122       uint32\_t true\_id = \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(strtoul(token.c\_str(), \&\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}}, 0));}
+\DoxyCodeLine{123       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(errno == 0 \&\& \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}} != token.c\_str());}
+\DoxyCodeLine{124       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(std::getline(line\_stream, token, \textcolor{charliteral}{','}));}
+\DoxyCodeLine{125       uint32\_t false\_id =}
+\DoxyCodeLine{126           \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(strtoul(token.c\_str(), \&\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}}, 0));}
+\DoxyCodeLine{127       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(errno == 0 \&\& \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}} != token.c\_str());}
+\DoxyCodeLine{128       std::getline(line\_stream, token, \textcolor{charliteral}{','});}
+\DoxyCodeLine{129       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(line\_stream.eof());}
+\DoxyCodeLine{130       uint64\_t hint = strtoul(token.c\_str(), \&\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}}, 10);}
+\DoxyCodeLine{131       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(errno == 0 \&\& \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}} != token.c\_str());}
+\DoxyCodeLine{132       ProfileDataFromFileInternal\& hints\_and\_hash = (*data.get())[builtin\_name];}
+\DoxyCodeLine{133       \textcolor{comment}{// Only the first hint for each branch will be used.}}
+\DoxyCodeLine{134       hints\_and\_hash.AddHintToBlock(true\_id, false\_id, hint);}
+\DoxyCodeLine{135       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(line\_stream.eof());}
+\DoxyCodeLine{136     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (token == \mbox{\hyperlink{namespacev8_1_1internal_1_1ProfileDataFromFileConstants_a02e277729b8411b52cecc23a803889a2}{ProfileDataFromFileConstants::kBuiltinHashMarker}}) \{}
+\DoxyCodeLine{137       \textcolor{comment}{// Any line starting with kBuiltinHashMarker is a function hash record.}}
+\DoxyCodeLine{138       \textcolor{comment}{// As defined by V8FileLogger::BuiltinHashEvent, the format is:}}
+\DoxyCodeLine{139       \textcolor{comment}{//   literal kBuiltinHashMarker , builtin\_name , hash}}
+\DoxyCodeLine{140       \mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{std::string}} builtin\_name;}
+\DoxyCodeLine{141       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(std::getline(line\_stream, builtin\_name, \textcolor{charliteral}{','}));}
+\DoxyCodeLine{142       std::getline(line\_stream, token, \textcolor{charliteral}{','});}
+\DoxyCodeLine{143       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(line\_stream.eof());}
+\DoxyCodeLine{144       \textcolor{keywordtype}{char}* \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{145       \textcolor{keywordtype}{int} hash = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(strtol(token.c\_str(), \&\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}}, 0));}
+\DoxyCodeLine{146       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(errno == 0 \&\& \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a51dcb90ae077172b12d63271c7e7ba0c}{end}} != token.c\_str());}
+\DoxyCodeLine{147       ProfileDataFromFileInternal\& hints\_and\_hash = (*data.get())[builtin\_name];}
+\DoxyCodeLine{148       \textcolor{comment}{// We allow concatenating data from several Isolates, but expect them all}}
+\DoxyCodeLine{149       \textcolor{comment}{// to be running the same build. Any file with mismatched hashes for a}}
+\DoxyCodeLine{150       \textcolor{comment}{// function is considered ill-\/formed.}}
+\DoxyCodeLine{151       \mbox{\hyperlink{src_2base_2logging_8h_a2c0c4cea27d0690467662bb05131b2af}{CHECK\_IMPLIES}}(hints\_and\_hash.hash\_has\_value(),}
+\DoxyCodeLine{152                     hints\_and\_hash.hash() == hash);}
+\DoxyCodeLine{153       hints\_and\_hash.set\_hash(hash);}
+\DoxyCodeLine{154     \}}
+\DoxyCodeLine{155   \}}
+\DoxyCodeLine{156   \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& pair : *data.get()) \{}
+\DoxyCodeLine{157     \textcolor{comment}{// Every function is required to have a hash in the log.}}
+\DoxyCodeLine{158     \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(pair.second.hash\_has\_value());}
+\DoxyCodeLine{159   \}}
+\DoxyCodeLine{160   \textcolor{keywordflow}{return} *data.get();}
+\DoxyCodeLine{161 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::anonymous\+\_\+namespace\{profile-\/data-\/reader.\+cc\}\+::\+Profile\+Data\+From\+File\+Internal\+::\+Add\+Hint\+To\+Block(), CHECK, CHECK\+\_\+\+IMPLIES, CHECK\+\_\+\+WITH\+\_\+\+MSG, v8\+::internal\+::compiler\+::end(), file(), v8\+::base\+::\+Leaky\+Object$<$ T $>$\+::get(), v8\+::internal\+::\+Profile\+Data\+From\+File\+::hash(), v8\+::internal\+::anonymous\+\_\+namespace\{profile-\/data-\/reader.\+cc\}\+::\+Profile\+Data\+From\+File\+Internal\+::hash\+\_\+has\+\_\+value(), v8\+::internal\+::\+Profile\+Data\+From\+File\+Constants\+::k\+Block\+Counter\+Marker, v8\+::internal\+::\+Profile\+Data\+From\+File\+Constants\+::k\+Block\+Hint\+Marker, v8\+::internal\+::\+Profile\+Data\+From\+File\+Constants\+::k\+Builtin\+Hash\+Marker, v8\+::internal\+::anonymous\+\_\+namespace\{profile-\/data-\/reader.\+cc\}\+::\+Profile\+Data\+From\+File\+Internal\+::set\+\_\+hash(), v8\+::internal\+::string, and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::\+Profile\+Data\+From\+File\+::\+Try\+Read().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02profile-data-reader_8cc_03_a9148f9948013bdbdc32fe2932db6da86_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02profile-data-reader_8cc_03_a9148f9948013bdbdc32fe2932db6da86_icgraph}
+\end{center}
+\end{figure}

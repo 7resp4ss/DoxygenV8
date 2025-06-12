@@ -6,6 +6,8 @@ var js_operator_8cc =
     [ "CACHED_OP", "js-operator_8cc.html#a52af233e60d94131b8b40393014a082b", null ],
     [ "CACHED_OP_LIST", "js-operator_8cc.html#a19e4e2a24367340455474e5cbba4e3ac", null ],
     [ "UNARY_OP", "js-operator_8cc.html#a65154bad3ccbc0e151c84dc44c992206", null ],
+    [ "AddressOrNull", "js-operator_8cc.html#a489a0643a3844b3e539b7fc9ff0059d3", null ],
+    [ "BinopProperties", "js-operator_8cc.html#afda89de7e5ae353a80a692a13a9ec078", null ],
     [ "CallForwardVarargsParametersOf", "js-operator_8cc.html#a3cfc9acfed84b13098827d888abbf73b", null ],
     [ "CallParametersOf", "js-operator_8cc.html#a8911a06ee9c2c48cfdde529839271909", null ],
     [ "CallRuntimeParametersOf", "js-operator_8cc.html#a2301bf8a2f2cef0415bd170f794dfa45", null ],

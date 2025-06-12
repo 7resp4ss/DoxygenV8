@@ -32,8 +32,15 @@ using \mbox{\hyperlink{classv8_1_1internal_1_1AccessCheckInfo_affd883859ec470b92
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1AccessCheckInfo}{Access\+Check\+Info}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1AccessCheckInfo_a985b5eb7342f637d867cab88f83f3703}{Get}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSObject}{JSObject}} $>$ \mbox{\hyperlink{execution_8cc_a18313b5eb568705d3ea987e8acdc1015}{receiver}})
+static \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1AccessCheckInfo}{Access\+Check\+Info}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1AccessCheckInfo_a985b5eb7342f637d867cab88f83f3703}{Get}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSObject}{JSObject}} $>$ receiver)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 94 of file api-\/callbacks.\+h.
+
 
 
 \doxysubsection{Member Typedef Documentation}
@@ -42,6 +49,10 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperl
 \index{BodyDescriptor@{BodyDescriptor}!v8::internal::AccessCheckInfo@{v8::internal::AccessCheckInfo}}
 \doxysubsubsection{\texorpdfstring{BodyDescriptor}{BodyDescriptor}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{classv8_1_1internal_1_1AccessCheckInfo_affd883859ec470b92246cae8bc1e05c8}{v8\+::internal\+::\+Access\+Check\+Info\+::\+Body\+Descriptor}} =  \mbox{\hyperlink{classv8_1_1internal_1_1StructBodyDescriptor}{Struct\+Body\+Descriptor}}}
+
+
+
+Definition at line 100 of file api-\/callbacks.\+h.
 
 
 
@@ -54,7 +65,61 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperl
 
 
 
+Definition at line 6629 of file objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{6630                                                                               \{}
+\DoxyCodeLine{6631   \mbox{\hyperlink{namespacev8_1_1internal_af2248a427f8ff8f81e68a2a87758e145}{DisallowGarbageCollection}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{no\_gc}};}
+\DoxyCodeLine{6632   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(receiver-\/>map()-\/>is\_access\_check\_needed());}
+\DoxyCodeLine{6633   \mbox{\hyperlink{namespacev8_1_1internal_a5297fd2c72981b2220e6b9a831570fb3}{Tagged<Object>}} maybe\_constructor = receiver-\/>map()-\/>GetConstructor();}
+\DoxyCodeLine{6634   \textcolor{keywordflow}{if} (IsFunctionTemplateInfo(maybe\_constructor)) \{}
+\DoxyCodeLine{6635     \mbox{\hyperlink{namespacev8_1_1internal_a5297fd2c72981b2220e6b9a831570fb3}{Tagged<Object>}} data\_obj =}
+\DoxyCodeLine{6636         Cast<FunctionTemplateInfo>(maybe\_constructor)-\/>GetAccessCheckInfo();}
+\DoxyCodeLine{6637     \textcolor{keywordflow}{if} (IsUndefined(data\_obj, isolate)) \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a5ef2db9cf5da555b67b6ca254db79213}{AccessCheckInfo}}();}
+\DoxyCodeLine{6638     \textcolor{keywordflow}{return} Cast<AccessCheckInfo>(data\_obj);}
+\DoxyCodeLine{6639   \}}
+\DoxyCodeLine{6640   \textcolor{comment}{// Might happen for a detached context.}}
+\DoxyCodeLine{6641   \textcolor{keywordflow}{if} (!IsJSFunction(maybe\_constructor)) \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a5ef2db9cf5da555b67b6ca254db79213}{AccessCheckInfo}}();}
+\DoxyCodeLine{6642   Tagged<JSFunction> constructor = Cast<JSFunction>(maybe\_constructor);}
+\DoxyCodeLine{6643   \textcolor{comment}{// Might happen for the debug context.}}
+\DoxyCodeLine{6644   \textcolor{keywordflow}{if} (!constructor-\/>shared()-\/>IsApiFunction()) \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a5ef2db9cf5da555b67b6ca254db79213}{AccessCheckInfo}}();}
+\DoxyCodeLine{6645 }
+\DoxyCodeLine{6646   \mbox{\hyperlink{namespacev8_1_1internal_a5297fd2c72981b2220e6b9a831570fb3}{Tagged<Object>}} data\_obj =}
+\DoxyCodeLine{6647       constructor-\/>shared()-\/>api\_func\_data()-\/>GetAccessCheckInfo();}
+\DoxyCodeLine{6648   \textcolor{keywordflow}{if} (IsUndefined(data\_obj, isolate)) \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a5ef2db9cf5da555b67b6ca254db79213}{AccessCheckInfo}}();}
+\DoxyCodeLine{6649 }
+\DoxyCodeLine{6650   \textcolor{keywordflow}{return} Cast<AccessCheckInfo>(data\_obj);}
+\DoxyCodeLine{6651 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Access\+Check\+Info, v8\+::internal\+::\+DCHECK(), and v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::no\+\_\+gc.
+
+
+
+Referenced by v8\+::internal\+::\+Key\+Accumulator\+::\+Collect\+Own\+Keys(), v8\+::internal\+::\+Lookup\+Iterator\+::\+Get\+Interceptor\+For\+Failed\+Access\+Check(), v8\+::internal\+::\+Isolate\+::\+May\+Access(), and v8\+::internal\+::\+Isolate\+::\+Report\+Failed\+Access\+Check().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AccessCheckInfo_a985b5eb7342f637d867cab88f83f3703_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1AccessCheckInfo_a985b5eb7342f637d867cab88f83f3703_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{api-callbacks_8h}{api-\/callbacks.\+h}}\item 
-\mbox{\hyperlink{objects_8cc}{objects.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{api-callbacks_8h}{api-\/callbacks.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{objects_8cc}{objects.\+cc}}\end{DoxyCompactItemize}

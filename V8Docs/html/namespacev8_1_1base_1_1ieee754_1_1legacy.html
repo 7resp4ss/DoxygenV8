@@ -90,7 +90,7 @@ $(document).ready(function(){initNavTree('namespacev8_1_1base_1_1ieee754_1_1lega
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a38ce2f0948bf7d73347a9920cbdc0208"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacev8_1_1base_1_1ieee754_1_1legacy.html#a38ce2f0948bf7d73347a9920cbdc0208">pow</a> (double <a class="el" href="liveedit-diff_8cc.html#a6150e0515f7202e2fb518f7206ed97dc">x</a>, double <a class="el" href="liveedit-diff_8cc.html#a0a2f84ed7838f07779ae24c5a9086d33">y</a>)</td></tr>
+<tr class="memitem:a38ce2f0948bf7d73347a9920cbdc0208"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacev8_1_1base_1_1ieee754_1_1legacy.html#a38ce2f0948bf7d73347a9920cbdc0208">pow</a> (double x, double y)</td></tr>
 <tr class="separator:a38ce2f0948bf7d73347a9920cbdc0208"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -120,6 +120,300 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="base_2ieee754_8cc_source.html#l02646">2646</a> of file <a class="el" href="base_2ieee754_8cc_source.html">ieee754.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l02646"></a><span class="lineno"> 2646</span>&#160;                               {</div>
+<div class="line"><a name="l02647"></a><span class="lineno"> 2647</span>&#160;  <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">double</span></div>
+<div class="line"><a name="l02648"></a><span class="lineno"> 2648</span>&#160;      bp[] = {1.0, 1.5},</div>
+<div class="line"><a name="l02649"></a><span class="lineno"> 2649</span>&#160;      dp_h[] = {0.0, 5.84962487220764160156e-01},  <span class="comment">// 0x3FE2B803, 0x40000000</span></div>
+<div class="line"><a name="l02650"></a><span class="lineno"> 2650</span>&#160;      dp_l[] = {0.0, 1.35003920212974897128e-08},  <span class="comment">// 0x3E4CFDEB, 0x43CFD006</span></div>
+<div class="line"><a name="l02651"></a><span class="lineno"> 2651</span>&#160;      <a class="code" href="namespacev8_1_1internal.html#a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3">zero</a> = 0.0, <a class="code" href="base_2ieee754_8cc.html#a7cf126dbeb6f30c606e3b42fea65cfef">one</a> = 1.0, two = 2.0,</div>
+<div class="line"><a name="l02652"></a><span class="lineno"> 2652</span>&#160;      two53 = 9007199254740992.0,  <span class="comment">// 0x43400000, 0x00000000</span></div>
+<div class="line"><a name="l02653"></a><span class="lineno"> 2653</span>&#160;      huge = 1.0e300, tiny = 1.0e-300,</div>
+<div class="line"><a name="l02654"></a><span class="lineno"> 2654</span>&#160;      <span class="comment">// poly coefs for (3/2)*(log(x)-2s-2/3*s**3</span></div>
+<div class="line"><a name="l02655"></a><span class="lineno"> 2655</span>&#160;      L1 = 5.99999999999994648725e-01,      <span class="comment">// 0x3FE33333, 0x33333303</span></div>
+<div class="line"><a name="l02656"></a><span class="lineno"> 2656</span>&#160;      L2 = 4.28571428578550184252e-01,      <span class="comment">// 0x3FDB6DB6, 0xDB6FABFF</span></div>
+<div class="line"><a name="l02657"></a><span class="lineno"> 2657</span>&#160;      L3 = 3.33333329818377432918e-01,      <span class="comment">// 0x3FD55555, 0x518F264D</span></div>
+<div class="line"><a name="l02658"></a><span class="lineno"> 2658</span>&#160;      L4 = 2.72728123808534006489e-01,      <span class="comment">// 0x3FD17460, 0xA91D4101</span></div>
+<div class="line"><a name="l02659"></a><span class="lineno"> 2659</span>&#160;      L5 = 2.30660745775561754067e-01,      <span class="comment">// 0x3FCD864A, 0x93C9DB65</span></div>
+<div class="line"><a name="l02660"></a><span class="lineno"> 2660</span>&#160;      L6 = 2.06975017800338417784e-01,      <span class="comment">// 0x3FCA7E28, 0x4A454EEF</span></div>
+<div class="line"><a name="l02661"></a><span class="lineno"> 2661</span>&#160;      P1 = 1.66666666666666019037e-01,      <span class="comment">// 0x3FC55555, 0x5555553E</span></div>
+<div class="line"><a name="l02662"></a><span class="lineno"> 2662</span>&#160;      P2 = -2.77777777770155933842e-03,     <span class="comment">// 0xBF66C16C, 0x16BEBD93</span></div>
+<div class="line"><a name="l02663"></a><span class="lineno"> 2663</span>&#160;      P3 = 6.61375632143793436117e-05,      <span class="comment">// 0x3F11566A, 0xAF25DE2C</span></div>
+<div class="line"><a name="l02664"></a><span class="lineno"> 2664</span>&#160;      P4 = -1.65339022054652515390e-06,     <span class="comment">// 0xBEBBBD41, 0xC5D26BF1</span></div>
+<div class="line"><a name="l02665"></a><span class="lineno"> 2665</span>&#160;      P5 = 4.13813679705723846039e-08,      <span class="comment">// 0x3E663769, 0x72BEA4D0</span></div>
+<div class="line"><a name="l02666"></a><span class="lineno"> 2666</span>&#160;      lg2 = 6.93147180559945286227e-01,     <span class="comment">// 0x3FE62E42, 0xFEFA39EF</span></div>
+<div class="line"><a name="l02667"></a><span class="lineno"> 2667</span>&#160;      lg2_h = 6.93147182464599609375e-01,   <span class="comment">// 0x3FE62E43, 0x00000000</span></div>
+<div class="line"><a name="l02668"></a><span class="lineno"> 2668</span>&#160;      lg2_l = -1.90465429995776804525e-09,  <span class="comment">// 0xBE205C61, 0x0CA86C39</span></div>
+<div class="line"><a name="l02669"></a><span class="lineno"> 2669</span>&#160;      ovt = 8.0085662595372944372e-0017,    <span class="comment">// -(1024-log2(ovfl+.5ulp))</span></div>
+<div class="line"><a name="l02670"></a><span class="lineno"> 2670</span>&#160;      <a class="code" href="namespacev8_1_1internal.html#acf7181c6ad0cb44fba9ad483652c01c9">cp</a> = 9.61796693925975554329e-01,      <span class="comment">// 0x3FEEC709, 0xDC3A03FD =2/(3ln2)</span></div>
+<div class="line"><a name="l02671"></a><span class="lineno"> 2671</span>&#160;      cp_h = 9.61796700954437255859e-01,    <span class="comment">// 0x3FEEC709, 0xE0000000 =(float)cp</span></div>
+<div class="line"><a name="l02672"></a><span class="lineno"> 2672</span>&#160;      cp_l = -7.02846165095275826516e-09,   <span class="comment">// 0xBE3E2FE0, 0x145B01F5 =tail cp_h</span></div>
+<div class="line"><a name="l02673"></a><span class="lineno"> 2673</span>&#160;      ivln2 = 1.44269504088896338700e+00,   <span class="comment">// 0x3FF71547, 0x652B82FE =1/ln2</span></div>
+<div class="line"><a name="l02674"></a><span class="lineno"> 2674</span>&#160;      ivln2_h =</div>
+<div class="line"><a name="l02675"></a><span class="lineno"> 2675</span>&#160;          1.44269502162933349609e+00,  <span class="comment">// 0x3FF71547, 0x60000000 =24b 1/ln2</span></div>
+<div class="line"><a name="l02676"></a><span class="lineno"> 2676</span>&#160;      ivln2_l =</div>
+<div class="line"><a name="l02677"></a><span class="lineno"> 2677</span>&#160;          1.92596299112661746887e-08;  <span class="comment">// 0x3E54AE0B, 0xF85DDF44 =1/ln2 tail</span></div>
+<div class="line"><a name="l02678"></a><span class="lineno"> 2678</span>&#160; </div>
+<div class="line"><a name="l02679"></a><span class="lineno"> 2679</span>&#160;  <span class="keywordtype">double</span> z, ax, z_h, z_l, p_h, p_l;</div>
+<div class="line"><a name="l02680"></a><span class="lineno"> 2680</span>&#160;  <span class="keywordtype">double</span> y1, t1, t2, r, s, t, u, v, w;</div>
+<div class="line"><a name="l02681"></a><span class="lineno"> 2681</span>&#160;  <span class="keywordtype">int</span> <a class="code" href="namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03.html#ad86b3cf21e19e97ce484f32b894d548c">i</a>, j, k, yisint, n;</div>
+<div class="line"><a name="l02682"></a><span class="lineno"> 2682</span>&#160;  <span class="keywordtype">int</span> hx, hy, ix, iy;</div>
+<div class="line"><a name="l02683"></a><span class="lineno"> 2683</span>&#160;  <span class="keywordtype">unsigned</span> lx, ly;</div>
+<div class="line"><a name="l02684"></a><span class="lineno"> 2684</span>&#160; </div>
+<div class="line"><a name="l02685"></a><span class="lineno"> 2685</span>&#160;  <a class="code" href="base_2ieee754_8cc.html#a6dadc713499e14ba3088a55409a18983">EXTRACT_WORDS</a>(hx, lx, x);</div>
+<div class="line"><a name="l02686"></a><span class="lineno"> 2686</span>&#160;  <a class="code" href="base_2ieee754_8cc.html#a6dadc713499e14ba3088a55409a18983">EXTRACT_WORDS</a>(hy, ly, <a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a>);</div>
+<div class="line"><a name="l02687"></a><span class="lineno"> 2687</span>&#160;  ix = hx &amp; 0x7fffffff;</div>
+<div class="line"><a name="l02688"></a><span class="lineno"> 2688</span>&#160;  iy = hy &amp; 0x7fffffff;</div>
+<div class="line"><a name="l02689"></a><span class="lineno"> 2689</span>&#160; </div>
+<div class="line"><a name="l02690"></a><span class="lineno"> 2690</span>&#160;  <span class="comment">/* y==zero: x**0 = 1 */</span></div>
+<div class="line"><a name="l02691"></a><span class="lineno"> 2691</span>&#160;  <span class="keywordflow">if</span> ((iy | ly) == 0) <span class="keywordflow">return</span> <a class="code" href="base_2ieee754_8cc.html#a7cf126dbeb6f30c606e3b42fea65cfef">one</a>;</div>
+<div class="line"><a name="l02692"></a><span class="lineno"> 2692</span>&#160; </div>
+<div class="line"><a name="l02693"></a><span class="lineno"> 2693</span>&#160;  <span class="comment">/* +-NaN return x+y */</span></div>
+<div class="line"><a name="l02694"></a><span class="lineno"> 2694</span>&#160;  <span class="keywordflow">if</span> (ix &gt; 0x7ff00000 || ((ix == 0x7ff00000) &amp;&amp; (lx != 0)) || iy &gt; 0x7ff00000 ||</div>
+<div class="line"><a name="l02695"></a><span class="lineno"> 2695</span>&#160;      ((iy == 0x7ff00000) &amp;&amp; (ly != 0))) {</div>
+<div class="line"><a name="l02696"></a><span class="lineno"> 2696</span>&#160;    <span class="keywordflow">return</span> x + <a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a>;</div>
+<div class="line"><a name="l02697"></a><span class="lineno"> 2697</span>&#160;  }</div>
+<div class="line"><a name="l02698"></a><span class="lineno"> 2698</span>&#160; </div>
+<div class="line"><a name="l02699"></a><span class="lineno"> 2699</span>&#160;  <span class="comment">/* determine if y is an odd int when x &lt; 0</span></div>
+<div class="line"><a name="l02700"></a><span class="lineno"> 2700</span>&#160;<span class="comment">   * yisint = 0 ... y is not an integer</span></div>
+<div class="line"><a name="l02701"></a><span class="lineno"> 2701</span>&#160;<span class="comment">   * yisint = 1 ... y is an odd int</span></div>
+<div class="line"><a name="l02702"></a><span class="lineno"> 2702</span>&#160;<span class="comment">   * yisint = 2 ... y is an even int</span></div>
+<div class="line"><a name="l02703"></a><span class="lineno"> 2703</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l02704"></a><span class="lineno"> 2704</span>&#160;  yisint = 0;</div>
+<div class="line"><a name="l02705"></a><span class="lineno"> 2705</span>&#160;  <span class="keywordflow">if</span> (hx &lt; 0) {</div>
+<div class="line"><a name="l02706"></a><span class="lineno"> 2706</span>&#160;    <span class="keywordflow">if</span> (iy &gt;= 0x43400000) {</div>
+<div class="line"><a name="l02707"></a><span class="lineno"> 2707</span>&#160;      yisint = 2; <span class="comment">/* even integer y */</span></div>
+<div class="line"><a name="l02708"></a><span class="lineno"> 2708</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (iy &gt;= 0x3ff00000) {</div>
+<div class="line"><a name="l02709"></a><span class="lineno"> 2709</span>&#160;      k = (iy &gt;&gt; 20) - 0x3ff; <span class="comment">/* exponent */</span></div>
+<div class="line"><a name="l02710"></a><span class="lineno"> 2710</span>&#160;      <span class="keywordflow">if</span> (k &gt; 20) {</div>
+<div class="line"><a name="l02711"></a><span class="lineno"> 2711</span>&#160;        j = ly &gt;&gt; (52 - k);</div>
+<div class="line"><a name="l02712"></a><span class="lineno"> 2712</span>&#160;        <span class="keywordflow">if</span> ((j &lt;&lt; (52 - k)) == <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(ly)) yisint = 2 - (j &amp; 1);</div>
+<div class="line"><a name="l02713"></a><span class="lineno"> 2713</span>&#160;      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ly == 0) {</div>
+<div class="line"><a name="l02714"></a><span class="lineno"> 2714</span>&#160;        j = iy &gt;&gt; (20 - k);</div>
+<div class="line"><a name="l02715"></a><span class="lineno"> 2715</span>&#160;        <span class="keywordflow">if</span> ((j &lt;&lt; (20 - k)) == iy) yisint = 2 - (j &amp; 1);</div>
+<div class="line"><a name="l02716"></a><span class="lineno"> 2716</span>&#160;      }</div>
+<div class="line"><a name="l02717"></a><span class="lineno"> 2717</span>&#160;    }</div>
+<div class="line"><a name="l02718"></a><span class="lineno"> 2718</span>&#160;  }</div>
+<div class="line"><a name="l02719"></a><span class="lineno"> 2719</span>&#160; </div>
+<div class="line"><a name="l02720"></a><span class="lineno"> 2720</span>&#160;  <span class="comment">/* special value of y */</span></div>
+<div class="line"><a name="l02721"></a><span class="lineno"> 2721</span>&#160;  <span class="keywordflow">if</span> (ly == 0) {</div>
+<div class="line"><a name="l02722"></a><span class="lineno"> 2722</span>&#160;    <span class="keywordflow">if</span> (iy == 0x7ff00000) { <span class="comment">/* y is +-inf */</span></div>
+<div class="line"><a name="l02723"></a><span class="lineno"> 2723</span>&#160;      <span class="keywordflow">if</span> (((ix - 0x3ff00000) | lx) == 0) {</div>
+<div class="line"><a name="l02724"></a><span class="lineno"> 2724</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a> - <a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a>;                <span class="comment">/* inf**+-1 is NaN */</span></div>
+<div class="line"><a name="l02725"></a><span class="lineno"> 2725</span>&#160;      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ix &gt;= 0x3ff00000) { <span class="comment">/* (|x|&gt;1)**+-inf = inf,0 */</span></div>
+<div class="line"><a name="l02726"></a><span class="lineno"> 2726</span>&#160;        <span class="keywordflow">return</span> (hy &gt;= 0) ? <a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a> : <a class="code" href="namespacev8_1_1internal.html#a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3">zero</a>;</div>
+<div class="line"><a name="l02727"></a><span class="lineno"> 2727</span>&#160;      } <span class="keywordflow">else</span> { <span class="comment">/* (|x|&lt;1)**-,+inf = inf,0 */</span></div>
+<div class="line"><a name="l02728"></a><span class="lineno"> 2728</span>&#160;        <span class="keywordflow">return</span> (hy &lt; 0) ? -<a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a> : <a class="code" href="namespacev8_1_1internal.html#a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3">zero</a>;</div>
+<div class="line"><a name="l02729"></a><span class="lineno"> 2729</span>&#160;      }</div>
+<div class="line"><a name="l02730"></a><span class="lineno"> 2730</span>&#160;    }</div>
+<div class="line"><a name="l02731"></a><span class="lineno"> 2731</span>&#160;    <span class="keywordflow">if</span> (iy == 0x3ff00000) { <span class="comment">/* y is  +-1 */</span></div>
+<div class="line"><a name="l02732"></a><span class="lineno"> 2732</span>&#160;      <span class="keywordflow">if</span> (hy &lt; 0) {</div>
+<div class="line"><a name="l02733"></a><span class="lineno"> 2733</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacev8_1_1base.html#ad5a29771622da6f7889b7c4b08e6bc20">base::Divide</a>(<a class="code" href="base_2ieee754_8cc.html#a7cf126dbeb6f30c606e3b42fea65cfef">one</a>, x);</div>
+<div class="line"><a name="l02734"></a><span class="lineno"> 2734</span>&#160;      } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l02735"></a><span class="lineno"> 2735</span>&#160;        <span class="keywordflow">return</span> x;</div>
+<div class="line"><a name="l02736"></a><span class="lineno"> 2736</span>&#160;      }</div>
+<div class="line"><a name="l02737"></a><span class="lineno"> 2737</span>&#160;    }</div>
+<div class="line"><a name="l02738"></a><span class="lineno"> 2738</span>&#160;    <span class="keywordflow">if</span> (hy == 0x40000000) <span class="keywordflow">return</span> x * x; <span class="comment">/* y is  2 */</span></div>
+<div class="line"><a name="l02739"></a><span class="lineno"> 2739</span>&#160;    <span class="keywordflow">if</span> (hy == 0x3fe00000) {             <span class="comment">/* y is  0.5 */</span></div>
+<div class="line"><a name="l02740"></a><span class="lineno"> 2740</span>&#160;      <span class="keywordflow">if</span> (hx &gt;= 0) {                    <span class="comment">/* x &gt;= +0 */</span></div>
+<div class="line"><a name="l02741"></a><span class="lineno"> 2741</span>&#160;        <span class="keywordflow">return</span> sqrt(x);</div>
+<div class="line"><a name="l02742"></a><span class="lineno"> 2742</span>&#160;      }</div>
+<div class="line"><a name="l02743"></a><span class="lineno"> 2743</span>&#160;    }</div>
+<div class="line"><a name="l02744"></a><span class="lineno"> 2744</span>&#160;  }</div>
+<div class="line"><a name="l02745"></a><span class="lineno"> 2745</span>&#160; </div>
+<div class="line"><a name="l02746"></a><span class="lineno"> 2746</span>&#160;  ax = fabs(x);</div>
+<div class="line"><a name="l02747"></a><span class="lineno"> 2747</span>&#160;  <span class="comment">/* special value of x */</span></div>
+<div class="line"><a name="l02748"></a><span class="lineno"> 2748</span>&#160;  <span class="keywordflow">if</span> (lx == 0) {</div>
+<div class="line"><a name="l02749"></a><span class="lineno"> 2749</span>&#160;    <span class="keywordflow">if</span> (ix == 0x7ff00000 || ix == 0 || ix == 0x3ff00000) {</div>
+<div class="line"><a name="l02750"></a><span class="lineno"> 2750</span>&#160;      z = ax;                               <span class="comment">/*x is +-0,+-inf,+-1*/</span></div>
+<div class="line"><a name="l02751"></a><span class="lineno"> 2751</span>&#160;      <span class="keywordflow">if</span> (hy &lt; 0) z = <a class="code" href="namespacev8_1_1base.html#ad5a29771622da6f7889b7c4b08e6bc20">base::Divide</a>(<a class="code" href="base_2ieee754_8cc.html#a7cf126dbeb6f30c606e3b42fea65cfef">one</a>, z); <span class="comment">/* z = (1/|x|) */</span></div>
+<div class="line"><a name="l02752"></a><span class="lineno"> 2752</span>&#160;      <span class="keywordflow">if</span> (hx &lt; 0) {</div>
+<div class="line"><a name="l02753"></a><span class="lineno"> 2753</span>&#160;        <span class="keywordflow">if</span> (((ix - 0x3ff00000) | yisint) == 0) {</div>
+<div class="line"><a name="l02754"></a><span class="lineno"> 2754</span>&#160;          <span class="comment">/* (-1)**non-int is NaN */</span></div>
+<div class="line"><a name="l02755"></a><span class="lineno"> 2755</span>&#160;          z = std::numeric_limits&lt;double&gt;::signaling_NaN();</div>
+<div class="line"><a name="l02756"></a><span class="lineno"> 2756</span>&#160;        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (yisint == 1) {</div>
+<div class="line"><a name="l02757"></a><span class="lineno"> 2757</span>&#160;          z = -z; <span class="comment">/* (x&lt;0)**odd = -(|x|**odd) */</span></div>
+<div class="line"><a name="l02758"></a><span class="lineno"> 2758</span>&#160;        }</div>
+<div class="line"><a name="l02759"></a><span class="lineno"> 2759</span>&#160;      }</div>
+<div class="line"><a name="l02760"></a><span class="lineno"> 2760</span>&#160;      <span class="keywordflow">return</span> z;</div>
+<div class="line"><a name="l02761"></a><span class="lineno"> 2761</span>&#160;    }</div>
+<div class="line"><a name="l02762"></a><span class="lineno"> 2762</span>&#160;  }</div>
+<div class="line"><a name="l02763"></a><span class="lineno"> 2763</span>&#160; </div>
+<div class="line"><a name="l02764"></a><span class="lineno"> 2764</span>&#160;  n = (hx &gt;&gt; 31) + 1;</div>
+<div class="line"><a name="l02765"></a><span class="lineno"> 2765</span>&#160; </div>
+<div class="line"><a name="l02766"></a><span class="lineno"> 2766</span>&#160;  <span class="comment">/* (x&lt;0)**(non-int) is NaN */</span></div>
+<div class="line"><a name="l02767"></a><span class="lineno"> 2767</span>&#160;  <span class="keywordflow">if</span> ((n | yisint) == 0) {</div>
+<div class="line"><a name="l02768"></a><span class="lineno"> 2768</span>&#160;    <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::signaling_NaN();</div>
+<div class="line"><a name="l02769"></a><span class="lineno"> 2769</span>&#160;  }</div>
+<div class="line"><a name="l02770"></a><span class="lineno"> 2770</span>&#160; </div>
+<div class="line"><a name="l02771"></a><span class="lineno"> 2771</span>&#160;  s = <a class="code" href="base_2ieee754_8cc.html#a7cf126dbeb6f30c606e3b42fea65cfef">one</a>; <span class="comment">/* s (sign of result -ve**odd) = -1 else = 1 */</span></div>
+<div class="line"><a name="l02772"></a><span class="lineno"> 2772</span>&#160;  <span class="keywordflow">if</span> ((n | (yisint - 1)) == 0) s = -<a class="code" href="base_2ieee754_8cc.html#a7cf126dbeb6f30c606e3b42fea65cfef">one</a>; <span class="comment">/* (-ve)**(odd int) */</span></div>
+<div class="line"><a name="l02773"></a><span class="lineno"> 2773</span>&#160; </div>
+<div class="line"><a name="l02774"></a><span class="lineno"> 2774</span>&#160;  <span class="comment">/* |y| is huge */</span></div>
+<div class="line"><a name="l02775"></a><span class="lineno"> 2775</span>&#160;  <span class="keywordflow">if</span> (iy &gt; 0x41e00000) {   <span class="comment">/* if |y| &gt; 2**31 */</span></div>
+<div class="line"><a name="l02776"></a><span class="lineno"> 2776</span>&#160;    <span class="keywordflow">if</span> (iy &gt; 0x43f00000) { <span class="comment">/* if |y| &gt; 2**64, must o/uflow */</span></div>
+<div class="line"><a name="l02777"></a><span class="lineno"> 2777</span>&#160;      <span class="keywordflow">if</span> (ix &lt;= 0x3fefffff) <span class="keywordflow">return</span> (hy &lt; 0) ? huge * huge : tiny * tiny;</div>
+<div class="line"><a name="l02778"></a><span class="lineno"> 2778</span>&#160;      <span class="keywordflow">if</span> (ix &gt;= 0x3ff00000) <span class="keywordflow">return</span> (hy &gt; 0) ? huge * huge : tiny * tiny;</div>
+<div class="line"><a name="l02779"></a><span class="lineno"> 2779</span>&#160;    }</div>
+<div class="line"><a name="l02780"></a><span class="lineno"> 2780</span>&#160;    <span class="comment">/* over/underflow if x is not close to one */</span></div>
+<div class="line"><a name="l02781"></a><span class="lineno"> 2781</span>&#160;    <span class="keywordflow">if</span> (ix &lt; 0x3fefffff) <span class="keywordflow">return</span> (hy &lt; 0) ? s * huge * huge : s * tiny * tiny;</div>
+<div class="line"><a name="l02782"></a><span class="lineno"> 2782</span>&#160;    <span class="keywordflow">if</span> (ix &gt; 0x3ff00000) <span class="keywordflow">return</span> (hy &gt; 0) ? s * huge * huge : s * tiny * tiny;</div>
+<div class="line"><a name="l02783"></a><span class="lineno"> 2783</span>&#160;    <span class="comment">/* now |1-x| is tiny &lt;= 2**-20, suffice to compute</span></div>
+<div class="line"><a name="l02784"></a><span class="lineno"> 2784</span>&#160;<span class="comment">       log(x) by x-x^2/2+x^3/3-x^4/4 */</span></div>
+<div class="line"><a name="l02785"></a><span class="lineno"> 2785</span>&#160;    t = ax - <a class="code" href="base_2ieee754_8cc.html#a7cf126dbeb6f30c606e3b42fea65cfef">one</a>; <span class="comment">/* t has 20 trailing zeros */</span></div>
+<div class="line"><a name="l02786"></a><span class="lineno"> 2786</span>&#160;    w = (t * t) * (0.5 - t * (0.3333333333333333333333 - t * 0.25));</div>
+<div class="line"><a name="l02787"></a><span class="lineno"> 2787</span>&#160;    u = ivln2_h * t; <span class="comment">/* ivln2_h has 21 sig. bits */</span></div>
+<div class="line"><a name="l02788"></a><span class="lineno"> 2788</span>&#160;    v = t * ivln2_l - w * ivln2;</div>
+<div class="line"><a name="l02789"></a><span class="lineno"> 2789</span>&#160;    t1 = u + v;</div>
+<div class="line"><a name="l02790"></a><span class="lineno"> 2790</span>&#160;    SET_LOW_WORD(t1, 0);</div>
+<div class="line"><a name="l02791"></a><span class="lineno"> 2791</span>&#160;    t2 = v - (t1 - u);</div>
+<div class="line"><a name="l02792"></a><span class="lineno"> 2792</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l02793"></a><span class="lineno"> 2793</span>&#160;    <span class="keywordtype">double</span> ss, s2, s_h, s_l, t_h, t_l;</div>
+<div class="line"><a name="l02794"></a><span class="lineno"> 2794</span>&#160;    n = 0;</div>
+<div class="line"><a name="l02795"></a><span class="lineno"> 2795</span>&#160;    <span class="comment">/* take care subnormal number */</span></div>
+<div class="line"><a name="l02796"></a><span class="lineno"> 2796</span>&#160;    <span class="keywordflow">if</span> (ix &lt; 0x00100000) {</div>
+<div class="line"><a name="l02797"></a><span class="lineno"> 2797</span>&#160;      ax *= two53;</div>
+<div class="line"><a name="l02798"></a><span class="lineno"> 2798</span>&#160;      n -= 53;</div>
+<div class="line"><a name="l02799"></a><span class="lineno"> 2799</span>&#160;      <a class="code" href="base_2ieee754_8cc.html#ae62ee08d06ab4cc06d61dc1246b73195">GET_HIGH_WORD</a>(ix, ax);</div>
+<div class="line"><a name="l02800"></a><span class="lineno"> 2800</span>&#160;    }</div>
+<div class="line"><a name="l02801"></a><span class="lineno"> 2801</span>&#160;    n += ((ix) &gt;&gt; 20) - 0x3ff;</div>
+<div class="line"><a name="l02802"></a><span class="lineno"> 2802</span>&#160;    j = ix &amp; 0x000fffff;</div>
+<div class="line"><a name="l02803"></a><span class="lineno"> 2803</span>&#160;    <span class="comment">/* determine interval */</span></div>
+<div class="line"><a name="l02804"></a><span class="lineno"> 2804</span>&#160;    ix = j | 0x3ff00000; <span class="comment">/* normalize ix */</span></div>
+<div class="line"><a name="l02805"></a><span class="lineno"> 2805</span>&#160;    <span class="keywordflow">if</span> (j &lt;= 0x3988E) {</div>
+<div class="line"><a name="l02806"></a><span class="lineno"> 2806</span>&#160;      k = 0; <span class="comment">/* |x|&lt;sqrt(3/2) */</span></div>
+<div class="line"><a name="l02807"></a><span class="lineno"> 2807</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (j &lt; 0xBB67A) {</div>
+<div class="line"><a name="l02808"></a><span class="lineno"> 2808</span>&#160;      k = 1; <span class="comment">/* |x|&lt;sqrt(3)   */</span></div>
+<div class="line"><a name="l02809"></a><span class="lineno"> 2809</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l02810"></a><span class="lineno"> 2810</span>&#160;      k = 0;</div>
+<div class="line"><a name="l02811"></a><span class="lineno"> 2811</span>&#160;      n += 1;</div>
+<div class="line"><a name="l02812"></a><span class="lineno"> 2812</span>&#160;      ix -= 0x00100000;</div>
+<div class="line"><a name="l02813"></a><span class="lineno"> 2813</span>&#160;    }</div>
+<div class="line"><a name="l02814"></a><span class="lineno"> 2814</span>&#160;    <a class="code" href="base_2ieee754_8cc.html#a6ca54776127e20149f84c290bf52f89e">SET_HIGH_WORD</a>(ax, ix);</div>
+<div class="line"><a name="l02815"></a><span class="lineno"> 2815</span>&#160; </div>
+<div class="line"><a name="l02816"></a><span class="lineno"> 2816</span>&#160;    <span class="comment">/* compute ss = s_h+s_l = (x-1)/(x+1) or (x-1.5)/(x+1.5) */</span></div>
+<div class="line"><a name="l02817"></a><span class="lineno"> 2817</span>&#160;    u = ax - bp[k]; <span class="comment">/* bp[0]=1.0, bp[1]=1.5 */</span></div>
+<div class="line"><a name="l02818"></a><span class="lineno"> 2818</span>&#160;    v = <a class="code" href="namespacev8_1_1base.html#ad5a29771622da6f7889b7c4b08e6bc20">base::Divide</a>(<a class="code" href="base_2ieee754_8cc.html#a7cf126dbeb6f30c606e3b42fea65cfef">one</a>, ax + bp[k]);</div>
+<div class="line"><a name="l02819"></a><span class="lineno"> 2819</span>&#160;    ss = u * v;</div>
+<div class="line"><a name="l02820"></a><span class="lineno"> 2820</span>&#160;    s_h = ss;</div>
+<div class="line"><a name="l02821"></a><span class="lineno"> 2821</span>&#160;    SET_LOW_WORD(s_h, 0);</div>
+<div class="line"><a name="l02822"></a><span class="lineno"> 2822</span>&#160;    <span class="comment">/* t_h=ax+bp[k] High */</span></div>
+<div class="line"><a name="l02823"></a><span class="lineno"> 2823</span>&#160;    t_h = <a class="code" href="namespacev8_1_1internal.html#a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3">zero</a>;</div>
+<div class="line"><a name="l02824"></a><span class="lineno"> 2824</span>&#160;    <a class="code" href="base_2ieee754_8cc.html#a6ca54776127e20149f84c290bf52f89e">SET_HIGH_WORD</a>(t_h, ((ix &gt;&gt; 1) | 0x20000000) + 0x00080000 + (k &lt;&lt; 18));</div>
+<div class="line"><a name="l02825"></a><span class="lineno"> 2825</span>&#160;    t_l = ax - (t_h - bp[k]);</div>
+<div class="line"><a name="l02826"></a><span class="lineno"> 2826</span>&#160;    s_l = v * ((u - s_h * t_h) - s_h * t_l);</div>
+<div class="line"><a name="l02827"></a><span class="lineno"> 2827</span>&#160;    <span class="comment">/* compute log(ax) */</span></div>
+<div class="line"><a name="l02828"></a><span class="lineno"> 2828</span>&#160;    s2 = ss * ss;</div>
+<div class="line"><a name="l02829"></a><span class="lineno"> 2829</span>&#160;    r = s2 * s2 *</div>
+<div class="line"><a name="l02830"></a><span class="lineno"> 2830</span>&#160;        (L1 + s2 * (L2 + s2 * (L3 + s2 * (L4 + s2 * (L5 + s2 * L6)))));</div>
+<div class="line"><a name="l02831"></a><span class="lineno"> 2831</span>&#160;    r += s_l * (s_h + ss);</div>
+<div class="line"><a name="l02832"></a><span class="lineno"> 2832</span>&#160;    s2 = s_h * s_h;</div>
+<div class="line"><a name="l02833"></a><span class="lineno"> 2833</span>&#160;    t_h = 3.0 + s2 + r;</div>
+<div class="line"><a name="l02834"></a><span class="lineno"> 2834</span>&#160;    SET_LOW_WORD(t_h, 0);</div>
+<div class="line"><a name="l02835"></a><span class="lineno"> 2835</span>&#160;    t_l = r - ((t_h - 3.0) - s2);</div>
+<div class="line"><a name="l02836"></a><span class="lineno"> 2836</span>&#160;    <span class="comment">/* u+v = ss*(1+...) */</span></div>
+<div class="line"><a name="l02837"></a><span class="lineno"> 2837</span>&#160;    u = s_h * t_h;</div>
+<div class="line"><a name="l02838"></a><span class="lineno"> 2838</span>&#160;    v = s_l * t_h + t_l * ss;</div>
+<div class="line"><a name="l02839"></a><span class="lineno"> 2839</span>&#160;    <span class="comment">/* 2/(3log2)*(ss+...) */</span></div>
+<div class="line"><a name="l02840"></a><span class="lineno"> 2840</span>&#160;    p_h = u + v;</div>
+<div class="line"><a name="l02841"></a><span class="lineno"> 2841</span>&#160;    SET_LOW_WORD(p_h, 0);</div>
+<div class="line"><a name="l02842"></a><span class="lineno"> 2842</span>&#160;    p_l = v - (p_h - u);</div>
+<div class="line"><a name="l02843"></a><span class="lineno"> 2843</span>&#160;    z_h = cp_h * p_h; <span class="comment">/* cp_h+cp_l = 2/(3*log2) */</span></div>
+<div class="line"><a name="l02844"></a><span class="lineno"> 2844</span>&#160;    z_l = cp_l * p_h + p_l * <a class="code" href="namespacev8_1_1internal.html#acf7181c6ad0cb44fba9ad483652c01c9">cp</a> + dp_l[k];</div>
+<div class="line"><a name="l02845"></a><span class="lineno"> 2845</span>&#160;    <span class="comment">/* log2(ax) = (ss+..)*2/(3*log2) = n + dp_h + z_h + z_l */</span></div>
+<div class="line"><a name="l02846"></a><span class="lineno"> 2846</span>&#160;    t = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(n);</div>
+<div class="line"><a name="l02847"></a><span class="lineno"> 2847</span>&#160;    t1 = (((z_h + z_l) + dp_h[k]) + t);</div>
+<div class="line"><a name="l02848"></a><span class="lineno"> 2848</span>&#160;    SET_LOW_WORD(t1, 0);</div>
+<div class="line"><a name="l02849"></a><span class="lineno"> 2849</span>&#160;    t2 = z_l - (((t1 - t) - dp_h[k]) - z_h);</div>
+<div class="line"><a name="l02850"></a><span class="lineno"> 2850</span>&#160;  }</div>
+<div class="line"><a name="l02851"></a><span class="lineno"> 2851</span>&#160; </div>
+<div class="line"><a name="l02852"></a><span class="lineno"> 2852</span>&#160;  <span class="comment">/* split up y into y1+y2 and compute (y1+y2)*(t1+t2) */</span></div>
+<div class="line"><a name="l02853"></a><span class="lineno"> 2853</span>&#160;  y1 = <a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a>;</div>
+<div class="line"><a name="l02854"></a><span class="lineno"> 2854</span>&#160;  SET_LOW_WORD(y1, 0);</div>
+<div class="line"><a name="l02855"></a><span class="lineno"> 2855</span>&#160;  p_l = (<a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a> - y1) * t1 + <a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a> * t2;</div>
+<div class="line"><a name="l02856"></a><span class="lineno"> 2856</span>&#160;  p_h = y1 * t1;</div>
+<div class="line"><a name="l02857"></a><span class="lineno"> 2857</span>&#160;  z = p_l + p_h;</div>
+<div class="line"><a name="l02858"></a><span class="lineno"> 2858</span>&#160;  <a class="code" href="base_2ieee754_8cc.html#a6dadc713499e14ba3088a55409a18983">EXTRACT_WORDS</a>(j, <a class="code" href="namespacev8_1_1internal.html">i</a>, z);</div>
+<div class="line"><a name="l02859"></a><span class="lineno"> 2859</span>&#160;  <span class="keywordflow">if</span> (j &gt;= 0x40900000) {               <span class="comment">/* z &gt;= 1024 */</span></div>
+<div class="line"><a name="l02860"></a><span class="lineno"> 2860</span>&#160;    <span class="keywordflow">if</span> (((j - 0x40900000) | <a class="code" href="namespacev8_1_1internal.html">i</a>) != 0) { <span class="comment">/* if z &gt; 1024 */</span></div>
+<div class="line"><a name="l02861"></a><span class="lineno"> 2861</span>&#160;      <span class="keywordflow">return</span> s * huge * huge;          <span class="comment">/* overflow */</span></div>
+<div class="line"><a name="l02862"></a><span class="lineno"> 2862</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l02863"></a><span class="lineno"> 2863</span>&#160;      <span class="keywordflow">if</span> (p_l + ovt &gt; z - p_h) <span class="keywordflow">return</span> s * huge * huge; <span class="comment">/* overflow */</span></div>
+<div class="line"><a name="l02864"></a><span class="lineno"> 2864</span>&#160;    }</div>
+<div class="line"><a name="l02865"></a><span class="lineno"> 2865</span>&#160;  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((j &amp; 0x7fffffff) &gt;= 0x4090cc00) { <span class="comment">/* z &lt;= -1075 */</span></div>
+<div class="line"><a name="l02866"></a><span class="lineno"> 2866</span>&#160;    <span class="keywordflow">if</span> (((j - 0xc090cc00) | <a class="code" href="namespacev8_1_1internal.html">i</a>) != 0) {         <span class="comment">/* z &lt; -1075 */</span></div>
+<div class="line"><a name="l02867"></a><span class="lineno"> 2867</span>&#160;      <span class="keywordflow">return</span> s * tiny * tiny;                  <span class="comment">/* underflow */</span></div>
+<div class="line"><a name="l02868"></a><span class="lineno"> 2868</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l02869"></a><span class="lineno"> 2869</span>&#160;      <span class="keywordflow">if</span> (p_l &lt;= z - p_h) <span class="keywordflow">return</span> s * tiny * tiny; <span class="comment">/* underflow */</span></div>
+<div class="line"><a name="l02870"></a><span class="lineno"> 2870</span>&#160;    }</div>
+<div class="line"><a name="l02871"></a><span class="lineno"> 2871</span>&#160;  }</div>
+<div class="line"><a name="l02872"></a><span class="lineno"> 2872</span>&#160;  <span class="comment">/*</span></div>
+<div class="line"><a name="l02873"></a><span class="lineno"> 2873</span>&#160;<span class="comment">   * compute 2**(p_h+p_l)</span></div>
+<div class="line"><a name="l02874"></a><span class="lineno"> 2874</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l02875"></a><span class="lineno"> 2875</span>&#160;  <a class="code" href="namespacev8_1_1internal.html">i</a> = j &amp; 0x7fffffff;</div>
+<div class="line"><a name="l02876"></a><span class="lineno"> 2876</span>&#160;  k = (<a class="code" href="namespacev8_1_1internal.html">i</a> &gt;&gt; 20) - 0x3ff;</div>
+<div class="line"><a name="l02877"></a><span class="lineno"> 2877</span>&#160;  n = 0;</div>
+<div class="line"><a name="l02878"></a><span class="lineno"> 2878</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="namespacev8_1_1internal.html">i</a> &gt; 0x3fe00000) { <span class="comment">/* if |z| &gt; 0.5, set n = [z+0.5] */</span></div>
+<div class="line"><a name="l02879"></a><span class="lineno"> 2879</span>&#160;    n = j + (0x00100000 &gt;&gt; (k + 1));</div>
+<div class="line"><a name="l02880"></a><span class="lineno"> 2880</span>&#160;    k = ((n &amp; 0x7fffffff) &gt;&gt; 20) - 0x3ff; <span class="comment">/* new k for n */</span></div>
+<div class="line"><a name="l02881"></a><span class="lineno"> 2881</span>&#160;    t = <a class="code" href="namespacev8_1_1internal.html#a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3">zero</a>;</div>
+<div class="line"><a name="l02882"></a><span class="lineno"> 2882</span>&#160;    <a class="code" href="base_2ieee754_8cc.html#a6ca54776127e20149f84c290bf52f89e">SET_HIGH_WORD</a>(t, n &amp; ~(0x000fffff &gt;&gt; k));</div>
+<div class="line"><a name="l02883"></a><span class="lineno"> 2883</span>&#160;    n = ((n &amp; 0x000fffff) | 0x00100000) &gt;&gt; (20 - k);</div>
+<div class="line"><a name="l02884"></a><span class="lineno"> 2884</span>&#160;    <span class="keywordflow">if</span> (j &lt; 0) n = -n;</div>
+<div class="line"><a name="l02885"></a><span class="lineno"> 2885</span>&#160;    p_h -= t;</div>
+<div class="line"><a name="l02886"></a><span class="lineno"> 2886</span>&#160;  }</div>
+<div class="line"><a name="l02887"></a><span class="lineno"> 2887</span>&#160;  t = p_l + p_h;</div>
+<div class="line"><a name="l02888"></a><span class="lineno"> 2888</span>&#160;  SET_LOW_WORD(t, 0);</div>
+<div class="line"><a name="l02889"></a><span class="lineno"> 2889</span>&#160;  u = t * lg2_h;</div>
+<div class="line"><a name="l02890"></a><span class="lineno"> 2890</span>&#160;  v = (p_l - (t - p_h)) * lg2 + t * lg2_l;</div>
+<div class="line"><a name="l02891"></a><span class="lineno"> 2891</span>&#160;  z = u + v;</div>
+<div class="line"><a name="l02892"></a><span class="lineno"> 2892</span>&#160;  w = v - (z - u);</div>
+<div class="line"><a name="l02893"></a><span class="lineno"> 2893</span>&#160;  t = z * z;</div>
+<div class="line"><a name="l02894"></a><span class="lineno"> 2894</span>&#160;  t1 = z - t * (P1 + t * (P2 + t * (P3 + t * (P4 + t * P5))));</div>
+<div class="line"><a name="l02895"></a><span class="lineno"> 2895</span>&#160;  r = <a class="code" href="namespacev8_1_1base.html#ad5a29771622da6f7889b7c4b08e6bc20">base::Divide</a>(z * t1, (t1 - two) - (w + z * w));</div>
+<div class="line"><a name="l02896"></a><span class="lineno"> 2896</span>&#160;  z = <a class="code" href="base_2ieee754_8cc.html#a7cf126dbeb6f30c606e3b42fea65cfef">one</a> - (r - z);</div>
+<div class="line"><a name="l02897"></a><span class="lineno"> 2897</span>&#160;  <a class="code" href="base_2ieee754_8cc.html#ae62ee08d06ab4cc06d61dc1246b73195">GET_HIGH_WORD</a>(j, z);</div>
+<div class="line"><a name="l02898"></a><span class="lineno"> 2898</span>&#160;  j += <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(n) &lt;&lt; 20);</div>
+<div class="line"><a name="l02899"></a><span class="lineno"> 2899</span>&#160;  <span class="keywordflow">if</span> ((j &gt;&gt; 20) &lt;= 0) {</div>
+<div class="line"><a name="l02900"></a><span class="lineno"> 2900</span>&#160;    z = scalbn(z, n); <span class="comment">/* subnormal output */</span></div>
+<div class="line"><a name="l02901"></a><span class="lineno"> 2901</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l02902"></a><span class="lineno"> 2902</span>&#160;    <span class="keywordtype">int</span> tmp;</div>
+<div class="line"><a name="l02903"></a><span class="lineno"> 2903</span>&#160;    <a class="code" href="base_2ieee754_8cc.html#ae62ee08d06ab4cc06d61dc1246b73195">GET_HIGH_WORD</a>(tmp, z);</div>
+<div class="line"><a name="l02904"></a><span class="lineno"> 2904</span>&#160;    <a class="code" href="base_2ieee754_8cc.html#a6ca54776127e20149f84c290bf52f89e">SET_HIGH_WORD</a>(z, tmp + <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(n) &lt;&lt; 20));</div>
+<div class="line"><a name="l02905"></a><span class="lineno"> 2905</span>&#160;  }</div>
+<div class="line"><a name="l02906"></a><span class="lineno"> 2906</span>&#160;  <span class="keywordflow">return</span> s * z;</div>
+<div class="line"><a name="l02907"></a><span class="lineno"> 2907</span>&#160;}</div>
+<div class="ttc" id="abase_2ieee754_8cc_html_a6ca54776127e20149f84c290bf52f89e"><div class="ttname"><a href="base_2ieee754_8cc.html#a6ca54776127e20149f84c290bf52f89e">SET_HIGH_WORD</a></div><div class="ttdeci">#define SET_HIGH_WORD(d, v)</div><div class="ttdef"><b>Definition:</b> <a href="base_2ieee754_8cc_source.html#l00089">ieee754.cc:89</a></div></div>
+<div class="ttc" id="abase_2ieee754_8cc_html_a6dadc713499e14ba3088a55409a18983"><div class="ttname"><a href="base_2ieee754_8cc.html#a6dadc713499e14ba3088a55409a18983">EXTRACT_WORDS</a></div><div class="ttdeci">#define EXTRACT_WORDS(ix0, ix1, d)</div><div class="ttdef"><b>Definition:</b> <a href="base_2ieee754_8cc_source.html#l00054">ieee754.cc:54</a></div></div>
+<div class="ttc" id="abase_2ieee754_8cc_html_a7cf126dbeb6f30c606e3b42fea65cfef"><div class="ttname"><a href="base_2ieee754_8cc.html#a7cf126dbeb6f30c606e3b42fea65cfef">one</a></div><div class="ttdeci">#define one</div></div>
+<div class="ttc" id="abase_2ieee754_8cc_html_ae62ee08d06ab4cc06d61dc1246b73195"><div class="ttname"><a href="base_2ieee754_8cc.html#ae62ee08d06ab4cc06d61dc1246b73195">GET_HIGH_WORD</a></div><div class="ttdeci">#define GET_HIGH_WORD(i, d)</div><div class="ttdef"><b>Definition:</b> <a href="base_2ieee754_8cc_source.html#l00063">ieee754.cc:63</a></div></div>
+<div class="ttc" id="anamespacev8_1_1base_1_1internal_html_aba8167f197e892214b9dc1aba34983de"><div class="ttname"><a href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">v8::base::internal::y</a></div><div class="ttdeci">U y</div><div class="ttdef"><b>Definition:</b> <a href="clamped__math__impl_8h_source.html#l00077">clamped_math_impl.h:77</a></div></div>
+<div class="ttc" id="anamespacev8_1_1base_html_ad5a29771622da6f7889b7c4b08e6bc20"><div class="ttname"><a href="namespacev8_1_1base.html#ad5a29771622da6f7889b7c4b08e6bc20">v8::base::Divide</a></div><div class="ttdeci">T Divide(T x, T y)</div><div class="ttdef"><b>Definition:</b> <a href="overflowing-math_8h_source.html#l00069">overflowing-math.h:69</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_html_ad86b3cf21e19e97ce484f32b894d548c"><div class="ttname"><a href="namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03.html#ad86b3cf21e19e97ce484f32b894d548c">v8::internal::anonymous_namespace{json-stringifier.cc}::i</a></div><div class="ttdeci">size_t i</div><div class="ttdef"><b>Definition:</b> <a href="json-stringifier_8cc_source.html#l00548">json-stringifier.cc:548</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_html"><div class="ttname"><a href="namespacev8_1_1internal.html">v8::internal</a></div><div class="ttdef"><b>Definition:</b> <a href="api-arguments-inl_8h_source.html#l00020">api-arguments-inl.h:20</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_html_a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3"><div class="ttname"><a href="namespacev8_1_1internal.html#a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3">v8::internal::zero</a></div><div class="ttdeci">@ zero</div><div class="ttdef"><b>Definition:</b> <a href="assembler-ia32_8h_source.html#l00079">assembler-ia32.h:79</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_html_acf7181c6ad0cb44fba9ad483652c01c9"><div class="ttname"><a href="namespacev8_1_1internal.html#acf7181c6ad0cb44fba9ad483652c01c9">v8::internal::cp</a></div><div class="ttdeci">constexpr Register cp</div><div class="ttdef"><b>Definition:</b> <a href="register-arm_8h_source.html#l00335">register-arm.h:335</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="register-arm_8h_source.html#l00335">v8::internal::cp</a>, <a class="el" href="overflowing-math_8h_source.html#l00069">v8::base::Divide()</a>, <a class="el" href="base_2ieee754_8cc_source.html#l00054">EXTRACT_WORDS</a>, <a class="el" href="base_2ieee754_8cc_source.html#l00063">GET_HIGH_WORD</a>, <a class="el" href="json-stringifier_8cc_source.html#l00548">v8::internal::anonymous_namespace{json-stringifier.cc}::i</a>, <a class="el" href="base_2ieee754_8cc.html#a7cf126dbeb6f30c606e3b42fea65cfef">one</a>, <a class="el" href="base_2ieee754_8cc_source.html#l00089">SET_HIGH_WORD</a>, <a class="el" href="clamped__math__impl_8h_source.html#l00077">v8::base::internal::y</a>, and <a class="el" href="assembler-ia32_8h_source.html#l00079">v8::internal::zero</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="code-generator-arm_8cc_source.html#l00653">v8::internal::compiler::CodeGenerator::AssembleArchInstruction()</a>, <a class="el" href="numbers_2ieee754_8cc_source.html#l00014">v8::internal::math::pow()</a>, and <a class="el" href="typer_8h_source.html#l00899">v8::internal::compiler::turboshaft::FloatOperationTyper&lt; Bits &gt;::Power()</a>.</p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacev8_1_1base_1_1ieee754_1_1legacy_a38ce2f0948bf7d73347a9920cbdc0208_cgraph.svg" width="331" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacev8_1_1base_1_1ieee754_1_1legacy_a38ce2f0948bf7d73347a9920cbdc0208_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -128,7 +422,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacev8.html">v8</a></li><li class="navelem"><a class="el" href="namespacev8_1_1base.html">base</a></li><li class="navelem"><a class="el" href="namespacev8_1_1base_1_1ieee754.html">ieee754</a></li><li class="navelem"><a class="el" href="namespacev8_1_1base_1_1ieee754_1_1legacy.html">legacy</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:43:03 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jun 12 2025 16:02:23 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

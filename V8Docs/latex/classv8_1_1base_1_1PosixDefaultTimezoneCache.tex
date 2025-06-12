@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::base\+::Posix\+Default\+Timezone\+Cache\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=254pt]{classv8_1_1base_1_1PosixDefaultTimezoneCache__inherit__graph}
+\includegraphics[width=264pt]{classv8_1_1base_1_1PosixDefaultTimezoneCache__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::base\+::Posix\+Default\+Timezone\+Cache\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=307pt]{classv8_1_1base_1_1PosixDefaultTimezoneCache__coll__graph}
+\includegraphics[width=314pt]{classv8_1_1base_1_1PosixDefaultTimezoneCache__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -34,6 +34,13 @@ double \mbox{\hyperlink{classv8_1_1base_1_1PosixDefaultTimezoneCache_ab9afa7048a
 \mbox{\hyperlink{classv8_1_1base_1_1PosixDefaultTimezoneCache_a850a50c4ee923e81d75e2c5a83e05166}{$\sim$\+Posix\+Default\+Timezone\+Cache}} () override=default
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 13 of file platform-\/posix-\/time.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -56,6 +63,37 @@ double \mbox{\hyperlink{classv8_1_1base_1_1PosixDefaultTimezoneCache_ab9afa7048a
 
 Implements \mbox{\hyperlink{classv8_1_1base_1_1TimezoneCache_a2be33f35f345692c7f667c1049d0a8aa}{v8\+::base\+::\+Timezone\+Cache}}.
 
+
+
+Definition at line 21 of file platform-\/posix-\/time.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21                                                                              \{}
+\DoxyCodeLine{22   \textcolor{comment}{// Preserve the old behavior for non-\/ICU implementation by ignoring both}}
+\DoxyCodeLine{23   \textcolor{comment}{// time\_ms and is\_utc.}}
+\DoxyCodeLine{24   time\_t tv = \mbox{\hyperlink{flag-definitions_8h_a35294ca6f34ba906adefe31b21e5b765}{time}}(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{25   \textcolor{keyword}{struct }tm tm;}
+\DoxyCodeLine{26   \textcolor{keyword}{struct }tm* t = localtime\_r(\&tv, \&tm);}
+\DoxyCodeLine{27   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(t);}
+\DoxyCodeLine{28   \textcolor{comment}{// tm\_gmtoff includes any daylight savings offset, so subtract it.}}
+\DoxyCodeLine{29   \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(t-\/>tm\_gmtoff * \mbox{\hyperlink{classv8_1_1base_1_1PosixTimezoneCache_aec984ac734484b7002e060761844519d}{msPerSecond}} -\/}
+\DoxyCodeLine{30                              (t-\/>tm\_isdst > 0 ? 3600 * \mbox{\hyperlink{classv8_1_1base_1_1PosixTimezoneCache_aec984ac734484b7002e060761844519d}{msPerSecond}} : 0));}
+\DoxyCodeLine{31 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+NOT\+\_\+\+NULL, v8\+::base\+::\+Posix\+Timezone\+Cache\+::ms\+Per\+Second, and time().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{classv8_1_1base_1_1PosixDefaultTimezoneCache_ab9afa7048aab1f4e1e25ae73e6d769d8_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1base_1_1PosixDefaultTimezoneCache_a871cda7beebceab5cdd4be2a19dba774}\label{classv8_1_1base_1_1PosixDefaultTimezoneCache_a871cda7beebceab5cdd4be2a19dba774}} 
 \index{v8::base::PosixDefaultTimezoneCache@{v8::base::PosixDefaultTimezoneCache}!LocalTimezone@{LocalTimezone}}
 \index{LocalTimezone@{LocalTimezone}!v8::base::PosixDefaultTimezoneCache@{v8::base::PosixDefaultTimezoneCache}}
@@ -68,7 +106,35 @@ Implements \mbox{\hyperlink{classv8_1_1base_1_1TimezoneCache_a9ba134992875f89981
 
 
 
+Definition at line 12 of file platform-\/posix-\/time.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{12                                                                 \{}
+\DoxyCodeLine{13   \textcolor{keywordflow}{if} (std::isnan(\mbox{\hyperlink{flag-definitions_8h_a35294ca6f34ba906adefe31b21e5b765}{time}})) \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{14   time\_t tv = \textcolor{keyword}{static\_cast<}time\_t\textcolor{keyword}{>}(std::floor(\mbox{\hyperlink{flag-definitions_8h_a35294ca6f34ba906adefe31b21e5b765}{time}} / \mbox{\hyperlink{classv8_1_1base_1_1PosixTimezoneCache_aec984ac734484b7002e060761844519d}{msPerSecond}}));}
+\DoxyCodeLine{15   \textcolor{keyword}{struct }tm tm;}
+\DoxyCodeLine{16   \textcolor{keyword}{struct }tm* t = localtime\_r(\&tv, \&tm);}
+\DoxyCodeLine{17   \textcolor{keywordflow}{if} (!t || !t-\/>tm\_zone) \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{18   \textcolor{keywordflow}{return} t-\/>tm\_zone;}
+\DoxyCodeLine{19 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Posix\+Timezone\+Cache\+::ms\+Per\+Second, and time().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{classv8_1_1base_1_1PosixDefaultTimezoneCache_a871cda7beebceab5cdd4be2a19dba774_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{platform-posix-time_8h}{platform-\/posix-\/time.\+h}}\item 
-\mbox{\hyperlink{platform-posix-time_8cc}{platform-\/posix-\/time.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/base/platform/\mbox{\hyperlink{platform-posix-time_8h}{platform-\/posix-\/time.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/base/platform/\mbox{\hyperlink{platform-posix-time_8cc}{platform-\/posix-\/time.\+cc}}\end{DoxyCompactItemize}

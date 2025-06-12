@@ -1,10 +1,27 @@
 \hypertarget{structv8_1_1internal_1_1compiler_1_1GraphBuilderPhase}{}\doxysection{v8\+::internal\+::compiler\+::Graph\+Builder\+Phase Struct Reference}
 \label{structv8_1_1internal_1_1compiler_1_1GraphBuilderPhase}\index{v8::internal::compiler::GraphBuilderPhase@{v8::internal::compiler::GraphBuilderPhase}}
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Graph\+Builder\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{structv8_1_1internal_1_1compiler_1_1GraphBuilderPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1GraphBuilderPhase_afd9581517911c0ad72d7a90ddd0a897b}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Linkage}{Linkage}} $\ast$\mbox{\hyperlink{graph-builder_8cc_af97d4be930be06ad1e71c0c6a130dcff}{linkage}})
+void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1GraphBuilderPhase_afd9581517911c0ad72d7a90ddd0a897b}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Linkage}{Linkage}} $\ast$linkage)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 854 of file pipeline.\+cc.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -16,6 +33,60 @@ void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1GraphBuilderPhase_afd9
 
 
 
+Definition at line 857 of file pipeline.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{857                                                                     \{}
+\DoxyCodeLine{858     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a7bda2f37caaadb3773735e5adc7f595f}{BytecodeGraphBuilderFlags}} \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}};}
+\DoxyCodeLine{859     \textcolor{keywordflow}{if} (data-\/>info()-\/>analyze\_environment\_liveness()) \{}
+\DoxyCodeLine{860       \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}} |= \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_afbf0ee3011f68c924a3a729f1739f938ae0d0819b5646bf8c2f016d513d7dca31}{BytecodeGraphBuilderFlag::kAnalyzeEnvironmentLiveness}};}
+\DoxyCodeLine{861     \}}
+\DoxyCodeLine{862     \textcolor{keywordflow}{if} (data-\/>info()-\/>bailout\_on\_uninitialized()) \{}
+\DoxyCodeLine{863       \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}} |= \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_afbf0ee3011f68c924a3a729f1739f938af0e2a97331dc47c7e77564ce1b32bb00}{BytecodeGraphBuilderFlag::kBailoutOnUninitialized}};}
+\DoxyCodeLine{864     \}}
+\DoxyCodeLine{865 }
+\DoxyCodeLine{866     JSHeapBroker* \mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}} = data-\/>broker();}
+\DoxyCodeLine{867     UnparkedScopeIfNeeded scope(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}});}
+\DoxyCodeLine{868     SharedFunctionInfoRef sfi\_ref =}
+\DoxyCodeLine{869         \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a07fc62c815cf253248770b0a3627b0e1}{MakeRef}}(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, data-\/>info()-\/>closure()-\/>shared());}
+\DoxyCodeLine{870     FeedbackCellRef feedback\_cell\_ref =}
+\DoxyCodeLine{871         \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a07fc62c815cf253248770b0a3627b0e1}{MakeRef}}(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, data-\/>info()-\/>closure()-\/>raw\_feedback\_cell());}
+\DoxyCodeLine{872     BytecodeArrayRef bytecode = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a07fc62c815cf253248770b0a3627b0e1}{MakeRef}}(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, data-\/>info()-\/>bytecode\_array());}
+\DoxyCodeLine{873     CallFrequency frequency(1.0f);}
+\DoxyCodeLine{874     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac18a1984c136521f73df9e23f74d1b1f}{BuildGraphFromBytecode}}(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, temp\_zone, sfi\_ref, bytecode,}
+\DoxyCodeLine{875                            feedback\_cell\_ref, data-\/>info()-\/>osr\_offset(),}
+\DoxyCodeLine{876                            data-\/>jsgraph(), frequency, data-\/>source\_positions(),}
+\DoxyCodeLine{877                            data-\/>node\_origins(), \mbox{\hyperlink{classv8_1_1internal_1_1SourcePosition_a82ff8870419b8c79f71ed1093390b277}{SourcePosition::kNotInlined}},}
+\DoxyCodeLine{878                            data-\/>info()-\/>code\_kind(), \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}},}
+\DoxyCodeLine{879                            \&data-\/>info()-\/>tick\_counter(),}
+\DoxyCodeLine{880                            ObserveNodeInfo\{data-\/>observe\_node\_manager(),}
+\DoxyCodeLine{881                                            data-\/>info()-\/>node\_observer()\});}
+\DoxyCodeLine{882 }
+\DoxyCodeLine{883     \textcolor{comment}{// We need to be certain that the parameter count reported by our output}}
+\DoxyCodeLine{884     \textcolor{comment}{// Code object matches what the code we compile expects. Otherwise, this}}
+\DoxyCodeLine{885     \textcolor{comment}{// may lead to effectively signature mismatches during function calls. This}}
+\DoxyCodeLine{886     \textcolor{comment}{// CHECK is a defense-\/in-\/depth measure to ensure this doesn't happen.}}
+\DoxyCodeLine{887     \mbox{\hyperlink{check_8h_a6e67d209c0a0c9c55b7b563275f63bdd}{SBXCHECK\_EQ}}(}
+\DoxyCodeLine{888         StartNode(data-\/>jsgraph()-\/>graph()-\/>start()).FormalParameterCount(),}
+\DoxyCodeLine{889         linkage-\/>GetIncomingDescriptor()-\/>ParameterSlotCount());}
+\DoxyCodeLine{890   \}}
+
+\end{DoxyCode}
+
+
+References broker(), v8\+::internal\+::compiler\+::\+Build\+Graph\+From\+Bytecode(), v8\+::internal\+::flags, v8\+::internal\+::compiler\+::\+Start\+Node\+::\+Formal\+Parameter\+Count(), v8\+::internal\+::compiler\+::k\+Analyze\+Environment\+Liveness, v8\+::internal\+::compiler\+::k\+Bailout\+On\+Uninitialized, v8\+::internal\+::\+Source\+Position\+::k\+Not\+Inlined, v8\+::internal\+::compiler\+::\+Make\+Ref(), and SBXCHECK\+\_\+\+EQ.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1GraphBuilderPhase_afd9581517911c0ad72d7a90ddd0a897b_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}

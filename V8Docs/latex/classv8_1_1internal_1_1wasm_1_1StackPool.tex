@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$stacks.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::wasm\+::Stack\+Pool\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1wasm_1_1StackPool__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -15,6 +25,25 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackM
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_ad2958d0d52eeafef517bbe3ed83e1fc5}{Size}} () const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackMemory}{Stack\+Memory}} $>$ $>$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_aa76235b74074071679feb84c63f15f79}{freelist\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_a7cf63697bcbefbeec290e1c05ddc16bc}{size\+\_\+}} = 0
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_adccc76d8affd01ba18e00ab7d39aa404}{k\+Max\+Size}} = 4 $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_af46551c5713d2a3a1be4dca973e521e0}{MB}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 235 of file stacks.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -24,17 +53,92 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackM
 \doxysubsubsection{\texorpdfstring{Add()}{Add()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_ac81d27d6edb00aeed62a3e4745b8cba0}{void}} v8\+::internal\+::wasm\+::\+Stack\+Pool\+::\+Add (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackMemory}{Stack\+Memory}} $>$}]{stack }\end{DoxyParamCaption})}
 
+
+
+Definition at line 204 of file stacks.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{204                                                     \{}
+\DoxyCodeLine{205   \textcolor{comment}{// Add the stack to the pool regardless of kMaxSize, because the stack might}}
+\DoxyCodeLine{206   \textcolor{comment}{// still be in use by the unwinder.}}
+\DoxyCodeLine{207   \textcolor{comment}{// Shrink the freelist lazily when we get the next stack instead.}}
+\DoxyCodeLine{208   \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_a7cf63697bcbefbeec290e1c05ddc16bc}{size\_}} += \mbox{\hyperlink{namespacev8_1_1internal_a2e748ee13f84c923e077d341045b1212}{stack}}-\/>allocated\_size();}
+\DoxyCodeLine{209   \mbox{\hyperlink{namespacev8_1_1internal_a2e748ee13f84c923e077d341045b1212}{stack}}-\/>Reset();}
+\DoxyCodeLine{210   \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_aa76235b74074071679feb84c63f15f79}{freelist\_}}.push\_back(std::move(\mbox{\hyperlink{namespacev8_1_1internal_a2e748ee13f84c923e077d341045b1212}{stack}}));}
+\DoxyCodeLine{211 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::wasm\+::\+Stack\+Memory\+::size\+\_\+, and v8\+::internal\+::stack.
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1StackPool_a4eae3536a46ff273fb08582aaacc8444}\label{classv8_1_1internal_1_1wasm_1_1StackPool_a4eae3536a46ff273fb08582aaacc8444}} 
 \index{v8::internal::wasm::StackPool@{v8::internal::wasm::StackPool}!GetOrAllocate@{GetOrAllocate}}
 \index{GetOrAllocate@{GetOrAllocate}!v8::internal::wasm::StackPool@{v8::internal::wasm::StackPool}}
 \doxysubsubsection{\texorpdfstring{GetOrAllocate()}{GetOrAllocate()}}
 {\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackMemory}{Stack\+Memory}} $>$ v8\+::internal\+::wasm\+::\+Stack\+Pool\+::\+Get\+Or\+Allocate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 184 of file stacks.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{184                                                     \{}
+\DoxyCodeLine{185   \textcolor{keywordflow}{while} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_a7cf63697bcbefbeec290e1c05ddc16bc}{size\_}} > \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_adccc76d8affd01ba18e00ab7d39aa404}{kMaxSize}}) \{}
+\DoxyCodeLine{186     \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_a7cf63697bcbefbeec290e1c05ddc16bc}{size\_}} -\/= \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_aa76235b74074071679feb84c63f15f79}{freelist\_}}.back()-\/>allocated\_size();}
+\DoxyCodeLine{187     \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_aa76235b74074071679feb84c63f15f79}{freelist\_}}.pop\_back();}
+\DoxyCodeLine{188   \}}
+\DoxyCodeLine{189   std::unique\_ptr<StackMemory> \mbox{\hyperlink{namespacev8_1_1internal_a2e748ee13f84c923e077d341045b1212}{stack}};}
+\DoxyCodeLine{190   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_aa76235b74074071679feb84c63f15f79}{freelist\_}}.empty()) \{}
+\DoxyCodeLine{191     \mbox{\hyperlink{namespacev8_1_1internal_a2e748ee13f84c923e077d341045b1212}{stack}} = \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackMemory_a2bda32994f9447cee222a5df886396df}{StackMemory::New}}();}
+\DoxyCodeLine{192   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{193     \mbox{\hyperlink{namespacev8_1_1internal_a2e748ee13f84c923e077d341045b1212}{stack}} = std::move(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_aa76235b74074071679feb84c63f15f79}{freelist\_}}.back());}
+\DoxyCodeLine{194     \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_aa76235b74074071679feb84c63f15f79}{freelist\_}}.pop\_back();}
+\DoxyCodeLine{195     \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_a7cf63697bcbefbeec290e1c05ddc16bc}{size\_}} -\/= \mbox{\hyperlink{namespacev8_1_1internal_a2e748ee13f84c923e077d341045b1212}{stack}}-\/>allocated\_size();}
+\DoxyCodeLine{196   \}}
+\DoxyCodeLine{197 \textcolor{preprocessor}{\#if DEBUG}}
+\DoxyCodeLine{198   constexpr uint8\_t \mbox{\hyperlink{namespacev8_1_1internal_a82c1746016699f0092cef67ba2e71956}{kZapValue}} = 0xab;}
+\DoxyCodeLine{199   \mbox{\hyperlink{namespacev8_1_1internal_a2e748ee13f84c923e077d341045b1212}{stack}}-\/>FillWith(\mbox{\hyperlink{namespacev8_1_1internal_a82c1746016699f0092cef67ba2e71956}{kZapValue}});}
+\DoxyCodeLine{200 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{201   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a2e748ee13f84c923e077d341045b1212}{stack}};}
+\DoxyCodeLine{202 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::k\+Zap\+Value, v8\+::internal\+::wasm\+::\+Stack\+Memory\+::\+New(), v8\+::internal\+::wasm\+::\+Stack\+Memory\+::size\+\_\+, and v8\+::internal\+::stack.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1StackPool_a4eae3536a46ff273fb08582aaacc8444_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1StackPool_af594a411b261e73c13054b2618486c10}\label{classv8_1_1internal_1_1wasm_1_1StackPool_af594a411b261e73c13054b2618486c10}} 
 \index{v8::internal::wasm::StackPool@{v8::internal::wasm::StackPool}!ReleaseFinishedStacks@{ReleaseFinishedStacks}}
 \index{ReleaseFinishedStacks@{ReleaseFinishedStacks}!v8::internal::wasm::StackPool@{v8::internal::wasm::StackPool}}
 \doxysubsubsection{\texorpdfstring{ReleaseFinishedStacks()}{ReleaseFinishedStacks()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_ac81d27d6edb00aeed62a3e4745b8cba0}{void}} v8\+::internal\+::wasm\+::\+Stack\+Pool\+::\+Release\+Finished\+Stacks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 213 of file stacks.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{213                                       \{}
+\DoxyCodeLine{214   \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_a7cf63697bcbefbeec290e1c05ddc16bc}{size\_}} = 0;}
+\DoxyCodeLine{215   \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_aa76235b74074071679feb84c63f15f79}{freelist\_}}.clear();}
+\DoxyCodeLine{216 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::wasm\+::\+Stack\+Memory\+::size\+\_\+.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1StackPool_ad2958d0d52eeafef517bbe3ed83e1fc5}\label{classv8_1_1internal_1_1wasm_1_1StackPool_ad2958d0d52eeafef517bbe3ed83e1fc5}} 
 \index{v8::internal::wasm::StackPool@{v8::internal::wasm::StackPool}!Size@{Size}}
@@ -44,7 +148,63 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackM
 
 
 
+Definition at line 218 of file stacks.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{218                              \{}
+\DoxyCodeLine{219   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_aa76235b74074071679feb84c63f15f79}{freelist\_}}.size() * \textcolor{keyword}{sizeof}(decltype(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_aa76235b74074071679feb84c63f15f79}{freelist\_}})::\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a0dc6377b617bf569ed28973352a44899}{value\_type}}) + \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackPool_a7cf63697bcbefbeec290e1c05ddc16bc}{size\_}};}
+\DoxyCodeLine{220 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::wasm\+::\+Stack\+Memory\+::size\+\_\+, and v8\+::internal\+::wasm\+::value\+\_\+type().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1StackPool_ad2958d0d52eeafef517bbe3ed83e1fc5_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1StackPool_aa76235b74074071679feb84c63f15f79}\label{classv8_1_1internal_1_1wasm_1_1StackPool_aa76235b74074071679feb84c63f15f79}} 
+\index{v8::internal::wasm::StackPool@{v8::internal::wasm::StackPool}!freelist\_@{freelist\_}}
+\index{freelist\_@{freelist\_}!v8::internal::wasm::StackPool@{v8::internal::wasm::StackPool}}
+\doxysubsubsection{\texorpdfstring{freelist\_}{freelist\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1StackMemory}{Stack\+Memory}}$>$ $>$ v8\+::internal\+::wasm\+::\+Stack\+Pool\+::freelist\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 246 of file stacks.\+h.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1StackPool_adccc76d8affd01ba18e00ab7d39aa404}\label{classv8_1_1internal_1_1wasm_1_1StackPool_adccc76d8affd01ba18e00ab7d39aa404}} 
+\index{v8::internal::wasm::StackPool@{v8::internal::wasm::StackPool}!kMaxSize@{kMaxSize}}
+\index{kMaxSize@{kMaxSize}!v8::internal::wasm::StackPool@{v8::internal::wasm::StackPool}}
+\doxysubsubsection{\texorpdfstring{kMaxSize}{kMaxSize}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classint}{int}} v8\+::internal\+::wasm\+::\+Stack\+Pool\+::k\+Max\+Size = 4 $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_af46551c5713d2a3a1be4dca973e521e0}{MB}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [private]}}
+
+
+
+Definition at line 250 of file stacks.\+h.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1StackPool_a7cf63697bcbefbeec290e1c05ddc16bc}\label{classv8_1_1internal_1_1wasm_1_1StackPool_a7cf63697bcbefbeec290e1c05ddc16bc}} 
+\index{v8::internal::wasm::StackPool@{v8::internal::wasm::StackPool}!size\_@{size\_}}
+\index{size\_@{size\_}!v8::internal::wasm::StackPool@{v8::internal::wasm::StackPool}}
+\doxysubsubsection{\texorpdfstring{size\_}{size\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::wasm\+::\+Stack\+Pool\+::size\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 247 of file stacks.\+h.
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{stacks_8h}{stacks.\+h}}\item 
-\mbox{\hyperlink{stacks_8cc}{stacks.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{stacks_8h}{stacks.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{stacks_8cc}{stacks.\+cc}}\end{DoxyCompactItemize}

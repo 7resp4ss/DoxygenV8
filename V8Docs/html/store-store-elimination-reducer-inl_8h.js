@@ -2,6 +2,7 @@ var store_store_elimination_reducer_inl_8h =
 [
     [ "MaybeRedundantStoresKeyData", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1MaybeRedundantStoresKeyData.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1MaybeRedundantStoresKeyData" ],
     [ "MaybeRedundantStoresTable", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1MaybeRedundantStoresTable.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1MaybeRedundantStoresTable" ],
+    [ "GetActiveKeysIndex", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1MaybeRedundantStoresTable_1_1GetActiveKeysIndex.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1MaybeRedundantStoresTable_1_1GetActiveKeysIndex" ],
     [ "RedundantStoreAnalysis", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RedundantStoreAnalysis.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RedundantStoreAnalysis" ],
     [ "StoreStoreEliminationReducer", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StoreStoreEliminationReducer.html", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StoreStoreEliminationReducer" ],
     [ "StoreObservability", "store-store-elimination-reducer-inl_8h.html#ae9cfb0cbf25995854a5afe27c051ff91", [

@@ -1,5 +1,22 @@
 var runtime_classes_8cc =
 [
+    [ "SuperMode", "runtime-classes_8cc.html#a820f3fc0c464a12848e3f9c4b6dfd3cc", [
+      [ "kLoad", "runtime-classes_8cc.html#a820f3fc0c464a12848e3f9c4b6dfd3ccae40d6c82a1a5f5a163aca43efa5e444a", null ],
+      [ "kStore", "runtime-classes_8cc.html#a820f3fc0c464a12848e3f9c4b6dfd3cca7a2153137630bc6255f57e97c5454d2c", null ]
+    ] ],
+    [ "AddDescriptorsByTemplate", "runtime-classes_8cc.html#ac72cc2319d409ffd883663597cfdfbac", null ],
+    [ "AddDescriptorsByTemplate", "runtime-classes_8cc.html#aa4c2f66733d76a5f2239458a1d701469", null ],
+    [ "CreateClassPrototype", "runtime-classes_8cc.html#aed4c93837950cbd6baffb1276da1e4b1", null ],
+    [ "DefineClass", "runtime-classes_8cc.html#a309ff42e4b32f602a56fd8fd80305933", null ],
+    [ "GetHomeObjectPrototype", "runtime-classes_8cc.html#acf3f80530bc6bc3777a5500e9ca66c51", null ],
+    [ "GetMethodAndSetName", "runtime-classes_8cc.html#aecf4bfeb4938a3fa61818fe96f3c5263", null ],
+    [ "GetMethodWithSharedName", "runtime-classes_8cc.html#a7eab351f792deb609479353ae71402c6", null ],
+    [ "GetSuperHolder", "runtime-classes_8cc.html#a691567f2a530b47ad50908d8de65a9fd", null ],
+    [ "InitClassConstructor", "runtime-classes_8cc.html#a530ad05e7ced7dda698f746e33b54dc5", null ],
+    [ "InitClassPrototype", "runtime-classes_8cc.html#adcda8a35a805b2b234382a3fafebc97b", null ],
+    [ "KeyToName", "runtime-classes_8cc.html#af44777362a0073fd89bceeef0f21730a", null ],
+    [ "KeyToName< NumberDictionary >", "runtime-classes_8cc.html#ac77ecdba316a3d3837601c7f6cab2010", null ],
+    [ "LoadFromSuper", "runtime-classes_8cc.html#a8071f9f69c70a9b5436010a5a3f13eb0", null ],
     [ "RUNTIME_FUNCTION", "runtime-classes_8cc.html#ab0625b0d9f07360729658421f5c9eb06", null ],
     [ "RUNTIME_FUNCTION", "runtime-classes_8cc.html#ac1e47070502671f726576e0e8991b2b9", null ],
     [ "RUNTIME_FUNCTION", "runtime-classes_8cc.html#a40083088a9cc413a905b46b98deb7f47", null ],
@@ -10,5 +27,13 @@ var runtime_classes_8cc =
     [ "RUNTIME_FUNCTION", "runtime-classes_8cc.html#aa70221203f23842d6a563927640c47fe", null ],
     [ "RUNTIME_FUNCTION", "runtime-classes_8cc.html#a1b4437073cf3593fb0ab2a7022c9774e", null ],
     [ "RUNTIME_FUNCTION", "runtime-classes_8cc.html#a7cd4d7271076189a49a958cc09186d10", null ],
-    [ "RUNTIME_FUNCTION", "runtime-classes_8cc.html#ad12cc9da0692e3e9ae8907cd0412cb37", null ]
+    [ "RUNTIME_FUNCTION", "runtime-classes_8cc.html#ad12cc9da0692e3e9ae8907cd0412cb37", null ],
+    [ "ShallowCopyDictionaryTemplate", "runtime-classes_8cc.html#a0364047380b02e3f15b4448eccb420f3", null ],
+    [ "StoreToSuper", "runtime-classes_8cc.html#a3b5910cc3b74ea4a3a9099627e14132a", null ],
+    [ "SubstituteValues", "runtime-classes_8cc.html#a8ddd245f6b0add3c351ef27f87df0122", null ],
+    [ "ThrowNotSuperConstructor", "runtime-classes_8cc.html#a62e00c9d151f02604a327dba1f5682bf", null ],
+    [ "ToHandle", "runtime-classes_8cc.html#a04b3f9639ef252ee7faea97e44013b3b", null ],
+    [ "ToHandle", "runtime-classes_8cc.html#a69f1a27eaa3f138dd5348d944efd17d5", null ],
+    [ "UpdateProtectors", "runtime-classes_8cc.html#ae0728a977102604fd0b30a4624268262", null ],
+    [ "UpdateProtectors", "runtime-classes_8cc.html#a446ab9b6e52a03f95434604db295c696", null ]
 ];

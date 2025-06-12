@@ -1,0 +1,142 @@
+\hypertarget{namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02value-type_8cc_03}{}\doxysection{v8\+::internal\+::wasm\+::anonymous\+\_\+namespace\{value-\/type.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02value-type_8cc_03}\index{v8::internal::wasm::anonymous\_namespace\lcurly{}value-\/type.cc\rcurly{}@{v8::internal::wasm::anonymous\_namespace\lcurly{}value-\/type.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_ac81d27d6edb00aeed62a3e4745b8cba0}{void}} \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02value-type_8cc_03_a6031ca6dc513978614ee41e37f0b0e25}{Print\+Generic\+Heaptype\+Name}} (std\+::ostringstream \&buf, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1ValueTypeBase}{Value\+Type\+Base}} type)
+\item 
+const \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a1a17c60bc1e8b8ad11208d7b0d3ec5a9}{wasm\+::\+Function\+Sig}} $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02value-type_8cc_03_ab42a9d93c8ce7052ff77945246367d87}{Replace\+Type\+In\+Sig}} (\mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$zone, const \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a1a17c60bc1e8b8ad11208d7b0d3ec5a9}{wasm\+::\+Function\+Sig}} $\ast$\mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1ValueType}{wasm\+::\+Value\+Type}} from, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1ValueType}{wasm\+::\+Value\+Type}} to, \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} num\+\_\+replacements)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02value-type_8cc_03_a6031ca6dc513978614ee41e37f0b0e25}\label{namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02value-type_8cc_03_a6031ca6dc513978614ee41e37f0b0e25}} 
+\index{v8::internal::wasm::anonymous\_namespace\lcurly{}value-\/type.cc\rcurly{}@{v8::internal::wasm::anonymous\_namespace\lcurly{}value-\/type.cc\rcurly{}}!PrintGenericHeaptypeName@{PrintGenericHeaptypeName}}
+\index{PrintGenericHeaptypeName@{PrintGenericHeaptypeName}!v8::internal::wasm::anonymous\_namespace\lcurly{}value-\/type.cc\rcurly{}@{v8::internal::wasm::anonymous\_namespace\lcurly{}value-\/type.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{PrintGenericHeaptypeName()}{PrintGenericHeaptypeName()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_ac81d27d6edb00aeed62a3e4745b8cba0}{void}} v8\+::internal\+::wasm\+::anonymous\+\_\+namespace\{\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}-\/type.\+cc\}\+::Print\+Generic\+Heaptype\+Name (\begin{DoxyParamCaption}\item[{std\+::ostringstream \&}]{buf,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1ValueTypeBase}{Value\+Type\+Base}}}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line 88 of file value-\/type.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{88                                                                          \{}
+\DoxyCodeLine{89   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_1_1tracing_a96000282e12b2483531025283d63154d}{type}}.is\_generic());}
+\DoxyCodeLine{90   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1tracing_a96000282e12b2483531025283d63154d}{type}}.is\_nullable()) \{}
+\DoxyCodeLine{91     \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a34b51d9d35892e86213da2dc376431ec}{GenericKind}} kind = \mbox{\hyperlink{namespacev8_1_1internal_1_1tracing_a96000282e12b2483531025283d63154d}{type}}.generic\_kind();}
+\DoxyCodeLine{92     \textcolor{keywordflow}{if} (kind == GenericKind::kNone) \{}
+\DoxyCodeLine{93       \textcolor{comment}{// The code below would produce "{}noneref"{}, and we need to keep it}}
+\DoxyCodeLine{94       \textcolor{comment}{// that way for "{}(ref none)"{}, so we need this special case.}}
+\DoxyCodeLine{95       buf << (\mbox{\hyperlink{namespacev8_1_1internal_1_1tracing_a96000282e12b2483531025283d63154d}{type}}.is\_shared() ? \textcolor{stringliteral}{"{}(shared nullref)"{}} : \textcolor{stringliteral}{"{}nullref"{}});}
+\DoxyCodeLine{96       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{97     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (kind == GenericKind::kNoExn) \{}
+\DoxyCodeLine{98       buf << (\mbox{\hyperlink{namespacev8_1_1internal_1_1tracing_a96000282e12b2483531025283d63154d}{type}}.is\_shared() ? \textcolor{stringliteral}{"{}(shared nullexnref)"{}} : \textcolor{stringliteral}{"{}nullexnref"{}});}
+\DoxyCodeLine{99       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{100     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (kind == GenericKind::kNoExtern) \{}
+\DoxyCodeLine{101       buf << (\mbox{\hyperlink{namespacev8_1_1internal_1_1tracing_a96000282e12b2483531025283d63154d}{type}}.is\_shared() ? \textcolor{stringliteral}{"{}(shared nullexternref)"{}} : \textcolor{stringliteral}{"{}nullexternref"{}});}
+\DoxyCodeLine{102       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{103     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (kind == GenericKind::kNoFunc) \{}
+\DoxyCodeLine{104       buf << (\mbox{\hyperlink{namespacev8_1_1internal_1_1tracing_a96000282e12b2483531025283d63154d}{type}}.is\_shared() ? \textcolor{stringliteral}{"{}(shared nullfuncref)"{}} : \textcolor{stringliteral}{"{}nullfuncref"{}});}
+\DoxyCodeLine{105       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{106     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (kind == GenericKind::kNoCont) \{}
+\DoxyCodeLine{107       buf << (\mbox{\hyperlink{namespacev8_1_1internal_1_1tracing_a96000282e12b2483531025283d63154d}{type}}.is\_shared() ? \textcolor{stringliteral}{"{}(shared nullcontref)"{}} : \textcolor{stringliteral}{"{}nullcontref"{}});}
+\DoxyCodeLine{108       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{109     \}}
+\DoxyCodeLine{110   \}}
+\DoxyCodeLine{111   buf << \mbox{\hyperlink{namespacev8_1_1internal_1_1tracing_a96000282e12b2483531025283d63154d}{type}}.generic\_heaptype\_name();}
+\DoxyCodeLine{112 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), and v8\+::internal\+::tracing\+::type.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Value\+Type\+Base\+::name().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02value-type_8cc_03_a6031ca6dc513978614ee41e37f0b0e25_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02value-type_8cc_03_a6031ca6dc513978614ee41e37f0b0e25_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02value-type_8cc_03_ab42a9d93c8ce7052ff77945246367d87}\label{namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02value-type_8cc_03_ab42a9d93c8ce7052ff77945246367d87}} 
+\index{v8::internal::wasm::anonymous\_namespace\lcurly{}value-\/type.cc\rcurly{}@{v8::internal::wasm::anonymous\_namespace\lcurly{}value-\/type.cc\rcurly{}}!ReplaceTypeInSig@{ReplaceTypeInSig}}
+\index{ReplaceTypeInSig@{ReplaceTypeInSig}!v8::internal::wasm::anonymous\_namespace\lcurly{}value-\/type.cc\rcurly{}@{v8::internal::wasm::anonymous\_namespace\lcurly{}value-\/type.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ReplaceTypeInSig()}{ReplaceTypeInSig()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a1a17c60bc1e8b8ad11208d7b0d3ec5a9}{wasm\+::\+Function\+Sig}}$\ast$ v8\+::internal\+::wasm\+::anonymous\+\_\+namespace\{\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}-\/type.\+cc\}\+::Replace\+Type\+In\+Sig (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$}]{zone,  }\item[{const \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a1a17c60bc1e8b8ad11208d7b0d3ec5a9}{wasm\+::\+Function\+Sig}} $\ast$}]{sig,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1ValueType}{wasm\+::\+Value\+Type}}}]{from,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1ValueType}{wasm\+::\+Value\+Type}}}]{to,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{num\+\_\+replacements }\end{DoxyParamCaption})}
+
+
+
+Definition at line 200 of file value-\/type.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{204                                                                    \{}
+\DoxyCodeLine{205   \textcolor{keywordtype}{size\_t} param\_occurences =}
+\DoxyCodeLine{206       std::count(\mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}-\/>parameters().begin(), \mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}-\/>parameters().end(), from);}
+\DoxyCodeLine{207   \textcolor{keywordtype}{size\_t} return\_occurences =}
+\DoxyCodeLine{208       std::count(\mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}-\/>returns().begin(), \mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}-\/>returns().end(), from);}
+\DoxyCodeLine{209   \textcolor{keywordflow}{if} (param\_occurences == 0 \&\& return\_occurences == 0) \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}};}
+\DoxyCodeLine{210 }
+\DoxyCodeLine{211   wasm::FunctionSig::Builder builder(}
+\DoxyCodeLine{212       zone, \mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}-\/>return\_count() + return\_occurences * (num\_replacements -\/ 1),}
+\DoxyCodeLine{213       \mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}-\/>parameter\_count() + param\_occurences * (num\_replacements -\/ 1));}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215   \textcolor{keywordflow}{for} (wasm::ValueType ret : \mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}-\/>returns()) \{}
+\DoxyCodeLine{216     \textcolor{keywordflow}{if} (ret == from) \{}
+\DoxyCodeLine{217       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < num\_replacements; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) builder.AddReturn(to);}
+\DoxyCodeLine{218     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{219       builder.AddReturn(ret);}
+\DoxyCodeLine{220     \}}
+\DoxyCodeLine{221   \}}
+\DoxyCodeLine{222 }
+\DoxyCodeLine{223   \textcolor{keywordflow}{for} (wasm::ValueType param : \mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}-\/>parameters()) \{}
+\DoxyCodeLine{224     \textcolor{keywordflow}{if} (param == from) \{}
+\DoxyCodeLine{225       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < num\_replacements; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) builder.AddParam(to);}
+\DoxyCodeLine{226     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{227       builder.AddParam(param);}
+\DoxyCodeLine{228     \}}
+\DoxyCodeLine{229   \}}
+\DoxyCodeLine{230 }
+\DoxyCodeLine{231   \textcolor{keywordflow}{return} builder.Get();}
+\DoxyCodeLine{232 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Signature\+Builder$<$ Sig\+T, T $>$\+::\+Add\+Param(), v8\+::internal\+::\+Signature\+Builder$<$ Sig\+T, T $>$\+::\+Add\+Return(), v8\+::internal\+::\+Signature\+Builder$<$ Sig\+T, T $>$\+::\+Get(), and v8\+::internal\+::sig.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Get\+I32\+Sig().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02value-type_8cc_03_ab42a9d93c8ce7052ff77945246367d87_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02value-type_8cc_03_ab42a9d93c8ce7052ff77945246367d87_icgraph}
+\end{center}
+\end{figure}

@@ -14,5 +14,8 @@ var builtins_object_8cc =
     [ "BUILTIN", "builtins-object_8cc.html#a0d6eec8af300b42c86bddfebf8a6822b", null ],
     [ "BUILTIN", "builtins-object_8cc.html#a2c4fa69845b0e158275d0a99424f012b", null ],
     [ "BUILTIN", "builtins-object_8cc.html#af7b2052f1a2a7f0ae53b0b6156fee2ba", null ],
-    [ "BUILTIN", "builtins-object_8cc.html#a93cab35a860bccd5a007e21607c3ae6e", null ]
+    [ "BUILTIN", "builtins-object_8cc.html#a93cab35a860bccd5a007e21607c3ae6e", null ],
+    [ "GetOwnPropertyKeys", "builtins-object_8cc.html#a3a457412d499b99218673e7334718708", null ],
+    [ "ObjectDefineAccessor", "builtins-object_8cc.html#a1fa0a72c7deb39353e38f39550c04d6a", null ],
+    [ "ObjectLookupAccessor", "builtins-object_8cc.html#a98201fce4ace049a19d2e4a7e99969cc", null ]
 ];

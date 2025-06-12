@@ -4,6 +4,21 @@
 
 {\ttfamily \#include $<$memory-\/balancer.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Memory\+Balancer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryBalancer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_1_1SmoothedBytesAndDuration}{Smoothed\+Bytes\+And\+Duration}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -17,6 +32,46 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a5c698253190c3550add
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a5dfa7305a14cb04d9d2069bb0e929fc1}{Recompute\+Limits}} (\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} embedder\+\_\+allocation\+\_\+limit, \mbox{\hyperlink{classv8_1_1base_1_1TimeTicks}{base\+::\+Time\+Ticks}} \mbox{\hyperlink{namespacev8_1_1internal_abab02b3a9f25e94b199fc934deeea432}{time}})
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_aa2ce5d3ad75b7ccca75626e7fe3ca5bd}{Refresh\+Limit}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a62a3afaf5dbdfbec97c2e11abe4a80f1}{Post\+Heartbeat\+Task}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_ab251b43aa4322e2aa2d7482eaf9fe128}{heap\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a024ec1345c206d13d635eb38bf3d56d3}{live\+\_\+memory\+\_\+after\+\_\+gc\+\_\+}} = 0
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a7c3f91197438f361277d20e4a1e40115}{embedder\+\_\+allocation\+\_\+limit\+\_\+}} = 0
+\item 
+std\+::optional$<$ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_1_1SmoothedBytesAndDuration}{Smoothed\+Bytes\+And\+Duration}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a842a41337a33352ca4284855243415cc}{major\+\_\+allocation\+\_\+rate\+\_\+}}
+\item 
+std\+::optional$<$ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_1_1SmoothedBytesAndDuration}{Smoothed\+Bytes\+And\+Duration}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a3b0c4d158dd73d3e9c8dc06a6c961b7a}{major\+\_\+gc\+\_\+speed\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a65b28d827001475159b0e8c4f5384af7}{last\+\_\+measured\+\_\+memory\+\_\+}} = 0
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1TimeTicks}{base\+::\+Time\+Ticks}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a66a581e8d6a99db865805e3bee5b3889}{last\+\_\+measured\+\_\+at\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_ad58de75318ad78eb4dc15a708995bd87}{heartbeat\+\_\+task\+\_\+started\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr double \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a41fa573fdbf109d4b52faa61859625d8}{k\+Major\+Allocation\+Decay\+Rate}} = 0.\+95
+\item 
+static constexpr double \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_af745112021bcd0502344f3bc022be8e8}{k\+Major\+GCDecay\+Rate}} = 0.\+5
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 23 of file memory-\/balancer.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -28,6 +83,15 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a5dfa7305a14cb04d9d2
 
 
 
+Definition at line 13 of file memory-\/balancer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{14     : \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_ab251b43aa4322e2aa2d7482eaf9fe128}{heap\_}}(\mbox{\hyperlink{namespaceheap}{heap}}), \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a66a581e8d6a99db865805e3bee5b3889}{last\_measured\_at\_}}(startup\_time) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_a5c698253190c3550addeaab0735f69d1}\label{classv8_1_1internal_1_1MemoryBalancer_a5c698253190c3550addeaab0735f69d1}} 
 \index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!HeartbeatUpdate@{HeartbeatUpdate}}
@@ -35,18 +99,250 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a5dfa7305a14cb04d9d2
 \doxysubsubsection{\texorpdfstring{HeartbeatUpdate()}{HeartbeatUpdate()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Balancer\+::\+Heartbeat\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 83 of file memory-\/balancer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{83                                      \{}
+\DoxyCodeLine{84   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_ad58de75318ad78eb4dc15a708995bd87}{heartbeat\_task\_started\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{85   \textcolor{keyword}{auto} \mbox{\hyperlink{namespacev8_1_1internal_abab02b3a9f25e94b199fc934deeea432}{time}} = \mbox{\hyperlink{classv8_1_1base_1_1TimeTicks_ab0886bf0e84f1e1fcdc101021c2c0775}{base::TimeTicks::Now}}();}
+\DoxyCodeLine{86   \textcolor{keyword}{auto} memory = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_ab251b43aa4322e2aa2d7482eaf9fe128}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a63208d0c2fd64f85f51a1dbc6a574fd3}{OldGenerationSizeOfObjects}}();}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88   \textcolor{keyword}{const} base::TimeDelta \mbox{\hyperlink{namespacev8_1_1internal_aae0d674c07aba6028b4ee683cb1e760d}{duration}} = \mbox{\hyperlink{namespacev8_1_1internal_abab02b3a9f25e94b199fc934deeea432}{time}} -\/ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a66a581e8d6a99db865805e3bee5b3889}{last\_measured\_at\_}};}
+\DoxyCodeLine{89   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} allocated\_bytes =}
+\DoxyCodeLine{90       memory > \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a65b28d827001475159b0e8c4f5384af7}{last\_measured\_memory\_}} ? memory -\/ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a65b28d827001475159b0e8c4f5384af7}{last\_measured\_memory\_}} : 0;}
+\DoxyCodeLine{91   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a6f748f2efe2fcf69db36f96e2183b05f}{UpdateAllocationRate}}(allocated\_bytes, \mbox{\hyperlink{namespacev8_1_1internal_aae0d674c07aba6028b4ee683cb1e760d}{duration}});}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a65b28d827001475159b0e8c4f5384af7}{last\_measured\_memory\_}} = memory;}
+\DoxyCodeLine{94   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a66a581e8d6a99db865805e3bee5b3889}{last\_measured\_at\_}} = \mbox{\hyperlink{namespacev8_1_1internal_abab02b3a9f25e94b199fc934deeea432}{time}};}
+\DoxyCodeLine{95   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_aa2ce5d3ad75b7ccca75626e7fe3ca5bd}{RefreshLimit}}();}
+\DoxyCodeLine{96   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a62a3afaf5dbdfbec97c2e11abe4a80f1}{PostHeartbeatTask}}();}
+\DoxyCodeLine{97 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::duration, heap\+\_\+, heartbeat\+\_\+task\+\_\+started\+\_\+, last\+\_\+measured\+\_\+at\+\_\+, last\+\_\+measured\+\_\+memory\+\_\+, v8\+::base\+::\+Time\+Ticks\+::\+Now(), v8\+::internal\+::\+Heap\+::\+Old\+Generation\+Size\+Of\+Objects(), Post\+Heartbeat\+Task(), Refresh\+Limit(), v8\+::internal\+::time, and Update\+Allocation\+Rate().
+
+
+
+Referenced by v8\+::internal\+::\+Heartbeat\+Task\+::\+Run\+Internal().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryBalancer_a5c698253190c3550addeaab0735f69d1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryBalancer_a5c698253190c3550addeaab0735f69d1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_a62a3afaf5dbdfbec97c2e11abe4a80f1}\label{classv8_1_1internal_1_1MemoryBalancer_a62a3afaf5dbdfbec97c2e11abe4a80f1}} 
+\index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!PostHeartbeatTask@{PostHeartbeatTask}}
+\index{PostHeartbeatTask@{PostHeartbeatTask}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
+\doxysubsubsection{\texorpdfstring{PostHeartbeatTask()}{PostHeartbeatTask()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Balancer\+::\+Post\+Heartbeat\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 99 of file memory-\/balancer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{99                                        \{}
+\DoxyCodeLine{100   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_ad58de75318ad78eb4dc15a708995bd87}{heartbeat\_task\_started\_}}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{101   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_ad58de75318ad78eb4dc15a708995bd87}{heartbeat\_task\_started\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{102   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_ab251b43aa4322e2aa2d7482eaf9fe128}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a9172273910750cf7b754837a3bf76afc}{GetForegroundTaskRunner}}()-\/>PostDelayedTask(}
+\DoxyCodeLine{103       std::make\_unique<HeartbeatTask>(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_ab251b43aa4322e2aa2d7482eaf9fe128}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ae5160ad63bc51ff7b36e8f247be48f63}{isolate}}(), \textcolor{keyword}{this}), 1);}
+\DoxyCodeLine{104 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Heap\+::\+Get\+Foreground\+Task\+Runner(), heap\+\_\+, heartbeat\+\_\+task\+\_\+started\+\_\+, and v8\+::internal\+::\+Heap\+::isolate().
+
+
+
+Referenced by Heartbeat\+Update(), and Recompute\+Limits().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryBalancer_a62a3afaf5dbdfbec97c2e11abe4a80f1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryBalancer_a62a3afaf5dbdfbec97c2e11abe4a80f1_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_a5dfa7305a14cb04d9d2069bb0e929fc1}\label{classv8_1_1internal_1_1MemoryBalancer_a5dfa7305a14cb04d9d2069bb0e929fc1}} 
 \index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!RecomputeLimits@{RecomputeLimits}}
 \index{RecomputeLimits@{RecomputeLimits}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
 \doxysubsubsection{\texorpdfstring{RecomputeLimits()}{RecomputeLimits()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Balancer\+::\+Recompute\+Limits (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{embedder\+\_\+allocation\+\_\+limit,  }\item[{\mbox{\hyperlink{classv8_1_1base_1_1TimeTicks}{base\+::\+Time\+Ticks}}}]{time }\end{DoxyParamCaption})}
 
+
+
+Definition at line 16 of file memory-\/balancer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17                                                          \{}
+\DoxyCodeLine{18   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a7c3f91197438f361277d20e4a1e40115}{embedder\_allocation\_limit\_}} = embedder\_allocation\_limit;}
+\DoxyCodeLine{19   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a65b28d827001475159b0e8c4f5384af7}{last\_measured\_memory\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a024ec1345c206d13d635eb38bf3d56d3}{live\_memory\_after\_gc\_}} =}
+\DoxyCodeLine{20       \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_ab251b43aa4322e2aa2d7482eaf9fe128}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a63208d0c2fd64f85f51a1dbc6a574fd3}{OldGenerationSizeOfObjects}}();}
+\DoxyCodeLine{21   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a66a581e8d6a99db865805e3bee5b3889}{last\_measured\_at\_}} = \mbox{\hyperlink{namespacev8_1_1internal_abab02b3a9f25e94b199fc934deeea432}{time}};}
+\DoxyCodeLine{22   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_aa2ce5d3ad75b7ccca75626e7fe3ca5bd}{RefreshLimit}}();}
+\DoxyCodeLine{23   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a62a3afaf5dbdfbec97c2e11abe4a80f1}{PostHeartbeatTask}}();}
+\DoxyCodeLine{24 \}}
+
+\end{DoxyCode}
+
+
+References embedder\+\_\+allocation\+\_\+limit\+\_\+, heap\+\_\+, last\+\_\+measured\+\_\+at\+\_\+, last\+\_\+measured\+\_\+memory\+\_\+, live\+\_\+memory\+\_\+after\+\_\+gc\+\_\+, v8\+::internal\+::\+Heap\+::\+Old\+Generation\+Size\+Of\+Objects(), Post\+Heartbeat\+Task(), Refresh\+Limit(), and v8\+::internal\+::time.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryBalancer_a5dfa7305a14cb04d9d2069bb0e929fc1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_aa2ce5d3ad75b7ccca75626e7fe3ca5bd}\label{classv8_1_1internal_1_1MemoryBalancer_aa2ce5d3ad75b7ccca75626e7fe3ca5bd}} 
+\index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!RefreshLimit@{RefreshLimit}}
+\index{RefreshLimit@{RefreshLimit}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
+\doxysubsubsection{\texorpdfstring{RefreshLimit()}{RefreshLimit()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Balancer\+::\+Refresh\+Limit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 26 of file memory-\/balancer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26                                   \{}
+\DoxyCodeLine{27   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a842a41337a33352ca4284855243415cc}{major\_allocation\_rate\_}}.has\_value());}
+\DoxyCodeLine{28   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a3b0c4d158dd73d3e9c8dc06a6c961b7a}{major\_gc\_speed\_}}.has\_value());}
+\DoxyCodeLine{29   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} computed\_limit =}
+\DoxyCodeLine{30       \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a024ec1345c206d13d635eb38bf3d56d3}{live\_memory\_after\_gc\_}} +}
+\DoxyCodeLine{31       sqrt(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a024ec1345c206d13d635eb38bf3d56d3}{live\_memory\_after\_gc\_}} * (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a842a41337a33352ca4284855243415cc}{major\_allocation\_rate\_}}.value().rate()) /}
+\DoxyCodeLine{32            (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a3b0c4d158dd73d3e9c8dc06a6c961b7a}{major\_gc\_speed\_}}.value().rate()) / \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.memory\_balancer\_c\_value);}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34   \textcolor{comment}{// 2 MB of extra space.}}
+\DoxyCodeLine{35   \textcolor{comment}{// This allows the heap size to not decay to CurrentSizeOfObject()}}
+\DoxyCodeLine{36   \textcolor{comment}{// and prevents GC from triggering if, after a long period of idleness,}}
+\DoxyCodeLine{37   \textcolor{comment}{// a small allocation appears.}}
+\DoxyCodeLine{38   constexpr \textcolor{keywordtype}{size\_t} kMinHeapExtraSpace = 2 * \mbox{\hyperlink{namespacev8_1_1internal_af46551c5713d2a3a1be4dca973e521e0}{MB}};}
+\DoxyCodeLine{39   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} minimum\_limit = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a024ec1345c206d13d635eb38bf3d56d3}{live\_memory\_after\_gc\_}} + kMinHeapExtraSpace;}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41   \textcolor{keywordtype}{size\_t} new\_limit = std::max<size\_t>(minimum\_limit, computed\_limit);}
+\DoxyCodeLine{42   new\_limit = std::min<size\_t>(new\_limit, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_ab251b43aa4322e2aa2d7482eaf9fe128}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a4cba1c6f99b3023f6b64f553a83f0f75}{max\_old\_generation\_size}}());}
+\DoxyCodeLine{43   new\_limit = std::max<size\_t>(new\_limit, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_ab251b43aa4322e2aa2d7482eaf9fe128}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a46b081e0e37a21b1b9073252a4de5caa}{min\_old\_generation\_size}}());}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_memory\_balancer) \{}
+\DoxyCodeLine{46     \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_ab251b43aa4322e2aa2d7482eaf9fe128}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ae5160ad63bc51ff7b36e8f247be48f63}{isolate}}()-\/>PrintWithTimestamp(}
+\DoxyCodeLine{47         \textcolor{stringliteral}{"{}MemoryBalancer: allocation-\/rate=\%.1lfKB/ms gc-\/speed=\%.1lfKB/ms "{}}}
+\DoxyCodeLine{48         \textcolor{stringliteral}{"{}minium-\/limit=\%.1lfM computed-\/limit=\%.1lfM new-\/limit=\%.1lfM\(\backslash\)n"{}},}
+\DoxyCodeLine{49         \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a842a41337a33352ca4284855243415cc}{major\_allocation\_rate\_}}.value().rate() / \mbox{\hyperlink{namespacev8_1_1internal_a93b2e7c72fa0878021b495b6f3cec820}{KB}},}
+\DoxyCodeLine{50         \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a3b0c4d158dd73d3e9c8dc06a6c961b7a}{major\_gc\_speed\_}}.value().rate() / \mbox{\hyperlink{namespacev8_1_1internal_a93b2e7c72fa0878021b495b6f3cec820}{KB}},}
+\DoxyCodeLine{51         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(minimum\_limit) / \mbox{\hyperlink{namespacev8_1_1internal_af46551c5713d2a3a1be4dca973e521e0}{MB}},}
+\DoxyCodeLine{52         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(computed\_limit) / \mbox{\hyperlink{namespacev8_1_1internal_af46551c5713d2a3a1be4dca973e521e0}{MB}},}
+\DoxyCodeLine{53         \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(new\_limit) / \mbox{\hyperlink{namespacev8_1_1internal_af46551c5713d2a3a1be4dca973e521e0}{MB}});}
+\DoxyCodeLine{54   \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56   \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_ab251b43aa4322e2aa2d7482eaf9fe128}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a5a96c3c2c0fc74184b7d7a80a22f4836}{SetOldGenerationAndGlobalAllocationLimit}}(}
+\DoxyCodeLine{57       new\_limit, new\_limit + \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a7c3f91197438f361277d20e4a1e40115}{embedder\_allocation\_limit\_}}, \textcolor{stringliteral}{"{}MemoryBalancer"{}});}
+\DoxyCodeLine{58 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, embedder\+\_\+allocation\+\_\+limit\+\_\+, heap\+\_\+, v8\+::internal\+::\+Heap\+::isolate(), v8\+::internal\+::\+KB, live\+\_\+memory\+\_\+after\+\_\+gc\+\_\+, major\+\_\+allocation\+\_\+rate\+\_\+, major\+\_\+gc\+\_\+speed\+\_\+, v8\+::internal\+::\+Heap\+::max\+\_\+old\+\_\+generation\+\_\+size(), v8\+::internal\+::\+MB, v8\+::internal\+::\+Heap\+::min\+\_\+old\+\_\+generation\+\_\+size(), v8\+::internal\+::\+Heap\+::\+Set\+Old\+Generation\+And\+Global\+Allocation\+Limit(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by Heartbeat\+Update(), and Recompute\+Limits().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryBalancer_aa2ce5d3ad75b7ccca75626e7fe3ca5bd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryBalancer_aa2ce5d3ad75b7ccca75626e7fe3ca5bd_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_a6f748f2efe2fcf69db36f96e2183b05f}\label{classv8_1_1internal_1_1MemoryBalancer_a6f748f2efe2fcf69db36f96e2183b05f}} 
 \index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!UpdateAllocationRate@{UpdateAllocationRate}}
 \index{UpdateAllocationRate@{UpdateAllocationRate}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
 \doxysubsubsection{\texorpdfstring{UpdateAllocationRate()}{UpdateAllocationRate()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Balancer\+::\+Update\+Allocation\+Rate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{major\+\_\+allocation\+\_\+bytes,  }\item[{\mbox{\hyperlink{classv8_1_1base_1_1TimeDelta}{base\+::\+Time\+Delta}}}]{major\+\_\+allocation\+\_\+duration }\end{DoxyParamCaption})}
 
+
+
+Definition at line 71 of file memory-\/balancer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72                                                                             \{}
+\DoxyCodeLine{73   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a842a41337a33352ca4284855243415cc}{major\_allocation\_rate\_}}) \{}
+\DoxyCodeLine{74     \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a842a41337a33352ca4284855243415cc}{major\_allocation\_rate\_}} = SmoothedBytesAndDuration\{}
+\DoxyCodeLine{75         major\_allocation\_bytes, major\_allocation\_duration.InMillisecondsF()\};}
+\DoxyCodeLine{76   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{77     \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a842a41337a33352ca4284855243415cc}{major\_allocation\_rate\_}}-\/>Update(major\_allocation\_bytes,}
+\DoxyCodeLine{78                                    major\_allocation\_duration.InMillisecondsF(),}
+\DoxyCodeLine{79                                    \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a41fa573fdbf109d4b52faa61859625d8}{kMajorAllocationDecayRate}});}
+\DoxyCodeLine{80   \}}
+\DoxyCodeLine{81 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Time\+Delta\+::\+In\+Milliseconds\+F(), k\+Major\+Allocation\+Decay\+Rate, and major\+\_\+allocation\+\_\+rate\+\_\+.
+
+
+
+Referenced by Heartbeat\+Update().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryBalancer_a6f748f2efe2fcf69db36f96e2183b05f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryBalancer_a6f748f2efe2fcf69db36f96e2183b05f_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_a4788f99a1cdba626aec16139e908078c}\label{classv8_1_1internal_1_1MemoryBalancer_a4788f99a1cdba626aec16139e908078c}} 
 \index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!UpdateGCSpeed@{UpdateGCSpeed}}
 \index{UpdateGCSpeed@{UpdateGCSpeed}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
@@ -55,7 +351,179 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a5dfa7305a14cb04d9d2
 
 
 
+Definition at line 60 of file memory-\/balancer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{61                                                                     \{}
+\DoxyCodeLine{62   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a3b0c4d158dd73d3e9c8dc06a6c961b7a}{major\_gc\_speed\_}}) \{}
+\DoxyCodeLine{63     \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a3b0c4d158dd73d3e9c8dc06a6c961b7a}{major\_gc\_speed\_}} = SmoothedBytesAndDuration\{}
+\DoxyCodeLine{64         major\_gc\_bytes, major\_gc\_duration.InMillisecondsF()\};}
+\DoxyCodeLine{65   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{66     \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_a3b0c4d158dd73d3e9c8dc06a6c961b7a}{major\_gc\_speed\_}}-\/>Update(major\_gc\_bytes, major\_gc\_duration.InMillisecondsF(),}
+\DoxyCodeLine{67                             \mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_af745112021bcd0502344f3bc022be8e8}{kMajorGCDecayRate}});}
+\DoxyCodeLine{68   \}}
+\DoxyCodeLine{69 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Time\+Delta\+::\+In\+Milliseconds\+F(), k\+Major\+GCDecay\+Rate, and major\+\_\+gc\+\_\+speed\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MemoryBalancer_a4788f99a1cdba626aec16139e908078c_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_a7c3f91197438f361277d20e4a1e40115}\label{classv8_1_1internal_1_1MemoryBalancer_a7c3f91197438f361277d20e4a1e40115}} 
+\index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!embedder\_allocation\_limit\_@{embedder\_allocation\_limit\_}}
+\index{embedder\_allocation\_limit\_@{embedder\_allocation\_limit\_}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
+\doxysubsubsection{\texorpdfstring{embedder\_allocation\_limit\_}{embedder\_allocation\_limit\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Memory\+Balancer\+::embedder\+\_\+allocation\+\_\+limit\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 74 of file memory-\/balancer.\+h.
+
+
+
+Referenced by Recompute\+Limits(), and Refresh\+Limit().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_ab251b43aa4322e2aa2d7482eaf9fe128}\label{classv8_1_1internal_1_1MemoryBalancer_ab251b43aa4322e2aa2d7482eaf9fe128}} 
+\index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!heap\_@{heap\_}}
+\index{heap\_@{heap\_}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
+\doxysubsubsection{\texorpdfstring{heap\_}{heap\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}}$\ast$ v8\+::internal\+::\+Memory\+Balancer\+::heap\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 59 of file memory-\/balancer.\+h.
+
+
+
+Referenced by Heartbeat\+Update(), Post\+Heartbeat\+Task(), Recompute\+Limits(), and Refresh\+Limit().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_ad58de75318ad78eb4dc15a708995bd87}\label{classv8_1_1internal_1_1MemoryBalancer_ad58de75318ad78eb4dc15a708995bd87}} 
+\index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!heartbeat\_task\_started\_@{heartbeat\_task\_started\_}}
+\index{heartbeat\_task\_started\_@{heartbeat\_task\_started\_}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
+\doxysubsubsection{\texorpdfstring{heartbeat\_task\_started\_}{heartbeat\_task\_started\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Balancer\+::heartbeat\+\_\+task\+\_\+started\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 84 of file memory-\/balancer.\+h.
+
+
+
+Referenced by Heartbeat\+Update(), and Post\+Heartbeat\+Task().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_a41fa573fdbf109d4b52faa61859625d8}\label{classv8_1_1internal_1_1MemoryBalancer_a41fa573fdbf109d4b52faa61859625d8}} 
+\index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!kMajorAllocationDecayRate@{kMajorAllocationDecayRate}}
+\index{kMajorAllocationDecayRate@{kMajorAllocationDecayRate}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
+\doxysubsubsection{\texorpdfstring{kMajorAllocationDecayRate}{kMajorAllocationDecayRate}}
+{\footnotesize\ttfamily constexpr double v8\+::internal\+::\+Memory\+Balancer\+::k\+Major\+Allocation\+Decay\+Rate = 0.\+95\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [private]}}
+
+
+
+Definition at line 53 of file memory-\/balancer.\+h.
+
+
+
+Referenced by Update\+Allocation\+Rate().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_af745112021bcd0502344f3bc022be8e8}\label{classv8_1_1internal_1_1MemoryBalancer_af745112021bcd0502344f3bc022be8e8}} 
+\index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!kMajorGCDecayRate@{kMajorGCDecayRate}}
+\index{kMajorGCDecayRate@{kMajorGCDecayRate}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
+\doxysubsubsection{\texorpdfstring{kMajorGCDecayRate}{kMajorGCDecayRate}}
+{\footnotesize\ttfamily constexpr double v8\+::internal\+::\+Memory\+Balancer\+::k\+Major\+GCDecay\+Rate = 0.\+5\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [private]}}
+
+
+
+Definition at line 54 of file memory-\/balancer.\+h.
+
+
+
+Referenced by Update\+GCSpeed().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_a66a581e8d6a99db865805e3bee5b3889}\label{classv8_1_1internal_1_1MemoryBalancer_a66a581e8d6a99db865805e3bee5b3889}} 
+\index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!last\_measured\_at\_@{last\_measured\_at\_}}
+\index{last\_measured\_at\_@{last\_measured\_at\_}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
+\doxysubsubsection{\texorpdfstring{last\_measured\_at\_}{last\_measured\_at\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1TimeTicks}{base\+::\+Time\+Ticks}} v8\+::internal\+::\+Memory\+Balancer\+::last\+\_\+measured\+\_\+at\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 83 of file memory-\/balancer.\+h.
+
+
+
+Referenced by Heartbeat\+Update(), and Recompute\+Limits().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_a65b28d827001475159b0e8c4f5384af7}\label{classv8_1_1internal_1_1MemoryBalancer_a65b28d827001475159b0e8c4f5384af7}} 
+\index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!last\_measured\_memory\_@{last\_measured\_memory\_}}
+\index{last\_measured\_memory\_@{last\_measured\_memory\_}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
+\doxysubsubsection{\texorpdfstring{last\_measured\_memory\_}{last\_measured\_memory\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Memory\+Balancer\+::last\+\_\+measured\+\_\+memory\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 82 of file memory-\/balancer.\+h.
+
+
+
+Referenced by Heartbeat\+Update(), and Recompute\+Limits().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_a024ec1345c206d13d635eb38bf3d56d3}\label{classv8_1_1internal_1_1MemoryBalancer_a024ec1345c206d13d635eb38bf3d56d3}} 
+\index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!live\_memory\_after\_gc\_@{live\_memory\_after\_gc\_}}
+\index{live\_memory\_after\_gc\_@{live\_memory\_after\_gc\_}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
+\doxysubsubsection{\texorpdfstring{live\_memory\_after\_gc\_}{live\_memory\_after\_gc\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Memory\+Balancer\+::live\+\_\+memory\+\_\+after\+\_\+gc\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 63 of file memory-\/balancer.\+h.
+
+
+
+Referenced by Recompute\+Limits(), and Refresh\+Limit().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_a842a41337a33352ca4284855243415cc}\label{classv8_1_1internal_1_1MemoryBalancer_a842a41337a33352ca4284855243415cc}} 
+\index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!major\_allocation\_rate\_@{major\_allocation\_rate\_}}
+\index{major\_allocation\_rate\_@{major\_allocation\_rate\_}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
+\doxysubsubsection{\texorpdfstring{major\_allocation\_rate\_}{major\_allocation\_rate\_}}
+{\footnotesize\ttfamily std\+::optional$<$\mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_1_1SmoothedBytesAndDuration}{Smoothed\+Bytes\+And\+Duration}}$>$ v8\+::internal\+::\+Memory\+Balancer\+::major\+\_\+allocation\+\_\+rate\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 77 of file memory-\/balancer.\+h.
+
+
+
+Referenced by Refresh\+Limit(), and Update\+Allocation\+Rate().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryBalancer_a3b0c4d158dd73d3e9c8dc06a6c961b7a}\label{classv8_1_1internal_1_1MemoryBalancer_a3b0c4d158dd73d3e9c8dc06a6c961b7a}} 
+\index{v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}!major\_gc\_speed\_@{major\_gc\_speed\_}}
+\index{major\_gc\_speed\_@{major\_gc\_speed\_}!v8::internal::MemoryBalancer@{v8::internal::MemoryBalancer}}
+\doxysubsubsection{\texorpdfstring{major\_gc\_speed\_}{major\_gc\_speed\_}}
+{\footnotesize\ttfamily std\+::optional$<$\mbox{\hyperlink{classv8_1_1internal_1_1MemoryBalancer_1_1SmoothedBytesAndDuration}{Smoothed\+Bytes\+And\+Duration}}$>$ v8\+::internal\+::\+Memory\+Balancer\+::major\+\_\+gc\+\_\+speed\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 78 of file memory-\/balancer.\+h.
+
+
+
+Referenced by Refresh\+Limit(), and Update\+GCSpeed().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{memory-balancer_8h}{memory-\/balancer.\+h}}\item 
-\mbox{\hyperlink{memory-balancer_8cc}{memory-\/balancer.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{memory-balancer_8h}{memory-\/balancer.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{memory-balancer_8cc}{memory-\/balancer.\+cc}}\end{DoxyCompactItemize}

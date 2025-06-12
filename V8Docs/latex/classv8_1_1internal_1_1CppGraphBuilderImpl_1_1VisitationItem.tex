@@ -23,11 +23,18 @@ Collaboration diagram for v8\+::internal\+::Cpp\+Graph\+Builder\+Impl\+::Visitat
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_1_1VisitationItem_a829f3701233399ad211be48d9d7fbf0b}{Visitation\+Item}} (\mbox{\hyperlink{classv8_1_1internal_1_1State}{State}} $\ast$parent, \mbox{\hyperlink{classv8_1_1internal_1_1State}{State}} \&\mbox{\hyperlink{earley-parser_8cc_a69620d3d0bf3441e9802e4853271cad4}{current}})
+\mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_1_1VisitationItem_a829f3701233399ad211be48d9d7fbf0b}{Visitation\+Item}} (\mbox{\hyperlink{classv8_1_1internal_1_1State}{State}} $\ast$parent, \mbox{\hyperlink{classv8_1_1internal_1_1State}{State}} \&current)
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_1_1VisitationItem_aab2142c92c80e10f3fa0f459ed5d174d}{Process}} (\mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl}{Cpp\+Graph\+Builder\+Impl}} \&graph\+\_\+builder) final
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 833 of file cpp-\/snapshot.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -37,6 +44,15 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_1_1VisitationIt
 \doxysubsubsection{\texorpdfstring{VisitationItem()}{VisitationItem()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Cpp\+Graph\+Builder\+Impl\+::\+Visitation\+Item\+::\+Visitation\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1State}{State}} $\ast$}]{parent,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1State}{State}} \&}]{current }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 835 of file cpp-\/snapshot.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{836       : \mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_1_1WorkstackItemBase_ac34f520af35db8a72827176ea9188c2e}{WorkstackItemBase}}(parent, current) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -52,6 +68,31 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_1_1Workst
 
 
 
+Definition at line 838 of file cpp-\/snapshot.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{838                                                          \{}
+\DoxyCodeLine{839     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_1_1WorkstackItemBase_ad93c694276dbd4aa465bb6dfb32c4390}{parent\_}}) \{}
+\DoxyCodeLine{840       \textcolor{comment}{// Re-\/add the same object for post-\/order processing. This must happen}}
+\DoxyCodeLine{841       \textcolor{comment}{// lazily, as the parent's visibility depends on its children.}}
+\DoxyCodeLine{842       graph\_builder.workstack\_.push\_back(std::unique\_ptr<WorkstackItemBase>\{}
+\DoxyCodeLine{843           \textcolor{keyword}{new} VisitationDoneItem(\mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_1_1WorkstackItemBase_ad93c694276dbd4aa465bb6dfb32c4390}{parent\_}}, \mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_1_1WorkstackItemBase_ab1031f1468a70c044c85a48649bf4364}{current\_}})\});}
+\DoxyCodeLine{844     \}}
+\DoxyCodeLine{845     ParentScope parent\_scope(\mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_1_1WorkstackItemBase_ab1031f1468a70c044c85a48649bf4364}{current\_}});}
+\DoxyCodeLine{846     VisiblityVisitor object\_visitor(graph\_builder, parent\_scope);}
+\DoxyCodeLine{847     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_1_1WorkstackItemBase_ab1031f1468a70c044c85a48649bf4364}{current\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1State_af0c06bf216e334bf7b38b826c63509db}{header}}()-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader_a4964e49fd7dadd02205bcb66039f3c28}{IsInConstruction}}()) \{}
+\DoxyCodeLine{848       \textcolor{comment}{// TODO(mlippautz): Handle in construction objects.}}
+\DoxyCodeLine{849       \mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_1_1WorkstackItemBase_ab1031f1468a70c044c85a48649bf4364}{current\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1State_af0c06bf216e334bf7b38b826c63509db}{header}}()-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader_a1e6d8a878729f18fa1bb5210af9edf65}{TraceImpl}}(\&object\_visitor);}
+\DoxyCodeLine{850     \}}
+\DoxyCodeLine{851     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_1_1WorkstackItemBase_ad93c694276dbd4aa465bb6dfb32c4390}{parent\_}}) \{}
+\DoxyCodeLine{852       \mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_1_1WorkstackItemBase_ab1031f1468a70c044c85a48649bf4364}{current\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1State_a18548b5822371b7f0fe50f907ccc4955}{UnmarkPending}}();}
+\DoxyCodeLine{853     \}}
+\DoxyCodeLine{854   \}}
+
+\end{DoxyCode}
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{cpp-snapshot_8cc}{cpp-\/snapshot.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/cppgc-\/js/\mbox{\hyperlink{cpp-snapshot_8cc}{cpp-\/snapshot.\+cc}}\end{DoxyCompactItemize}

@@ -4,11 +4,28 @@
 
 {\ttfamily \#include $<$trace-\/trait.\+h$>$}
 
+
+
+Collaboration diagram for cppgc\+::internal\+::Trace\+Trait\+From\+Inner\+Address\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{structcppgc_1_1internal_1_1TraceTraitFromInnerAddressImpl__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{structcppgc_1_1TraceDescriptor}{Trace\+Descriptor}} \mbox{\hyperlink{structcppgc_1_1internal_1_1TraceTraitFromInnerAddressImpl_a4cf1491d34143a690583dceab0ae73d7}{Get\+Trace\+Descriptor}} (const void $\ast$address)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 65 of file trace-\/trait.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -20,7 +37,51 @@ static \mbox{\hyperlink{structcppgc_1_1TraceDescriptor}{Trace\+Descriptor}} \mbo
 
 
 
+Definition at line 13 of file trace-\/trait.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{14                          \{}
+\DoxyCodeLine{15   \textcolor{comment}{// address is guaranteed to be on a normal page because this is used only for}}
+\DoxyCodeLine{16   \textcolor{comment}{// mixins.}}
+\DoxyCodeLine{17   \textcolor{keyword}{const} BasePage* page = \mbox{\hyperlink{classcppgc_1_1internal_1_1BasePage_aad13cafeed6c2ea494b7423b9c527b7a}{BasePage::FromPayload}}(address);}
+\DoxyCodeLine{18   page-\/>SynchronizedLoad();}
+\DoxyCodeLine{19   \textcolor{keyword}{const} HeapObjectHeader\& header =}
+\DoxyCodeLine{20       page-\/>ObjectHeaderFromInnerAddress<\mbox{\hyperlink{namespacecppgc_1_1internal_ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71}{AccessMode::kAtomic}}>(address);}
+\DoxyCodeLine{21   \textcolor{keywordflow}{return} \{header.ObjectStart(),}
+\DoxyCodeLine{22           \mbox{\hyperlink{classcppgc_1_1internal_1_1GlobalGCInfoTable_a51ab53b3ff91cd29a2206e41a8ad7b67}{GlobalGCInfoTable::GCInfoFromIndex}}(}
+\DoxyCodeLine{23               header.GetGCInfoIndex<\mbox{\hyperlink{namespacecppgc_1_1internal_ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71}{AccessMode::kAtomic}}>())}
+\DoxyCodeLine{24               .\mbox{\hyperlink{structcppgc_1_1internal_1_1GCInfo_a38d648a24eb18de96f6f9b9b9bda4f09}{trace}}\};}
+\DoxyCodeLine{25 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Base\+Page\+::\+From\+Payload(), cppgc\+::internal\+::\+Global\+GCInfo\+Table\+::\+GCInfo\+From\+Index(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Get\+GCInfo\+Index(), cppgc\+::internal\+::k\+Atomic, cppgc\+::internal\+::\+Base\+Page\+::\+Object\+Header\+From\+Inner\+Address(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Object\+Start(), cppgc\+::internal\+::\+Base\+Page\+::\+Synchronized\+Load(), and cppgc\+::internal\+::\+GCInfo\+::trace.
+
+
+
+Referenced by cppgc\+::internal\+::\+Trace\+Trait\+Impl$<$ T, true $>$\+::\+Get\+Trace\+Descriptor().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structcppgc_1_1internal_1_1TraceTraitFromInnerAddressImpl_a4cf1491d34143a690583dceab0ae73d7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structcppgc_1_1internal_1_1TraceTraitFromInnerAddressImpl_a4cf1491d34143a690583dceab0ae73d7_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{trace-trait_8h}{trace-\/trait.\+h}}\item 
-\mbox{\hyperlink{trace-trait_8cc}{trace-\/trait.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/cppgc/\mbox{\hyperlink{trace-trait_8h}{trace-\/trait.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/cppgc/\mbox{\hyperlink{trace-trait_8cc}{trace-\/trait.\+cc}}\end{DoxyCompactItemize}

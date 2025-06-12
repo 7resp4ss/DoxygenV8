@@ -1,5 +1,5 @@
-\hypertarget{json-stringifier_8cc}{}\doxysection{json-\/stringifier.cc File Reference}
-\label{json-stringifier_8cc}\index{json-\/stringifier.cc@{json-\/stringifier.cc}}
+\hypertarget{json-stringifier_8cc}{}\doxysection{/mnt/\+V8\+Source\+Code/src/json/json-\/stringifier.cc File Reference}
+\label{json-stringifier_8cc}\index{/mnt/V8SourceCode/src/json/json-\/stringifier.cc@{/mnt/V8SourceCode/src/json/json-\/stringifier.cc}}
 {\ttfamily \#include \char`\"{}src/json/json-\/stringifier.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$string\+\_\+view$>$}\newline
 {\ttfamily \#include \char`\"{}absl/functional/overload.\+h\char`\"{}}\newline
@@ -34,6 +34,10 @@ Include dependency graph for json-\/stringifier.cc\+:
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1JsonStringifier}{v8\+::internal\+::\+Json\+Stringifier}}
 \item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1JsonStringifier_1_1NoExtendBuilder}{v8\+::internal\+::\+Json\+Stringifier\+::\+No\+Extend\+Builder$<$ Dest\+Char $>$}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1JsonStringifier_1_1SimplePropertyKeyCache}{v8\+::internal\+::\+Json\+Stringifier\+::\+Simple\+Property\+Key\+Cache}}
+\item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1CircularStructureMessageBuilder}{v8\+::internal\+::\+Circular\+Structure\+Message\+Builder}}
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1OutBuffer}{v8\+::internal\+::\+Out\+Buffer$<$ Char $>$}}
@@ -46,19 +50,26 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1FastJsonStringifier}{v8\+::interna
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacev8}{v8}}
-\item 
+\begin{DoxyCompactList}\small\item\em This file provides additional API on top of the default one for making API calls, which come from embedder C++ functions. \end{DoxyCompactList}\item 
  \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{json-stringifier_8cc_a58a4d3a723953f2294150278dac0a4fb}{CASE\+\_\+\+WITH\+\_\+\+INTERRUPT}}(\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\#define \mbox{\hyperlink{json-stringifier_8cc_a58a4d3a723953f2294150278dac0a4fb}{CASE\+\_\+\+WITH\+\_\+\+INTERRUPT}}(kind)
 \item 
-\#define \mbox{\hyperlink{json-stringifier_8cc_a86ceac3fecaf87e19bc1edff8cee4ec5}{CASE\+\_\+\+WITH\+\_\+\+TRANSITION}}(\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\#define \mbox{\hyperlink{json-stringifier_8cc_a86ceac3fecaf87e19bc1edff8cee4ec5}{CASE\+\_\+\+WITH\+\_\+\+TRANSITION}}(kind)
 \item 
-\#define \mbox{\hyperlink{json-stringifier_8cc_a5b0acfba9f035589ba9e02699343c662}{CASE}}(\mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}})
+\#define \mbox{\hyperlink{json-stringifier_8cc_a5b0acfba9f035589ba9e02699343c662}{CASE}}(state)
 \item 
-\#define \mbox{\hyperlink{json-stringifier_8cc_ad6619a47d39e15575c1ae75fac11c932}{CASE}}(\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\#define \mbox{\hyperlink{json-stringifier_8cc_ad6619a47d39e15575c1ae75fac11c932}{CASE}}(kind)
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a3370ba3c74346aeb0dd4dd0d16fdf43a}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+PackedT}} = uint32\+\_\+t
 \end{DoxyCompactItemize}
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
@@ -82,13 +93,64 @@ enum class \mbox{\hyperlink{namespacev8_1_1internal_a80792d72af8382fedaf8488885c
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-bool \mbox{\hyperlink{namespacev8_1_1internal_a47e67293988257b00ee31442223f1b93}{v8\+::internal\+::\+May\+Have\+Interesting\+Properties}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Tagged$<$ JSReceiver $>$ object)
+{\footnotesize template$<$typename Char $>$ }\\constexpr bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad30e98914f17c8c02466cd6a6a1bee77}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Do\+Not\+Escape}} (Char c)
+\item 
+template$<$$>$ constexpr bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a30cbfb173280f89acd3a0be54609dccc}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Do\+Not\+Escape}} (uint8\+\_\+t c)
+\item 
+template$<$$>$ constexpr bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a5394c7994ca369f21158394477e1b1d3}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Do\+Not\+Escape}} (uint16\+\_\+t c)
+\item 
+constexpr bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a706e67f6830d021f233b115eea697235}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Needs\+Escape}} (uint32\+\_\+t input)
+\item 
+{\footnotesize template$<$typename Src\+Char $>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_aa42c4c8006a74842a652735daba000c8}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::requires}} (sizeof(Src\+Char)==sizeof(uint8\+\_\+t)) bool Do\+Not\+Escape(const Src\+Char $\ast$chars
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a190a3c74ff07eb025a2a3706edb1879e}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::for}} (;i+(stride -\/ 1)$<$ length;i+=stride)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a421b18576e8cf4e3e6e8bc14c5909867}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Is\+Fast\+Key}} (Tagged$<$ String $>$ key, const Disallow\+Garbage\+Collection \&no\+\_\+gc)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a4705553ddf92714fb86fd29638dc4d14}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Can\+Fast\+Serialize\+JSArray}} (Isolate $\ast$isolate, Tagged$<$ JSArray $>$ object)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a76a7d5dd4adca0c3a33dc704951fae97}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Can\+Fast\+Serialize\+JSObject}} (Tagged$<$ JSObject $>$ raw\+\_\+object, Isolate $\ast$isolate)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_a47e67293988257b00ee31442223f1b93}{v8\+::internal\+::\+May\+Have\+Interesting\+Properties}} (Isolate $\ast$isolate, Tagged$<$ JSReceiver $>$ object)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ab44cf5aee694afaebdcc60db022ddd09}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Can\+Fast\+Serialize\+JSArray\+Fast\+Path}} (Tagged$<$ JSArray $>$ object, Tagged$<$ Heap\+Object $>$ initial\+\_\+proto, Isolate $\ast$isolate)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a96a0513718b25182a3940e7ebc64a28f}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Can\+Fast\+Serialize\+JSObject\+Fast\+Path}} (Tagged$<$ JSObject $>$ object, Tagged$<$ Heap\+Object $>$ initial\+\_\+proto, Tagged$<$ Map $>$ map, Isolate $\ast$isolate)
+\item 
+size\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a6add776f34cc56e1bb090a2cd4da853f}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Max\+Escaped\+String\+Length}} (size\+\_\+t length)
+\item 
+Builtin \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a62bdeab80cccc3a2e77bf44de582c838}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Get\+Builtin}} (Isolate $\ast$isolate, Tagged$<$ JSObject $>$ obj, Direct\+Handle$<$ Name $>$ \mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}})
 \item 
 {\footnotesize template$<$typename Old\+Char $>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_ae97d41ab5d8033ad2d253ecef78d8fdd}{v8\+::internal\+::requires}} (sizeof(Old\+Char)$<$ sizeof(Char)) Fast\+Json\+Stringifier\+Result Fast\+Json\+Stringifier$<$ Char $>$
 \item 
 {\footnotesize template$<$typename Src\+Char $>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_a128bb99a07fc5065c99b4d244d128793}{v8\+::internal\+::requires}} (sizeof(Src\+Char)==sizeof(uint8\+\_\+t)) bool Fast\+Json\+Stringifier$<$ Char $>$
 \item 
-Maybe\+Direct\+Handle$<$ Object $>$ \mbox{\hyperlink{namespacev8_1_1internal_ac2ffdf145d46f49985d5c2c3b98f41a7}{v8\+::internal\+::\+Json\+Stringify}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Handle$<$ JSAny $>$ object, Handle$<$ JSAny $>$ replacer, Handle$<$ Object $>$ gap)
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_af96f60ed9c0861a77f0b66ab359086f9}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Can\+Use\+Fast\+Stringifier}} (Direct\+Handle$<$ JSAny $>$ replacer, Direct\+Handle$<$ Object $>$ gap)
+\item 
+Maybe\+Direct\+Handle$<$ Object $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_aa488d779c529def0b8b2be19fedf15b1}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Fast\+Json\+Stringify}} (Isolate $\ast$isolate, Handle$<$ JSAny $>$ object)
+\item 
+Maybe\+Direct\+Handle$<$ Object $>$ \mbox{\hyperlink{namespacev8_1_1internal_ac2ffdf145d46f49985d5c2c3b98f41a7}{v8\+::internal\+::\+Json\+Stringify}} (Isolate $\ast$isolate, Handle$<$ JSAny $>$ object, Handle$<$ JSAny $>$ replacer, Handle$<$ Object $>$ gap)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr char \mbox{\hyperlink{namespacev8_1_1internal_a4b4f646f57af56b9e65f47d0e7d5dedd}{v8\+::internal\+::k\+Json\+Stringifier\+Zone\+Name}} \mbox{[}$\,$\mbox{]} = \char`\"{}json-\/stringifier-\/zone\char`\"{}
+\item 
+constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a11c31ae8c2b09eed6b0855449bab0ebc}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::k\+Json\+Escape\+Table\+Entry\+Size}} = 8
+\item 
+constexpr const char $\ast$const \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a20f0040346e00da1cc4940d424643e2f}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Json\+Escape\+Table}}
+\item 
+constexpr bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a2e8e5ed1b1bfcb6fc6b1265b1846a1f1}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::\+Json\+Do\+Not\+Escape\+Flag\+Table}} \mbox{[}$\,$\mbox{]}
+\item 
+size\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a42d08f833d141f676dfcce3fa3953be4}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::length}}
+\item 
+size\+\_\+t const Disallow\+Garbage\+Collection \& \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::no\+\_\+gc}}
+\item 
+static constexpr size\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_af96dca68ed86506261925375765a0f1a}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::stride}} = sizeof(PackedT)
+\item 
+size\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i}} = 0
+\item 
+return \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a6dff2bebe9cd769c0ffe4a160d60631e}{v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::no\+\_\+escape}}
 \end{DoxyCompactItemize}
 
 
@@ -97,20 +159,20 @@ Maybe\+Direct\+Handle$<$ Object $>$ \mbox{\hyperlink{namespacev8_1_1internal_ac2
 \index{json-\/stringifier.cc@{json-\/stringifier.cc}!CASE@{CASE}}
 \index{CASE@{CASE}!json-\/stringifier.cc@{json-\/stringifier.cc}}
 \doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{kind }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}}:                                                                   \(\backslash\)}
-\DoxyCodeLine{    if constexpr (\mbox{\hyperlink{namespacev8_1_1internal_a2450d9b76a72bae457082c0b405c2c78}{IsHoleyElementsKind}}(\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}})) \{                                 \(\backslash\)}
-\DoxyCodeLine{      if (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(!Protectors::IsNoElementsIntact(\mbox{\hyperlink{compilation-cache-table_8cc_a68072bca3fef7bd8b0d3cbac971cbf4b}{isolate\_}}))) \{            \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} kind:                                                                   \(\backslash\)}
+\DoxyCodeLine{    if constexpr (\mbox{\hyperlink{namespacev8_1_1internal_a2450d9b76a72bae457082c0b405c2c78}{IsHoleyElementsKind}}(kind)) \{                                 \(\backslash\)}
+\DoxyCodeLine{      if (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(!Protectors::IsNoElementsIntact(isolate\_))) \{            \(\backslash\)}
 \DoxyCodeLine{        return \mbox{\hyperlink{namespacev8_1_1internal_a37e290c8e613119e7591abaf8dbdc889a375bb69e882875af78e6fa64a555a4b0}{SLOW\_PATH}};                                                      \(\backslash\)}
 \DoxyCodeLine{      \}                                                                        \(\backslash\)}
 \DoxyCodeLine{    \}                                                                          \(\backslash\)}
-\DoxyCodeLine{    if (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(\mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}} > kArrayInterruptLength)) \{                         \(\backslash\)}
-\DoxyCodeLine{      return SerializeFixedArrayWithInterruptCheck<kind>(elements, 0, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}}); \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a42d08f833d141f676dfcce3fa3953be4}{length}} > kArrayInterruptLength)) \{                         \(\backslash\)}
+\DoxyCodeLine{      return SerializeFixedArrayWithInterruptCheck<kind>(elements, 0, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a42d08f833d141f676dfcce3fa3953be4}{length}}); \(\backslash\)}
 \DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                                   \(\backslash\)}
-\DoxyCodeLine{      return SerializeFixedArray<kind>(elements, 0, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}});                   \(\backslash\)}
+\DoxyCodeLine{      return SerializeFixedArray<kind>(elements, 0, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a42d08f833d141f676dfcce3fa3953be4}{length}});                   \(\backslash\)}
 \DoxyCodeLine{    \}}
 
 \end{DoxyCode}
@@ -118,26 +180,26 @@ Maybe\+Direct\+Handle$<$ Object $>$ \mbox{\hyperlink{namespacev8_1_1internal_ac2
 \index{json-\/stringifier.cc@{json-\/stringifier.cc}!CASE@{CASE}}
 \index{CASE@{CASE}!json-\/stringifier.cc@{json-\/stringifier.cc}}
 \doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{state }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{FastIterableState::state}}:                       \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} FastIterableState::state:                       \(\backslash\)}
 \DoxyCodeLine{    return ResumeJSObject<FastIterableState::state>(   \(\backslash\)}
 \DoxyCodeLine{        obj, 0, nof\_descriptors, in\_object\_properties, \(\backslash\)}
-\DoxyCodeLine{        in\_object\_properties\_start, descriptors, \textcolor{keyword}{false}, no\_gc)}
+\DoxyCodeLine{        in\_object\_properties\_start, descriptors, \textcolor{keyword}{false}, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{no\_gc}})}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{json-stringifier_8cc_a58a4d3a723953f2294150278dac0a4fb}\label{json-stringifier_8cc_a58a4d3a723953f2294150278dac0a4fb}} 
 \index{json-\/stringifier.cc@{json-\/stringifier.cc}!CASE\_WITH\_INTERRUPT@{CASE\_WITH\_INTERRUPT}}
 \index{CASE\_WITH\_INTERRUPT@{CASE\_WITH\_INTERRUPT}!json-\/stringifier.cc@{json-\/stringifier.cc}}
 \doxysubsubsection{\texorpdfstring{CASE\_WITH\_INTERRUPT}{CASE\_WITH\_INTERRUPT}}
-{\footnotesize\ttfamily \#define CASE\+\_\+\+WITH\+\_\+\+INTERRUPT(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define CASE\+\_\+\+WITH\+\_\+\+INTERRUPT(\begin{DoxyParamCaption}\item[{}]{kind }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}}:                                                                \(\backslash\)}
-\DoxyCodeLine{    result = SerializeFixedArrayWithInterruptCheck<kind>(\textcolor{keywordtype}{object}, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}},    \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} kind:                                                                \(\backslash\)}
+\DoxyCodeLine{    result = SerializeFixedArrayWithInterruptCheck<kind>(\textcolor{keywordtype}{object}, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a42d08f833d141f676dfcce3fa3953be4}{length}},    \(\backslash\)}
 \DoxyCodeLine{                                                         \&slow\_path\_index); \(\backslash\)}
 \DoxyCodeLine{    break;}
 
@@ -146,13 +208,13 @@ Maybe\+Direct\+Handle$<$ Object $>$ \mbox{\hyperlink{namespacev8_1_1internal_ac2
 \index{json-\/stringifier.cc@{json-\/stringifier.cc}!CASE\_WITH\_TRANSITION@{CASE\_WITH\_TRANSITION}}
 \index{CASE\_WITH\_TRANSITION@{CASE\_WITH\_TRANSITION}!json-\/stringifier.cc@{json-\/stringifier.cc}}
 \doxysubsubsection{\texorpdfstring{CASE\_WITH\_TRANSITION}{CASE\_WITH\_TRANSITION}}
-{\footnotesize\ttfamily \#define CASE\+\_\+\+WITH\+\_\+\+TRANSITION(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \#define CASE\+\_\+\+WITH\+\_\+\+TRANSITION(\begin{DoxyParamCaption}\item[{}]{kind }\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}}:                                                   \(\backslash\)}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} kind:                                                   \(\backslash\)}
 \DoxyCodeLine{    result = SerializeFixedArrayWithPossibleTransitions<kind>( \(\backslash\)}
-\DoxyCodeLine{        \textcolor{keywordtype}{object}, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}}, \&slow\_path\_index);                     \(\backslash\)}
+\DoxyCodeLine{        \textcolor{keywordtype}{object}, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a42d08f833d141f676dfcce3fa3953be4}{length}}, \&slow\_path\_index);                     \(\backslash\)}
 \DoxyCodeLine{    break;}
 
 \end{DoxyCode}

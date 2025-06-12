@@ -16,5 +16,6 @@ var classv8_1_1internal_1_1CallOrConstructBuiltinsAssembler =
     [ "CallOrConstructWithSpread", "classv8_1_1internal_1_1CallOrConstructBuiltinsAssembler.html#ab13fe195a1793db733cc73128c62f64d", null ],
     [ "CallReceiver", "classv8_1_1internal_1_1CallOrConstructBuiltinsAssembler.html#aeb370be15c00395765c08853f744b398", null ],
     [ "CallReceiver", "classv8_1_1internal_1_1CallOrConstructBuiltinsAssembler.html#ad5d76ad8292ef9fe7d407c30acc802a6", null ],
-    [ "GetCompatibleReceiver", "classv8_1_1internal_1_1CallOrConstructBuiltinsAssembler.html#a8ea4a5ed03571197d67e92223bb95638", null ]
+    [ "GetCompatibleReceiver", "classv8_1_1internal_1_1CallOrConstructBuiltinsAssembler.html#a8ea4a5ed03571197d67e92223bb95638", null ],
+    [ "IsAccessCheckRequired", "classv8_1_1internal_1_1CallOrConstructBuiltinsAssembler.html#a9ce164c8da85f9b5b3f2ca374afd4b25", null ]
 ];

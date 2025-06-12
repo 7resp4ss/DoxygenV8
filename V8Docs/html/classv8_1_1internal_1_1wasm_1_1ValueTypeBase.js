@@ -40,6 +40,7 @@ var classv8_1_1internal_1_1wasm_1_1ValueTypeBase =
     [ "nullability", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a997c81fa1a3e802cce3af5331114e54c", null ],
     [ "numeric_kind", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a347cca4589ed57cf00348c03df369611", null ],
     [ "Populate", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a4b981b87ffcd92db080663337fb3986c", null ],
+    [ "Primitive", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#af986bc490ac2c360ad766fc40a6ed59d", null ],
     [ "raw_bit_field", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#acf78d34b0ebd28dd987c335f1efddaac", null ],
     [ "raw_heap_representation", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a71ec9fbec08e8b8fe6abfc6b3f9c6dac", null ],
     [ "raw_index", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a335b17b364ba6a269a5fb13ceb647ce3", null ],
@@ -58,5 +59,15 @@ var classv8_1_1internal_1_1wasm_1_1ValueTypeBase =
     [ "HeapType", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#aa8e3c8a7999aeba895118edf3c651565", null ],
     [ "IndependentValueType", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a00e8453b92bc776acdcab5f0e4ec7e7c", null ],
     [ "ValueType", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#abc8f5b81fdda9f518105d0d6491c7a4d", null ],
-    [ "bit_field_", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a9d901e14825433359efe6a2f3fa5801a", null ]
+    [ "bit_field_", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a9d901e14825433359efe6a2f3fa5801a", null ],
+    [ "kHasIndexBit", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a7bb24cdb7316b5127c2ff9b5a9e2d7a5", null ],
+    [ "kIndexBits", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#af129467dd08c9552e8da11ea46a05ad1", null ],
+    [ "kIndexShift", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a09b6d0ea0382aaf20858b5043cc644ef", null ],
+    [ "kIsNullableBit", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a39f836d23b1595d49e81abbf3f1ca92b", null ],
+    [ "kIsRefBit", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#abe52e602e58bdb5bbabed1b0579b083a", null ],
+    [ "kIsSharedBit", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a10fc4248887bbdc1698639e90cfcf040", null ],
+    [ "kLastUsedBit", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a3e49f09749ffd2644f8d43810e8a33fd", null ],
+    [ "kNumIndexBits", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#ab4a2bfabc21b5a7b348cc3078d0c8bf1", null ],
+    [ "kRefKindBits", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a863dfa4e2e9e58de76be4258d6795e86", null ],
+    [ "kRefKindShift", "classv8_1_1internal_1_1wasm_1_1ValueTypeBase.html#a3a8277078b7bd9ea96325e521f339a85", null ]
 ];

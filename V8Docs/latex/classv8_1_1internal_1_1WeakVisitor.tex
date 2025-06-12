@@ -7,7 +7,7 @@ Inheritance diagram for v8\+::internal\+::Weak\+Visitor\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=229pt]{classv8_1_1internal_1_1WeakVisitor__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1WeakVisitor__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -44,6 +44,13 @@ const \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader}{Heap\+Object\
 \doxysubsection*{Additional Inherited Members}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 634 of file cpp-\/snapshot.\+cc.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1WeakVisitor_ad0e12e3ccc3898f0ccb11f68d21e32ba}\label{classv8_1_1internal_1_1WeakVisitor_ad0e12e3ccc3898f0ccb11f68d21e32ba}} 
 \index{v8::internal::WeakVisitor@{v8::internal::WeakVisitor}!WeakVisitor@{WeakVisitor}}
@@ -51,6 +58,16 @@ const \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader}{Heap\+Object\
 \doxysubsubsection{\texorpdfstring{WeakVisitor()}{WeakVisitor()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Weak\+Visitor\+::\+Weak\+Visitor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl}{Cpp\+Graph\+Builder\+Impl}} \&}]{graph\+\_\+builder }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
+
+
+Definition at line 636 of file cpp-\/snapshot.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{637       : \mbox{\hyperlink{classv8_1_1JSVisitor_a0b6d39162d7581d51090c06513dbd70e}{JSVisitor}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1VisitorFactory_a75377c0df60da342682c5192c55f2616}{cppgc::internal::VisitorFactory::CreateKey}}()),}
+\DoxyCodeLine{638         \mbox{\hyperlink{classv8_1_1internal_1_1WeakVisitor_a9c906d710e6e78f0c8b745764b820f69}{graph\_builder\_}}(graph\_builder) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -64,6 +81,45 @@ const \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader}{Heap\+Object\
 
 Reimplemented from \mbox{\hyperlink{classcppgc_1_1Visitor_a554c3665b447600877ebee5183706237}{cppgc\+::\+Visitor}}.
 
+
+
+Definition at line 670 of file cpp-\/snapshot.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{671                                                              \{}
+\DoxyCodeLine{672     \textcolor{comment}{// For ephemerons, the key retains the value.}}
+\DoxyCodeLine{673     \textcolor{comment}{// Key always must be a GarbageCollected object.}}
+\DoxyCodeLine{674     \textcolor{keyword}{auto}\& key\_header = \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader_a04b955c04b80d2a431dc2b96e4a85028}{HeapObjectHeader::FromObject}}(\mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}});}
+\DoxyCodeLine{675     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1WeakVisitor_ac8d09224f91176592e3f6d2cb1a0ff33}{current\_weak\_container\_header\_}}) \{}
+\DoxyCodeLine{676       \mbox{\hyperlink{classv8_1_1internal_1_1WeakVisitor_a9c906d710e6e78f0c8b745764b820f69}{graph\_builder\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_ae222d355473cd0875262a4adcb9d94ef}{RecordEphemeronKey}}(*\mbox{\hyperlink{classv8_1_1internal_1_1WeakVisitor_ac8d09224f91176592e3f6d2cb1a0ff33}{current\_weak\_container\_header\_}},}
+\DoxyCodeLine{677                                         key\_header);}
+\DoxyCodeLine{678     \}}
+\DoxyCodeLine{679     \textcolor{keywordflow}{if} (!value\_desc.\mbox{\hyperlink{structcppgc_1_1TraceDescriptor_a0de2d2b4cf5fe1ec48fc9d6f2e20f2f9}{base\_object\_payload}}) \{}
+\DoxyCodeLine{680       \textcolor{comment}{// Value does not represent an actual GarbageCollected object but rather}}
+\DoxyCodeLine{681       \textcolor{comment}{// should be traced eagerly.}}
+\DoxyCodeLine{682       \mbox{\hyperlink{classv8_1_1internal_1_1WeakVisitor_a9c906d710e6e78f0c8b745764b820f69}{graph\_builder\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_a1cf8b62ef11bd5f95b763f30ed63ca40}{VisitEphemeronWithNonGarbageCollectedValueForVisibility}}(}
+\DoxyCodeLine{683           key\_header, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, value\_desc);}
+\DoxyCodeLine{684       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{685     \}}
+\DoxyCodeLine{686     \textcolor{comment}{// Regular path where both key and value are GarbageCollected objects.}}
+\DoxyCodeLine{687     \mbox{\hyperlink{classv8_1_1internal_1_1WeakVisitor_a9c906d710e6e78f0c8b745764b820f69}{graph\_builder\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_a92d4dca228c890e236841fca1d71f64a}{VisitEphemeronForVisibility}}(}
+\DoxyCodeLine{688         key\_header, \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader_a04b955c04b80d2a431dc2b96e4a85028}{HeapObjectHeader::FromObject}}(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}));}
+\DoxyCodeLine{689   \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+From\+Object(), v8\+::internal\+::key, and v8\+::internal\+::value.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1WeakVisitor_a52508ada67c7ff5b71e54f5f3f88c59a_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1WeakVisitor_a808dcc785cb66a7ee9ba6652c291e767}\label{classv8_1_1internal_1_1WeakVisitor_a808dcc785cb66a7ee9ba6652c291e767}} 
 \index{v8::internal::WeakVisitor@{v8::internal::WeakVisitor}!VisitWeakContainer@{VisitWeakContainer}}
 \index{VisitWeakContainer@{VisitWeakContainer}!v8::internal::WeakVisitor@{v8::internal::WeakVisitor}}
@@ -76,12 +132,63 @@ Reimplemented from \mbox{\hyperlink{classcppgc_1_1Visitor_ac8d0c90793d6203587cda
 
 
 
+Definition at line 640 of file cpp-\/snapshot.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{643                                              \{}
+\DoxyCodeLine{644     \textcolor{keyword}{const} \textcolor{keyword}{auto}\& container\_header =}
+\DoxyCodeLine{645         \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader_a04b955c04b80d2a431dc2b96e4a85028}{HeapObjectHeader::FromObject}}(strong\_desc.\mbox{\hyperlink{structcppgc_1_1TraceDescriptor_a0de2d2b4cf5fe1ec48fc9d6f2e20f2f9}{base\_object\_payload}});}
+\DoxyCodeLine{646     WeakContainerScope weak\_container\_scope(*\textcolor{keyword}{this}, container\_header);}
+\DoxyCodeLine{647 }
+\DoxyCodeLine{648     \mbox{\hyperlink{classv8_1_1internal_1_1WeakVisitor_a9c906d710e6e78f0c8b745764b820f69}{graph\_builder\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1CppGraphBuilderImpl_a0fe1ca1d95e531236bd9c328fa2d7aa7}{VisitWeakContainerForVisibility}}(container\_header);}
+\DoxyCodeLine{649 }
+\DoxyCodeLine{650     \textcolor{keywordflow}{if} (!weak\_desc.\mbox{\hyperlink{structcppgc_1_1TraceDescriptor_ac642e0bc9d47a37c7a23ad095333d7cb}{callback}}) \{}
+\DoxyCodeLine{651       \textcolor{comment}{// Weak container does not contribute to liveness.}}
+\DoxyCodeLine{652       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{653     \}}
+\DoxyCodeLine{654     \textcolor{comment}{// Heap snapshot is always run after a GC so we know there are no dead}}
+\DoxyCodeLine{655     \textcolor{comment}{// entries in the container.}}
+\DoxyCodeLine{656     \textcolor{keywordflow}{if} (\textcolor{keywordtype}{object}) \{}
+\DoxyCodeLine{657       \textcolor{comment}{// The container will itself be traced strongly via the regular Visit()}}
+\DoxyCodeLine{658       \textcolor{comment}{// handling that iterates over all live objects. The visibility visitor}}
+\DoxyCodeLine{659       \textcolor{comment}{// will thus see (because of strongly treating the container):}}
+\DoxyCodeLine{660       \textcolor{comment}{// 1. the container itself;}}
+\DoxyCodeLine{661       \textcolor{comment}{// 2. for each \{key\} in container: container-\/>key;}}
+\DoxyCodeLine{662       \textcolor{comment}{// 3. for each \{key, value\} in container: key-\/>value;}}
+\DoxyCodeLine{663       \textcolor{comment}{//}}
+\DoxyCodeLine{664       \textcolor{comment}{// In case the visitor is used stand-\/alone, we trace through the container}}
+\DoxyCodeLine{665       \textcolor{comment}{// here to create the same state as we would when the container is traced}}
+\DoxyCodeLine{666       \textcolor{comment}{// separately.}}
+\DoxyCodeLine{667       container\_header.TraceImpl(\textcolor{keyword}{this});}
+\DoxyCodeLine{668     \}}
+\DoxyCodeLine{669   \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+From\+Object().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1WeakVisitor_a808dcc785cb66a7ee9ba6652c291e767_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1WeakVisitor_ac8d09224f91176592e3f6d2cb1a0ff33}\label{classv8_1_1internal_1_1WeakVisitor_ac8d09224f91176592e3f6d2cb1a0ff33}} 
 \index{v8::internal::WeakVisitor@{v8::internal::WeakVisitor}!current\_weak\_container\_header\_@{current\_weak\_container\_header\_}}
 \index{current\_weak\_container\_header\_@{current\_weak\_container\_header\_}!v8::internal::WeakVisitor@{v8::internal::WeakVisitor}}
 \doxysubsubsection{\texorpdfstring{current\_weak\_container\_header\_}{current\_weak\_container\_header\_}}
 {\footnotesize\ttfamily const \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader}{Heap\+Object\+Header}}$\ast$ v8\+::internal\+::\+Weak\+Visitor\+::current\+\_\+weak\+\_\+container\+\_\+header\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 712 of file cpp-\/snapshot.\+cc.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1WeakVisitor_a9c906d710e6e78f0c8b745764b820f69}\label{classv8_1_1internal_1_1WeakVisitor_a9c906d710e6e78f0c8b745764b820f69}} 
 \index{v8::internal::WeakVisitor@{v8::internal::WeakVisitor}!graph\_builder\_@{graph\_builder\_}}
@@ -91,6 +198,10 @@ Reimplemented from \mbox{\hyperlink{classcppgc_1_1Visitor_ac8d0c90793d6203587cda
 
 
 
+Definition at line 711 of file cpp-\/snapshot.\+cc.
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{cpp-snapshot_8cc}{cpp-\/snapshot.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/cppgc-\/js/\mbox{\hyperlink{cpp-snapshot_8cc}{cpp-\/snapshot.\+cc}}\end{DoxyCompactItemize}

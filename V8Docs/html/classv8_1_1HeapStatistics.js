@@ -16,5 +16,19 @@ var classv8_1_1HeapStatistics =
     [ "used_global_handles_size", "classv8_1_1HeapStatistics.html#a584eb432f04c4051ff372a4b314686c3", null ],
     [ "used_heap_size", "classv8_1_1HeapStatistics.html#a05ecb48bceea49d2fe430c81df02babc", null ],
     [ "Isolate", "classv8_1_1HeapStatistics.html#aba4f0964bdacf2bbf62cf876e5d28d0a", null ],
-    [ "V8", "classv8_1_1HeapStatistics.html#a51a1fbf409294cf02a99a020ac94a763", null ]
+    [ "V8", "classv8_1_1HeapStatistics.html#a51a1fbf409294cf02a99a020ac94a763", null ],
+    [ "does_zap_garbage_", "classv8_1_1HeapStatistics.html#a92da660f30e97f7fce759f13d43514ee", null ],
+    [ "external_memory_", "classv8_1_1HeapStatistics.html#a9b1247afac298eb48350bf9f3ecbd352", null ],
+    [ "heap_size_limit_", "classv8_1_1HeapStatistics.html#adaace0f2d63366bb8a6a9edc03b72b3f", null ],
+    [ "malloced_memory_", "classv8_1_1HeapStatistics.html#a5b38e07c8cb2e22b280551e9681c6216", null ],
+    [ "number_of_detached_contexts_", "classv8_1_1HeapStatistics.html#a599389aba34a4221e8baf5f65ba66d79", null ],
+    [ "number_of_native_contexts_", "classv8_1_1HeapStatistics.html#ad5e027914e80dee4bc5d5fed39830034", null ],
+    [ "peak_malloced_memory_", "classv8_1_1HeapStatistics.html#a7c5aab04215abe7991ea4add8053e1b0", null ],
+    [ "total_available_size_", "classv8_1_1HeapStatistics.html#a10e8873cb2b0d5b33911d475cececc38", null ],
+    [ "total_global_handles_size_", "classv8_1_1HeapStatistics.html#ab9be4dc97f53705a851066e795d5c130", null ],
+    [ "total_heap_size_", "classv8_1_1HeapStatistics.html#adefc5826610a3e23af67fa314df754f8", null ],
+    [ "total_heap_size_executable_", "classv8_1_1HeapStatistics.html#a31523d73f70a50db8080180843f37f9d", null ],
+    [ "total_physical_size_", "classv8_1_1HeapStatistics.html#acd576e41e472c3780857e1c7bfbf67b6", null ],
+    [ "used_global_handles_size_", "classv8_1_1HeapStatistics.html#ad311d40428e302267babdf4d51bec14b", null ],
+    [ "used_heap_size_", "classv8_1_1HeapStatistics.html#aa705745c8980f3117b7db84480081fba", null ]
 ];

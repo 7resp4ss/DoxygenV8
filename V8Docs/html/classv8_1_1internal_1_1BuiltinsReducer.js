@@ -7,11 +7,13 @@ var classv8_1_1internal_1_1BuiltinsReducer =
     [ "EmitEpilog", "classv8_1_1internal_1_1BuiltinsReducer.html#a7f2aad4a1e13ae102a7607e5f00e1775", null ],
     [ "InstanceTypeEqual", "classv8_1_1internal_1_1BuiltinsReducer.html#ac806bf0946201af706f8571782a5cc57", null ],
     [ "IsBigIntInstanceType", "classv8_1_1internal_1_1BuiltinsReducer.html#a91a9f277e07ed21618fb852648fe64e6", null ],
+    [ "isolate", "classv8_1_1internal_1_1BuiltinsReducer.html#ab909b470db487d042894f15d7e8babd6", null ],
     [ "IsSmallBigInt", "classv8_1_1internal_1_1BuiltinsReducer.html#acb706204839065d4c1181d6c8e2f9507", null ],
     [ "JSContextParameter", "classv8_1_1internal_1_1BuiltinsReducer.html#a5269790b37414f3a934796ad8ca7b0fb", null ],
     [ "PerformStackCheck", "classv8_1_1internal_1_1BuiltinsReducer.html#ac05d9fe3292d62741fecd71603db42ca", null ],
     [ "PopAndReturn", "classv8_1_1internal_1_1BuiltinsReducer.html#a4e945964de03f8055a449839c6e5205a", null ],
     [ "TaggedToWord32OrBigIntImpl", "classv8_1_1internal_1_1BuiltinsReducer.html#a2aae6897e33528d6e8d2c2a7ef65dea0", null ],
     [ "TruncateTaggedToWord32", "classv8_1_1internal_1_1BuiltinsReducer.html#a759d32eff466b50844d04f38eedaee77", null ],
-    [ "TryToIntPtrConstant", "classv8_1_1internal_1_1BuiltinsReducer.html#a1c02a6fe924e8ad209c0a95bee9a3173", null ]
+    [ "TryToIntPtrConstant", "classv8_1_1internal_1_1BuiltinsReducer.html#a1c02a6fe924e8ad209c0a95bee9a3173", null ],
+    [ "matcher_", "classv8_1_1internal_1_1BuiltinsReducer.html#a0fdd8399457e152635daf0ef8681506d", null ]
 ];

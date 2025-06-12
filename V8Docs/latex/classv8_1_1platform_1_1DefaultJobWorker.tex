@@ -21,13 +21,13 @@ Collaboration diagram for v8\+::platform\+::Default\+Job\+Worker\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=214pt]{classv8_1_1platform_1_1DefaultJobWorker__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultJobWorker__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobWorker_a54f529ea10f99b2ddde283ebd988abad}{Default\+Job\+Worker}} (std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState}{Default\+Job\+State}} $>$ \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}, \mbox{\hyperlink{classv8_1_1JobTask}{Job\+Task}} $\ast$job\+\_\+task)
+\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobWorker_a54f529ea10f99b2ddde283ebd988abad}{Default\+Job\+Worker}} (std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState}{Default\+Job\+State}} $>$ state, \mbox{\hyperlink{classv8_1_1JobTask}{Job\+Task}} $\ast$job\+\_\+task)
 \item 
 \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobWorker_ad96533b8017f6807c671e2950d850ba4}{$\sim$\+Default\+Job\+Worker}} () override=default
 \item 
@@ -37,11 +37,25 @@ Collaboration diagram for v8\+::platform\+::Default\+Job\+Worker\+:
 \item 
 void \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobWorker_a78be7d1cb6e09ae6d1195a0f1444bb28}{Run}} () override
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState}{Default\+Job\+State}} $>$ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobWorker_a6d7802f4898d2311057ed0a7c4cbe852}{state\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1JobTask}{Job\+Task}} $\ast$ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobWorker_a4a2a5daa3da0cd3c1a9875c10aede641}{job\+\_\+task\+\_\+}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobWorker_a61048b8f68c3301fe0346f1c702c8b06}{Default\+Job}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 130 of file default-\/job.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -51,6 +65,15 @@ class \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobWorker_a61048b8f68c3301f
 \doxysubsubsection{\texorpdfstring{DefaultJobWorker()}{DefaultJobWorker()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::platform\+::\+Default\+Job\+Worker\+::\+Default\+Job\+Worker (\begin{DoxyParamCaption}\item[{std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState}{Default\+Job\+State}} $>$}]{state,  }\item[{\mbox{\hyperlink{classv8_1_1JobTask}{Job\+Task}} $\ast$}]{job\+\_\+task }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 132 of file default-\/job.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{133       : \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobWorker_a6d7802f4898d2311057ed0a7c4cbe852}{state\_}}(std::move(state)), \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobWorker_a4a2a5daa3da0cd3c1a9875c10aede641}{job\_task\_}}(job\_task) \{\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobWorker_ad96533b8017f6807c671e2950d850ba4}\label{classv8_1_1platform_1_1DefaultJobWorker_ad96533b8017f6807c671e2950d850ba4}} 
 \index{v8::platform::DefaultJobWorker@{v8::platform::DefaultJobWorker}!````~DefaultJobWorker@{$\sim$DefaultJobWorker}}
 \index{````~DefaultJobWorker@{$\sim$DefaultJobWorker}!v8::platform::DefaultJobWorker@{v8::platform::DefaultJobWorker}}
@@ -84,6 +107,37 @@ Implements \mbox{\hyperlink{classv8_1_1Task_a6bd5bda0e357fcc2e727bf7b0170f99a}{v
 
 
 
+Definition at line 139 of file default-\/job.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{139                       \{}
+\DoxyCodeLine{140     \textcolor{keyword}{auto} shared\_state = \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobWorker_a6d7802f4898d2311057ed0a7c4cbe852}{state\_}}.lock();}
+\DoxyCodeLine{141     \textcolor{keywordflow}{if} (!shared\_state) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{142     \textcolor{keywordflow}{if} (!shared\_state-\/>CanRunFirstTask()) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{143     \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{144       \textcolor{comment}{// Scope of |delegate| must not outlive DidRunTask() so that associated}}
+\DoxyCodeLine{145       \textcolor{comment}{// state is freed before the worker becomes inactive.}}
+\DoxyCodeLine{146       \mbox{\hyperlink{namespacecppgc_a74aa606ef974ec10b401c6538a239245}{DefaultJobState::JobDelegate}} delegate(shared\_state.get());}
+\DoxyCodeLine{147       \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobWorker_a4a2a5daa3da0cd3c1a9875c10aede641}{job\_task\_}}-\/>\mbox{\hyperlink{classv8_1_1JobTask_a9b6d0cee5615420f30b0db8a4c5e8c3b}{Run}}(\&delegate);}
+\DoxyCodeLine{148     \} \textcolor{keywordflow}{while} (shared\_state-\/>DidRunTask());}
+\DoxyCodeLine{149   \}}
+
+\end{DoxyCode}
+
+
+References job\+\_\+task\+\_\+, v8\+::\+Job\+Task\+::\+Run(), and state\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{classv8_1_1platform_1_1DefaultJobWorker_a78be7d1cb6e09ae6d1195a0f1444bb28_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Friends And Related Function Documentation}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobWorker_a61048b8f68c3301fe0346f1c702c8b06}\label{classv8_1_1platform_1_1DefaultJobWorker_a61048b8f68c3301fe0346f1c702c8b06}} 
 \index{v8::platform::DefaultJobWorker@{v8::platform::DefaultJobWorker}!DefaultJob@{DefaultJob}}
@@ -93,6 +147,41 @@ Implements \mbox{\hyperlink{classv8_1_1Task_a6bd5bda0e357fcc2e727bf7b0170f99a}{v
 
 
 
+Definition at line 152 of file default-\/job.\+h.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobWorker_a4a2a5daa3da0cd3c1a9875c10aede641}\label{classv8_1_1platform_1_1DefaultJobWorker_a4a2a5daa3da0cd3c1a9875c10aede641}} 
+\index{v8::platform::DefaultJobWorker@{v8::platform::DefaultJobWorker}!job\_task\_@{job\_task\_}}
+\index{job\_task\_@{job\_task\_}!v8::platform::DefaultJobWorker@{v8::platform::DefaultJobWorker}}
+\doxysubsubsection{\texorpdfstring{job\_task\_}{job\_task\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1JobTask}{Job\+Task}}$\ast$ v8\+::platform\+::\+Default\+Job\+Worker\+::job\+\_\+task\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 155 of file default-\/job.\+h.
+
+
+
+Referenced by Run().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobWorker_a6d7802f4898d2311057ed0a7c4cbe852}\label{classv8_1_1platform_1_1DefaultJobWorker_a6d7802f4898d2311057ed0a7c4cbe852}} 
+\index{v8::platform::DefaultJobWorker@{v8::platform::DefaultJobWorker}!state\_@{state\_}}
+\index{state\_@{state\_}!v8::platform::DefaultJobWorker@{v8::platform::DefaultJobWorker}}
+\doxysubsubsection{\texorpdfstring{state\_}{state\_}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState}{Default\+Job\+State}}$>$ v8\+::platform\+::\+Default\+Job\+Worker\+::state\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 154 of file default-\/job.\+h.
+
+
+
+Referenced by Run().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{default-job_8h}{default-\/job.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/libplatform/\mbox{\hyperlink{default-job_8h}{default-\/job.\+h}}\end{DoxyCompactItemize}

@@ -5,6 +5,8 @@ var v8_fast_api_calls_8h =
     [ "CFunctionInfo", "classv8_1_1CFunctionInfo.html", "classv8_1_1CFunctionInfo" ],
     [ "AnyCType", "unionv8_1_1AnyCType.html", "unionv8_1_1AnyCType" ],
     [ "CFunction", "classv8_1_1CFunction.html", "classv8_1_1CFunction" ],
+    [ "ArgUnwrap", "classv8_1_1CFunction_1_1ArgUnwrap.html", null ],
+    [ "ArgUnwrap< R(*)(Args...)>", "classv8_1_1CFunction_1_1ArgUnwrap_3_01R_07_5_08_07Args_8_8_8_08_4.html", "classv8_1_1CFunction_1_1ArgUnwrap_3_01R_07_5_08_07Args_8_8_8_08_4" ],
     [ "FastApiCallbackOptions", "structv8_1_1FastApiCallbackOptions.html", "structv8_1_1FastApiCallbackOptions" ],
     [ "count", "structv8_1_1internal_1_1count.html", null ],
     [ "count< T, T, Args... >", "structv8_1_1internal_1_1count_3_01T_00_01T_00_01Args_8_8_8_01_4.html", null ],
@@ -12,10 +14,12 @@ var v8_fast_api_calls_8h =
     [ "CFunctionInfoImpl", "classv8_1_1internal_1_1CFunctionInfoImpl.html", "classv8_1_1internal_1_1CFunctionInfoImpl" ],
     [ "TypeInfoHelper", "structv8_1_1internal_1_1TypeInfoHelper.html", null ],
     [ "CTypeInfoTraits", "structv8_1_1internal_1_1CTypeInfoTraits.html", null ],
-    [ "TypeInfoHelper< FastApiCallbackOptions & >", "structv8_1_1internal_1_1TypeInfoHelper_3_01FastApiCallbackOptions_01_6_01_4.html", null ],
-    [ "TypeInfoHelper< const FastOneByteString & >", "structv8_1_1internal_1_1TypeInfoHelper_3_01const_01FastOneByteString_01_6_01_4.html", null ],
+    [ "TypeInfoHelper< FastApiCallbackOptions & >", "structv8_1_1internal_1_1TypeInfoHelper_3_01FastApiCallbackOptions_01_6_01_4.html", "structv8_1_1internal_1_1TypeInfoHelper_3_01FastApiCallbackOptions_01_6_01_4" ],
+    [ "TypeInfoHelper< const FastOneByteString & >", "structv8_1_1internal_1_1TypeInfoHelper_3_01const_01FastOneByteString_01_6_01_4.html", "structv8_1_1internal_1_1TypeInfoHelper_3_01const_01FastOneByteString_01_6_01_4" ],
     [ "CTypeInfoBuilder", "classv8_1_1CTypeInfoBuilder.html", "classv8_1_1CTypeInfoBuilder" ],
     [ "CFunctionBuilderWithFunction", "classv8_1_1internal_1_1CFunctionBuilderWithFunction.html", "classv8_1_1internal_1_1CFunctionBuilderWithFunction" ],
+    [ "GetArgBuilder< false, N, Flags... >", "structv8_1_1internal_1_1CFunctionBuilderWithFunction_1_1GetArgBuilder_3_01false_00_01N_00_01Flags_8_8_8_01_4.html", "structv8_1_1internal_1_1CFunctionBuilderWithFunction_1_1GetArgBuilder_3_01false_00_01N_00_01Flags_8_8_8_01_4" ],
+    [ "GetArgBuilder< true, N, Flags... >", "structv8_1_1internal_1_1CFunctionBuilderWithFunction_1_1GetArgBuilder_3_01true_00_01N_00_01Flags_8_8_8_01_4.html", "structv8_1_1internal_1_1CFunctionBuilderWithFunction_1_1GetArgBuilder_3_01true_00_01N_00_01Flags_8_8_8_01_4" ],
     [ "CFunctionBuilder", "classv8_1_1internal_1_1CFunctionBuilder.html", "classv8_1_1internal_1_1CFunctionBuilder" ],
     [ "ALL_C_TYPES", "v8-fast-api-calls_8h.html#af3711733e1b4f90ea0f5c105e5004dfc", null ],
     [ "DEFINE_TYPE_INFO_TRAITS", "v8-fast-api-calls_8h.html#a1b769380f394153ba359234364d75974", null ],
@@ -23,5 +27,7 @@ var v8_fast_api_calls_8h =
     [ "SPECIALIZE_GET_TYPE_INFO_HELPER_FOR", "v8-fast-api-calls_8h.html#a9031608d0e398e046f55212e1b9f8a52", null ],
     [ "STATIC_ASSERT_IMPLIES", "v8-fast-api-calls_8h.html#afb9be8d112a465de54a10926a762ea39", null ],
     [ "CFunctionBuilder", "v8-fast-api-calls_8h.html#a78391790f9a8e234f8c87979de521ecd", null ],
-    [ "TryToCopyAndConvertArrayToCppBuffer", "v8-fast-api-calls_8h.html#a6887c90141a6aa1dd21ffefb82863559", null ]
+    [ "TryToCopyAndConvertArrayToCppBuffer", "v8-fast-api-calls_8h.html#acfad576b00bc7c0bfc0236ae5ab52b3d", null ],
+    [ "kTypeInfoFloat64", "v8-fast-api-calls_8h.html#ac1b3c726fcdbc467495c8003f1314c5e", null ],
+    [ "kTypeInfoInt32", "v8-fast-api-calls_8h.html#ace74634b9a885bd6293f53dbd50276a0", null ]
 ];

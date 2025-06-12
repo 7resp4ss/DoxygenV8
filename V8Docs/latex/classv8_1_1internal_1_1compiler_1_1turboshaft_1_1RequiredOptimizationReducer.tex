@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::compiler\+::turboshaft\+::Required\+Op
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=265pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RequiredOptimizationReducer__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RequiredOptimizationReducer__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -31,6 +31,16 @@ Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Required\+
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class Next$>$\newline
+class v8\+::internal\+::compiler\+::turboshaft\+::\+Required\+Optimization\+Reducer$<$ Next $>$}
+
+
+
+Definition at line 26 of file required-\/optimization-\/reducer.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RequiredOptimizationReducer_af149be5667f65560df6dbc93a2fc072a}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RequiredOptimizationReducer_af149be5667f65560df6dbc93a2fc072a}} 
 \index{v8::internal::compiler::turboshaft::RequiredOptimizationReducer$<$ Next $>$@{v8::internal::compiler::turboshaft::RequiredOptimizationReducer$<$ Next $>$}!Phi@{Phi}}
@@ -41,6 +51,82 @@ Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Required\+
 
 
 
+Definition at line 30 of file required-\/optimization-\/reducer.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31                                                   \{}
+\DoxyCodeLine{32     \mbox{\hyperlink{compiler_2turboshaft_2assembler_8h_a7a449d0096649ec2e7ec91ea05833a5d}{LABEL\_BLOCK}}(no\_change) \{ \textcolor{keywordflow}{return} Next::ReducePhi(inputs, rep); \}}
+\DoxyCodeLine{33     \textcolor{keywordflow}{if} (inputs.size() == 0) \textcolor{keywordflow}{goto} no\_change;}
+\DoxyCodeLine{34     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} first = inputs.first();}
+\DoxyCodeLine{35     \textcolor{keywordtype}{bool} same\_inputs = \textcolor{keyword}{true};}
+\DoxyCodeLine{36     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}}\& input : inputs.SubVectorFrom(1)) \{}
+\DoxyCodeLine{37       \textcolor{keywordflow}{if} (input != first) \{}
+\DoxyCodeLine{38         same\_inputs = \textcolor{keyword}{false};}
+\DoxyCodeLine{39         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{40       \}}
+\DoxyCodeLine{41     \}}
+\DoxyCodeLine{42     \textcolor{keywordflow}{if} (same\_inputs) \{}
+\DoxyCodeLine{43       \textcolor{keywordflow}{return} first;}
+\DoxyCodeLine{44     \}}
+\DoxyCodeLine{45     \textcolor{keywordflow}{if} (\textcolor{keyword}{const} ConstantOp* first\_constant =}
+\DoxyCodeLine{46             \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a2b5e79bd829824237e784a6cde29309e}{Get}}(first).\textcolor{keyword}{template} TryCast<ConstantOp>()) \{}
+\DoxyCodeLine{47       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}}\& input : inputs.SubVectorFrom(1)) \{}
+\DoxyCodeLine{48         \textcolor{keyword}{const} ConstantOp* maybe\_constant =}
+\DoxyCodeLine{49             \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a2b5e79bd829824237e784a6cde29309e}{Get}}(input).template TryCast<ConstantOp>();}
+\DoxyCodeLine{50         \textcolor{keywordflow}{if} (!(maybe\_constant \&\& *maybe\_constant == *first\_constant)) \{}
+\DoxyCodeLine{51           \textcolor{keywordflow}{goto} no\_change;}
+\DoxyCodeLine{52         \}}
+\DoxyCodeLine{53       \}}
+\DoxyCodeLine{54       \textcolor{comment}{// If all of the predecessors are the same Constant, then we re-\/emit}}
+\DoxyCodeLine{55       \textcolor{comment}{// this Constant rather than emitting a Phi. This is a good idea in}}
+\DoxyCodeLine{56       \textcolor{comment}{// general, but is in particular needed for Constant that are used as}}
+\DoxyCodeLine{57       \textcolor{comment}{// call target: if they were merged into a Phi, this would result in an}}
+\DoxyCodeLine{58       \textcolor{comment}{// indirect call rather than a direct one, which:}}
+\DoxyCodeLine{59       \textcolor{comment}{//   -\/ is probably slower than a direct call in general}}
+\DoxyCodeLine{60       \textcolor{comment}{//   -\/ is probably not supported for builtins on 32-\/bit architectures.}}
+\DoxyCodeLine{61       \textcolor{keywordflow}{return} \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} ReduceConstant(first\_constant-\/>kind, first\_constant-\/>storage);}
+\DoxyCodeLine{62     \}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#if V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{64     \textcolor{keywordflow}{if} (\textcolor{keyword}{const} RttCanonOp* first\_rtt =}
+\DoxyCodeLine{65             \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a2b5e79bd829824237e784a6cde29309e}{Get}}(first).\textcolor{keyword}{template} TryCast<RttCanonOp>()) \{}
+\DoxyCodeLine{66       \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}}\& input : inputs.SubVectorFrom(1)) \{}
+\DoxyCodeLine{67         \textcolor{keyword}{const} RttCanonOp* maybe\_rtt =}
+\DoxyCodeLine{68             \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a2b5e79bd829824237e784a6cde29309e}{Get}}(input).template TryCast<RttCanonOp>();}
+\DoxyCodeLine{69         \textcolor{keywordflow}{if} (!(maybe\_rtt \&\& maybe\_rtt-\/>rtts() == first\_rtt-\/>rtts() \&\&}
+\DoxyCodeLine{70               maybe\_rtt-\/>type\_index == first\_rtt-\/>type\_index)) \{}
+\DoxyCodeLine{71           \textcolor{keywordflow}{goto} no\_change;}
+\DoxyCodeLine{72         \}}
+\DoxyCodeLine{73       \}}
+\DoxyCodeLine{74       \textcolor{comment}{// If all of the predecessors are the same RttCanon, then we re-\/emit this}}
+\DoxyCodeLine{75       \textcolor{comment}{// RttCanon rather than emitting a Phi. This helps the subsequent}}
+\DoxyCodeLine{76       \textcolor{comment}{// phases (in particular, `WasmGCTypedOptimizationReducer`) to resolve the}}
+\DoxyCodeLine{77       \textcolor{comment}{// type index corresponding to an RttCanon.}}
+\DoxyCodeLine{78       \textcolor{comment}{// Note: this relies on all RttCanons having the same `rtts()` input,}}
+\DoxyCodeLine{79       \textcolor{comment}{// which is the case due to instance field caching during graph}}
+\DoxyCodeLine{80       \textcolor{comment}{// generation.}}
+\DoxyCodeLine{81       \textcolor{comment}{// TODO(manoskouk): Can we generalize these two (and possibly more) cases?}}
+\DoxyCodeLine{82       \textcolor{keywordflow}{return} \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} ReduceRttCanon(first\_rtt-\/>rtts(), first\_rtt-\/>type\_index);}
+\DoxyCodeLine{83     \}}
+\DoxyCodeLine{84 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{85     \textcolor{keywordflow}{goto} no\_change;}
+\DoxyCodeLine{86   \}}
+
+\end{DoxyCode}
+
+
+References \+\_\+\+\_\+, v8\+::internal\+::compiler\+::turboshaft\+::\+Get(), and LABEL\+\_\+\+BLOCK.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1RequiredOptimizationReducer_af149be5667f65560df6dbc93a2fc072a_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{required-optimization-reducer_8h}{required-\/optimization-\/reducer.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{required-optimization-reducer_8h}{required-\/optimization-\/reducer.\+h}}\end{DoxyCompactItemize}

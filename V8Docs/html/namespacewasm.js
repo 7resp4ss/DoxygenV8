@@ -1,5 +1,6 @@
 var namespacewasm =
 [
+    [ "anonymous_namespace{c-api.cc}", "namespacewasm_1_1anonymous__namespace_02c-api_8cc_03.html", "namespacewasm_1_1anonymous__namespace_02c-api_8cc_03" ],
     [ "implement", "structwasm_1_1implement.html", null ],
     [ "ConfigImpl", "structwasm_1_1ConfigImpl.html", null ],
     [ "implement< Config >", "structwasm_1_1implement_3_01Config_01_4.html", "structwasm_1_1implement_3_01Config_01_4" ],

@@ -22,5 +22,6 @@ var classv8_1_1PropertyDescriptor =
     [ "set_configurable", "classv8_1_1PropertyDescriptor.html#aa62e5d1edb178f7534b7c1674f1b12c3", null ],
     [ "set_enumerable", "classv8_1_1PropertyDescriptor.html#a09cce6a351a1ddd23f6ceef55605abf8", null ],
     [ "value", "classv8_1_1PropertyDescriptor.html#aa00df988eec6d070bced1eaa27ad129c", null ],
-    [ "writable", "classv8_1_1PropertyDescriptor.html#a549aa06b69cf4d3c4ef54af7cd06462c", null ]
+    [ "writable", "classv8_1_1PropertyDescriptor.html#a549aa06b69cf4d3c4ef54af7cd06462c", null ],
+    [ "private_", "classv8_1_1PropertyDescriptor.html#a6c52b658b9e0f17763c72a4f717304aa", null ]
 ];

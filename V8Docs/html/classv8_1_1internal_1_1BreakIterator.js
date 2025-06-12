@@ -3,6 +3,7 @@ var classv8_1_1internal_1_1BreakIterator =
     [ "BreakIterator", "classv8_1_1internal_1_1BreakIterator.html#a1bebe9500f13c9bdd06b45977bbd2889", null ],
     [ "BreakIterator", "classv8_1_1internal_1_1BreakIterator.html#a1b0ea74a2cbd719b6107618277403233", null ],
     [ "break_index", "classv8_1_1internal_1_1BreakIterator.html#aca4346d61ec2b527ade3b54d2ce6f793", null ],
+    [ "BreakIndexFromPosition", "classv8_1_1internal_1_1BreakIterator.html#af46fe6c1c374806783072b7e5eeb948f", null ],
     [ "ClearDebugBreak", "classv8_1_1internal_1_1BreakIterator.html#a2189db30a7e9ce3901bc74b3ac05befa", null ],
     [ "code_offset", "classv8_1_1internal_1_1BreakIterator.html#a16789d710bc832ef503d09c786f05fbf", null ],
     [ "Done", "classv8_1_1internal_1_1BreakIterator.html#af7d4f3ccf079825f31140bda41879df4", null ],
@@ -14,5 +15,10 @@ var classv8_1_1internal_1_1BreakIterator =
     [ "SetDebugBreak", "classv8_1_1internal_1_1BreakIterator.html#a02fe2dd87d076830b498642bc880e153", null ],
     [ "SkipTo", "classv8_1_1internal_1_1BreakIterator.html#a6ab9d01cb29f2e155f80304f3f4639a1", null ],
     [ "SkipToPosition", "classv8_1_1internal_1_1BreakIterator.html#a8871e8a3a7b74ed82499cc6c0519e0e3", null ],
-    [ "statement_position", "classv8_1_1internal_1_1BreakIterator.html#ab5d415ab8dac806de7f6627e0a5aab2d", null ]
+    [ "statement_position", "classv8_1_1internal_1_1BreakIterator.html#ab5d415ab8dac806de7f6627e0a5aab2d", null ],
+    [ "break_index_", "classv8_1_1internal_1_1BreakIterator.html#a90de25ae723e0faab802c24a603894dc", null ],
+    [ "debug_info_", "classv8_1_1internal_1_1BreakIterator.html#a7131da98020b998f461e26f6254924bf", null ],
+    [ "position_", "classv8_1_1internal_1_1BreakIterator.html#a24bfadba6a5c160ebe3b4642a0cf14af", null ],
+    [ "source_position_iterator_", "classv8_1_1internal_1_1BreakIterator.html#a3776678d7045356a5118ae2e32eca96a", null ],
+    [ "statement_position_", "classv8_1_1internal_1_1BreakIterator.html#af09e4e99b0ccfeb49abd9846273849af", null ]
 ];

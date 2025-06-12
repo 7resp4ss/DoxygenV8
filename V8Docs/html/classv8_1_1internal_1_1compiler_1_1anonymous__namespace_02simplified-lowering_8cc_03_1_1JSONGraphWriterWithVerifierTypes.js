@@ -1,0 +1,6 @@
+var classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02simplified_lowering_8cc_03_1_1JSONGraphWriterWithVerifierTypes =
+[
+    [ "JSONGraphWriterWithVerifierTypes", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02simplified-lowering_8cc_03_1_1JSONGraphWriterWithVerifierTypes.html#acb7f36faa2e177e8a894e04917923b34", null ],
+    [ "GetType", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02simplified-lowering_8cc_03_1_1JSONGraphWriterWithVerifierTypes.html#a4fbd261ad98d562039d8b4533253be43", null ],
+    [ "verifier_", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02simplified-lowering_8cc_03_1_1JSONGraphWriterWithVerifierTypes.html#adad8ce65e0cf1282d2336013907191e3", null ]
+];

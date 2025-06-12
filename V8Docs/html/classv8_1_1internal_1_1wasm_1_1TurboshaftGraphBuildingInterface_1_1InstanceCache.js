@@ -1,0 +1,26 @@
+var classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache =
+[
+    [ "InstanceCache", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a60eb060ddc396bcab9b90569d703f0cf", null ],
+    [ "Asm", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#ab44bcb44b91e018b79058d1ae72a32d1", null ],
+    [ "Initialize", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a2685c7d5991d946b680dc7a2164e15bd", null ],
+    [ "LoadMemSize", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a03f5d8a64772657cc7b2e511aa5c9303", null ],
+    [ "LoadMemStart", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a24a9bbc2f708c29cc70bb18e84a6e277", null ],
+    [ "managed_object_maps", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a8f585069fd7c670001ec27616d0ddd89", null ],
+    [ "memory0_size", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a9601220d3da4eab6c2d486c5c9de052e", null ],
+    [ "memory0_start", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a451bbe81d42b914807f01657bf741855", null ],
+    [ "memory_can_move", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a777bc598bf15b90bfafc35020fdf41b8", null ],
+    [ "native_context", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a1e5ea7e9977424c840a13eabda3f83b4", null ],
+    [ "ReloadCachedMemory", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a458b268f3882173cdddd3a2e84cbea19", null ],
+    [ "trusted_instance_data", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a842b6dad1d20a8abb14400f2dc530100", null ],
+    [ "asm_", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a6dfbfbdae78f9721330722ba43fb29fe", null ],
+    [ "kUnused", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#adb83ff10a590b45b743176903872cd2a", null ],
+    [ "managed_object_maps_", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a8420c935f908fa5e5ef6b558415817d2", null ],
+    [ "mem_size_", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#ae42d1abfa3a815dfc536a9b4d837d63a", null ],
+    [ "mem_start_", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a610f89fe1ab842f5d4bbef845de4f297", null ],
+    [ "memory_can_grow_", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a1e8a0c2eed951460376380b47c0195b5", null ],
+    [ "memory_can_move_", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a0ee14c5ab761778ec1a6022349c4060b", null ],
+    [ "memory_is_shared_", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a8c6fc689f7cc347200b72e758b265517", null ],
+    [ "memory_size_cached_", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#ab7e20cd544620e708e9e9eb9fd322ef5", null ],
+    [ "native_context_", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#ad1ea0c418add19143c4f11ae5c9c343c", null ],
+    [ "trusted_data_", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html#a716bb376ab3a323685c12638a498db80", null ]
+];

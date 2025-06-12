@@ -1,10 +1,27 @@
 \hypertarget{structv8_1_1internal_1_1compiler_1_1EarlyOptimizationPhase}{}\doxysection{v8\+::internal\+::compiler\+::Early\+Optimization\+Phase Struct Reference}
 \label{structv8_1_1internal_1_1compiler_1_1EarlyOptimizationPhase}\index{v8::internal::compiler::EarlyOptimizationPhase@{v8::internal::compiler::EarlyOptimizationPhase}}
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Early\+Optimization\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{structv8_1_1internal_1_1compiler_1_1EarlyOptimizationPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1EarlyOptimizationPhase_a851bb04c46db670a2b62be62eaaf63ef}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
+void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1EarlyOptimizationPhase_a851bb04c46db670a2b62be62eaaf63ef}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1249 of file pipeline.\+cc.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -16,6 +33,52 @@ void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1EarlyOptimizationPhase
 
 
 
+Definition at line 1252 of file pipeline.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1252                                                   \{}
+\DoxyCodeLine{1253     GraphReducer graph\_reducer(}
+\DoxyCodeLine{1254         temp\_zone, data-\/>graph(), \&data-\/>info()-\/>tick\_counter(), data-\/>broker(),}
+\DoxyCodeLine{1255         data-\/>jsgraph()-\/>Dead(), data-\/>observe\_node\_manager());}
+\DoxyCodeLine{1256     DeadCodeElimination dead\_code\_elimination(\&graph\_reducer, data-\/>graph(),}
+\DoxyCodeLine{1257                                               data-\/>common(), temp\_zone);}
+\DoxyCodeLine{1258     SimplifiedOperatorReducer simple\_reducer(\&graph\_reducer, data-\/>jsgraph(),}
+\DoxyCodeLine{1259                                              data-\/>broker(),}
+\DoxyCodeLine{1260                                              \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac1e15b9d73fa3e3885616519e20c2bfba3a016828bd447a6d33f9e45c238f3b69}{BranchSemantics::kMachine}});}
+\DoxyCodeLine{1261     RedundancyElimination redundancy\_elimination(\&graph\_reducer,}
+\DoxyCodeLine{1262                                                  data-\/>jsgraph(), temp\_zone);}
+\DoxyCodeLine{1263     ValueNumberingReducer value\_numbering(temp\_zone, data-\/>graph()-\/>zone());}
+\DoxyCodeLine{1264     MachineOperatorReducer machine\_reducer(}
+\DoxyCodeLine{1265         \&graph\_reducer, data-\/>jsgraph(),}
+\DoxyCodeLine{1266         \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MachineOperatorReducer_adf89c8ea97169e24b59f40d84d5943f8afce1f23856323d2dca3994b27b18cd7b}{MachineOperatorReducer::kPropagateSignallingNan}});}
+\DoxyCodeLine{1267     CommonOperatorReducer common\_reducer(}
+\DoxyCodeLine{1268         \&graph\_reducer, data-\/>graph(), data-\/>broker(), data-\/>common(),}
+\DoxyCodeLine{1269         data-\/>machine(), temp\_zone, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac1e15b9d73fa3e3885616519e20c2bfba3a016828bd447a6d33f9e45c238f3b69}{BranchSemantics::kMachine}});}
+\DoxyCodeLine{1270     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&dead\_code\_elimination);}
+\DoxyCodeLine{1271     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&simple\_reducer);}
+\DoxyCodeLine{1272     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&redundancy\_elimination);}
+\DoxyCodeLine{1273     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&machine\_reducer);}
+\DoxyCodeLine{1274     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&common\_reducer);}
+\DoxyCodeLine{1275     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&value\_numbering);}
+\DoxyCodeLine{1276     graph\_reducer.ReduceGraph();}
+\DoxyCodeLine{1277   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{pipeline.\+cc\}\+::\+Add\+Reducer(), v8\+::internal\+::compiler\+::\+Graph\+Reducer\+::graph(), v8\+::internal\+::compiler\+::k\+Machine, v8\+::internal\+::compiler\+::\+Machine\+Operator\+Reducer\+::k\+Propagate\+Signalling\+Nan, and v8\+::internal\+::compiler\+::\+Graph\+Reducer\+::\+Reduce\+Graph().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1EarlyOptimizationPhase_a851bb04c46db670a2b62be62eaaf63ef_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}

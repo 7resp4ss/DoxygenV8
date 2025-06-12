@@ -10,5 +10,5 @@ var v8_local_handle_8h =
     [ "EscapableHandleScope", "classv8_1_1EscapableHandleScope.html", "classv8_1_1EscapableHandleScope" ],
     [ "SealHandleScope", "classv8_1_1SealHandleScope.html", "classv8_1_1SealHandleScope" ],
     [ "Handle", "v8-local-handle_8h.html#a9b42f6a6adfdc70e92717a20a2e99ba3", null ],
-    [ "ToLocalEmpty", "v8-local-handle_8h.html#a289b306a243b3b0727cecab4fe5507d5", null ]
+    [ "ToLocalEmpty", "v8-local-handle_8h.html#a8468e5c9ad188f124578d3ccef091a30", null ]
 ];

@@ -8,5 +8,6 @@ var classcppgc_1_1DefaultPlatform =
     [ "GetV8Platform", "classcppgc_1_1DefaultPlatform.html#a0996d28ac9d0a0861244f3ddef2a72d5", null ],
     [ "MonotonicallyIncreasingTime", "classcppgc_1_1DefaultPlatform.html#af00442dae93371d546837360a6c2705f", null ],
     [ "PostJob", "classcppgc_1_1DefaultPlatform.html#a3ffe0ec3434b231a0c48c37c8f945ee1", null ],
+    [ "kNoIsolate", "classcppgc_1_1DefaultPlatform.html#a93cd56403f15bdb84cdfce39c28c3e4f", null ],
     [ "v8_platform_", "classcppgc_1_1DefaultPlatform.html#a9b5b32e44b196f62f07c26df216b01b4", null ]
 ];

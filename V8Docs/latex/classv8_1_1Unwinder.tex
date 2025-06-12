@@ -2,21 +2,40 @@
 \label{classv8_1_1Unwinder}\index{v8::Unwinder@{v8::Unwinder}}
 
 
+Various helpers for skipping over \mbox{\hyperlink{classv8_1_1V8}{V8}} frames in a given stack.  
+
+
+
+
 {\ttfamily \#include $<$v8-\/unwinder.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::Unwinder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{classv8_1_1Unwinder__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 static bool \mbox{\hyperlink{classv8_1_1Unwinder_a6d07f048a236737ec88d327c3f85e539}{Try\+Unwind\+V8\+Frames}} (const \mbox{\hyperlink{structv8_1_1JSEntryStubs}{JSEntry\+Stubs}} \&entry\+\_\+stubs, size\+\_\+t code\+\_\+pages\+\_\+length, const \mbox{\hyperlink{structv8_1_1MemoryRange}{Memory\+Range}} $\ast$code\+\_\+pages, \mbox{\hyperlink{structv8_1_1RegisterState}{Register\+State}} $\ast$register\+\_\+state, const void $\ast$stack\+\_\+base)
-\item 
-static bool \mbox{\hyperlink{classv8_1_1Unwinder_a2e30a6786a20ad33a210e0b4dc344dff}{PCIs\+In\+V8}} (size\+\_\+t code\+\_\+pages\+\_\+length, const \mbox{\hyperlink{structv8_1_1MemoryRange}{Memory\+Range}} $\ast$code\+\_\+pages, void $\ast$\mbox{\hyperlink{experimental-interpreter_8cc_ac8c81e61335635fa4709d82412b31f06}{pc}})
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Attempt to unwind the stack to the most recent C++ frame. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{classv8_1_1Unwinder_a2e30a6786a20ad33a210e0b4dc344dff}{PCIs\+In\+V8}} (size\+\_\+t code\+\_\+pages\+\_\+length, const \mbox{\hyperlink{structv8_1_1MemoryRange}{Memory\+Range}} $\ast$code\+\_\+pages, void $\ast$pc)
+\begin{DoxyCompactList}\small\item\em Whether the PC is within the \mbox{\hyperlink{classv8_1_1V8}{V8}} code range represented by code\+\_\+pages. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Various helpers for skipping over \mbox{\hyperlink{classv8_1_1V8}{V8}} frames in a given stack.
+Various helpers for skipping over \mbox{\hyperlink{classv8_1_1V8}{V8}} frames in a given stack. 
 
 The unwinder API is only supported on the x64, ARM64 and ARM32 architectures. 
+
+Definition at line 80 of file v8-\/unwinder.\+h.
+
+
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1Unwinder_a2e30a6786a20ad33a210e0b4dc344dff}\label{classv8_1_1Unwinder_a2e30a6786a20ad33a210e0b4dc344dff}} 
@@ -25,17 +44,58 @@ The unwinder API is only supported on the x64, ARM64 and ARM32 architectures.
 \doxysubsubsection{\texorpdfstring{PCIsInV8()}{PCIsInV8()}}
 {\footnotesize\ttfamily bool v8\+::\+Unwinder\+::\+PCIs\+In\+V8 (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{code\+\_\+pages\+\_\+length,  }\item[{const \mbox{\hyperlink{structv8_1_1MemoryRange}{Memory\+Range}} $\ast$}]{code\+\_\+pages,  }\item[{void $\ast$}]{pc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
-Whether the PC is within the \mbox{\hyperlink{classv8_1_1V8}{V8}} code range represented by code\+\_\+pages.
+
+
+Whether the PC is within the \mbox{\hyperlink{classv8_1_1V8}{V8}} code range represented by code\+\_\+pages. 
 
 If this returns false, then calling Unwind\+V8\+Frames() with the same PC and unwind\+\_\+state will always fail. If it returns true, then unwinding may (but not necessarily) be successful.
 
-Available on x64, ARM64 and ARM32 \mbox{\Hypertarget{classv8_1_1Unwinder_a6d07f048a236737ec88d327c3f85e539}\label{classv8_1_1Unwinder_a6d07f048a236737ec88d327c3f85e539}} 
+Available on x64, ARM64 and ARM32 
+
+Definition at line 163 of file unwinder.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{164                                   \{}
+\DoxyCodeLine{165   \textcolor{keywordflow}{return} pc \&\& \mbox{\hyperlink{namespacev8_1_1anonymous__namespace_02unwinder_8cc_03_a9a3ca7ddb4ea7b1d3e79f92677198c1b}{PCIsInCodePages}}(code\_pages\_length, code\_pages, pc);}
+\DoxyCodeLine{166 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::anonymous\+\_\+namespace\{unwinder.\+cc\}\+::\+PCIs\+In\+Code\+Pages().
+
+
+
+Referenced by Try\+Unwind\+V8\+Frames().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1Unwinder_a2e30a6786a20ad33a210e0b4dc344dff_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1Unwinder_a2e30a6786a20ad33a210e0b4dc344dff_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1Unwinder_a6d07f048a236737ec88d327c3f85e539}\label{classv8_1_1Unwinder_a6d07f048a236737ec88d327c3f85e539}} 
 \index{v8::Unwinder@{v8::Unwinder}!TryUnwindV8Frames@{TryUnwindV8Frames}}
 \index{TryUnwindV8Frames@{TryUnwindV8Frames}!v8::Unwinder@{v8::Unwinder}}
 \doxysubsubsection{\texorpdfstring{TryUnwindV8Frames()}{TryUnwindV8Frames()}}
 {\footnotesize\ttfamily bool v8\+::\+Unwinder\+::\+Try\+Unwind\+V8\+Frames (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structv8_1_1JSEntryStubs}{JSEntry\+Stubs}} \&}]{entry\+\_\+stubs,  }\item[{size\+\_\+t}]{code\+\_\+pages\+\_\+length,  }\item[{const \mbox{\hyperlink{structv8_1_1MemoryRange}{Memory\+Range}} $\ast$}]{code\+\_\+pages,  }\item[{\mbox{\hyperlink{structv8_1_1RegisterState}{Register\+State}} $\ast$}]{register\+\_\+state,  }\item[{const void $\ast$}]{stack\+\_\+base }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
-Attempt to unwind the stack to the most recent C++ frame. This function is signal-\/safe and does not access any \mbox{\hyperlink{classv8_1_1V8}{V8}} state and thus doesn\textquotesingle{}t require an \mbox{\hyperlink{classv8_1_1Isolate}{Isolate}}.
+
+
+Attempt to unwind the stack to the most recent C++ frame. 
+
+This function is signal-\/safe and does not access any \mbox{\hyperlink{classv8_1_1V8}{V8}} state and thus doesn\textquotesingle{}t require an \mbox{\hyperlink{classv8_1_1Isolate}{Isolate}}.
 
 The unwinder needs to know the location of the JS Entry Stub (a piece of code that is run when C++ code calls into generated JS code). This is used for edge cases where the current frame is being constructed or torn down when the stack sample occurs.
 
@@ -57,7 +117,69 @@ True on success.
 \end{DoxyReturn}
 
 
+Definition at line 116 of file unwinder.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{120                                                          \{}
+\DoxyCodeLine{121   \textcolor{keyword}{const} \textcolor{keywordtype}{void}* stack\_top = register\_state-\/>sp;}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{123   \textcolor{keywordtype}{void}* pc = register\_state-\/>pc;}
+\DoxyCodeLine{124   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1Unwinder_a2e30a6786a20ad33a210e0b4dc344dff}{PCIsInV8}}(code\_pages\_length, code\_pages, pc) \&\&}
+\DoxyCodeLine{125       !\mbox{\hyperlink{namespacev8_1_1anonymous__namespace_02unwinder_8cc_03_a7690b69114b05e4fdffbb56f1d6900bc}{IsInUnsafeJSEntryRange}}(entry\_stubs, pc)) \{}
+\DoxyCodeLine{126     \textcolor{keywordtype}{void}* current\_fp = register\_state-\/>fp;}
+\DoxyCodeLine{127     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1anonymous__namespace_02unwinder_8cc_03_af9d3d25f3f8200190db47a06f463ffac}{AddressIsInStack}}(current\_fp, stack\_base, stack\_top)) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129     \textcolor{comment}{// Peek at the return address that the caller pushed. If it's in V8, then we}}
+\DoxyCodeLine{130     \textcolor{comment}{// assume the caller frame is a JS frame and continue to unwind.}}
+\DoxyCodeLine{131     \textcolor{keywordtype}{void}* next\_pc = \mbox{\hyperlink{namespacev8_1_1anonymous__namespace_02unwinder_8cc_03_a5fd8b127ce83994ac8dbc97b1c9d9ac0}{GetReturnAddressFromFP}}(current\_fp, pc, entry\_stubs);}
+\DoxyCodeLine{132     \textcolor{keywordflow}{while} (\mbox{\hyperlink{classv8_1_1Unwinder_a2e30a6786a20ad33a210e0b4dc344dff}{PCIsInV8}}(code\_pages\_length, code\_pages, next\_pc)) \{}
+\DoxyCodeLine{133       current\_fp = \mbox{\hyperlink{namespacev8_1_1anonymous__namespace_02unwinder_8cc_03_a841f5927e434e1a3163f4fbe2b6c95f0}{GetCallerFPFromFP}}(current\_fp, pc, entry\_stubs);}
+\DoxyCodeLine{134       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1anonymous__namespace_02unwinder_8cc_03_af9d3d25f3f8200190db47a06f463ffac}{AddressIsInStack}}(current\_fp, stack\_base, stack\_top)) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{135       pc = next\_pc;}
+\DoxyCodeLine{136       next\_pc = \mbox{\hyperlink{namespacev8_1_1anonymous__namespace_02unwinder_8cc_03_a5fd8b127ce83994ac8dbc97b1c9d9ac0}{GetReturnAddressFromFP}}(current\_fp, pc, entry\_stubs);}
+\DoxyCodeLine{137     \}}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139     \textcolor{keywordtype}{void}* final\_sp = \mbox{\hyperlink{namespacev8_1_1anonymous__namespace_02unwinder_8cc_03_abc443b5526f9ff77d2af5a53ac458b5f}{GetCallerSPFromFP}}(current\_fp, pc, entry\_stubs);}
+\DoxyCodeLine{140     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1anonymous__namespace_02unwinder_8cc_03_af9d3d25f3f8200190db47a06f463ffac}{AddressIsInStack}}(final\_sp, stack\_base, stack\_top)) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{141     register\_state-\/>sp = final\_sp;}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143     \textcolor{comment}{// We don't check that the final FP value is within the stack bounds because}}
+\DoxyCodeLine{144     \textcolor{comment}{// this is just the rbp value that JSEntryStub pushed. On platforms like}}
+\DoxyCodeLine{145     \textcolor{comment}{// Win64 this is not used as a dedicated FP register, and could contain}}
+\DoxyCodeLine{146     \textcolor{comment}{// anything.}}
+\DoxyCodeLine{147     \textcolor{keywordtype}{void}* final\_fp = \mbox{\hyperlink{namespacev8_1_1anonymous__namespace_02unwinder_8cc_03_a841f5927e434e1a3163f4fbe2b6c95f0}{GetCallerFPFromFP}}(current\_fp, pc, entry\_stubs);}
+\DoxyCodeLine{148     register\_state-\/>fp = final\_fp;}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{150     register\_state-\/>pc = next\_pc;}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152     \textcolor{comment}{// Link register no longer valid after unwinding.}}
+\DoxyCodeLine{153     register\_state-\/>lr = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{155     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1anonymous__namespace_02unwinder_8cc_03_aa0a48ebeb2eede5e22f3d6816fa94d6d}{IsInJSEntryRange}}(entry\_stubs, pc)) \{}
+\DoxyCodeLine{156       \mbox{\hyperlink{namespacev8_a5bd7c122fde5fb72c90bace8b79e5950}{GetCalleeSavedRegistersFromEntryFrame}}(current\_fp, register\_state);}
+\DoxyCodeLine{157     \}}
+\DoxyCodeLine{158     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{159   \}}
+\DoxyCodeLine{160   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{161 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::anonymous\+\_\+namespace\{unwinder.\+cc\}\+::\+Address\+Is\+In\+Stack(), v8\+::\+Register\+State\+::fp, v8\+::\+Get\+Callee\+Saved\+Registers\+From\+Entry\+Frame(), v8\+::anonymous\+\_\+namespace\{unwinder.\+cc\}\+::\+Get\+Caller\+FPFrom\+FP(), v8\+::anonymous\+\_\+namespace\{unwinder.\+cc\}\+::\+Get\+Caller\+SPFrom\+FP(), v8\+::anonymous\+\_\+namespace\{unwinder.\+cc\}\+::\+Get\+Return\+Address\+From\+FP(), v8\+::anonymous\+\_\+namespace\{unwinder.\+cc\}\+::\+Is\+In\+JSEntry\+Range(), v8\+::anonymous\+\_\+namespace\{unwinder.\+cc\}\+::\+Is\+In\+Unsafe\+JSEntry\+Range(), v8\+::\+Register\+State\+::lr, v8\+::\+Register\+State\+::pc, PCIs\+In\+V8(), and v8\+::\+Register\+State\+::sp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1Unwinder_a6d07f048a236737ec88d327c3f85e539_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-unwinder_8h}{v8-\/unwinder.\+h}}\item 
-\mbox{\hyperlink{unwinder_8cc}{unwinder.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/\mbox{\hyperlink{v8-unwinder_8h}{v8-\/unwinder.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/diagnostics/\mbox{\hyperlink{unwinder_8cc}{unwinder.\+cc}}\end{DoxyCompactItemize}

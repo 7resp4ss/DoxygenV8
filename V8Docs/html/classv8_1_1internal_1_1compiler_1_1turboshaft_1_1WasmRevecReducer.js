@@ -2,7 +2,13 @@ var classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer =
 [
     [ "Adapter", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#af5b5827bde5e5f21ce7f3debf3b43a13", null ],
     [ "FixLoopPhi", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#ab2ea1538ff9c1e7f842d16ffc0c98f74", null ],
+    [ "Get256LoadTransformKindFrom128", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#a45e31bec87dcf48776b1a99f177dd8db", null ],
+    [ "Get256SplatOpKindFrom128", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#aa5d22efcc74c923d35d1de972ef79d06", null ],
     [ "GetExtractOpIfNeeded", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#a88576f583f883949a4fd50eba4852eb5", null ],
+    [ "GetSimd256BinOpKind", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#af31932e393691c6080a85a1ad295836f", null ],
+    [ "GetSimd256ShiftOpKind", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#a76695e889625d46acffadbfaaf22bb6f", null ],
+    [ "GetSimd256TernaryKind", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#a2335dfc61a00a114b5b52b2cdfb0a4df", null ],
+    [ "GetSimd256UnaryKind", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#aeeb493cd54379c23baa74ca1534271c5", null ],
     [ "Load", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#af34b984518c8a7f788a7f0fbb4409c9a", null ],
     [ "Phi", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#a5f6f5edbf1409674243f1b900f9a6473", null ],
     [ "ReduceForceOrIntersectPackNode", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#a900ad7073488ec15024c431bdedd56d3", null ],
@@ -17,5 +23,7 @@ var classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer =
     [ "Simd128Splat", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#ac8bee8d9b0b5660d25b14cc49fc5aa15", null ],
     [ "Simd128Ternary", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#a57d7fec3e01165c9f1639a249f97cc1e", null ],
     [ "Simd128Unary", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#a3e549af8037b14db5e8d3671b67e5b60", null ],
-    [ "Store", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#ae7de885f3c9a2e099bab7c017033d901", null ]
+    [ "Store", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#ae7de885f3c9a2e099bab7c017033d901", null ],
+    [ "analyzer_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#ade42bfe6399d18dee4f77b4ec28f317a", null ],
+    [ "module_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1WasmRevecReducer.html#ab65139a0b8ab50c3acd17fbf7383ae3c", null ]
 ];

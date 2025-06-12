@@ -90,13 +90,24 @@ $(document).ready(function(){initNavTree('structv8_1_1internal_1_1compiler_1_1tu
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="instruction-selection-phase_8h_source.html">instruction-selection-phase.h</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for v8::internal::compiler::turboshaft::ProfileApplicationPhase:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ProfileApplicationPhase__coll__graph.svg" width="268" height="103"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abc86d11db2f5493daac1d9c1961c9c7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ProfileApplicationPhase.html#abc86d11db2f5493daac1d9c1961c9c7c">Run</a> (<a class="el" href="classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData.html">PipelineData</a> *<a class="el" href="builtins_8cc.html#ad2a98ce8e8b889a9843d6839653a11a1">data</a>, <a class="el" href="classv8_1_1internal_1_1Zone.html">Zone</a> *temp_zone, const <a class="el" href="classv8_1_1internal_1_1ProfileDataFromFile.html">ProfileDataFromFile</a> *profile)</td></tr>
+<tr class="memitem:abc86d11db2f5493daac1d9c1961c9c7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ProfileApplicationPhase.html#abc86d11db2f5493daac1d9c1961c9c7c">Run</a> (<a class="el" href="classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData.html">PipelineData</a> *data, <a class="el" href="classv8_1_1internal_1_1Zone.html">Zone</a> *temp_zone, const <a class="el" href="classv8_1_1internal_1_1ProfileDataFromFile.html">ProfileDataFromFile</a> *profile)</td></tr>
 <tr class="separator:abc86d11db2f5493daac1d9c1961c9c7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="instruction-selection-phase_8h_source.html#l00115">115</a> of file <a class="el" href="instruction-selection-phase_8h_source.html">instruction-selection-phase.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="abc86d11db2f5493daac1d9c1961c9c7c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abc86d11db2f5493daac1d9c1961c9c7c">&#9670;&nbsp;</a></span>Run()</h2>
 
@@ -129,11 +140,40 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="instruction-selection-phase_8cc_source.html#l00298">298</a> of file <a class="el" href="instruction-selection-phase_8cc_source.html">instruction-selection-phase.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                                                                      {</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;  Graph&amp; <a class="code" href="flag-definitions_8h.html#a06b2b7e5d08192bb493bba69cb19a7a8">graph</a> = data-&gt;graph();</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; op : <a class="code" href="flag-definitions_8h.html#a06b2b7e5d08192bb493bba69cb19a7a8">graph</a>.AllOperations()) {</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keywordflow">if</span> (BranchOp* branch = op.TryCast&lt;BranchOp&gt;()) {</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;      uint32_t true_block_id = branch-&gt;if_true-&gt;index().id();</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;      uint32_t false_block_id = branch-&gt;if_false-&gt;index().id();</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;      <a class="code" href="namespacev8_1_1internal.html#ab5a4f63d4df50ea3fd9299c981ae3187">BranchHint</a> hint = profile-&gt;GetHint(true_block_id, false_block_id);</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;      <span class="keywordflow">if</span> (hint != <a class="code" href="namespacev8_1_1internal.html#ab5a4f63d4df50ea3fd9299c981ae3187a35c3ace1970663a16e5c65baa5941b13">BranchHint::kNone</a>) {</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        <span class="comment">// We update the hint in-place.</span></div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        branch-&gt;hint = hint;</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;      }</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    }</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;  }</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;}</div>
+<div class="ttc" id="aflag-definitions_8h_html_a06b2b7e5d08192bb493bba69cb19a7a8"><div class="ttname"><a href="flag-definitions_8h.html#a06b2b7e5d08192bb493bba69cb19a7a8">graph</a></div><div class="ttdeci">refactor address components for immediate indexing make OptimizeMaglevOnNextCall optimize to turbofan instead of maglev filter for tracing turbofan compilation trace turbo cfg graph(for C1 visualizer) to a given file name&quot;)  DEFINE_SLOW_TRACING_BOOL(trace_turbo_trimming</div></div>
+<div class="ttc" id="anamespacev8_1_1internal_html_ab5a4f63d4df50ea3fd9299c981ae3187"><div class="ttname"><a href="namespacev8_1_1internal.html#ab5a4f63d4df50ea3fd9299c981ae3187">v8::internal::BranchHint</a></div><div class="ttdeci">BranchHint</div><div class="ttdef"><b>Definition:</b> <a href="common_2globals_8h_source.html#l01839">globals.h:1839</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_html_ab5a4f63d4df50ea3fd9299c981ae3187a35c3ace1970663a16e5c65baa5941b13"><div class="ttname"><a href="namespacev8_1_1internal.html#ab5a4f63d4df50ea3fd9299c981ae3187a35c3ace1970663a16e5c65baa5941b13">v8::internal::BranchHint::kNone</a></div><div class="ttdeci">@ kNone</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="profile-data-reader_8h_source.html#l00025">v8::internal::ProfileDataFromFile::GetHint()</a>, <a class="el" href="turboshaft_2phase_8h_source.html#l00355">v8::internal::compiler::turboshaft::PipelineData::graph()</a>, <a class="el" href="flag-definitions_8h.html#a06b2b7e5d08192bb493bba69cb19a7a8">graph()</a>, <a class="el" href="namespacev8_1_1internal.html#ab5a4f63d4df50ea3fd9299c981ae3187a35c3ace1970663a16e5c65baa5941b13">v8::internal::kNone</a>, and <a class="el" href="operations_8h_source.html#l00981">v8::internal::compiler::turboshaft::Operation::TryCast()</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ProfileApplicationPhase_abc86d11db2f5493daac1d9c1961c9c7c_cgraph.svg" width="464" height="264"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
-<li><a class="el" href="instruction-selection-phase_8h_source.html">instruction-selection-phase.h</a></li>
-<li><a class="el" href="instruction-selection-phase_8cc.html">instruction-selection-phase.cc</a></li>
+<li>/mnt/V8SourceCode/src/compiler/turboshaft/<a class="el" href="instruction-selection-phase_8h_source.html">instruction-selection-phase.h</a></li>
+<li>/mnt/V8SourceCode/src/compiler/turboshaft/<a class="el" href="instruction-selection-phase_8cc_source.html">instruction-selection-phase.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -141,7 +181,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacev8.html">v8</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal.html">internal</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal_1_1compiler.html">compiler</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal_1_1compiler_1_1turboshaft.html">turboshaft</a></li><li class="navelem"><a class="el" href="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ProfileApplicationPhase.html">ProfileApplicationPhase</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:46:10 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jun 12 2025 16:10:42 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

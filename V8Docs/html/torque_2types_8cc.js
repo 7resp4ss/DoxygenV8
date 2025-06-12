@@ -1,6 +1,9 @@
 var torque_2types_8cc =
 [
+    [ "AppendLoweredTypes", "torque_2types_8cc.html#afbfdf7912127bd8498371cb86cfada43", null ],
+    [ "ComputeSlotKindsHelper", "torque_2types_8cc.html#ad516f97ef21a2deefc227b681423d74b", null ],
     [ "ExtractSimpleFieldArraySize", "torque_2types_8cc.html#a25f9470f515cd4ca97a009f8122fde87", null ],
+    [ "FirstTypeIsContext", "torque_2types_8cc.html#add153d48a73e7085537a470d902d96c3", null ],
     [ "Is32BitIntegralType", "torque_2types_8cc.html#a8c38d57c3e2a70b0a3984b1255fd37d6", null ],
     [ "IsAllowedAsBitField", "torque_2types_8cc.html#a9ee3258a79a193e1cc1132de1a334942", null ],
     [ "IsAnyUnsignedInteger", "torque_2types_8cc.html#a3893735dfbe9fefea89fe6b08c446d06", null ],

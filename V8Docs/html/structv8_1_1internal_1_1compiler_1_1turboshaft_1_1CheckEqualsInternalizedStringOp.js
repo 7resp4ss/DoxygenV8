@@ -7,5 +7,6 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CheckEqualsInternalizedStr
     [ "options", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CheckEqualsInternalizedStringOp.html#a69552ad4c01067fd94586da8c93ae8fc", null ],
     [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CheckEqualsInternalizedStringOp.html#a5f8a5a0dd378eb0b9a6cdc2a36b84f21", null ],
     [ "Validate", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CheckEqualsInternalizedStringOp.html#aece5a8e3d65ac2faefc24039a6760f5c", null ],
-    [ "value", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CheckEqualsInternalizedStringOp.html#ab79a30b2db0d87cf37825eb9604200f7", null ]
+    [ "value", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CheckEqualsInternalizedStringOp.html#ab79a30b2db0d87cf37825eb9604200f7", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CheckEqualsInternalizedStringOp.html#a5459f5d156b7cfc88315365b42062ce6", null ]
 ];

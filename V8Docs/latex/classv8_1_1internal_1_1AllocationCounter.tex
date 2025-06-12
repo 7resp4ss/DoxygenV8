@@ -4,6 +4,21 @@
 
 {\ttfamily \#include $<$allocation-\/observer.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Allocation\+Counter\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AllocationCounter__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1AllocationCounter_1_1AllocationObserverCounter}{Allocation\+Observer\+Counter}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -21,6 +36,28 @@
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a08fd1a66189d66bfca606928439828e0}{Next\+Bytes}} () const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structv8_1_1internal_1_1AllocationCounter_1_1AllocationObserverCounter}{Allocation\+Observer\+Counter}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\+\_\+}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structv8_1_1internal_1_1AllocationCounter_1_1AllocationObserverCounter}{Allocation\+Observer\+Counter}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a9f9eda2baef1fb2c3ddbe1ecc1368ad4}{pending\+\_\+added\+\_\+}}
+\item 
+std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{classv8_1_1internal_1_1AllocationObserver}{Allocation\+Observer}} $\ast$ $>$ \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a1014ac821e8a2d591d8c6c76ba230100}{pending\+\_\+removed\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\+\_\+counter\+\_\+}} = 0
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a2d693f2c9577ea06472b389fea2faffe}{next\+\_\+counter\+\_\+}} = 0
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a65e2521fc711c80f60e1da50b10e5c5d}{step\+\_\+in\+\_\+progress\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 54 of file allocation-\/observer.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -39,23 +76,243 @@
 \doxysubsubsection{\texorpdfstring{AddAllocationObserver()}{AddAllocationObserver()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Allocation\+Counter\+::\+Add\+Allocation\+Observer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1AllocationObserver}{Allocation\+Observer}} $\ast$}]{observer }\end{DoxyParamCaption})}
 
+
+
+Definition at line 15 of file allocation-\/observer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15                                                                           \{}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#if DEBUG}}
+\DoxyCodeLine{17   \textcolor{keyword}{auto} it = std::find\_if(\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.begin(), \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.end(),}
+\DoxyCodeLine{18                          [observer](\textcolor{keyword}{const} AllocationObserverCounter\& aoc) \{}
+\DoxyCodeLine{19                            return aoc.observer\_ == observer;}
+\DoxyCodeLine{20                          \});}
+\DoxyCodeLine{21   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.end(), it);}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a65e2521fc711c80f60e1da50b10e5c5d}{step\_in\_progress\_}}) \{}
+\DoxyCodeLine{25     \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a9f9eda2baef1fb2c3ddbe1ecc1368ad4}{pending\_added\_}}.push\_back(AllocationObserverCounter(observer, 0, 0));}
+\DoxyCodeLine{26     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{27   \}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29   intptr\_t step\_size = observer-\/>GetNextStepSize();}
+\DoxyCodeLine{30   \textcolor{keywordtype}{size\_t} observer\_next\_counter = \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}} + step\_size;}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32   \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.push\_back(AllocationObserverCounter(observer, \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}},}
+\DoxyCodeLine{33                                                  observer\_next\_counter));}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.size() == 1) \{}
+\DoxyCodeLine{36     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}}, \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a2d693f2c9577ea06472b389fea2faffe}{next\_counter\_}});}
+\DoxyCodeLine{37     \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a2d693f2c9577ea06472b389fea2faffe}{next\_counter\_}} = observer\_next\_counter;}
+\DoxyCodeLine{38   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{39     \textcolor{keywordtype}{size\_t} missing\_bytes = \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a2d693f2c9577ea06472b389fea2faffe}{next\_counter\_}} -\/ \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}};}
+\DoxyCodeLine{40     \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a2d693f2c9577ea06472b389fea2faffe}{next\_counter\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}} +}
+\DoxyCodeLine{41                     std::min(\textcolor{keyword}{static\_cast<}intptr\_t\textcolor{keyword}{>}(missing\_bytes), step\_size);}
+\DoxyCodeLine{42   \}}
+\DoxyCodeLine{43 \}}
+
+\end{DoxyCode}
+
+
+References current\+\_\+counter\+\_\+, DCHECK\+\_\+\+EQ, v8\+::internal\+::\+Allocation\+Observer\+::\+Get\+Next\+Step\+Size(), next\+\_\+counter\+\_\+, observers\+\_\+, pending\+\_\+added\+\_\+, and step\+\_\+in\+\_\+progress\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Large\+Object\+Space\+::\+Add\+Allocation\+Observer(), and v8\+::internal\+::\+Main\+Allocator\+::\+Add\+Allocation\+Observer().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AllocationCounter_ada60d612525f2e2f6e569d3ba2b4e5e7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AllocationCounter_ada60d612525f2e2f6e569d3ba2b4e5e7_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1AllocationCounter_a4eeeea8cf215b124efd7359988aa2df2}\label{classv8_1_1internal_1_1AllocationCounter_a4eeeea8cf215b124efd7359988aa2df2}} 
 \index{v8::internal::AllocationCounter@{v8::internal::AllocationCounter}!AdvanceAllocationObservers@{AdvanceAllocationObservers}}
 \index{AdvanceAllocationObservers@{AdvanceAllocationObservers}!v8::internal::AllocationCounter@{v8::internal::AllocationCounter}}
 \doxysubsubsection{\texorpdfstring{AdvanceAllocationObservers()}{AdvanceAllocationObservers()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Allocation\+Counter\+::\+Advance\+Allocation\+Observers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{allocated }\end{DoxyParamCaption})}
 
+
+
+Definition at line 75 of file allocation-\/observer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{75                                                                    \{}
+\DoxyCodeLine{76   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.empty()) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{77   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a65e2521fc711c80f60e1da50b10e5c5d}{step\_in\_progress\_}});}
+\DoxyCodeLine{78   \mbox{\hyperlink{src_2base_2logging_8h_af1a711c8d5520dff78858ddefd2ad668}{DCHECK\_LT}}(allocated, \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a2d693f2c9577ea06472b389fea2faffe}{next\_counter\_}} -\/ \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}});}
+\DoxyCodeLine{79   \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}} += allocated;}
+\DoxyCodeLine{80 \}}
+
+\end{DoxyCode}
+
+
+References current\+\_\+counter\+\_\+, v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+LT, next\+\_\+counter\+\_\+, observers\+\_\+, and step\+\_\+in\+\_\+progress\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Main\+Allocator\+::\+Advance\+Allocation\+Observers(), and v8\+::internal\+::\+Large\+Object\+Space\+::\+Advance\+And\+Invoke\+Allocation\+Observers().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AllocationCounter_a4eeeea8cf215b124efd7359988aa2df2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AllocationCounter_a4eeeea8cf215b124efd7359988aa2df2_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1AllocationCounter_ae3a3a7101127e2c951486670210b076a}\label{classv8_1_1internal_1_1AllocationCounter_ae3a3a7101127e2c951486670210b076a}} 
 \index{v8::internal::AllocationCounter@{v8::internal::AllocationCounter}!InvokeAllocationObservers@{InvokeAllocationObservers}}
 \index{InvokeAllocationObservers@{InvokeAllocationObservers}!v8::internal::AllocationCounter@{v8::internal::AllocationCounter}}
 \doxysubsubsection{\texorpdfstring{InvokeAllocationObservers()}{InvokeAllocationObservers()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Allocation\+Counter\+::\+Invoke\+Allocation\+Observers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{soon\+\_\+object,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{object\+\_\+size,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{aligned\+\_\+object\+\_\+size }\end{DoxyParamCaption})}
 
+
+
+Definition at line 82 of file allocation-\/observer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{84                                                                               \{}
+\DoxyCodeLine{85   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.empty()) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{86   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a65e2521fc711c80f60e1da50b10e5c5d}{step\_in\_progress\_}});}
+\DoxyCodeLine{87   \mbox{\hyperlink{src_2base_2logging_8h_aabec5c3b7a8628298a25f044dcf89c25}{DCHECK\_GE}}(aligned\_object\_size, \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a2d693f2c9577ea06472b389fea2faffe}{next\_counter\_}} -\/ \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}});}
+\DoxyCodeLine{88   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(soon\_object);}
+\DoxyCodeLine{89   \textcolor{keywordtype}{bool} step\_run = \textcolor{keyword}{false};}
+\DoxyCodeLine{90   \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a65e2521fc711c80f60e1da50b10e5c5d}{step\_in\_progress\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{91   \textcolor{keywordtype}{size\_t} step\_size = 0;}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a9f9eda2baef1fb2c3ddbe1ecc1368ad4}{pending\_added\_}}.empty());}
+\DoxyCodeLine{94   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a1014ac821e8a2d591d8c6c76ba230100}{pending\_removed\_}}.empty());}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96   \textcolor{keywordflow}{for} (AllocationObserverCounter\& aoc : \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}) \{}
+\DoxyCodeLine{97     \textcolor{keywordflow}{if} (aoc.next\_counter\_ -\/ \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}} <= aligned\_object\_size) \{}
+\DoxyCodeLine{98       \{}
+\DoxyCodeLine{99         \mbox{\hyperlink{namespacev8_1_1internal_af2248a427f8ff8f81e68a2a87758e145}{DisallowGarbageCollection}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{no\_gc}};}
+\DoxyCodeLine{100         aoc.observer\_-\/>Step(}
+\DoxyCodeLine{101             \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}} -\/ aoc.prev\_counter\_), soon\_object,}
+\DoxyCodeLine{102             object\_size);}
+\DoxyCodeLine{103       \}}
+\DoxyCodeLine{104       \textcolor{keywordtype}{size\_t} observer\_step\_size = aoc.observer\_-\/>GetNextStepSize();}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106       aoc.prev\_counter\_ = \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}};}
+\DoxyCodeLine{107       aoc.next\_counter\_ =}
+\DoxyCodeLine{108           \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}} + aligned\_object\_size + observer\_step\_size;}
+\DoxyCodeLine{109       step\_run = \textcolor{keyword}{true};}
+\DoxyCodeLine{110     \}}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112     \textcolor{keywordtype}{size\_t} left\_in\_step = aoc.next\_counter\_ -\/ \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}};}
+\DoxyCodeLine{113     step\_size = step\_size ? std::min(step\_size, left\_in\_step) : left\_in\_step;}
+\DoxyCodeLine{114   \}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(step\_run);}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118   \textcolor{comment}{// Now process newly added allocation observers.}}
+\DoxyCodeLine{119   \textcolor{keywordflow}{for} (AllocationObserverCounter\& aoc : \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a9f9eda2baef1fb2c3ddbe1ecc1368ad4}{pending\_added\_}}) \{}
+\DoxyCodeLine{120     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(0, aoc.next\_counter\_);}
+\DoxyCodeLine{121     \textcolor{keywordtype}{size\_t} observer\_step\_size = aoc.observer\_-\/>GetNextStepSize();}
+\DoxyCodeLine{122     aoc.prev\_counter\_ = \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}};}
+\DoxyCodeLine{123     aoc.next\_counter\_ =}
+\DoxyCodeLine{124         \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}} + aligned\_object\_size + observer\_step\_size;}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126     \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(step\_size, 0);}
+\DoxyCodeLine{127     step\_size = std::min(step\_size, aligned\_object\_size + observer\_step\_size);}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129     \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.push\_back(aoc);}
+\DoxyCodeLine{130   \}}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132   \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a9f9eda2baef1fb2c3ddbe1ecc1368ad4}{pending\_added\_}}.clear();}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a1014ac821e8a2d591d8c6c76ba230100}{pending\_removed\_}}.empty()) \{}
+\DoxyCodeLine{135     \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.erase(}
+\DoxyCodeLine{136         std::remove\_if(\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.begin(), \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.end(),}
+\DoxyCodeLine{137                        [\textcolor{keyword}{this}](\textcolor{keyword}{const} AllocationObserverCounter\& aoc) \{}
+\DoxyCodeLine{138                          return pending\_removed\_.count(aoc.observer\_) != 0;}
+\DoxyCodeLine{139                        \}),}
+\DoxyCodeLine{140         \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.end());}
+\DoxyCodeLine{141     \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a1014ac821e8a2d591d8c6c76ba230100}{pending\_removed\_}}.clear();}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143     \textcolor{comment}{// Some observers were removed, recalculate step size.}}
+\DoxyCodeLine{144     step\_size = 0;}
+\DoxyCodeLine{145     \textcolor{keywordflow}{for} (AllocationObserverCounter\& aoc : \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}) \{}
+\DoxyCodeLine{146       \textcolor{keywordtype}{size\_t} left\_in\_step = aoc.next\_counter\_ -\/ \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}};}
+\DoxyCodeLine{147       step\_size = step\_size ? std::min(step\_size, left\_in\_step) : left\_in\_step;}
+\DoxyCodeLine{148     \}}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{150     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.empty()) \{}
+\DoxyCodeLine{151       \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a2d693f2c9577ea06472b389fea2faffe}{next\_counter\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}} = 0;}
+\DoxyCodeLine{152       \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a65e2521fc711c80f60e1da50b10e5c5d}{step\_in\_progress\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{153       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{154     \}}
+\DoxyCodeLine{155   \}}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{157   \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a2d693f2c9577ea06472b389fea2faffe}{next\_counter\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}} + step\_size;}
+\DoxyCodeLine{158   \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a65e2521fc711c80f60e1da50b10e5c5d}{step\_in\_progress\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{159 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, current\+\_\+counter\+\_\+, v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, DCHECK\+\_\+\+GE, DCHECK\+\_\+\+NE, v8\+::internal\+::\+Allocation\+Counter\+::\+Allocation\+Observer\+Counter\+::next\+\_\+counter\+\_\+, next\+\_\+counter\+\_\+, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::no\+\_\+gc, observers\+\_\+, pending\+\_\+added\+\_\+, pending\+\_\+removed\+\_\+, and step\+\_\+in\+\_\+progress\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Large\+Object\+Space\+::\+Advance\+And\+Invoke\+Allocation\+Observers(), and v8\+::internal\+::\+Main\+Allocator\+::\+Invoke\+Allocation\+Observers().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AllocationCounter_ae3a3a7101127e2c951486670210b076a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AllocationCounter_ae3a3a7101127e2c951486670210b076a_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1AllocationCounter_a95397636a91ae60cbc8c37901489a8e8}\label{classv8_1_1internal_1_1AllocationCounter_a95397636a91ae60cbc8c37901489a8e8}} 
 \index{v8::internal::AllocationCounter@{v8::internal::AllocationCounter}!IsStepInProgress@{IsStepInProgress}}
 \index{IsStepInProgress@{IsStepInProgress}!v8::internal::AllocationCounter@{v8::internal::AllocationCounter}}
 \doxysubsubsection{\texorpdfstring{IsStepInProgress()}{IsStepInProgress()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Allocation\+Counter\+::\+Is\+Step\+In\+Progress (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 73 of file allocation-\/observer.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{73 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a65e2521fc711c80f60e1da50b10e5c5d}{step\_in\_progress\_}}; \}}
+
+\end{DoxyCode}
+
+
+References step\+\_\+in\+\_\+progress\+\_\+.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1AllocationCounter_a08fd1a66189d66bfca606928439828e0}\label{classv8_1_1internal_1_1AllocationCounter_a08fd1a66189d66bfca606928439828e0}} 
 \index{v8::internal::AllocationCounter@{v8::internal::AllocationCounter}!NextBytes@{NextBytes}}
@@ -63,6 +320,34 @@
 \doxysubsubsection{\texorpdfstring{NextBytes()}{NextBytes()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Allocation\+Counter\+::\+Next\+Bytes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 75 of file allocation-\/observer.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{75                            \{}
+\DoxyCodeLine{76     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.empty()) \textcolor{keywordflow}{return} SIZE\_MAX;}
+\DoxyCodeLine{77     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a2d693f2c9577ea06472b389fea2faffe}{next\_counter\_}} -\/ \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}};}
+\DoxyCodeLine{78   \}}
+
+\end{DoxyCode}
+
+
+References current\+\_\+counter\+\_\+, next\+\_\+counter\+\_\+, and observers\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Large\+Object\+Space\+::\+Advance\+And\+Invoke\+Allocation\+Observers(), and v8\+::internal\+::\+Main\+Allocator\+::\+Compute\+Limit().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AllocationCounter_a08fd1a66189d66bfca606928439828e0_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1AllocationCounter_a5d1661f14b2dca8d0be3e0e05126028d}\label{classv8_1_1internal_1_1AllocationCounter_a5d1661f14b2dca8d0be3e0e05126028d}} 
 \index{v8::internal::AllocationCounter@{v8::internal::AllocationCounter}!RemoveAllocationObserver@{RemoveAllocationObserver}}
 \index{RemoveAllocationObserver@{RemoveAllocationObserver}!v8::internal::AllocationCounter@{v8::internal::AllocationCounter}}
@@ -71,7 +356,147 @@
 
 
 
+Definition at line 45 of file allocation-\/observer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{45                                                                              \{}
+\DoxyCodeLine{46   \textcolor{keyword}{auto} it = std::find\_if(\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.begin(), \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.end(),}
+\DoxyCodeLine{47                          [observer](\textcolor{keyword}{const} AllocationObserverCounter\& aoc) \{}
+\DoxyCodeLine{48                            return aoc.observer\_ == observer;}
+\DoxyCodeLine{49                          \});}
+\DoxyCodeLine{50   \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.end(), it);}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a65e2521fc711c80f60e1da50b10e5c5d}{step\_in\_progress\_}}) \{}
+\DoxyCodeLine{53     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a1014ac821e8a2d591d8c6c76ba230100}{pending\_removed\_}}.count(observer), 0);}
+\DoxyCodeLine{54     \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a1014ac821e8a2d591d8c6c76ba230100}{pending\_removed\_}}.insert(observer);}
+\DoxyCodeLine{55     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{56   \}}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58   \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.erase(it);}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}.empty()) \{}
+\DoxyCodeLine{61     \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a2d693f2c9577ea06472b389fea2faffe}{next\_counter\_}} = 0;}
+\DoxyCodeLine{62   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{63     \textcolor{keywordtype}{size\_t} step\_size = 0;}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65     \textcolor{keywordflow}{for} (AllocationObserverCounter\& observer\_counter : \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}{observers\_}}) \{}
+\DoxyCodeLine{66       \textcolor{keywordtype}{size\_t} left\_in\_step = observer\_counter.next\_counter\_ -\/ \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}};}
+\DoxyCodeLine{67       \mbox{\hyperlink{src_2base_2logging_8h_afd957f297df7e9ee36c46185e961485f}{DCHECK\_GT}}(left\_in\_step, 0);}
+\DoxyCodeLine{68       step\_size = step\_size ? std::min(step\_size, left\_in\_step) : left\_in\_step;}
+\DoxyCodeLine{69     \}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71     \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_a2d693f2c9577ea06472b389fea2faffe}{next\_counter\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}{current\_counter\_}} + step\_size;}
+\DoxyCodeLine{72   \}}
+\DoxyCodeLine{73 \}}
+
+\end{DoxyCode}
+
+
+References current\+\_\+counter\+\_\+, DCHECK\+\_\+\+EQ, DCHECK\+\_\+\+GT, DCHECK\+\_\+\+NE, next\+\_\+counter\+\_\+, observers\+\_\+, pending\+\_\+removed\+\_\+, and step\+\_\+in\+\_\+progress\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Large\+Object\+Space\+::\+Remove\+Allocation\+Observer(), and v8\+::internal\+::\+Main\+Allocator\+::\+Remove\+Allocation\+Observer().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AllocationCounter_a5d1661f14b2dca8d0be3e0e05126028d_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}\label{classv8_1_1internal_1_1AllocationCounter_ac9dcd174773f2d0a8b5a7728c9b6baba}} 
+\index{v8::internal::AllocationCounter@{v8::internal::AllocationCounter}!current\_counter\_@{current\_counter\_}}
+\index{current\_counter\_@{current\_counter\_}!v8::internal::AllocationCounter@{v8::internal::AllocationCounter}}
+\doxysubsubsection{\texorpdfstring{current\_counter\_}{current\_counter\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Allocation\+Counter\+::current\+\_\+counter\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 104 of file allocation-\/observer.\+h.
+
+
+
+Referenced by Add\+Allocation\+Observer(), Advance\+Allocation\+Observers(), Invoke\+Allocation\+Observers(), Next\+Bytes(), and Remove\+Allocation\+Observer().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1AllocationCounter_a2d693f2c9577ea06472b389fea2faffe}\label{classv8_1_1internal_1_1AllocationCounter_a2d693f2c9577ea06472b389fea2faffe}} 
+\index{v8::internal::AllocationCounter@{v8::internal::AllocationCounter}!next\_counter\_@{next\_counter\_}}
+\index{next\_counter\_@{next\_counter\_}!v8::internal::AllocationCounter@{v8::internal::AllocationCounter}}
+\doxysubsubsection{\texorpdfstring{next\_counter\_}{next\_counter\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Allocation\+Counter\+::next\+\_\+counter\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 105 of file allocation-\/observer.\+h.
+
+
+
+Referenced by Add\+Allocation\+Observer(), Advance\+Allocation\+Observers(), Invoke\+Allocation\+Observers(), Next\+Bytes(), and Remove\+Allocation\+Observer().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}\label{classv8_1_1internal_1_1AllocationCounter_acc36f5c6502e6a883dcd869a23f8ffb2}} 
+\index{v8::internal::AllocationCounter@{v8::internal::AllocationCounter}!observers\_@{observers\_}}
+\index{observers\_@{observers\_}!v8::internal::AllocationCounter@{v8::internal::AllocationCounter}}
+\doxysubsubsection{\texorpdfstring{observers\_}{observers\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structv8_1_1internal_1_1AllocationCounter_1_1AllocationObserverCounter}{Allocation\+Observer\+Counter}}$>$ v8\+::internal\+::\+Allocation\+Counter\+::observers\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 100 of file allocation-\/observer.\+h.
+
+
+
+Referenced by Add\+Allocation\+Observer(), Advance\+Allocation\+Observers(), Invoke\+Allocation\+Observers(), Next\+Bytes(), and Remove\+Allocation\+Observer().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1AllocationCounter_a9f9eda2baef1fb2c3ddbe1ecc1368ad4}\label{classv8_1_1internal_1_1AllocationCounter_a9f9eda2baef1fb2c3ddbe1ecc1368ad4}} 
+\index{v8::internal::AllocationCounter@{v8::internal::AllocationCounter}!pending\_added\_@{pending\_added\_}}
+\index{pending\_added\_@{pending\_added\_}!v8::internal::AllocationCounter@{v8::internal::AllocationCounter}}
+\doxysubsubsection{\texorpdfstring{pending\_added\_}{pending\_added\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structv8_1_1internal_1_1AllocationCounter_1_1AllocationObserverCounter}{Allocation\+Observer\+Counter}}$>$ v8\+::internal\+::\+Allocation\+Counter\+::pending\+\_\+added\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 101 of file allocation-\/observer.\+h.
+
+
+
+Referenced by Add\+Allocation\+Observer(), and Invoke\+Allocation\+Observers().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1AllocationCounter_a1014ac821e8a2d591d8c6c76ba230100}\label{classv8_1_1internal_1_1AllocationCounter_a1014ac821e8a2d591d8c6c76ba230100}} 
+\index{v8::internal::AllocationCounter@{v8::internal::AllocationCounter}!pending\_removed\_@{pending\_removed\_}}
+\index{pending\_removed\_@{pending\_removed\_}!v8::internal::AllocationCounter@{v8::internal::AllocationCounter}}
+\doxysubsubsection{\texorpdfstring{pending\_removed\_}{pending\_removed\_}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+set$<$\mbox{\hyperlink{classv8_1_1internal_1_1AllocationObserver}{Allocation\+Observer}}$\ast$$>$ v8\+::internal\+::\+Allocation\+Counter\+::pending\+\_\+removed\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 102 of file allocation-\/observer.\+h.
+
+
+
+Referenced by Invoke\+Allocation\+Observers(), and Remove\+Allocation\+Observer().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1AllocationCounter_a65e2521fc711c80f60e1da50b10e5c5d}\label{classv8_1_1internal_1_1AllocationCounter_a65e2521fc711c80f60e1da50b10e5c5d}} 
+\index{v8::internal::AllocationCounter@{v8::internal::AllocationCounter}!step\_in\_progress\_@{step\_in\_progress\_}}
+\index{step\_in\_progress\_@{step\_in\_progress\_}!v8::internal::AllocationCounter@{v8::internal::AllocationCounter}}
+\doxysubsubsection{\texorpdfstring{step\_in\_progress\_}{step\_in\_progress\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Allocation\+Counter\+::step\+\_\+in\+\_\+progress\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 106 of file allocation-\/observer.\+h.
+
+
+
+Referenced by Add\+Allocation\+Observer(), Advance\+Allocation\+Observers(), Invoke\+Allocation\+Observers(), Is\+Step\+In\+Progress(), and Remove\+Allocation\+Observer().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{allocation-observer_8h}{allocation-\/observer.\+h}}\item 
-\mbox{\hyperlink{allocation-observer_8cc}{allocation-\/observer.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{allocation-observer_8h}{allocation-\/observer.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{allocation-observer_8cc}{allocation-\/observer.\+cc}}\end{DoxyCompactItemize}

@@ -1,0 +1,209 @@
+\hypertarget{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03}{}\doxysection{v8\+::internal\+::torque\+::anonymous\+\_\+namespace\{torque-\/compiler.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03}\index{v8::internal::torque::anonymous\_namespace\lcurly{}torque-\/compiler.cc\rcurly{}@{v8::internal::torque::anonymous\_namespace\lcurly{}torque-\/compiler.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::optional$<$ std\+::string $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_afd2d129330694bae7a20bb5265aa042a}{Read\+File}} (const std\+::string \&path)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_ae8fe4055b49757243d119e481469872b}{Read\+And\+Parse\+Torque\+File}} (const std\+::string \&path)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_a5096de5a399f4c41198fb0f1d90a647a}{Compile\+Current\+Ast}} (\mbox{\hyperlink{structv8_1_1internal_1_1torque_1_1TorqueCompilerOptions}{Torque\+Compiler\+Options}} options)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_a5096de5a399f4c41198fb0f1d90a647a}\label{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_a5096de5a399f4c41198fb0f1d90a647a}} 
+\index{v8::internal::torque::anonymous\_namespace\lcurly{}torque-\/compiler.cc\rcurly{}@{v8::internal::torque::anonymous\_namespace\lcurly{}torque-\/compiler.cc\rcurly{}}!CompileCurrentAst@{CompileCurrentAst}}
+\index{CompileCurrentAst@{CompileCurrentAst}!v8::internal::torque::anonymous\_namespace\lcurly{}torque-\/compiler.cc\rcurly{}@{v8::internal::torque::anonymous\_namespace\lcurly{}torque-\/compiler.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{CompileCurrentAst()}{CompileCurrentAst()}}
+{\footnotesize\ttfamily void v8\+::internal\+::torque\+::anonymous\+\_\+namespace\{torque-\/compiler.\+cc\}\+::Compile\+Current\+Ast (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structv8_1_1internal_1_1torque_1_1TorqueCompilerOptions}{Torque\+Compiler\+Options}}}]{options }\end{DoxyParamCaption})}
+
+
+
+Definition at line 48 of file torque-\/compiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{48                                                       \{}
+\DoxyCodeLine{49   GlobalContext::Scope global\_context(std::move(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a2b5e79bd829824237e784a6cde29309e}{CurrentAst::Get}}()));}
+\DoxyCodeLine{50   \textcolor{keywordflow}{if} (options.collect\_language\_server\_data) \{}
+\DoxyCodeLine{51     GlobalContext::SetCollectLanguageServerData();}
+\DoxyCodeLine{52   \}}
+\DoxyCodeLine{53   \textcolor{keywordflow}{if} (options.collect\_kythe\_data) \{}
+\DoxyCodeLine{54     GlobalContext::SetCollectKytheData();}
+\DoxyCodeLine{55   \}}
+\DoxyCodeLine{56   \textcolor{keywordflow}{if} (options.force\_assert\_statements) \{}
+\DoxyCodeLine{57     GlobalContext::SetForceAssertStatements();}
+\DoxyCodeLine{58   \}}
+\DoxyCodeLine{59   \textcolor{keywordflow}{if} (options.annotate\_ir) \{}
+\DoxyCodeLine{60     GlobalContext::SetAnnotateIR();}
+\DoxyCodeLine{61   \}}
+\DoxyCodeLine{62   TypeOracle::Scope type\_oracle;}
+\DoxyCodeLine{63   CurrentScope::Scope current\_namespace(GlobalContext::GetDefaultNamespace());}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \textcolor{comment}{// Two-\/step process of predeclaration + resolution allows to resolve type}}
+\DoxyCodeLine{66   \textcolor{comment}{// declarations independent of the order they are given.}}
+\DoxyCodeLine{67   PredeclarationVisitor::Predeclare(GlobalContext::ast());}
+\DoxyCodeLine{68   PredeclarationVisitor::ResolvePredeclarations();}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   \textcolor{comment}{// Process other declarations.}}
+\DoxyCodeLine{71   DeclarationVisitor::Visit(GlobalContext::ast());}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73   \textcolor{comment}{// A class types' fields are resolved here, which allows two class fields to}}
+\DoxyCodeLine{74   \textcolor{comment}{// mutually refer to each others.}}
+\DoxyCodeLine{75   TypeOracle::FinalizeAggregateTypes();}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77   \mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{std::string}} output\_directory = options.output\_directory;}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79   ImplementationVisitor implementation\_visitor;}
+\DoxyCodeLine{80   implementation\_visitor.SetDryRun(output\_directory.empty());}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82   implementation\_visitor.GenerateInstanceTypes(output\_directory);}
+\DoxyCodeLine{83   implementation\_visitor.BeginGeneratedFiles();}
+\DoxyCodeLine{84   implementation\_visitor.BeginDebugMacrosFile();}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86   implementation\_visitor.VisitAllDeclarables();}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88   \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_a5bb10e20eb8a76aa10fa70987ebc5b42}{ReportAllUnusedMacros}}();}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90   implementation\_visitor.GenerateBuiltinDefinitionsAndInterfaceDescriptors(}
+\DoxyCodeLine{91       output\_directory);}
+\DoxyCodeLine{92   implementation\_visitor.GenerateVisitorLists(output\_directory);}
+\DoxyCodeLine{93   implementation\_visitor.GenerateBitFields(output\_directory);}
+\DoxyCodeLine{94   implementation\_visitor.GeneratePrintDefinitions(output\_directory);}
+\DoxyCodeLine{95   implementation\_visitor.GenerateClassDefinitions(output\_directory);}
+\DoxyCodeLine{96   implementation\_visitor.GenerateClassVerifiers(output\_directory);}
+\DoxyCodeLine{97   implementation\_visitor.GenerateClassDebugReaders(output\_directory);}
+\DoxyCodeLine{98   implementation\_visitor.GenerateEnumVerifiers(output\_directory);}
+\DoxyCodeLine{99   implementation\_visitor.GenerateBodyDescriptors(output\_directory);}
+\DoxyCodeLine{100   implementation\_visitor.GenerateExportedMacrosAssembler(output\_directory);}
+\DoxyCodeLine{101   implementation\_visitor.GenerateCSATypes(output\_directory);}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103   implementation\_visitor.EndGeneratedFiles();}
+\DoxyCodeLine{104   implementation\_visitor.EndDebugMacrosFile();}
+\DoxyCodeLine{105   implementation\_visitor.GenerateImplementation(output\_directory);}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107   \textcolor{keywordflow}{if} (GlobalContext::collect\_language\_server\_data()) \{}
+\DoxyCodeLine{108     LanguageServerData::SetGlobalContext(std::move(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a2b5e79bd829824237e784a6cde29309e}{GlobalContext::Get}}()));}
+\DoxyCodeLine{109     LanguageServerData::SetTypeOracle(std::move(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a2b5e79bd829824237e784a6cde29309e}{TypeOracle::Get}}()));}
+\DoxyCodeLine{110   \}}
+\DoxyCodeLine{111 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::torque\+::\+Torque\+Compiler\+Options\+::annotate\+\_\+ir, v8\+::internal\+::torque\+::\+Global\+Context\+::ast(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Begin\+Debug\+Macros\+File(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Begin\+Generated\+Files(), v8\+::internal\+::torque\+::\+Torque\+Compiler\+Options\+::collect\+\_\+kythe\+\_\+data, v8\+::internal\+::torque\+::\+Global\+Context\+::collect\+\_\+language\+\_\+server\+\_\+data(), v8\+::internal\+::torque\+::\+Torque\+Compiler\+Options\+::collect\+\_\+language\+\_\+server\+\_\+data, v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+End\+Debug\+Macros\+File(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+End\+Generated\+Files(), v8\+::internal\+::torque\+::\+Type\+Oracle\+::\+Finalize\+Aggregate\+Types(), v8\+::internal\+::torque\+::\+Torque\+Compiler\+Options\+::force\+\_\+assert\+\_\+statements, v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Generate\+Bit\+Fields(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Generate\+Body\+Descriptors(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Generate\+Builtin\+Definitions\+And\+Interface\+Descriptors(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Generate\+Class\+Debug\+Readers(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Generate\+Class\+Definitions(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Generate\+Class\+Verifiers(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Generate\+CSATypes(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Generate\+Enum\+Verifiers(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Generate\+Exported\+Macros\+Assembler(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Generate\+Implementation(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Generate\+Instance\+Types(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Generate\+Print\+Definitions(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Generate\+Visitor\+Lists(), v8\+::base\+::\+Contextual\+Variable$<$ Derived, Var\+Type $>$\+::\+Get(), v8\+::internal\+::compiler\+::turboshaft\+::\+Get(), v8\+::internal\+::torque\+::\+Global\+Context\+::\+Get\+Default\+Namespace(), v8\+::internal\+::torque\+::\+Torque\+Compiler\+Options\+::output\+\_\+directory, v8\+::internal\+::torque\+::\+Predeclaration\+Visitor\+::\+Predeclare(), v8\+::internal\+::torque\+::\+Report\+All\+Unused\+Macros(), v8\+::internal\+::torque\+::\+Predeclaration\+Visitor\+::\+Resolve\+Predeclarations(), v8\+::internal\+::torque\+::\+Global\+Context\+::\+Set\+Annotate\+IR(), v8\+::internal\+::torque\+::\+Global\+Context\+::\+Set\+Collect\+Kythe\+Data(), v8\+::internal\+::torque\+::\+Global\+Context\+::\+Set\+Collect\+Language\+Server\+Data(), v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Set\+Dry\+Run(), v8\+::internal\+::torque\+::\+Global\+Context\+::\+Set\+Force\+Assert\+Statements(), v8\+::internal\+::torque\+::\+Language\+Server\+Data\+::\+Set\+Global\+Context(), v8\+::internal\+::torque\+::\+Language\+Server\+Data\+::\+Set\+Type\+Oracle(), v8\+::internal\+::string, v8\+::internal\+::torque\+::\+Declaration\+Visitor\+::\+Visit(), and v8\+::internal\+::torque\+::\+Implementation\+Visitor\+::\+Visit\+All\+Declarables().
+
+
+
+Referenced by v8\+::internal\+::torque\+::\+Compile\+Torque(), and v8\+::internal\+::torque\+::\+Compile\+Torque\+For\+Kythe().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_a5096de5a399f4c41198fb0f1d90a647a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_a5096de5a399f4c41198fb0f1d90a647a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_ae8fe4055b49757243d119e481469872b}\label{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_ae8fe4055b49757243d119e481469872b}} 
+\index{v8::internal::torque::anonymous\_namespace\lcurly{}torque-\/compiler.cc\rcurly{}@{v8::internal::torque::anonymous\_namespace\lcurly{}torque-\/compiler.cc\rcurly{}}!ReadAndParseTorqueFile@{ReadAndParseTorqueFile}}
+\index{ReadAndParseTorqueFile@{ReadAndParseTorqueFile}!v8::internal::torque::anonymous\_namespace\lcurly{}torque-\/compiler.cc\rcurly{}@{v8::internal::torque::anonymous\_namespace\lcurly{}torque-\/compiler.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ReadAndParseTorqueFile()}{ReadAndParseTorqueFile()}}
+{\footnotesize\ttfamily void v8\+::internal\+::torque\+::anonymous\+\_\+namespace\{torque-\/compiler.\+cc\}\+::Read\+And\+Parse\+Torque\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path }\end{DoxyParamCaption})}
+
+
+
+Definition at line 29 of file torque-\/compiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{29                                                    \{}
+\DoxyCodeLine{30   SourceId source\_id = SourceFileMap::AddSource(path);}
+\DoxyCodeLine{31   CurrentSourceFile::Scope source\_id\_scope(source\_id);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33   \textcolor{comment}{// path might be either a normal file path or an encoded URI.}}
+\DoxyCodeLine{34   \textcolor{keyword}{auto} maybe\_content = \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_afd2d129330694bae7a20bb5265aa042a}{ReadFile}}(SourceFileMap::AbsolutePath(source\_id));}
+\DoxyCodeLine{35   \textcolor{keywordflow}{if} (!maybe\_content) \{}
+\DoxyCodeLine{36     \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} maybe\_path = \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_aa56ad97dfdc5714fb747ed962a2011e4}{FileUriDecode}}(path)) \{}
+\DoxyCodeLine{37       maybe\_content = \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_afd2d129330694bae7a20bb5265aa042a}{ReadFile}}(*maybe\_path);}
+\DoxyCodeLine{38     \}}
+\DoxyCodeLine{39   \}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41   \textcolor{keywordflow}{if} (!maybe\_content) \{}
+\DoxyCodeLine{42     \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_af38d669a8f4ceb878fa931798fe7451c}{Error}}(\textcolor{stringliteral}{"{}Cannot open file path/uri: "{}}, path).\mbox{\hyperlink{classv8_1_1internal_1_1torque_1_1MessageBuilder_aa1b8409cd4d69d3ff250c0d7b18300a3}{Throw}}();}
+\DoxyCodeLine{43   \}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_ac9acc53175e69fcc47af28e64b200311}{ParseTorque}}(*maybe\_content);}
+\DoxyCodeLine{46 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::torque\+::\+Source\+File\+Map\+::\+Absolute\+Path(), v8\+::internal\+::torque\+::\+Source\+File\+Map\+::\+Add\+Source(), v8\+::internal\+::torque\+::\+Error(), v8\+::internal\+::torque\+::\+File\+Uri\+Decode(), v8\+::internal\+::torque\+::\+Parse\+Torque(), v8\+::internal\+::\+Read\+File(), and v8\+::internal\+::torque\+::\+Message\+Builder\+::\+Throw().
+
+
+
+Referenced by v8\+::internal\+::torque\+::\+Compile\+Torque().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_ae8fe4055b49757243d119e481469872b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_ae8fe4055b49757243d119e481469872b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_afd2d129330694bae7a20bb5265aa042a}\label{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_afd2d129330694bae7a20bb5265aa042a}} 
+\index{v8::internal::torque::anonymous\_namespace\lcurly{}torque-\/compiler.cc\rcurly{}@{v8::internal::torque::anonymous\_namespace\lcurly{}torque-\/compiler.cc\rcurly{}}!ReadFile@{ReadFile}}
+\index{ReadFile@{ReadFile}!v8::internal::torque::anonymous\_namespace\lcurly{}torque-\/compiler.cc\rcurly{}@{v8::internal::torque::anonymous\_namespace\lcurly{}torque-\/compiler.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ReadFile()}{ReadFile()}}
+{\footnotesize\ttfamily std\+::optional$<$std\+::string$>$ v8\+::internal\+::torque\+::anonymous\+\_\+namespace\{torque-\/compiler.\+cc\}\+::Read\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path }\end{DoxyParamCaption})}
+
+
+
+Definition at line 21 of file torque-\/compiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21                                                        \{}
+\DoxyCodeLine{22   std::ifstream file\_stream(path);}
+\DoxyCodeLine{23   \textcolor{keywordflow}{if} (!file\_stream.good()) \textcolor{keywordflow}{return} std::nullopt;}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_af68b330f02476361ab10f531933b3381}{std::string}}\{std::istreambuf\_iterator<char>(file\_stream),}
+\DoxyCodeLine{26                      std::istreambuf\_iterator<char>()\};}
+\DoxyCodeLine{27 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::string.
+
+
+
+Referenced by v8\+::\+Shell\+::\+Create\+Global\+Template(), v8\+::\+Shell\+::\+Execute\+File(), v8\+::\+Shell\+::\+Log\+Get\+And\+Stop(), and v8\+::\+Shell\+::\+Read\+File().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1torque_1_1anonymous__namespace_02torque-compiler_8cc_03_afd2d129330694bae7a20bb5265aa042a_icgraph}
+\end{center}
+\end{figure}

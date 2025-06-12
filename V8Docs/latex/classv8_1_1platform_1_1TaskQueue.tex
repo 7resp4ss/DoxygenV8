@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$task-\/queue.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::platform\+::Task\+Queue\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1TaskQueue__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -21,6 +31,31 @@ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1Task}{Task}} $>$ \mbox{\hy
 \item 
 void \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a603c0ef6966c3365db6904199488e978}{Terminate}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_ad7dac27ee49da8709ae2fff67a8f0741}{FRIEND\+\_\+\+TEST}} (Worker\+Thread\+Test, Post\+Single\+Task)
+\item 
+void \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_ac008b735a1b0e34b6c649c1e410cfc15}{Block\+Until\+Queue\+Empty\+For\+Testing}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1Semaphore}{base\+::\+Semaphore}} \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_ac0886ec14c15a9169e6eae88218bb2be}{process\+\_\+queue\+\_\+semaphore\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a8a95c21dadce1d499e5c0ad9d4e6573f}{lock\+\_\+}}
+\item 
+std\+::queue$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1Task}{Task}} $>$ $>$ \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a1a9c05c9dd2eab3b769b409b70b9fe7a}{task\+\_\+queue\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a44af4fe2088b22583ce3c811816c33c2}{terminated\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 22 of file task-\/queue.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -30,11 +65,37 @@ void \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a603c0ef6966c3365db690419
 \doxysubsubsection{\texorpdfstring{TaskQueue()}{TaskQueue()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::platform\+::\+Task\+Queue\+::\+Task\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 15 of file task-\/queue.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15 : \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_ac0886ec14c15a9169e6eae88218bb2be}{process\_queue\_semaphore\_}}(0), \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a44af4fe2088b22583ce3c811816c33c2}{terminated\_}}(\textcolor{keyword}{false}) \{\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1platform_1_1TaskQueue_a463b04b291f3a85de85a8aa8bd71a854}\label{classv8_1_1platform_1_1TaskQueue_a463b04b291f3a85de85a8aa8bd71a854}} 
 \index{v8::platform::TaskQueue@{v8::platform::TaskQueue}!````~TaskQueue@{$\sim$TaskQueue}}
 \index{````~TaskQueue@{$\sim$TaskQueue}!v8::platform::TaskQueue@{v8::platform::TaskQueue}}
 \doxysubsubsection{\texorpdfstring{$\sim$TaskQueue()}{~TaskQueue()}}
 {\footnotesize\ttfamily v8\+::platform\+::\+Task\+Queue\+::$\sim$\+Task\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 18 of file task-\/queue.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18                       \{}
+\DoxyCodeLine{19   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a8a95c21dadce1d499e5c0ad9d4e6573f}{lock\_}});}
+\DoxyCodeLine{20   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a44af4fe2088b22583ce3c811816c33c2}{terminated\_}});}
+\DoxyCodeLine{21   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a1a9c05c9dd2eab3b769b409b70b9fe7a}{task\_queue\_}}.empty());}
+\DoxyCodeLine{22 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK, lock\+\_\+, task\+\_\+queue\+\_\+, and terminated\+\_\+.
 
 \mbox{\Hypertarget{classv8_1_1platform_1_1TaskQueue_a8e66f7ef9a2f421b8954b6f6db11b20c}\label{classv8_1_1platform_1_1TaskQueue_a8e66f7ef9a2f421b8954b6f6db11b20c}} 
 \index{v8::platform::TaskQueue@{v8::platform::TaskQueue}!TaskQueue@{TaskQueue}}
@@ -51,12 +112,128 @@ void \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a603c0ef6966c3365db690419
 \doxysubsubsection{\texorpdfstring{Append()}{Append()}}
 {\footnotesize\ttfamily void v8\+::platform\+::\+Task\+Queue\+::\+Append (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1Task}{Task}} $>$}]{task }\end{DoxyParamCaption})}
 
+
+
+Definition at line 24 of file task-\/queue.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24                                                \{}
+\DoxyCodeLine{25   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a8a95c21dadce1d499e5c0ad9d4e6573f}{lock\_}});}
+\DoxyCodeLine{26   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a44af4fe2088b22583ce3c811816c33c2}{terminated\_}});}
+\DoxyCodeLine{27   \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a1a9c05c9dd2eab3b769b409b70b9fe7a}{task\_queue\_}}.push(std::move(task));}
+\DoxyCodeLine{28   \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_ac0886ec14c15a9169e6eae88218bb2be}{process\_queue\_semaphore\_}}.\mbox{\hyperlink{classv8_1_1base_1_1Semaphore_a95ee194fdea88172c20132a95ac8ca59}{Signal}}();}
+\DoxyCodeLine{29 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK, lock\+\_\+, process\+\_\+queue\+\_\+semaphore\+\_\+, v8\+::base\+::\+Semaphore\+::\+Signal(), task\+\_\+queue\+\_\+, and terminated\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1TaskQueue_a9d1e1cea3b2bf911bbd69b1e30bf2f21_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1platform_1_1TaskQueue_ac008b735a1b0e34b6c649c1e410cfc15}\label{classv8_1_1platform_1_1TaskQueue_ac008b735a1b0e34b6c649c1e410cfc15}} 
+\index{v8::platform::TaskQueue@{v8::platform::TaskQueue}!BlockUntilQueueEmptyForTesting@{BlockUntilQueueEmptyForTesting}}
+\index{BlockUntilQueueEmptyForTesting@{BlockUntilQueueEmptyForTesting}!v8::platform::TaskQueue@{v8::platform::TaskQueue}}
+\doxysubsubsection{\texorpdfstring{BlockUntilQueueEmptyForTesting()}{BlockUntilQueueEmptyForTesting()}}
+{\footnotesize\ttfamily void v8\+::platform\+::\+Task\+Queue\+::\+Block\+Until\+Queue\+Empty\+For\+Testing (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 57 of file task-\/queue.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{57                                                \{}
+\DoxyCodeLine{58   \textcolor{keywordflow}{for} (;;) \{}
+\DoxyCodeLine{59     \{}
+\DoxyCodeLine{60       \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a8a95c21dadce1d499e5c0ad9d4e6573f}{lock\_}});}
+\DoxyCodeLine{61       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a1a9c05c9dd2eab3b769b409b70b9fe7a}{task\_queue\_}}.empty()) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{62     \}}
+\DoxyCodeLine{63     \mbox{\hyperlink{classv8_1_1base_1_1OS_a04656670e0be067dfe2a93bd2c809b7c}{base::OS::Sleep}}(\mbox{\hyperlink{classv8_1_1base_1_1TimeDelta_aedb23f3b7d15531e09b71883aaa96b6d}{base::TimeDelta::FromMilliseconds}}(5));}
+\DoxyCodeLine{64   \}}
+\DoxyCodeLine{65 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Time\+Delta\+::\+From\+Milliseconds(), lock\+\_\+, v8\+::base\+::\+OS\+::\+Sleep(), and task\+\_\+queue\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1TaskQueue_ac008b735a1b0e34b6c649c1e410cfc15_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1platform_1_1TaskQueue_ad7dac27ee49da8709ae2fff67a8f0741}\label{classv8_1_1platform_1_1TaskQueue_ad7dac27ee49da8709ae2fff67a8f0741}} 
+\index{v8::platform::TaskQueue@{v8::platform::TaskQueue}!FRIEND\_TEST@{FRIEND\_TEST}}
+\index{FRIEND\_TEST@{FRIEND\_TEST}!v8::platform::TaskQueue@{v8::platform::TaskQueue}}
+\doxysubsubsection{\texorpdfstring{FRIEND\_TEST()}{FRIEND\_TEST()}}
+{\footnotesize\ttfamily v8\+::platform\+::\+Task\+Queue\+::\+FRIEND\+\_\+\+TEST (\begin{DoxyParamCaption}\item[{Worker\+Thread\+Test}]{,  }\item[{Post\+Single\+Task}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
 \mbox{\Hypertarget{classv8_1_1platform_1_1TaskQueue_a168f8789c346eda3736d57a44db6a3bc}\label{classv8_1_1platform_1_1TaskQueue_a168f8789c346eda3736d57a44db6a3bc}} 
 \index{v8::platform::TaskQueue@{v8::platform::TaskQueue}!GetNext@{GetNext}}
 \index{GetNext@{GetNext}!v8::platform::TaskQueue@{v8::platform::TaskQueue}}
 \doxysubsubsection{\texorpdfstring{GetNext()}{GetNext()}}
 {\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1Task}{Task}} $>$ v8\+::platform\+::\+Task\+Queue\+::\+Get\+Next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 31 of file task-\/queue.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31                                        \{}
+\DoxyCodeLine{32   \textcolor{keywordflow}{for} (;;) \{}
+\DoxyCodeLine{33     \{}
+\DoxyCodeLine{34       \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a8a95c21dadce1d499e5c0ad9d4e6573f}{lock\_}});}
+\DoxyCodeLine{35       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a1a9c05c9dd2eab3b769b409b70b9fe7a}{task\_queue\_}}.empty()) \{}
+\DoxyCodeLine{36         std::unique\_ptr<Task> \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = std::move(\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a1a9c05c9dd2eab3b769b409b70b9fe7a}{task\_queue\_}}.front());}
+\DoxyCodeLine{37         \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a1a9c05c9dd2eab3b769b409b70b9fe7a}{task\_queue\_}}.pop();}
+\DoxyCodeLine{38         \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{39       \}}
+\DoxyCodeLine{40       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a44af4fe2088b22583ce3c811816c33c2}{terminated\_}}) \{}
+\DoxyCodeLine{41         \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_ac0886ec14c15a9169e6eae88218bb2be}{process\_queue\_semaphore\_}}.\mbox{\hyperlink{classv8_1_1base_1_1Semaphore_a95ee194fdea88172c20132a95ac8ca59}{Signal}}();}
+\DoxyCodeLine{42         \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{43       \}}
+\DoxyCodeLine{44     \}}
+\DoxyCodeLine{45     \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_ac0886ec14c15a9169e6eae88218bb2be}{process\_queue\_semaphore\_}}.\mbox{\hyperlink{classv8_1_1base_1_1Semaphore_afa492a527fe740fb20024a4146833f32}{Wait}}();}
+\DoxyCodeLine{46   \}}
+\DoxyCodeLine{47 \}}
+
+\end{DoxyCode}
+
+
+References lock\+\_\+, process\+\_\+queue\+\_\+semaphore\+\_\+, v8\+::base\+::internal\+::result, v8\+::base\+::\+Semaphore\+::\+Signal(), task\+\_\+queue\+\_\+, terminated\+\_\+, and v8\+::base\+::\+Semaphore\+::\+Wait().
+
+
+
+Referenced by v8\+::platform\+::\+Worker\+Thread\+::\+Run().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1TaskQueue_a168f8789c346eda3736d57a44db6a3bc_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1TaskQueue_a168f8789c346eda3736d57a44db6a3bc_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1platform_1_1TaskQueue_aa99b9571b397d5ee5ef8809722acc48e}\label{classv8_1_1platform_1_1TaskQueue_aa99b9571b397d5ee5ef8809722acc48e}} 
 \index{v8::platform::TaskQueue@{v8::platform::TaskQueue}!operator=@{operator=}}
 \index{operator=@{operator=}!v8::platform::TaskQueue@{v8::platform::TaskQueue}}
@@ -71,7 +248,92 @@ void \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a603c0ef6966c3365db690419
 
 
 
+Definition at line 50 of file task-\/queue.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{50                           \{}
+\DoxyCodeLine{51   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a8a95c21dadce1d499e5c0ad9d4e6573f}{lock\_}});}
+\DoxyCodeLine{52   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a44af4fe2088b22583ce3c811816c33c2}{terminated\_}});}
+\DoxyCodeLine{53   \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_a44af4fe2088b22583ce3c811816c33c2}{terminated\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{54   \mbox{\hyperlink{classv8_1_1platform_1_1TaskQueue_ac0886ec14c15a9169e6eae88218bb2be}{process\_queue\_semaphore\_}}.\mbox{\hyperlink{classv8_1_1base_1_1Semaphore_a95ee194fdea88172c20132a95ac8ca59}{Signal}}();}
+\DoxyCodeLine{55 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK, lock\+\_\+, process\+\_\+queue\+\_\+semaphore\+\_\+, v8\+::base\+::\+Semaphore\+::\+Signal(), and terminated\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1TaskQueue_a603c0ef6966c3365db6904199488e978_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1platform_1_1TaskQueue_a8a95c21dadce1d499e5c0ad9d4e6573f}\label{classv8_1_1platform_1_1TaskQueue_a8a95c21dadce1d499e5c0ad9d4e6573f}} 
+\index{v8::platform::TaskQueue@{v8::platform::TaskQueue}!lock\_@{lock\_}}
+\index{lock\_@{lock\_}!v8::platform::TaskQueue@{v8::platform::TaskQueue}}
+\doxysubsubsection{\texorpdfstring{lock\_}{lock\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} v8\+::platform\+::\+Task\+Queue\+::lock\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 46 of file task-\/queue.\+h.
+
+
+
+Referenced by Append(), Block\+Until\+Queue\+Empty\+For\+Testing(), Get\+Next(), Terminate(), and $\sim$\+Task\+Queue().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1TaskQueue_ac0886ec14c15a9169e6eae88218bb2be}\label{classv8_1_1platform_1_1TaskQueue_ac0886ec14c15a9169e6eae88218bb2be}} 
+\index{v8::platform::TaskQueue@{v8::platform::TaskQueue}!process\_queue\_semaphore\_@{process\_queue\_semaphore\_}}
+\index{process\_queue\_semaphore\_@{process\_queue\_semaphore\_}!v8::platform::TaskQueue@{v8::platform::TaskQueue}}
+\doxysubsubsection{\texorpdfstring{process\_queue\_semaphore\_}{process\_queue\_semaphore\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Semaphore}{base\+::\+Semaphore}} v8\+::platform\+::\+Task\+Queue\+::process\+\_\+queue\+\_\+semaphore\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 45 of file task-\/queue.\+h.
+
+
+
+Referenced by Append(), Get\+Next(), and Terminate().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1TaskQueue_a1a9c05c9dd2eab3b769b409b70b9fe7a}\label{classv8_1_1platform_1_1TaskQueue_a1a9c05c9dd2eab3b769b409b70b9fe7a}} 
+\index{v8::platform::TaskQueue@{v8::platform::TaskQueue}!task\_queue\_@{task\_queue\_}}
+\index{task\_queue\_@{task\_queue\_}!v8::platform::TaskQueue@{v8::platform::TaskQueue}}
+\doxysubsubsection{\texorpdfstring{task\_queue\_}{task\_queue\_}}
+{\footnotesize\ttfamily std\+::queue$<$std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1Task}{Task}}$>$ $>$ v8\+::platform\+::\+Task\+Queue\+::task\+\_\+queue\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 47 of file task-\/queue.\+h.
+
+
+
+Referenced by Append(), Block\+Until\+Queue\+Empty\+For\+Testing(), Get\+Next(), and $\sim$\+Task\+Queue().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1TaskQueue_a44af4fe2088b22583ce3c811816c33c2}\label{classv8_1_1platform_1_1TaskQueue_a44af4fe2088b22583ce3c811816c33c2}} 
+\index{v8::platform::TaskQueue@{v8::platform::TaskQueue}!terminated\_@{terminated\_}}
+\index{terminated\_@{terminated\_}!v8::platform::TaskQueue@{v8::platform::TaskQueue}}
+\doxysubsubsection{\texorpdfstring{terminated\_}{terminated\_}}
+{\footnotesize\ttfamily bool v8\+::platform\+::\+Task\+Queue\+::terminated\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 48 of file task-\/queue.\+h.
+
+
+
+Referenced by Append(), Get\+Next(), Terminate(), and $\sim$\+Task\+Queue().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{task-queue_8h}{task-\/queue.\+h}}\item 
-\mbox{\hyperlink{task-queue_8cc}{task-\/queue.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/libplatform/\mbox{\hyperlink{task-queue_8h}{task-\/queue.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/libplatform/\mbox{\hyperlink{task-queue_8cc}{task-\/queue.\+cc}}\end{DoxyCompactItemize}

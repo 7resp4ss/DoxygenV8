@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$transport.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::wasm\+::gdb\+\_\+server\+::Socket\+Binding\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -20,6 +30,18 @@ uint16\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1Soc
 \item 
 static \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding}{Socket\+Binding}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a469d23e6dcb7cb314362ffe94f387101}{Bind}} (uint16\+\_\+t tcp\+\_\+port)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{transport_8h_ae6665db702f7f374879e1ccb5042c031}{Socket\+Handle}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_aa9d39ea8e62e5771a61ffc2c5095e3f4}{socket\+\_\+handle\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 52 of file transport.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -31,6 +53,27 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBind
 
 
 
+Definition at line 18 of file transport.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19     : \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_aa9d39ea8e62e5771a61ffc2c5095e3f4}{socket\_handle\_}}(socket\_handle) \{\}}
+
+\end{DoxyCode}
+
+
+Referenced by Bind().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a42aa39d79931d64072e7a8d913fd50d9_icgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a469d23e6dcb7cb314362ffe94f387101}\label{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a469d23e6dcb7cb314362ffe94f387101}} 
 \index{v8::internal::wasm::gdb\_server::SocketBinding@{v8::internal::wasm::gdb\_server::SocketBinding}!Bind@{Bind}}
@@ -38,18 +81,167 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBind
 \doxysubsubsection{\texorpdfstring{Bind()}{Bind()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding}{Socket\+Binding}} v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Socket\+Binding\+::\+Bind (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{tcp\+\_\+port }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 22 of file transport.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{22                                                    \{}
+\DoxyCodeLine{23   \mbox{\hyperlink{classint}{SocketHandle}} socket\_handle = ::socket(AF\_INET, SOCK\_STREAM, IPPROTO\_TCP);}
+\DoxyCodeLine{24   \textcolor{keywordflow}{if} (socket\_handle == \mbox{\hyperlink{transport_8h_a659201fa9e9ae2c094563925be262d89}{InvalidSocket}}) \{}
+\DoxyCodeLine{25     \mbox{\hyperlink{gdb-remote-util_8h_af693ba8c30b0a5e9c9c0a4af63086137}{TRACE\_GDB\_REMOTE}}(\textcolor{stringliteral}{"{}Failed to create socket.\(\backslash\)n"{}});}
+\DoxyCodeLine{26     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a42aa39d79931d64072e7a8d913fd50d9}{SocketBinding}}(\mbox{\hyperlink{transport_8h_a659201fa9e9ae2c094563925be262d89}{InvalidSocket}});}
+\DoxyCodeLine{27   \}}
+\DoxyCodeLine{28   \textcolor{keyword}{struct }sockaddr\_in sockaddr;}
+\DoxyCodeLine{29   \textcolor{comment}{// Clearing sockaddr\_in first appears to be necessary on Mac OS X.}}
+\DoxyCodeLine{30   memset(\&sockaddr, 0, \textcolor{keyword}{sizeof}(sockaddr));}
+\DoxyCodeLine{31   socklen\_t addrlen = \textcolor{keyword}{static\_cast<}socklen\_t\textcolor{keyword}{>}(\textcolor{keyword}{sizeof}(sockaddr));}
+\DoxyCodeLine{32   sockaddr.sin\_family = AF\_INET;}
+\DoxyCodeLine{33   sockaddr.sin\_addr.s\_addr = htonl(INADDR\_LOOPBACK);}
+\DoxyCodeLine{34   sockaddr.sin\_port = htons(tcp\_port);}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#if \_WIN32}}
+\DoxyCodeLine{37   \textcolor{comment}{// On Windows, SO\_REUSEADDR has a different meaning than on POSIX systems.}}
+\DoxyCodeLine{38   \textcolor{comment}{// SO\_REUSEADDR allows hijacking of an open socket by another process.}}
+\DoxyCodeLine{39   \textcolor{comment}{// The SO\_EXCLUSIVEADDRUSE flag prevents this behavior.}}
+\DoxyCodeLine{40   \textcolor{comment}{// See:}}
+\DoxyCodeLine{41   \textcolor{comment}{// http://msdn.microsoft.com/en-\/us/library/windows/desktop/ms740621(v=vs.85).aspx}}
+\DoxyCodeLine{42   \textcolor{comment}{//}}
+\DoxyCodeLine{43   \textcolor{comment}{// Additionally, unlike POSIX, TCP server sockets can be bound to}}
+\DoxyCodeLine{44   \textcolor{comment}{// ports in the TIME\_WAIT state, without setting SO\_REUSEADDR.}}
+\DoxyCodeLine{45   \textcolor{keywordtype}{int} exclusive\_address = 1;}
+\DoxyCodeLine{46   \textcolor{keywordflow}{if} (setsockopt(socket\_handle, SOL\_SOCKET, SO\_EXCLUSIVEADDRUSE,}
+\DoxyCodeLine{47                  \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(\&exclusive\_address),}
+\DoxyCodeLine{48                  \textcolor{keyword}{sizeof}(exclusive\_address))) \{}
+\DoxyCodeLine{49     \mbox{\hyperlink{gdb-remote-util_8h_af693ba8c30b0a5e9c9c0a4af63086137}{TRACE\_GDB\_REMOTE}}(\textcolor{stringliteral}{"{}Failed to set SO\_EXCLUSIVEADDRUSE option.\(\backslash\)n"{}});}
+\DoxyCodeLine{50   \}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{52   \textcolor{comment}{// On POSIX, this is necessary to ensure that the TCP port is released}}
+\DoxyCodeLine{53   \textcolor{comment}{// promptly when sel\_ldr exits.  Without this, the TCP port might}}
+\DoxyCodeLine{54   \textcolor{comment}{// only be released after a timeout, and later processes can fail}}
+\DoxyCodeLine{55   \textcolor{comment}{// to bind it.}}
+\DoxyCodeLine{56   \textcolor{keywordtype}{int} reuse\_address = 1;}
+\DoxyCodeLine{57   \textcolor{keywordflow}{if} (setsockopt(socket\_handle, SOL\_SOCKET, SO\_REUSEADDR,}
+\DoxyCodeLine{58                  \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(\&reuse\_address),}
+\DoxyCodeLine{59                  \textcolor{keyword}{sizeof}(reuse\_address))) \{}
+\DoxyCodeLine{60     \mbox{\hyperlink{gdb-remote-util_8h_af693ba8c30b0a5e9c9c0a4af63086137}{TRACE\_GDB\_REMOTE}}(\textcolor{stringliteral}{"{}Failed to set SO\_REUSEADDR option.\(\backslash\)n"{}});}
+\DoxyCodeLine{61   \}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   \textcolor{keywordflow}{if} (bind(socket\_handle, \textcolor{keyword}{reinterpret\_cast<}struct sockaddr*\textcolor{keyword}{>}(\&sockaddr),}
+\DoxyCodeLine{65            addrlen)) \{}
+\DoxyCodeLine{66     \mbox{\hyperlink{gdb-remote-util_8h_af693ba8c30b0a5e9c9c0a4af63086137}{TRACE\_GDB\_REMOTE}}(\textcolor{stringliteral}{"{}Failed to bind server.\(\backslash\)n"{}});}
+\DoxyCodeLine{67     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a42aa39d79931d64072e7a8d913fd50d9}{SocketBinding}}(\mbox{\hyperlink{transport_8h_a659201fa9e9ae2c094563925be262d89}{InvalidSocket}});}
+\DoxyCodeLine{68   \}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   \textcolor{keywordflow}{if} (listen(socket\_handle, 1)) \{}
+\DoxyCodeLine{71     \mbox{\hyperlink{gdb-remote-util_8h_af693ba8c30b0a5e9c9c0a4af63086137}{TRACE\_GDB\_REMOTE}}(\textcolor{stringliteral}{"{}Failed to listen.\(\backslash\)n"{}});}
+\DoxyCodeLine{72     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a42aa39d79931d64072e7a8d913fd50d9}{SocketBinding}}(\mbox{\hyperlink{transport_8h_a659201fa9e9ae2c094563925be262d89}{InvalidSocket}});}
+\DoxyCodeLine{73   \}}
+\DoxyCodeLine{74   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a42aa39d79931d64072e7a8d913fd50d9}{SocketBinding}}(socket\_handle);}
+\DoxyCodeLine{75 \}}
+
+\end{DoxyCode}
+
+
+References Invalid\+Socket, Socket\+Binding(), and TRACE\+\_\+\+GDB\+\_\+\+REMOTE.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Gdb\+Server\+Thread\+::\+Run().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a469d23e6dcb7cb314362ffe94f387101_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a469d23e6dcb7cb314362ffe94f387101_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a64cf3c2d7ca833a24802cc5f7edb0f4c}\label{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a64cf3c2d7ca833a24802cc5f7edb0f4c}} 
 \index{v8::internal::wasm::gdb\_server::SocketBinding@{v8::internal::wasm::gdb\_server::SocketBinding}!CreateTransport@{CreateTransport}}
 \index{CreateTransport@{CreateTransport}!v8::internal::wasm::gdb\_server::SocketBinding@{v8::internal::wasm::gdb\_server::SocketBinding}}
 \doxysubsubsection{\texorpdfstring{CreateTransport()}{CreateTransport()}}
 {\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketTransport}{Socket\+Transport}} $>$ v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Socket\+Binding\+::\+Create\+Transport (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 77 of file transport.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{77                                                               \{}
+\DoxyCodeLine{78   \textcolor{keywordflow}{return} std::make\_unique<SocketTransport>(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_aa9d39ea8e62e5771a61ffc2c5095e3f4}{socket\_handle\_}});}
+\DoxyCodeLine{79 \}}
+
+\end{DoxyCode}
+
+
+References socket\+\_\+handle\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Gdb\+Server\+Thread\+::\+Run().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a64cf3c2d7ca833a24802cc5f7edb0f4c_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a553aebacd0dec7649c94a7a698537e58}\label{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a553aebacd0dec7649c94a7a698537e58}} 
 \index{v8::internal::wasm::gdb\_server::SocketBinding@{v8::internal::wasm::gdb\_server::SocketBinding}!GetBoundPort@{GetBoundPort}}
 \index{GetBoundPort@{GetBoundPort}!v8::internal::wasm::gdb\_server::SocketBinding@{v8::internal::wasm::gdb\_server::SocketBinding}}
 \doxysubsubsection{\texorpdfstring{GetBoundPort()}{GetBoundPort()}}
 {\footnotesize\ttfamily uint16\+\_\+t v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Socket\+Binding\+::\+Get\+Bound\+Port (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 81 of file transport.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{81                                      \{}
+\DoxyCodeLine{82   \textcolor{keyword}{struct }sockaddr\_in saddr;}
+\DoxyCodeLine{83   \textcolor{keyword}{struct }sockaddr* psaddr = \textcolor{keyword}{reinterpret\_cast<}struct sockaddr*\textcolor{keyword}{>}(\&saddr);}
+\DoxyCodeLine{84   \textcolor{comment}{// Clearing sockaddr\_in first appears to be necessary on Mac OS X.}}
+\DoxyCodeLine{85   memset(\&saddr, 0, \textcolor{keyword}{sizeof}(saddr));}
+\DoxyCodeLine{86   socklen\_t addrlen = \textcolor{keyword}{static\_cast<}socklen\_t\textcolor{keyword}{>}(\textcolor{keyword}{sizeof}(saddr));}
+\DoxyCodeLine{87   \textcolor{keywordflow}{if} (::getsockname(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_aa9d39ea8e62e5771a61ffc2c5095e3f4}{socket\_handle\_}}, psaddr, \&addrlen)) \{}
+\DoxyCodeLine{88     \mbox{\hyperlink{gdb-remote-util_8h_af693ba8c30b0a5e9c9c0a4af63086137}{TRACE\_GDB\_REMOTE}}(\textcolor{stringliteral}{"{}Failed to retrieve bound address.\(\backslash\)n"{}});}
+\DoxyCodeLine{89     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{90   \}}
+\DoxyCodeLine{91   \textcolor{keywordflow}{return} ntohs(saddr.sin\_port);}
+\DoxyCodeLine{92 \}}
+
+\end{DoxyCode}
+
+
+References socket\+\_\+handle\+\_\+, and TRACE\+\_\+\+GDB\+\_\+\+REMOTE.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Gdb\+Server\+Thread\+::\+Run().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a553aebacd0dec7649c94a7a698537e58_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a2abf0c0ea3ff691efe353caf8205ce63}\label{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a2abf0c0ea3ff691efe353caf8205ce63}} 
 \index{v8::internal::wasm::gdb\_server::SocketBinding@{v8::internal::wasm::gdb\_server::SocketBinding}!IsValid@{IsValid}}
 \index{IsValid@{IsValid}!v8::internal::wasm::gdb\_server::SocketBinding@{v8::internal::wasm::gdb\_server::SocketBinding}}
@@ -58,7 +250,49 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBind
 
 
 
+Definition at line 60 of file transport.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_aa9d39ea8e62e5771a61ffc2c5095e3f4}{socket\_handle\_}} != \mbox{\hyperlink{transport_8h_a659201fa9e9ae2c094563925be262d89}{InvalidSocket}}; \}}
+
+\end{DoxyCode}
+
+
+References Invalid\+Socket, and socket\+\_\+handle\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Gdb\+Server\+Thread\+::\+Run().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_a2abf0c0ea3ff691efe353caf8205ce63_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_aa9d39ea8e62e5771a61ffc2c5095e3f4}\label{classv8_1_1internal_1_1wasm_1_1gdb__server_1_1SocketBinding_aa9d39ea8e62e5771a61ffc2c5095e3f4}} 
+\index{v8::internal::wasm::gdb\_server::SocketBinding@{v8::internal::wasm::gdb\_server::SocketBinding}!socket\_handle\_@{socket\_handle\_}}
+\index{socket\_handle\_@{socket\_handle\_}!v8::internal::wasm::gdb\_server::SocketBinding@{v8::internal::wasm::gdb\_server::SocketBinding}}
+\doxysubsubsection{\texorpdfstring{socket\_handle\_}{socket\_handle\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{transport_8h_ae6665db702f7f374879e1ccb5042c031}{Socket\+Handle}} v8\+::internal\+::wasm\+::gdb\+\_\+server\+::\+Socket\+Binding\+::socket\+\_\+handle\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 69 of file transport.\+h.
+
+
+
+Referenced by Create\+Transport(), Get\+Bound\+Port(), and Is\+Valid().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{transport_8h}{transport.\+h}}\item 
-\mbox{\hyperlink{transport_8cc}{transport.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/debug/wasm/gdb-\/server/\mbox{\hyperlink{transport_8h}{transport.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/debug/wasm/gdb-\/server/\mbox{\hyperlink{transport_8cc}{transport.\+cc}}\end{DoxyCompactItemize}

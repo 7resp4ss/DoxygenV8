@@ -7,5 +7,6 @@ var structv8_1_1internal_1_1compiler_1_1NodeMatcher =
     [ "IsComparison", "structv8_1_1internal_1_1compiler_1_1NodeMatcher.html#a8196e8542be90cf55a93eff2f01f357b", null ],
     [ "node", "structv8_1_1internal_1_1compiler_1_1NodeMatcher.html#a91d0fd1a93a0dee0ea345f4386a036c7", null ],
     [ "op", "structv8_1_1internal_1_1compiler_1_1NodeMatcher.html#a215baf933ce61fa2ef50a6c041d513ea", null ],
-    [ "opcode", "structv8_1_1internal_1_1compiler_1_1NodeMatcher.html#a796b7e61a438ac9acd4ba921a3d9e3c3", null ]
+    [ "opcode", "structv8_1_1internal_1_1compiler_1_1NodeMatcher.html#a796b7e61a438ac9acd4ba921a3d9e3c3", null ],
+    [ "node_", "structv8_1_1internal_1_1compiler_1_1NodeMatcher.html#ad8711b38e0bf6d47046428f5d86c1d0f", null ]
 ];

@@ -7,7 +7,7 @@ Inheritance diagram for v8\+::Dummy\+Source\+Stream\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=222pt]{classv8_1_1DummySourceStream__inherit__graph}
+\includegraphics[width=232pt]{classv8_1_1DummySourceStream__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -17,16 +17,32 @@ Collaboration diagram for v8\+::Dummy\+Source\+Stream\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=222pt]{classv8_1_1DummySourceStream__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1DummySourceStream__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1DummySourceStream_a8b469771828bcb5662cb88ef71d4b839}{Dummy\+Source\+Stream}} (\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1String}{String}} $>$ \mbox{\hyperlink{maglev-code-generator_8cc_ada8b48e004e823cabe5fcb41baf29163}{source}})
+\mbox{\hyperlink{classv8_1_1DummySourceStream_a8b469771828bcb5662cb88ef71d4b839}{Dummy\+Source\+Stream}} (\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1String}{String}} $>$ source)
 \item 
 size\+\_\+t \mbox{\hyperlink{classv8_1_1DummySourceStream_a0b4b9e3f0d0747d169ba75e68fe596d7}{Get\+More\+Data}} (const uint8\+\_\+t $\ast$$\ast$src) override
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classv8_1_1V8}{V8}} calls this to request the next chunk of data from the embedder. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classv8_1_1DummySourceStream_ae5fca0014cf40fc9da29039c4154c697}{source\+\_\+length\+\_\+}}
+\item 
+std\+::unique\+\_\+ptr$<$ uint16\+\_\+t\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{classv8_1_1DummySourceStream_ad4e26e340f206eebf9bbaffe0a0fc216}{source\+\_\+buffer\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classv8_1_1DummySourceStream_a1a61b9dfbdda8a3870b15b0ee45d3d2a}{done\+\_\+}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 600 of file d8.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -38,6 +54,23 @@ size\+\_\+t \mbox{\hyperlink{classv8_1_1DummySourceStream_a0b4b9e3f0d0747d169ba7
 
 
 
+Definition at line 602 of file d8.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{602                                                             : \mbox{\hyperlink{classv8_1_1DummySourceStream_a1a61b9dfbdda8a3870b15b0ee45d3d2a}{done\_}}(\textcolor{keyword}{false}) \{}
+\DoxyCodeLine{603     \mbox{\hyperlink{classv8_1_1DummySourceStream_ae5fca0014cf40fc9da29039c4154c697}{source\_length\_}} = source-\/>Length();}
+\DoxyCodeLine{604     \mbox{\hyperlink{classv8_1_1DummySourceStream_ad4e26e340f206eebf9bbaffe0a0fc216}{source\_buffer\_}} = std::make\_unique<uint16\_t[]>(\mbox{\hyperlink{classv8_1_1DummySourceStream_ae5fca0014cf40fc9da29039c4154c697}{source\_length\_}});}
+\DoxyCodeLine{605     source-\/>WriteV2(isolate, 0, \mbox{\hyperlink{classv8_1_1DummySourceStream_ae5fca0014cf40fc9da29039c4154c697}{source\_length\_}}, \mbox{\hyperlink{classv8_1_1DummySourceStream_ad4e26e340f206eebf9bbaffe0a0fc216}{source\_buffer\_}}.get());}
+\DoxyCodeLine{606   \}}
+
+\end{DoxyCode}
+
+
+References source\+\_\+buffer\+\_\+, and source\+\_\+length\+\_\+.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1DummySourceStream_a0b4b9e3f0d0747d169ba75e68fe596d7}\label{classv8_1_1DummySourceStream_a0b4b9e3f0d0747d169ba75e68fe596d7}} 
 \index{v8::DummySourceStream@{v8::DummySourceStream}!GetMoreData@{GetMoreData}}
@@ -45,7 +78,11 @@ size\+\_\+t \mbox{\hyperlink{classv8_1_1DummySourceStream_a0b4b9e3f0d0747d169ba7
 \doxysubsubsection{\texorpdfstring{GetMoreData()}{GetMoreData()}}
 {\footnotesize\ttfamily size\+\_\+t v8\+::\+Dummy\+Source\+Stream\+::\+Get\+More\+Data (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t $\ast$$\ast$}]{src }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
-\mbox{\hyperlink{classv8_1_1V8}{V8}} calls this to request the next chunk of data from the embedder. This function will be called on a background thread, so it\textquotesingle{}s OK to block and wait for the data, if the embedder doesn\textquotesingle{}t have data yet. Returns the length of the data returned. When the data ends, Get\+More\+Data should return 0. Caller takes ownership of the data.
+
+
+\mbox{\hyperlink{classv8_1_1V8}{V8}} calls this to request the next chunk of data from the embedder. 
+
+This function will be called on a background thread, so it\textquotesingle{}s OK to block and wait for the data, if the embedder doesn\textquotesingle{}t have data yet. Returns the length of the data returned. When the data ends, Get\+More\+Data should return 0. Caller takes ownership of the data.
 
 When streaming UTF-\/8 data, \mbox{\hyperlink{classv8_1_1V8}{V8}} handles multi-\/byte characters split between two data chunks, but doesn\textquotesingle{}t handle multi-\/byte characters split between more than two data chunks. The embedder can avoid this problem by always returning at least 2 bytes of data.
 
@@ -57,6 +94,72 @@ Implements \mbox{\hyperlink{classv8_1_1ScriptCompiler_1_1ExternalSourceStream_ac
 
 
 
+Definition at line 608 of file d8.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{608                                                    \{}
+\DoxyCodeLine{609     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1DummySourceStream_a1a61b9dfbdda8a3870b15b0ee45d3d2a}{done\_}}) \{}
+\DoxyCodeLine{610       \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{611     \}}
+\DoxyCodeLine{612     *src = \textcolor{keyword}{reinterpret\_cast<}uint8\_t*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1DummySourceStream_ad4e26e340f206eebf9bbaffe0a0fc216}{source\_buffer\_}}.release());}
+\DoxyCodeLine{613     \mbox{\hyperlink{classv8_1_1DummySourceStream_a1a61b9dfbdda8a3870b15b0ee45d3d2a}{done\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{614 }
+\DoxyCodeLine{615     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1DummySourceStream_ae5fca0014cf40fc9da29039c4154c697}{source\_length\_}} * 2;}
+\DoxyCodeLine{616   \}}
+
+\end{DoxyCode}
+
+
+References done\+\_\+, source\+\_\+buffer\+\_\+, and source\+\_\+length\+\_\+.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1DummySourceStream_a1a61b9dfbdda8a3870b15b0ee45d3d2a}\label{classv8_1_1DummySourceStream_a1a61b9dfbdda8a3870b15b0ee45d3d2a}} 
+\index{v8::DummySourceStream@{v8::DummySourceStream}!done\_@{done\_}}
+\index{done\_@{done\_}!v8::DummySourceStream@{v8::DummySourceStream}}
+\doxysubsubsection{\texorpdfstring{done\_}{done\_}}
+{\footnotesize\ttfamily bool v8\+::\+Dummy\+Source\+Stream\+::done\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 621 of file d8.\+cc.
+
+
+
+Referenced by Get\+More\+Data().
+
+\mbox{\Hypertarget{classv8_1_1DummySourceStream_ad4e26e340f206eebf9bbaffe0a0fc216}\label{classv8_1_1DummySourceStream_ad4e26e340f206eebf9bbaffe0a0fc216}} 
+\index{v8::DummySourceStream@{v8::DummySourceStream}!source\_buffer\_@{source\_buffer\_}}
+\index{source\_buffer\_@{source\_buffer\_}!v8::DummySourceStream@{v8::DummySourceStream}}
+\doxysubsubsection{\texorpdfstring{source\_buffer\_}{source\_buffer\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$uint16\+\_\+t\mbox{[}$\,$\mbox{]}$>$ v8\+::\+Dummy\+Source\+Stream\+::source\+\_\+buffer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 620 of file d8.\+cc.
+
+
+
+Referenced by Dummy\+Source\+Stream(), and Get\+More\+Data().
+
+\mbox{\Hypertarget{classv8_1_1DummySourceStream_ae5fca0014cf40fc9da29039c4154c697}\label{classv8_1_1DummySourceStream_ae5fca0014cf40fc9da29039c4154c697}} 
+\index{v8::DummySourceStream@{v8::DummySourceStream}!source\_length\_@{source\_length\_}}
+\index{source\_length\_@{source\_length\_}!v8::DummySourceStream@{v8::DummySourceStream}}
+\doxysubsubsection{\texorpdfstring{source\_length\_}{source\_length\_}}
+{\footnotesize\ttfamily uint32\+\_\+t v8\+::\+Dummy\+Source\+Stream\+::source\+\_\+length\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 619 of file d8.\+cc.
+
+
+
+Referenced by Dummy\+Source\+Stream(), and Get\+More\+Data().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{d8_8cc}{d8.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/d8/\mbox{\hyperlink{d8_8cc}{d8.\+cc}}\end{DoxyCompactItemize}

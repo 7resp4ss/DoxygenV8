@@ -18,6 +18,7 @@ var parser_base_8h =
     [ "AcceptINScope", "classv8_1_1internal_1_1ParserBase_1_1AcceptINScope.html", "classv8_1_1internal_1_1ParserBase_1_1AcceptINScope" ],
     [ "ParameterParsingScope", "classv8_1_1internal_1_1ParserBase_1_1ParameterParsingScope.html", "classv8_1_1internal_1_1ParserBase_1_1ParameterParsingScope" ],
     [ "FunctionParsingScope", "classv8_1_1internal_1_1ParserBase_1_1FunctionParsingScope.html", "classv8_1_1internal_1_1ParserBase_1_1FunctionParsingScope" ],
+    [ "NextArrowFunctionInfo", "structv8_1_1internal_1_1ParserBase_1_1NextArrowFunctionInfo.html", "structv8_1_1internal_1_1ParserBase_1_1NextArrowFunctionInfo" ],
     [ "RETURN_IF_PARSE_ERROR", "parser-base_8h.html#a7d3041b8b0aadf4b77aac9a1ed5faa0d", null ],
     [ "ParseFunctionFlags", "parser-base_8h.html#ac6c80c4b72d20ea34f36a2849f9d6de5", null ],
     [ "AllowLabelledFunctionStatement", "parser-base_8h.html#a99ae0efd455e9639ef4b65d748b535aa", [

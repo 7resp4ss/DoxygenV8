@@ -33,7 +33,19 @@ Collaboration diagram for v8\+::internal\+::Lazy\+Timed\+Histogram\+Scope\+:
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1LazyTimedHistogramScope_a8bd4eeb57e8cdb9aff4d96d381b70b04}{set\+\_\+histogram}} (\mbox{\hyperlink{classv8_1_1internal_1_1TimedHistogram}{Timed\+Histogram}} $\ast$histogram)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int64\+\_\+t $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1LazyTimedHistogramScope_a29350e49fe67ebc8c607ce40d9c3b6a1}{result\+\_\+in\+\_\+microseconds\+\_\+}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 117 of file counters-\/scopes.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -43,12 +55,51 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1LazyTimedHistogramScope_a8bd4eeb57e
 \doxysubsubsection{\texorpdfstring{LazyTimedHistogramScope()}{LazyTimedHistogramScope()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Lazy\+Timed\+Histogram\+Scope\+::\+Lazy\+Timed\+Histogram\+Scope (\begin{DoxyParamCaption}\item[{int64\+\_\+t $\ast$}]{result\+\_\+in\+\_\+microseconds }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
+
+
+Definition at line 119 of file counters-\/scopes.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{120       : \mbox{\hyperlink{classv8_1_1internal_1_1BaseTimedHistogramScope_ad1f2f4f2dae54f2ea22f8708ff28a4f3}{BaseTimedHistogramScope}}(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{121         \mbox{\hyperlink{classv8_1_1internal_1_1LazyTimedHistogramScope_a29350e49fe67ebc8c607ce40d9c3b6a1}{result\_in\_microseconds\_}}(result\_in\_microseconds) \{}
+\DoxyCodeLine{122     \mbox{\hyperlink{classv8_1_1internal_1_1BaseTimedHistogramScope_a4a6d073b4713e9336091b25032e5b423}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_a451f6e2636acacce40e1dad13fbf7a20}{Start}}();}
+\DoxyCodeLine{123   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Base\+Timed\+Histogram\+Scope\+::\+Start().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1LazyTimedHistogramScope_ade69da9e4e709ee2ce5a66cc55a92ef8_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1LazyTimedHistogramScope_ac66aee4b1162168c69223026f707c93f}\label{classv8_1_1internal_1_1LazyTimedHistogramScope_ac66aee4b1162168c69223026f707c93f}} 
 \index{v8::internal::LazyTimedHistogramScope@{v8::internal::LazyTimedHistogramScope}!````~LazyTimedHistogramScope@{$\sim$LazyTimedHistogramScope}}
 \index{````~LazyTimedHistogramScope@{$\sim$LazyTimedHistogramScope}!v8::internal::LazyTimedHistogramScope@{v8::internal::LazyTimedHistogramScope}}
 \doxysubsubsection{\texorpdfstring{$\sim$LazyTimedHistogramScope()}{~LazyTimedHistogramScope()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Lazy\+Timed\+Histogram\+Scope\+::$\sim$\+Lazy\+Timed\+Histogram\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 124 of file counters-\/scopes.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{124                              \{}
+\DoxyCodeLine{125     \textcolor{comment}{// We should set the histogram before this scope exits.}}
+\DoxyCodeLine{126     int64\_t elapsed = \mbox{\hyperlink{classv8_1_1internal_1_1BaseTimedHistogramScope_a753e29a724021dc16042efa49f36f619}{Stop}}().\mbox{\hyperlink{classv8_1_1base_1_1TimeDelta_ad9006b332aa15e66f2ddb8e8ba910892}{InMicroseconds}}();}
+\DoxyCodeLine{127     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1LazyTimedHistogramScope_a29350e49fe67ebc8c607ce40d9c3b6a1}{result\_in\_microseconds\_}}) \{}
+\DoxyCodeLine{128       *\mbox{\hyperlink{classv8_1_1internal_1_1LazyTimedHistogramScope_a29350e49fe67ebc8c607ce40d9c3b6a1}{result\_in\_microseconds\_}} = elapsed;}
+\DoxyCodeLine{129     \}}
+\DoxyCodeLine{130   \}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -60,6 +111,43 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1LazyTimedHistogramScope_a8bd4eeb57e
 
 
 
+Definition at line 132 of file counters-\/scopes.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{132                                                 \{}
+\DoxyCodeLine{133     \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(histogram-\/>Enabled(), histogram-\/>ToggleRunningState(\textcolor{keyword}{true}));}
+\DoxyCodeLine{134     \mbox{\hyperlink{classv8_1_1internal_1_1BaseTimedHistogramScope_ac72d0bc894e8919b30e6c8185acf73c2}{histogram\_}} = histogram;}
+\DoxyCodeLine{135   \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+IMPLIES, and v8\+::internal\+::\+Histogram\+::\+Enabled().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1LazyTimedHistogramScope_a8bd4eeb57e8cdb9aff4d96d381b70b04_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1LazyTimedHistogramScope_a29350e49fe67ebc8c607ce40d9c3b6a1}\label{classv8_1_1internal_1_1LazyTimedHistogramScope_a29350e49fe67ebc8c607ce40d9c3b6a1}} 
+\index{v8::internal::LazyTimedHistogramScope@{v8::internal::LazyTimedHistogramScope}!result\_in\_microseconds\_@{result\_in\_microseconds\_}}
+\index{result\_in\_microseconds\_@{result\_in\_microseconds\_}!v8::internal::LazyTimedHistogramScope@{v8::internal::LazyTimedHistogramScope}}
+\doxysubsubsection{\texorpdfstring{result\_in\_microseconds\_}{result\_in\_microseconds\_}}
+{\footnotesize\ttfamily int64\+\_\+t$\ast$ v8\+::internal\+::\+Lazy\+Timed\+Histogram\+Scope\+::result\+\_\+in\+\_\+microseconds\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 138 of file counters-\/scopes.\+h.
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{counters-scopes_8h}{counters-\/scopes.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/logging/\mbox{\hyperlink{counters-scopes_8h}{counters-\/scopes.\+h}}\end{DoxyCompactItemize}

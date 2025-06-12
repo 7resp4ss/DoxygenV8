@@ -16,6 +16,7 @@ var classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry =
     [ "decoder", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#afb070bd83331e80a31726a5b64267e5d", null ],
     [ "estimated_number_of_methods", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a6087c1b47b4b101af9b984f897cf7cf2", null ],
     [ "estimated_number_of_statics", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a33dd5c71d0644d8a801cceb0aba5c078", null ],
+    [ "Finish", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a1c73a2af38f5d73af139c0427a9fbac2", null ],
     [ "has_constructor", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#acc066d4e40b1f3309e44ae32c07ecaea", null ],
     [ "has_export", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a97bb13991c9b739dd8803ea25d1234e4", null ],
     [ "has_method", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a3eeb90d921cf7eeef7dcd2445ec1adf1", null ],
@@ -30,5 +31,9 @@ var classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry =
     [ "ProceedToExports", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a3358665eacc5baf40c87c33d1ee7d0df", null ],
     [ "ProceedToMethods", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a85250ff1d1601d116305aed00fc30d73", null ],
     [ "ProceedToStatics", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#adbf66113f5f304624f82b67a8129e911", null ],
-    [ "state", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a460dcfaed951d87c1bcdcd029f7930e6", null ]
+    [ "state", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a460dcfaed951d87c1bcdcd029f7930e6", null ],
+    [ "decoder_", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a76addcec55a89a4323944476e2de0279", null ],
+    [ "nested_index_", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#ac80a1fc312ea656dbf7ac45732cdc84c", null ],
+    [ "num_nested_", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a2b6bd86e716153f1465d4af73871a10b", null ],
+    [ "state_", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#acbf18de0a7e718077efbacbf869bfe47", null ]
 ];

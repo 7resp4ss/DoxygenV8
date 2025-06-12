@@ -5,7 +5,7 @@ var v8_unwinder_8h =
     [ "MemoryRange", "structv8_1_1MemoryRange.html", "structv8_1_1MemoryRange" ],
     [ "JSEntryStub", "structv8_1_1JSEntryStub.html", "structv8_1_1JSEntryStub" ],
     [ "JSEntryStubs", "structv8_1_1JSEntryStubs.html", "structv8_1_1JSEntryStubs" ],
-    [ "Unwinder", "classv8_1_1Unwinder.html", null ],
+    [ "Unwinder", "classv8_1_1Unwinder.html", "classv8_1_1Unwinder" ],
     [ "StateTag", "v8-unwinder_8h.html#af4bd667bae597459fddd3443cbec0cb2", [
       [ "JS", "v8-unwinder_8h.html#af4bd667bae597459fddd3443cbec0cb2abb1fd20769a1c35f2ec136d8dfe99ea5", null ],
       [ "GC", "v8-unwinder_8h.html#af4bd667bae597459fddd3443cbec0cb2a9863458b79cfb4140bf1536b5706410e", null ],

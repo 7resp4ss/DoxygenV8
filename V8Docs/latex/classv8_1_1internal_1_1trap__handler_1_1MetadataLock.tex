@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$trap-\/handler-\/internal.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::trap\+\_\+handler\+::Metadata\+Lock\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{classv8_1_1internal_1_1trap__handler_1_1MetadataLock__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -15,6 +25,18 @@
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1trap__handler_1_1MetadataLock_aed8fb781c55c13ff50d8d284f9f88d7d}{operator=}} (const \mbox{\hyperlink{classv8_1_1internal_1_1trap__handler_1_1MetadataLock}{Metadata\+Lock}} \&)=delete
 \end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::atomic\+\_\+flag \mbox{\hyperlink{classv8_1_1internal_1_1trap__handler_1_1MetadataLock_aa66f91ed6010e225a8029058a479716c}{spinlock\+\_\+}} = ATOMIC\+\_\+\+FLAG\+\_\+\+INIT
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 31 of file trap-\/handler-\/internal.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -24,11 +46,50 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1trap__handler_1_1MetadataLock_aed8f
 \doxysubsubsection{\texorpdfstring{MetadataLock()}{MetadataLock()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::internal\+::trap\+\_\+handler\+::\+Metadata\+Lock\+::\+Metadata\+Lock (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 51 of file handler-\/shared.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{51                            \{}
+\DoxyCodeLine{52   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1trap__handler_a7ef0c7e2495e25016945cd68d44966e9}{g\_thread\_in\_wasm\_code}}) \{}
+\DoxyCodeLine{53     abort();}
+\DoxyCodeLine{54   \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56   \textcolor{keywordflow}{while} (\mbox{\hyperlink{classv8_1_1internal_1_1trap__handler_1_1MetadataLock_aa66f91ed6010e225a8029058a479716c}{spinlock\_}}.test\_and\_set(std::memory\_order\_acquire)) \{}
+\DoxyCodeLine{57   \}}
+\DoxyCodeLine{58 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::trap\+\_\+handler\+::g\+\_\+thread\+\_\+in\+\_\+wasm\+\_\+code, and spinlock\+\_\+.
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1trap__handler_1_1MetadataLock_af55e3c2d81fd900552c603b5190155eb}\label{classv8_1_1internal_1_1trap__handler_1_1MetadataLock_af55e3c2d81fd900552c603b5190155eb}} 
 \index{v8::internal::trap\_handler::MetadataLock@{v8::internal::trap\_handler::MetadataLock}!````~MetadataLock@{$\sim$MetadataLock}}
 \index{````~MetadataLock@{$\sim$MetadataLock}!v8::internal::trap\_handler::MetadataLock@{v8::internal::trap\_handler::MetadataLock}}
 \doxysubsubsection{\texorpdfstring{$\sim$MetadataLock()}{~MetadataLock()}}
 {\footnotesize\ttfamily v8\+::internal\+::trap\+\_\+handler\+::\+Metadata\+Lock\+::$\sim$\+Metadata\+Lock (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 60 of file handler-\/shared.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60                             \{}
+\DoxyCodeLine{61   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1trap__handler_a7ef0c7e2495e25016945cd68d44966e9}{g\_thread\_in\_wasm\_code}}) \{}
+\DoxyCodeLine{62     abort();}
+\DoxyCodeLine{63   \}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \mbox{\hyperlink{classv8_1_1internal_1_1trap__handler_1_1MetadataLock_aa66f91ed6010e225a8029058a479716c}{spinlock\_}}.clear(std::memory\_order\_release);}
+\DoxyCodeLine{66 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::trap\+\_\+handler\+::g\+\_\+thread\+\_\+in\+\_\+wasm\+\_\+code, and spinlock\+\_\+.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1trap__handler_1_1MetadataLock_ab0c0db657458b84ea00c83f838220664}\label{classv8_1_1internal_1_1trap__handler_1_1MetadataLock_ab0c0db657458b84ea00c83f838220664}} 
 \index{v8::internal::trap\_handler::MetadataLock@{v8::internal::trap\_handler::MetadataLock}!MetadataLock@{MetadataLock}}
@@ -47,7 +108,24 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1trap__handler_1_1MetadataLock_aed8f
 
 
 
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1trap__handler_1_1MetadataLock_aa66f91ed6010e225a8029058a479716c}\label{classv8_1_1internal_1_1trap__handler_1_1MetadataLock_aa66f91ed6010e225a8029058a479716c}} 
+\index{v8::internal::trap\_handler::MetadataLock@{v8::internal::trap\_handler::MetadataLock}!spinlock\_@{spinlock\_}}
+\index{spinlock\_@{spinlock\_}!v8::internal::trap\_handler::MetadataLock@{v8::internal::trap\_handler::MetadataLock}}
+\doxysubsubsection{\texorpdfstring{spinlock\_}{spinlock\_}}
+{\footnotesize\ttfamily std\+::atomic\+\_\+flag v8\+::internal\+::trap\+\_\+handler\+::\+Metadata\+Lock\+::spinlock\+\_\+ = ATOMIC\+\_\+\+FLAG\+\_\+\+INIT\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 32 of file trap-\/handler-\/internal.\+h.
+
+
+
+Referenced by Metadata\+Lock(), and $\sim$\+Metadata\+Lock().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{trap-handler-internal_8h}{trap-\/handler-\/internal.\+h}}\item 
-\mbox{\hyperlink{handler-shared_8cc}{handler-\/shared.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/trap-\/handler/\mbox{\hyperlink{trap-handler-internal_8h}{trap-\/handler-\/internal.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/trap-\/handler/\mbox{\hyperlink{handler-shared_8cc}{handler-\/shared.\+cc}}\end{DoxyCompactItemize}

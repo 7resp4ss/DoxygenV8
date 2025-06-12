@@ -13,5 +13,7 @@ var classv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1StoreView =
     [ "operator turboshaft::OpIndex", "classv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1StoreView.html#a5ac21924108231d21ab6caae24d7ed9d", null ],
     [ "stored_rep", "classv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1StoreView.html#a3379df37fa566a3d54545ad6d73c2d6c", null ],
     [ "ts_stored_rep", "classv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1StoreView.html#aa2f13edace7c662161cc866ac90e610b", null ],
-    [ "value", "classv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1StoreView.html#a0d1604ad6ab2022df27fb1c77553db10", null ]
+    [ "value", "classv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1StoreView.html#a0d1604ad6ab2022df27fb1c77553db10", null ],
+    [ "node_", "classv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1StoreView.html#a9d8b8bf994855c7d2504af652d5f5e41", null ],
+    [ "op_", "classv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1StoreView.html#aeed5f643367aca2139901711a9f03619", null ]
 ];

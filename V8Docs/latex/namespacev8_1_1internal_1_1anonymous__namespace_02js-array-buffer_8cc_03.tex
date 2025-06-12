@@ -1,0 +1,72 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02js-array-buffer_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{js-\/array-\/buffer.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02js-array-buffer_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}js-\/array-\/buffer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}js-\/array-\/buffer.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02js-array-buffer_8cc_03_a68f06e624ae63580e4dbd8b34afa00c7}{Canonical\+Numeric\+Index\+String}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, const \mbox{\hyperlink{classv8_1_1internal_1_1PropertyKey}{Property\+Key}} \&lookup\+\_\+key, \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} $\ast$is\+\_\+minus\+\_\+zero)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02js-array-buffer_8cc_03_a68f06e624ae63580e4dbd8b34afa00c7}\label{namespacev8_1_1internal_1_1anonymous__namespace_02js-array-buffer_8cc_03_a68f06e624ae63580e4dbd8b34afa00c7}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}js-\/array-\/buffer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}js-\/array-\/buffer.cc\rcurly{}}!CanonicalNumericIndexString@{CanonicalNumericIndexString}}
+\index{CanonicalNumericIndexString@{CanonicalNumericIndexString}!v8::internal::anonymous\_namespace\lcurly{}js-\/array-\/buffer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}js-\/array-\/buffer.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{CanonicalNumericIndexString()}{CanonicalNumericIndexString()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::anonymous\+\_\+namespace\{js-\/array-\/buffer.\+cc\}\+::Canonical\+Numeric\+Index\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1PropertyKey}{Property\+Key}} \&}]{lookup\+\_\+key,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} $\ast$}]{is\+\_\+minus\+\_\+zero }\end{DoxyParamCaption})}
+
+
+
+Definition at line 19 of file js-\/array-\/buffer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21                                                       \{}
+\DoxyCodeLine{22   \textcolor{comment}{// 1. Assert: Type(argument) is String.}}
+\DoxyCodeLine{23   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(lookup\_key.is\_element() || IsString(*lookup\_key.name()));}
+\DoxyCodeLine{24   *\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_1_1detail_a5ae87ba32232fd4fed2acc83095e13fb}{is\_minus\_zero}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{25   \textcolor{keywordflow}{if} (lookup\_key.is\_element()) \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27   DirectHandle<String> \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}} = Cast<String>(lookup\_key.name());}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29   \textcolor{comment}{// 3. Let n be ! ToNumber(argument).}}
+\DoxyCodeLine{30   DirectHandle<Object> \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = \mbox{\hyperlink{namespacev8_1_1internal_a5a857fe236959ea037b3dd560a3414f0}{String::ToNumber}}(isolate, \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}});}
+\DoxyCodeLine{31   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_ac2e67965c23f31e787267da33347b3d7}{IsMinusZero}}(*\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}})) \{}
+\DoxyCodeLine{32     \textcolor{comment}{// 2. If argument is "{}-\/0"{}, return -\/0𝔽.}}
+\DoxyCodeLine{33     \textcolor{comment}{// We are not performing SaveValue check for -\/0 because it'll be rejected}}
+\DoxyCodeLine{34     \textcolor{comment}{// anyway.}}
+\DoxyCodeLine{35     *\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_1_1detail_a5ae87ba32232fd4fed2acc83095e13fb}{is\_minus\_zero}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{36   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{37     \textcolor{comment}{// 4. If SameValue(! ToString(n), argument) is false, return undefined.}}
+\DoxyCodeLine{38     DirectHandle<String> str =}
+\DoxyCodeLine{39         \mbox{\hyperlink{data-view-ops_8h_af22849720fbd54f8307292fe33c35a07}{Object::ToString}}(isolate, \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}).ToHandleChecked();}
+\DoxyCodeLine{40     \textcolor{comment}{// Avoid treating strings like "{}2E1"{} and "{}20"{} as the same key.}}
+\DoxyCodeLine{41     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03_a6c3e725f2169dddc39bf231dbbe6eeb8}{Object::SameValue}}(*str, *\mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}})) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{42   \}}
+\DoxyCodeLine{43   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{44 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Property\+Key\+::is\+\_\+element(), v8\+::internal\+::compiler\+::turboshaft\+::detail\+::is\+\_\+minus\+\_\+zero(), v8\+::internal\+::\+Is\+Minus\+Zero(), v8\+::internal\+::key, v8\+::internal\+::\+Property\+Key\+::name, v8\+::base\+::internal\+::result, v8\+::internal\+::\+Object\+::\+Same\+Value(), v8\+::\+Value\+::\+To\+Number(), and v8\+::\+Value\+::\+To\+String().
+
+
+
+Referenced by v8\+::internal\+::\+JSTyped\+Array\+::\+Define\+Own\+Property().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02js-array-buffer_8cc_03_a68f06e624ae63580e4dbd8b34afa00c7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02js-array-buffer_8cc_03_a68f06e624ae63580e4dbd8b34afa00c7_icgraph}
+\end{center}
+\end{figure}

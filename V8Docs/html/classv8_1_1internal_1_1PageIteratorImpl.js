@@ -7,5 +7,6 @@ var classv8_1_1internal_1_1PageIteratorImpl =
     [ "operator++", "classv8_1_1internal_1_1PageIteratorImpl.html#a5558f4dda126b038bcf91a2123efbc6a", null ],
     [ "operator++", "classv8_1_1internal_1_1PageIteratorImpl.html#af0b6410a2ffd273b53723d0d4b753260", null ],
     [ "operator=", "classv8_1_1internal_1_1PageIteratorImpl.html#a3472b3b2801ae458922b9cf43bc92723", null ],
-    [ "operator==", "classv8_1_1internal_1_1PageIteratorImpl.html#a9d11fafb2aca9db29f9897b6de656158", null ]
+    [ "operator==", "classv8_1_1internal_1_1PageIteratorImpl.html#a9d11fafb2aca9db29f9897b6de656158", null ],
+    [ "p_", "classv8_1_1internal_1_1PageIteratorImpl.html#aa88fa53b40de6bf79c25eb445365dd6d", null ]
 ];

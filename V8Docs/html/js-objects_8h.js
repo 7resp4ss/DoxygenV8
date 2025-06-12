@@ -5,7 +5,7 @@ var js_objects_8h =
     [ "JSExternalObject", "classv8_1_1internal_1_1JSExternalObject.html", "classv8_1_1internal_1_1JSExternalObject" ],
     [ "JSObjectWithEmbedderSlots", "classv8_1_1internal_1_1JSObjectWithEmbedderSlots.html", null ],
     [ "JSAPIObjectWithEmbedderSlots", "classv8_1_1internal_1_1JSAPIObjectWithEmbedderSlots.html", [
-      [ "BodyDescriptor", "classv8_1_1internal_1_1JSAPIObjectWithEmbedderSlots_1_1BodyDescriptor.html", null ]
+      [ "BodyDescriptor", "classv8_1_1internal_1_1JSAPIObjectWithEmbedderSlots_1_1BodyDescriptor.html", "classv8_1_1internal_1_1JSAPIObjectWithEmbedderSlots_1_1BodyDescriptor" ]
     ] ],
     [ "JSCustomElementsObject", "classv8_1_1internal_1_1JSCustomElementsObject.html", null ],
     [ "JSSpecialObject", "classv8_1_1internal_1_1JSSpecialObject.html", null ],

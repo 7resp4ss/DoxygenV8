@@ -1,4 +1,5 @@
 var structcppgc_1_1internal_1_1MarkingWorklists_1_1ExternalMarkingWorklist_1_1ConditionalMutexGuard_3_01AccessMode_1_1kAtomic_01_4 =
 [
-    [ "ConditionalMutexGuard", "structcppgc_1_1internal_1_1MarkingWorklists_1_1ExternalMarkingWorklist_1_1ConditionalMutexGuard_3_01AccessMode_1_1kAtomic_01_4.html#a0dd3034aa9ddd5a71b69304101e532e5", null ]
+    [ "ConditionalMutexGuard", "structcppgc_1_1internal_1_1MarkingWorklists_1_1ExternalMarkingWorklist_1_1ConditionalMutexGuard_3_01AccessMode_1_1kAtomic_01_4.html#a0dd3034aa9ddd5a71b69304101e532e5", null ],
+    [ "guard_", "structcppgc_1_1internal_1_1MarkingWorklists_1_1ExternalMarkingWorklist_1_1ConditionalMutexGuard_3_01AccessMode_1_1kAtomic_01_4.html#a4775bc675a85c8b93f0e66eb6bd0c747", null ]
 ];

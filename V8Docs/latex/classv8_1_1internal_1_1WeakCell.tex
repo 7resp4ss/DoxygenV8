@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::Weak\+Cell\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=228pt]{classv8_1_1internal_1_1WeakCell__inherit__graph}
+\includegraphics[width=270pt]{classv8_1_1internal_1_1WeakCell__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::Weak\+Cell\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=228pt]{classv8_1_1internal_1_1WeakCell__coll__graph}
+\includegraphics[width=270pt]{classv8_1_1internal_1_1WeakCell__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Classes}
@@ -36,10 +36,17 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1WeakCell_1_1BodyDescriptor}{Body\+
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1WeakCell_a71127886f7ff5f301ee5390867834723}{relaxed\+\_\+unregister\+\_\+token}} () const
 \item 
-{\footnotesize template$<$typename GCNotify\+Updated\+Slot\+Callback $>$ }\\void \mbox{\hyperlink{classv8_1_1internal_1_1WeakCell_a84d65f1477c27835c6d53d659927963d}{Nullify}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, GCNotify\+Updated\+Slot\+Callback gc\+\_\+notify\+\_\+updated\+\_\+slot)
+{\footnotesize template$<$typename GCNotify\+Updated\+Slot\+Callback $>$ }\\void \mbox{\hyperlink{classv8_1_1internal_1_1WeakCell_a84d65f1477c27835c6d53d659927963d}{Nullify}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, GCNotify\+Updated\+Slot\+Callback gc\+\_\+notify\+\_\+updated\+\_\+slot)
 \item 
-void \mbox{\hyperlink{classv8_1_1internal_1_1WeakCell_af9dfe1653a3e5cc560037bfcca364c18}{Remove\+From\+Finalization\+Registry\+Cells}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+void \mbox{\hyperlink{classv8_1_1internal_1_1WeakCell_af9dfe1653a3e5cc560037bfcca364c18}{Remove\+From\+Finalization\+Registry\+Cells}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 85 of file js-\/weak-\/refs.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -50,18 +57,129 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1WeakCell_af9dfe1653a3e5cc560037bfcc
 {\footnotesize\ttfamily template$<$typename GCNotify\+Updated\+Slot\+Callback $>$ \\
 void v8\+::internal\+::\+Weak\+Cell\+::\+Nullify (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{GCNotify\+Updated\+Slot\+Callback}]{gc\+\_\+notify\+\_\+updated\+\_\+slot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 170 of file js-\/weak-\/refs-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{171                                                                            \{}
+\DoxyCodeLine{172   \textcolor{comment}{// Remove from the WeakCell from the "{}active\_cells"{} list of its}}
+\DoxyCodeLine{173   \textcolor{comment}{// JSFinalizationRegistry and insert it into the "{}cleared\_cells"{} list. This is}}
+\DoxyCodeLine{174   \textcolor{comment}{// only called for WeakCells which haven't been unregistered yet, so they will}}
+\DoxyCodeLine{175   \textcolor{comment}{// be in the active\_cells list. (The caller must guard against calling this}}
+\DoxyCodeLine{176   \textcolor{comment}{// for unregistered WeakCells by checking that the target is not undefined.)}}
+\DoxyCodeLine{177   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1Object_a3fa7e2f730543261b565d9f664e50d69}{Object::CanBeHeldWeakly}}(target()));}
+\DoxyCodeLine{178   set\_target(ReadOnlyRoots(isolate).undefined\_value());}
+\DoxyCodeLine{179 }
+\DoxyCodeLine{180   Tagged<JSFinalizationRegistry> fr =}
+\DoxyCodeLine{181       Cast<JSFinalizationRegistry>(finalization\_registry());}
+\DoxyCodeLine{182   \textcolor{keywordflow}{if} (IsWeakCell(prev())) \{}
+\DoxyCodeLine{183     \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(fr-\/>active\_cells(), *\textcolor{keyword}{this});}
+\DoxyCodeLine{184     Tagged<WeakCell> prev\_cell = Cast<WeakCell>(prev());}
+\DoxyCodeLine{185     prev\_cell-\/>set\_next(next());}
+\DoxyCodeLine{186     gc\_notify\_updated\_slot(prev\_cell,}
+\DoxyCodeLine{187                            prev\_cell-\/>RawField(WeakCell::kNextOffset), next());}
+\DoxyCodeLine{188   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{189     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(fr-\/>active\_cells(), *\textcolor{keyword}{this});}
+\DoxyCodeLine{190     fr-\/>set\_active\_cells(next());}
+\DoxyCodeLine{191     gc\_notify\_updated\_slot(}
+\DoxyCodeLine{192         fr, fr-\/>RawField(JSFinalizationRegistry::kActiveCellsOffset), next());}
+\DoxyCodeLine{193   \}}
+\DoxyCodeLine{194   \textcolor{keywordflow}{if} (IsWeakCell(next())) \{}
+\DoxyCodeLine{195     Tagged<WeakCell> next\_cell = Cast<WeakCell>(next());}
+\DoxyCodeLine{196     next\_cell-\/>set\_prev(prev());}
+\DoxyCodeLine{197     gc\_notify\_updated\_slot(next\_cell,}
+\DoxyCodeLine{198                            next\_cell-\/>RawField(WeakCell::kPrevOffset), prev());}
+\DoxyCodeLine{199   \}}
+\DoxyCodeLine{200 }
+\DoxyCodeLine{201   set\_prev(ReadOnlyRoots(isolate).undefined\_value());}
+\DoxyCodeLine{202   Tagged<UnionOf<Undefined, WeakCell>> cleared\_head = fr-\/>cleared\_cells();}
+\DoxyCodeLine{203   \textcolor{keywordflow}{if} (IsWeakCell(cleared\_head)) \{}
+\DoxyCodeLine{204     Tagged<WeakCell> cleared\_head\_cell = Cast<WeakCell>(cleared\_head);}
+\DoxyCodeLine{205     cleared\_head\_cell-\/>set\_prev(*\textcolor{keyword}{this});}
+\DoxyCodeLine{206     gc\_notify\_updated\_slot(cleared\_head\_cell,}
+\DoxyCodeLine{207                            cleared\_head\_cell-\/>RawField(WeakCell::kPrevOffset),}
+\DoxyCodeLine{208                            *\textcolor{keyword}{this});}
+\DoxyCodeLine{209   \}}
+\DoxyCodeLine{210   set\_next(fr-\/>cleared\_cells());}
+\DoxyCodeLine{211   gc\_notify\_updated\_slot(*\textcolor{keyword}{this}, RawField(WeakCell::kNextOffset), next());}
+\DoxyCodeLine{212   fr-\/>set\_cleared\_cells(*\textcolor{keyword}{this});}
+\DoxyCodeLine{213   gc\_notify\_updated\_slot(}
+\DoxyCodeLine{214       fr, fr-\/>RawField(JSFinalizationRegistry::kClearedCellsOffset), *\textcolor{keyword}{this});}
+\DoxyCodeLine{215 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Object\+::\+Can\+Be\+Held\+Weakly(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, and DCHECK\+\_\+\+NE.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1WeakCell_a84d65f1477c27835c6d53d659927963d_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1WeakCell_aefbf46586aff6bc10830da9e7f5208c8}\label{classv8_1_1internal_1_1WeakCell_aefbf46586aff6bc10830da9e7f5208c8}} 
 \index{v8::internal::WeakCell@{v8::internal::WeakCell}!relaxed\_target@{relaxed\_target}}
 \index{relaxed\_target@{relaxed\_target}!v8::internal::WeakCell@{v8::internal::WeakCell}}
 \doxysubsubsection{\texorpdfstring{relaxed\_target()}{relaxed\_target()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ v8\+::internal\+::\+Weak\+Cell\+::relaxed\+\_\+target (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 161 of file js-\/weak-\/refs-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{161                                                   \{}
+\DoxyCodeLine{162   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1TaggedField_a4770a848d0443cef29f15fd93e96a9ef}{TaggedField<HeapObject>::Relaxed\_Load}}(*\textcolor{keyword}{this}, kTargetOffset);}
+\DoxyCodeLine{163 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Tagged\+Field$<$ T, k\+Field\+Offset, Compression\+Scheme $>$\+::\+Relaxed\+\_\+\+Load().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1WeakCell_aefbf46586aff6bc10830da9e7f5208c8_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1WeakCell_a71127886f7ff5f301ee5390867834723}\label{classv8_1_1internal_1_1WeakCell_a71127886f7ff5f301ee5390867834723}} 
 \index{v8::internal::WeakCell@{v8::internal::WeakCell}!relaxed\_unregister\_token@{relaxed\_unregister\_token}}
 \index{relaxed\_unregister\_token@{relaxed\_unregister\_token}!v8::internal::WeakCell@{v8::internal::WeakCell}}
 \doxysubsubsection{\texorpdfstring{relaxed\_unregister\_token()}{relaxed\_unregister\_token()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ v8\+::internal\+::\+Weak\+Cell\+::relaxed\+\_\+unregister\+\_\+token (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 165 of file js-\/weak-\/refs-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{165                                                             \{}
+\DoxyCodeLine{166   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1TaggedField_a4770a848d0443cef29f15fd93e96a9ef}{TaggedField<HeapObject>::Relaxed\_Load}}(*\textcolor{keyword}{this}, kUnregisterTokenOffset);}
+\DoxyCodeLine{167 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Tagged\+Field$<$ T, k\+Field\+Offset, Compression\+Scheme $>$\+::\+Relaxed\+\_\+\+Load().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1WeakCell_a71127886f7ff5f301ee5390867834723_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1WeakCell_af9dfe1653a3e5cc560037bfcca364c18}\label{classv8_1_1internal_1_1WeakCell_af9dfe1653a3e5cc560037bfcca364c18}} 
 \index{v8::internal::WeakCell@{v8::internal::WeakCell}!RemoveFromFinalizationRegistryCells@{RemoveFromFinalizationRegistryCells}}
 \index{RemoveFromFinalizationRegistryCells@{RemoveFromFinalizationRegistryCells}!v8::internal::WeakCell@{v8::internal::WeakCell}}
@@ -70,7 +188,56 @@ void v8\+::internal\+::\+Weak\+Cell\+::\+Nullify (\begin{DoxyParamCaption}\item[
 
 
 
+Definition at line 217 of file js-\/weak-\/refs-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{217                                                                    \{}
+\DoxyCodeLine{218   \textcolor{comment}{// Remove the WeakCell from the list it's in (either "{}active\_cells"{} or}}
+\DoxyCodeLine{219   \textcolor{comment}{// "{}cleared\_cells"{} of its JSFinalizationRegistry).}}
+\DoxyCodeLine{220 }
+\DoxyCodeLine{221   \textcolor{comment}{// It's important to set\_target to undefined here. This guards that we won't}}
+\DoxyCodeLine{222   \textcolor{comment}{// call Nullify (which assumes that the WeakCell is in active\_cells).}}
+\DoxyCodeLine{223   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(IsUndefined(target()) || \mbox{\hyperlink{classv8_1_1internal_1_1Object_a3fa7e2f730543261b565d9f664e50d69}{Object::CanBeHeldWeakly}}(target()));}
+\DoxyCodeLine{224   set\_target(ReadOnlyRoots(isolate).undefined\_value());}
+\DoxyCodeLine{225 }
+\DoxyCodeLine{226   Tagged<JSFinalizationRegistry> fr =}
+\DoxyCodeLine{227       Cast<JSFinalizationRegistry>(finalization\_registry());}
+\DoxyCodeLine{228   \textcolor{keywordflow}{if} (fr-\/>active\_cells() == *\textcolor{keyword}{this}) \{}
+\DoxyCodeLine{229     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(IsUndefined(prev(), isolate));}
+\DoxyCodeLine{230     fr-\/>set\_active\_cells(next());}
+\DoxyCodeLine{231   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (fr-\/>cleared\_cells() == *\textcolor{keyword}{this}) \{}
+\DoxyCodeLine{232     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!IsWeakCell(prev()));}
+\DoxyCodeLine{233     fr-\/>set\_cleared\_cells(next());}
+\DoxyCodeLine{234   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{235     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(IsWeakCell(prev()));}
+\DoxyCodeLine{236     Tagged<WeakCell> prev\_cell = Cast<WeakCell>(prev());}
+\DoxyCodeLine{237     prev\_cell-\/>set\_next(next());}
+\DoxyCodeLine{238   \}}
+\DoxyCodeLine{239   \textcolor{keywordflow}{if} (IsWeakCell(next())) \{}
+\DoxyCodeLine{240     Tagged<WeakCell> next\_cell = Cast<WeakCell>(next());}
+\DoxyCodeLine{241     next\_cell-\/>set\_prev(prev());}
+\DoxyCodeLine{242   \}}
+\DoxyCodeLine{243   set\_prev(ReadOnlyRoots(isolate).undefined\_value());}
+\DoxyCodeLine{244   set\_next(ReadOnlyRoots(isolate).undefined\_value());}
+\DoxyCodeLine{245 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Object\+::\+Can\+Be\+Held\+Weakly(), and v8\+::internal\+::\+DCHECK().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1WeakCell_af9dfe1653a3e5cc560037bfcca364c18_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{js-weak-refs_8h}{js-\/weak-\/refs.\+h}}\item 
-\mbox{\hyperlink{js-weak-refs-inl_8h}{js-\/weak-\/refs-\/inl.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{js-weak-refs_8h}{js-\/weak-\/refs.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{js-weak-refs-inl_8h}{js-\/weak-\/refs-\/inl.\+h}}\end{DoxyCompactItemize}

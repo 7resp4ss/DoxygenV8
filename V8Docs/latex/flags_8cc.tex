@@ -1,5 +1,5 @@
-\hypertarget{flags_8cc}{}\doxysection{flags.\+cc File Reference}
-\label{flags_8cc}\index{flags.cc@{flags.cc}}
+\hypertarget{flags_8cc}{}\doxysection{/mnt/\+V8\+Source\+Code/src/flags/flags.cc File Reference}
+\label{flags_8cc}\index{/mnt/V8SourceCode/src/flags/flags.cc@{/mnt/V8SourceCode/src/flags/flags.cc}}
 {\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$algorithm$>$}\newline
 {\ttfamily \#include $<$array$>$}\newline
@@ -42,13 +42,17 @@ struct \mbox{\hyperlink{structv8_1_1internal_1_1FlagNameGreater}{v8\+::internal\
 class \mbox{\hyperlink{classv8_1_1internal_1_1FlagMapByName}{v8\+::internal\+::\+Flag\+Map\+By\+Name}}
 \item 
 struct \mbox{\hyperlink{structv8_1_1internal_1_1PrintFlagValue}{v8\+::internal\+::\+Print\+Flag\+Value}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02flags_8cc_03_1_1ImplicationProcessor}{v8\+::internal\+::anonymous\+\_\+namespace\{flags.\+cc\}\+::\+Implication\+Processor}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacev8}{v8}}
-\item 
+\begin{DoxyCompactList}\small\item\em This file provides additional API on top of the default one for making API calls, which come from embedder C++ functions. \end{DoxyCompactList}\item 
  \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02flags_8cc_03}{v8\+::internal\+::anonymous\+\_\+namespace\{flags.\+cc\}}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
@@ -57,11 +61,11 @@ struct \mbox{\hyperlink{structv8_1_1internal_1_1PrintFlagValue}{v8\+::internal\+
 \item 
 \#define \mbox{\hyperlink{flags_8cc_ad7fe3499bffb08d056700222ad4b5c16}{FLAG\+\_\+\+MODE\+\_\+\+META}}
 \item 
-\#define \mbox{\hyperlink{flags_8cc_ae29920eca7bc2f7aab4619dd52896172}{ADD\+\_\+\+JS\+\_\+\+INPROGRESS\+\_\+\+FLAG}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  desc)~inprogress\+\_\+flags.\+push\+\_\+back(\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}});
+\#define \mbox{\hyperlink{flags_8cc_ae29920eca7bc2f7aab4619dd52896172}{ADD\+\_\+\+JS\+\_\+\+INPROGRESS\+\_\+\+FLAG}}(\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}},  desc)~inprogress\+\_\+flags.\+push\+\_\+back(\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}});
 \item 
-\#define \mbox{\hyperlink{flags_8cc_aa58ab6023334d06fd89ca8c8abda1c5f}{ADD\+\_\+\+JS\+\_\+\+STAGED\+\_\+\+FLAG}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  desc)~staged\+\_\+flags.\+push\+\_\+back(\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}});
+\#define \mbox{\hyperlink{flags_8cc_aa58ab6023334d06fd89ca8c8abda1c5f}{ADD\+\_\+\+JS\+\_\+\+STAGED\+\_\+\+FLAG}}(\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}},  desc)~staged\+\_\+flags.\+push\+\_\+back(\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}});
 \item 
-\#define \mbox{\hyperlink{flags_8cc_ae4ad5ba05f916e9b1965b431f4484a6c}{ADD\+\_\+\+JS\+\_\+\+SHIPPING\+\_\+\+FLAG}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  desc)~shipping\+\_\+flags.\+push\+\_\+back(\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}});
+\#define \mbox{\hyperlink{flags_8cc_ae4ad5ba05f916e9b1965b431f4484a6c}{ADD\+\_\+\+JS\+\_\+\+SHIPPING\+\_\+\+FLAG}}(\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}},  desc)~shipping\+\_\+flags.\+push\+\_\+back(\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}});
 \item 
 \#define \mbox{\hyperlink{flags_8cc_a8de5b0d8ce06ca122ca42b299d009b10}{FLAG\+\_\+\+MODE\+\_\+\+DEFINE\+\_\+\+IMPLICATIONS}}
 \item 
@@ -78,11 +82,13 @@ std\+::ostream \& \mbox{\hyperlink{namespacev8_1_1internal_ad7f1700fd31786dc7487
 \item 
 \mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} base\+::\+Vector$<$ Flag $>$ \mbox{\hyperlink{namespacev8_1_1internal_a05ff2429c5de5136d5df4f8067595fb3}{v8\+::internal\+::\+Flags}} ()
 \item 
-\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} Flag $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_aabca6d2f15beaa18b0a432c92f8e6a60}{v8\+::internal\+::\+Find\+Implication\+Flag\+By\+Name}} (const char $\ast$\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} Flag $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_aabca6d2f15beaa18b0a432c92f8e6a60}{v8\+::internal\+::\+Find\+Implication\+Flag\+By\+Name}} (const char $\ast$\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}})
 \item 
-\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} Flag $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_a0f79c7f32f7f5b8ac9a61c8df175a013}{v8\+::internal\+::\+Find\+Flag\+By\+Name}} (const char $\ast$\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} Flag $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_a0f79c7f32f7f5b8ac9a61c8df175a013}{v8\+::internal\+::\+Find\+Flag\+By\+Name}} (const char $\ast$\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}})
 \item 
 Flag $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_a35b4575b838e5e35bdbfd089336373d5}{v8\+::internal\+::\+Find\+Flag\+By\+Pointer}} (const void $\ast$ptr)
+\item 
+static const char $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_aafc089b80ca82caa97b0657f987fc25c}{v8\+::internal\+::\+Type2\+String}} (Flag\+::\+Flag\+Type type)
 \item 
 std\+::ostream \& \mbox{\hyperlink{namespacev8_1_1internal_a624df9bcce8c8d7a6a8d890a54b3e4ae}{v8\+::internal\+::operator$<$$<$}} (std\+::ostream \&os, Print\+Flag\+Value flag\+\_\+value)
 \item 
@@ -90,7 +96,17 @@ std\+::ostream \& \mbox{\hyperlink{namespacev8_1_1internal_a897c6e90a4cce81dea88
 \item 
 uint32\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_ae6c138ad330d21a1943547efb04edcc7}{v8\+::internal\+::\+Compute\+Flag\+List\+Hash}} ()
 \item 
-{\footnotesize template$<$typename T $>$ }\\bool \mbox{\hyperlink{namespacev8_1_1internal_a91f1721527a57d11219a74d531452c31}{v8\+::internal\+::\+Try\+Parse\+Unsigned}} (Flag $\ast$flag, const char $\ast$arg, const char $\ast$\mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}, char $\ast$$\ast$endp, \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $\ast$out\+\_\+val)
+static void \mbox{\hyperlink{namespacev8_1_1internal_a569227bf00552aa1e0029e99372e03dc}{v8\+::internal\+::\+Split\+Argument}} (const char $\ast$arg, char $\ast$buffer, \mbox{\hyperlink{classint}{int}} buffer\+\_\+size, const char $\ast$$\ast$\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}}, const char $\ast$$\ast$value, bool $\ast$negated)
+\item 
+{\footnotesize template$<$typename T $>$ }\\bool \mbox{\hyperlink{namespacev8_1_1internal_a91f1721527a57d11219a74d531452c31}{v8\+::internal\+::\+Try\+Parse\+Unsigned}} (Flag $\ast$flag, const char $\ast$arg, const char $\ast$value, char $\ast$$\ast$endp, \mbox{\hyperlink{classT}{T}} $\ast$out\+\_\+val)
+\item 
+static char $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_a1061bd5837b8c91dc11db29fbb7cf5cb}{v8\+::internal\+::\+Skip\+White\+Space}} (char $\ast$p)
+\item 
+static char $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_a6ca35e4497839602d3ef5d7d743c8d63}{v8\+::internal\+::\+Skip\+Black\+Space}} (char $\ast$p)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02flags_8cc_03_ac156ea0143d2f139527ac718779d49c7}{v8\+::internal\+::anonymous\+\_\+namespace\{flags.\+cc\}\+::\+Print\+Flags\+JSONArray}} (std\+::ostream \&os, const std\+::vector$<$ const char $\ast$ $>$ \&\mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02flags_8cc_03_adabe2c360aaecfaae5d2bd6c2441f66c}{v8\+::internal\+::anonymous\+\_\+namespace\{flags.\+cc\}\+::\+Print\+Feature\+Flags\+JSONObject}} (std\+::ostream \&os, const std\+::vector$<$ const char $\ast$ $>$ \&inprogress\+\_\+flags, const std\+::vector$<$ const char $\ast$ $>$ \&staged\+\_\+flags, const std\+::vector$<$ const char $\ast$ $>$ \&shipping\+\_\+flags)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -100,6 +116,10 @@ Flag\+Values v8\+\_\+flags \mbox{\hyperlink{namespacev8_1_1internal_acae6fcb53d3
 Flag \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{v8\+::internal\+::flags}} \mbox{[}$\,$\mbox{]}
 \item 
 constexpr size\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_a1d3bb16e0ad67614b2d4c60ec68c98a6}{v8\+::internal\+::k\+Num\+Flags}} = \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(\mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}})
+\item 
+static std\+::atomic$<$ uint32\+\_\+t $>$ \mbox{\hyperlink{namespacev8_1_1internal_a74d293bb6f3c28c470d0cfda244c0bb6}{v8\+::internal\+::flag\+\_\+hash}} \{0\}
+\item 
+static std\+::atomic$<$ bool $>$ \mbox{\hyperlink{namespacev8_1_1internal_aca21c547903faf19b50210451bdd5b65}{v8\+::internal\+::flags\+\_\+frozen}} \{\mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\}
 \end{DoxyCompactItemize}
 
 
@@ -108,19 +128,19 @@ constexpr size\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_a1d3bb16e0ad67614
 \index{flags.cc@{flags.cc}!ADD\_JS\_INPROGRESS\_FLAG@{ADD\_JS\_INPROGRESS\_FLAG}}
 \index{ADD\_JS\_INPROGRESS\_FLAG@{ADD\_JS\_INPROGRESS\_FLAG}!flags.cc@{flags.cc}}
 \doxysubsubsection{\texorpdfstring{ADD\_JS\_INPROGRESS\_FLAG}{ADD\_JS\_INPROGRESS\_FLAG}}
-{\footnotesize\ttfamily \#define ADD\+\_\+\+JS\+\_\+\+INPROGRESS\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{desc }\end{DoxyParamCaption})~inprogress\+\_\+flags.\+push\+\_\+back(\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}});}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+JS\+\_\+\+INPROGRESS\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}},  }\item[{}]{desc }\end{DoxyParamCaption})~inprogress\+\_\+flags.\+push\+\_\+back(\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}});}
 
 \mbox{\Hypertarget{flags_8cc_ae4ad5ba05f916e9b1965b431f4484a6c}\label{flags_8cc_ae4ad5ba05f916e9b1965b431f4484a6c}} 
 \index{flags.cc@{flags.cc}!ADD\_JS\_SHIPPING\_FLAG@{ADD\_JS\_SHIPPING\_FLAG}}
 \index{ADD\_JS\_SHIPPING\_FLAG@{ADD\_JS\_SHIPPING\_FLAG}!flags.cc@{flags.cc}}
 \doxysubsubsection{\texorpdfstring{ADD\_JS\_SHIPPING\_FLAG}{ADD\_JS\_SHIPPING\_FLAG}}
-{\footnotesize\ttfamily \#define ADD\+\_\+\+JS\+\_\+\+SHIPPING\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{desc }\end{DoxyParamCaption})~shipping\+\_\+flags.\+push\+\_\+back(\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}});}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+JS\+\_\+\+SHIPPING\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}},  }\item[{}]{desc }\end{DoxyParamCaption})~shipping\+\_\+flags.\+push\+\_\+back(\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}});}
 
 \mbox{\Hypertarget{flags_8cc_aa58ab6023334d06fd89ca8c8abda1c5f}\label{flags_8cc_aa58ab6023334d06fd89ca8c8abda1c5f}} 
 \index{flags.cc@{flags.cc}!ADD\_JS\_STAGED\_FLAG@{ADD\_JS\_STAGED\_FLAG}}
 \index{ADD\_JS\_STAGED\_FLAG@{ADD\_JS\_STAGED\_FLAG}!flags.cc@{flags.cc}}
 \doxysubsubsection{\texorpdfstring{ADD\_JS\_STAGED\_FLAG}{ADD\_JS\_STAGED\_FLAG}}
-{\footnotesize\ttfamily \#define ADD\+\_\+\+JS\+\_\+\+STAGED\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{desc }\end{DoxyParamCaption})~staged\+\_\+flags.\+push\+\_\+back(\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}});}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+JS\+\_\+\+STAGED\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}},  }\item[{}]{desc }\end{DoxyParamCaption})~staged\+\_\+flags.\+push\+\_\+back(\#\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}});}
 
 \mbox{\Hypertarget{flags_8cc_ac206f15e8814f2946f640f8a27bff135}\label{flags_8cc_ac206f15e8814f2946f640f8a27bff135}} 
 \index{flags.cc@{flags.cc}!CONTRADICTION@{CONTRADICTION}}
@@ -136,11 +156,19 @@ constexpr size\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_a1d3bb16e0ad67614
 \DoxyCodeLine{      : std::make\_tuple(\textcolor{keyword}{nullptr}, \textcolor{keyword}{nullptr})}
 
 \end{DoxyCode}
+
+
+Definition at line 1089 of file flags.\+cc.
+
 \mbox{\Hypertarget{flags_8cc_a6df92d46ccd85d63710dc89c33dceac6}\label{flags_8cc_a6df92d46ccd85d63710dc89c33dceac6}} 
 \index{flags.cc@{flags.cc}!FLAG\_MODE\_DEFINE\_DEFAULTS@{FLAG\_MODE\_DEFINE\_DEFAULTS}}
 \index{FLAG\_MODE\_DEFINE\_DEFAULTS@{FLAG\_MODE\_DEFINE\_DEFAULTS}!flags.cc@{flags.cc}}
 \doxysubsubsection{\texorpdfstring{FLAG\_MODE\_DEFINE\_DEFAULTS}{FLAG\_MODE\_DEFINE\_DEFAULTS}}
 {\footnotesize\ttfamily \#define FLAG\+\_\+\+MODE\+\_\+\+DEFINE\+\_\+\+DEFAULTS}
+
+
+
+Definition at line 49 of file flags.\+cc.
 
 \mbox{\Hypertarget{flags_8cc_a8de5b0d8ce06ca122ca42b299d009b10}\label{flags_8cc_a8de5b0d8ce06ca122ca42b299d009b10}} 
 \index{flags.cc@{flags.cc}!FLAG\_MODE\_DEFINE\_IMPLICATIONS@{FLAG\_MODE\_DEFINE\_IMPLICATIONS}}
@@ -160,9 +188,17 @@ constexpr size\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_a1d3bb16e0ad67614
 \doxysubsubsection{\texorpdfstring{RESET\_WHEN\_CORRECTNESS\_FUZZING}{RESET\_WHEN\_CORRECTNESS\_FUZZING}}
 {\footnotesize\ttfamily \#define RESET\+\_\+\+WHEN\+\_\+\+CORRECTNESS\+\_\+\+FUZZING(\begin{DoxyParamCaption}\item[{}]{flag }\end{DoxyParamCaption})~  \mbox{\hyperlink{flags_8cc_ac206f15e8814f2946f640f8a27bff135}{CONTRADICTION}}(flag, correctness\+\_\+fuzzer\+\_\+suppressions)}
 
+
+
+Definition at line 1096 of file flags.\+cc.
+
 \mbox{\Hypertarget{flags_8cc_aa74471a31843f2880ceeaa5914451881}\label{flags_8cc_aa74471a31843f2880ceeaa5914451881}} 
 \index{flags.cc@{flags.cc}!RESET\_WHEN\_FUZZING@{RESET\_WHEN\_FUZZING}}
 \index{RESET\_WHEN\_FUZZING@{RESET\_WHEN\_FUZZING}!flags.cc@{flags.cc}}
 \doxysubsubsection{\texorpdfstring{RESET\_WHEN\_FUZZING}{RESET\_WHEN\_FUZZING}}
 {\footnotesize\ttfamily \#define RESET\+\_\+\+WHEN\+\_\+\+FUZZING(\begin{DoxyParamCaption}\item[{}]{flag }\end{DoxyParamCaption})~\mbox{\hyperlink{flags_8cc_ac206f15e8814f2946f640f8a27bff135}{CONTRADICTION}}(flag, fuzzing)}
+
+
+
+Definition at line 1095 of file flags.\+cc.
 

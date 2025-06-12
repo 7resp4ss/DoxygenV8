@@ -5,5 +5,7 @@ var classv8_1_1internal_1_1torque_1_1Scope =
     [ "GetSpecializationRequester", "classv8_1_1internal_1_1torque_1_1Scope.html#a37519d6ac805c2814c9c77ddc5e72ce5", null ],
     [ "Lookup", "classv8_1_1internal_1_1torque_1_1Scope.html#af0680e660653f93cc3c38a8d22836ba5", null ],
     [ "LookupShallow", "classv8_1_1internal_1_1torque_1_1Scope.html#af7060e2c0ec7d0a1d593aa14d60dc0ae", null ],
-    [ "SetSpecializationRequester", "classv8_1_1internal_1_1torque_1_1Scope.html#a58e2a536e35e404b50fac4aae6741338", null ]
+    [ "SetSpecializationRequester", "classv8_1_1internal_1_1torque_1_1Scope.html#a58e2a536e35e404b50fac4aae6741338", null ],
+    [ "declarations_", "classv8_1_1internal_1_1torque_1_1Scope.html#a4d44731ce4fc8f09a667e875d19536a6", null ],
+    [ "requester_", "classv8_1_1internal_1_1torque_1_1Scope.html#a6f09def8445bf764fd9d4e6d3d2c8918", null ]
 ];

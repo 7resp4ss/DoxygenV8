@@ -2,9 +2,24 @@ var classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer =
 [
     [ "EscapeAnalysisReducer", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a7ac3579dbd127d8a8ab56c9b66289c3e", null ],
     [ "EscapeAnalysisReducer", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#aca7f63f5fbc8c9cacab8a2e5e26ab317", null ],
+    [ "analysis_result", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a3e83af2d2dc71e320a836d96b7931a83", null ],
     [ "Finalize", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a5566006e13b5381efd9458b2f79188e7", null ],
+    [ "isolate", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a39be3c2c69275d939dba02a2ae374d4a", null ],
+    [ "jsgraph", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#aa2a6b9112990f8696c184f698624e659", null ],
+    [ "ObjectIdNode", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#acc3051a0d0b6d57982a0fa0b78496508", null ],
     [ "operator=", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a983e4462dab0a7b0b5d5fdbe1cf5520d", null ],
     [ "Reduce", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a38774438cdcf5bf0907caa0e09d3c50b", null ],
+    [ "ReduceDeoptState", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a243181eb66c6cf58ba4113edbf8134b7", null ],
+    [ "ReduceFrameStateInputs", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a3f9e43219972b55a4d55bc3154e7df71", null ],
     [ "reducer_name", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#adafa5b75c66b58bf301324626fa51f9b", null ],
-    [ "VerifyReplacement", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a71a40fed7ae46062cb0615afa835b5cb", null ]
+    [ "ReplaceNode", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a10cd931cbc0a9accf35b3c3d5d55d4d7", null ],
+    [ "VerifyReplacement", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a71a40fed7ae46062cb0615afa835b5cb", null ],
+    [ "zone", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a24e955128713b03f9635a2297f38d886", null ],
+    [ "analysis_result_", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a80879176fb88abddd226852f56b68231", null ],
+    [ "arguments_elements_", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a1538252181be5a6c00a07f4a90c725d0", null ],
+    [ "broker_", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a6b17a404cbc2879bb27d8b566a0e9940", null ],
+    [ "jsgraph_", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#ae134247c026c847f968da80e1aced3f6", null ],
+    [ "node_cache_", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#af3db88b3c51e87ff708b826531c5a39f", null ],
+    [ "object_id_cache_", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#ac323dfb38cce6fe5c372d0696e3a7596", null ],
+    [ "zone_", "classv8_1_1internal_1_1compiler_1_1EscapeAnalysisReducer.html#a5371a705c8a1f5ce0d2fc043f3ade63a", null ]
 ];

@@ -13,12 +13,14 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatBinopOp =
     ] ],
     [ "FloatBinopOp", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatBinopOp.html#a8f93180862ded289b834e91454105432", null ],
     [ "inputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatBinopOp.html#a048fd207e255402ea1ae33311921778b", null ],
+    [ "IsCommutative", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatBinopOp.html#a8d8dac997e15fc96f5e30f2cacd0e12e", null ],
     [ "left", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatBinopOp.html#ae67f82d3bf79f3ae68ddf9e3bda8687c", null ],
     [ "options", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatBinopOp.html#a71ae2d7112cfa44cff2b28715fede625", null ],
     [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatBinopOp.html#ace7125b0838453bdf4e34600e6ec603a", null ],
     [ "PrintOptions", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatBinopOp.html#a7859f0c3c2b94b1b7bce909187a48f00", null ],
     [ "right", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatBinopOp.html#ad9471fd1287705eae63891bd89e635ce", null ],
     [ "Validate", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatBinopOp.html#a8ecdcabf4205ff744e85ee0e0a3e77bb", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatBinopOp.html#ad6361ea22702725cfc1a358e225722c6", null ],
     [ "kind", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatBinopOp.html#aa7ba9b7274b59a84a983a663c0f28d51", null ],
     [ "rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1FloatBinopOp.html#af136d40707dc152528a0b4ee89bc1644", null ]
 ];

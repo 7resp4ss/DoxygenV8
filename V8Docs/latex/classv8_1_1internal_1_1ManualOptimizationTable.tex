@@ -4,13 +4,30 @@
 
 {\ttfamily \#include $<$pending-\/optimization-\/table.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Manual\+Optimization\+Table\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=295pt]{classv8_1_1internal_1_1ManualOptimizationTable__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{classv8_1_1internal_1_1ManualOptimizationTable_a579736752d8c542fb712b798c63b6e40}{Mark\+Function\+For\+Manual\+Optimization}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSFunction}{JSFunction}} $>$ function, \mbox{\hyperlink{classv8_1_1internal_1_1IsCompiledScope}{Is\+Compiled\+Scope}} $\ast$is\+\_\+compiled\+\_\+scope)
+static void \mbox{\hyperlink{classv8_1_1internal_1_1ManualOptimizationTable_a579736752d8c542fb712b798c63b6e40}{Mark\+Function\+For\+Manual\+Optimization}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSFunction}{JSFunction}} $>$ function, \mbox{\hyperlink{classv8_1_1internal_1_1IsCompiledScope}{Is\+Compiled\+Scope}} $\ast$is\+\_\+compiled\+\_\+scope)
 \item 
-static \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1ManualOptimizationTable_af6b54b998489872bed4c6fd0c24cd5c1}{Is\+Marked\+For\+Manual\+Optimization}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSFunction}{JSFunction}} $>$ function)
+static \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1ManualOptimizationTable_af6b54b998489872bed4c6fd0c24cd5c1}{Is\+Marked\+For\+Manual\+Optimization}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSFunction}{JSFunction}} $>$ function)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 18 of file pending-\/optimization-\/table.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -20,6 +37,51 @@ static \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba7
 \doxysubsubsection{\texorpdfstring{IsMarkedForManualOptimization()}{IsMarkedForManualOptimization()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Manual\+Optimization\+Table\+::\+Is\+Marked\+For\+Manual\+Optimization (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSFunction}{JSFunction}} $>$}]{function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 45 of file pending-\/optimization-\/table.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{46                                                    \{}
+\DoxyCodeLine{47   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.testing\_d8\_test\_runner || \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.allow\_natives\_syntax);}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   DirectHandle<Object> table(}
+\DoxyCodeLine{50       isolate-\/>heap()-\/>functions\_marked\_for\_manual\_optimization(), isolate);}
+\DoxyCodeLine{51   DirectHandle<Object> entry(}
+\DoxyCodeLine{52       IsUndefined(*table) ? ReadOnlyRoots(isolate).the\_hole\_value()}
+\DoxyCodeLine{53                           : Cast<ObjectHashTable>(table)-\/>Lookup(}
+\DoxyCodeLine{54                                 \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(function-\/>shared(), isolate)),}
+\DoxyCodeLine{55       isolate);}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   \textcolor{keywordflow}{return} !IsTheHole(*entry);}
+\DoxyCodeLine{58 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), v8\+::internal\+::direct\+\_\+handle(), v8\+::internal\+::\+Isolate\+::heap(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::anonymous\+\_\+namespace\{runtime-\/test.\+cc\}\+::\+Check\+Marked\+For\+Manual\+Optimization(), v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Get\+Or\+Compile\+Optimized(), and v8\+::internal\+::\+Tiering\+Manager\+::\+Maybe\+Optimize\+Frame().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ManualOptimizationTable_af6b54b998489872bed4c6fd0c24cd5c1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ManualOptimizationTable_af6b54b998489872bed4c6fd0c24cd5c1_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ManualOptimizationTable_a579736752d8c542fb712b798c63b6e40}\label{classv8_1_1internal_1_1ManualOptimizationTable_a579736752d8c542fb712b798c63b6e40}} 
 \index{v8::internal::ManualOptimizationTable@{v8::internal::ManualOptimizationTable}!MarkFunctionForManualOptimization@{MarkFunctionForManualOptimization}}
 \index{MarkFunctionForManualOptimization@{MarkFunctionForManualOptimization}!v8::internal::ManualOptimizationTable@{v8::internal::ManualOptimizationTable}}
@@ -28,7 +90,65 @@ static \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba7
 
 
 
+Definition at line 16 of file pending-\/optimization-\/table.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18                                         \{}
+\DoxyCodeLine{19   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.testing\_d8\_test\_runner || \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.allow\_natives\_syntax);}
+\DoxyCodeLine{20   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(is\_compiled\_scope-\/>is\_compiled());}
+\DoxyCodeLine{21   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(function-\/>has\_feedback\_vector());}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23   DirectHandle<SharedFunctionInfo> shared\_info(function-\/>shared(), isolate);}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25   Handle<ObjectHashTable> table =}
+\DoxyCodeLine{26       IsUndefined(isolate-\/>heap()-\/>functions\_marked\_for\_manual\_optimization())}
+\DoxyCodeLine{27           ? \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02intl-objects_8cc_03_aea46070627c9c116b8f1be4a25840e66}{ObjectHashTable::New}}(isolate, 1)}
+\DoxyCodeLine{28           : \mbox{\hyperlink{namespacev8_1_1internal_a8c89f00da07e125218128b9fbf0a321c}{handle}}(\mbox{\hyperlink{namespacev8_1_1internal_a94c4a6c4ad3993b5e0e43bc2191c084b}{Cast}}<ObjectHashTable>(}
+\DoxyCodeLine{29                        isolate-\/>\mbox{\hyperlink{namespaceheap}{heap}}()}
+\DoxyCodeLine{30                            -\/>functions\_marked\_for\_manual\_optimization()),}
+\DoxyCodeLine{31                    isolate);}
+\DoxyCodeLine{32   \textcolor{comment}{// We want to keep the function's BytecodeArray alive as bytecode flushing}}
+\DoxyCodeLine{33   \textcolor{comment}{// may otherwise delete it. However, we can't directly store a reference to}}
+\DoxyCodeLine{34   \textcolor{comment}{// the BytecodeArray inside the hash table as the BytecodeArray lives in}}
+\DoxyCodeLine{35   \textcolor{comment}{// trusted space (outside of the main pointer compression cage) when the}}
+\DoxyCodeLine{36   \textcolor{comment}{// sandbox is enabled. So instead, we reference the BytecodeArray's}}
+\DoxyCodeLine{37   \textcolor{comment}{// in-\/sandbox wrapper object.}}
+\DoxyCodeLine{38   table = ObjectHashTable::Put(}
+\DoxyCodeLine{39       table, shared\_info,}
+\DoxyCodeLine{40       \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(shared\_info-\/>GetBytecodeArray(isolate)-\/>wrapper(),}
+\DoxyCodeLine{41                     isolate));}
+\DoxyCodeLine{42   isolate-\/>heap()-\/>SetFunctionsMarkedForManualOptimization(*table);}
+\DoxyCodeLine{43 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), v8\+::internal\+::direct\+\_\+handle(), v8\+::internal\+::handle(), v8\+::internal\+::\+Isolate\+::heap(), v8\+::internal\+::\+Is\+Compiled\+Scope\+::is\+\_\+compiled(), v8\+::internal\+::anonymous\+\_\+namespace\{intl-\/objects.\+cc\}\+::\+New(), v8\+::internal\+::\+Heap\+::\+Set\+Functions\+Marked\+For\+Manual\+Optimization(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ManualOptimizationTable_a579736752d8c542fb712b798c63b6e40_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ManualOptimizationTable_a579736752d8c542fb712b798c63b6e40_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pending-optimization-table_8h}{pending-\/optimization-\/table.\+h}}\item 
-\mbox{\hyperlink{pending-optimization-table_8cc}{pending-\/optimization-\/table.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/codegen/\mbox{\hyperlink{pending-optimization-table_8h}{pending-\/optimization-\/table.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/codegen/\mbox{\hyperlink{pending-optimization-table_8cc}{pending-\/optimization-\/table.\+cc}}\end{DoxyCompactItemize}

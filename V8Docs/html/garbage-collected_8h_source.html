@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>V8 Project: garbage-collected.h Source File</title>
+<title>V8 Project: /mnt/V8SourceCode/include/cppgc/garbage-collected.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -100,12 +100,47 @@ $(document).ready(function(){initNavTree('garbage-collected_8h_source.html','');
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacecppgc.html">cppgc</a> {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>Visitor;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">/**</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * Base class for managed objects. Only descendent types of `GarbageCollected`</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * can be constructed using `MakeGarbageCollected()`. Must be inherited from as</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * left-most base class.</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * Types inheriting from GarbageCollected must provide a method of</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * signature `void Trace(cppgc::Visitor*) const` that dispatchs all managed</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * pointers to the visitor and delegates to garbage-collected base classes.</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * The method must be virtual if the type is not directly a child of</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * GarbageCollected and marked as final.</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * \code</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * // Example using final class.</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * class FinalType final : public GarbageCollected&lt;FinalType&gt; {</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> *  public:</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *   void Trace(cppgc::Visitor* visitor) const {</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> *     // Dispatch using visitor-&gt;Trace(...);</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *   }</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * };</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment"> * // Example using non-final base class.</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"> * class NonFinalBase : public GarbageCollected&lt;NonFinalBase&gt; {</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"> *  public:</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> *   virtual void Trace(cppgc::Visitor*) const {}</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> * };</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * class FinalChild final : public NonFinalBase {</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> *  public:</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> *   void Trace(cppgc::Visitor* visitor) const final {</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> *     // Dispatch using visitor-&gt;Trace(...);</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> *     NonFinalBase::Trace(visitor);</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> *   }</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> * };</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"> * \endcode</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classcppgc_1_1GarbageCollected.html">   53</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcppgc_1_1GarbageCollected.html">GarbageCollected</a> {</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="classcppgc_1_1GarbageCollected.html#a41d7c4bb58217f40e602ce09942647a9">   55</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="classcppgc_1_1GarbageCollected.html#a41d7c4bb58217f40e602ce09942647a9">IsGarbageCollectedTypeMarker</a> = <a class="code" href="namespacev8_1_1internal_1_1wasm.html#ac81d27d6edb00aeed62a3e4745b8cba0">void</a>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classcppgc_1_1GarbageCollected.html#ad6910c4a115a3b797fd7d281ff20af10">   56</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="classcppgc_1_1GarbageCollected.html#ad6910c4a115a3b797fd7d281ff20af10">ParentMostGarbageCollectedType</a> = <a class="code" href="base_2ieee754_8cc.html#a0acb682b8260ab1c60b918599864e2e5">T</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classcppgc_1_1GarbageCollected.html#ad6910c4a115a3b797fd7d281ff20af10">   56</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="classT.html">ParentMostGarbageCollectedType</a> = <a class="code" href="base_2ieee754_8cc.html#a0acb682b8260ab1c60b918599864e2e5">T</a>;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="comment">// Must use MakeGarbageCollected.</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classcppgc_1_1GarbageCollected.html#a3c06a58137501cdc92efce0b99bf9f57">   59</a></span>&#160;  <span class="keywordtype">void</span>* <span class="keyword">operator</span> <span class="keyword">new</span>(<a class="code" href="namespacev8_1_1internal.html#a4725962ca3c127eb5871cb47293aee95">size_t</a>) = <span class="keyword">delete</span>;</div>
@@ -114,7 +149,7 @@ $(document).ready(function(){initNavTree('garbage-collected_8h_source.html','');
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="comment">// virtual destructor requires an unambiguous, accessible &#39;operator delete&#39;.</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classcppgc_1_1GarbageCollected.html#afb79d4417a8c8a2bde3498a88557046d">   63</a></span>&#160;  <span class="keywordtype">void</span> <span class="keyword">operator</span> <span class="keyword">delete</span>(<span class="keywordtype">void</span>*) {</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#ifdef V8_ENABLE_CHECKS</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="namespacecppgc_1_1internal.html#a022a504d3acda0656253c3456c712da5">internal::Fatal</a>(</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="namespacecppgc_1_1internal.html#a53ef3643e679385c014b494e7e349221">internal::Fatal</a>(</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="stringliteral">&quot;Manually deleting a garbage collected object is not allowed&quot;</span>);</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// V8_ENABLE_CHECKS</span></div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  }</div>
@@ -123,7 +158,25 @@ $(document).ready(function(){initNavTree('garbage-collected_8h_source.html','');
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; <span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classcppgc_1_1GarbageCollected.html#a9a0c274b4153b6e786b26d4248d07f61">   72</a></span>&#160;  <a class="code" href="classcppgc_1_1GarbageCollected.html#a9a0c274b4153b6e786b26d4248d07f61">GarbageCollected</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;};</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">/**</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment"> * Base class for managed mixin objects. Such objects cannot be constructed</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment"> * directly but must be mixed into the inheritance hierarchy of a</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment"> * GarbageCollected object.</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment"> * Types inheriting from GarbageCollectedMixin must override a virtual method</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment"> * of signature `void Trace(cppgc::Visitor*) const` that dispatchs all managed</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment"> * pointers to the visitor and delegates to base classes.</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment"> * \code</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment"> * class Mixin : public GarbageCollectedMixin {</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment"> *  public:</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment"> *   void Trace(cppgc::Visitor* visitor) const override {</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment"> *     // Dispatch using visitor-&gt;Trace(...);</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment"> *   }</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment"> * };</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment"> * \endcode</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="classcppgc_1_1GarbageCollectedMixin.html">   93</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcppgc_1_1GarbageCollectedMixin.html">GarbageCollectedMixin</a> {</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="classcppgc_1_1GarbageCollectedMixin.html#a0921c015c8f85abd0adc0cc42335f81c">   95</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="classcppgc_1_1GarbageCollectedMixin.html#a0921c015c8f85abd0adc0cc42335f81c">IsGarbageCollectedMixinTypeMarker</a> = <a class="code" href="namespacev8_1_1internal_1_1wasm.html#ac81d27d6edb00aeed62a3e4745b8cba0">void</a>;</div>
@@ -135,7 +188,11 @@ $(document).ready(function(){initNavTree('garbage-collected_8h_source.html','');
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="comment">// Not override the non-array varaint of `delete` to not conflict with the</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="comment">// operator in GarbageCollected above.</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="classcppgc_1_1GarbageCollectedMixin.html#a05fe6eb3aa392df53592d186b63a7766">  103</a></span>&#160;  <span class="keywordtype">void</span> <span class="keyword">operator</span> <span class="keyword">delete</span>[](<span class="keywordtype">void</span>*) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">  /**</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">   * This Trace method must be overriden by objects inheriting from</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">   * GarbageCollectedMixin.</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">   */</span></div>
 <div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="classcppgc_1_1GarbageCollectedMixin.html#a91039d18f0f1d66c08f6f9546f6c268b">  109</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classcppgc_1_1GarbageCollectedMixin.html#a91039d18f0f1d66c08f6f9546f6c268b">Trace</a>(<a class="code" href="classcppgc_1_1Visitor.html">cppgc::Visitor</a>*)<span class="keyword"> const </span>{}</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;};</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
@@ -144,18 +201,18 @@ $(document).ready(function(){initNavTree('garbage-collected_8h_source.html','');
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// INCLUDE_CPPGC_GARBAGE_COLLECTED_H_</span></div>
 <div class="ttc" id="aapi-constants_8h_html"><div class="ttname"><a href="api-constants_8h.html">api-constants.h</a></div></div>
 <div class="ttc" id="abase_2ieee754_8cc_html_a0acb682b8260ab1c60b918599864e2e5"><div class="ttname"><a href="base_2ieee754_8cc.html#a0acb682b8260ab1c60b918599864e2e5">T</a></div><div class="ttdeci">#define T</div></div>
-<div class="ttc" id="aclasscppgc_1_1GarbageCollectedMixin_html"><div class="ttname"><a href="classcppgc_1_1GarbageCollectedMixin.html">cppgc::GarbageCollectedMixin</a></div><div class="ttdef"><b>Definition:</b> garbage-collected.h:93</div></div>
-<div class="ttc" id="aclasscppgc_1_1GarbageCollectedMixin_html_a0921c015c8f85abd0adc0cc42335f81c"><div class="ttname"><a href="classcppgc_1_1GarbageCollectedMixin.html#a0921c015c8f85abd0adc0cc42335f81c">cppgc::GarbageCollectedMixin::IsGarbageCollectedMixinTypeMarker</a></div><div class="ttdeci">void IsGarbageCollectedMixinTypeMarker</div><div class="ttdef"><b>Definition:</b> garbage-collected.h:95</div></div>
-<div class="ttc" id="aclasscppgc_1_1GarbageCollectedMixin_html_a91039d18f0f1d66c08f6f9546f6c268b"><div class="ttname"><a href="classcppgc_1_1GarbageCollectedMixin.html#a91039d18f0f1d66c08f6f9546f6c268b">cppgc::GarbageCollectedMixin::Trace</a></div><div class="ttdeci">virtual void Trace(cppgc::Visitor *) const</div><div class="ttdef"><b>Definition:</b> garbage-collected.h:109</div></div>
-<div class="ttc" id="aclasscppgc_1_1GarbageCollected_html"><div class="ttname"><a href="classcppgc_1_1GarbageCollected.html">cppgc::GarbageCollected</a></div><div class="ttdef"><b>Definition:</b> garbage-collected.h:53</div></div>
-<div class="ttc" id="aclasscppgc_1_1GarbageCollected_html_a41d7c4bb58217f40e602ce09942647a9"><div class="ttname"><a href="classcppgc_1_1GarbageCollected.html#a41d7c4bb58217f40e602ce09942647a9">cppgc::GarbageCollected::IsGarbageCollectedTypeMarker</a></div><div class="ttdeci">void IsGarbageCollectedTypeMarker</div><div class="ttdef"><b>Definition:</b> garbage-collected.h:55</div></div>
+<div class="ttc" id="aclassT_html"><div class="ttname"><a href="classT.html">T</a></div></div>
+<div class="ttc" id="aclasscppgc_1_1GarbageCollectedMixin_html"><div class="ttname"><a href="classcppgc_1_1GarbageCollectedMixin.html">cppgc::GarbageCollectedMixin</a></div><div class="ttdoc">Base class for managed mixin objects.</div><div class="ttdef"><b>Definition:</b> <a href="garbage-collected_8h_source.html#l00093">garbage-collected.h:93</a></div></div>
+<div class="ttc" id="aclasscppgc_1_1GarbageCollectedMixin_html_a0921c015c8f85abd0adc0cc42335f81c"><div class="ttname"><a href="classcppgc_1_1GarbageCollectedMixin.html#a0921c015c8f85abd0adc0cc42335f81c">cppgc::GarbageCollectedMixin::IsGarbageCollectedMixinTypeMarker</a></div><div class="ttdeci">void IsGarbageCollectedMixinTypeMarker</div><div class="ttdef"><b>Definition:</b> <a href="garbage-collected_8h_source.html#l00095">garbage-collected.h:95</a></div></div>
+<div class="ttc" id="aclasscppgc_1_1GarbageCollectedMixin_html_a91039d18f0f1d66c08f6f9546f6c268b"><div class="ttname"><a href="classcppgc_1_1GarbageCollectedMixin.html#a91039d18f0f1d66c08f6f9546f6c268b">cppgc::GarbageCollectedMixin::Trace</a></div><div class="ttdeci">virtual void Trace(cppgc::Visitor *) const</div><div class="ttdoc">This Trace method must be overriden by objects inheriting from GarbageCollectedMixin.</div><div class="ttdef"><b>Definition:</b> <a href="garbage-collected_8h_source.html#l00109">garbage-collected.h:109</a></div></div>
+<div class="ttc" id="aclasscppgc_1_1GarbageCollected_html"><div class="ttname"><a href="classcppgc_1_1GarbageCollected.html">cppgc::GarbageCollected</a></div><div class="ttdoc">Base class for managed objects.</div><div class="ttdef"><b>Definition:</b> <a href="garbage-collected_8h_source.html#l00053">garbage-collected.h:53</a></div></div>
+<div class="ttc" id="aclasscppgc_1_1GarbageCollected_html_a41d7c4bb58217f40e602ce09942647a9"><div class="ttname"><a href="classcppgc_1_1GarbageCollected.html#a41d7c4bb58217f40e602ce09942647a9">cppgc::GarbageCollected::IsGarbageCollectedTypeMarker</a></div><div class="ttdeci">void IsGarbageCollectedTypeMarker</div><div class="ttdef"><b>Definition:</b> <a href="garbage-collected_8h_source.html#l00055">garbage-collected.h:55</a></div></div>
 <div class="ttc" id="aclasscppgc_1_1GarbageCollected_html_a9a0c274b4153b6e786b26d4248d07f61"><div class="ttname"><a href="classcppgc_1_1GarbageCollected.html#a9a0c274b4153b6e786b26d4248d07f61">cppgc::GarbageCollected::GarbageCollected</a></div><div class="ttdeci">GarbageCollected()=default</div></div>
-<div class="ttc" id="aclasscppgc_1_1GarbageCollected_html_ad6910c4a115a3b797fd7d281ff20af10"><div class="ttname"><a href="classcppgc_1_1GarbageCollected.html#ad6910c4a115a3b797fd7d281ff20af10">cppgc::GarbageCollected::ParentMostGarbageCollectedType</a></div><div class="ttdeci">T ParentMostGarbageCollectedType</div><div class="ttdef"><b>Definition:</b> garbage-collected.h:56</div></div>
-<div class="ttc" id="aclasscppgc_1_1Visitor_html"><div class="ttname"><a href="classcppgc_1_1Visitor.html">cppgc::Visitor</a></div><div class="ttdef"><b>Definition:</b> include/cppgc/visitor.h:75</div></div>
-<div class="ttc" id="anamespacecppgc_1_1internal_html_a022a504d3acda0656253c3456c712da5"><div class="ttname"><a href="namespacecppgc_1_1internal.html#a022a504d3acda0656253c3456c712da5">cppgc::internal::Fatal</a></div><div class="ttdeci">void Fatal(const std::string &amp;reason, const SourceLocation &amp;loc)</div><div class="ttdef"><b>Definition:</b> heap/cppgc/platform.cc:47</div></div>
-<div class="ttc" id="anamespacecppgc_html"><div class="ttname"><a href="namespacecppgc.html">cppgc</a></div><div class="ttdef"><b>Definition:</b> heap/cppgc/allocation.cc:18</div></div>
+<div class="ttc" id="aclasscppgc_1_1Visitor_html"><div class="ttname"><a href="classcppgc_1_1Visitor.html">cppgc::Visitor</a></div><div class="ttdoc">Visitor passed to trace methods.</div><div class="ttdef"><b>Definition:</b> <a href="include_2cppgc_2visitor_8h_source.html#l00075">visitor.h:75</a></div></div>
+<div class="ttc" id="anamespacecppgc_1_1internal_html_a53ef3643e679385c014b494e7e349221"><div class="ttname"><a href="namespacecppgc_1_1internal.html#a53ef3643e679385c014b494e7e349221">cppgc::internal::Fatal</a></div><div class="ttdeci">void Fatal(const std::string &amp;reason, const SourceLocation &amp;loc)</div><div class="ttdef"><b>Definition:</b> <a href="heap_2cppgc_2platform_8cc_source.html#l00047">platform.cc:47</a></div></div>
+<div class="ttc" id="anamespacecppgc_html"><div class="ttname"><a href="namespacecppgc.html">cppgc</a></div><div class="ttdoc">cppgc - A C++ garbage collection library.</div><div class="ttdef"><b>Definition:</b> <a href="heap_2cppgc_2allocation_8cc_source.html#l00018">allocation.cc:18</a></div></div>
 <div class="ttc" id="anamespacev8_1_1internal_1_1wasm_html_ac81d27d6edb00aeed62a3e4745b8cba0"><div class="ttname"><a href="namespacev8_1_1internal_1_1wasm.html#ac81d27d6edb00aeed62a3e4745b8cba0">v8::internal::wasm::void</a></div><div class="ttdeci">typedef void(VECTORCALL PWasmOp)(const uint8_t *code</div></div>
-<div class="ttc" id="anamespacev8_1_1internal_html_a4725962ca3c127eb5871cb47293aee95"><div class="ttname"><a href="namespacev8_1_1internal.html#a4725962ca3c127eb5871cb47293aee95">v8::internal::size_t</a></div><div class="ttdeci">size_t</div><div class="ttdef"><b>Definition:</b> wasm-objects-inl.h:193</div></div>
+<div class="ttc" id="anamespacev8_1_1internal_html_a4725962ca3c127eb5871cb47293aee95"><div class="ttname"><a href="namespacev8_1_1internal.html#a4725962ca3c127eb5871cb47293aee95">v8::internal::size_t</a></div><div class="ttdeci">size_t</div><div class="ttdef"><b>Definition:</b> <a href="wasm-objects-inl_8h_source.html#l00193">wasm-objects-inl.h:193</a></div></div>
 <div class="ttc" id="atrace-trait_8h_html"><div class="ttname"><a href="trace-trait_8h.html">trace-trait.h</a></div></div>
 <div class="ttc" id="atype-traits_8h_html"><div class="ttname"><a href="type-traits_8h.html">type-traits.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -163,8 +220,8 @@ $(document).ready(function(){initNavTree('garbage-collected_8h_source.html','');
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_8af83c0dc83a45a35ca6968cdc29a7af.html">tmp</a></li><li class="navelem"><a class="el" href="dir_71ee8ddd0c9f64e069464bdef6fc22a8.html">V8SourceCode</a></li><li class="navelem"><a class="el" href="dir_4483e65e018ac50231950c4b23e76194.html">include</a></li><li class="navelem"><a class="el" href="dir_8fb4ac80767d3cf3ffd7bd2e1740329d.html">cppgc</a></li><li class="navelem"><a class="el" href="garbage-collected_8h.html">garbage-collected.h</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:38:07 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="navelem"><a class="el" href="dir_19225156eb7ba052e31d1a736469917a.html">mnt</a></li><li class="navelem"><a class="el" href="dir_3536f6d353061322e9ef91134b76e9ed.html">V8SourceCode</a></li><li class="navelem"><a class="el" href="dir_b9872d1f3a2ee817aaa33ebd0513511d.html">include</a></li><li class="navelem"><a class="el" href="dir_af178baa874e32bc181db2603bb7a76b.html">cppgc</a></li><li class="navelem"><a class="el" href="garbage-collected_8h.html">garbage-collected.h</a></li>
+    <li class="footer">Generated on Thu Jun 12 2025 15:50:27 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -1,6 +1,8 @@
 var json_stringifier_8cc =
 [
     [ "JsonStringifier", "classv8_1_1internal_1_1JsonStringifier.html", "classv8_1_1internal_1_1JsonStringifier" ],
+    [ "NoExtendBuilder", "classv8_1_1internal_1_1JsonStringifier_1_1NoExtendBuilder.html", "classv8_1_1internal_1_1JsonStringifier_1_1NoExtendBuilder" ],
+    [ "SimplePropertyKeyCache", "classv8_1_1internal_1_1JsonStringifier_1_1SimplePropertyKeyCache.html", "classv8_1_1internal_1_1JsonStringifier_1_1SimplePropertyKeyCache" ],
     [ "CircularStructureMessageBuilder", "classv8_1_1internal_1_1CircularStructureMessageBuilder.html", "classv8_1_1internal_1_1CircularStructureMessageBuilder" ],
     [ "OutBuffer", "classv8_1_1internal_1_1OutBuffer.html", "classv8_1_1internal_1_1OutBuffer" ],
     [ "ContinuationRecord", "classv8_1_1internal_1_1ContinuationRecord.html", "classv8_1_1internal_1_1ContinuationRecord" ],
@@ -9,6 +11,7 @@ var json_stringifier_8cc =
     [ "CASE", "json-stringifier_8cc.html#a5b0acfba9f035589ba9e02699343c662", null ],
     [ "CASE_WITH_INTERRUPT", "json-stringifier_8cc.html#a58a4d3a723953f2294150278dac0a4fb", null ],
     [ "CASE_WITH_TRANSITION", "json-stringifier_8cc.html#a86ceac3fecaf87e19bc1edff8cee4ec5", null ],
+    [ "PackedT", "json-stringifier_8cc.html#a3370ba3c74346aeb0dd4dd0d16fdf43a", null ],
     [ "FastJsonStringifierObjectKeyResult", "json-stringifier_8cc.html#a80792d72af8382fedaf8488885c8a2f0", [
       [ "kSuccess", "json-stringifier_8cc.html#a80792d72af8382fedaf8488885c8a2f0a8c632159fa131f09d04f94e3cbcd8782", null ],
       [ "kChangeEncoding", "json-stringifier_8cc.html#a80792d72af8382fedaf8488885c8a2f0accaa16346da85d0bf78e1c1c11629baf", null ],
@@ -23,8 +26,32 @@ var json_stringifier_8cc =
       [ "SLOW_PATH", "json-stringifier_8cc.html#a37e290c8e613119e7591abaf8dbdc889a375bb69e882875af78e6fa64a555a4b0", null ],
       [ "EXCEPTION", "json-stringifier_8cc.html#a37e290c8e613119e7591abaf8dbdc889a5c8e735a7aa4d9efd81fa9497d5038c1", null ]
     ] ],
+    [ "CanFastSerializeJSArray", "json-stringifier_8cc.html#a4705553ddf92714fb86fd29638dc4d14", null ],
+    [ "CanFastSerializeJSArrayFastPath", "json-stringifier_8cc.html#ab44cf5aee694afaebdcc60db022ddd09", null ],
+    [ "CanFastSerializeJSObject", "json-stringifier_8cc.html#a76a7d5dd4adca0c3a33dc704951fae97", null ],
+    [ "CanFastSerializeJSObjectFastPath", "json-stringifier_8cc.html#a96a0513718b25182a3940e7ebc64a28f", null ],
+    [ "CanUseFastStringifier", "json-stringifier_8cc.html#af96f60ed9c0861a77f0b66ab359086f9", null ],
+    [ "DoNotEscape", "json-stringifier_8cc.html#ad30e98914f17c8c02466cd6a6a1bee77", null ],
+    [ "DoNotEscape", "json-stringifier_8cc.html#a5394c7994ca369f21158394477e1b1d3", null ],
+    [ "DoNotEscape", "json-stringifier_8cc.html#a30cbfb173280f89acd3a0be54609dccc", null ],
+    [ "FastJsonStringify", "json-stringifier_8cc.html#aa488d779c529def0b8b2be19fedf15b1", null ],
+    [ "for", "json-stringifier_8cc.html#a190a3c74ff07eb025a2a3706edb1879e", null ],
+    [ "GetBuiltin", "json-stringifier_8cc.html#a62bdeab80cccc3a2e77bf44de582c838", null ],
+    [ "IsFastKey", "json-stringifier_8cc.html#a421b18576e8cf4e3e6e8bc14c5909867", null ],
     [ "JsonStringify", "json-stringifier_8cc.html#ac2ffdf145d46f49985d5c2c3b98f41a7", null ],
+    [ "MaxEscapedStringLength", "json-stringifier_8cc.html#a6add776f34cc56e1bb090a2cd4da853f", null ],
     [ "MayHaveInterestingProperties", "json-stringifier_8cc.html#a47e67293988257b00ee31442223f1b93", null ],
+    [ "NeedsEscape", "json-stringifier_8cc.html#a706e67f6830d021f233b115eea697235", null ],
     [ "requires", "json-stringifier_8cc.html#ae97d41ab5d8033ad2d253ecef78d8fdd", null ],
-    [ "requires", "json-stringifier_8cc.html#a128bb99a07fc5065c99b4d244d128793", null ]
+    [ "requires", "json-stringifier_8cc.html#aa42c4c8006a74842a652735daba000c8", null ],
+    [ "requires", "json-stringifier_8cc.html#a128bb99a07fc5065c99b4d244d128793", null ],
+    [ "i", "json-stringifier_8cc.html#ad86b3cf21e19e97ce484f32b894d548c", null ],
+    [ "JsonDoNotEscapeFlagTable", "json-stringifier_8cc.html#a2e8e5ed1b1bfcb6fc6b1265b1846a1f1", null ],
+    [ "JsonEscapeTable", "json-stringifier_8cc.html#a20f0040346e00da1cc4940d424643e2f", null ],
+    [ "kJsonEscapeTableEntrySize", "json-stringifier_8cc.html#a11c31ae8c2b09eed6b0855449bab0ebc", null ],
+    [ "kJsonStringifierZoneName", "json-stringifier_8cc.html#a4b4f646f57af56b9e65f47d0e7d5dedd", null ],
+    [ "length", "json-stringifier_8cc.html#a42d08f833d141f676dfcce3fa3953be4", null ],
+    [ "no_escape", "json-stringifier_8cc.html#a6dff2bebe9cd769c0ffe4a160d60631e", null ],
+    [ "no_gc", "json-stringifier_8cc.html#a63d8eefb47468aa3f816fbe26a59466a", null ],
+    [ "stride", "json-stringifier_8cc.html#af96dca68ed86506261925375765a0f1a", null ]
 ];

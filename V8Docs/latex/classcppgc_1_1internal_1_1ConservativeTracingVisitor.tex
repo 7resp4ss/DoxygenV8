@@ -66,12 +66,23 @@ void \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a3723
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 49 of file visitor.\+h.
+
+
+
 \doxysubsection{Member Typedef Documentation}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a60c35149bca7fc6e350dc0e96fb7860e}\label{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a60c35149bca7fc6e350dc0e96fb7860e}} 
 \index{cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}!TraceConservativelyCallback@{TraceConservativelyCallback}}
 \index{TraceConservativelyCallback@{TraceConservativelyCallback}!cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}}
 \doxysubsubsection{\texorpdfstring{TraceConservativelyCallback}{TraceConservativelyCallback}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a60c35149bca7fc6e350dc0e96fb7860e}{cppgc\+::internal\+::\+Conservative\+Tracing\+Visitor\+::\+Trace\+Conservatively\+Callback}} =  void(\mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor}{Conservative\+Tracing\+Visitor}}$\ast$, const \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader}{Heap\+Object\+Header}}\&)\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 63 of file visitor.\+h.
 
 
 
@@ -82,6 +93,15 @@ void \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a3723
 \doxysubsubsection{\texorpdfstring{ConservativeTracingVisitor()}{ConservativeTracingVisitor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily cppgc\+::internal\+::\+Conservative\+Tracing\+Visitor\+::\+Conservative\+Tracing\+Visitor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}} \&}]{heap,  }\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1PageBackend}{Page\+Backend}} \&}]{page\+\_\+backend,  }\item[{\mbox{\hyperlink{classcppgc_1_1Visitor}{cppgc\+::\+Visitor}} \&}]{visitor }\end{DoxyParamCaption})}
 
+
+
+Definition at line 39 of file visitor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{41     : \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a12e6d4859ea217da7e504cdfbcdd0436}{heap\_}}(\mbox{\hyperlink{namespaceheap}{heap}}), \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_aeb1281f2e477c3bd8c82b388b96399c1}{page\_backend\_}}(page\_backend), \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a075609ff23b02fd0138fdc2b2e09eb79}{visitor\_}}(visitor) \{\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a5f3b4c734324b4dcbb78eb810a0177dd}\label{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a5f3b4c734324b4dcbb78eb810a0177dd}} 
 \index{cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}!````~ConservativeTracingVisitor@{$\sim$ConservativeTracingVisitor}}
 \index{````~ConservativeTracingVisitor@{$\sim$ConservativeTracingVisitor}!cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}}
@@ -109,36 +129,291 @@ void \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a3723
 \doxysubsubsection{\texorpdfstring{TraceConservatively()}{TraceConservatively()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{asan_8h_aa50cd3d3fb9ae19a5973bdb4e6a6ce38}{DISABLE\+\_\+\+ASAN}} void cppgc\+::internal\+::\+Conservative\+Tracing\+Visitor\+::\+Trace\+Conservatively (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader}{Heap\+Object\+Header}} \&}]{header }\end{DoxyParamCaption})}
 
+
+
+Definition at line 47 of file visitor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{48                                     \{}
+\DoxyCodeLine{49   \textcolor{keyword}{const} \textcolor{keyword}{auto} object\_view = ObjectView<>(header);}
+\DoxyCodeLine{50   \mbox{\hyperlink{classuintptr__t}{uintptr\_t}}* word = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classuintptr__t}{uintptr\_t}}*\textcolor{keyword}{>}(object\_view.Start());}
+\DoxyCodeLine{51   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < (object\_view.Size() / \textcolor{keyword}{sizeof}(\mbox{\hyperlink{classuintptr__t}{uintptr\_t}})); ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{52     \mbox{\hyperlink{classuintptr__t}{uintptr\_t}} maybe\_full\_ptr = word[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}];}
+\DoxyCodeLine{53     \textcolor{comment}{// |object| may be uninitialized by design or just contain padding bytes.}}
+\DoxyCodeLine{54     \textcolor{comment}{// Copy into a local variable that is not poisoned for conservative marking.}}
+\DoxyCodeLine{55     \textcolor{comment}{// Copy into a temporary variable to maintain the original MSAN state.}}
+\DoxyCodeLine{56     \mbox{\hyperlink{msan_8h_a3247bf8fa2f4372cc59ac92e7432cc9c}{MSAN\_MEMORY\_IS\_INITIALIZED}}(\&maybe\_full\_ptr, \textcolor{keyword}{sizeof}(maybe\_full\_ptr));}
+\DoxyCodeLine{57     \textcolor{comment}{// Neither first OS page, nor first cage page contain Oilpan objects.}}
+\DoxyCodeLine{58     \textcolor{keywordflow}{if} (maybe\_full\_ptr <= \mbox{\hyperlink{structcppgc_1_1internal_1_1SentinelPointer_a4303ace1859ea823b29de9abfe590a6d}{SentinelPointer::kSentinelValue}}) \{}
+\DoxyCodeLine{59       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{60     \}}
+\DoxyCodeLine{61     \mbox{\hyperlink{classcppgc_1_1internal_1_1RawPointer_a214abfa5236e0fa144318d4816f53e35}{PointerRepresentation::VisitPossiblePointers}}(}
+\DoxyCodeLine{62         \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(maybe\_full\_ptr),}
+\DoxyCodeLine{63         [\textcolor{keyword}{this}](\textcolor{keyword}{const} \textcolor{keywordtype}{void}* raw\_pointer) \{}
+\DoxyCodeLine{64           this-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_ade80c90d390cc60399430d64a7e6682e}{TraceConservativelyIfNeeded}}(raw\_pointer);}
+\DoxyCodeLine{65         \});}
+\DoxyCodeLine{66     \textcolor{comment}{// We must also trace full pointers here as the conservative tracing visitor}}
+\DoxyCodeLine{67     \textcolor{comment}{// may be overridden to find pointers to other areas conservatively as well.}}
+\DoxyCodeLine{68     \textcolor{comment}{// E.g., v8::TracedReference points into a different memory region and is}}
+\DoxyCodeLine{69     \textcolor{comment}{// scanned conservatively when the GCed object is in construction. See}}
+\DoxyCodeLine{70     \textcolor{comment}{// `UnifiedHeapConservativeMarkingVisitor::TraceConservativelyIfNeeded()`.}}
+\DoxyCodeLine{71     this-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_ade80c90d390cc60399430d64a7e6682e}{TraceConservativelyIfNeeded}}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(maybe\_full\_ptr));}
+\DoxyCodeLine{72   \}}
+\DoxyCodeLine{73 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, cppgc\+::internal\+::\+Sentinel\+Pointer\+::k\+Sentinel\+Value, MSAN\+\_\+\+MEMORY\+\_\+\+IS\+\_\+\+INITIALIZED, Trace\+Conservatively\+If\+Needed(), and cppgc\+::internal\+::\+Raw\+Pointer\+::\+Visit\+Possible\+Pointers().
+
+
+
+Referenced by Trace\+Conservatively\+If\+Needed().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a74d24036348551bb1c8a06247512f057_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a74d24036348551bb1c8a06247512f057_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConservativeTracingVisitor_ade80c90d390cc60399430d64a7e6682e}\label{classcppgc_1_1internal_1_1ConservativeTracingVisitor_ade80c90d390cc60399430d64a7e6682e}} 
 \index{cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}!TraceConservativelyIfNeeded@{TraceConservativelyIfNeeded}}
 \index{TraceConservativelyIfNeeded@{TraceConservativelyIfNeeded}!cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}}
 \doxysubsubsection{\texorpdfstring{TraceConservativelyIfNeeded()}{TraceConservativelyIfNeeded()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Conservative\+Tracing\+Visitor\+::\+Trace\+Conservatively\+If\+Needed (\begin{DoxyParamCaption}\item[{const void $\ast$}]{address }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
+
+
+Reimplemented in \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02cpp-heap_8cc_03_1_1UnifiedHeapConservativeMarkingVisitor_a77dcb626f02d017d17963aa6336acd5c}{v8\+::internal\+::anonymous\+\_\+namespace\{cpp-\/heap.\+cc\}\+::\+Unified\+Heap\+Conservative\+Marking\+Visitor}}.
+
+
+
+Definition at line 96 of file visitor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{97                          \{}
+\DoxyCodeLine{98   \textcolor{comment}{// Neither first OS page, nor first cage page contain Oilpan objects.}}
+\DoxyCodeLine{99   \textcolor{keywordflow}{if} (\textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacecppgc_1_1internal_a253e063701bfc4119e9fca7fe9800c32}{ConstAddress}}\textcolor{keyword}{>}(address) <=}
+\DoxyCodeLine{100       \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacecppgc_1_1internal_a253e063701bfc4119e9fca7fe9800c32}{ConstAddress}}\textcolor{keyword}{>}(\mbox{\hyperlink{structcppgc_1_1internal_1_1SentinelPointer_a4303ace1859ea823b29de9abfe590a6d}{SentinelPointer::kSentinelValue}})) \{}
+\DoxyCodeLine{101     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{102   \}}
+\DoxyCodeLine{103   \mbox{\hyperlink{classcppgc_1_1internal_1_1RawPointer_a214abfa5236e0fa144318d4816f53e35}{PointerRepresentation::VisitPossiblePointers}}(}
+\DoxyCodeLine{104       address, [\textcolor{keyword}{this}](\textcolor{keyword}{const} \textcolor{keywordtype}{void}* raw\_pointer) \{}
+\DoxyCodeLine{105         this-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a3723982ed3dbaa3cfc01f29505940ac3}{TryTracePointerConservatively}}(}
+\DoxyCodeLine{106             \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacecppgc_1_1internal_a253e063701bfc4119e9fca7fe9800c32}{ConstAddress}}\textcolor{keyword}{>}(raw\_pointer));}
+\DoxyCodeLine{107       \});}
+\DoxyCodeLine{108 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Sentinel\+Pointer\+::k\+Sentinel\+Value, Try\+Trace\+Pointer\+Conservatively(), and cppgc\+::internal\+::\+Raw\+Pointer\+::\+Visit\+Possible\+Pointers().
+
+
+
+Referenced by cppgc\+::internal\+::\+Marker\+Base\+::\+Mark\+Not\+Fully\+Constructed\+Objects(), Trace\+Conservatively(), Try\+Trace\+Pointer\+Conservatively(), cppgc\+::internal\+::\+Marking\+Verifier\+Base\+::\+Visit\+Heap\+Object\+Header(), cppgc\+::internal\+::\+Marking\+Verifier\+Base\+::\+Visit\+Pointer(), and cppgc\+::internal\+::\+Conservative\+Marking\+Visitor\+::\+Visit\+Pointer().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConservativeTracingVisitor_ade80c90d390cc60399430d64a7e6682e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConservativeTracingVisitor_ade80c90d390cc60399430d64a7e6682e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a9f0a4945c1dafb2d33ce516f0149a9c8}\label{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a9f0a4945c1dafb2d33ce516f0149a9c8}} 
 \index{cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}!TraceConservativelyIfNeeded@{TraceConservativelyIfNeeded}}
 \index{TraceConservativelyIfNeeded@{TraceConservativelyIfNeeded}!cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}}
 \doxysubsubsection{\texorpdfstring{TraceConservativelyIfNeeded()}{TraceConservativelyIfNeeded()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Conservative\+Tracing\+Visitor\+::\+Trace\+Conservatively\+If\+Needed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader}{Heap\+Object\+Header}} \&}]{header }\end{DoxyParamCaption})}
 
+
+
+Definition at line 110 of file visitor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{111                               \{}
+\DoxyCodeLine{112   \textcolor{keywordflow}{if} (!header.IsInConstruction<\mbox{\hyperlink{namespacecppgc_1_1internal_ac0b40b7e4ac65024fbfcf57d01fa808eab8d79eac5929c97b59b121e933e4438d}{AccessMode::kNonAtomic}}>()) \{}
+\DoxyCodeLine{113     \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_ab0aef8d747e931f408728f7d73a4b08d}{VisitFullyConstructedConservatively}}(header);}
+\DoxyCodeLine{114   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{115     \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a9d245e7f2ffe87e095d8eadee71606f2}{VisitInConstructionConservatively}}(}
+\DoxyCodeLine{116         header,}
+\DoxyCodeLine{117         [](\mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a79ea834ddebb47f8bca1d6f5d4dfb8de}{ConservativeTracingVisitor}}* v, \textcolor{keyword}{const} HeapObjectHeader\& header) \{}
+\DoxyCodeLine{118           v-\/>TraceConservatively(header);}
+\DoxyCodeLine{119         \});}
+\DoxyCodeLine{120   \}}
+\DoxyCodeLine{121 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Is\+In\+Construction(), cppgc\+::internal\+::k\+Non\+Atomic, Trace\+Conservatively(), Visit\+Fully\+Constructed\+Conservatively(), and Visit\+In\+Construction\+Conservatively().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a9f0a4945c1dafb2d33ce516f0149a9c8_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a3723982ed3dbaa3cfc01f29505940ac3}\label{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a3723982ed3dbaa3cfc01f29505940ac3}} 
 \index{cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}!TryTracePointerConservatively@{TryTracePointerConservatively}}
 \index{TryTracePointerConservatively@{TryTracePointerConservatively}!cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}}
 \doxysubsubsection{\texorpdfstring{TryTracePointerConservatively()}{TryTracePointerConservatively()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Conservative\+Tracing\+Visitor\+::\+Try\+Trace\+Pointer\+Conservatively (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacecppgc_1_1internal_a253e063701bfc4119e9fca7fe9800c32}{Const\+Address}}}]{address }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 75 of file visitor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{76                           \{}
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#if defined(CPPGC\_CAGED\_HEAP)}}
+\DoxyCodeLine{78   \textcolor{comment}{// TODO(chromium:1056170): Add support for SIMD in stack scanning.}}
+\DoxyCodeLine{79   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a4f489f1b838163ab33f251c9e470d938}{V8\_LIKELY}}(!CagedHeapBase::IsWithinCage(address))) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// defined(CPPGC\_CAGED\_HEAP)}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82   \textcolor{keyword}{const} BasePage* page =}
+\DoxyCodeLine{83       \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }BasePage*\textcolor{keyword}{>}(\mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_aeb1281f2e477c3bd8c82b388b96399c1}{page\_backend\_}}.\mbox{\hyperlink{classcppgc_1_1internal_1_1PageBackend_ab41492e62fa2e44d2653058317db4cd2}{Lookup}}(address));}
+\DoxyCodeLine{84   \textcolor{keywordflow}{if} (!page) \{}
+\DoxyCodeLine{85     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{86   \}}
+\DoxyCodeLine{87   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\&\mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a12e6d4859ea217da7e504cdfbcdd0436}{heap\_}}, \&page-\/>heap());}
+\DoxyCodeLine{88   \textcolor{keyword}{auto}* header = \textcolor{keyword}{const\_cast<}HeapObjectHeader*\textcolor{keyword}{>}(}
+\DoxyCodeLine{89       page-\/>TryObjectHeaderFromInnerAddress(address));}
+\DoxyCodeLine{90   \textcolor{keywordflow}{if} (!header) \{}
+\DoxyCodeLine{91     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{92   \}}
+\DoxyCodeLine{93   \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_ade80c90d390cc60399430d64a7e6682e}{TraceConservativelyIfNeeded}}(*header);}
+\DoxyCodeLine{94 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+EQ, cppgc\+::internal\+::\+Base\+Page\+::heap(), heap\+\_\+, cppgc\+::internal\+::\+Page\+Backend\+::\+Lookup(), page\+\_\+backend\+\_\+, Trace\+Conservatively\+If\+Needed(), cppgc\+::internal\+::\+Base\+Page\+::\+Try\+Object\+Header\+From\+Inner\+Address(), and V8\+\_\+\+LIKELY.
+
+
+
+Referenced by Trace\+Conservatively\+If\+Needed().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a3723982ed3dbaa3cfc01f29505940ac3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a3723982ed3dbaa3cfc01f29505940ac3_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConservativeTracingVisitor_ab0aef8d747e931f408728f7d73a4b08d}\label{classcppgc_1_1internal_1_1ConservativeTracingVisitor_ab0aef8d747e931f408728f7d73a4b08d}} 
 \index{cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}!VisitFullyConstructedConservatively@{VisitFullyConstructedConservatively}}
 \index{VisitFullyConstructedConservatively@{VisitFullyConstructedConservatively}!cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}}
 \doxysubsubsection{\texorpdfstring{VisitFullyConstructedConservatively()}{VisitFullyConstructedConservatively()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Conservative\+Tracing\+Visitor\+::\+Visit\+Fully\+Constructed\+Conservatively (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader}{Heap\+Object\+Header}} \&}]{header }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
 
+
+
+Reimplemented in \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02cpp-snapshot_8cc_03_1_1GraphBuildingStackVisitor_a94a7f0e7aa8eace0f88d28684a301cb8}{v8\+::internal\+::anonymous\+\_\+namespace\{cpp-\/snapshot.\+cc\}\+::\+Graph\+Building\+Stack\+Visitor}}, and \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeMarkingVisitor_a0463efaf278291ed3144fd85432c3960}{cppgc\+::internal\+::\+Conservative\+Marking\+Visitor}}.
+
+
+
+Definition at line 123 of file visitor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{124                               \{}
+\DoxyCodeLine{125   \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a075609ff23b02fd0138fdc2b2e09eb79}{visitor\_}}.\mbox{\hyperlink{classcppgc_1_1Visitor_a523788a0bf2087bcdb889df58e365497}{Visit}}(}
+\DoxyCodeLine{126       header.ObjectStart(),}
+\DoxyCodeLine{127       \{header.ObjectStart(),}
+\DoxyCodeLine{128        GlobalGCInfoTable::GCInfoFromIndex(header.GetGCInfoIndex()).trace\});}
+\DoxyCodeLine{129 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Object\+Start(), cppgc\+::\+Visitor\+::\+Visit(), and visitor\+\_\+.
+
+
+
+Referenced by Trace\+Conservatively\+If\+Needed(), and cppgc\+::internal\+::\+Conservative\+Marking\+Visitor\+::\+Visit\+Fully\+Constructed\+Conservatively().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConservativeTracingVisitor_ab0aef8d747e931f408728f7d73a4b08d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConservativeTracingVisitor_ab0aef8d747e931f408728f7d73a4b08d_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a9d245e7f2ffe87e095d8eadee71606f2}\label{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a9d245e7f2ffe87e095d8eadee71606f2}} 
 \index{cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}!VisitInConstructionConservatively@{VisitInConstructionConservatively}}
 \index{VisitInConstructionConservatively@{VisitInConstructionConservatively}!cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}}
 \doxysubsubsection{\texorpdfstring{VisitInConstructionConservatively()}{VisitInConstructionConservatively()}}
 {\footnotesize\ttfamily virtual void cppgc\+::internal\+::\+Conservative\+Tracing\+Visitor\+::\+Visit\+In\+Construction\+Conservatively (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader}{Heap\+Object\+Header}} \&}]{,  }\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a60c35149bca7fc6e350dc0e96fb7860e}{Trace\+Conservatively\+Callback}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
 
+
+
+Reimplemented in \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02cpp-snapshot_8cc_03_1_1GraphBuildingStackVisitor_ada593db92039b24a46017126774c2b12}{v8\+::internal\+::anonymous\+\_\+namespace\{cpp-\/snapshot.\+cc\}\+::\+Graph\+Building\+Stack\+Visitor}}, \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeMarkingVisitor_a2fc1ad6160d956dc0a54ddbcea9982c1}{cppgc\+::internal\+::\+Conservative\+Marking\+Visitor}}, and \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingVerifierBase_a14fb532f1c05ca3cd681c90a0355e78d}{cppgc\+::internal\+::\+Marking\+Verifier\+Base}}.
+
+
+
+Definition at line 66 of file visitor.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{67                                                                               \{\}}
+
+\end{DoxyCode}
+
+
+Referenced by Trace\+Conservatively\+If\+Needed().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a9d245e7f2ffe87e095d8eadee71606f2_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Data Documentation}
@@ -148,11 +423,27 @@ void \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a3723
 \doxysubsubsection{\texorpdfstring{heap\_}{heap\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}}\& cppgc\+::internal\+::\+Conservative\+Tracing\+Visitor\+::heap\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 71 of file visitor.\+h.
+
+
+
+Referenced by cppgc\+::internal\+::\+Marking\+Verifier\+Base\+::\+Report\+Differences(), cppgc\+::internal\+::\+Marking\+Verifier\+Base\+::\+Run(), Try\+Trace\+Pointer\+Conservatively(), and cppgc\+::internal\+::\+Conservative\+Marking\+Visitor\+::\+Visit\+In\+Construction\+Conservatively().
+
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConservativeTracingVisitor_aeb1281f2e477c3bd8c82b388b96399c1}\label{classcppgc_1_1internal_1_1ConservativeTracingVisitor_aeb1281f2e477c3bd8c82b388b96399c1}} 
 \index{cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}!page\_backend\_@{page\_backend\_}}
 \index{page\_backend\_@{page\_backend\_}!cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}}
 \doxysubsubsection{\texorpdfstring{page\_backend\_}{page\_backend\_}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1PageBackend}{Page\+Backend}}\& cppgc\+::internal\+::\+Conservative\+Tracing\+Visitor\+::page\+\_\+backend\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 72 of file visitor.\+h.
+
+
+
+Referenced by Try\+Trace\+Pointer\+Conservatively().
 
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a075609ff23b02fd0138fdc2b2e09eb79}\label{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a075609ff23b02fd0138fdc2b2e09eb79}} 
 \index{cppgc::internal::ConservativeTracingVisitor@{cppgc::internal::ConservativeTracingVisitor}!visitor\_@{visitor\_}}
@@ -162,7 +453,15 @@ void \mbox{\hyperlink{classcppgc_1_1internal_1_1ConservativeTracingVisitor_a3723
 
 
 
+Definition at line 73 of file visitor.\+h.
+
+
+
+Referenced by Visit\+Fully\+Constructed\+Conservatively(), and cppgc\+::internal\+::\+Conservative\+Marking\+Visitor\+::\+Visit\+Fully\+Constructed\+Conservatively().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{src_2heap_2cppgc_2visitor_8h}{src/heap/cppgc/visitor.\+h}}\item 
-\mbox{\hyperlink{visitor_8cc}{visitor.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/cppgc/\mbox{\hyperlink{src_2heap_2cppgc_2visitor_8h}{visitor.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/cppgc/\mbox{\hyperlink{visitor_8cc}{visitor.\+cc}}\end{DoxyCompactItemize}

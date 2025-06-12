@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$heap.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Conservative\+Pinning\+Scope\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ConservativePinningScope__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -11,6 +21,23 @@
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1ConservativePinningScope_a4767204ac1226b615b42b9675d646904}{$\sim$\+Conservative\+Pinning\+Scope}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1ConservativePinningScope_a5b31468ffd0354797f4da8237aff0d57}{V8\+\_\+\+STACK\+\_\+\+ALLOCATED}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$const \mbox{\hyperlink{classv8_1_1internal_1_1ConservativePinningScope_a59d9f877e7a9ac59b79c73c22b5c710c}{heap\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 195 of file heap.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -20,6 +47,44 @@
 \doxysubsubsection{\texorpdfstring{ConservativePinningScope()}{ConservativePinningScope()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Conservative\+Pinning\+Scope\+::\+Conservative\+Pinning\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$}]{heap }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
+
+
+Definition at line 7712 of file heap.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{7712                                                              : \mbox{\hyperlink{classv8_1_1internal_1_1ConservativePinningScope_a59d9f877e7a9ac59b79c73c22b5c710c}{heap\_}}(\mbox{\hyperlink{namespaceheap}{heap}}) \{}
+\DoxyCodeLine{7713   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(::heap::base::Stack::IsOnCurrentStack(\textcolor{keyword}{this}));}
+\DoxyCodeLine{7714   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1ConservativePinningScope_a59d9f877e7a9ac59b79c73c22b5c710c}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ad9f73dbe8e260cd000fa48d455b6bc7e}{selective\_stack\_scan\_start\_address\_}}.has\_value());}
+\DoxyCodeLine{7715   \textcolor{comment}{// `frame\_address` should be higher than `this`, but we observed that this}}
+\DoxyCodeLine{7716   \textcolor{comment}{// may not hold in some cases (e.g. due to missing inlining or unexpected}}
+\DoxyCodeLine{7717   \textcolor{comment}{// frame layouts). In such cases, we scan the stack either from the last}}
+\DoxyCodeLine{7718   \textcolor{comment}{// c\_entry\_fp or the whole stack.}}
+\DoxyCodeLine{7719   \textcolor{keyword}{const} \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} c\_entry\_fp = *\mbox{\hyperlink{classv8_1_1internal_1_1ConservativePinningScope_a59d9f877e7a9ac59b79c73c22b5c710c}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ae5160ad63bc51ff7b36e8f247be48f63}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ae9cbe69b7bfa733e978bd2a83b4006a8}{c\_entry\_fp\_address}}();}
+\DoxyCodeLine{7720   \textcolor{keyword}{const} \textcolor{keywordtype}{void}* frame\_address =}
+\DoxyCodeLine{7721       (c\_entry\_fp == \mbox{\hyperlink{namespacev8_1_1internal_acf6bafb5b8483a580f375393c413ee02}{kNullAddress}})}
+\DoxyCodeLine{7722           ? \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1base_1_1Stack_aa5f57178fcc1514f4616db4e0cf67407}{v8::base::Stack::GetStackStart}}())}
+\DoxyCodeLine{7723           : \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(c\_entry\_fp);}
+\DoxyCodeLine{7724   \textcolor{comment}{// The stack segment covered by this scope should include the scope itself.}}
+\DoxyCodeLine{7725   \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(frame\_address);}
+\DoxyCodeLine{7726   \mbox{\hyperlink{src_2base_2logging_8h_a16b382527f19b805fc8f856668f2270b}{DCHECK\_LE}}(\textcolor{keyword}{this}, frame\_address);}
+\DoxyCodeLine{7727   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(::heap::base::Stack::IsOnCurrentStack(frame\_address));}
+\DoxyCodeLine{7728   \mbox{\hyperlink{classv8_1_1internal_1_1ConservativePinningScope_a59d9f877e7a9ac59b79c73c22b5c710c}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ad9f73dbe8e260cd000fa48d455b6bc7e}{selective\_stack\_scan\_start\_address\_}} = frame\_address;}
+\DoxyCodeLine{7729 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::c\+\_\+entry\+\_\+fp\+\_\+address(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+LE, DCHECK\+\_\+\+NOT\+\_\+\+NULL, v8\+::base\+::\+Stack\+::\+Get\+Stack\+Start(), heap\+\_\+, v8\+::internal\+::\+Heap\+::isolate(), v8\+::internal\+::k\+Null\+Address, and v8\+::internal\+::\+Heap\+::selective\+\_\+stack\+\_\+scan\+\_\+start\+\_\+address\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ConservativePinningScope_aad16600a4cb26a4571dbb199c3c53639_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ConservativePinningScope_a4767204ac1226b615b42b9675d646904}\label{classv8_1_1internal_1_1ConservativePinningScope_a4767204ac1226b615b42b9675d646904}} 
 \index{v8::internal::ConservativePinningScope@{v8::internal::ConservativePinningScope}!````~ConservativePinningScope@{$\sim$ConservativePinningScope}}
 \index{````~ConservativePinningScope@{$\sim$ConservativePinningScope}!v8::internal::ConservativePinningScope@{v8::internal::ConservativePinningScope}}
@@ -28,7 +93,57 @@
 
 
 
+Definition at line 7730 of file heap.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{7730                                                     \{}
+\DoxyCodeLine{7731   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1ConservativePinningScope_a59d9f877e7a9ac59b79c73c22b5c710c}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ad9f73dbe8e260cd000fa48d455b6bc7e}{selective\_stack\_scan\_start\_address\_}}.has\_value());}
+\DoxyCodeLine{7732   \mbox{\hyperlink{classv8_1_1internal_1_1ConservativePinningScope_a59d9f877e7a9ac59b79c73c22b5c710c}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ad9f73dbe8e260cd000fa48d455b6bc7e}{selective\_stack\_scan\_start\_address\_}}.reset();}
+\DoxyCodeLine{7733 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), heap\+\_\+, and v8\+::internal\+::\+Heap\+::selective\+\_\+stack\+\_\+scan\+\_\+start\+\_\+address\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ConservativePinningScope_a4767204ac1226b615b42b9675d646904_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ConservativePinningScope_a5b31468ffd0354797f4da8237aff0d57}\label{classv8_1_1internal_1_1ConservativePinningScope_a5b31468ffd0354797f4da8237aff0d57}} 
+\index{v8::internal::ConservativePinningScope@{v8::internal::ConservativePinningScope}!V8\_STACK\_ALLOCATED@{V8\_STACK\_ALLOCATED}}
+\index{V8\_STACK\_ALLOCATED@{V8\_STACK\_ALLOCATED}!v8::internal::ConservativePinningScope@{v8::internal::ConservativePinningScope}}
+\doxysubsubsection{\texorpdfstring{V8\_STACK\_ALLOCATED()}{V8\_STACK\_ALLOCATED()}}
+{\footnotesize\ttfamily v8\+::internal\+::\+Conservative\+Pinning\+Scope\+::\+V8\+\_\+\+STACK\+\_\+\+ALLOCATED (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ConservativePinningScope_a59d9f877e7a9ac59b79c73c22b5c710c}\label{classv8_1_1internal_1_1ConservativePinningScope_a59d9f877e7a9ac59b79c73c22b5c710c}} 
+\index{v8::internal::ConservativePinningScope@{v8::internal::ConservativePinningScope}!heap\_@{heap\_}}
+\index{heap\_@{heap\_}!v8::internal::ConservativePinningScope@{v8::internal::ConservativePinningScope}}
+\doxysubsubsection{\texorpdfstring{heap\_}{heap\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}}$\ast$ const v8\+::internal\+::\+Conservative\+Pinning\+Scope\+::heap\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 206 of file heap.\+h.
+
+
+
+Referenced by Conservative\+Pinning\+Scope(), and $\sim$\+Conservative\+Pinning\+Scope().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{src_2heap_2heap_8h}{src/heap/heap.\+h}}\item 
-\mbox{\hyperlink{heap_8cc}{heap.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{src_2heap_2heap_8h}{heap.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{heap_8cc}{heap.\+cc}}\end{DoxyCompactItemize}

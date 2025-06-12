@@ -26,5 +26,6 @@ var classv8_1_1internal_1_1NewSpace =
     [ "PromotePageToOldSpace", "classv8_1_1internal_1_1NewSpace.html#ad57cffc5ba332ca66576978a276c3620", null ],
     [ "RemovePage", "classv8_1_1internal_1_1NewSpace.html#a64f8e009e410109040a46648761fcec4", null ],
     [ "TotalCapacity", "classv8_1_1internal_1_1NewSpace.html#ac8f286abd40467f60799e895821b4f82", null ],
+    [ "kAllocationBufferParkingThreshold", "classv8_1_1internal_1_1NewSpace.html#abeade5a54e914d628c07275d8dc19a83", null ],
     [ "mutex_", "classv8_1_1internal_1_1NewSpace.html#a323b9ef0cfd00bb369782f7ae7159a4a", null ]
 ];

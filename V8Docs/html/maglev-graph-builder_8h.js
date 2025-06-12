@@ -7,10 +7,15 @@ var maglev_graph_builder_8h =
     [ "MaglevCallSiteInfo", "structv8_1_1internal_1_1maglev_1_1MaglevCallSiteInfo.html", "structv8_1_1internal_1_1maglev_1_1MaglevCallSiteInfo" ],
     [ "MaglevGraphBuilder", "classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder.html", "classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder" ],
     [ "LazyDeoptResultLocationScope", "classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1LazyDeoptResultLocationScope.html", "classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1LazyDeoptResultLocationScope" ],
+    [ "MaglevSubGraphBuilder", "classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1MaglevSubGraphBuilder.html", "classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1MaglevSubGraphBuilder" ],
+    [ "ContinuationOffsets", "structv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1ContinuationOffsets.html", "structv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1ContinuationOffsets" ],
+    [ "BranchBuilder", "classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1BranchBuilder.html", "classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1BranchBuilder" ],
     [ "PatchAccumulatorInBranchScope", "classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1BranchBuilder_1_1PatchAccumulatorInBranchScope.html", "classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1BranchBuilder_1_1PatchAccumulatorInBranchScope" ],
     [ "BytecodeJumpTarget", "structv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1BranchBuilder_1_1BytecodeJumpTarget.html", "structv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1BranchBuilder_1_1BytecodeJumpTarget" ],
     [ "LabelJumpTarget", "structv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1BranchBuilder_1_1LabelJumpTarget.html", "structv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1BranchBuilder_1_1LabelJumpTarget" ],
     [ "Data", "unionv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1BranchBuilder_1_1Data.html", "unionv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1BranchBuilder_1_1Data" ],
+    [ "ForInState", "structv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1ForInState.html", "structv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1ForInState" ],
+    [ "HandlerTableEntry", "structv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1HandlerTableEntry.html", "structv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1HandlerTableEntry" ],
     [ "BAILOUT", "maglev-graph-builder_8h.html#aa64604aa65b5e28149f7b0236da1704a", null ],
     [ "BYTECODE_CASE", "maglev-graph-builder_8h.html#aa0a4db3c76c7196b64c87008301780db", null ],
     [ "BYTECODE_VISITOR", "maglev-graph-builder_8h.html#ad084a216faa19d2fe8083c92068561ba", null ],
@@ -26,6 +31,5 @@ var maglev_graph_builder_8h =
     [ "UseReprHintRecording", "maglev-graph-builder_8h.html#a6b14a5a0009c00c53a38f3e9f129387b", [
       [ "kRecord", "maglev-graph-builder_8h.html#a6b14a5a0009c00c53a38f3e9f129387ba3b4044c73f42886bfc55f46cebcaf37f", null ],
       [ "kDoNotRecord", "maglev-graph-builder_8h.html#a6b14a5a0009c00c53a38f3e9f129387baf2bf92c9d9348a4754f914c919514d08", null ]
-    ] ],
-    [ "StaticTypeForNode", "maglev-graph-builder_8h.html#a95dda117ccb800077a839a641bce59ec", null ]
+    ] ]
 ];

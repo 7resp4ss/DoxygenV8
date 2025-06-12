@@ -1,6 +1,10 @@
 var runtime_internal_8cc =
 [
     [ "ELEMENTS_KIND_CASE", "runtime-internal_8cc.html#a9de9f7572254e97310b4a058547bc1d4", null ],
+    [ "BytecodeBudgetInterrupt", "runtime-internal_8cc.html#af7b636c7a1ba4b490db16b1ff14b1b6b", null ],
+    [ "BytecodeBudgetInterruptWithStackCheck", "runtime-internal_8cc.html#a1fb701184780850d8d26430cef8a6180", null ],
+    [ "ElementsKindToType", "runtime-internal_8cc.html#a0938a18fe103d80cabacefbf2120cde4", null ],
+    [ "NewError", "runtime-internal_8cc.html#a3328c26ef21bcd605833a412502b5a7d", null ],
     [ "RUNTIME_FUNCTION", "runtime-internal_8cc.html#acd3880657fdbaef564e42d40907daa71", null ],
     [ "RUNTIME_FUNCTION", "runtime-internal_8cc.html#a25a0ab8fabd77e2c9200fcc9af364a6e", null ],
     [ "RUNTIME_FUNCTION", "runtime-internal_8cc.html#a12c6a061995b5c11799bcaf026d265f6", null ],
@@ -64,5 +68,6 @@ var runtime_internal_8cc =
     [ "RUNTIME_FUNCTION", "runtime-internal_8cc.html#ad8d58371c25c3e5d0d493d72522e0790", null ],
     [ "RUNTIME_FUNCTION", "runtime-internal_8cc.html#aafa1a94faa6310ac81862bd912ab61d3", null ],
     [ "RUNTIME_FUNCTION", "runtime-internal_8cc.html#ad5d55642030bf61452b78f9ee850edd8", null ],
-    [ "RUNTIME_FUNCTION", "runtime-internal_8cc.html#a1d52ae3b7f4d975c5baa016aa128bae3", null ]
+    [ "RUNTIME_FUNCTION", "runtime-internal_8cc.html#a1d52ae3b7f4d975c5baa016aa128bae3", null ],
+    [ "ThrowError", "runtime-internal_8cc.html#aec8426d721b551bc044e941b2305e983", null ]
 ];

@@ -11,5 +11,11 @@ var classv8_1_1Extension =
     [ "operator=", "classv8_1_1Extension.html#a9534122f8ad68e5a1e3dd8a9f5c5311a", null ],
     [ "set_auto_enable", "classv8_1_1Extension.html#af5b752ba211315b6e9dac5c0e6e638e8", null ],
     [ "source", "classv8_1_1Extension.html#a5ffec9002da1eb1390a06ca02fcfcc0a", null ],
-    [ "source_length", "classv8_1_1Extension.html#a61a481f21654fc3d8007453dc7ef92e3", null ]
+    [ "source_length", "classv8_1_1Extension.html#a61a481f21654fc3d8007453dc7ef92e3", null ],
+    [ "auto_enable_", "classv8_1_1Extension.html#a4c7d7140358ffe5c661581af0238ea62", null ],
+    [ "dep_count_", "classv8_1_1Extension.html#ac892d429dd433624cfa4c865613465f5", null ],
+    [ "deps_", "classv8_1_1Extension.html#ae8198584f50edab2521b9344fa3d443f", null ],
+    [ "name_", "classv8_1_1Extension.html#adcdd12a726668185217ad5623e6c5a43", null ],
+    [ "source_", "classv8_1_1Extension.html#a2039971895fb4b16fa88fa64e5fa34ad", null ],
+    [ "source_length_", "classv8_1_1Extension.html#a7912969d063d4efe694e0450f6ecd8bc", null ]
 ];

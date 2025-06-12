@@ -1,6 +1,6 @@
 var string_format_8h =
 [
-    [ "JoinedStringViews", "structv8_1_1base_1_1impl_1_1JoinedStringViews.html", null ],
+    [ "JoinedStringViews", "structv8_1_1base_1_1impl_1_1JoinedStringViews.html", "structv8_1_1base_1_1impl_1_1JoinedStringViews" ],
     [ "FormattedStringPart< I >", "structv8_1_1base_1_1impl_1_1FormattedStringPart_3_01I_01_4.html", "structv8_1_1base_1_1impl_1_1FormattedStringPart_3_01I_01_4" ],
     [ "FormattedStringPart< S >", "structv8_1_1base_1_1impl_1_1FormattedStringPart_3_01S_01_4.html", "structv8_1_1base_1_1impl_1_1FormattedStringPart_3_01S_01_4" ],
     [ "FormattedString", "classv8_1_1base_1_1FormattedString.html", "classv8_1_1base_1_1FormattedString" ],

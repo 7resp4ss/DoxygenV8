@@ -1,10 +1,27 @@
 \hypertarget{structv8_1_1internal_1_1compiler_1_1LoadEliminationPhase}{}\doxysection{v8\+::internal\+::compiler\+::Load\+Elimination\+Phase Struct Reference}
 \label{structv8_1_1internal_1_1compiler_1_1LoadEliminationPhase}\index{v8::internal::compiler::LoadEliminationPhase@{v8::internal::compiler::LoadEliminationPhase}}
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Load\+Elimination\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{structv8_1_1internal_1_1compiler_1_1LoadEliminationPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1LoadEliminationPhase_a290e8753075560f87395f36d94cbb1df}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
+void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1LoadEliminationPhase_a290e8753075560f87395f36d94cbb1df}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1280 of file pipeline.\+cc.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -16,6 +33,66 @@ void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1LoadEliminationPhase_a
 
 
 
+Definition at line 1283 of file pipeline.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1283                                                   \{}
+\DoxyCodeLine{1284     GraphReducer graph\_reducer(}
+\DoxyCodeLine{1285         temp\_zone, data-\/>graph(), \&data-\/>info()-\/>tick\_counter(), data-\/>broker(),}
+\DoxyCodeLine{1286         data-\/>jsgraph()-\/>Dead(), data-\/>observe\_node\_manager());}
+\DoxyCodeLine{1287     BranchElimination branch\_condition\_elimination(}
+\DoxyCodeLine{1288         \&graph\_reducer, data-\/>jsgraph(), temp\_zone, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BranchElimination_a3cd2bc3f8e83df8c1780cb0ddc3ed991a15d14111cb4ca41f9cee18160516ccae}{BranchElimination::kEARLY}});}
+\DoxyCodeLine{1289     DeadCodeElimination dead\_code\_elimination(\&graph\_reducer, data-\/>graph(),}
+\DoxyCodeLine{1290                                               data-\/>common(), temp\_zone);}
+\DoxyCodeLine{1291     RedundancyElimination redundancy\_elimination(\&graph\_reducer,}
+\DoxyCodeLine{1292                                                  data-\/>jsgraph(), temp\_zone);}
+\DoxyCodeLine{1293     LoadElimination load\_elimination(\&graph\_reducer, data-\/>broker(),}
+\DoxyCodeLine{1294                                      data-\/>jsgraph(), temp\_zone);}
+\DoxyCodeLine{1295     CheckpointElimination checkpoint\_elimination(\&graph\_reducer);}
+\DoxyCodeLine{1296     ValueNumberingReducer value\_numbering(temp\_zone, data-\/>graph()-\/>zone());}
+\DoxyCodeLine{1297     CommonOperatorReducer common\_reducer(}
+\DoxyCodeLine{1298         \&graph\_reducer, data-\/>graph(), data-\/>broker(), data-\/>common(),}
+\DoxyCodeLine{1299         data-\/>machine(), temp\_zone, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac1e15b9d73fa3e3885616519e20c2bfbaf402aae992d64600a4d2086c1eb0c7bf}{BranchSemantics::kJS}});}
+\DoxyCodeLine{1300     TypedOptimization typed\_optimization(\&graph\_reducer, data-\/>dependencies(),}
+\DoxyCodeLine{1301                                          data-\/>jsgraph(), data-\/>broker());}
+\DoxyCodeLine{1302     ConstantFoldingReducer constant\_folding\_reducer(}
+\DoxyCodeLine{1303         \&graph\_reducer, data-\/>jsgraph(), data-\/>broker());}
+\DoxyCodeLine{1304     TypeNarrowingReducer type\_narrowing\_reducer(\&graph\_reducer, data-\/>jsgraph(),}
+\DoxyCodeLine{1305                                                 data-\/>broker());}
+\DoxyCodeLine{1306 }
+\DoxyCodeLine{1307     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&branch\_condition\_elimination);}
+\DoxyCodeLine{1308     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&dead\_code\_elimination);}
+\DoxyCodeLine{1309     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&redundancy\_elimination);}
+\DoxyCodeLine{1310     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&load\_elimination);}
+\DoxyCodeLine{1311     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&type\_narrowing\_reducer);}
+\DoxyCodeLine{1312     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&constant\_folding\_reducer);}
+\DoxyCodeLine{1313     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&typed\_optimization);}
+\DoxyCodeLine{1314     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&checkpoint\_elimination);}
+\DoxyCodeLine{1315     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&common\_reducer);}
+\DoxyCodeLine{1316     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&value\_numbering);}
+\DoxyCodeLine{1317 }
+\DoxyCodeLine{1318     \textcolor{comment}{// ConstantFoldingReducer and TypedOptimization access the heap.}}
+\DoxyCodeLine{1319     UnparkedScopeIfNeeded scope(data-\/>broker());}
+\DoxyCodeLine{1320 }
+\DoxyCodeLine{1321     graph\_reducer.ReduceGraph();}
+\DoxyCodeLine{1322   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{pipeline.\+cc\}\+::\+Add\+Reducer(), v8\+::internal\+::compiler\+::\+Graph\+Reducer\+::graph(), v8\+::internal\+::compiler\+::\+Branch\+Elimination\+::k\+EARLY, v8\+::internal\+::compiler\+::k\+JS, and v8\+::internal\+::compiler\+::\+Graph\+Reducer\+::\+Reduce\+Graph().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1LoadEliminationPhase_a290e8753075560f87395f36d94cbb1df_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}

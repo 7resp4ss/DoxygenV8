@@ -1,19 +1,21 @@
 var read_only_promotion_8cc =
 [
+    [ "Committee", "classv8_1_1internal_1_1anonymous__namespace_02read-only-promotion_8cc_03_1_1Committee.html", "classv8_1_1internal_1_1anonymous__namespace_02read-only-promotion_8cc_03_1_1Committee" ],
+    [ "CandidateVisitor", "classv8_1_1internal_1_1anonymous__namespace_02read-only-promotion_8cc_03_1_1Committee_1_1CandidateVisitor.html", "classv8_1_1internal_1_1anonymous__namespace_02read-only-promotion_8cc_03_1_1Committee_1_1CandidateVisitor" ],
+    [ "ReadOnlyPromotionImpl", "classv8_1_1internal_1_1anonymous__namespace_02read-only-promotion_8cc_03_1_1ReadOnlyPromotionImpl.html", "classv8_1_1internal_1_1anonymous__namespace_02read-only-promotion_8cc_03_1_1ReadOnlyPromotionImpl" ],
+    [ "UpdatePointersVisitor", "classv8_1_1internal_1_1anonymous__namespace_02read-only-promotion_8cc_03_1_1ReadOnlyPromotionImpl_1_1UpdatePointersVisitor.html", "classv8_1_1internal_1_1anonymous__namespace_02read-only-promotion_8cc_03_1_1ReadOnlyPromotionImpl_1_1UpdatePointersVisitor" ],
     [ "DEF_MATCH_HOST_CANDIDATE", "read-only-promotion_8cc.html#aceba6c54f262745230e629f76dbb3cff", null ],
     [ "DEF_PROMO_CANDIDATE", "read-only-promotion_8cc.html#a3eabb841457006c31ef744cf27c3d288", null ],
     [ "PROMO_CANDIDATE_TYPE_LIST", "read-only-promotion_8cc.html#afa6852c766df35906b6be5541d8b24b7", null ],
     [ "V", "read-only-promotion_8cc.html#a3817b0302eef526b3ae851a62eb2cbc7", null ],
-    [ "accepted_subgraph_", "read-only-promotion_8cc.html#afb236c0d0404da58577fb68c30f6a30d", null ],
-    [ "committee_", "read-only-promotion_8cc.html#a7edec60ff60807c0760ed4a6e055b724", null ],
-    [ "first_rejected_slot_offset_", "read-only-promotion_8cc.html#a46f3d97078c1f2f2394e27ec34538b8a", null ],
-    [ "isolate_", "read-only-promotion_8cc.html#a96526e432564dacb2afc9a6f82852541", null ],
-    [ "maybe_host_", "read-only-promotion_8cc.html#ae989c76ddc00093bc19da3c547f5065d", null ],
-    [ "moves_", "read-only-promotion_8cc.html#a5e94fa43618dccbc65cbccee6c942f4d", null ],
-    [ "promo_accepted_", "read-only-promotion_8cc.html#aadd00a8179d394e74f0f981ace3f23ad", null ],
-    [ "promo_deferred_", "read-only-promotion_8cc.html#a084f00abab4999d4dca3115eed46535e", null ],
-    [ "promo_rejected_", "read-only-promotion_8cc.html#a5067abb6bbf942ccac030a9aaf03c887", null ],
-    [ "promotees_", "read-only-promotion_8cc.html#a9a874f4b5b9e6780b65746de81625863", null ],
-    [ "ref_encoder_", "read-only-promotion_8cc.html#af48a22e973d242622a8a5725a6737a4f", null ],
-    [ "visited_", "read-only-promotion_8cc.html#a04891ef3a15af9c21ead613a12710a41", null ]
+    [ "HeapObjectList", "read-only-promotion_8cc.html#a6cde169476b540c1f6b9a7f42ac2d45b", null ],
+    [ "HeapObjectMap", "read-only-promotion_8cc.html#a824c4cab632e1345be4d7ee08a713631", null ],
+    [ "HeapObjectSet", "read-only-promotion_8cc.html#a119eb1ab3d934b33de6314ac113d52c0", null ],
+    [ "PromoRecommendation", "read-only-promotion_8cc.html#ac1c0ed9c741596636880209a697d99de", [
+      [ "kReject", "read-only-promotion_8cc.html#ac1c0ed9c741596636880209a697d99dea8f2fd79d5722327d476c8bb783ea2477", null ],
+      [ "kPromote", "read-only-promotion_8cc.html#ac1c0ed9c741596636880209a697d99dea172d0995d97941b27a0f7012ff47e71e", null ],
+      [ "kMatchHost", "read-only-promotion_8cc.html#ac1c0ed9c741596636880209a697d99dea0b85d65fecf60dd008a8e04e5568eb3b", null ]
+    ] ],
+    [ "Contains", "read-only-promotion_8cc.html#aec172a30be109da7bcec909f32f43e8b", null ],
+    [ "Contains", "read-only-promotion_8cc.html#a996ff47de27ce5f127bdcc0bff48b7f9", null ]
 ];

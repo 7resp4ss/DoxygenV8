@@ -1,12 +1,15 @@
 var classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer =
 [
+    [ "Var", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a9b5a49c2e330b6424dd02724953db46c", null ],
     [ "~BytecodeHandlerReducer", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#ae4603c72d12780dc273de4a855d8164f", null ],
     [ "Advance", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#aea9fb13af606d1252c2c1a98ce1b7ee3", null ],
+    [ "bytecode", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a6b413beda328dec59080bc6294c5d78d", null ],
     [ "BytecodeArrayTaggedPointer", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#ae104bdae0c9fb0fad04e41db0fc691fb", null ],
     [ "BytecodeOffset", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a7bccd7e167eebb30f75fc056aa05c482", null ],
     [ "BytecodeOperand", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a173d0c380071eaab3272ad5912dccf90", null ],
     [ "BytecodeOperandIdxInt32", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a9e8bfd511d70f629970d98ffa3874c75", null ],
     [ "BytecodeUnsignedOperand", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#aefe0d5cf2003f5376376500817b85630", null ],
+    [ "CurrentBytecodeSize", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#ae33776d268fb0773408e229e7b3228d4", null ],
     [ "Dispatch", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a13dda3c276d89d34cef9acfc2a68fc2a", null ],
     [ "DispatchTablePointer", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a98bc3a2ea3efe2319aab2f5f41157a67", null ],
     [ "DispatchToBytecode", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a9f4af8217fd3312ac99cd172d485d5f9", null ],
@@ -20,9 +23,21 @@ var classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer =
     [ "LoadBytecode", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a86cb6e66a8da2c790adf8c6ea3e55bcb", null ],
     [ "LoadFromBytecodeArrayAt", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#ac1ff2ef6e3c8da5044d8e8165fad7816", null ],
     [ "LoadRegister", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#ad36f3c14472b2e1150b42450502d3014", null ],
+    [ "operand_scale", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a8d84dfbc9d3bd159346217ab2ba706fa", null ],
     [ "OperandOffset", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a916f552a3d8d16182a6f51f45e2a30d3", null ],
     [ "ReloadBytecodeOffset", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#ac5c667d3538647c6430b06330f356f2a", null ],
     [ "SetAccumulator", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a24835ee8dd71474bd57005b4197981fb", null ],
     [ "StarDispatchLookahead", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a1ef1c2524feb3d0ac89c4d24a7bbbddb", null ],
-    [ "TailCallBytecodeDispatch", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#afe81c7b0db2239f41a1c79598941ea4a", null ]
+    [ "TailCallBytecodeDispatch", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#afe81c7b0db2239f41a1c79598941ea4a", null ],
+    [ "TrackRegisterUse", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#acc4321597ec2709c65b6a916e7728673", null ],
+    [ "accumulator_", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a5f3a3dbac4144b7ab245ef5b2954b4e9", null ],
+    [ "bytecode_array_", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a14a3a2f34bd091874ef22b1cb81d8c7c", null ],
+    [ "bytecode_offset_", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a1112ce12c451c65ebfb74def78c9c45c", null ],
+    [ "bytecode_offset_parameter_", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a6bbb22b3b26ce5852fe3fbc76282f6c9", null ],
+    [ "data_", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a988023bc6e174801c53c21beb165ed3c", null ],
+    [ "dispatch_table_", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#ac908137b7c5ff6882592aa254bb53801", null ],
+    [ "dispatch_table_parameter_", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a6bc91ccce5c8d98776e0532fe9201c01", null ],
+    [ "graph_zone_", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#a749894579d65e633c116ed56f2d852fa", null ],
+    [ "interpreted_frame_pointer_", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#af48520c1d48d91dd5d3c6d5881176078", null ],
+    [ "isolate_", "classv8_1_1internal_1_1interpreter_1_1BytecodeHandlerReducer.html#acc572065ea71b23edb20e9134bf548dd", null ]
 ];

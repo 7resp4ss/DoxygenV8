@@ -1,0 +1,5 @@
+var classv8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter_generator_8cc_03_1_1Int55d1469087599ae2ab9ed1cf59cd519c =
+[
+    [ "InterpreterSetNamedPropertyAssembler", "classv8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter-generator_8cc_03_1_1Int55d1469087599ae2ab9ed1cf59cd519c.html#a80f9d1e9f144eaf0023a6c1e627ebfbd", null ],
+    [ "SetNamedProperty", "classv8_1_1internal_1_1interpreter_1_1anonymous__namespace_02interpreter-generator_8cc_03_1_1Int55d1469087599ae2ab9ed1cf59cd519c.html#aea1a149b5accc27304547fd4340cf819", null ]
+];

@@ -32,8 +32,15 @@ using \mbox{\hyperlink{classv8_1_1internal_1_1AsmWasmData_a9c025a320987668aa1ce8
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1AsmWasmData}{Asm\+Wasm\+Data}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1AsmWasmData_acc0ab9f86a21e107f090ac2725be47ce}{New}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModule}{wasm\+::\+Native\+Module}} $>$ native\+\_\+module, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapNumber}{Heap\+Number}} $>$ uses\+\_\+bitset)
+static \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1AsmWasmData}{Asm\+Wasm\+Data}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1AsmWasmData_acc0ab9f86a21e107f090ac2725be47ce}{New}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1NativeModule}{wasm\+::\+Native\+Module}} $>$ native\+\_\+module, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapNumber}{Heap\+Number}} $>$ uses\+\_\+bitset)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1365 of file wasm-\/objects.\+h.
+
 
 
 \doxysubsection{Member Typedef Documentation}
@@ -42,6 +49,10 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperl
 \index{BodyDescriptor@{BodyDescriptor}!v8::internal::AsmWasmData@{v8::internal::AsmWasmData}}
 \doxysubsubsection{\texorpdfstring{BodyDescriptor}{BodyDescriptor}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{classv8_1_1internal_1_1AsmWasmData_a9c025a320987668aa1ce8fac68b3ae1e}{v8\+::internal\+::\+Asm\+Wasm\+Data\+::\+Body\+Descriptor}} =  \mbox{\hyperlink{classv8_1_1internal_1_1StructBodyDescriptor}{Struct\+Body\+Descriptor}}}
+
+
+
+Definition at line 1373 of file wasm-\/objects.\+h.
 
 
 
@@ -54,7 +65,53 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperl
 
 
 
+Definition at line 3313 of file wasm-\/objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{3315                                           \{}
+\DoxyCodeLine{3316   \textcolor{keyword}{const} \mbox{\hyperlink{namespacev8_1_1internal_a09dbf9baefb793fd78912d6ef89f9dde}{WasmModule}}* module = native\_module-\/>module();}
+\DoxyCodeLine{3317   \textcolor{keywordtype}{size\_t} memory\_estimate =}
+\DoxyCodeLine{3318       \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmCodeManager_a5b6cfe5d63b1c5f3b54fdb34ed91c863}{wasm::WasmCodeManager::EstimateNativeModuleCodeSize}}(module) +}
+\DoxyCodeLine{3319       \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmCodeManager_a329950b560b30699bd218b9622eedda7}{wasm::WasmCodeManager::EstimateNativeModuleMetaDataSize}}(module);}
+\DoxyCodeLine{3320   DirectHandle<Managed<wasm::NativeModule>> managed\_native\_module =}
+\DoxyCodeLine{3321       \mbox{\hyperlink{classv8_1_1internal_1_1Managed_a1c10cb948281b864db32d8af25a7b7d9}{Managed<wasm::NativeModule>::From}}(isolate, memory\_estimate,}
+\DoxyCodeLine{3322                                         std::move(native\_module));}
+\DoxyCodeLine{3323   \textcolor{keyword}{auto} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = Cast<AsmWasmData>(}
+\DoxyCodeLine{3324       isolate-\/>factory()-\/>NewStruct(ASM\_WASM\_DATA\_TYPE, \mbox{\hyperlink{namespacev8_1_1internal_a604d5beeb6fc8639670f737ed201e20aa0aa38c28f349d65a6819e03844b73dff}{AllocationType::kOld}}));}
+\DoxyCodeLine{3325   \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}-\/>set\_managed\_native\_module(*managed\_native\_module);}
+\DoxyCodeLine{3326   \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}-\/>set\_uses\_bitset(*uses\_bitset);}
+\DoxyCodeLine{3327   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{3328 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::wasm\+::\+Wasm\+Code\+Manager\+::\+Estimate\+Native\+Module\+Code\+Size(), v8\+::internal\+::wasm\+::\+Wasm\+Code\+Manager\+::\+Estimate\+Native\+Module\+Meta\+Data\+Size(), v8\+::internal\+::\+Isolate\+::factory(), v8\+::internal\+::\+Managed$<$ Cpp\+Type $>$\+::\+From(), v8\+::internal\+::k\+Old, v8\+::internal\+::\+Factory\+Base$<$ Impl $>$\+::\+New\+Struct(), and v8\+::base\+::internal\+::result.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Wasm\+Engine\+::\+Sync\+Compile\+Translated\+Asm\+Js().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AsmWasmData_acc0ab9f86a21e107f090ac2725be47ce_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1AsmWasmData_acc0ab9f86a21e107f090ac2725be47ce_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{wasm-objects_8h}{wasm-\/objects.\+h}}\item 
-\mbox{\hyperlink{wasm-objects_8cc}{wasm-\/objects.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{wasm-objects_8h}{wasm-\/objects.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{wasm-objects_8cc}{wasm-\/objects.\+cc}}\end{DoxyCompactItemize}

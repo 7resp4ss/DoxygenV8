@@ -1,0 +1,111 @@
+\hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1TurbolevGraphBuildingPhase}{}\doxysection{v8\+::internal\+::compiler\+::turboshaft\+::Turbolev\+Graph\+Building\+Phase Struct Reference}
+\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1TurbolevGraphBuildingPhase}\index{v8::internal::compiler::turboshaft::TurbolevGraphBuildingPhase@{v8::internal::compiler::turboshaft::TurbolevGraphBuildingPhase}}
+
+
+{\ttfamily \#include $<$turbolev-\/graph-\/builder.\+h$>$}
+
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Turbolev\+Graph\+Building\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1TurbolevGraphBuildingPhase__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::optional$<$ \mbox{\hyperlink{namespacev8_1_1internal_a170d48425b861bac584bb286a25d977f}{Bailout\+Reason}} $>$ \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1TurbolevGraphBuildingPhase_aef215a82c9761d3987f28a19771be339}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData}{Pipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Linkage}{Linkage}} $\ast$linkage)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 15 of file turbolev-\/graph-\/builder.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1TurbolevGraphBuildingPhase_aef215a82c9761d3987f28a19771be339}\label{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1TurbolevGraphBuildingPhase_aef215a82c9761d3987f28a19771be339}} 
+\index{v8::internal::compiler::turboshaft::TurbolevGraphBuildingPhase@{v8::internal::compiler::turboshaft::TurbolevGraphBuildingPhase}!Run@{Run}}
+\index{Run@{Run}!v8::internal::compiler::turboshaft::TurbolevGraphBuildingPhase@{v8::internal::compiler::turboshaft::TurbolevGraphBuildingPhase}}
+\doxysubsubsection{\texorpdfstring{Run()}{Run()}}
+{\footnotesize\ttfamily std\+::optional$<$ \mbox{\hyperlink{namespacev8_1_1internal_a170d48425b861bac584bb286a25d977f}{Bailout\+Reason}} $>$ v8\+::internal\+::compiler\+::turboshaft\+::\+Turbolev\+Graph\+Building\+Phase\+::\+Run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData}{Pipeline\+Data}} $\ast$}]{data,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$}]{temp\+\_\+zone,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Linkage}{Linkage}} $\ast$}]{linkage }\end{DoxyParamCaption})}
+
+
+
+Definition at line 6314 of file turbolev-\/graph-\/builder.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{6319                                                                                \{}
+\DoxyCodeLine{6320   JSHeapBroker* \mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}} = data-\/>broker();}
+\DoxyCodeLine{6321   UnparkedScopeIfNeeded unparked\_scope(\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}});}
+\DoxyCodeLine{6322 }
+\DoxyCodeLine{6323   std::unique\_ptr<maglev::MaglevCompilationInfo> compilation\_info =}
+\DoxyCodeLine{6324       \mbox{\hyperlink{classv8_1_1internal_1_1maglev_1_1MaglevCompilationInfo_ab1c6925d3fa5b41fe65074e249a20eae}{maglev::MaglevCompilationInfo::NewForTurboshaft}}(}
+\DoxyCodeLine{6325           data-\/>isolate(), \mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, data-\/>info()-\/>closure(),}
+\DoxyCodeLine{6326           data-\/>info()-\/>osr\_offset(),}
+\DoxyCodeLine{6327           data-\/>info()-\/>function\_context\_specializing());}
+\DoxyCodeLine{6328 }
+\DoxyCodeLine{6329   \textcolor{comment}{// We need to be certain that the parameter count reported by our output}}
+\DoxyCodeLine{6330   \textcolor{comment}{// Code object matches what the code we compile expects. Otherwise, this}}
+\DoxyCodeLine{6331   \textcolor{comment}{// may lead to effectively signature mismatches during function calls. This}}
+\DoxyCodeLine{6332   \textcolor{comment}{// CHECK is a defense-\/in-\/depth measure to ensure this doesn't happen.}}
+\DoxyCodeLine{6333   \mbox{\hyperlink{check_8h_a6e67d209c0a0c9c55b7b563275f63bdd}{SBXCHECK\_EQ}}(compilation\_info-\/>toplevel\_compilation\_unit()-\/>parameter\_count(),}
+\DoxyCodeLine{6334               linkage-\/>GetIncomingDescriptor()-\/>ParameterSlotCount());}
+\DoxyCodeLine{6335 }
+\DoxyCodeLine{6336   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(data-\/>info()-\/>trace\_turbo\_graph())) \{}
+\DoxyCodeLine{6337     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_af53e4f61c6c90aa4287fd4ac2e9c6474}{PrintBytecode}}(*data, compilation\_info.get());}
+\DoxyCodeLine{6338   \}}
+\DoxyCodeLine{6339 }
+\DoxyCodeLine{6340   LocalIsolate* local\_isolate = \mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}-\/>local\_isolate\_or\_isolate();}
+\DoxyCodeLine{6341   maglev::Graph* maglev\_graph = \mbox{\hyperlink{classv8_1_1internal_1_1maglev_1_1Graph_a9b1ed2322dc32dba8ab0d1271fb09c5b}{maglev::Graph::New}}(compilation\_info.get());}
+\DoxyCodeLine{6342 }
+\DoxyCodeLine{6343   \textcolor{comment}{// We always create a MaglevGraphLabeller in order to record source positions.}}
+\DoxyCodeLine{6344   compilation\_info-\/>set\_graph\_labeller(\textcolor{keyword}{new} maglev::MaglevGraphLabeller());}
+\DoxyCodeLine{6345 }
+\DoxyCodeLine{6346   maglev::MaglevGraphBuilder maglev\_graph\_builder(}
+\DoxyCodeLine{6347       local\_isolate, compilation\_info-\/>toplevel\_compilation\_unit(),}
+\DoxyCodeLine{6348       maglev\_graph);}
+\DoxyCodeLine{6349   maglev\_graph\_builder.Build();}
+\DoxyCodeLine{6350 }
+\DoxyCodeLine{6351   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(data-\/>info()-\/>trace\_turbo\_graph())) \{}
+\DoxyCodeLine{6352     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_acdf5bf9275e5ee36b2d2997d7e4ed1af}{PrintMaglevGraph}}(*data, maglev\_graph, \textcolor{stringliteral}{"{}After graph building"{}});}
+\DoxyCodeLine{6353   \}}
+\DoxyCodeLine{6354 }
+\DoxyCodeLine{6355   \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ad09a3d9d71e41defea744f36deeb1874}{RunMaglevOptimizations}}(data, compilation\_info.get(), maglev\_graph);}
+\DoxyCodeLine{6356 }
+\DoxyCodeLine{6357   \textcolor{comment}{// TODO(nicohartmann): Should we have source positions here?}}
+\DoxyCodeLine{6358   data-\/>InitializeGraphComponent(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{6359 }
+\DoxyCodeLine{6360   std::optional<BailoutReason> bailout;}
+\DoxyCodeLine{6361   maglev::GraphProcessor<NodeProcessorBase, true> builder(}
+\DoxyCodeLine{6362       data, data-\/>graph(), temp\_zone,}
+\DoxyCodeLine{6363       compilation\_info-\/>toplevel\_compilation\_unit(), \&bailout);}
+\DoxyCodeLine{6364   builder.ProcessGraph(maglev\_graph);}
+\DoxyCodeLine{6365 }
+\DoxyCodeLine{6366   \textcolor{comment}{// Copying \{inlined\_functions\} from Maglev to Turboshaft.}}
+\DoxyCodeLine{6367   \textcolor{keywordflow}{for} (OptimizedCompilationInfo::InlinedFunctionHolder holder :}
+\DoxyCodeLine{6368        maglev\_graph-\/>inlined\_functions()) \{}
+\DoxyCodeLine{6369     data-\/>info()-\/>inlined\_functions().push\_back(holder);}
+\DoxyCodeLine{6370   \}}
+\DoxyCodeLine{6371 }
+\DoxyCodeLine{6372   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(bailout.has\_value() \&\&}
+\DoxyCodeLine{6373                   (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_turbo || \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_turbo\_graph))) \{}
+\DoxyCodeLine{6374     \textcolor{comment}{// If we've bailed out, then we've probably left the graph in some kind of}}
+\DoxyCodeLine{6375     \textcolor{comment}{// invalid state. We Reset it now, so that -\/-\/trace-\/turbo doesn't try to}}
+\DoxyCodeLine{6376     \textcolor{comment}{// print an invalid graph.}}
+\DoxyCodeLine{6377     data-\/>graph().Reset();}
+\DoxyCodeLine{6378   \}}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{turbolev-graph-builder_8h}{turbolev-\/graph-\/builder.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{turbolev-graph-builder_8cc}{turbolev-\/graph-\/builder.\+cc}}\end{DoxyCompactItemize}

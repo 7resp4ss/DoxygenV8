@@ -1,19 +1,19 @@
 var frame_constants_8h =
 [
-    [ "CommonFrameConstants", "classv8_1_1internal_1_1CommonFrameConstants.html", null ],
-    [ "StandardFrameConstants", "classv8_1_1internal_1_1StandardFrameConstants.html", null ],
-    [ "TypedFrameConstants", "classv8_1_1internal_1_1TypedFrameConstants.html", null ],
+    [ "CommonFrameConstants", "classv8_1_1internal_1_1CommonFrameConstants.html", "classv8_1_1internal_1_1CommonFrameConstants" ],
+    [ "StandardFrameConstants", "classv8_1_1internal_1_1StandardFrameConstants.html", "classv8_1_1internal_1_1StandardFrameConstants" ],
+    [ "TypedFrameConstants", "classv8_1_1internal_1_1TypedFrameConstants.html", "classv8_1_1internal_1_1TypedFrameConstants" ],
     [ "BuiltinFrameConstants", "classv8_1_1internal_1_1BuiltinFrameConstants.html", "classv8_1_1internal_1_1BuiltinFrameConstants" ],
     [ "ConstructFrameConstants", "classv8_1_1internal_1_1ConstructFrameConstants.html", "classv8_1_1internal_1_1ConstructFrameConstants" ],
     [ "FastConstructFrameConstants", "classv8_1_1internal_1_1FastConstructFrameConstants.html", "classv8_1_1internal_1_1FastConstructFrameConstants" ],
     [ "BuiltinContinuationFrameConstants", "classv8_1_1internal_1_1BuiltinContinuationFrameConstants.html", "classv8_1_1internal_1_1BuiltinContinuationFrameConstants" ],
     [ "ExitFrameConstants", "classv8_1_1internal_1_1ExitFrameConstants.html", "classv8_1_1internal_1_1ExitFrameConstants" ],
-    [ "BuiltinExitFrameConstants", "classv8_1_1internal_1_1BuiltinExitFrameConstants.html", null ],
-    [ "ApiCallbackExitFrameConstants", "classv8_1_1internal_1_1ApiCallbackExitFrameConstants.html", null ],
-    [ "ApiAccessorExitFrameConstants", "classv8_1_1internal_1_1ApiAccessorExitFrameConstants.html", null ],
+    [ "BuiltinExitFrameConstants", "classv8_1_1internal_1_1BuiltinExitFrameConstants.html", "classv8_1_1internal_1_1BuiltinExitFrameConstants" ],
+    [ "ApiCallbackExitFrameConstants", "classv8_1_1internal_1_1ApiCallbackExitFrameConstants.html", "classv8_1_1internal_1_1ApiCallbackExitFrameConstants" ],
+    [ "ApiAccessorExitFrameConstants", "classv8_1_1internal_1_1ApiAccessorExitFrameConstants.html", "classv8_1_1internal_1_1ApiAccessorExitFrameConstants" ],
     [ "UnoptimizedFrameConstants", "classv8_1_1internal_1_1UnoptimizedFrameConstants.html", "classv8_1_1internal_1_1UnoptimizedFrameConstants" ],
-    [ "InterpreterFrameConstants", "classv8_1_1internal_1_1InterpreterFrameConstants.html", null ],
-    [ "BaselineFrameConstants", "classv8_1_1internal_1_1BaselineFrameConstants.html", null ],
+    [ "InterpreterFrameConstants", "classv8_1_1internal_1_1InterpreterFrameConstants.html", "classv8_1_1internal_1_1InterpreterFrameConstants" ],
+    [ "BaselineFrameConstants", "classv8_1_1internal_1_1BaselineFrameConstants.html", "classv8_1_1internal_1_1BaselineFrameConstants" ],
     [ "DEFINE_EXIT_FRAME_SIZES", "frame-constants_8h.html#a205ac3649833a13fdd221e731b2839cd", null ],
     [ "DEFINE_FRAME_SIZES", "frame-constants_8h.html#a0d8e95c30d21f62421364089f03b1925", null ],
     [ "DEFINE_STANDARD_FRAME_SIZES", "frame-constants_8h.html#a258032fc2f4ce812c6e408dfa66b7f11", null ],
@@ -23,5 +23,7 @@ var frame_constants_8h =
     [ "FRAME_SIZE", "frame-constants_8h.html#a030ef69bac3e1b07f63f851d02ab4445", null ],
     [ "FRAME_SIZE_FROM_FP", "frame-constants_8h.html#aa75ab626554b0495aaec49e531ed076a", null ],
     [ "STANDARD_FRAME_EXTRA_PUSHED_VALUE_OFFSET", "frame-constants_8h.html#a0992f7064d281cc4bf6bc141db2671ac", null ],
-    [ "TYPED_FRAME_PUSHED_VALUE_OFFSET", "frame-constants_8h.html#a142dd86cca3205cd978ad544f35af638", null ]
+    [ "TYPED_FRAME_PUSHED_VALUE_OFFSET", "frame-constants_8h.html#a142dd86cca3205cd978ad544f35af638", null ],
+    [ "FPOffsetToFrameSlot", "frame-constants_8h.html#a07df43341e1e115a1cac1cbebf22ec27", null ],
+    [ "FrameSlotToFPOffset", "frame-constants_8h.html#aede571877922b4f841838121c7ce71c1", null ]
 ];

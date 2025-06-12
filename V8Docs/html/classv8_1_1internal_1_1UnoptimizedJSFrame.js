@@ -1,6 +1,7 @@
 var classv8_1_1internal_1_1UnoptimizedJSFrame =
 [
     [ "UnoptimizedJSFrame", "classv8_1_1internal_1_1UnoptimizedJSFrame.html#a4042e78ebef76cc121d191e2900be0b3", null ],
+    [ "cast", "classv8_1_1internal_1_1UnoptimizedJSFrame.html#ab04a430ad71f1dcce8d127b78208b2a2", null ],
     [ "GetBytecodeArray", "classv8_1_1internal_1_1UnoptimizedJSFrame.html#a85b8d7dc4efbb9c736b1a284b49dc8fe", null ],
     [ "GetBytecodeOffset", "classv8_1_1internal_1_1UnoptimizedJSFrame.html#ad5945baebb01acbc6a274bb640391dd8", null ],
     [ "GetExpressionAddress", "classv8_1_1internal_1_1UnoptimizedJSFrame.html#a5cf08a631ae6d648c85924f09776e652", null ],

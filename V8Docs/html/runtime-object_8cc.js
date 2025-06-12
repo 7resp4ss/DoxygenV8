@@ -6,6 +6,12 @@ var runtime_object_8cc =
       [ "kPrivateAccessor", "runtime-object_8cc.html#a07f2d9f3a42446ed467cf95f8f4af506a1fcfb1580d5bab5a971db1fbdd2530ff", null ],
       [ "kPrivateMethod", "runtime-object_8cc.html#a07f2d9f3a42446ed467cf95f8f4af506a5aa46f4cb099a5da2cf1aecb389bfc64", null ]
     ] ],
+    [ "CheckExcludedPropertiesAreOnCallerStack", "runtime-object_8cc.html#ae0cf491a52cc37b4826cc9ce98c1c113", null ],
+    [ "CollectPrivateMembersFromReceiver", "runtime-object_8cc.html#aae1db348645a51eddcd2e47975b3584b", null ],
+    [ "CollectPrivateMethodsAndAccessorsFromContext", "runtime-object_8cc.html#ae670abff49b43b48623f7e1aaa51af3b", null ],
+    [ "DeleteProperty", "runtime-object_8cc.html#a0c004a8edbf98adaaea91d47c939a8e3", null ],
+    [ "FindPrivateMembersFromReceiver", "runtime-object_8cc.html#a29d622486a9221f991e7f87da1077a3f", null ],
+    [ "IsValidAccessor", "runtime-object_8cc.html#aa6bad8704cddac10f4c783858182b195", null ],
     [ "RUNTIME_FUNCTION", "runtime-object_8cc.html#aea49180cb6db013bb0a5fd26ef26dc97", null ],
     [ "RUNTIME_FUNCTION", "runtime-object_8cc.html#acaab91cd51f71d1127b24f4d27b7b580", null ],
     [ "RUNTIME_FUNCTION", "runtime-object_8cc.html#a79d1a12fea94844d2286b6a3663f6ab3", null ],

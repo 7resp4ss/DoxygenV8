@@ -6,6 +6,7 @@ var classv8__inspector_1_1V8InspectorSession =
     [ "addInspectedObject", "classv8__inspector_1_1V8InspectorSession.html#a2fb546beada5045879ba599a26799aed", null ],
     [ "breakProgram", "classv8__inspector_1_1V8InspectorSession.html#a7b202886a0fb8357c987c52d5fa6e505", null ],
     [ "cancelPauseOnNextStatement", "classv8__inspector_1_1V8InspectorSession.html#ad2fc03b00f72ed1d126523611c2ee4f4", null ],
+    [ "canDispatchMethod", "classv8__inspector_1_1V8InspectorSession.html#a401c0bc714fe3adef8e8498543f07307", null ],
     [ "dispatchProtocolMessage", "classv8__inspector_1_1V8InspectorSession.html#aae2fc063675a465bbb4bb6a79c6b215b", null ],
     [ "evaluate", "classv8__inspector_1_1V8InspectorSession.html#adfff7fae6af8943c5b23464ddb991db4", null ],
     [ "releaseObjectGroup", "classv8__inspector_1_1V8InspectorSession.html#a0833cfddf79ac1d00d26842627496663", null ],

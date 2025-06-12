@@ -11,7 +11,17 @@ Inheritance diagram for cppgc\+::internal\+::Concurrent\+Marker\+Base\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=228pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase__inherit__graph}
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for cppgc\+::internal\+::Concurrent\+Marker\+Base\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -33,7 +43,7 @@ bool \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a29893ff8aa
 \item 
 void \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a88d2675832a8339a30cd5e74fe939307}{Notify\+Incremental\+Mutator\+Step\+Completed}} ()
 \item 
-void \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a9bce441a403738f319c38e1a46f6690a}{Notify\+Of\+Work\+If\+Needed}} (\mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051}{cppgc\+::\+Task\+Priority}} \mbox{\hyperlink{module-compiler_8cc_a12a507bc765598b5db4100af52f045e3}{priority}})
+void \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a9bce441a403738f319c38e1a46f6690a}{Notify\+Of\+Work\+If\+Needed}} (\mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051}{cppgc\+::\+Task\+Priority}} priority)
 \item 
 bool \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa454abacf2126bc374a7acc65a5da892}{Is\+Active}} () const
 \item 
@@ -54,6 +64,30 @@ virtual std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classcppgc_1_1Visitor}{Visito
 \item 
 void \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa7be42ec911517be0b45d6bc4a4b7aae}{Increase\+Marking\+Priority\+If\+Needed}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}} \& \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2901742c6a7951a62e48ec2df422ca88}{heap\+\_\+}}
+\item 
+\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists}{Marking\+Worklists}} \& \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_af92601ce3568b2a99b911e42e4ffdf5c}{marking\+\_\+worklists\+\_\+}}
+\item 
+\mbox{\hyperlink{classheap_1_1base_1_1IncrementalMarkingSchedule}{heap\+::base\+::\+Incremental\+Marking\+Schedule}} \& \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2350ea16a0584d513e0aaa54b1b08728}{incremental\+\_\+marking\+\_\+schedule\+\_\+}}
+\item 
+\mbox{\hyperlink{classcppgc_1_1Platform}{cppgc\+::\+Platform}} $\ast$const \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a90a060e1c66900e32df08d8c27b480f1}{platform\+\_\+}}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{namespacecppgc_a4607b4a641e66d8d659a26e3de353799}{Job\+Handle}} $>$ \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\+\_\+marking\+\_\+handle\+\_\+}} \{\mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}\}
+\item 
+std\+::atomic$<$ size\+\_\+t $>$ \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a78b106ab61471e70848014c0fda3aeff}{concurrently\+\_\+marked\+\_\+bytes\+\_\+}} = 0
+\item 
+bool \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa2e5d8ffc7d0393f4dc19931dec74850}{concurrent\+\_\+marking\+\_\+priority\+\_\+increased\+\_\+}} \{\mbox{\hyperlink{namespacecppgc_1_1internal_a2a5dad15bdcff089a6dd4f1ab48d6433}{false}}\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 17 of file concurrent-\/marker.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -63,11 +97,39 @@ void \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa7be42ec91
 \doxysubsubsection{\texorpdfstring{ConcurrentMarkerBase()}{ConcurrentMarkerBase()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Concurrent\+Marker\+Base (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}} \&}]{heap,  }\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists}{Marking\+Worklists}} \&}]{marking\+\_\+worklists,  }\item[{\mbox{\hyperlink{classheap_1_1base_1_1IncrementalMarkingSchedule}{heap\+::base\+::\+Incremental\+Marking\+Schedule}} \&}]{incremental\+\_\+marking\+\_\+schedule,  }\item[{\mbox{\hyperlink{classcppgc_1_1Platform}{cppgc\+::\+Platform}} $\ast$}]{platform }\end{DoxyParamCaption})}
 
+
+
+Definition at line 176 of file concurrent-\/marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{180     : \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2901742c6a7951a62e48ec2df422ca88}{heap\_}}(\mbox{\hyperlink{namespaceheap}{heap}}),}
+\DoxyCodeLine{181       \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_af92601ce3568b2a99b911e42e4ffdf5c}{marking\_worklists\_}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a669438d912df471aee84b47a39e66f0a}{marking\_worklists}}),}
+\DoxyCodeLine{182       \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2350ea16a0584d513e0aaa54b1b08728}{incremental\_marking\_schedule\_}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a7d6ec834587b4ba98495e7087d54c214}{incremental\_marking\_schedule}}),}
+\DoxyCodeLine{183       \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a90a060e1c66900e32df08d8c27b480f1}{platform\_}}(platform) \{\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_ae121d25b02a97776d79945cadc9abe97}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_ae121d25b02a97776d79945cadc9abe97}} 
 \index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!````~ConcurrentMarkerBase@{$\sim$ConcurrentMarkerBase}}
 \index{````~ConcurrentMarkerBase@{$\sim$ConcurrentMarkerBase}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
 \doxysubsubsection{\texorpdfstring{$\sim$ConcurrentMarkerBase()}{~ConcurrentMarkerBase()}}
 {\footnotesize\ttfamily cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::$\sim$\+Concurrent\+Marker\+Base (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 218 of file concurrent-\/marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{218                                             \{}
+\DoxyCodeLine{219   \mbox{\hyperlink{src_2base_2logging_8h_a2c0c4cea27d0690467662bb05131b2af}{CHECK\_IMPLIES}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}},}
+\DoxyCodeLine{220                 !\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}}-\/>IsValid());}
+\DoxyCodeLine{221 \}}
+
+\end{DoxyCode}
+
+
+References CHECK\+\_\+\+IMPLIES, and concurrent\+\_\+marking\+\_\+handle\+\_\+.
 
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a139524a642849ec6232c1a668fd49616}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a139524a642849ec6232c1a668fd49616}} 
 \index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!ConcurrentMarkerBase@{ConcurrentMarkerBase}}
@@ -84,11 +146,66 @@ void \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa7be42ec91
 \doxysubsubsection{\texorpdfstring{AddConcurrentlyMarkedBytes()}{AddConcurrentlyMarkedBytes()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Add\+Concurrently\+Marked\+Bytes (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{marked\+\_\+bytes }\end{DoxyParamCaption})}
 
+
+
+Definition at line 213 of file concurrent-\/marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{213                                                                          \{}
+\DoxyCodeLine{214   \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a78b106ab61471e70848014c0fda3aeff}{concurrently\_marked\_bytes\_}}.fetch\_add(marked\_bytes, std::memory\_order\_relaxed);}
+\DoxyCodeLine{215   \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a7d6ec834587b4ba98495e7087d54c214}{incremental\_marking\_schedule}}().\mbox{\hyperlink{classheap_1_1base_1_1IncrementalMarkingSchedule_ae6046f095c1234961a1159f7479aed11}{AddConcurrentlyMarkedBytes}}(marked\_bytes);}
+\DoxyCodeLine{216 \}}
+
+\end{DoxyCode}
+
+
+References heap\+::base\+::\+Incremental\+Marking\+Schedule\+::\+Add\+Concurrently\+Marked\+Bytes(), concurrently\+\_\+marked\+\_\+bytes\+\_\+, and incremental\+\_\+marking\+\_\+schedule().
+
+
+
+Referenced by cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::\+Drain\+Worklist\+With\+Yielding(), and cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::\+Concurrent\+Marking\+Task\+::\+Run().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a3c87ade86028795796b7aacb51158fbd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a3c87ade86028795796b7aacb51158fbd_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a29893ff8aae7a40f2626c54558a45ead}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a29893ff8aae7a40f2626c54558a45ead}} 
 \index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!Cancel@{Cancel}}
 \index{Cancel@{Cancel}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
 \doxysubsubsection{\texorpdfstring{Cancel()}{Cancel()}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Cancel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 201 of file concurrent-\/marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{201                                   \{}
+\DoxyCodeLine{202   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}} || !\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}}-\/>IsValid())}
+\DoxyCodeLine{203     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{204 }
+\DoxyCodeLine{205   \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}}-\/>Cancel();}
+\DoxyCodeLine{206   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{207 \}}
+
+\end{DoxyCode}
+
+
+References concurrent\+\_\+marking\+\_\+handle\+\_\+.
 
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a08a5def4df5c85fba581fe89f79e1cc8}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a08a5def4df5c85fba581fe89f79e1cc8}} 
 \index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!concurrently\_marked\_bytes@{concurrently\_marked\_bytes}}
@@ -96,6 +213,29 @@ void \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa7be42ec91
 \doxysubsubsection{\texorpdfstring{concurrently\_marked\_bytes()}{concurrently\_marked\_bytes()}}
 {\footnotesize\ttfamily size\+\_\+t cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::concurrently\+\_\+marked\+\_\+bytes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 45 of file concurrent-\/marker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{45                                            \{}
+\DoxyCodeLine{46     \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a78b106ab61471e70848014c0fda3aeff}{concurrently\_marked\_bytes\_}}.load(std::memory\_order\_relaxed);}
+\DoxyCodeLine{47   \}}
+
+\end{DoxyCode}
+
+
+Referenced by cppgc\+::internal\+::\+Marker\+Base\+::\+Leave\+Atomic\+Pause().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a08a5def4df5c85fba581fe89f79e1cc8_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a4a05e80760c98add3571570fb3092f5a}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a4a05e80760c98add3571570fb3092f5a}} 
 \index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!CreateConcurrentMarkingVisitor@{CreateConcurrentMarkingVisitor}}
 \index{CreateConcurrentMarkingVisitor@{CreateConcurrentMarkingVisitor}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
@@ -104,56 +244,329 @@ void \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa7be42ec91
 
 
 
-Implemented in \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarker_a6e16bf4a5b428026edc13db2f9e37cfb}{cppgc\+::internal\+::\+Concurrent\+Marker}}.
+Implemented in \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02cpp-heap_8cc_03_1_1UnifiedHeapConcurrentMarker_a8cdd87f9159b8058620c18cd8339d04b}{v8\+::internal\+::anonymous\+\_\+namespace\{cpp-\/heap.\+cc\}\+::\+Unified\+Heap\+Concurrent\+Marker}}, and \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarker_a6e16bf4a5b428026edc13db2f9e37cfb}{cppgc\+::internal\+::\+Concurrent\+Marker}}.
 
+
+
+Referenced by cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::\+Concurrent\+Marking\+Task\+::\+Run().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a4a05e80760c98add3571570fb3092f5a_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_ad3d739631ec35624058e5a3e6877c345}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_ad3d739631ec35624058e5a3e6877c345}} 
 \index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!heap@{heap}}
 \index{heap@{heap}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
 \doxysubsubsection{\texorpdfstring{heap()}{heap()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}}\& cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::heap (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 38 of file concurrent-\/marker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{38 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2901742c6a7951a62e48ec2df422ca88}{heap\_}}; \}}
+
+\end{DoxyCode}
+
+
+Referenced by cppgc\+::internal\+::\+Concurrent\+Marker\+::\+Create\+Concurrent\+Marking\+Visitor(), cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::\+Concurrent\+Marking\+Task\+::\+Process\+Worklists(), and cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::\+Concurrent\+Marking\+Task\+::\+Run().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_ad3d739631ec35624058e5a3e6877c345_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa7be42ec911517be0b45d6bc4a4b7aae}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa7be42ec911517be0b45d6bc4a4b7aae}} 
 \index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!IncreaseMarkingPriorityIfNeeded@{IncreaseMarkingPriorityIfNeeded}}
 \index{IncreaseMarkingPriorityIfNeeded@{IncreaseMarkingPriorityIfNeeded}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
 \doxysubsubsection{\texorpdfstring{IncreaseMarkingPriorityIfNeeded()}{IncreaseMarkingPriorityIfNeeded()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Increase\+Marking\+Priority\+If\+Needed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 240 of file concurrent-\/marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{240                                                            \{}
+\DoxyCodeLine{241   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}}-\/>UpdatePriorityEnabled() ||}
+\DoxyCodeLine{242       \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa2e5d8ffc7d0393f4dc19931dec74850}{concurrent\_marking\_priority\_increased\_}}) \{}
+\DoxyCodeLine{243     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{244   \}}
+\DoxyCodeLine{245   \textcolor{comment}{// If concurrent tasks aren't executed, it might delay GC finalization. As}}
+\DoxyCodeLine{246   \textcolor{comment}{// long as GC is active so is the write barrier, which incurs a performance}}
+\DoxyCodeLine{247   \textcolor{comment}{// cost. Marking is estimated to take overall}}
+\DoxyCodeLine{248   \textcolor{comment}{// |MarkingSchedulingOracle::kEstimatedMarkingTime|. If concurrent marking}}
+\DoxyCodeLine{249   \textcolor{comment}{// tasks have not reported any progress (i.e. the concurrently marked bytes}}
+\DoxyCodeLine{250   \textcolor{comment}{// count as not changed) in over}}
+\DoxyCodeLine{251   \textcolor{comment}{// |kMarkingScheduleRatioBeforeConcurrentPriorityIncrease| of that expected}}
+\DoxyCodeLine{252   \textcolor{comment}{// duration, we increase the concurrent task priority for the duration of the}}
+\DoxyCodeLine{253   \textcolor{comment}{// current GC. This is meant to prevent the GC from exceeding it's expected}}
+\DoxyCodeLine{254   \textcolor{comment}{// end time.}}
+\DoxyCodeLine{255   \textcolor{keyword}{const} \textcolor{keyword}{auto} time\_delta =}
+\DoxyCodeLine{256       \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2350ea16a0584d513e0aaa54b1b08728}{incremental\_marking\_schedule\_}}.\mbox{\hyperlink{classheap_1_1base_1_1IncrementalMarkingSchedule_a98e6c1238500240a1fce6601e7920b54}{GetTimeSinceLastConcurrentMarkingUpdate}}();}
+\DoxyCodeLine{257   \textcolor{keywordflow}{if} (!time\_delta.IsZero() \&\&}
+\DoxyCodeLine{258       (time\_delta.InMillisecondsF() >}
+\DoxyCodeLine{259        (\mbox{\hyperlink{classheap_1_1base_1_1IncrementalMarkingSchedule_ac3094cff47a78f40a06c480810dc287f}{heap::base::IncrementalMarkingSchedule::kEstimatedMarkingTime}}}
+\DoxyCodeLine{260             .\mbox{\hyperlink{classv8_1_1base_1_1TimeDelta_a494cc64764a7ba009367e2e8b64496de}{InMillisecondsF}}() *}
+\DoxyCodeLine{261         \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_a7073e87cabd2aab7083ad3f65dfec9f2}{kMarkingScheduleRatioBeforeConcurrentPriorityIncrease}}))) \{}
+\DoxyCodeLine{262     \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}}-\/>UpdatePriority(}
+\DoxyCodeLine{263         \mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051a495bb545d1c5053ead9743a8b7692209}{cppgc::TaskPriority::kUserBlocking}});}
+\DoxyCodeLine{264     \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa2e5d8ffc7d0393f4dc19931dec74850}{concurrent\_marking\_priority\_increased\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{265   \}}
+\DoxyCodeLine{266 \}}
+
+\end{DoxyCode}
+
+
+References concurrent\+\_\+marking\+\_\+handle\+\_\+, concurrent\+\_\+marking\+\_\+priority\+\_\+increased\+\_\+, heap\+::base\+::\+Incremental\+Marking\+Schedule\+::\+Get\+Time\+Since\+Last\+Concurrent\+Marking\+Update(), incremental\+\_\+marking\+\_\+schedule\+\_\+, v8\+::base\+::\+Time\+Delta\+::\+In\+Milliseconds\+F(), heap\+::base\+::\+Incremental\+Marking\+Schedule\+::k\+Estimated\+Marking\+Time, cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::k\+Marking\+Schedule\+Ratio\+Before\+Concurrent\+Priority\+Increase, and v8\+::k\+User\+Blocking.
+
+
+
+Referenced by Notify\+Incremental\+Mutator\+Step\+Completed().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa7be42ec911517be0b45d6bc4a4b7aae_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa7be42ec911517be0b45d6bc4a4b7aae_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a7d6ec834587b4ba98495e7087d54c214}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a7d6ec834587b4ba98495e7087d54c214}} 
 \index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!incremental\_marking\_schedule@{incremental\_marking\_schedule}}
 \index{incremental\_marking\_schedule@{incremental\_marking\_schedule}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
 \doxysubsubsection{\texorpdfstring{incremental\_marking\_schedule()}{incremental\_marking\_schedule()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classheap_1_1base_1_1IncrementalMarkingSchedule}{heap\+::base\+::\+Incremental\+Marking\+Schedule}}\& cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::incremental\+\_\+marking\+\_\+schedule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 40 of file concurrent-\/marker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40                                                                            \{}
+\DoxyCodeLine{41     \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2350ea16a0584d513e0aaa54b1b08728}{incremental\_marking\_schedule\_}};}
+\DoxyCodeLine{42   \}}
+
+\end{DoxyCode}
+
+
+Referenced by Add\+Concurrently\+Marked\+Bytes().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a7d6ec834587b4ba98495e7087d54c214_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa454abacf2126bc374a7acc65a5da892}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa454abacf2126bc374a7acc65a5da892}} 
 \index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!IsActive@{IsActive}}
 \index{IsActive@{IsActive}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
 \doxysubsubsection{\texorpdfstring{IsActive()}{IsActive()}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Is\+Active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Definition at line 209 of file concurrent-\/marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{209                                           \{}
+\DoxyCodeLine{210   \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}} \&\& \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}}-\/>IsValid();}
+\DoxyCodeLine{211 \}}
+
+\end{DoxyCode}
+
+
+References concurrent\+\_\+marking\+\_\+handle\+\_\+.
+
+
+
+Referenced by cppgc\+::internal\+::\+Marker\+Base\+::\+Enter\+Atomic\+Pause(), cppgc\+::internal\+::\+Marker\+Base\+::\+Notify\+Concurrent\+Marking\+Of\+Work\+If\+Needed(), and cppgc\+::internal\+::\+Marker\+Base\+::\+Re\+Enable\+Concurrent\+Marking().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa454abacf2126bc374a7acc65a5da892_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2ef9c91706a12188a4d85788c35a4a02}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2ef9c91706a12188a4d85788c35a4a02}} 
 \index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!Join@{Join}}
 \index{Join@{Join}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
 \doxysubsubsection{\texorpdfstring{Join()}{Join()}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Join (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 193 of file concurrent-\/marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{193                                 \{}
+\DoxyCodeLine{194   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}} || !\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}}-\/>IsValid())}
+\DoxyCodeLine{195     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{196 }
+\DoxyCodeLine{197   \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}}-\/>Join();}
+\DoxyCodeLine{198   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{199 \}}
+
+\end{DoxyCode}
+
+
+References concurrent\+\_\+marking\+\_\+handle\+\_\+.
+
+
+
+Referenced by cppgc\+::internal\+::\+Marker\+Base\+::\+Wait\+For\+Concurrent\+Marking\+For\+Testing().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2ef9c91706a12188a4d85788c35a4a02_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a669438d912df471aee84b47a39e66f0a}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a669438d912df471aee84b47a39e66f0a}} 
 \index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!marking\_worklists@{marking\_worklists}}
 \index{marking\_worklists@{marking\_worklists}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
 \doxysubsubsection{\texorpdfstring{marking\_worklists()}{marking\_worklists()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists}{Marking\+Worklists}}\& cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::marking\+\_\+worklists (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 39 of file concurrent-\/marker.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_af92601ce3568b2a99b911e42e4ffdf5c}{marking\_worklists\_}}; \}}
+
+\end{DoxyCode}
+
+
+Referenced by cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::\+Concurrent\+Marking\+Task\+::\+Get\+Max\+Concurrency(), and cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::\+Concurrent\+Marking\+Task\+::\+Run().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a669438d912df471aee84b47a39e66f0a_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a88d2675832a8339a30cd5e74fe939307}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a88d2675832a8339a30cd5e74fe939307}} 
 \index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!NotifyIncrementalMutatorStepCompleted@{NotifyIncrementalMutatorStepCompleted}}
 \index{NotifyIncrementalMutatorStepCompleted@{NotifyIncrementalMutatorStepCompleted}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
 \doxysubsubsection{\texorpdfstring{NotifyIncrementalMutatorStepCompleted()}{NotifyIncrementalMutatorStepCompleted()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Notify\+Incremental\+Mutator\+Step\+Completed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 223 of file concurrent-\/marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{223                                                                  \{}
+\DoxyCodeLine{224   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}});}
+\DoxyCodeLine{225   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_acc676f4d55fdf4d7a38dc51dea1bd2b4}{HasWorkForConcurrentMarking}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_af92601ce3568b2a99b911e42e4ffdf5c}{marking\_worklists\_}})) \{}
+\DoxyCodeLine{226     \textcolor{comment}{// Notifies the scheduler that max concurrency might have increased.}}
+\DoxyCodeLine{227     \textcolor{comment}{// This will adjust the number of markers if necessary.}}
+\DoxyCodeLine{228     \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa7be42ec911517be0b45d6bc4a4b7aae}{IncreaseMarkingPriorityIfNeeded}}();}
+\DoxyCodeLine{229     \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}}-\/>NotifyConcurrencyIncrease();}
+\DoxyCodeLine{230   \}}
+\DoxyCodeLine{231 \}}
+
+\end{DoxyCode}
+
+
+References concurrent\+\_\+marking\+\_\+handle\+\_\+, DCHECK, cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::\+Has\+Work\+For\+Concurrent\+Marking(), Increase\+Marking\+Priority\+If\+Needed(), and marking\+\_\+worklists\+\_\+.
+
+
+
+Referenced by cppgc\+::internal\+::\+Marker\+Base\+::\+Advance\+Marking\+With\+Limits\+Epilogue(), and cppgc\+::internal\+::\+Marker\+Base\+::\+Enter\+Atomic\+Pause().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a88d2675832a8339a30cd5e74fe939307_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a88d2675832a8339a30cd5e74fe939307_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a9bce441a403738f319c38e1a46f6690a}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a9bce441a403738f319c38e1a46f6690a}} 
 \index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!NotifyOfWorkIfNeeded@{NotifyOfWorkIfNeeded}}
 \index{NotifyOfWorkIfNeeded@{NotifyOfWorkIfNeeded}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
 \doxysubsubsection{\texorpdfstring{NotifyOfWorkIfNeeded()}{NotifyOfWorkIfNeeded()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Notify\+Of\+Work\+If\+Needed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051}{cppgc\+::\+Task\+Priority}}}]{priority }\end{DoxyParamCaption})}
 
+
+
+Definition at line 233 of file concurrent-\/marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{233                                                                           \{}
+\DoxyCodeLine{234   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_acc676f4d55fdf4d7a38dc51dea1bd2b4}{HasWorkForConcurrentMarking}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_af92601ce3568b2a99b911e42e4ffdf5c}{marking\_worklists\_}})) \{}
+\DoxyCodeLine{235     \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}}-\/>UpdatePriority(priority);}
+\DoxyCodeLine{236     \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}}-\/>NotifyConcurrencyIncrease();}
+\DoxyCodeLine{237   \}}
+\DoxyCodeLine{238 \}}
+
+\end{DoxyCode}
+
+
+References concurrent\+\_\+marking\+\_\+handle\+\_\+, cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::\+Has\+Work\+For\+Concurrent\+Marking(), and marking\+\_\+worklists\+\_\+.
+
+
+
+Referenced by cppgc\+::internal\+::\+Marker\+Base\+::\+Notify\+Concurrent\+Marking\+Of\+Work\+If\+Needed().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a9bce441a403738f319c38e1a46f6690a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a9bce441a403738f319c38e1a46f6690a_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_add1f76e73178eae48e7f66a6da357157}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_add1f76e73178eae48e7f66a6da357157}} 
 \index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!operator=@{operator=}}
 \index{operator=@{operator=}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
@@ -168,7 +581,143 @@ Implemented in \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarker_a6e16
 
 
 
+Definition at line 185 of file concurrent-\/marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{185                                  \{}
+\DoxyCodeLine{186   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a90a060e1c66900e32df08d8c27b480f1}{platform\_}});}
+\DoxyCodeLine{187   \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}{concurrent\_marking\_handle\_}} =}
+\DoxyCodeLine{188       \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a90a060e1c66900e32df08d8c27b480f1}{platform\_}}-\/>\mbox{\hyperlink{classcppgc_1_1Platform_a6cd9224a397cb79d4c56e3f0dc163c74}{PostJob}}(\mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051a602dfdb2b16ea7a1f4392dc3d5761f7d}{v8::TaskPriority::kUserVisible}},}
+\DoxyCodeLine{189                          std::make\_unique<ConcurrentMarkingTask>(*\textcolor{keyword}{this}));}
+\DoxyCodeLine{190   \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2350ea16a0584d513e0aaa54b1b08728}{incremental\_marking\_schedule\_}}.\mbox{\hyperlink{classheap_1_1base_1_1IncrementalMarkingSchedule_aeb7d691e6d61bc08614e2d12d671f5da}{NotifyConcurrentMarkingStart}}();}
+\DoxyCodeLine{191 \}}
+
+\end{DoxyCode}
+
+
+References concurrent\+\_\+marking\+\_\+handle\+\_\+, DCHECK, incremental\+\_\+marking\+\_\+schedule\+\_\+, v8\+::k\+User\+Visible, heap\+::base\+::\+Incremental\+Marking\+Schedule\+::\+Notify\+Concurrent\+Marking\+Start(), platform\+\_\+, and cppgc\+::\+Platform\+::\+Post\+Job().
+
+
+
+Referenced by cppgc\+::internal\+::\+Marker\+Base\+::\+Enter\+Atomic\+Pause(), cppgc\+::internal\+::\+Marker\+Base\+::\+Re\+Enable\+Concurrent\+Marking(), and cppgc\+::internal\+::\+Marker\+Base\+::\+Start\+Marking().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a03d09306f716ce73f645748b24e91186_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a03d09306f716ce73f645748b24e91186_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a99202bc4c7a5aa7add1273c28168f76b}} 
+\index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!concurrent\_marking\_handle\_@{concurrent\_marking\_handle\_}}
+\index{concurrent\_marking\_handle\_@{concurrent\_marking\_handle\_}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
+\doxysubsubsection{\texorpdfstring{concurrent\_marking\_handle\_}{concurrent\_marking\_handle\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{namespacecppgc_a4607b4a641e66d8d659a26e3de353799}{Job\+Handle}}$>$ cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::concurrent\+\_\+marking\+\_\+handle\+\_\+ \{\mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 62 of file concurrent-\/marker.\+h.
+
+
+
+Referenced by Cancel(), Increase\+Marking\+Priority\+If\+Needed(), Is\+Active(), Join(), Notify\+Incremental\+Mutator\+Step\+Completed(), Notify\+Of\+Work\+If\+Needed(), Start(), and $\sim$\+Concurrent\+Marker\+Base().
+
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa2e5d8ffc7d0393f4dc19931dec74850}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_aa2e5d8ffc7d0393f4dc19931dec74850}} 
+\index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!concurrent\_marking\_priority\_increased\_@{concurrent\_marking\_priority\_increased\_}}
+\index{concurrent\_marking\_priority\_increased\_@{concurrent\_marking\_priority\_increased\_}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
+\doxysubsubsection{\texorpdfstring{concurrent\_marking\_priority\_increased\_}{concurrent\_marking\_priority\_increased\_}}
+{\footnotesize\ttfamily bool cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::concurrent\+\_\+marking\+\_\+priority\+\_\+increased\+\_\+ \{\mbox{\hyperlink{namespacecppgc_1_1internal_a2a5dad15bdcff089a6dd4f1ab48d6433}{false}}\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 65 of file concurrent-\/marker.\+h.
+
+
+
+Referenced by Increase\+Marking\+Priority\+If\+Needed().
+
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a78b106ab61471e70848014c0fda3aeff}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a78b106ab61471e70848014c0fda3aeff}} 
+\index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!concurrently\_marked\_bytes\_@{concurrently\_marked\_bytes\_}}
+\index{concurrently\_marked\_bytes\_@{concurrently\_marked\_bytes\_}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
+\doxysubsubsection{\texorpdfstring{concurrently\_marked\_bytes\_}{concurrently\_marked\_bytes\_}}
+{\footnotesize\ttfamily std\+::atomic$<$size\+\_\+t$>$ cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::concurrently\+\_\+marked\+\_\+bytes\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 64 of file concurrent-\/marker.\+h.
+
+
+
+Referenced by Add\+Concurrently\+Marked\+Bytes().
+
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2901742c6a7951a62e48ec2df422ca88}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2901742c6a7951a62e48ec2df422ca88}} 
+\index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!heap\_@{heap\_}}
+\index{heap\_@{heap\_}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
+\doxysubsubsection{\texorpdfstring{heap\_}{heap\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}}\& cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::heap\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 56 of file concurrent-\/marker.\+h.
+
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2350ea16a0584d513e0aaa54b1b08728}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a2350ea16a0584d513e0aaa54b1b08728}} 
+\index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!incremental\_marking\_schedule\_@{incremental\_marking\_schedule\_}}
+\index{incremental\_marking\_schedule\_@{incremental\_marking\_schedule\_}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
+\doxysubsubsection{\texorpdfstring{incremental\_marking\_schedule\_}{incremental\_marking\_schedule\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classheap_1_1base_1_1IncrementalMarkingSchedule}{heap\+::base\+::\+Incremental\+Marking\+Schedule}}\& cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::incremental\+\_\+marking\+\_\+schedule\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 58 of file concurrent-\/marker.\+h.
+
+
+
+Referenced by Increase\+Marking\+Priority\+If\+Needed(), and Start().
+
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_af92601ce3568b2a99b911e42e4ffdf5c}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_af92601ce3568b2a99b911e42e4ffdf5c}} 
+\index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!marking\_worklists\_@{marking\_worklists\_}}
+\index{marking\_worklists\_@{marking\_worklists\_}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
+\doxysubsubsection{\texorpdfstring{marking\_worklists\_}{marking\_worklists\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists}{Marking\+Worklists}}\& cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::marking\+\_\+worklists\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 57 of file concurrent-\/marker.\+h.
+
+
+
+Referenced by Notify\+Incremental\+Mutator\+Step\+Completed(), and Notify\+Of\+Work\+If\+Needed().
+
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a90a060e1c66900e32df08d8c27b480f1}\label{classcppgc_1_1internal_1_1ConcurrentMarkerBase_a90a060e1c66900e32df08d8c27b480f1}} 
+\index{cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}!platform\_@{platform\_}}
+\index{platform\_@{platform\_}!cppgc::internal::ConcurrentMarkerBase@{cppgc::internal::ConcurrentMarkerBase}}
+\doxysubsubsection{\texorpdfstring{platform\_}{platform\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1Platform}{cppgc\+::\+Platform}}$\ast$ const cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::platform\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 59 of file concurrent-\/marker.\+h.
+
+
+
+Referenced by Start().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{concurrent-marker_8h}{concurrent-\/marker.\+h}}\item 
-\mbox{\hyperlink{concurrent-marker_8cc}{concurrent-\/marker.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/cppgc/\mbox{\hyperlink{concurrent-marker_8h}{concurrent-\/marker.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/cppgc/\mbox{\hyperlink{concurrent-marker_8cc}{concurrent-\/marker.\+cc}}\end{DoxyCompactItemize}

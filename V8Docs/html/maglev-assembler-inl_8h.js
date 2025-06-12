@@ -1,7 +1,7 @@
 var maglev_assembler_inl_8h =
 [
     [ "CopyForDeferredHelper", "structv8_1_1internal_1_1maglev_1_1detail_1_1CopyForDeferredHelper.html", "structv8_1_1internal_1_1maglev_1_1detail_1_1CopyForDeferredHelper" ],
-    [ "CopyForDeferredByValue", "structv8_1_1internal_1_1maglev_1_1detail_1_1CopyForDeferredByValue.html", null ],
+    [ "CopyForDeferredByValue", "structv8_1_1internal_1_1maglev_1_1detail_1_1CopyForDeferredByValue.html", "structv8_1_1internal_1_1maglev_1_1detail_1_1CopyForDeferredByValue" ],
     [ "CopyForDeferredHelper< T *, std::enable_if_t< std::is_base_of_v< NodeBase, T > > >", "structv8_1_1internal_1_1maglev_1_1detail_1_1CopyForDeferredHelper_3_01T_01_5_00_01std_1_1enable_ef794175a95b4e09deb57110b841a8fe.html", null ],
     [ "CopyForDeferredHelper< T, std::enable_if_t< std::is_arithmetic_v< T > > >", "structv8_1_1internal_1_1maglev_1_1detail_1_1CopyForDeferredHelper_3_01T_00_01std_1_1enable__if__54a09e18b4a416c24b4b074ca37ea1ca.html", null ],
     [ "CopyForDeferredHelper< T, std::enable_if_t< std::is_enum_v< T > > >", "structv8_1_1internal_1_1maglev_1_1detail_1_1CopyForDeferredHelper_3_01T_00_01std_1_1enable__if__819f4ff5779d27528899a520ee0b567e.html", null ],

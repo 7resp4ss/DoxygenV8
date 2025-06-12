@@ -22,6 +22,7 @@ var classv8__inspector_1_1V8Inspector =
     [ "contextById", "classv8__inspector_1_1V8Inspector.html#a098de065a441c7ac0515a7cc63684082", null ],
     [ "contextCreated", "classv8__inspector_1_1V8Inspector.html#a2027babae023eb7745a699de30ef2040", null ],
     [ "contextDestroyed", "classv8__inspector_1_1V8Inspector.html#a519c21ce7d4693e27c0b2859f3c5901d", null ],
+    [ "create", "classv8__inspector_1_1V8Inspector.html#a9a2e03efe985976a6885b1d152091cdb", null ],
     [ "createStackTrace", "classv8__inspector_1_1V8Inspector.html#a4ac935e4871eef8ee5cb2e5ca41a2142", null ],
     [ "exceptionRevoked", "classv8__inspector_1_1V8Inspector.html#aba38c699681dfec2271a57dc6be5cfff", null ],
     [ "exceptionThrown", "classv8__inspector_1_1V8Inspector.html#a1fc4c74f4abc75e3ef191983e4fc15f1", null ],

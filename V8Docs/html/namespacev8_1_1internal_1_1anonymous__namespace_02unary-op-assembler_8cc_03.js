@@ -1,0 +1,4 @@
+var namespacev8_1_1internal_1_1anonymous__namespace_02unary_op_assembler_8cc_03 =
+[
+    [ "UnaryOpAssemblerImpl", "classv8_1_1internal_1_1anonymous__namespace_02unary-op-assembler_8cc_03_1_1UnaryOpAssemblerImpl.html", "classv8_1_1internal_1_1anonymous__namespace_02unary-op-assembler_8cc_03_1_1UnaryOpAssemblerImpl" ]
+];

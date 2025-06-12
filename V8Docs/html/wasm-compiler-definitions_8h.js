@@ -36,8 +36,9 @@ var wasm_compiler_definitions_8h =
     [ "EXPORT_TEMPLATE_DECLARE", "wasm-compiler-definitions_8h.html#a90c24ff089a4b7f1296b55a351e0c2e6", null ],
     [ "GetDebugName", "wasm-compiler-definitions_8h.html#a1dec6171f89c138e53e372f0ae15d05e", null ],
     [ "GetWasmCallDescriptor", "wasm-compiler-definitions_8h.html#aade5489fce896bab05ac2370b204e0d2", null ],
-    [ "hash_value", "wasm-compiler-definitions_8h.html#aa6c495a0f2fbf73d9a3131db34a19707", null ],
+    [ "hash_value", "wasm-compiler-definitions_8h.html#a09c801fe44b264b343d89ec22c92381a", null ],
     [ "operator<<", "wasm-compiler-definitions_8h.html#a28f481fae5c5925f509537809ddd79c0", null ],
-    [ "operator<<", "wasm-compiler-definitions_8h.html#a6b2372cc4642036fc572a9d50d3b609d", null ],
-    [ "operator==", "wasm-compiler-definitions_8h.html#a734a0f0702a483cc9e0e7c4b9bebbd9f", null ]
+    [ "operator<<", "wasm-compiler-definitions_8h.html#a3f995d2a52be93f155e14385991bcfbd", null ],
+    [ "operator==", "wasm-compiler-definitions_8h.html#afbab76e5c973082c8fa69f14e0e2442c", null ],
+    [ "kCharWidthBailoutSentinel", "wasm-compiler-definitions_8h.html#abff94baf37c6df7c72548b97a739f132", null ]
 ];

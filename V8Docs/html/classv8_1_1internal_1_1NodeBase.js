@@ -6,6 +6,8 @@ var classv8_1_1internal_1_1NodeBase =
     [ "CheckNodeIsFreeNode", "classv8_1_1internal_1_1NodeBase.html#aadbbdb37f2f2118f3ddf3db87028d243", null ],
     [ "ClearFields", "classv8_1_1internal_1_1NodeBase.html#a34b122884f4a7760fb21ce16ca775ef0", null ],
     [ "Free", "classv8_1_1internal_1_1NodeBase.html#a9de80b1f474198283c022ce793585e8b", null ],
+    [ "FromLocation", "classv8_1_1internal_1_1NodeBase.html#a01c180a06c34832a7f3d4eb1596727f6", null ],
+    [ "FromLocation", "classv8_1_1internal_1_1NodeBase.html#ab7817cc313752b75fffc0ba35e9a028f", null ],
     [ "handle", "classv8_1_1internal_1_1NodeBase.html#ae7a857e01e45c6e023b1f6cfe0c2e668", null ],
     [ "has_wrapper_class_id", "classv8_1_1internal_1_1NodeBase.html#ac5ae789ee4133f36bc43b51c05c1905c", null ],
     [ "index", "classv8_1_1internal_1_1NodeBase.html#a5ab664a8bc1bbeed071edab5a0398181", null ],

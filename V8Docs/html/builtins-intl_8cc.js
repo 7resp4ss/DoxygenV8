@@ -98,7 +98,11 @@ var builtins_intl_8cc =
     [ "BUILTIN", "builtins-intl_8cc.html#a563f6c09d659ad54b60e76d6d357230b", null ],
     [ "BUILTIN", "builtins-intl_8cc.html#af417d6fed87f313aa50dee1b1fd6d7ec", null ],
     [ "BUILTIN", "builtins-intl_8cc.html#aae2916027d2686d76b8b7e4d112a9383", null ],
+    [ "CallOrConstructConstructor", "builtins-intl_8cc.html#a6b0fddac71a9940bc24a7ca9145406dd", null ],
+    [ "CreateBoundFunction", "builtins-intl_8cc.html#a3cd84733458ca650d1b54676c88643ce", null ],
     [ "DateTimeFormatRange", "builtins-intl_8cc.html#a81f3f6ceb60e2647fd36f9f374de60a5", null ],
+    [ "DisallowCallConstructor", "builtins-intl_8cc.html#a18307cc20cc8fb59c664fb040a7d61d7", null ],
     [ "IsFastLocale", "builtins-intl_8cc.html#acd3a23da7dcd3c4b2db92364afd48765", null ],
+    [ "LegacyFormatConstructor", "builtins-intl_8cc.html#a4009bd48595c366b438549091cb79747", null ],
     [ "NumberFormatRange", "builtins-intl_8cc.html#a3454812f111ff9ccf10d24263faad823", null ]
 ];

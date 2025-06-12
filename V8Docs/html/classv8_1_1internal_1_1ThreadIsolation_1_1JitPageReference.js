@@ -19,5 +19,8 @@ var classv8_1_1internal_1_1ThreadIsolation_1_1JitPageReference =
     [ "StartOfAllocationAt", "classv8_1_1internal_1_1ThreadIsolation_1_1JitPageReference.html#a4e1bf1dc108b08b04f838150485b51ba", null ],
     [ "UnregisterAllocation", "classv8_1_1internal_1_1ThreadIsolation_1_1JitPageReference.html#a64a7f94f65914367ef065f6c4cbbc78a", null ],
     [ "UnregisterAllocationsExcept", "classv8_1_1internal_1_1ThreadIsolation_1_1JitPageReference.html#ad76725e8c98259fc5fc25d874288fa7b", null ],
-    [ "UnregisterRange", "classv8_1_1internal_1_1ThreadIsolation_1_1JitPageReference.html#a0451c964f79279911c61c0c807cbc6f3", null ]
+    [ "UnregisterRange", "classv8_1_1internal_1_1ThreadIsolation_1_1JitPageReference.html#a0451c964f79279911c61c0c807cbc6f3", null ],
+    [ "address_", "classv8_1_1internal_1_1ThreadIsolation_1_1JitPageReference.html#a635bdc6a3e399b2bb5332605d7929634", null ],
+    [ "jit_page_", "classv8_1_1internal_1_1ThreadIsolation_1_1JitPageReference.html#a0784b1bc1b2a3d009581575914bea408", null ],
+    [ "page_lock_", "classv8_1_1internal_1_1ThreadIsolation_1_1JitPageReference.html#aa47700239eafb19f89ed493a9e1bb4fb", null ]
 ];

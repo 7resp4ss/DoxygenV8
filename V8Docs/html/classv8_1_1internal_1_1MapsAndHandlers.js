@@ -11,5 +11,8 @@ var classv8_1_1internal_1_1MapsAndHandlers =
     [ "reserve", "classv8_1_1internal_1_1MapsAndHandlers.html#a5e4863c701d880cd07918539a7417f78", null ],
     [ "set_handler", "classv8_1_1internal_1_1MapsAndHandlers.html#a4a6017b39c4c95d218047a5934c98063", null ],
     [ "set_map", "classv8_1_1internal_1_1MapsAndHandlers.html#aa881f60bd6d89c32cdddc2e91d014783", null ],
-    [ "size", "classv8_1_1internal_1_1MapsAndHandlers.html#a1fa6b1c17403380187ecfd1a9752f1fc", null ]
+    [ "size", "classv8_1_1internal_1_1MapsAndHandlers.html#a1fa6b1c17403380187ecfd1a9752f1fc", null ],
+    [ "handlers_", "classv8_1_1internal_1_1MapsAndHandlers.html#a0db0197804eeb82347030f1b20b57ae3", null ],
+    [ "handlers_reference_types_", "classv8_1_1internal_1_1MapsAndHandlers.html#a3ed18af1ce35f888fc88b984f46b0398", null ],
+    [ "maps_", "classv8_1_1internal_1_1MapsAndHandlers.html#a3cb2aa79dc202ad790658e24398b6b57", null ]
 ];

@@ -1,14 +1,38 @@
 \hypertarget{classv8_1_1internal_1_1StaticRootsTableGenImpl}{}\doxysection{v8\+::internal\+::Static\+Roots\+Table\+Gen\+Impl Class Reference}
 \label{classv8_1_1internal_1_1StaticRootsTableGenImpl}\index{v8::internal::StaticRootsTableGenImpl@{v8::internal::StaticRootsTableGenImpl}}
+
+
+Collaboration diagram for v8\+::internal\+::Static\+Roots\+Table\+Gen\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StaticRootsTableGenImpl__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1StaticRootsTableGenImpl_ada1d4a3ba3a0b97c5a00c45cd30fbd10}{Static\+Roots\+Table\+Gen\+Impl}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+\mbox{\hyperlink{classv8_1_1internal_1_1StaticRootsTableGenImpl_ada1d4a3ba3a0b97c5a00c45cd30fbd10}{Static\+Roots\+Table\+Gen\+Impl}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
 \item 
-const \mbox{\hyperlink{js-date-time-format_8cc_a29697a8ff4746383afd187e6b05eac0b}{std\+::map}}$<$ \mbox{\hyperlink{namespacev8_1_1internal_a367156001901752199b6ddeb33902ac4}{Tagged\+\_\+t}}, std\+::list$<$ \mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{Root\+Index}} $>$ $>$ \& \mbox{\hyperlink{classv8_1_1internal_1_1StaticRootsTableGenImpl_a4481d9c75aa1ba5d7947a36db0793d98}{sorted\+\_\+roots}} ()
+const std\+::map$<$ \mbox{\hyperlink{namespacev8_1_1internal_a367156001901752199b6ddeb33902ac4}{Tagged\+\_\+t}}, std\+::list$<$ \mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{Root\+Index}} $>$ $>$ \& \mbox{\hyperlink{classv8_1_1internal_1_1StaticRootsTableGenImpl_a4481d9c75aa1ba5d7947a36db0793d98}{sorted\+\_\+roots}} ()
 \item 
 const std\+::string \& \mbox{\hyperlink{classv8_1_1internal_1_1StaticRootsTableGenImpl_afac5751e2b056b01f354fab9ba54db31}{camel\+\_\+name}} (\mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{Root\+Index}} idx)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::map$<$ \mbox{\hyperlink{namespacev8_1_1internal_a367156001901752199b6ddeb33902ac4}{Tagged\+\_\+t}}, std\+::list$<$ \mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{Root\+Index}} $>$ $>$ \mbox{\hyperlink{classv8_1_1internal_1_1StaticRootsTableGenImpl_a31495c4db7cd9135ddb322bd79c85f59}{sorted\+\_\+roots\+\_\+}}
+\item 
+std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{Root\+Index}}, std\+::string $>$ \mbox{\hyperlink{classv8_1_1internal_1_1StaticRootsTableGenImpl_afd98903f58d291cc6e0733ff6beb8187}{camel\+\_\+names\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 22 of file static-\/roots-\/gen.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -20,6 +44,35 @@ const std\+::string \& \mbox{\hyperlink{classv8_1_1internal_1_1StaticRootsTableG
 
 
 
+Definition at line 24 of file static-\/roots-\/gen.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24                                                      \{}
+\DoxyCodeLine{25     \textcolor{comment}{// Collect all roots}}
+\DoxyCodeLine{26     ReadOnlyRoots ro\_roots(isolate);}
+\DoxyCodeLine{27     \{}
+\DoxyCodeLine{28       \mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{RootIndex}} pos = \mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977a61c7fd4b0ca3982ee8431c67598a46d7}{RootIndex::kFirstReadOnlyRoot}};}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#define ADD\_ROOT(\_, value, CamelName)                       \(\backslash\)}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{  \{                                                         \(\backslash\)}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{    Tagged\_t ptr = V8HeapCompressionScheme::CompressObject( \(\backslash\)}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{        ro\_roots.unchecked\_\#\#value().ptr());                \(\backslash\)}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{    sorted\_roots\_[ptr].push\_back(pos);                      \(\backslash\)}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{    camel\_names\_[RootIndex::k\#\#CamelName] = \#CamelName;     \(\backslash\)}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{    ++pos;                                                  \(\backslash\)}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{  \}}}
+\DoxyCodeLine{37       \mbox{\hyperlink{roots_8h_af4a99ab1d2c1c3f72aad684f08d0c84b}{READ\_ONLY\_ROOT\_LIST}}(\mbox{\hyperlink{static-roots-gen_8cc_a59b5a74b7ac89c820636f17a113962af}{ADD\_ROOT}})}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#undef ADD\_ROOT}}
+\DoxyCodeLine{39     \}}
+\DoxyCodeLine{40   \}}
+
+\end{DoxyCode}
+
+
+References ADD\+\_\+\+ROOT, v8\+::internal\+::k\+First\+Read\+Only\+Root, and READ\+\_\+\+ONLY\+\_\+\+ROOT\+\_\+\+LIST.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1StaticRootsTableGenImpl_afac5751e2b056b01f354fab9ba54db31}\label{classv8_1_1internal_1_1StaticRootsTableGenImpl_afac5751e2b056b01f354fab9ba54db31}} 
 \index{v8::internal::StaticRootsTableGenImpl@{v8::internal::StaticRootsTableGenImpl}!camel\_name@{camel\_name}}
@@ -27,14 +80,97 @@ const std\+::string \& \mbox{\hyperlink{classv8_1_1internal_1_1StaticRootsTableG
 \doxysubsubsection{\texorpdfstring{camel\_name()}{camel\_name()}}
 {\footnotesize\ttfamily const std\+::string\& v8\+::internal\+::\+Static\+Roots\+Table\+Gen\+Impl\+::camel\+\_\+name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{Root\+Index}}}]{idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 46 of file static-\/roots-\/gen.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{46 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1StaticRootsTableGenImpl_afd98903f58d291cc6e0733ff6beb8187}{camel\_names\_}}.at(idx); \}}
+
+\end{DoxyCode}
+
+
+References camel\+\_\+names\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Static\+Roots\+Table\+Gen\+::write().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StaticRootsTableGenImpl_afac5751e2b056b01f354fab9ba54db31_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1StaticRootsTableGenImpl_a4481d9c75aa1ba5d7947a36db0793d98}\label{classv8_1_1internal_1_1StaticRootsTableGenImpl_a4481d9c75aa1ba5d7947a36db0793d98}} 
 \index{v8::internal::StaticRootsTableGenImpl@{v8::internal::StaticRootsTableGenImpl}!sorted\_roots@{sorted\_roots}}
 \index{sorted\_roots@{sorted\_roots}!v8::internal::StaticRootsTableGenImpl@{v8::internal::StaticRootsTableGenImpl}}
 \doxysubsubsection{\texorpdfstring{sorted\_roots()}{sorted\_roots()}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{js-date-time-format_8cc_a29697a8ff4746383afd187e6b05eac0b}{std\+::map}}$<$\mbox{\hyperlink{namespacev8_1_1internal_a367156001901752199b6ddeb33902ac4}{Tagged\+\_\+t}}, std\+::list$<$\mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{Root\+Index}}$>$ $>$\& v8\+::internal\+::\+Static\+Roots\+Table\+Gen\+Impl\+::sorted\+\_\+roots (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily const std\+::map$<$\mbox{\hyperlink{namespacev8_1_1internal_a367156001901752199b6ddeb33902ac4}{Tagged\+\_\+t}}, std\+::list$<$\mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{Root\+Index}}$>$ $>$\& v8\+::internal\+::\+Static\+Roots\+Table\+Gen\+Impl\+::sorted\+\_\+roots (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 42 of file static-\/roots-\/gen.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{42                                                              \{}
+\DoxyCodeLine{43     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1StaticRootsTableGenImpl_a31495c4db7cd9135ddb322bd79c85f59}{sorted\_roots\_}};}
+\DoxyCodeLine{44   \}}
+
+\end{DoxyCode}
+
+
+References sorted\+\_\+roots\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Static\+Roots\+Table\+Gen\+::write().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StaticRootsTableGenImpl_a4481d9c75aa1ba5d7947a36db0793d98_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1StaticRootsTableGenImpl_afd98903f58d291cc6e0733ff6beb8187}\label{classv8_1_1internal_1_1StaticRootsTableGenImpl_afd98903f58d291cc6e0733ff6beb8187}} 
+\index{v8::internal::StaticRootsTableGenImpl@{v8::internal::StaticRootsTableGenImpl}!camel\_names\_@{camel\_names\_}}
+\index{camel\_names\_@{camel\_names\_}!v8::internal::StaticRootsTableGenImpl@{v8::internal::StaticRootsTableGenImpl}}
+\doxysubsubsection{\texorpdfstring{camel\_names\_}{camel\_names\_}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$\mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{Root\+Index}}, std\+::string$>$ v8\+::internal\+::\+Static\+Roots\+Table\+Gen\+Impl\+::camel\+\_\+names\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 50 of file static-\/roots-\/gen.\+cc.
+
+
+
+Referenced by camel\+\_\+name().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1StaticRootsTableGenImpl_a31495c4db7cd9135ddb322bd79c85f59}\label{classv8_1_1internal_1_1StaticRootsTableGenImpl_a31495c4db7cd9135ddb322bd79c85f59}} 
+\index{v8::internal::StaticRootsTableGenImpl@{v8::internal::StaticRootsTableGenImpl}!sorted\_roots\_@{sorted\_roots\_}}
+\index{sorted\_roots\_@{sorted\_roots\_}!v8::internal::StaticRootsTableGenImpl@{v8::internal::StaticRootsTableGenImpl}}
+\doxysubsubsection{\texorpdfstring{sorted\_roots\_}{sorted\_roots\_}}
+{\footnotesize\ttfamily std\+::map$<$\mbox{\hyperlink{namespacev8_1_1internal_a367156001901752199b6ddeb33902ac4}{Tagged\+\_\+t}}, std\+::list$<$\mbox{\hyperlink{namespacev8_1_1internal_ae6e8bb7da3421a00b1b77972829b7977}{Root\+Index}}$>$ $>$ v8\+::internal\+::\+Static\+Roots\+Table\+Gen\+Impl\+::sorted\+\_\+roots\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 49 of file static-\/roots-\/gen.\+cc.
+
+
+
+Referenced by sorted\+\_\+roots().
 
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{static-roots-gen_8cc}{static-\/roots-\/gen.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/snapshot/\mbox{\hyperlink{static-roots-gen_8cc}{static-\/roots-\/gen.\+cc}}\end{DoxyCompactItemize}

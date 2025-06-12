@@ -37,5 +37,6 @@ var v8_platform_8h =
       [ "kMaxPriority", "v8-platform_8h.html#a680c1a715d1d5df94b21e8b1ee1bf051af7c3ba60a56a16a4e8818d15d587a518", null ]
     ] ],
     [ "FileDescriptorFromSharedMemoryHandle", "v8-platform_8h.html#a890e364ea707a258c1fb911f7321a93e", null ],
-    [ "SharedMemoryHandleFromFileDescriptor", "v8-platform_8h.html#aabe232c0ab90fac6d1b1d21c33e8dc93", null ]
+    [ "SharedMemoryHandleFromFileDescriptor", "v8-platform_8h.html#aabe232c0ab90fac6d1b1d21c33e8dc93", null ],
+    [ "kInvalidSharedMemoryHandle", "v8-platform_8h.html#ac9f421c9670d61efa9094326eb8176dc", null ]
 ];

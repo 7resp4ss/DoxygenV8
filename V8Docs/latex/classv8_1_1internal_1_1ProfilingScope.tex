@@ -4,13 +4,37 @@
 
 {\ttfamily \#include $<$cpu-\/profiler.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Profiling\+Scope\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilingScope__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_ab3260dc4c8e3be8502019608390326b9}{Profiling\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerListener}{Profiler\+Listener}} $\ast$listener)
+\mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_ab3260dc4c8e3be8502019608390326b9}{Profiling\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerListener}{Profiler\+Listener}} $\ast$listener)
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_af9414642e0f644fa1ab1151bd3004e8c}{$\sim$\+Profiling\+Scope}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$const \mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}{isolate\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerListener}{Profiler\+Listener}} $\ast$const \mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a37837af33e51e5a85aa133c1066538e9}{listener\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 155 of file cpu-\/profiler.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -20,6 +44,47 @@
 \doxysubsubsection{\texorpdfstring{ProfilingScope()}{ProfilingScope()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Profiling\+Scope\+::\+Profiling\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1ProfilerListener}{Profiler\+Listener}} $\ast$}]{listener }\end{DoxyParamCaption})}
 
+
+
+Definition at line 75 of file cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{76     : \mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}{isolate\_}}(isolate), \mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a37837af33e51e5a85aa133c1066538e9}{listener\_}}(listener) \{}
+\DoxyCodeLine{77   \textcolor{keywordtype}{size\_t} profiler\_count = \mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}{isolate\_}}-\/>num\_cpu\_profilers();}
+\DoxyCodeLine{78   profiler\_count++;}
+\DoxyCodeLine{79   \mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}{isolate\_}}-\/>set\_num\_cpu\_profilers(profiler\_count);}
+\DoxyCodeLine{80   \mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ae2737095e443a52577f9dd50aa5eb60c}{SetIsProfiling}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#if V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{82   \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_abc12fc3b25ebfb54c20b8479642acb94}{wasm::GetWasmEngine}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1WasmEngine_a75b254189555e5f2910b7759e78cb241}{EnableCodeLogging}}(\mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}{isolate\_}});}
+\DoxyCodeLine{83 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a39d5257e4ffd882ab8b42037756760cf}{logger}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Logger_aa8a2cfdd7484d8135555c3592bdaf797}{AddListener}}(\mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a37837af33e51e5a85aa133c1066538e9}{listener\_}}));}
+\DoxyCodeLine{86   V8FileLogger* file\_logger = \mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac6b31523bed359ea1302f5ee9d6fe1ab}{v8\_file\_logger}}();}
+\DoxyCodeLine{87   \textcolor{comment}{// Populate the ProfilerCodeObserver with the initial functions and}}
+\DoxyCodeLine{88   \textcolor{comment}{// callbacks on the heap.}}
+\DoxyCodeLine{89   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac74a11613906581a9989b1cb7f7b3275}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a8b7ebaefdc2c59d0a4e2e8a9ca605465}{HasBeenSetUp}}());}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.prof\_browser\_mode) \{}
+\DoxyCodeLine{92     file\_logger-\/>LogCodeObjects();}
+\DoxyCodeLine{93   \}}
+\DoxyCodeLine{94   file\_logger-\/>LogCompiledFunctions();}
+\DoxyCodeLine{95   file\_logger-\/>LogAccessorCallbacks();}
+\DoxyCodeLine{96 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Logger\+::\+Add\+Listener(), CHECK, v8\+::internal\+::\+DCHECK(), v8\+::internal\+::wasm\+::\+Wasm\+Engine\+::\+Enable\+Code\+Logging(), v8\+::internal\+::wasm\+::\+Get\+Wasm\+Engine(), v8\+::internal\+::\+Heap\+::\+Has\+Been\+Set\+Up(), v8\+::internal\+::\+Isolate\+::heap(), isolate\+\_\+, listener\+\_\+, v8\+::internal\+::\+V8\+File\+Logger\+::\+Log\+Accessor\+Callbacks(), v8\+::internal\+::\+V8\+File\+Logger\+::\+Log\+Code\+Objects(), v8\+::internal\+::\+V8\+File\+Logger\+::\+Log\+Compiled\+Functions(), v8\+::internal\+::\+Isolate\+::logger(), v8\+::internal\+::\+Isolate\+::\+Set\+Is\+Profiling(), v8\+::internal\+::\+Isolate\+::v8\+\_\+file\+\_\+logger(), and v8\+::internal\+::v8\+\_\+flags.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilingScope_ab3260dc4c8e3be8502019608390326b9_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ProfilingScope_af9414642e0f644fa1ab1151bd3004e8c}\label{classv8_1_1internal_1_1ProfilingScope_af9414642e0f644fa1ab1151bd3004e8c}} 
 \index{v8::internal::ProfilingScope@{v8::internal::ProfilingScope}!````~ProfilingScope@{$\sim$ProfilingScope}}
 \index{````~ProfilingScope@{$\sim$ProfilingScope}!v8::internal::ProfilingScope@{v8::internal::ProfilingScope}}
@@ -28,7 +93,67 @@
 
 
 
+Definition at line 98 of file cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{98                                 \{}
+\DoxyCodeLine{99   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a39d5257e4ffd882ab8b42037756760cf}{logger}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Logger_aabb34877e09d06d56a30aaa4df106075}{RemoveListener}}(\mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a37837af33e51e5a85aa133c1066538e9}{listener\_}}));}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101   \textcolor{keywordtype}{size\_t} profiler\_count = \mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}{isolate\_}}-\/>num\_cpu\_profilers();}
+\DoxyCodeLine{102   \mbox{\hyperlink{src_2base_2logging_8h_afd957f297df7e9ee36c46185e961485f}{DCHECK\_GT}}(profiler\_count, 0);}
+\DoxyCodeLine{103   profiler\_count-\/-\/;}
+\DoxyCodeLine{104   \mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}{isolate\_}}-\/>set\_num\_cpu\_profilers(profiler\_count);}
+\DoxyCodeLine{105   \textcolor{keywordflow}{if} (profiler\_count == 0) \mbox{\hyperlink{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ae2737095e443a52577f9dd50aa5eb60c}{SetIsProfiling}}(\textcolor{keyword}{false});}
+\DoxyCodeLine{106 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, DCHECK\+\_\+\+GT, isolate\+\_\+, listener\+\_\+, v8\+::internal\+::\+Isolate\+::logger(), v8\+::internal\+::\+Logger\+::\+Remove\+Listener(), and v8\+::internal\+::\+Isolate\+::\+Set\+Is\+Profiling().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ProfilingScope_af9414642e0f644fa1ab1151bd3004e8c_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}\label{classv8_1_1internal_1_1ProfilingScope_a719e552e76034679ad10885f6eceeecf}} 
+\index{v8::internal::ProfilingScope@{v8::internal::ProfilingScope}!isolate\_@{isolate\_}}
+\index{isolate\_@{isolate\_}!v8::internal::ProfilingScope@{v8::internal::ProfilingScope}}
+\doxysubsubsection{\texorpdfstring{isolate\_}{isolate\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}}$\ast$ const v8\+::internal\+::\+Profiling\+Scope\+::isolate\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 161 of file cpu-\/profiler.\+h.
+
+
+
+Referenced by Profiling\+Scope(), and $\sim$\+Profiling\+Scope().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1ProfilingScope_a37837af33e51e5a85aa133c1066538e9}\label{classv8_1_1internal_1_1ProfilingScope_a37837af33e51e5a85aa133c1066538e9}} 
+\index{v8::internal::ProfilingScope@{v8::internal::ProfilingScope}!listener\_@{listener\_}}
+\index{listener\_@{listener\_}!v8::internal::ProfilingScope@{v8::internal::ProfilingScope}}
+\doxysubsubsection{\texorpdfstring{listener\_}{listener\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1ProfilerListener}{Profiler\+Listener}}$\ast$ const v8\+::internal\+::\+Profiling\+Scope\+::listener\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 162 of file cpu-\/profiler.\+h.
+
+
+
+Referenced by Profiling\+Scope(), and $\sim$\+Profiling\+Scope().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{cpu-profiler_8h}{cpu-\/profiler.\+h}}\item 
-\mbox{\hyperlink{cpu-profiler_8cc}{cpu-\/profiler.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/profiler/\mbox{\hyperlink{cpu-profiler_8h}{cpu-\/profiler.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/profiler/\mbox{\hyperlink{cpu-profiler_8cc}{cpu-\/profiler.\+cc}}\end{DoxyCompactItemize}

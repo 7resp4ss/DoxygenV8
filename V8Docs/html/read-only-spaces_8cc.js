@@ -1,6 +1,5 @@
 var read_only_spaces_8cc =
 [
-    [ "cur_addr_", "read-only-spaces_8cc.html#a5ec25a0515271c2bf4f7ddd8774aff28", null ],
-    [ "cur_end_", "read-only-spaces_8cc.html#ac1ef795592a2825fbef4b01fff74c2be", null ],
-    [ "space_", "read-only-spaces_8cc.html#a1d1fe6a7990bfe1eae3a4cfb202950f6", null ]
+    [ "ReadOnlySpaceObjectIterator", "classv8_1_1internal_1_1anonymous__namespace_02read-only-spaces_8cc_03_1_1ReadOnlySpaceObjectIterator.html", "classv8_1_1internal_1_1anonymous__namespace_02read-only-spaces_8cc_03_1_1ReadOnlySpaceObjectIterator" ],
+    [ "ReadOnlyAreaSize", "read-only-spaces_8cc.html#a79e3b27fbec7817f7747c447d21389da", null ]
 ];

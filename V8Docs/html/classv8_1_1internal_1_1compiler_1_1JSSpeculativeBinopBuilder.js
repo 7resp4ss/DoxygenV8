@@ -5,8 +5,10 @@ var classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder =
     [ "common", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#aa38e6ead259baa230efc143c9bc84627", null ],
     [ "GetBinaryBigIntOperationHint", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a3b399192028f5562a001fc1d9c8a05bc", null ],
     [ "GetBinaryNumberOperationHint", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a70bca65fe845bcd8fc5adf857b552a1a", null ],
+    [ "GetBinaryOperationHint", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#aef755bc1a39954265db02e19d1b5faa9", null ],
     [ "GetCompareBigIntOperationHint", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#ac3ef49ae215952b4d7ef59dc4863b09a", null ],
     [ "GetCompareNumberOperationHint", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a579d554b89914cfea9787a4a8c32e8bb", null ],
+    [ "GetCompareOperationHint", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a532867e7c4368307ab4eab3bed89ba93", null ],
     [ "graph", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a1af5a465101130bc78f5ad5ba7afaadf", null ],
     [ "isolate", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a82411df8ecd442a69e65573499cad72d", null ],
     [ "javascript", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a9d3a405054fdbc60013f1abcad085b9e", null ],
@@ -19,5 +21,12 @@ var classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder =
     [ "TryBuildBigIntBinop", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a84ea2f489830438ce474111e0cb685f5", null ],
     [ "TryBuildBigIntCompare", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a7b4d6a63d356a6afaccec0b4214395fa", null ],
     [ "TryBuildNumberBinop", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a31b9c27886c2a0b0c14720662a679411", null ],
-    [ "TryBuildNumberCompare", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a5e86281129a0aa8820f01b8131ae1f4b", null ]
+    [ "TryBuildNumberCompare", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a5e86281129a0aa8820f01b8131ae1f4b", null ],
+    [ "control_", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#af29f3c48c6147f3fad65aa24f8108096", null ],
+    [ "effect_", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a4c9e1e0105d44fbe72381e658f3401b9", null ],
+    [ "left_", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a9312af548f9f1e4d89315845c858c1d0", null ],
+    [ "lowering_", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#aedf5a7d9054bc1e71607677315fcd553", null ],
+    [ "op_", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a8aaf0bf37da956b059e7c66da576c2b3", null ],
+    [ "right_", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#a62b55e9258bfa1f756d793162fc76062", null ],
+    [ "slot_", "classv8_1_1internal_1_1compiler_1_1JSSpeculativeBinopBuilder.html#aea084c525ec026b6e660b355b94367d8", null ]
 ];

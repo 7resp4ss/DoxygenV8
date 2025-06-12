@@ -1,6 +1,10 @@
 var classv8__inspector_1_1V8InspectorImpl =
 [
     [ "EvaluateScope", "classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope.html", "classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope" ],
+    [ "ConsoleStorageMap", "classv8__inspector_1_1V8InspectorImpl.html#a1bd06dc190cb2cdecd0dde0b1fd9d431", null ],
+    [ "ContextByIdMap", "classv8__inspector_1_1V8InspectorImpl.html#a2da2ec5b918d5598ac4a7f631d9122a3", null ],
+    [ "ContextsByGroupMap", "classv8__inspector_1_1V8InspectorImpl.html#afbc16da7127fa408648e7e6674caa234", null ],
+    [ "MuteExceptionsMap", "classv8__inspector_1_1V8InspectorImpl.html#a35435a49842a5964529164df4e9dd8c2", null ],
     [ "V8InspectorImpl", "classv8__inspector_1_1V8InspectorImpl.html#a0f76e9186b1713fbc78dacd4d204ee4a", null ],
     [ "~V8InspectorImpl", "classv8__inspector_1_1V8InspectorImpl.html#a9c6d58fc1cacb7551c7281e64aebbdde", null ],
     [ "V8InspectorImpl", "classv8__inspector_1_1V8InspectorImpl.html#a3ffddcfffb6897fe99b1e4b58a41288f", null ],
@@ -15,6 +19,7 @@ var classv8__inspector_1_1V8InspectorImpl =
     [ "compileAndRunInternalScript", "classv8__inspector_1_1V8InspectorImpl.html#a237abe0fca92bd8865372d7b305c6c56", null ],
     [ "compileScript", "classv8__inspector_1_1V8InspectorImpl.html#a2b2a60ab13f7efb102dd97fed07cde75", null ],
     [ "connect", "classv8__inspector_1_1V8InspectorImpl.html#a1f63eacb98bec44bc62f240e748c11d8", null ],
+    [ "connectImpl", "classv8__inspector_1_1V8InspectorImpl.html#a3c7e867d92dcac3eaa6c566e38db2af3", null ],
     [ "connectShared", "classv8__inspector_1_1V8InspectorImpl.html#a22f0d5f0afc7c60fcdc8d334df2cbdbe", null ],
     [ "console", "classv8__inspector_1_1V8InspectorImpl.html#a6c32ba8a9e6693ace975bc476ada5275", null ],
     [ "contextById", "classv8__inspector_1_1V8InspectorImpl.html#a1e70b79f6524ca5ba1d99e566df89982", null ],
@@ -55,5 +60,23 @@ var classv8__inspector_1_1V8InspectorImpl =
     [ "sessionById", "classv8__inspector_1_1V8InspectorImpl.html#ad3afc40c52bd16d5d29503d0a48b00c4", null ],
     [ "storeCurrentStackTrace", "classv8__inspector_1_1V8InspectorImpl.html#aab798fe88f9599c2ac6f8a214195abeb", null ],
     [ "uniqueDebuggerId", "classv8__inspector_1_1V8InspectorImpl.html#a4088345d59751151ffc41a3403f5d9ed", null ],
-    [ "unmuteExceptions", "classv8__inspector_1_1V8InspectorImpl.html#a67a4c428c016b8c0e1f12f0995b73c41", null ]
+    [ "unmuteExceptions", "classv8__inspector_1_1V8InspectorImpl.html#a67a4c428c016b8c0e1f12f0995b73c41", null ],
+    [ "m_client", "classv8__inspector_1_1V8InspectorImpl.html#a188c71c8925bd27437ce4b481f610022", null ],
+    [ "m_console", "classv8__inspector_1_1V8InspectorImpl.html#a15ebcddd7b9903ae4b425874e28ed920", null ],
+    [ "m_consoleStorageMap", "classv8__inspector_1_1V8InspectorImpl.html#ad20afb6cb19062fb320d5ee243e33eff", null ],
+    [ "m_contextIdToGroupIdMap", "classv8__inspector_1_1V8InspectorImpl.html#a781d91c63ee64cae9ad0fe3468293315", null ],
+    [ "m_contexts", "classv8__inspector_1_1V8InspectorImpl.html#a3b75a6d5a3524eceeff25f10e9e8d8e1", null ],
+    [ "m_debugger", "classv8__inspector_1_1V8InspectorImpl.html#afd8bbaa62edcd08b6b295ef52be9f3e8", null ],
+    [ "m_debuggerBarriers", "classv8__inspector_1_1V8InspectorImpl.html#a7f8b93968f605998abebd86c13a0e4cd", null ],
+    [ "m_exceptionMetaData", "classv8__inspector_1_1V8InspectorImpl.html#a7de992c3046962a120504b91a3de6567", null ],
+    [ "m_exceptionMetaDataContext", "classv8__inspector_1_1V8InspectorImpl.html#aaf7f2a8a059b13fe48401fdf5e099d2e", null ],
+    [ "m_isolate", "classv8__inspector_1_1V8InspectorImpl.html#adcf469edaa85ed1a7c5cda0b5f5ecb67", null ],
+    [ "m_lastContextId", "classv8__inspector_1_1V8InspectorImpl.html#a6e11fef7b2340c09ec63672ad74576eb", null ],
+    [ "m_lastExceptionId", "classv8__inspector_1_1V8InspectorImpl.html#a13267d487bb20f7c206bda5ee3c9cea6", null ],
+    [ "m_lastSessionId", "classv8__inspector_1_1V8InspectorImpl.html#a16011148e4c12091ade43e8b26064ebe", null ],
+    [ "m_muteExceptionsMap", "classv8__inspector_1_1V8InspectorImpl.html#a0148d37a8561c9e2cf73e135a961ec42", null ],
+    [ "m_promiseHandlerTracker", "classv8__inspector_1_1V8InspectorImpl.html#a8e40948091334d58845ff5902b0161c8", null ],
+    [ "m_regexContext", "classv8__inspector_1_1V8InspectorImpl.html#a45ce32c80b7b39c3d7096401858ecb79", null ],
+    [ "m_sessions", "classv8__inspector_1_1V8InspectorImpl.html#ae814032d5a63d73b436a319787435cc1", null ],
+    [ "m_uniqueIdToContextId", "classv8__inspector_1_1V8InspectorImpl.html#abd7ef0274e27a977201663a41a9be3a8", null ]
 ];

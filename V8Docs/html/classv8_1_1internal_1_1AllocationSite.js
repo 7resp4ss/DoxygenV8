@@ -1,6 +1,6 @@
 var classv8_1_1internal_1_1AllocationSite =
 [
-    [ "BodyDescriptor", "classv8_1_1internal_1_1AllocationSite_1_1BodyDescriptor.html", null ],
+    [ "BodyDescriptor", "classv8_1_1internal_1_1AllocationSite_1_1BodyDescriptor.html", "classv8_1_1internal_1_1AllocationSite_1_1BodyDescriptor" ],
     [ "DeoptDependentCodeBit", "classv8_1_1internal_1_1AllocationSite.html#a81a8568fae60e63c1527a32a51be5c05", null ],
     [ "DoNotInlineBit", "classv8_1_1internal_1_1AllocationSite.html#a117c02e72360e926cdadf6de80eef00a", null ],
     [ "ElementsKindBits", "classv8_1_1internal_1_1AllocationSite.html#a74fffd6141cda4ede2f7f1f3af0977ca", null ],
@@ -17,9 +17,11 @@ var classv8_1_1internal_1_1AllocationSite =
     [ "boilerplate", "classv8_1_1internal_1_1AllocationSite.html#aab6bafdfe2a3aff7c29dbd2e258d79f4", null ],
     [ "boilerplate", "classv8_1_1internal_1_1AllocationSite.html#aa28bcfc0af8fa5a571e0d71afecaf733", null ],
     [ "CanInlineCall", "classv8_1_1internal_1_1AllocationSite.html#aab240b53ca5f3f2cd6fe7698e69bf082", null ],
+    [ "CanTrack", "classv8_1_1internal_1_1AllocationSite.html#a5bce0a6a275e0f9a9c8a3e87babab0d9", null ],
     [ "deopt_dependent_code", "classv8_1_1internal_1_1AllocationSite.html#a5d2bc5f9c30628481e1f179b18818690", null ],
     [ "dependent_code", "classv8_1_1internal_1_1AllocationSite.html#a7fb6ac67c66aae44398810e48da8458e", null ],
     [ "DigestPretenuringFeedback", "classv8_1_1internal_1_1AllocationSite.html#ab06a9db3e9fa8256f8cd97cc5cefeff5", null ],
+    [ "DigestTransitionFeedback", "classv8_1_1internal_1_1AllocationSite.html#a4f12a49f4fa93e1d0c04e02cd8cdf84e", null ],
     [ "GetAllocationType", "classv8_1_1internal_1_1AllocationSite.html#ab96ccfa1d44738723732f17579f62f41", null ],
     [ "GetElementsKind", "classv8_1_1internal_1_1AllocationSite.html#a1add82cc1996137a15e395fbf2a2e09f", null ],
     [ "HasWeakNext", "classv8_1_1internal_1_1AllocationSite.html#a06e769d7ad11dc8f553f8cc989525b9a", null ],
@@ -39,6 +41,7 @@ var classv8_1_1internal_1_1AllocationSite =
     [ "pretenure_data", "classv8_1_1internal_1_1AllocationSite.html#a88bbd76f64865e075177acae82d57166", null ],
     [ "pretenure_decision", "classv8_1_1internal_1_1AllocationSite.html#a39fc1c0543c261ff4735a551113664d5", null ],
     [ "PretenureDecisionName", "classv8_1_1internal_1_1AllocationSite.html#a015895d2a527877f98749eb13b16a38f", null ],
+    [ "PretenuringDecisionMade", "classv8_1_1internal_1_1AllocationSite.html#ad0f24fad7553aaa188823b95eb03aac1", null ],
     [ "ResetPretenureDecision", "classv8_1_1internal_1_1AllocationSite.html#aa1b323951edb619dd9078164b9fabd5c", null ],
     [ "set_boilerplate", "classv8_1_1internal_1_1AllocationSite.html#abd57808bda41e202638e1aec567bea6b", null ],
     [ "set_deopt_dependent_code", "classv8_1_1internal_1_1AllocationSite.html#a6b6321178dbb71e389194b39a6ee51ee", null ],
@@ -52,10 +55,18 @@ var classv8_1_1internal_1_1AllocationSite =
     [ "set_transition_info", "classv8_1_1internal_1_1AllocationSite.html#ad34971d73cc68b8a3386c04cc6b9b007", null ],
     [ "SetDoNotInlineCall", "classv8_1_1internal_1_1AllocationSite.html#a3e9fcf250995d87d2c31e05c6e4e6ce5", null ],
     [ "SetElementsKind", "classv8_1_1internal_1_1AllocationSite.html#adf1136948311998f7ead14bcf8f2cfd8", null ],
+    [ "ShouldTrack", "classv8_1_1internal_1_1AllocationSite.html#a596f5281700441022ddf66ba8a1b2d03", null ],
+    [ "ShouldTrack", "classv8_1_1internal_1_1AllocationSite.html#af38a6648a1495ca603f8ee8f68c826a7", null ],
     [ "transition_info", "classv8_1_1internal_1_1AllocationSite.html#a760dea1083d2a00f6acffba919506f8e", null ],
     [ "transition_info_or_boilerplate", "classv8_1_1internal_1_1AllocationSite.html#a204a24e93b2967b733397fbc93599d1b", null ],
     [ "ArrayBuiltinsAssembler", "classv8_1_1internal_1_1AllocationSite.html#af092d11f07472fa1df4d70f8047d0ed2", null ],
     [ "CodeStubAssembler", "classv8_1_1internal_1_1AllocationSite.html#ab0fdd46d6a0fd9cdf4ce8df83e1efadd", null ],
     [ "ObjectBuiltinsAssembler", "classv8_1_1internal_1_1AllocationSite.html#acb092221bc88e2a2f6198650816f891f", null ],
-    [ "V8HeapExplorer", "classv8_1_1internal_1_1AllocationSite.html#a29c5c7a1e13f0404746b9261f3764a7f", null ]
+    [ "V8HeapExplorer", "classv8_1_1internal_1_1AllocationSite.html#a29c5c7a1e13f0404746b9261f3764a7f", null ],
+    [ "dependent_code_", "classv8_1_1internal_1_1AllocationSite.html#ac11173e96545ee63ea1254e04cb7bf23", null ],
+    [ "kMaximumArrayBytesToPretransition", "classv8_1_1internal_1_1AllocationSite.html#aeead57f97b16bf614a5631349d0bc7f1", null ],
+    [ "nested_site_", "classv8_1_1internal_1_1AllocationSite.html#a6f84f1e40ee2648ae8201e4fe6a8ba86", null ],
+    [ "pretenure_create_count_", "classv8_1_1internal_1_1AllocationSite.html#a4a51de874ecadb52bfcdac956ab478ab", null ],
+    [ "pretenure_data_", "classv8_1_1internal_1_1AllocationSite.html#adcab43a383ed205758adcaba2ad14c9d", null ],
+    [ "transition_info_or_boilerplate_", "classv8_1_1internal_1_1AllocationSite.html#a0f01fee2f112591c1b93a0efcfd7494f", null ]
 ];

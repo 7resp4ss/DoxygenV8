@@ -2,7 +2,7 @@ var api_8h =
 [
     [ "ApiFunction", "classv8_1_1ApiFunction.html", "classv8_1_1ApiFunction" ],
     [ "RegisteredExtension", "classv8_1_1RegisteredExtension.html", "classv8_1_1RegisteredExtension" ],
-    [ "Utils", "classv8_1_1Utils.html", null ],
+    [ "Utils", "classv8_1_1Utils.html", "classv8_1_1Utils" ],
     [ "HandleScopeImplementer", "classv8_1_1internal_1_1HandleScopeImplementer.html", "classv8_1_1internal_1_1HandleScopeImplementer" ],
     [ "EnteredContextRewindScope", "classv8_1_1internal_1_1HandleScopeImplementer_1_1EnteredContextRewindScope.html", "classv8_1_1internal_1_1HandleScopeImplementer_1_1EnteredContextRewindScope" ],
     [ "DECLARE_OPEN_HANDLE", "api_8h.html#a9f5fbe0e75e467e153bc10a0050de758", null ],

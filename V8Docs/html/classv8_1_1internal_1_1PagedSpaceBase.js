@@ -1,5 +1,6 @@
 var classv8_1_1internal_1_1PagedSpaceBase =
 [
+    [ "ConcurrentAllocationMutex", "classv8_1_1internal_1_1PagedSpaceBase_1_1ConcurrentAllocationMutex.html", "classv8_1_1internal_1_1PagedSpaceBase_1_1ConcurrentAllocationMutex" ],
     [ "const_iterator", "classv8_1_1internal_1_1PagedSpaceBase.html#aadeac7b9dde174417d002ca31db977f2", null ],
     [ "iterator", "classv8_1_1internal_1_1PagedSpaceBase.html#abb9d678c98ef0d1aa4da4245aee9291c", null ],
     [ "PagedSpaceBase", "classv8_1_1internal_1_1PagedSpaceBase.html#aa5a644e125daa5cb78b99c630ace2311", null ],
@@ -57,6 +58,7 @@ var classv8_1_1internal_1_1PagedSpaceBase =
     [ "ResetFreeList", "classv8_1_1internal_1_1PagedSpaceBase.html#a8c08e91c0d880839deafb1f93cbc0211", null ],
     [ "Size", "classv8_1_1internal_1_1PagedSpaceBase.html#ac7d43e799cc57c5b7855461541d0edef", null ],
     [ "snapshotable", "classv8_1_1internal_1_1PagedSpaceBase.html#a20a92dc3dcee1f80d11612acac401bda", null ],
+    [ "SupportsConcurrentAllocation", "classv8_1_1internal_1_1PagedSpaceBase.html#ae47f4ea17e41d88fc8be1ff76789704b", null ],
     [ "TearDown", "classv8_1_1internal_1_1PagedSpaceBase.html#a70be7515d2c64243bec52ba0f0d6a7d0", null ],
     [ "TryExpand", "classv8_1_1internal_1_1PagedSpaceBase.html#a3a286be17b61dfe893794f418dc8c9df", null ],
     [ "UnlinkFreeListCategories", "classv8_1_1internal_1_1PagedSpaceBase.html#ac5ccd588f97f43a18b386d6f6e372443", null ],
@@ -70,6 +72,7 @@ var classv8_1_1internal_1_1PagedSpaceBase =
     [ "committed_physical_memory_", "classv8_1_1internal_1_1PagedSpaceBase.html#a8874f4ae414a7c2ce8ced63b208445f0", null ],
     [ "compaction_space_kind_", "classv8_1_1internal_1_1PagedSpaceBase.html#ae8cc901e2447c3388c0e09879609494c", null ],
     [ "executable_", "classv8_1_1internal_1_1PagedSpaceBase.html#af0f305dea06d5ceaefc0e90abae0a625", null ],
+    [ "kCompactionMemoryWanted", "classv8_1_1internal_1_1PagedSpaceBase.html#a751654f26c342869ea39719eb4f64096", null ],
     [ "size_at_last_gc_", "classv8_1_1internal_1_1PagedSpaceBase.html#a07247355049f73dcb68eb879d960c5ef", null ],
     [ "space_mutex_", "classv8_1_1internal_1_1PagedSpaceBase.html#a35e4d11e66b812e88d650e1e156de993", null ]
 ];

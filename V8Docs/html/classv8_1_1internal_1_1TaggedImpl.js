@@ -1,7 +1,7 @@
 var classv8_1_1internal_1_1TaggedImpl =
 [
-    [ "TaggedImpl", "classv8_1_1internal_1_1TaggedImpl.html#abf3a7e27000effedfe5095217a873def", null ],
-    [ "TaggedImpl", "classv8_1_1internal_1_1TaggedImpl.html#a3a694a385748f1163eb32aaa78266c12", null ],
+    [ "TaggedImpl", "classv8_1_1internal_1_1TaggedImpl.html#a9b3e6fccb971ac21a9090013e0637949", null ],
+    [ "TaggedImpl", "classv8_1_1internal_1_1TaggedImpl.html#a085f1f117273765873a903d2dc0a3db3", null ],
     [ "cast", "classv8_1_1internal_1_1TaggedImpl.html#ab020019ab4e9c668613dec93775f8dac", null ],
     [ "GetHeapObject", "classv8_1_1internal_1_1TaggedImpl.html#a8a01abf65a7e6a2ce58420359be2f6f2", null ],
     [ "GetHeapObject", "classv8_1_1internal_1_1TaggedImpl.html#a2a34356a0d0af497b4d5215e46bf0e19", null ],
@@ -32,7 +32,7 @@ var classv8_1_1internal_1_1TaggedImpl =
     [ "operator!=", "classv8_1_1internal_1_1TaggedImpl.html#a3b3a83a3a1be03c43e8cd8c8f6368e99", null ],
     [ "operator<", "classv8_1_1internal_1_1TaggedImpl.html#a070e7a78a0c90faa34a7db03a08cd94f", null ],
     [ "operator==", "classv8_1_1internal_1_1TaggedImpl.html#a9b584c4e8a79b79169dcbab0dcdb2137", null ],
-    [ "ptr", "classv8_1_1internal_1_1TaggedImpl.html#a11780f1696bd9e874c49b78c70909778", null ],
+    [ "ptr", "classv8_1_1internal_1_1TaggedImpl.html#a4dba1b2eafcf7a414910966f950540c9", null ],
     [ "ptr_location", "classv8_1_1internal_1_1TaggedImpl.html#a22bcbfe9fb794cf4f8514352787eba54", null ],
     [ "ptr_location", "classv8_1_1internal_1_1TaggedImpl.html#a9460bc284720072dac565c1a1150db05", null ],
     [ "SafeEquals", "classv8_1_1internal_1_1TaggedImpl.html#a2f2dd9d2a3a33b75e7510a58b0bde9a5", null ],
@@ -42,5 +42,8 @@ var classv8_1_1internal_1_1TaggedImpl =
     [ "CompressedObjectSlot", "classv8_1_1internal_1_1TaggedImpl.html#a30708fa9585bcf2c0287793149183a39", null ],
     [ "FullHeapObjectSlot", "classv8_1_1internal_1_1TaggedImpl.html#a255403cb2c4df6989d8b95df82815f37", null ],
     [ "FullMaybeObjectSlot", "classv8_1_1internal_1_1TaggedImpl.html#a09bc35a6e4df8c98c2a6a1809e10b416", null ],
-    [ "FullObjectSlot", "classv8_1_1internal_1_1TaggedImpl.html#a1b53faf9c93706754dec9f3958daa2e2", null ]
+    [ "FullObjectSlot", "classv8_1_1internal_1_1TaggedImpl.html#a1b53faf9c93706754dec9f3958daa2e2", null ],
+    [ "kCanBeWeak", "classv8_1_1internal_1_1TaggedImpl.html#a8be31f14fd21f053f3fe4be3b2ce90a8", null ],
+    [ "kIsFull", "classv8_1_1internal_1_1TaggedImpl.html#abcf0d7303ccdde67e7d0cba31a3b3f23", null ],
+    [ "ptr_", "classv8_1_1internal_1_1TaggedImpl.html#a1cdd66a3ff8043cf8d2e4476968e8720", null ]
 ];

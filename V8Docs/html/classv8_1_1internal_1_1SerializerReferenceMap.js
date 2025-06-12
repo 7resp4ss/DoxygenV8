@@ -6,5 +6,8 @@ var classv8_1_1internal_1_1SerializerReferenceMap =
     [ "AddBackingStore", "classv8_1_1internal_1_1SerializerReferenceMap.html#a09b40d92d1bf30545cb4704da1a306b2", null ],
     [ "LookupBackingStore", "classv8_1_1internal_1_1SerializerReferenceMap.html#a15c6905298de5925bac768cd718e2671", null ],
     [ "LookupReference", "classv8_1_1internal_1_1SerializerReferenceMap.html#a159d1af2e3874fe14fb5a0662322a5db", null ],
-    [ "LookupReference", "classv8_1_1internal_1_1SerializerReferenceMap.html#ab4adc406444c061849e8278b866cfd68", null ]
+    [ "LookupReference", "classv8_1_1internal_1_1SerializerReferenceMap.html#ab4adc406444c061849e8278b866cfd68", null ],
+    [ "attached_reference_index_", "classv8_1_1internal_1_1SerializerReferenceMap.html#a1f98b67c47fe4b62a26b8d6bba833e8d", null ],
+    [ "backing_store_map_", "classv8_1_1internal_1_1SerializerReferenceMap.html#a9faa48d325773d0cd90396399aacb51e", null ],
+    [ "map_", "classv8_1_1internal_1_1SerializerReferenceMap.html#a2bb03895c4c20cbd3c45b0c529a28bfc", null ]
 ];

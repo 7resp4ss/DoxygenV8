@@ -7,11 +7,22 @@ var classv8_1_1internal_1_1compiler_1_1Word32Adapter =
     [ "Word32Adapter", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a42dea15b4bbb285eb82dc7d85e1989a4", null ],
     [ "IntNAdd", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a8f4987c29e38c8c8ebf5a03780280590", null ],
     [ "IntNConstant", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a04eafb83482c0e3110a671b8fc26399c", null ],
+    [ "IsIntNAdd", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a42c9655478df0d6e917d787659451794", null ],
+    [ "IsIntNMul", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a5717dbdb327c2eac98b61e1e67c6b566", null ],
+    [ "IsWordNAnd", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a9cbf6cb602210a48f31341296e269380", null ],
+    [ "IsWordNSar", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a9db8e5a0056f74fc8d94eeee1c067a3b", null ],
+    [ "IsWordNSarShiftOutZeros", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#aba9d3e0c166da8e9c7e8f7efb9508d56", null ],
+    [ "IsWordNShl", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#afb7181fc872eb94c253074cc54d94ae6", null ],
+    [ "IsWordNShr", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a8ce09d56b3e4e2d573010c77d44f3d44", null ],
+    [ "IsWordNXor", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a440b1774afc0dada730b4a1528e741ad", null ],
     [ "ReduceIntNAdd", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a4907ce62c0ebe2d06e7c54bf9ed854c4", null ],
     [ "ReduceWordNAnd", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a7b4bea8a1d0c8ae142394ebc6ac01baf", null ],
     [ "ReduceWordNComparisons", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#ac9975b1047ea3fd9d2e65b9cde26133a", null ],
     [ "ReplaceIntN", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a1c7201a30607c3a941791e9614ec4b73", null ],
     [ "TryMatchWordNRor", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#adfb5f420f0a4bd0350ca11eb94fb1da9", null ],
     [ "UintNConstant", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a994f5e5edc0502c7482a30fafe7c7763", null ],
-    [ "WordNAnd", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a82647ec04a7f56df60b40c0a7493d035", null ]
+    [ "WordNAnd", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a82647ec04a7f56df60b40c0a7493d035", null ],
+    [ "WordNEqual", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#ab14b5caaf2640a363d673b59762457f1", null ],
+    [ "r_", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a980a112927c6524efaa484338d2de6e9", null ],
+    [ "WORD_SIZE", "classv8_1_1internal_1_1compiler_1_1Word32Adapter.html#a2a4754c0151cb4ecb13630fd18ec63ac", null ]
 ];

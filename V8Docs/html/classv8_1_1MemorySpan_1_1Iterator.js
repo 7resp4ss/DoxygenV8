@@ -6,6 +6,7 @@ var classv8_1_1MemorySpan_1_1Iterator =
     [ "reference", "classv8_1_1MemorySpan_1_1Iterator.html#a6d2ba1c3d8b783cbc441e9362505f973", null ],
     [ "value_type", "classv8_1_1MemorySpan_1_1Iterator.html#a56d08e3c1e0c70a8f805e9769b483e5a", null ],
     [ "Iterator", "classv8_1_1MemorySpan_1_1Iterator.html#a66e500e15486a68c5c4e87d94717887c", null ],
+    [ "Iterator", "classv8_1_1MemorySpan_1_1Iterator.html#a0e0116683f323aa06dc398b376bf3a48", null ],
     [ "operator*", "classv8_1_1MemorySpan_1_1Iterator.html#a76a52f0602b2671418f2be2a6c4c47ee", null ],
     [ "operator++", "classv8_1_1MemorySpan_1_1Iterator.html#a25c46b70553eaa76b7f7d541b6da65a1", null ],
     [ "operator++", "classv8_1_1MemorySpan_1_1Iterator.html#aa6cad0d017ea1f7918dd122b5be25b68", null ],
@@ -25,5 +26,6 @@ var classv8_1_1MemorySpan_1_1Iterator =
     [ "operator<=", "classv8_1_1MemorySpan_1_1Iterator.html#abb6e796a14cfdc8f4e925940bfd67b3a", null ],
     [ "operator==", "classv8_1_1MemorySpan_1_1Iterator.html#abe2b708ee7aa728d6f6bcd474913c12f", null ],
     [ "operator>", "classv8_1_1MemorySpan_1_1Iterator.html#a399b790215f5703d4233d094bb29014e", null ],
-    [ "operator>=", "classv8_1_1MemorySpan_1_1Iterator.html#ad84b2281a73fc0b6d1ec7ab03ae45781", null ]
+    [ "operator>=", "classv8_1_1MemorySpan_1_1Iterator.html#ad84b2281a73fc0b6d1ec7ab03ae45781", null ],
+    [ "ptr_", "classv8_1_1MemorySpan_1_1Iterator.html#a2494c3d49eae41845e5e5be536bad292", null ]
 ];

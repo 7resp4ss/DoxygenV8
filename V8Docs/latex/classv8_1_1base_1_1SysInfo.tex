@@ -4,17 +4,34 @@
 
 {\ttfamily \#include $<$sys-\/info.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::base\+::Sys\+Info\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{classv8_1_1base_1_1SysInfo__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static int \mbox{\hyperlink{classv8_1_1base_1_1SysInfo_a2b76071a9327082114103db3a2717630}{Number\+Of\+Processors}} ()
+static \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1base_1_1SysInfo_a2b76071a9327082114103db3a2717630}{Number\+Of\+Processors}} ()
 \item 
 static int64\+\_\+t \mbox{\hyperlink{classv8_1_1base_1_1SysInfo_a97f971a5174d8cb9ec1bc9b42b77a893}{Amount\+Of\+Physical\+Memory}} ()
 \item 
 static int64\+\_\+t \mbox{\hyperlink{classv8_1_1base_1_1SysInfo_af9f658e742009f9c9205088afb6d5c18}{Amount\+Of\+Virtual\+Memory}} ()
 \item 
-static uintptr\+\_\+t \mbox{\hyperlink{classv8_1_1base_1_1SysInfo_a5bfbc11d20bf73ed9cb8986c17d0ee4e}{Address\+Space\+End}} ()
+static \mbox{\hyperlink{classuintptr__t}{uintptr\+\_\+t}} \mbox{\hyperlink{classv8_1_1base_1_1SysInfo_a5bfbc11d20bf73ed9cb8986c17d0ee4e}{Address\+Space\+End}} ()
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 16 of file sys-\/info.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -22,29 +39,222 @@ static uintptr\+\_\+t \mbox{\hyperlink{classv8_1_1base_1_1SysInfo_a5bfbc11d20bf7
 \index{v8::base::SysInfo@{v8::base::SysInfo}!AddressSpaceEnd@{AddressSpaceEnd}}
 \index{AddressSpaceEnd@{AddressSpaceEnd}!v8::base::SysInfo@{v8::base::SysInfo}}
 \doxysubsubsection{\texorpdfstring{AddressSpaceEnd()}{AddressSpaceEnd()}}
-{\footnotesize\ttfamily uintptr\+\_\+t v8\+::base\+::\+Sys\+Info\+::\+Address\+Space\+End (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classuintptr__t}{uintptr\+\_\+t}} v8\+::base\+::\+Sys\+Info\+::\+Address\+Space\+End (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 136 of file sys-\/info.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{136                                    \{}
+\DoxyCodeLine{137 \textcolor{preprocessor}{\#if V8\_OS\_WIN}}
+\DoxyCodeLine{138   SYSTEM\_INFO info;}
+\DoxyCodeLine{139   GetSystemInfo(\&info);}
+\DoxyCodeLine{140   \mbox{\hyperlink{classuintptr__t}{uintptr\_t}} max\_address =}
+\DoxyCodeLine{141       \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classuintptr__t}{uintptr\_t}}\textcolor{keyword}{>}(info.lpMaximumApplicationAddress);}
+\DoxyCodeLine{142   \textcolor{keywordflow}{return} max\_address + 1;}
+\DoxyCodeLine{143 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{144   \textcolor{comment}{// We don't query POSIX rlimits here (e.g. RLIMIT\_AS) as they limit the size}}
+\DoxyCodeLine{145   \textcolor{comment}{// of memory mappings, but not the address space (e.g. even with a small}}
+\DoxyCodeLine{146   \textcolor{comment}{// RLIMIT\_AS, a process can still map pages at high addresses).}}
+\DoxyCodeLine{147   \textcolor{keywordflow}{return} std::numeric\_limits<uintptr\_t>::max();}
+\DoxyCodeLine{148 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{149 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1base_1_1SysInfo_a97f971a5174d8cb9ec1bc9b42b77a893}\label{classv8_1_1base_1_1SysInfo_a97f971a5174d8cb9ec1bc9b42b77a893}} 
 \index{v8::base::SysInfo@{v8::base::SysInfo}!AmountOfPhysicalMemory@{AmountOfPhysicalMemory}}
 \index{AmountOfPhysicalMemory@{AmountOfPhysicalMemory}!v8::base::SysInfo@{v8::base::SysInfo}}
 \doxysubsubsection{\texorpdfstring{AmountOfPhysicalMemory()}{AmountOfPhysicalMemory()}}
 {\footnotesize\ttfamily int64\+\_\+t v8\+::base\+::\+Sys\+Info\+::\+Amount\+Of\+Physical\+Memory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 66 of file sys-\/info.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66                                         \{}
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#if V8\_OS\_DARWIN}}
+\DoxyCodeLine{68   \textcolor{keywordtype}{int} mib[2] = \{CTL\_HW, HW\_MEMSIZE\};}
+\DoxyCodeLine{69   int64\_t memsize = 0;}
+\DoxyCodeLine{70   \textcolor{keywordtype}{size\_t} len = \textcolor{keyword}{sizeof}(memsize);}
+\DoxyCodeLine{71   \textcolor{keywordflow}{if} (sysctl(mib, \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(mib), \&memsize, \&len, \textcolor{keyword}{nullptr}, 0) != 0) \{}
+\DoxyCodeLine{72     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{73   \}}
+\DoxyCodeLine{74   \textcolor{keywordflow}{return} memsize;}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#elif V8\_OS\_FREEBSD}}
+\DoxyCodeLine{76   \textcolor{keywordtype}{int} pages, page\_size;}
+\DoxyCodeLine{77   \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} = \textcolor{keyword}{sizeof}(pages);}
+\DoxyCodeLine{78   sysctlbyname(\textcolor{stringliteral}{"{}vm.stats.vm.v\_page\_count"{}}, \&pages, \&\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}}, \textcolor{keyword}{nullptr}, 0);}
+\DoxyCodeLine{79   sysctlbyname(\textcolor{stringliteral}{"{}vm.stats.vm.v\_page\_size"{}}, \&page\_size, \&\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}}, \textcolor{keyword}{nullptr}, 0);}
+\DoxyCodeLine{80   \textcolor{keywordflow}{if} (pages == -\/1 || page\_size == -\/1) \{}
+\DoxyCodeLine{81     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{82   \}}
+\DoxyCodeLine{83   \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}int64\_t\textcolor{keyword}{>}(pages) * page\_size;}
+\DoxyCodeLine{84 \textcolor{preprocessor}{\#elif V8\_OS\_CYGWIN || V8\_OS\_WIN}}
+\DoxyCodeLine{85   MEMORYSTATUSEX memory\_info;}
+\DoxyCodeLine{86   memory\_info.dwLength = \textcolor{keyword}{sizeof}(memory\_info);}
+\DoxyCodeLine{87   \textcolor{keywordflow}{if} (!GlobalMemoryStatusEx(\&memory\_info)) \{}
+\DoxyCodeLine{88     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{89   \}}
+\DoxyCodeLine{90   int64\_t \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = \textcolor{keyword}{static\_cast<}int64\_t\textcolor{keyword}{>}(memory\_info.ullTotalPhys);}
+\DoxyCodeLine{91   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} < 0) \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = std::numeric\_limits<int64\_t>::max();}
+\DoxyCodeLine{92   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{93 \textcolor{preprocessor}{\#elif V8\_OS\_QNX}}
+\DoxyCodeLine{94   \textcolor{keyword}{struct }stat stat\_buf;}
+\DoxyCodeLine{95   \textcolor{keywordflow}{if} (stat(\textcolor{stringliteral}{"{}/proc"{}}, \&stat\_buf) != 0) \{}
+\DoxyCodeLine{96     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{97   \}}
+\DoxyCodeLine{98   \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}int64\_t\textcolor{keyword}{>}(stat\_buf.st\_size);}
+\DoxyCodeLine{99 \textcolor{preprocessor}{\#elif V8\_OS\_AIX}}
+\DoxyCodeLine{100   int64\_t \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = sysconf(\_SC\_AIX\_REALMEM);}
+\DoxyCodeLine{101   \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}int64\_t\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}) * 1024L;}
+\DoxyCodeLine{102 \textcolor{preprocessor}{\#elif V8\_OS\_ZOS}}
+\DoxyCodeLine{103   \textcolor{keywordtype}{int} pages = \_\_get\_num\_frames();}
+\DoxyCodeLine{104   \textcolor{keywordtype}{long} page\_size = sysconf(\_SC\_PAGESIZE);}
+\DoxyCodeLine{105   \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}uint64\_t\textcolor{keyword}{>}(pages) * page\_size;}
+\DoxyCodeLine{106 \textcolor{preprocessor}{\#elif V8\_OS\_POSIX}}
+\DoxyCodeLine{107   \textcolor{keywordtype}{long} pages = sysconf(\_SC\_PHYS\_PAGES);    \textcolor{comment}{// NOLINT(runtime/int)}}
+\DoxyCodeLine{108   \textcolor{keywordtype}{long} page\_size = sysconf(\_SC\_PAGESIZE);  \textcolor{comment}{// NOLINT(runtime/int)}}
+\DoxyCodeLine{109   \textcolor{keywordflow}{if} (pages == -\/1 || page\_size == -\/1) \{}
+\DoxyCodeLine{110     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{111   \}}
+\DoxyCodeLine{112   \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}int64\_t\textcolor{keyword}{>}(pages) * page\_size;}
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#elif V8\_OS\_STARBOARD}}
+\DoxyCodeLine{114   \textcolor{keywordflow}{return} SbSystemGetTotalCPUMemory();}
+\DoxyCodeLine{115 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{116 \}}
+
+\end{DoxyCode}
+
+
+References arraysize, v8\+::base\+::internal\+::result, and size().
+
+
+
+Referenced by v8\+::\+Shell\+::\+Main().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=299pt]{classv8_1_1base_1_1SysInfo_a97f971a5174d8cb9ec1bc9b42b77a893_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1base_1_1SysInfo_a97f971a5174d8cb9ec1bc9b42b77a893_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1base_1_1SysInfo_af9f658e742009f9c9205088afb6d5c18}\label{classv8_1_1base_1_1SysInfo_af9f658e742009f9c9205088afb6d5c18}} 
 \index{v8::base::SysInfo@{v8::base::SysInfo}!AmountOfVirtualMemory@{AmountOfVirtualMemory}}
 \index{AmountOfVirtualMemory@{AmountOfVirtualMemory}!v8::base::SysInfo@{v8::base::SysInfo}}
 \doxysubsubsection{\texorpdfstring{AmountOfVirtualMemory()}{AmountOfVirtualMemory()}}
 {\footnotesize\ttfamily int64\+\_\+t v8\+::base\+::\+Sys\+Info\+::\+Amount\+Of\+Virtual\+Memory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 120 of file sys-\/info.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{120                                        \{}
+\DoxyCodeLine{121 \textcolor{preprocessor}{\#if V8\_OS\_WIN || V8\_OS\_FUCHSIA}}
+\DoxyCodeLine{122   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{123 \textcolor{preprocessor}{\#elif V8\_OS\_POSIX}}
+\DoxyCodeLine{124   \textcolor{keyword}{struct }rlimit rlim;}
+\DoxyCodeLine{125   \textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = getrlimit(RLIMIT\_DATA, \&rlim);}
+\DoxyCodeLine{126   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} != 0) \{}
+\DoxyCodeLine{127     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{128   \}}
+\DoxyCodeLine{129   \textcolor{keywordflow}{return} (rlim.rlim\_cur == RLIM\_INFINITY) ? 0 : rlim.rlim\_cur;}
+\DoxyCodeLine{130 \textcolor{preprocessor}{\#elif V8\_OS\_STARBOARD}}
+\DoxyCodeLine{131   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{132 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{133 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::internal\+::result.
+
+
+
+Referenced by v8\+::\+Shell\+::\+Main().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1base_1_1SysInfo_af9f658e742009f9c9205088afb6d5c18_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1base_1_1SysInfo_a2b76071a9327082114103db3a2717630}\label{classv8_1_1base_1_1SysInfo_a2b76071a9327082114103db3a2717630}} 
 \index{v8::base::SysInfo@{v8::base::SysInfo}!NumberOfProcessors@{NumberOfProcessors}}
 \index{NumberOfProcessors@{NumberOfProcessors}!v8::base::SysInfo@{v8::base::SysInfo}}
 \doxysubsubsection{\texorpdfstring{NumberOfProcessors()}{NumberOfProcessors()}}
-{\footnotesize\ttfamily int v8\+::base\+::\+Sys\+Info\+::\+Number\+Of\+Processors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::base\+::\+Sys\+Info\+::\+Number\+Of\+Processors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 37 of file sys-\/info.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{37                                 \{}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#if V8\_OS\_OPENBSD}}
+\DoxyCodeLine{39   \textcolor{keywordtype}{int} mib[2] = \{CTL\_HW, HW\_NCPU\};}
+\DoxyCodeLine{40   \textcolor{keywordtype}{int} ncpu = 0;}
+\DoxyCodeLine{41   \textcolor{keywordtype}{size\_t} len = \textcolor{keyword}{sizeof}(ncpu);}
+\DoxyCodeLine{42   \textcolor{keywordflow}{if} (sysctl(mib, \mbox{\hyperlink{src_2base_2macros_8h_ac55fdd6aa61539c49b1b1f5d38a0ed73}{arraysize}}(mib), \&ncpu, \&len, \textcolor{keyword}{nullptr}, 0) != 0) \{}
+\DoxyCodeLine{43     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{44   \}}
+\DoxyCodeLine{45   \textcolor{keywordflow}{return} ncpu;}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#elif V8\_OS\_ZOS}}
+\DoxyCodeLine{47   \textcolor{comment}{// This is from zoslib:}}
+\DoxyCodeLine{48   \textcolor{keywordflow}{return} \_\_get\_num\_online\_cpus();}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#elif V8\_OS\_POSIX}}
+\DoxyCodeLine{50   \textcolor{keywordtype}{long} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = sysconf(\_SC\_NPROCESSORS\_ONLN);  \textcolor{comment}{// NOLINT(runtime/int)}}
+\DoxyCodeLine{51   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} == -\/1) \{}
+\DoxyCodeLine{52     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{53   \}}
+\DoxyCodeLine{54   \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}});}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#elif V8\_OS\_WIN}}
+\DoxyCodeLine{56   SYSTEM\_INFO system\_info = \{\};}
+\DoxyCodeLine{57   ::GetNativeSystemInfo(\&system\_info);}
+\DoxyCodeLine{58   \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(system\_info.dwNumberOfProcessors);}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#elif V8\_OS\_STARBOARD}}
+\DoxyCodeLine{60   \textcolor{keywordflow}{return} SbSystemGetNumberOfProcessors();}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{62 \}}
+
+\end{DoxyCode}
+
+
+References arraysize, and v8\+::base\+::internal\+::result.
+
+
+
+Referenced by v8\+::platform\+::anonymous\+\_\+namespace\{default-\/platform.\+cc\}\+::\+Get\+Actual\+Thread\+Pool\+Size().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1base_1_1SysInfo_a2b76071a9327082114103db3a2717630_icgraph}
+\end{center}
+\end{figure}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{sys-info_8h}{sys-\/info.\+h}}\item 
-\mbox{\hyperlink{sys-info_8cc}{sys-\/info.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/base/\mbox{\hyperlink{sys-info_8h}{sys-\/info.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/base/\mbox{\hyperlink{sys-info_8cc}{sys-\/info.\+cc}}\end{DoxyCompactItemize}

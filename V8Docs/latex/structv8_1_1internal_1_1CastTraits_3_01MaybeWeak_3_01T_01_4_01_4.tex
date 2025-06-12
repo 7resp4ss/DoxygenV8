@@ -4,11 +4,31 @@
 
 {\ttfamily \#include $<$casting.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Cast\+Traits$<$ Maybe\+Weak$<$ T $>$ $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{structv8_1_1internal_1_1CastTraits_3_01MaybeWeak_3_01T_01_4_01_4__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$typename U $>$ }\\static \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{structv8_1_1internal_1_1CastTraits_3_01MaybeWeak_3_01T_01_4_01_4_a96d7adefcc9e617876e3f4936fcc4f83}{Allow\+From}} (\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{namespacev8_1_1internal_a713282f0d86c48b3ac210e8f7380d0ea}{U}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+struct v8\+::internal\+::\+Cast\+Traits$<$ Maybe\+Weak$<$ T $>$ $>$}
+
+
+
+Definition at line 187 of file casting.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -18,10 +38,43 @@
 \doxysubsubsection{\texorpdfstring{AllowFrom()}{AllowFrom()}}
 {\footnotesize\ttfamily template$<$typename T $>$ \\
 template$<$typename U $>$ \\
-static \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{structv8_1_1internal_1_1CastTraits}{v8\+::internal\+::\+Cast\+Traits}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1MaybeWeak}{Maybe\+Weak}}$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$ $>$\+::Allow\+From (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{namespacev8_1_1internal_a713282f0d86c48b3ac210e8f7380d0ea}{U}} $>$}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+static \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{structv8_1_1internal_1_1CastTraits}{v8\+::internal\+::\+Cast\+Traits}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1MaybeWeak}{Maybe\+Weak}}$<$ \mbox{\hyperlink{classT}{T}} $>$ $>$\+::Allow\+From (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{namespacev8_1_1internal_a713282f0d86c48b3ac210e8f7380d0ea}{U}} $>$}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
+
+
+Definition at line 189 of file casting.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{189                                          \{}
+\DoxyCodeLine{190     \textcolor{keywordflow}{if} constexpr (is\_maybe\_weak\_v<U>) \{}
+\DoxyCodeLine{191       \textcolor{comment}{// Cleared values are always ok.}}
+\DoxyCodeLine{192       \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}.IsCleared()) \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{193       \textcolor{comment}{// TODO(leszeks): Skip Smi check for values that are known to not be Smi.}}
+\DoxyCodeLine{194       \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}.IsSmi()) \{}
+\DoxyCodeLine{195         \textcolor{keywordflow}{return} CastTraits<T>::AllowFrom(\mbox{\hyperlink{namespacev8_1_1internal_ae5e657aba90e2d28950f7c96453e9736}{Tagged<Smi>}}(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}.ptr()));}
+\DoxyCodeLine{196       \}}
+\DoxyCodeLine{197       \textcolor{keywordflow}{return} CastTraits<T>::AllowFrom(\mbox{\hyperlink{namespacev8_1_1internal_a2aebb1376bec4577a02698bacf76fbf4}{MakeStrong}}(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}));}
+\DoxyCodeLine{198     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{199       \textcolor{keywordflow}{return} CastTraits<T>::AllowFrom(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});}
+\DoxyCodeLine{200     \}}
+\DoxyCodeLine{201   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Make\+Strong(), and v8\+::internal\+::value.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1CastTraits_3_01MaybeWeak_3_01T_01_4_01_4_a96d7adefcc9e617876e3f4936fcc4f83_cgraph}
+\end{center}
+\end{figure}
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{casting_8h}{casting.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{casting_8h}{casting.\+h}}\end{DoxyCompactItemize}

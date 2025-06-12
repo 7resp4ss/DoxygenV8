@@ -8,5 +8,6 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1AllocateOp =
     [ "size", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1AllocateOp.html#a721d094bb60220394c4f4bb73a4b0f89", null ],
     [ "Validate", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1AllocateOp.html#ace8284cde3bf60f768004c5ec7b59354", null ],
     [ "alignment", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1AllocateOp.html#aea7df8c07cba40d60508ffd6557611e9", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1AllocateOp.html#aaf12032cc879656284ddeeeecd78f7de", null ],
     [ "type", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1AllocateOp.html#ab123700250551c3fe3a6c0e2d57a6056", null ]
 ];

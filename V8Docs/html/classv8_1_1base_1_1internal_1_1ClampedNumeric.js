@@ -1,11 +1,13 @@
 var classv8_1_1base_1_1internal_1_1ClampedNumeric =
 [
+    [ "Wrapper", "structv8_1_1base_1_1internal_1_1ClampedNumeric_1_1Wrapper.html", "structv8_1_1base_1_1internal_1_1ClampedNumeric_1_1Wrapper" ],
     [ "type", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#a03a1af2c1a385f5b149e8ca767742d71", null ],
     [ "ClampedNumeric", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#a5df4168243a124f40631e5d43625de9d", null ],
     [ "ClampedNumeric", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#ae0bf777dc5d1ea7c3422aa7b99f644ab", null ],
     [ "ClampedNumeric", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#a15f17123dcdd5dcf6f5f1b4f71233338", null ],
     [ "Abs", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#a64ea5340520df4ff5ff92beedd78c5ef", null ],
     [ "Cast", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#a776bf2fb22c5323f036ae55d6bc596c8", null ],
+    [ "MathOp", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#a307b10ac055b53db9affd084fbaea6b1", null ],
     [ "MathOp", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#ad8f54b89f8c01df578d265df00098fd8", null ],
     [ "Max", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#a67afad592e0142060f4bef18cd32784e", null ],
     [ "Min", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#aae1e986d9f58539009e8e514b52943c2", null ],
@@ -28,5 +30,7 @@ var classv8_1_1base_1_1internal_1_1ClampedNumeric =
     [ "operator~", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#a3f6f0bfe67f02ed767aa3c27c4f42a88", null ],
     [ "RawValue", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#a028340a0fcfded87ffcd89f02f45210f", null ],
     [ "requires", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#a7320a6ff67eba63c091ce3fe28a3197a", null ],
-    [ "UnsignedAbs", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#a2b234419040258074b2874ac2076641b", null ]
+    [ "UnsignedAbs", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#a2b234419040258074b2874ac2076641b", null ],
+    [ "ClampedNumeric", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#a6f09ea65be724b4009b1e63239376a33", null ],
+    [ "value_", "classv8_1_1base_1_1internal_1_1ClampedNumeric.html#ac939d002ee7dad0056ed706715a34a22", null ]
 ];

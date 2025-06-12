@@ -1,0 +1,4 @@
+var namespacev8_1_1internal_1_1wasm_1_1anonymous__namespace_02streaming_decoder_8cc_03 =
+[
+    [ "CallMoreFunctionsCanBeSerializedCallback", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02streaming-decoder_8cc_03_1_1CallMoreFunctionsCanBeSerializedCallback.html", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02streaming-decoder_8cc_03_1_1CallMoreFunctionsCanBeSerializedCallback" ]
+];

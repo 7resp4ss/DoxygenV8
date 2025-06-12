@@ -1,7 +1,10 @@
 var classv8_1_1Function =
 [
+    [ "Function", "classv8_1_1Function.html#a33c9a4315cb1c02f98a38a068986be72", null ],
     [ "Call", "classv8_1_1Function.html#a724981107f977d570a0842724398cfdf", null ],
     [ "Call", "classv8_1_1Function.html#ac44115494773a32d87a63584b60709da", null ],
+    [ "Cast", "classv8_1_1Function.html#a65d2a75a5f437c7929abcc5e55c2736a", null ],
+    [ "CheckCast", "classv8_1_1Function.html#aa2c82ea6d9fab107f803d35aa36b9193", null ],
     [ "Experimental_IsNopFunction", "classv8_1_1Function.html#a1b8c5d7a98b045f17d9da3047dd8f6ee", null ],
     [ "FunctionProtoToString", "classv8_1_1Function.html#a52ea25f05fea25de1bc5256e696c4346", null ],
     [ "GetBoundFunction", "classv8_1_1Function.html#ac3b4ea43e40fedfa17e871bdfbb9517e", null ],
@@ -13,9 +16,11 @@ var classv8_1_1Function =
     [ "GetScriptLocation", "classv8_1_1Function.html#acdd82ce422418271fca94009a18575f9", null ],
     [ "GetScriptOrigin", "classv8_1_1Function.html#a79197c4c905cd1fb905f242c3d1d31cf", null ],
     [ "GetScriptStartPosition", "classv8_1_1Function.html#af4b5628658c64ab7cc5ecfcc44b56dbc", null ],
+    [ "New", "classv8_1_1Function.html#a22f451f67d33a8403286d27f22d9ecb3", null ],
     [ "NewInstance", "classv8_1_1Function.html#ab491afc6bdf1d5174fe55d5cfad4ffe9", null ],
     [ "NewInstance", "classv8_1_1Function.html#ad9d54477a970ec3bb4a6ea69a58735de", null ],
     [ "NewInstanceWithSideEffectType", "classv8_1_1Function.html#afe9f17d00c8da825b774f02b70d395a2", null ],
     [ "ScriptId", "classv8_1_1Function.html#a5070c2657325ed6ca05ebb932c641438", null ],
-    [ "SetName", "classv8_1_1Function.html#aa9f51cea2036e0caa317e3955109856d", null ]
+    [ "SetName", "classv8_1_1Function.html#aa9f51cea2036e0caa317e3955109856d", null ],
+    [ "kLineOffsetNotFound", "classv8_1_1Function.html#acf0af24f79908e405a6ac435277596d9", null ]
 ];

@@ -36,6 +36,13 @@ const \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}} $\ast$ \
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 121 of file pointer-\/policies.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicyBase_a2995faccaeaedb95f4508097f7cf7fd0}\label{classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicyBase_a2995faccaeaedb95f4508097f7cf7fd0}} 
 \index{cppgc::internal::SameThreadEnabledCheckingPolicyBase@{cppgc::internal::SameThreadEnabledCheckingPolicyBase}!CheckPointerImpl@{CheckPointerImpl}}
@@ -43,6 +50,112 @@ const \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}} $\ast$ \
 \doxysubsubsection{\texorpdfstring{CheckPointerImpl()}{CheckPointerImpl()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Same\+Thread\+Enabled\+Checking\+Policy\+Base\+::\+Check\+Pointer\+Impl (\begin{DoxyParamCaption}\item[{const void $\ast$}]{ptr,  }\item[{bool}]{points\+\_\+to\+\_\+payload,  }\item[{bool}]{check\+\_\+off\+\_\+heap\+\_\+assignments }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 33 of file pointer-\/policies.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34                                                                               \{}
+\DoxyCodeLine{35   \textcolor{comment}{// `ptr` must not reside on stack.}}
+\DoxyCodeLine{36   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!IsOnStack(ptr));}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#if defined(CPPGC\_CAGED\_HEAP)}}
+\DoxyCodeLine{38   \textcolor{comment}{// `ptr` must reside in the cage.}}
+\DoxyCodeLine{39   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(CagedHeapBase::IsWithinCage(ptr));}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// defined(CPPGC\_CAGED\_HEAP)}}
+\DoxyCodeLine{41   \textcolor{comment}{// Check for the most commonly used wrong sentinel value (-\/1).}}
+\DoxyCodeLine{42   \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(-\/1), ptr);}
+\DoxyCodeLine{43   \textcolor{keyword}{auto}* base\_page = \mbox{\hyperlink{classcppgc_1_1internal_1_1BasePage_aad13cafeed6c2ea494b7423b9c527b7a}{BasePage::FromPayload}}(ptr);}
+\DoxyCodeLine{44   \textcolor{comment}{// Large objects do not support mixins. This also means that `base\_page` is}}
+\DoxyCodeLine{45   \textcolor{comment}{// valid for large objects.}}
+\DoxyCodeLine{46   \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(base\_page-\/>is\_large(), points\_to\_payload);}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48   \textcolor{comment}{// References cannot change their heap association which means that state is}}
+\DoxyCodeLine{49   \textcolor{comment}{// immutable once it is set.}}
+\DoxyCodeLine{50   \textcolor{keywordtype}{bool} is\_on\_heap = \textcolor{keyword}{true};}
+\DoxyCodeLine{51   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicyBase_a0a1e934927793d534c451bce7f40995e}{heap\_}}) \{}
+\DoxyCodeLine{52     \mbox{\hyperlink{classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicyBase_a0a1e934927793d534c451bce7f40995e}{heap\_}} = \&base\_page-\/>heap();}
+\DoxyCodeLine{53     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicyBase_a0a1e934927793d534c451bce7f40995e}{heap\_}}-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_ad1a50849cdcdbeb7af792c887d3728d9}{page\_backend}}()-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1PageBackend_ab41492e62fa2e44d2653058317db4cd2}{Lookup}}(\textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacecppgc_1_1internal_a5229c26742f473fcdcc68b715482635b}{Address}}\textcolor{keyword}{>}(\textcolor{keyword}{this}))) \{}
+\DoxyCodeLine{54       \textcolor{comment}{// If `this` is not contained within the heap of `ptr`, we must deal with}}
+\DoxyCodeLine{55       \textcolor{comment}{// an on-\/stack or off-\/heap reference. For both cases there should be no}}
+\DoxyCodeLine{56       \textcolor{comment}{// heap registered.}}
+\DoxyCodeLine{57       is\_on\_heap = \textcolor{keyword}{false};}
+\DoxyCodeLine{58       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(!\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapRegistry_a064d6fa2a2f6e88cf466d4e9cdebfafc}{HeapRegistry::TryFromManagedPointer}}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{59     \}}
+\DoxyCodeLine{60   \}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62   \textcolor{comment}{// Member references should never mix heaps.}}
+\DoxyCodeLine{63   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicyBase_a0a1e934927793d534c451bce7f40995e}{heap\_}}, \&base\_page-\/>heap());}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicyBase_a0a1e934927793d534c451bce7f40995e}{heap\_}}-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_a6b0597904ff3ff1cc0c324b08f0029e1}{CurrentThreadIsHeapThread}}());}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67   \textcolor{comment}{// Header checks.}}
+\DoxyCodeLine{68   \textcolor{keyword}{const} HeapObjectHeader* header = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{69   \textcolor{keywordflow}{if} (points\_to\_payload) \{}
+\DoxyCodeLine{70     \textcolor{comment}{// Unmask the alignment bits for the tagged pointer.}}
+\DoxyCodeLine{71     \textcolor{keyword}{const} \textcolor{keywordtype}{void}* untagged = \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(}
+\DoxyCodeLine{72         \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classuintptr__t}{uintptr\_t}}\textcolor{keyword}{>}(ptr) \& \string~\mbox{\hyperlink{namespacecppgc_1_1internal_ab3de61db12dd2c612c2ee350fb14e41f}{kAllocationMask}});}
+\DoxyCodeLine{73     header = \&\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapObjectHeader_a04b955c04b80d2a431dc2b96e4a85028}{HeapObjectHeader::FromObject}}(untagged);}
+\DoxyCodeLine{74     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(}
+\DoxyCodeLine{75         header,}
+\DoxyCodeLine{76         \&base\_page-\/>ObjectHeaderFromInnerAddress<\mbox{\hyperlink{namespacecppgc_1_1internal_ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71}{AccessMode::kAtomic}}>(ptr));}
+\DoxyCodeLine{77   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{78     \textcolor{comment}{// Mixin case. Access the ObjectStartBitmap atomically since sweeping can be}}
+\DoxyCodeLine{79     \textcolor{comment}{// in progress.}}
+\DoxyCodeLine{80     header =}
+\DoxyCodeLine{81         \&base\_page-\/>ObjectHeaderFromInnerAddress<\mbox{\hyperlink{namespacecppgc_1_1internal_ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71}{AccessMode::kAtomic}}>(ptr);}
+\DoxyCodeLine{82     \mbox{\hyperlink{src_2base_2logging_8h_a16b382527f19b805fc8f856668f2270b}{DCHECK\_LE}}(header-\/>ObjectStart(), ptr);}
+\DoxyCodeLine{83     \mbox{\hyperlink{src_2base_2logging_8h_afd957f297df7e9ee36c46185e961485f}{DCHECK\_GT}}(header-\/>ObjectEnd<\mbox{\hyperlink{namespacecppgc_1_1internal_ac0b40b7e4ac65024fbfcf57d01fa808ea726d9cf5163c50b3cf8e05800e3cef71}{AccessMode::kAtomic}}>(), ptr);}
+\DoxyCodeLine{84   \}}
+\DoxyCodeLine{85   \textcolor{keywordflow}{if} (header) \{}
+\DoxyCodeLine{86     \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!header-\/>IsFree());}
+\DoxyCodeLine{87   \}}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89 \textcolor{preprocessor}{\#ifdef CPPGC\_VERIFY\_HEAP}}
+\DoxyCodeLine{90   \textcolor{keywordflow}{if} (check\_off\_heap\_assignments || is\_on\_heap) \{}
+\DoxyCodeLine{91     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicyBase_a0a1e934927793d534c451bce7f40995e}{heap\_}}-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase_ae426918b3472028baac051b5cc56d9e0}{prefinalizer\_handler}}()-\/>\mbox{\hyperlink{classcppgc_1_1internal_1_1PreFinalizerHandler_afb41db753888a7e592e4ce2eda9bbedc}{IsInvokingPreFinalizers}}()) \{}
+\DoxyCodeLine{92       \textcolor{comment}{// Slot can be in a large object.}}
+\DoxyCodeLine{93       \textcolor{keyword}{const} \textcolor{keyword}{auto}* slot\_page = \mbox{\hyperlink{classcppgc_1_1internal_1_1BasePage_af1e5606c811fb5dcdbd60e1da987f409}{BasePage::FromInnerAddress}}(\mbox{\hyperlink{classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicyBase_a0a1e934927793d534c451bce7f40995e}{heap\_}}, \textcolor{keyword}{this});}
+\DoxyCodeLine{94       \textcolor{comment}{// Off-\/heap slots (from other heaps or on-\/stack) are considered live.}}
+\DoxyCodeLine{95       \textcolor{keywordtype}{bool} slot\_is\_live =}
+\DoxyCodeLine{96           !slot\_page ||}
+\DoxyCodeLine{97           slot\_page-\/>ObjectHeaderFromInnerAddress(\textcolor{keyword}{this}).IsMarked();}
+\DoxyCodeLine{98       \textcolor{comment}{// During prefinalizers invocation, check that if the slot is live then}}
+\DoxyCodeLine{99       \textcolor{comment}{// |ptr| refers to a live object.}}
+\DoxyCodeLine{100       \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(slot\_is\_live, header-\/>IsMarked());}
+\DoxyCodeLine{101       \mbox{\hyperlink{src_2base_2macros_8h_a280b0798f270f4b3f361c9ab64832956}{USE}}(slot\_is\_live);}
+\DoxyCodeLine{102     \}}
+\DoxyCodeLine{103   \}}
+\DoxyCodeLine{104 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{105   \mbox{\hyperlink{src_2base_2macros_8h_a280b0798f270f4b3f361c9ab64832956}{USE}}(is\_on\_heap);}
+\DoxyCodeLine{106 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// CPPGC\_VERIFY\_HEAP}}
+\DoxyCodeLine{107 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, cppgc\+::internal\+::\+Heap\+Base\+::\+Current\+Thread\+Is\+Heap\+Thread(), DCHECK, DCHECK\+\_\+\+EQ, DCHECK\+\_\+\+GT, DCHECK\+\_\+\+IMPLIES, DCHECK\+\_\+\+LE, DCHECK\+\_\+\+NE, cppgc\+::internal\+::\+Base\+Page\+::\+From\+Inner\+Address(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+From\+Object(), cppgc\+::internal\+::\+Base\+Page\+::\+From\+Payload(), heap\+\_\+, cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Is\+Free(), cppgc\+::internal\+::\+Pre\+Finalizer\+Handler\+::\+Is\+Invoking\+Pre\+Finalizers(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Is\+Marked(), cppgc\+::internal\+::k\+Allocation\+Mask, cppgc\+::internal\+::k\+Atomic, cppgc\+::internal\+::\+Page\+Backend\+::\+Lookup(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Object\+End(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Object\+Start(), cppgc\+::internal\+::\+Heap\+Base\+::page\+\_\+backend(), cppgc\+::internal\+::\+Heap\+Base\+::prefinalizer\+\_\+handler(), cppgc\+::internal\+::\+Heap\+Registry\+::\+Try\+From\+Managed\+Pointer(), and USE.
+
+
+
+Referenced by cppgc\+::internal\+::\+Same\+Thread\+Enabled\+Checking\+Policy$<$ k\+Check\+Off\+Heap\+Assignments $>$\+::\+Check\+Pointers\+Impl\+Trampoline$<$ T, bool $>$\+::\+Call(), and cppgc\+::internal\+::\+Same\+Thread\+Enabled\+Checking\+Policy$<$ k\+Check\+Off\+Heap\+Assignments $>$\+::\+Check\+Pointers\+Impl\+Trampoline$<$ T, true $>$\+::\+Call().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicyBase_a2995faccaeaedb95f4508097f7cf7fd0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1SameThreadEnabledCheckingPolicyBase_a2995faccaeaedb95f4508097f7cf7fd0_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Data Documentation}
@@ -54,7 +167,15 @@ const \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}} $\ast$ \
 
 
 
+Definition at line 126 of file pointer-\/policies.\+h.
+
+
+
+Referenced by Check\+Pointer\+Impl().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pointer-policies_8h}{pointer-\/policies.\+h}}\item 
-\mbox{\hyperlink{pointer-policies_8cc}{pointer-\/policies.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/cppgc/internal/\mbox{\hyperlink{pointer-policies_8h}{pointer-\/policies.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/cppgc/\mbox{\hyperlink{pointer-policies_8cc}{pointer-\/policies.\+cc}}\end{DoxyCompactItemize}

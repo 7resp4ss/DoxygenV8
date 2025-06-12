@@ -10,5 +10,7 @@ var classv8_1_1internal_1_1maglev_1_1VirtualObjectList =
     [ "IsSnapshot", "classv8_1_1internal_1_1maglev_1_1VirtualObjectList.html#a9100f796a00cf592d550b948243a076e", null ],
     [ "operator==", "classv8_1_1internal_1_1maglev_1_1VirtualObjectList.html#ac5d09b487074aae7d12562a0d1b90053", null ],
     [ "Print", "classv8_1_1internal_1_1maglev_1_1VirtualObjectList.html#a48cf98578757054dbc8957bf6b930511", null ],
-    [ "Snapshot", "classv8_1_1internal_1_1maglev_1_1VirtualObjectList.html#ae69f85811281f5ac737ce8ec4acecbd6", null ]
+    [ "Snapshot", "classv8_1_1internal_1_1maglev_1_1VirtualObjectList.html#ae69f85811281f5ac737ce8ec4acecbd6", null ],
+    [ "WalkUntilCommon", "classv8_1_1internal_1_1maglev_1_1VirtualObjectList.html#ab8be39fa05c5c84b55b5298430785ed2", null ],
+    [ "head_", "classv8_1_1internal_1_1maglev_1_1VirtualObjectList.html#a0909346bed9232b0d688cb4a2d8d13c5", null ]
 ];

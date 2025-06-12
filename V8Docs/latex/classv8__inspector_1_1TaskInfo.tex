@@ -2,25 +2,51 @@
 \label{classv8__inspector_1_1TaskInfo}\index{v8\_inspector::TaskInfo@{v8\_inspector::TaskInfo}}
 
 
+Each JS task object created via {\ttfamily console.\+create\+Task} has a corresponding {\ttfamily \mbox{\hyperlink{classv8__inspector_1_1TaskInfo}{Task\+Info}}} object on the C++ side (in a 1\+:1 relationship).  
+
+
+
+
 {\ttfamily \#include $<$v8-\/console.\+h$>$}
 
+
+
+Collaboration diagram for v8\+\_\+inspector\+::Task\+Info\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8__inspector_1_1TaskInfo__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8__inspector_1_1TaskInfo_a42e44b933ba8f3ebca979d58f07e63aa}{Task\+Info}} (\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8__inspector_1_1V8Console}{V8\+Console}} $\ast$console, \mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Object}{v8\+::\+Object}} $>$ task)
+\mbox{\hyperlink{classv8__inspector_1_1TaskInfo_a42e44b933ba8f3ebca979d58f07e63aa}{Task\+Info}} (\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8__inspector_1_1V8Console}{V8\+Console}} $\ast$console, \mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Object}{v8\+::\+Object}} $>$ task)
 \item 
 void $\ast$ \mbox{\hyperlink{classv8__inspector_1_1TaskInfo_a9077500c1a03e2e9b3817300c3986cef}{Id}} () const
 \item 
 void \mbox{\hyperlink{classv8__inspector_1_1TaskInfo_a4f2e26cb71b4319371049331f5bb66fb}{Cancel}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1Global}{v8\+::\+Global}}$<$ \mbox{\hyperlink{classv8_1_1Object}{v8\+::\+Object}} $>$ \mbox{\hyperlink{classv8__inspector_1_1TaskInfo_ab1854b39d734218ff1024fa4beec96bc}{m\+\_\+task}}
+\item 
+\mbox{\hyperlink{classv8__inspector_1_1V8Console}{V8\+Console}} $\ast$ \mbox{\hyperlink{classv8__inspector_1_1TaskInfo_a1d1b2b809ccbdb1806e1f63c3bc9d94f}{m\+\_\+console}} = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Each JS task object created via {\ttfamily console.\+create\+Task} has a corresponding {\ttfamily \mbox{\hyperlink{classv8__inspector_1_1TaskInfo}{Task\+Info}}} object on the C++ side (in a 1\+:1 relationship).
+Each JS task object created via {\ttfamily console.\+create\+Task} has a corresponding {\ttfamily \mbox{\hyperlink{classv8__inspector_1_1TaskInfo}{Task\+Info}}} object on the C++ side (in a 1\+:1 relationship). 
 
 The {\ttfamily \mbox{\hyperlink{classv8__inspector_1_1TaskInfo}{Task\+Info}}} holds on weakly to the JS task object. The JS task objects uses a private symbol to store a pointer to the {\ttfamily \mbox{\hyperlink{classv8__inspector_1_1TaskInfo}{Task\+Info}}} object (via \mbox{\hyperlink{classv8_1_1External}{v8\+::\+External}}).
 
 The {\ttfamily \mbox{\hyperlink{classv8__inspector_1_1TaskInfo}{Task\+Info}}} objects holds all the necessary information we need to properly cancel the corresponding async task then the JS task object gets GC\textquotesingle{}ed. 
+
+Definition at line 240 of file v8-\/console.\+h.
+
+
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8__inspector_1_1TaskInfo_a42e44b933ba8f3ebca979d58f07e63aa}\label{classv8__inspector_1_1TaskInfo_a42e44b933ba8f3ebca979d58f07e63aa}} 
@@ -31,6 +57,32 @@ The {\ttfamily \mbox{\hyperlink{classv8__inspector_1_1TaskInfo}{Task\+Info}}} ob
 
 
 
+Definition at line 608 of file v8-\/console.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{610     : \mbox{\hyperlink{classv8__inspector_1_1TaskInfo_ab1854b39d734218ff1024fa4beec96bc}{m\_task}}(isolate, task), \mbox{\hyperlink{classv8__inspector_1_1TaskInfo_a1d1b2b809ccbdb1806e1f63c3bc9d94f}{m\_console}}(console) \{}
+\DoxyCodeLine{611   task-\/>\mbox{\hyperlink{classv8_1_1Object_a218d4c58fe168396ce4318b06dbfe8ba}{SetPrivate}}(isolate-\/>\mbox{\hyperlink{classv8_1_1Isolate_af68803b1b9fb0bf76107f56a7a762fac}{GetCurrentContext}}(), console-\/>taskInfoKey(),}
+\DoxyCodeLine{612                    \mbox{\hyperlink{classv8_1_1External_a881b71b771ce579154757c0b89ba53a1}{v8::External::New}}(isolate, \textcolor{keyword}{this}))}
+\DoxyCodeLine{613       .Check();}
+\DoxyCodeLine{614   \mbox{\hyperlink{classv8__inspector_1_1TaskInfo_ab1854b39d734218ff1024fa4beec96bc}{m\_task}}.\mbox{\hyperlink{classv8_1_1PersistentBase_a052f2bf7c57f113dae914959baeaf3f6}{SetWeak}}(\textcolor{keyword}{this}, \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-console_8cc_03_a1a54163dc4370b7d931e1ad9c972ea08}{cleanupTaskInfo}}, \mbox{\hyperlink{namespacev8_a68b2b90003e18980bc0b438c95be1005ad51e5151617cc9541b52f510b30610e2}{v8::WeakCallbackType::kParameter}});}
+\DoxyCodeLine{615 \}}
+
+\end{DoxyCode}
+
+
+References v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/console.\+cc\}\+::cleanup\+Task\+Info(), v8\+::\+Isolate\+::\+Get\+Current\+Context(), v8\+::k\+Parameter, m\+\_\+task, v8\+::\+External\+::\+New(), v8\+::\+Object\+::\+Set\+Private(), v8\+::\+Persistent\+Base$<$ T $>$\+::\+Set\+Weak(), and v8\+\_\+inspector\+::\+V8\+Console\+::task\+Info\+Key().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8__inspector_1_1TaskInfo_a42e44b933ba8f3ebca979d58f07e63aa_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8__inspector_1_1TaskInfo_a4f2e26cb71b4319371049331f5bb66fb}\label{classv8__inspector_1_1TaskInfo_a4f2e26cb71b4319371049331f5bb66fb}} 
 \index{v8\_inspector::TaskInfo@{v8\_inspector::TaskInfo}!Cancel@{Cancel}}
@@ -38,6 +90,39 @@ The {\ttfamily \mbox{\hyperlink{classv8__inspector_1_1TaskInfo}{Task\+Info}}} ob
 \doxysubsubsection{\texorpdfstring{Cancel()}{Cancel()}}
 {\footnotesize\ttfamily void v8\+\_\+inspector\+::\+Task\+Info\+::\+Cancel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 253 of file v8-\/console.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{253 \{ \mbox{\hyperlink{classv8__inspector_1_1TaskInfo_a1d1b2b809ccbdb1806e1f63c3bc9d94f}{m\_console}}-\/>\mbox{\hyperlink{classv8__inspector_1_1V8Console_ab2db397d70eea19ad8d7e702e75aaea4}{cancelConsoleTask}}(\textcolor{keyword}{this}); \}}
+
+\end{DoxyCode}
+
+
+References v8\+\_\+inspector\+::\+V8\+Console\+::cancel\+Console\+Task(), and m\+\_\+console.
+
+
+
+Referenced by v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/console.\+cc\}\+::cleanup\+Task\+Info().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8__inspector_1_1TaskInfo_a4f2e26cb71b4319371049331f5bb66fb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8__inspector_1_1TaskInfo_a4f2e26cb71b4319371049331f5bb66fb_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8__inspector_1_1TaskInfo_a9077500c1a03e2e9b3817300c3986cef}\label{classv8__inspector_1_1TaskInfo_a9077500c1a03e2e9b3817300c3986cef}} 
 \index{v8\_inspector::TaskInfo@{v8\_inspector::TaskInfo}!Id@{Id}}
 \index{Id@{Id}!v8\_inspector::TaskInfo@{v8\_inspector::TaskInfo}}
@@ -46,7 +131,61 @@ The {\ttfamily \mbox{\hyperlink{classv8__inspector_1_1TaskInfo}{Task\+Info}}} ob
 
 
 
+Definition at line 248 of file v8-\/console.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{248                    \{}
+\DoxyCodeLine{249     \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}intptr\_t\textcolor{keyword}{>}(\textcolor{keyword}{this}) << 1);}
+\DoxyCodeLine{250   \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+\_\+inspector\+::\+V8\+Console\+::cancel\+Console\+Task().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8__inspector_1_1TaskInfo_a9077500c1a03e2e9b3817300c3986cef_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8__inspector_1_1TaskInfo_a1d1b2b809ccbdb1806e1f63c3bc9d94f}\label{classv8__inspector_1_1TaskInfo_a1d1b2b809ccbdb1806e1f63c3bc9d94f}} 
+\index{v8\_inspector::TaskInfo@{v8\_inspector::TaskInfo}!m\_console@{m\_console}}
+\index{m\_console@{m\_console}!v8\_inspector::TaskInfo@{v8\_inspector::TaskInfo}}
+\doxysubsubsection{\texorpdfstring{m\_console}{m\_console}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8__inspector_1_1V8Console}{V8\+Console}}$\ast$ v8\+\_\+inspector\+::\+Task\+Info\+::m\+\_\+console = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 257 of file v8-\/console.\+h.
+
+
+
+Referenced by Cancel().
+
+\mbox{\Hypertarget{classv8__inspector_1_1TaskInfo_ab1854b39d734218ff1024fa4beec96bc}\label{classv8__inspector_1_1TaskInfo_ab1854b39d734218ff1024fa4beec96bc}} 
+\index{v8\_inspector::TaskInfo@{v8\_inspector::TaskInfo}!m\_task@{m\_task}}
+\index{m\_task@{m\_task}!v8\_inspector::TaskInfo@{v8\_inspector::TaskInfo}}
+\doxysubsubsection{\texorpdfstring{m\_task}{m\_task}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1Global}{v8\+::\+Global}}$<$\mbox{\hyperlink{classv8_1_1Object}{v8\+::\+Object}}$>$ v8\+\_\+inspector\+::\+Task\+Info\+::m\+\_\+task\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 256 of file v8-\/console.\+h.
+
+
+
+Referenced by Task\+Info().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-console_8h}{v8-\/console.\+h}}\item 
-\mbox{\hyperlink{v8-console_8cc}{v8-\/console.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/inspector/\mbox{\hyperlink{v8-console_8h}{v8-\/console.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/inspector/\mbox{\hyperlink{v8-console_8cc}{v8-\/console.\+cc}}\end{DoxyCompactItemize}

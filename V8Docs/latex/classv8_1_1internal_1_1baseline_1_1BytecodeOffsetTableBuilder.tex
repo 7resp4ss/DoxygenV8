@@ -4,15 +4,39 @@
 
 {\ttfamily \#include $<$baseline-\/compiler.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::baseline\+::Bytecode\+Offset\+Table\+Builder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a35cd5f77cc20266965edf300ed107f2f}{Add\+Position}} (\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{liftoff-compiler_8cc_ac8403346601a16f8902bbe271ff3c261}{pc\+\_\+offset}})
+void \mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a35cd5f77cc20266965edf300ed107f2f}{Add\+Position}} (\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} pc\+\_\+offset)
 \item 
-{\footnotesize template$<$typename IsolateT $>$ }\\\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TrustedByteArray}{Trusted\+Byte\+Array}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a9d75ce73d83a5abccd95a49beffaf392}{To\+Bytecode\+Offset\+Table}} (IsolateT $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+{\footnotesize template$<$typename IsolateT $>$ }\\\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TrustedByteArray}{Trusted\+Byte\+Array}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a9d75ce73d83a5abccd95a49beffaf392}{To\+Bytecode\+Offset\+Table}} (IsolateT $\ast$isolate)
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a805f9e000c771beabe4945c33707393d}{Reserve}} (\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}})
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a2b041d7b23d6d646b2235d2138ff4a94}{previous\+\_\+pc\+\_\+}} = 0
+\item 
+std\+::vector$<$ uint8\+\_\+t $>$ \mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a60f9bbaba74c1e718ccd38e23b2fb8f0}{bytes\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 30 of file baseline-\/compiler.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -22,12 +46,84 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuil
 \doxysubsubsection{\texorpdfstring{AddPosition()}{AddPosition()}}
 {\footnotesize\ttfamily void v8\+::internal\+::baseline\+::\+Bytecode\+Offset\+Table\+Builder\+::\+Add\+Position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{pc\+\_\+offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 32 of file baseline-\/compiler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{32                                      \{}
+\DoxyCodeLine{33     \textcolor{keywordtype}{size\_t} pc\_diff = pc\_offset -\/ \mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a2b041d7b23d6d646b2235d2138ff4a94}{previous\_pc\_}};}
+\DoxyCodeLine{34     \mbox{\hyperlink{src_2base_2logging_8h_aabec5c3b7a8628298a25f044dcf89c25}{DCHECK\_GE}}(pc\_diff, 0);}
+\DoxyCodeLine{35     \mbox{\hyperlink{src_2base_2logging_8h_a16b382527f19b805fc8f856668f2270b}{DCHECK\_LE}}(pc\_diff, std::numeric\_limits<uint32\_t>::max());}
+\DoxyCodeLine{36     \mbox{\hyperlink{namespacev8_1_1base_afd7b9fcdb1fd2221c322a1b5a9f3c35d}{base::VLQEncodeUnsigned}}(\&\mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a60f9bbaba74c1e718ccd38e23b2fb8f0}{bytes\_}}, \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(pc\_diff));}
+\DoxyCodeLine{37     \mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a2b041d7b23d6d646b2235d2138ff4a94}{previous\_pc\_}} = pc\_offset;}
+\DoxyCodeLine{38   \}}
+
+\end{DoxyCode}
+
+
+References bytes\+\_\+, DCHECK\+\_\+\+GE, DCHECK\+\_\+\+LE, previous\+\_\+pc\+\_\+, and v8\+::base\+::\+VLQEncode\+Unsigned().
+
+
+
+Referenced by v8\+::internal\+::baseline\+::\+Baseline\+Compiler\+::\+Add\+Position().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a35cd5f77cc20266965edf300ed107f2f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a35cd5f77cc20266965edf300ed107f2f_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a805f9e000c771beabe4945c33707393d}\label{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a805f9e000c771beabe4945c33707393d}} 
 \index{v8::internal::baseline::BytecodeOffsetTableBuilder@{v8::internal::baseline::BytecodeOffsetTableBuilder}!Reserve@{Reserve}}
 \index{Reserve@{Reserve}!v8::internal::baseline::BytecodeOffsetTableBuilder@{v8::internal::baseline::BytecodeOffsetTableBuilder}}
 \doxysubsubsection{\texorpdfstring{Reserve()}{Reserve()}}
 {\footnotesize\ttfamily void v8\+::internal\+::baseline\+::\+Bytecode\+Offset\+Table\+Builder\+::\+Reserve (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 43 of file baseline-\/compiler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{43 \{ \mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a60f9bbaba74c1e718ccd38e23b2fb8f0}{bytes\_}}.reserve(\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}}); \}}
+
+\end{DoxyCode}
+
+
+References bytes\+\_\+, and size().
+
+
+
+Referenced by v8\+::internal\+::baseline\+::\+Baseline\+Compiler\+::\+Baseline\+Compiler().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a805f9e000c771beabe4945c33707393d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a805f9e000c771beabe4945c33707393d_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a9d75ce73d83a5abccd95a49beffaf392}\label{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a9d75ce73d83a5abccd95a49beffaf392}} 
 \index{v8::internal::baseline::BytecodeOffsetTableBuilder@{v8::internal::baseline::BytecodeOffsetTableBuilder}!ToBytecodeOffsetTable@{ToBytecodeOffsetTable}}
 \index{ToBytecodeOffsetTable@{ToBytecodeOffsetTable}!v8::internal::baseline::BytecodeOffsetTableBuilder@{v8::internal::baseline::BytecodeOffsetTableBuilder}}
@@ -37,7 +133,77 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuil
 
 
 
+Definition at line 72 of file baseline-\/compiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{73                        \{}
+\DoxyCodeLine{74   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a60f9bbaba74c1e718ccd38e23b2fb8f0}{bytes\_}}.empty()) \textcolor{keywordflow}{return} isolate-\/>factory()-\/>empty\_trusted\_byte\_array();}
+\DoxyCodeLine{75   Handle<TrustedByteArray> table =}
+\DoxyCodeLine{76       isolate-\/>factory()-\/>NewTrustedByteArray(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a60f9bbaba74c1e718ccd38e23b2fb8f0}{bytes\_}}.size()));}
+\DoxyCodeLine{77   \mbox{\hyperlink{namespacev8_1_1internal_ae0ee98c9174e5955450c56da22cb8f6a}{MemCopy}}(table-\/>begin(), \mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a60f9bbaba74c1e718ccd38e23b2fb8f0}{bytes\_}}.data(), \mbox{\hyperlink{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a60f9bbaba74c1e718ccd38e23b2fb8f0}{bytes\_}}.size());}
+\DoxyCodeLine{78   \textcolor{keywordflow}{return} table;}
+\DoxyCodeLine{79 \}}
+
+\end{DoxyCode}
+
+
+References bytes\+\_\+, and v8\+::internal\+::\+Mem\+Copy().
+
+
+
+Referenced by v8\+::internal\+::baseline\+::\+Baseline\+Compiler\+::\+Build().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a9d75ce73d83a5abccd95a49beffaf392_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a9d75ce73d83a5abccd95a49beffaf392_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a60f9bbaba74c1e718ccd38e23b2fb8f0}\label{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a60f9bbaba74c1e718ccd38e23b2fb8f0}} 
+\index{v8::internal::baseline::BytecodeOffsetTableBuilder@{v8::internal::baseline::BytecodeOffsetTableBuilder}!bytes\_@{bytes\_}}
+\index{bytes\_@{bytes\_}!v8::internal::baseline::BytecodeOffsetTableBuilder@{v8::internal::baseline::BytecodeOffsetTableBuilder}}
+\doxysubsubsection{\texorpdfstring{bytes\_}{bytes\_}}
+{\footnotesize\ttfamily std\+::vector$<$uint8\+\_\+t$>$ v8\+::internal\+::baseline\+::\+Bytecode\+Offset\+Table\+Builder\+::bytes\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 47 of file baseline-\/compiler.\+h.
+
+
+
+Referenced by Add\+Position(), Reserve(), and To\+Bytecode\+Offset\+Table().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a2b041d7b23d6d646b2235d2138ff4a94}\label{classv8_1_1internal_1_1baseline_1_1BytecodeOffsetTableBuilder_a2b041d7b23d6d646b2235d2138ff4a94}} 
+\index{v8::internal::baseline::BytecodeOffsetTableBuilder@{v8::internal::baseline::BytecodeOffsetTableBuilder}!previous\_pc\_@{previous\_pc\_}}
+\index{previous\_pc\_@{previous\_pc\_}!v8::internal::baseline::BytecodeOffsetTableBuilder@{v8::internal::baseline::BytecodeOffsetTableBuilder}}
+\doxysubsubsection{\texorpdfstring{previous\_pc\_}{previous\_pc\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::baseline\+::\+Bytecode\+Offset\+Table\+Builder\+::previous\+\_\+pc\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 46 of file baseline-\/compiler.\+h.
+
+
+
+Referenced by Add\+Position().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{baseline-compiler_8h}{baseline-\/compiler.\+h}}\item 
-\mbox{\hyperlink{baseline-compiler_8cc}{baseline-\/compiler.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/baseline/\mbox{\hyperlink{baseline-compiler_8h}{baseline-\/compiler.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/baseline/\mbox{\hyperlink{baseline-compiler_8cc}{baseline-\/compiler.\+cc}}\end{DoxyCompactItemize}

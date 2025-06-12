@@ -83,6 +83,7 @@ $(document).ready(function(){initNavTree('classv8_1_1internal_1_1trap__handler_1
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classv8_1_1internal_1_1trap__handler_1_1MetadataLock-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">v8::internal::trap_handler::MetadataLock Class Reference</div>  </div>
@@ -90,6 +91,14 @@ $(document).ready(function(){initNavTree('classv8_1_1internal_1_1trap__handler_1
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="trap-handler-internal_8h_source.html">trap-handler-internal.h</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for v8::internal::trap_handler::MetadataLock:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classv8_1_1internal_1_1trap__handler_1_1MetadataLock__coll__graph.svg" width="190" height="287"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -101,8 +110,16 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab0c0db657458b84ea00c83f838220664"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed8fb781c55c13ff50d8d284f9f88d7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classv8_1_1internal_1_1trap__handler_1_1MetadataLock.html#aed8fb781c55c13ff50d8d284f9f88d7d">operator=</a> (const <a class="el" href="classv8_1_1internal_1_1trap__handler_1_1MetadataLock.html">MetadataLock</a> &amp;)=delete</td></tr>
 <tr class="separator:aed8fb781c55c13ff50d8d284f9f88d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:aa66f91ed6010e225a8029058a479716c"><td class="memItemLeft" align="right" valign="top">static std::atomic_flag&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classv8_1_1internal_1_1trap__handler_1_1MetadataLock.html#aa66f91ed6010e225a8029058a479716c">spinlock_</a> = ATOMIC_FLAG_INIT</td></tr>
+<tr class="separator:aa66f91ed6010e225a8029058a479716c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="trap-handler-internal_8h_source.html#l00031">31</a> of file <a class="el" href="trap-handler-internal_8h_source.html">trap-handler-internal.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1efb845ac32121077b3ee96f90bde5b4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1efb845ac32121077b3ee96f90bde5b4">&#9670;&nbsp;</a></span>MetadataLock() <span class="overload">[1/2]</span></h2>
 
@@ -117,6 +134,20 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="handler-shared_8cc_source.html#l00051">51</a> of file <a class="el" href="handler-shared_8cc_source.html">handler-shared.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                           {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="namespacev8_1_1internal_1_1trap__handler.html#a7ef0c7e2495e25016945cd68d44966e9">g_thread_in_wasm_code</a>) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    abort();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordflow">while</span> (<a class="code" href="classv8_1_1internal_1_1trap__handler_1_1MetadataLock.html#aa66f91ed6010e225a8029058a479716c">spinlock_</a>.test_and_set(std::memory_order_acquire)) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
+<div class="ttc" id="aclassv8_1_1internal_1_1trap__handler_1_1MetadataLock_html_aa66f91ed6010e225a8029058a479716c"><div class="ttname"><a href="classv8_1_1internal_1_1trap__handler_1_1MetadataLock.html#aa66f91ed6010e225a8029058a479716c">v8::internal::trap_handler::MetadataLock::spinlock_</a></div><div class="ttdeci">static std::atomic_flag spinlock_</div><div class="ttdef"><b>Definition:</b> <a href="trap-handler-internal_8h_source.html#l00032">trap-handler-internal.h:32</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_1_1trap__handler_html_a7ef0c7e2495e25016945cd68d44966e9"><div class="ttname"><a href="namespacev8_1_1internal_1_1trap__handler.html#a7ef0c7e2495e25016945cd68d44966e9">v8::internal::trap_handler::g_thread_in_wasm_code</a></div><div class="ttdeci">thread_local int g_thread_in_wasm_code</div><div class="ttdef"><b>Definition:</b> <a href="handler-shared_8cc_source.html#l00030">handler-shared.cc:30</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="handler-shared_8cc_source.html#l00030">v8::internal::trap_handler::g_thread_in_wasm_code</a>, and <a class="el" href="trap-handler-internal_8h_source.html#l00032">spinlock_</a>.</p>
 
 </div>
 </div>
@@ -134,6 +165,17 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="handler-shared_8cc_source.html#l00060">60</a> of file <a class="el" href="handler-shared_8cc_source.html">handler-shared.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                            {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="namespacev8_1_1internal_1_1trap__handler.html#a7ef0c7e2495e25016945cd68d44966e9">g_thread_in_wasm_code</a>) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    abort();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <a class="code" href="classv8_1_1internal_1_1trap__handler_1_1MetadataLock.html#aa66f91ed6010e225a8029058a479716c">spinlock_</a>.clear(std::memory_order_release);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="handler-shared_8cc_source.html#l00030">v8::internal::trap_handler::g_thread_in_wasm_code</a>, and <a class="el" href="trap-handler-internal_8h_source.html#l00032">spinlock_</a>.</p>
 
 </div>
 </div>
@@ -190,9 +232,36 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aa66f91ed6010e225a8029058a479716c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa66f91ed6010e225a8029058a479716c">&#9670;&nbsp;</a></span>spinlock_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::atomic_flag v8::internal::trap_handler::MetadataLock::spinlock_ = ATOMIC_FLAG_INIT</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="trap-handler-internal_8h_source.html#l00032">32</a> of file <a class="el" href="trap-handler-internal_8h_source.html">trap-handler-internal.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="handler-shared_8cc_source.html#l00051">MetadataLock()</a>, and <a class="el" href="handler-shared_8cc_source.html#l00060">~MetadataLock()</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="trap-handler-internal_8h_source.html">trap-handler-internal.h</a></li>
-<li><a class="el" href="handler-shared_8cc.html">handler-shared.cc</a></li>
+<li>/mnt/V8SourceCode/src/trap-handler/<a class="el" href="trap-handler-internal_8h_source.html">trap-handler-internal.h</a></li>
+<li>/mnt/V8SourceCode/src/trap-handler/<a class="el" href="handler-shared_8cc_source.html">handler-shared.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -200,7 +269,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacev8.html">v8</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal.html">internal</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal_1_1trap__handler.html">trap_handler</a></li><li class="navelem"><a class="el" href="classv8_1_1internal_1_1trap__handler_1_1MetadataLock.html">MetadataLock</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:48:29 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jun 12 2025 16:14:59 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$external-\/reference-\/encoder.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::External\+Reference\+Encoder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1ExternalReferenceEncoder__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -12,7 +22,7 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_1_1Value}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a6a214ce4f5b34106c1147943237aee2e}{External\+Reference\+Encoder}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+\mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a6a214ce4f5b34106c1147943237aee2e}{External\+Reference\+Encoder}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a336f75e1040f353a7e33404730d5f194}{External\+Reference\+Encoder}} (const \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder}{External\+Reference\+Encoder}} \&)=delete
 \item 
@@ -22,8 +32,20 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_1_1Value}
 \item 
 \mbox{\hyperlink{classv8_1_1Maybe}{Maybe}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_1_1Value}{Value}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a81ce0ee99bd798125f2ecefed56be4c7}{Try\+Encode}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}) const
 \item 
-const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_af43b51c17308404af2c5ae6c65d067a7}{Name\+Of\+Address}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} address) const
+const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_af43b51c17308404af2c5ae6c65d067a7}{Name\+Of\+Address}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} address) const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1AddressToIndexHashMap}{Address\+To\+Index\+Hash\+Map}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}{map\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 19 of file external-\/reference-\/encoder.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -33,6 +55,57 @@ const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncod
 \doxysubsubsection{\texorpdfstring{ExternalReferenceEncoder()}{ExternalReferenceEncoder()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::internal\+::\+External\+Reference\+Encoder\+::\+External\+Reference\+Encoder (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
+
+
+Definition at line 13 of file external-\/reference-\/encoder.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{13                                                                    \{}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{15   api\_references\_ = isolate-\/>api\_external\_references();}
+\DoxyCodeLine{16   \textcolor{keywordflow}{if} (api\_references\_ != \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{17     \textcolor{keywordflow}{for} (uint32\_t \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; api\_references\_[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}] != 0; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) count\_.push\_back(0);}
+\DoxyCodeLine{18   \}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// DEBUG}}
+\DoxyCodeLine{20   \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}{map\_}} = isolate-\/>external\_reference\_map();}
+\DoxyCodeLine{21   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}{map\_}} != \textcolor{keyword}{nullptr}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{22   \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}{map\_}} = \textcolor{keyword}{new} AddressToIndexHashMap();}
+\DoxyCodeLine{23   isolate-\/>set\_external\_reference\_map(\mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}{map\_}});}
+\DoxyCodeLine{24   \textcolor{comment}{// Add V8's external references.}}
+\DoxyCodeLine{25   ExternalReferenceTable* table = isolate-\/>external\_reference\_table();}
+\DoxyCodeLine{26   \textcolor{keywordflow}{for} (uint32\_t \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceTable_a58e218e326f23cc501175f461edb9e6a}{ExternalReferenceTable::kSize}}; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{27     \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} addr = table-\/>address(\mbox{\hyperlink{namespacev8_1_1internal}{i}});}
+\DoxyCodeLine{28     \textcolor{comment}{// Ignore duplicate references.}}
+\DoxyCodeLine{29     \textcolor{comment}{// This can happen due to ICF. See http://crbug.com/726896.}}
+\DoxyCodeLine{30     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}{map\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1PointerToIndexHashMap_a6b3ae1b5f56a135d2f04a66582a57840}{Get}}(addr).IsNothing()) \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}{map\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1PointerToIndexHashMap_a370bd201d47721f8d4971116dfc62b01}{Set}}(addr, \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_1_1Value_aa861a1774dea6f2c8391dfa04c28da5b}{Value::Encode}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}, \textcolor{keyword}{false}));}
+\DoxyCodeLine{31     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}{map\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1PointerToIndexHashMap_a6b3ae1b5f56a135d2f04a66582a57840}{Get}}(addr).IsJust());}
+\DoxyCodeLine{32   \}}
+\DoxyCodeLine{33   \textcolor{comment}{// Add external references provided by the embedder.}}
+\DoxyCodeLine{34   \textcolor{keyword}{const} intptr\_t* api\_references = isolate-\/>api\_external\_references();}
+\DoxyCodeLine{35   \textcolor{keywordflow}{if} (api\_references == \textcolor{keyword}{nullptr}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{36   \textcolor{keywordflow}{for} (uint32\_t \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; api\_references[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}] != 0; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{37     \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} addr = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}\textcolor{keyword}{>}(api\_references[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}]);}
+\DoxyCodeLine{38     \textcolor{comment}{// Ignore duplicate references.}}
+\DoxyCodeLine{39     \textcolor{comment}{// This can happen due to ICF. See http://crbug.com/726896.}}
+\DoxyCodeLine{40     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}{map\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1PointerToIndexHashMap_a6b3ae1b5f56a135d2f04a66582a57840}{Get}}(addr).IsNothing()) \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}{map\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1PointerToIndexHashMap_a370bd201d47721f8d4971116dfc62b01}{Set}}(addr, \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_1_1Value_aa861a1774dea6f2c8391dfa04c28da5b}{Value::Encode}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}, \textcolor{keyword}{true}));}
+\DoxyCodeLine{41     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}{map\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1PointerToIndexHashMap_a6b3ae1b5f56a135d2f04a66582a57840}{Get}}(addr).IsJust());}
+\DoxyCodeLine{42   \}}
+\DoxyCodeLine{43 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+External\+Reference\+Table\+::address(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+External\+Reference\+Encoder\+::\+Value\+::\+Encode(), v8\+::internal\+::\+Isolate\+::external\+\_\+reference\+\_\+table(), v8\+::internal\+::\+Pointer\+To\+Index\+Hash\+Map$<$ Type $>$\+::\+Get(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::\+External\+Reference\+Table\+::k\+Size, map\+\_\+, and v8\+::internal\+::\+Pointer\+To\+Index\+Hash\+Map$<$ Type $>$\+::\+Set().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ExternalReferenceEncoder_a6a214ce4f5b34106c1147943237aee2e_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ExternalReferenceEncoder_a336f75e1040f353a7e33404730d5f194}\label{classv8_1_1internal_1_1ExternalReferenceEncoder_a336f75e1040f353a7e33404730d5f194}} 
 \index{v8::internal::ExternalReferenceEncoder@{v8::internal::ExternalReferenceEncoder}!ExternalReferenceEncoder@{ExternalReferenceEncoder}}
 \index{ExternalReferenceEncoder@{ExternalReferenceEncoder}!v8::internal::ExternalReferenceEncoder@{v8::internal::ExternalReferenceEncoder}}
@@ -48,12 +121,86 @@ const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncod
 \doxysubsubsection{\texorpdfstring{Encode()}{Encode()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_1_1Value}{External\+Reference\+Encoder\+::\+Value}} v8\+::internal\+::\+External\+Reference\+Encoder\+::\+Encode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{key }\end{DoxyParamCaption}) const}
 
+
+
+Definition at line 70 of file external-\/reference-\/encoder.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{71                            \{}
+\DoxyCodeLine{72   Maybe<uint32\_t> maybe\_index = \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}{map\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1PointerToIndexHashMap_a6b3ae1b5f56a135d2f04a66582a57840}{Get}}(address);}
+\DoxyCodeLine{73   \textcolor{keywordflow}{if} (maybe\_index.IsNothing()) \{}
+\DoxyCodeLine{74     \textcolor{keywordtype}{void}* addr = \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(address);}
+\DoxyCodeLine{75     v8::base::OS::PrintError(\textcolor{stringliteral}{"{}Unknown external reference \%p.\(\backslash\)n"{}}, addr);}
+\DoxyCodeLine{76     v8::base::OS::PrintError(\textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}},}
+\DoxyCodeLine{77                              \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceTable_a8a4d64e8982d19c31f7eb713b0379b78}{ExternalReferenceTable::ResolveSymbol}}(addr));}
+\DoxyCodeLine{78     \mbox{\hyperlink{classv8_1_1base_1_1OS_a3abddefa2e7ad8ab0628e6b44fad5a6b}{v8::base::OS::Abort}}();}
+\DoxyCodeLine{79   \}}
+\DoxyCodeLine{80   Value \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}(maybe\_index.FromJust());}
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{82   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.is\_from\_api()) count\_[\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.index()]++;}
+\DoxyCodeLine{83 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// DEBUG}}
+\DoxyCodeLine{84   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{85 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+OS\+::\+Abort(), v8\+::\+Maybe$<$ T $>$\+::\+From\+Just(), v8\+::internal\+::\+Pointer\+To\+Index\+Hash\+Map$<$ Type $>$\+::\+Get(), v8\+::\+Maybe$<$ T $>$\+::\+Is\+Nothing(), map\+\_\+, v8\+::internal\+::\+External\+Reference\+Table\+::\+Resolve\+Symbol(), and v8\+::base\+::internal\+::result.
+
+
+
+Referenced by v8\+::internal\+::\+Macro\+Assembler\+Base\+::\+Root\+Register\+Offset\+For\+External\+Reference\+Table\+Entry().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ExternalReferenceEncoder_ad839c1bd77b0a583caaf651e549c41be_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ExternalReferenceEncoder_ad839c1bd77b0a583caaf651e549c41be_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ExternalReferenceEncoder_af43b51c17308404af2c5ae6c65d067a7}\label{classv8_1_1internal_1_1ExternalReferenceEncoder_af43b51c17308404af2c5ae6c65d067a7}} 
 \index{v8::internal::ExternalReferenceEncoder@{v8::internal::ExternalReferenceEncoder}!NameOfAddress@{NameOfAddress}}
 \index{NameOfAddress@{NameOfAddress}!v8::internal::ExternalReferenceEncoder@{v8::internal::ExternalReferenceEncoder}}
 \doxysubsubsection{\texorpdfstring{NameOfAddress()}{NameOfAddress()}}
 {\footnotesize\ttfamily const char $\ast$ v8\+::internal\+::\+External\+Reference\+Encoder\+::\+Name\+Of\+Address (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{address }\end{DoxyParamCaption}) const}
 
+
+
+Definition at line 87 of file external-\/reference-\/encoder.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{88                                                                            \{}
+\DoxyCodeLine{89   Maybe<uint32\_t> maybe\_index = \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}{map\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1PointerToIndexHashMap_a6b3ae1b5f56a135d2f04a66582a57840}{Get}}(address);}
+\DoxyCodeLine{90   \textcolor{keywordflow}{if} (maybe\_index.IsNothing()) \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}<unknown>"{}};}
+\DoxyCodeLine{91   Value \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}(maybe\_index.FromJust());}
+\DoxyCodeLine{92   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}.is\_from\_api()) \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}<from api>"{}};}
+\DoxyCodeLine{93   \textcolor{keywordflow}{return} isolate-\/>external\_reference\_table()-\/>name(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}.index());}
+\DoxyCodeLine{94 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::external\+\_\+reference\+\_\+table(), v8\+::\+Maybe$<$ T $>$\+::\+From\+Just(), v8\+::internal\+::\+Pointer\+To\+Index\+Hash\+Map$<$ Type $>$\+::\+Get(), v8\+::\+Maybe$<$ T $>$\+::\+Is\+Nothing(), map\+\_\+, v8\+::internal\+::\+External\+Reference\+Table\+::name(), and v8\+::internal\+::value.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ExternalReferenceEncoder_af43b51c17308404af2c5ae6c65d067a7_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ExternalReferenceEncoder_a150f607bf80b1561d7b3a5e943fc01cc}\label{classv8_1_1internal_1_1ExternalReferenceEncoder_a150f607bf80b1561d7b3a5e943fc01cc}} 
 \index{v8::internal::ExternalReferenceEncoder@{v8::internal::ExternalReferenceEncoder}!operator=@{operator=}}
 \index{operator=@{operator=}!v8::internal::ExternalReferenceEncoder@{v8::internal::ExternalReferenceEncoder}}
@@ -68,7 +215,65 @@ const char $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncod
 
 
 
+Definition at line 59 of file external-\/reference-\/encoder.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60                            \{}
+\DoxyCodeLine{61   Maybe<uint32\_t> maybe\_index = \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}{map\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1PointerToIndexHashMap_a6b3ae1b5f56a135d2f04a66582a57840}{Get}}(address);}
+\DoxyCodeLine{62   \textcolor{keywordflow}{if} (maybe\_index.IsNothing()) \textcolor{keywordflow}{return} Nothing<Value>();}
+\DoxyCodeLine{63   Value \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}(maybe\_index.FromJust());}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{65   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.is\_from\_api()) count\_[\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.index()]++;}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// DEBUG}}
+\DoxyCodeLine{67   \textcolor{keywordflow}{return} Just<Value>(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}});}
+\DoxyCodeLine{68 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Maybe$<$ T $>$\+::\+From\+Just(), v8\+::internal\+::\+Pointer\+To\+Index\+Hash\+Map$<$ Type $>$\+::\+Get(), v8\+::\+Maybe$<$ T $>$\+::\+Is\+Nothing(), map\+\_\+, and v8\+::base\+::internal\+::result.
+
+
+
+Referenced by v8\+::internal\+::\+Serializer\+::\+Encode\+External\+Reference(), and v8\+::internal\+::\+Serializer\+::\+Try\+Encode\+External\+Reference().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ExternalReferenceEncoder_a81ce0ee99bd798125f2ecefed56be4c7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ExternalReferenceEncoder_a81ce0ee99bd798125f2ecefed56be4c7_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}\label{classv8_1_1internal_1_1ExternalReferenceEncoder_a453050b8c0b7487472724504fa4908eb}} 
+\index{v8::internal::ExternalReferenceEncoder@{v8::internal::ExternalReferenceEncoder}!map\_@{map\_}}
+\index{map\_@{map\_}!v8::internal::ExternalReferenceEncoder@{v8::internal::ExternalReferenceEncoder}}
+\doxysubsubsection{\texorpdfstring{map\_}{map\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1AddressToIndexHashMap}{Address\+To\+Index\+Hash\+Map}}$\ast$ v8\+::internal\+::\+External\+Reference\+Encoder\+::map\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 51 of file external-\/reference-\/encoder.\+h.
+
+
+
+Referenced by Encode(), External\+Reference\+Encoder(), Name\+Of\+Address(), and Try\+Encode().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{external-reference-encoder_8h}{external-\/reference-\/encoder.\+h}}\item 
-\mbox{\hyperlink{external-reference-encoder_8cc}{external-\/reference-\/encoder.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/codegen/\mbox{\hyperlink{external-reference-encoder_8h}{external-\/reference-\/encoder.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/codegen/\mbox{\hyperlink{external-reference-encoder_8cc}{external-\/reference-\/encoder.\+cc}}\end{DoxyCompactItemize}

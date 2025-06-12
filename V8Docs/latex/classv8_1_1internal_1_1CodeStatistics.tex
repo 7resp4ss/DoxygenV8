@@ -4,15 +4,37 @@
 
 {\ttfamily \#include $<$code-\/stats.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Code\+Statistics\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{classv8_1_1internal_1_1CodeStatistics__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static void \mbox{\hyperlink{classv8_1_1internal_1_1CodeStatistics_ab5b66ed3366a7886e6cef1359a377414}{Collect\+Code\+Statistics}} (\mbox{\hyperlink{classv8_1_1internal_1_1PagedSpace}{Paged\+Space}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}}, \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+static void \mbox{\hyperlink{classv8_1_1internal_1_1CodeStatistics_ab5b66ed3366a7886e6cef1359a377414}{Collect\+Code\+Statistics}} (\mbox{\hyperlink{classv8_1_1internal_1_1PagedSpace}{Paged\+Space}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}}, \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
 \item 
-static void \mbox{\hyperlink{classv8_1_1internal_1_1CodeStatistics_a7ccd5738ad3671cacf5852293e6304c6}{Collect\+Code\+Statistics}} (\mbox{\hyperlink{classv8_1_1internal_1_1OldLargeObjectSpace}{Old\+Large\+Object\+Space}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}}, \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+static void \mbox{\hyperlink{classv8_1_1internal_1_1CodeStatistics_a7ccd5738ad3671cacf5852293e6304c6}{Collect\+Code\+Statistics}} (\mbox{\hyperlink{classv8_1_1internal_1_1OldLargeObjectSpace}{Old\+Large\+Object\+Space}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}}, \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
 \item 
-static void \mbox{\hyperlink{classv8_1_1internal_1_1CodeStatistics_a915f2dc302e3a5142367c910b6e0b344}{Reset\+Code\+And\+Metadata\+Statistics}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+static void \mbox{\hyperlink{classv8_1_1internal_1_1CodeStatistics_a915f2dc302e3a5142367c910b6e0b344}{Reset\+Code\+And\+Metadata\+Statistics}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
 \end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classv8_1_1internal_1_1CodeStatistics_a469ba883f7f40ce75a241fe675154f90}{Record\+Code\+And\+Metadata\+Statistics}} (\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ object, \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 20 of file code-\/stats.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -22,12 +44,148 @@ static void \mbox{\hyperlink{classv8_1_1internal_1_1CodeStatistics_a915f2dc302e3
 \doxysubsubsection{\texorpdfstring{CollectCodeStatistics()}{CollectCodeStatistics()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Code\+Statistics\+::\+Collect\+Code\+Statistics (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1OldLargeObjectSpace}{Old\+Large\+Object\+Space}} $\ast$}]{space,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 75 of file code-\/stats.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{76                                                              \{}
+\DoxyCodeLine{77   LargeObjectSpaceObjectIterator obj\_it(\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}});}
+\DoxyCodeLine{78   \textcolor{keywordflow}{for} (\mbox{\hyperlink{namespacev8_1_1internal_a57f5ecf71b9a2757b0555b2be4c640b8}{Tagged<HeapObject>}} obj = obj\_it.Next(); !obj.is\_null();}
+\DoxyCodeLine{79        obj = obj\_it.Next()) \{}
+\DoxyCodeLine{80     \mbox{\hyperlink{classv8_1_1internal_1_1CodeStatistics_a469ba883f7f40ce75a241fe675154f90}{RecordCodeAndMetadataStatistics}}(obj, isolate);}
+\DoxyCodeLine{81   \}}
+\DoxyCodeLine{82 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Tagged$<$ Heap\+Object $>$\+::is\+\_\+null(), v8\+::internal\+::\+Large\+Object\+Space\+Object\+Iterator\+::\+Next(), Record\+Code\+And\+Metadata\+Statistics(), and space.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CodeStatistics_a7ccd5738ad3671cacf5852293e6304c6_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1CodeStatistics_ab5b66ed3366a7886e6cef1359a377414}\label{classv8_1_1internal_1_1CodeStatistics_ab5b66ed3366a7886e6cef1359a377414}} 
 \index{v8::internal::CodeStatistics@{v8::internal::CodeStatistics}!CollectCodeStatistics@{CollectCodeStatistics}}
 \index{CollectCodeStatistics@{CollectCodeStatistics}!v8::internal::CodeStatistics@{v8::internal::CodeStatistics}}
 \doxysubsubsection{\texorpdfstring{CollectCodeStatistics()}{CollectCodeStatistics()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Code\+Statistics\+::\+Collect\+Code\+Statistics (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1PagedSpace}{Paged\+Space}} $\ast$}]{space,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 63 of file code-\/stats.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{64                                                              \{}
+\DoxyCodeLine{65   PagedSpaceObjectIterator obj\_it(isolate-\/>heap(), \mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}});}
+\DoxyCodeLine{66   \textcolor{keywordflow}{for} (\mbox{\hyperlink{namespacev8_1_1internal_a57f5ecf71b9a2757b0555b2be4c640b8}{Tagged<HeapObject>}} obj = obj\_it.Next(); !obj.is\_null();}
+\DoxyCodeLine{67        obj = obj\_it.Next()) \{}
+\DoxyCodeLine{68     \mbox{\hyperlink{classv8_1_1internal_1_1CodeStatistics_a469ba883f7f40ce75a241fe675154f90}{RecordCodeAndMetadataStatistics}}(obj, isolate);}
+\DoxyCodeLine{69   \}}
+\DoxyCodeLine{70 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::heap(), v8\+::internal\+::\+Tagged$<$ Heap\+Object $>$\+::is\+\_\+null(), v8\+::internal\+::\+Paged\+Space\+Object\+Iterator\+::\+Next(), Record\+Code\+And\+Metadata\+Statistics(), and space.
+
+
+
+Referenced by v8\+::internal\+::\+Heap\+::\+Collect\+Code\+Statistics().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CodeStatistics_ab5b66ed3366a7886e6cef1359a377414_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CodeStatistics_ab5b66ed3366a7886e6cef1359a377414_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1CodeStatistics_a469ba883f7f40ce75a241fe675154f90}\label{classv8_1_1internal_1_1CodeStatistics_a469ba883f7f40ce75a241fe675154f90}} 
+\index{v8::internal::CodeStatistics@{v8::internal::CodeStatistics}!RecordCodeAndMetadataStatistics@{RecordCodeAndMetadataStatistics}}
+\index{RecordCodeAndMetadataStatistics@{RecordCodeAndMetadataStatistics}!v8::internal::CodeStatistics@{v8::internal::CodeStatistics}}
+\doxysubsubsection{\texorpdfstring{RecordCodeAndMetadataStatistics()}{RecordCodeAndMetadataStatistics()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Code\+Statistics\+::\+Record\+Code\+And\+Metadata\+Statistics (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$}]{object,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 17 of file code-\/stats.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18                                                                        \{}
+\DoxyCodeLine{19   PtrComprCageBase cage\_base(isolate);}
+\DoxyCodeLine{20   \textcolor{keywordflow}{if} (IsScript(\textcolor{keywordtype}{object}, cage\_base)) \{}
+\DoxyCodeLine{21     Tagged<Script> \mbox{\hyperlink{namespacev8_1_1internal_afb7e5cd394b9632dddc2e7807b11b2ab}{script}} = Cast<Script>(\textcolor{keywordtype}{object});}
+\DoxyCodeLine{22     \textcolor{comment}{// Log the size of external source code.}}
+\DoxyCodeLine{23     \mbox{\hyperlink{namespacev8_1_1internal_a5297fd2c72981b2220e6b9a831570fb3}{Tagged<Object>}} source = \mbox{\hyperlink{namespacev8_1_1internal_afb7e5cd394b9632dddc2e7807b11b2ab}{script}}-\/>source(cage\_base);}
+\DoxyCodeLine{24     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1InstanceTypeChecker_a4dd27cf9309273fdf5e136ba0bc57b08}{IsExternalString}}(source, cage\_base)) \{}
+\DoxyCodeLine{25       Tagged<ExternalString> external\_source\_string =}
+\DoxyCodeLine{26           Cast<ExternalString>(source);}
+\DoxyCodeLine{27       \textcolor{keywordtype}{int} \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} = isolate-\/>external\_script\_source\_size();}
+\DoxyCodeLine{28       \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} += external\_source\_string-\/>ExternalPayloadSize();}
+\DoxyCodeLine{29       isolate-\/>set\_external\_script\_source\_size(\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}});}
+\DoxyCodeLine{30     \}}
+\DoxyCodeLine{31   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_1_1InstanceTypeChecker_a5fb0226775bc607ae04fbbb3a9205c7b}{IsAbstractCode}}(\textcolor{keywordtype}{object}, cage\_base)) \{}
+\DoxyCodeLine{32     \textcolor{comment}{// Record code+metadata statistics.}}
+\DoxyCodeLine{33     Tagged<AbstractCode> abstract\_code = Cast<AbstractCode>(\textcolor{keywordtype}{object});}
+\DoxyCodeLine{34     \textcolor{keywordtype}{int} \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} = abstract\_code-\/>SizeIncludingMetadata(cage\_base);}
+\DoxyCodeLine{35     \textcolor{keywordflow}{if} (IsCode(abstract\_code, cage\_base)) \{}
+\DoxyCodeLine{36       \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} += isolate-\/>code\_and\_metadata\_size();}
+\DoxyCodeLine{37       isolate-\/>set\_code\_and\_metadata\_size(\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}});}
+\DoxyCodeLine{38     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{39       \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} += isolate-\/>bytecode\_and\_metadata\_size();}
+\DoxyCodeLine{40       isolate-\/>set\_bytecode\_and\_metadata\_size(\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}});}
+\DoxyCodeLine{41     \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{44     \mbox{\hyperlink{namespacev8_1_1internal_a9f3877ef6710a52328e07f2f6347b577}{CodeKind}} code\_kind = abstract\_code-\/>kind(cage\_base);}
+\DoxyCodeLine{45     isolate-\/>code\_kind\_statistics()[\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(code\_kind)] +=}
+\DoxyCodeLine{46         abstract\_code-\/>Size(cage\_base);}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{48   \}}
+\DoxyCodeLine{49 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Instance\+Type\+Checker\+::\+Is\+Abstract\+Code(), v8\+::internal\+::\+Instance\+Type\+Checker\+::\+Is\+External\+String(), v8\+::internal\+::script, and size().
+
+
+
+Referenced by Collect\+Code\+Statistics().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CodeStatistics_a469ba883f7f40ce75a241fe675154f90_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CodeStatistics_a469ba883f7f40ce75a241fe675154f90_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1CodeStatistics_a915f2dc302e3a5142367c910b6e0b344}\label{classv8_1_1internal_1_1CodeStatistics_a915f2dc302e3a5142367c910b6e0b344}} 
 \index{v8::internal::CodeStatistics@{v8::internal::CodeStatistics}!ResetCodeAndMetadataStatistics@{ResetCodeAndMetadataStatistics}}
 \index{ResetCodeAndMetadataStatistics@{ResetCodeAndMetadataStatistics}!v8::internal::CodeStatistics@{v8::internal::CodeStatistics}}
@@ -36,7 +194,35 @@ static void \mbox{\hyperlink{classv8_1_1internal_1_1CodeStatistics_a915f2dc302e3
 
 
 
+Definition at line 51 of file code-\/stats.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{51                                                                     \{}
+\DoxyCodeLine{52   isolate-\/>set\_code\_and\_metadata\_size(0);}
+\DoxyCodeLine{53   isolate-\/>set\_bytecode\_and\_metadata\_size(0);}
+\DoxyCodeLine{54   isolate-\/>set\_external\_script\_source\_size(0);}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{56   ResetCodeStatistics(isolate);}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{58 \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+Heap\+::\+Collect\+Code\+Statistics().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1CodeStatistics_a915f2dc302e3a5142367c910b6e0b344_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{code-stats_8h}{code-\/stats.\+h}}\item 
-\mbox{\hyperlink{code-stats_8cc}{code-\/stats.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{code-stats_8h}{code-\/stats.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{code-stats_8cc}{code-\/stats.\+cc}}\end{DoxyCompactItemize}

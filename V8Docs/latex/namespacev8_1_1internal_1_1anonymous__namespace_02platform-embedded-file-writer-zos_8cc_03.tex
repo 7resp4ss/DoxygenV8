@@ -1,0 +1,73 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02platform-embedded-file-writer-zos_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{platform-\/embedded-\/file-\/writer-\/zos.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02platform-embedded-file-writer-zos_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}platform-\/embedded-\/file-\/writer-\/zos.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}platform-\/embedded-\/file-\/writer-\/zos.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02platform-embedded-file-writer-zos_8cc_03_abdb19e6949d2ac3136c670725ee5228a}{hlasm\+Print\+Line}} (FILE $\ast$fp, const char $\ast$fmt,...)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02platform-embedded-file-writer-zos_8cc_03_abdb19e6949d2ac3136c670725ee5228a}\label{namespacev8_1_1internal_1_1anonymous__namespace_02platform-embedded-file-writer-zos_8cc_03_abdb19e6949d2ac3136c670725ee5228a}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}platform-\/embedded-\/file-\/writer-\/zos.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}platform-\/embedded-\/file-\/writer-\/zos.cc\rcurly{}}!hlasmPrintLine@{hlasmPrintLine}}
+\index{hlasmPrintLine@{hlasmPrintLine}!v8::internal::anonymous\_namespace\lcurly{}platform-\/embedded-\/file-\/writer-\/zos.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}platform-\/embedded-\/file-\/writer-\/zos.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{hlasmPrintLine()}{hlasmPrintLine()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::anonymous\+\_\+namespace\{platform-\/embedded-\/\mbox{\hyperlink{flag-definitions_8h_a583245cb1ce76ddbc0cf3db5354b33c1}{file}}-\/writer-\/zos.\+cc\}\+::hlasm\+Print\+Line (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{fp,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 21 of file platform-\/embedded-\/file-\/writer-\/zos.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21                                                    \{}
+\DoxyCodeLine{22   \textcolor{keywordtype}{int} ret;}
+\DoxyCodeLine{23   \textcolor{keywordtype}{char} buffer[4096];}
+\DoxyCodeLine{24   \textcolor{keywordtype}{int} offset = 0;}
+\DoxyCodeLine{25   \textcolor{keyword}{static} \textcolor{keywordtype}{char} indent[\mbox{\hyperlink{namespacev8_1_1internal_a7b3b0c5612613cfd8be3202b10f9ad9f}{kAsmContIndentLen}}] = \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{26   va\_list ap;}
+\DoxyCodeLine{27   va\_start(ap, fmt);}
+\DoxyCodeLine{28   ret = vsnprintf(buffer, \textcolor{keyword}{sizeof}(buffer), fmt, ap);}
+\DoxyCodeLine{29   va\_end(ap);}
+\DoxyCodeLine{30   \textcolor{keywordflow}{if} (!*indent) memset(indent, \textcolor{charliteral}{' '}, \textcolor{keyword}{sizeof}(indent));}
+\DoxyCodeLine{31   \textcolor{keywordflow}{if} (ret > \mbox{\hyperlink{namespacev8_1_1internal_a4477495d6d0ed474946e5d2eb7a6f48b}{kAsmMaxLineLen}} \&\& buffer[\mbox{\hyperlink{namespacev8_1_1internal_a4477495d6d0ed474946e5d2eb7a6f48b}{kAsmMaxLineLen}}] != \textcolor{charliteral}{'\(\backslash\)n'}) \{}
+\DoxyCodeLine{32     offset += fwrite(buffer + offset, 1, \mbox{\hyperlink{namespacev8_1_1internal_a4477495d6d0ed474946e5d2eb7a6f48b}{kAsmMaxLineLen}}, fp);}
+\DoxyCodeLine{33     \textcolor{comment}{// Write continuation mark}}
+\DoxyCodeLine{34     fwrite(\textcolor{stringliteral}{"{}-\/\(\backslash\)n"{}}, 1, 2, fp);}
+\DoxyCodeLine{35     ret -\/= \mbox{\hyperlink{namespacev8_1_1internal_a4477495d6d0ed474946e5d2eb7a6f48b}{kAsmMaxLineLen}};}
+\DoxyCodeLine{36     \textcolor{keywordflow}{while} (ret > \mbox{\hyperlink{namespacev8_1_1internal_a82cf49ef208d8a00fc3cbab014f05360}{kAsmContMaxLen}}) \{}
+\DoxyCodeLine{37       \textcolor{comment}{// indent by kAsmContIndentLen}}
+\DoxyCodeLine{38       fwrite(indent, 1, \mbox{\hyperlink{namespacev8_1_1internal_a7b3b0c5612613cfd8be3202b10f9ad9f}{kAsmContIndentLen}}, fp);}
+\DoxyCodeLine{39       offset += fwrite(buffer + offset, 1, \mbox{\hyperlink{namespacev8_1_1internal_a82cf49ef208d8a00fc3cbab014f05360}{kAsmContMaxLen}}, fp);}
+\DoxyCodeLine{40       \textcolor{comment}{// write continuation mark}}
+\DoxyCodeLine{41       fwrite(\textcolor{stringliteral}{"{}-\/\(\backslash\)n"{}}, 1, 2, fp);}
+\DoxyCodeLine{42       ret -\/= \mbox{\hyperlink{namespacev8_1_1internal_a82cf49ef208d8a00fc3cbab014f05360}{kAsmContMaxLen}};}
+\DoxyCodeLine{43     \}}
+\DoxyCodeLine{44     \textcolor{keywordflow}{if} (ret > 0) \{}
+\DoxyCodeLine{45       \textcolor{comment}{// indent kAsmContIndentLen blanks}}
+\DoxyCodeLine{46       fwrite(indent, 1, \mbox{\hyperlink{namespacev8_1_1internal_a7b3b0c5612613cfd8be3202b10f9ad9f}{kAsmContIndentLen}}, fp);}
+\DoxyCodeLine{47       offset += fwrite(buffer + offset, 1, ret, fp);}
+\DoxyCodeLine{48     \}}
+\DoxyCodeLine{49   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{50     offset += fwrite(buffer + offset, 1, ret, fp);}
+\DoxyCodeLine{51   \}}
+\DoxyCodeLine{52   \textcolor{keywordflow}{return} ret;}
+\DoxyCodeLine{53 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::k\+Asm\+Cont\+Indent\+Len, v8\+::internal\+::k\+Asm\+Cont\+Max\+Len, and v8\+::internal\+::k\+Asm\+Max\+Line\+Len.
+
+
+
+Referenced by v8\+::internal\+::\+Platform\+Embedded\+File\+Writer\+ZOS\+::\+Comment(), v8\+::internal\+::\+Platform\+Embedded\+File\+Writer\+ZOS\+::\+Declare\+Function\+Begin(), v8\+::internal\+::\+Platform\+Embedded\+File\+Writer\+ZOS\+::\+Declare\+Label(), v8\+::internal\+::\+Platform\+Embedded\+File\+Writer\+ZOS\+::\+Declare\+Symbol\+Global(), and v8\+::internal\+::\+Platform\+Embedded\+File\+Writer\+ZOS\+::\+Source\+Info().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02platform-embedded-file-writer-zos_8cc_03_abdb19e6949d2ac3136c670725ee5228a_icgraph}
+\end{center}
+\end{figure}

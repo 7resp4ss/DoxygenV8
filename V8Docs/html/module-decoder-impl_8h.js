@@ -3,6 +3,7 @@ var module_decoder_impl_8h =
     [ "WasmSectionIterator", "classv8_1_1internal_1_1wasm_1_1WasmSectionIterator.html", "classv8_1_1internal_1_1wasm_1_1WasmSectionIterator" ],
     [ "ModuleDecoderImpl", "classv8_1_1internal_1_1wasm_1_1ModuleDecoderImpl.html", "classv8_1_1internal_1_1wasm_1_1ModuleDecoderImpl" ],
     [ "DataSegmentHeader", "structv8_1_1internal_1_1wasm_1_1ModuleDecoderImpl_1_1DataSegmentHeader.html", "structv8_1_1internal_1_1wasm_1_1ModuleDecoderImpl_1_1DataSegmentHeader" ],
+    [ "LimitsByte", "structv8_1_1internal_1_1wasm_1_1ModuleDecoderImpl_1_1LimitsByte.html", "structv8_1_1internal_1_1wasm_1_1ModuleDecoderImpl_1_1LimitsByte" ],
     [ "DescriptorsSectionIterator", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator.html", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator" ],
     [ "Method", "structv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Method.html", "structv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Method" ],
     [ "Entry", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry" ],

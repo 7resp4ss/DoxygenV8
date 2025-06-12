@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::Startup\+Deserializer\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=252pt]{classv8_1_1internal_1_1StartupDeserializer__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1StartupDeserializer__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -31,7 +31,23 @@ Collaboration diagram for v8\+::internal\+::Startup\+Deserializer\+:
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1StartupDeserializer_a00b930ec1d2789493f357f5d79d57cf0}{Deserialize\+Into\+Isolate}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1StartupDeserializer_a10f6846fae8b2793a64e112016ffcb3f}{Flush\+ICache}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1StartupDeserializer_a0a7f76c6e21559757446f8f540b04628}{Log\+New\+Map\+Events}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1StartupDeserializer_ae8574c247d0051335fdd5e8a3641b88b}{Deserialize\+And\+Check\+External\+Reference\+Table}} ()
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 15 of file startup-\/deserializer.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -43,7 +59,66 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1StartupDeserializer_a00b930ec1d2789
 
 
 
+Definition at line 17 of file startup-\/deserializer.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{20       : \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_adb0b5891ab253b282d99b02d59e73752}{Deserializer}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}, startup\_data-\/>Payload(),}
+\DoxyCodeLine{21                      startup\_data-\/>GetMagicNumber(), \textcolor{keyword}{false}, can\_rehash) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1StartupDeserializer_ae8574c247d0051335fdd5e8a3641b88b}\label{classv8_1_1internal_1_1StartupDeserializer_ae8574c247d0051335fdd5e8a3641b88b}} 
+\index{v8::internal::StartupDeserializer@{v8::internal::StartupDeserializer}!DeserializeAndCheckExternalReferenceTable@{DeserializeAndCheckExternalReferenceTable}}
+\index{DeserializeAndCheckExternalReferenceTable@{DeserializeAndCheckExternalReferenceTable}!v8::internal::StartupDeserializer@{v8::internal::StartupDeserializer}}
+\doxysubsubsection{\texorpdfstring{DeserializeAndCheckExternalReferenceTable()}{DeserializeAndCheckExternalReferenceTable()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Startup\+Deserializer\+::\+Deserialize\+And\+Check\+External\+Reference\+Table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 95 of file startup-\/deserializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{95                                                                     \{}
+\DoxyCodeLine{96   \textcolor{comment}{// Verify that any external reference entries that were deduplicated in the}}
+\DoxyCodeLine{97   \textcolor{comment}{// serializer are also deduplicated in this isolate.}}
+\DoxyCodeLine{98   ExternalReferenceTable* table = \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a1e4671a3d79330c44f0d3903848b09cb}{external\_reference\_table}}();}
+\DoxyCodeLine{99   \textcolor{keywordflow}{while} (\textcolor{keyword}{true}) \{}
+\DoxyCodeLine{100     uint32\_t \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a3ac7521096ee0a9781447ca872936ffe}{source}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1SnapshotByteSource_ab5cbeb5c8cbd24ba02e72e62b8c8820f}{GetUint30}}();}
+\DoxyCodeLine{101     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} == \mbox{\hyperlink{classv8_1_1internal_1_1ExternalReferenceTable_a4d559131237118202a901dac53fab8be}{ExternalReferenceTable::kSizeIsolateIndependent}}) \textcolor{keywordflow}{break};}
+\DoxyCodeLine{102     uint32\_t encoded\_index = \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a3ac7521096ee0a9781447ca872936ffe}{source}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1SnapshotByteSource_ab5cbeb5c8cbd24ba02e72e62b8c8820f}{GetUint30}}();}
+\DoxyCodeLine{103     \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(table-\/>address(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}), table-\/>address(encoded\_index));}
+\DoxyCodeLine{104   \}}
+\DoxyCodeLine{105 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+External\+Reference\+Table\+::address(), CHECK\+\_\+\+EQ, v8\+::internal\+::\+Isolate\+::external\+\_\+reference\+\_\+table(), v8\+::internal\+::\+Snapshot\+Byte\+Source\+::\+Get\+Uint30(), v8\+::internal\+::index, v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::isolate(), v8\+::internal\+::\+External\+Reference\+Table\+::k\+Size\+Isolate\+Independent, and v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::source().
+
+
+
+Referenced by Deserialize\+Into\+Isolate().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StartupDeserializer_ae8574c247d0051335fdd5e8a3641b88b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StartupDeserializer_ae8574c247d0051335fdd5e8a3641b88b_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1StartupDeserializer_a00b930ec1d2789493f357f5d79d57cf0}\label{classv8_1_1internal_1_1StartupDeserializer_a00b930ec1d2789493f357f5d79d57cf0}} 
 \index{v8::internal::StartupDeserializer@{v8::internal::StartupDeserializer}!DeserializeIntoIsolate@{DeserializeIntoIsolate}}
 \index{DeserializeIntoIsolate@{DeserializeIntoIsolate}!v8::internal::StartupDeserializer@{v8::internal::StartupDeserializer}}
@@ -52,7 +127,199 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1StartupDeserializer_a00b930ec1d2789
 
 
 
+Definition at line 20 of file startup-\/deserializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{20                                                  \{}
+\DoxyCodeLine{21   \mbox{\hyperlink{trace-event-no-perfetto_8h_a3feabb76c0ac2918798bc11ab55c6a79}{TRACE\_EVENT0}}(\textcolor{stringliteral}{"{}v8"{}}, \textcolor{stringliteral}{"{}V8.DeserializeIsolate"{}});}
+\DoxyCodeLine{22   \mbox{\hyperlink{runtime-call-stats-scope_8h_ae2e0b4aff109545657aba76d78cbf764}{RCS\_SCOPE}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}(), RuntimeCallCounterId::kDeserializeIsolate);}
+\DoxyCodeLine{23   base::ElapsedTimer timer;}
+\DoxyCodeLine{24   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.profile\_deserialization)) timer.Start();}
+\DoxyCodeLine{25   NestedTimedHistogramScope histogram\_timer(}
+\DoxyCodeLine{26       \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>counters()-\/>snapshot\_deserialize\_isolate());}
+\DoxyCodeLine{27   HandleScope scope(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}());}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29   \textcolor{comment}{// No active threads.}}
+\DoxyCodeLine{30   \mbox{\hyperlink{src_2base_2logging_8h_a2209830df6b59d1ec1fdf66b9352924f}{DCHECK\_NULL}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>thread\_manager()-\/>FirstThreadStateInUse());}
+\DoxyCodeLine{31   \textcolor{comment}{// No active handles.}}
+\DoxyCodeLine{32   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>handle\_scope\_implementer()-\/>blocks()-\/>empty());}
+\DoxyCodeLine{33   \textcolor{comment}{// Startup object cache is not yet populated.}}
+\DoxyCodeLine{34   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>startup\_object\_cache()-\/>empty());}
+\DoxyCodeLine{35   \textcolor{comment}{// Builtins are not yet created.}}
+\DoxyCodeLine{36   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>builtins()-\/>is\_initialized());}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38   \{}
+\DoxyCodeLine{39     \mbox{\hyperlink{classv8_1_1internal_1_1StartupDeserializer_ae8574c247d0051335fdd5e8a3641b88b}{DeserializeAndCheckExternalReferenceTable}}();}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac74a11613906581a9989b1cb7f7b3275}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a7cf83754b01dbf26820590c36b311d2a}{IterateSmiRoots}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{42     \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac74a11613906581a9989b1cb7f7b3275}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a888246e231dc6514e84cbad718195f2e}{IterateRoots}}(}
+\DoxyCodeLine{43         \textcolor{keyword}{this},}
+\DoxyCodeLine{44         base::EnumSet<SkipRoot>\{\mbox{\hyperlink{namespacev8_1_1internal_aa8afa43b305d6f03c5288971ce078885adf17b3924e5d687da5956cc477c6dfae}{SkipRoot::kUnserializable}}, \mbox{\hyperlink{namespacev8_1_1internal_aa8afa43b305d6f03c5288971ce078885af46adad9d0cb04df164724e715cf5562}{SkipRoot::kWeak}},}
+\DoxyCodeLine{45                                 \mbox{\hyperlink{namespacev8_1_1internal_aa8afa43b305d6f03c5288971ce078885af08c9166c4ec6240391d3b750460a155}{SkipRoot::kTracedHandles}}\});}
+\DoxyCodeLine{46     \mbox{\hyperlink{classv8_1_1internal_1_1SerializerDeserializer_a8508cbd12bd1edef27bd69b146003c6f}{IterateStartupObjectCache}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}(), \textcolor{keyword}{this});}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48     \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac74a11613906581a9989b1cb7f7b3275}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a6f431d7a2cdc4db4338d4c371275f7dc}{IterateWeakRoots}}(}
+\DoxyCodeLine{49         \textcolor{keyword}{this}, base::EnumSet<SkipRoot>\{\mbox{\hyperlink{namespacev8_1_1internal_aa8afa43b305d6f03c5288971ce078885adf17b3924e5d687da5956cc477c6dfae}{SkipRoot::kUnserializable}}\});}
+\DoxyCodeLine{50     \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_af0a52009e7b41a4c3480b5602b5bfcd7}{DeserializeDeferredObjects}}();}
+\DoxyCodeLine{51     \textcolor{keywordflow}{for} (DirectHandle<AccessorInfo> info : \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a3bc05a6e418b7418d2f51c0485ac487b}{accessor\_infos}}()) \{}
+\DoxyCodeLine{52       \mbox{\hyperlink{classv8_1_1internal_1_1SerializerDeserializer_ac9f8b5856c0f6cb5215e43f0b814a8c4}{RestoreExternalReferenceRedirector}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}(), *info);}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54     \textcolor{keywordflow}{for} (DirectHandle<FunctionTemplateInfo> info : \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_af742b404cc076ed1512eb9335cd12cb6}{function\_template\_infos}}()) \{}
+\DoxyCodeLine{55       \mbox{\hyperlink{classv8_1_1internal_1_1SerializerDeserializer_ac9f8b5856c0f6cb5215e43f0b814a8c4}{RestoreExternalReferenceRedirector}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}(), *info);}
+\DoxyCodeLine{56     \}}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58     \textcolor{comment}{// Flush the instruction cache for the entire code-\/space. Must happen after}}
+\DoxyCodeLine{59     \textcolor{comment}{// builtins deserialization.}}
+\DoxyCodeLine{60     \mbox{\hyperlink{classv8_1_1internal_1_1StartupDeserializer_a10f6846fae8b2793a64e112016ffcb3f}{FlushICache}}();}
+\DoxyCodeLine{61   \}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63   \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac74a11613906581a9989b1cb7f7b3275}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a2306d2596966bf28e97ad8b2325992f9}{set\_native\_contexts\_list}}(}
+\DoxyCodeLine{64       ReadOnlyRoots(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()).undefined\_value());}
+\DoxyCodeLine{65   \textcolor{comment}{// The allocation site list is build during root iteration, but if no sites}}
+\DoxyCodeLine{66   \textcolor{comment}{// were encountered then it needs to be initialized to undefined.}}
+\DoxyCodeLine{67   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>\mbox{\hyperlink{flag-definitions_8h_a761e4e5929b1553283fd6a532822bb17}{heap}}()-\/>allocation\_sites\_list() == \mbox{\hyperlink{classv8_1_1internal_1_1Smi_a5386e0cc44bcfd6a13c8481b95f5652f}{Smi::zero}}()) \{}
+\DoxyCodeLine{68     \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac74a11613906581a9989b1cb7f7b3275}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a7d89be06103b7f8f5c9d0c195369f30b}{set\_allocation\_sites\_list}}(}
+\DoxyCodeLine{69         ReadOnlyRoots(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()).undefined\_value());}
+\DoxyCodeLine{70   \}}
+\DoxyCodeLine{71   \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac74a11613906581a9989b1cb7f7b3275}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ab3f4a6816e1d4b984a958b49f0ada4ee}{set\_dirty\_js\_finalization\_registries\_list}}(}
+\DoxyCodeLine{72       ReadOnlyRoots(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()).undefined\_value());}
+\DoxyCodeLine{73   \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac74a11613906581a9989b1cb7f7b3275}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a8593ada6ec41b63f4617fc1e91e086ee}{set\_dirty\_js\_finalization\_registries\_list\_tail}}(}
+\DoxyCodeLine{74       ReadOnlyRoots(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()).undefined\_value());}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76   \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a6cb0edf57f829ea37a9a48a3e6bc007d}{builtins}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Builtins_a340b94e18b501a58536cf22aa7ca8f6e}{MarkInitialized}}();}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78   \mbox{\hyperlink{classv8_1_1internal_1_1StartupDeserializer_a0a7f76c6e21559757446f8f540b04628}{LogNewMapEvents}}();}
+\DoxyCodeLine{79   \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_ab96a5d745fc9cba0a54c237a07ae047e}{WeakenDescriptorArrays}}();}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a3d107d726ed241fbde2020146bc4f19c}{should\_rehash}}()) \{}
+\DoxyCodeLine{82     \textcolor{comment}{// Hash seed was initialized in ReadOnlyDeserializer.}}
+\DoxyCodeLine{83     \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_ab0b69ae99f61286e8c56f718e4f74c8a}{Rehash}}();}
+\DoxyCodeLine{84   \}}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.profile\_deserialization)) \{}
+\DoxyCodeLine{87     \textcolor{comment}{// ATTENTION: The Memory.json benchmark greps for this exact output. Do not}}
+\DoxyCodeLine{88     \textcolor{comment}{// change it without also updating Memory.json.}}
+\DoxyCodeLine{89     \textcolor{keyword}{const} \textcolor{keywordtype}{int} bytes = \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a3ac7521096ee0a9781447ca872936ffe}{source}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1SnapshotByteSource_a56a1c697beff78a2632370397cec5705}{length}}();}
+\DoxyCodeLine{90     \textcolor{keyword}{const} \textcolor{keywordtype}{double} ms = timer.Elapsed().InMillisecondsF();}
+\DoxyCodeLine{91     \mbox{\hyperlink{namespacev8_1_1internal_a3430752cde9f29d73e97ceed1bce0856}{PrintF}}(\textcolor{stringliteral}{"{}[Deserializing isolate (\%d bytes) took \%0.3f ms]\(\backslash\)n"{}}, bytes, ms);}
+\DoxyCodeLine{92   \}}
+\DoxyCodeLine{93 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::accessor\+\_\+infos(), v8\+::internal\+::\+Isolate\+::builtins(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+NULL, Deserialize\+And\+Check\+External\+Reference\+Table(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::\+Deserialize\+Deferred\+Objects(), v8\+::base\+::\+Elapsed\+Timer\+::\+Elapsed(), Flush\+ICache(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::function\+\_\+template\+\_\+infos(), v8\+::internal\+::\+Isolate\+::heap(), heap(), v8\+::base\+::\+Time\+Delta\+::\+In\+Milliseconds\+F(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::isolate(), v8\+::internal\+::\+Heap\+::\+Iterate\+Roots(), v8\+::internal\+::\+Heap\+::\+Iterate\+Smi\+Roots(), v8\+::internal\+::\+Serializer\+Deserializer\+::\+Iterate\+Startup\+Object\+Cache(), v8\+::internal\+::\+Heap\+::\+Iterate\+Weak\+Roots(), v8\+::internal\+::k\+Traced\+Handles, v8\+::internal\+::k\+Unserializable, v8\+::internal\+::k\+Weak, v8\+::internal\+::\+Snapshot\+Byte\+Source\+::length(), Log\+New\+Map\+Events(), v8\+::internal\+::\+Builtins\+::\+Mark\+Initialized(), v8\+::internal\+::\+Print\+F(), RCS\+\_\+\+SCOPE, v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::\+Rehash(), v8\+::internal\+::\+Serializer\+Deserializer\+::\+Restore\+External\+Reference\+Redirector(), v8\+::internal\+::\+Heap\+::set\+\_\+allocation\+\_\+sites\+\_\+list(), v8\+::internal\+::\+Heap\+::set\+\_\+dirty\+\_\+js\+\_\+finalization\+\_\+registries\+\_\+list(), v8\+::internal\+::\+Heap\+::set\+\_\+dirty\+\_\+js\+\_\+finalization\+\_\+registries\+\_\+list\+\_\+tail(), v8\+::internal\+::\+Heap\+::set\+\_\+native\+\_\+contexts\+\_\+list(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::should\+\_\+rehash(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::source(), v8\+::base\+::\+Elapsed\+Timer\+::\+Start(), TRACE\+\_\+\+EVENT0, v8\+::internal\+::v8\+\_\+flags, V8\+\_\+\+UNLIKELY, v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::\+Weaken\+Descriptor\+Arrays(), and v8\+::internal\+::\+Smi\+::zero().
+
+
+
+Referenced by v8\+::internal\+::\+Isolate\+::\+Init().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1StartupDeserializer_a00b930ec1d2789493f357f5d79d57cf0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StartupDeserializer_a00b930ec1d2789493f357f5d79d57cf0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1StartupDeserializer_a10f6846fae8b2793a64e112016ffcb3f}\label{classv8_1_1internal_1_1StartupDeserializer_a10f6846fae8b2793a64e112016ffcb3f}} 
+\index{v8::internal::StartupDeserializer@{v8::internal::StartupDeserializer}!FlushICache@{FlushICache}}
+\index{FlushICache@{FlushICache}!v8::internal::StartupDeserializer@{v8::internal::StartupDeserializer}}
+\doxysubsubsection{\texorpdfstring{FlushICache()}{FlushICache()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Startup\+Deserializer\+::\+Flush\+ICache (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 111 of file startup-\/deserializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{111                                       \{}
+\DoxyCodeLine{112   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a934a6e350de407bdd04a750990561f30}{deserializing\_user\_code}}());}
+\DoxyCodeLine{113   \textcolor{comment}{// The entire isolate is newly deserialized. Simply flush all code pages.}}
+\DoxyCodeLine{114   \textcolor{keywordflow}{for} (PageMetadata* p : *\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>\mbox{\hyperlink{flag-definitions_8h_a761e4e5929b1553283fd6a532822bb17}{heap}}()-\/>code\_space()) \{}
+\DoxyCodeLine{115     \mbox{\hyperlink{namespacev8_1_1internal_a4ae783a89fc65122f5edc866f1209176}{FlushInstructionCache}}(p-\/>area\_start(), p-\/>area\_end() -\/ p-\/>area\_start());}
+\DoxyCodeLine{116   \}}
+\DoxyCodeLine{117 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::deserializing\+\_\+user\+\_\+code(), v8\+::internal\+::\+Flush\+Instruction\+Cache(), heap(), and v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::isolate().
+
+
+
+Referenced by Deserialize\+Into\+Isolate().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StartupDeserializer_a10f6846fae8b2793a64e112016ffcb3f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StartupDeserializer_a10f6846fae8b2793a64e112016ffcb3f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1StartupDeserializer_a0a7f76c6e21559757446f8f540b04628}\label{classv8_1_1internal_1_1StartupDeserializer_a0a7f76c6e21559757446f8f540b04628}} 
+\index{v8::internal::StartupDeserializer@{v8::internal::StartupDeserializer}!LogNewMapEvents@{LogNewMapEvents}}
+\index{LogNewMapEvents@{LogNewMapEvents}!v8::internal::StartupDeserializer@{v8::internal::StartupDeserializer}}
+\doxysubsubsection{\texorpdfstring{LogNewMapEvents()}{LogNewMapEvents()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Startup\+Deserializer\+::\+Log\+New\+Map\+Events (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 107 of file startup-\/deserializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{107                                           \{}
+\DoxyCodeLine{108   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.log\_maps) \mbox{\hyperlink{log_8h_a146099bfe6b228d314fa3c784c56feec}{LOG}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}(), LogAllMaps());}
+\DoxyCodeLine{109 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::isolate(), LOG, and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by Deserialize\+Into\+Isolate().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StartupDeserializer_a0a7f76c6e21559757446f8f540b04628_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StartupDeserializer_a0a7f76c6e21559757446f8f540b04628_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{startup-deserializer_8h}{startup-\/deserializer.\+h}}\item 
-\mbox{\hyperlink{startup-deserializer_8cc}{startup-\/deserializer.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/snapshot/\mbox{\hyperlink{startup-deserializer_8h}{startup-\/deserializer.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/snapshot/\mbox{\hyperlink{startup-deserializer_8cc}{startup-\/deserializer.\+cc}}\end{DoxyCompactItemize}

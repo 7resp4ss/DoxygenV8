@@ -9,5 +9,10 @@ var classv8_1_1internal_1_1maglev_1_1DeoptInfo =
     [ "set_translation_index", "classv8_1_1internal_1_1maglev_1_1DeoptInfo.html#a29c8c89e78533e8c221a36536a82bdf6", null ],
     [ "top_frame", "classv8_1_1internal_1_1maglev_1_1DeoptInfo.html#a98e44b5cf0e80bc6be5a9476565d8e62", null ],
     [ "top_frame", "classv8_1_1internal_1_1maglev_1_1DeoptInfo.html#a1c4d987a9ae1e85fdcb3d45295c1d866", null ],
-    [ "translation_index", "classv8_1_1internal_1_1maglev_1_1DeoptInfo.html#aca2c6b92dd2152cd70d2e1e13c3cce05", null ]
+    [ "translation_index", "classv8_1_1internal_1_1maglev_1_1DeoptInfo.html#aca2c6b92dd2152cd70d2e1e13c3cce05", null ],
+    [ "deopt_entry_label_", "classv8_1_1internal_1_1maglev_1_1DeoptInfo.html#a134104f8064fedb4acbd8d75f1530268", null ],
+    [ "feedback_to_update_", "classv8_1_1internal_1_1maglev_1_1DeoptInfo.html#aeabb6c149d6a140c166e5fd58e9591d3", null ],
+    [ "input_locations_", "classv8_1_1internal_1_1maglev_1_1DeoptInfo.html#a50faa6828bf18526c887f61bf605234e", null ],
+    [ "top_frame_", "classv8_1_1internal_1_1maglev_1_1DeoptInfo.html#aba464bd2bd9ae4a29e84960445f8c5ed", null ],
+    [ "translation_index_", "classv8_1_1internal_1_1maglev_1_1DeoptInfo.html#a2248bdcb6824c5a27e9e759fa37a3eb6", null ]
 ];

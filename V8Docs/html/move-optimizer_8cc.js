@@ -1,7 +1,9 @@
 var move_optimizer_8cc =
 [
-    [ "destination", "move-optimizer_8cc.html#adb1a4461ad083604a932b7eeba4780de", null ],
-    [ "fp_reps_", "move-optimizer_8cc.html#ad74e9352231afe4216ef03a069ac4185", null ],
-    [ "set_", "move-optimizer_8cc.html#a7d29d08d620eab44f81de00093b866e0", null ],
-    [ "source", "move-optimizer_8cc.html#a93b84296d9854b2ab5bd18f69c3f8768", null ]
+    [ "MoveKey", "structv8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_1_1MoveKey.html", "structv8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_1_1MoveKey" ],
+    [ "OperandSet", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_1_1OperandSet.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02move-optimizer_8cc_03_1_1OperandSet" ],
+    [ "FindFirstNonEmptySlot", "move-optimizer_8cc.html#a83b583d434a9bbfec2fcbc2bbfeec7f0", null ],
+    [ "Is64BitsWide", "move-optimizer_8cc.html#a2737abbd1b1b547a7a71770b8b66ec46", null ],
+    [ "IsSlot", "move-optimizer_8cc.html#a45d0393eda325b5d0ba6ebd21270bf56", null ],
+    [ "LoadCompare", "move-optimizer_8cc.html#a0ba692274b7bbed4ae6f02eb3c4821bf", null ]
 ];

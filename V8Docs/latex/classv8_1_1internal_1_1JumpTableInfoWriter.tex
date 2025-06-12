@@ -4,10 +4,20 @@
 
 {\ttfamily \#include $<$jump-\/table-\/info.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Jump\+Table\+Info\+Writer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JumpTableInfoWriter__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} void \mbox{\hyperlink{classv8_1_1internal_1_1JumpTableInfoWriter_a664be6e4577e628ac57d22e2938ef885}{Add}} (uint32\+\_\+t \mbox{\hyperlink{liftoff-compiler_8cc_ac8403346601a16f8902bbe271ff3c261}{pc\+\_\+offset}}, int32\+\_\+t \mbox{\hyperlink{maglev-code-generator_8cc_a3c635dfb06e7090635c7fed4f7504693}{target}})
+\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} void \mbox{\hyperlink{classv8_1_1internal_1_1JumpTableInfoWriter_a664be6e4577e628ac57d22e2938ef885}{Add}} (uint32\+\_\+t pc\+\_\+offset, int32\+\_\+t target)
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1JumpTableInfoWriter_a6655bbcc35d22526ca1dd2708a741dde}{Emit}} (\mbox{\hyperlink{classv8_1_1internal_1_1Assembler}{Assembler}} $\ast$assm)
 \item 
@@ -15,6 +25,18 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1JumpTableInfoWriter_a6655bbcc35d225
 \item 
 uint32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1JumpTableInfoWriter_acbff9ef436773b2c95cdd0dd35657af0}{size\+\_\+in\+\_\+bytes}} () const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structv8_1_1internal_1_1JumpTableInfoEntry}{Jump\+Table\+Info\+Entry}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1JumpTableInfoWriter_afd90ee5f35ace9815b8b425dc16ccd6a}{entries\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 41 of file jump-\/table-\/info.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -24,18 +46,89 @@ uint32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1JumpTableInfoWriter_acbff9
 \doxysubsubsection{\texorpdfstring{Add()}{Add()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Jump\+Table\+Info\+Writer\+::\+Add (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{pc\+\_\+offset,  }\item[{int32\+\_\+t}]{target }\end{DoxyParamCaption})}
 
+
+
+Definition at line 14 of file jump-\/table-\/info.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{14                                                                 \{}
+\DoxyCodeLine{15   \mbox{\hyperlink{classv8_1_1internal_1_1JumpTableInfoWriter_afd90ee5f35ace9815b8b425dc16ccd6a}{entries\_}}.emplace\_back(pc\_offset, target);}
+\DoxyCodeLine{16 \}}
+
+\end{DoxyCode}
+
+
+References entries\+\_\+.
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1JumpTableInfoWriter_a6655bbcc35d22526ca1dd2708a741dde}\label{classv8_1_1internal_1_1JumpTableInfoWriter_a6655bbcc35d22526ca1dd2708a741dde}} 
 \index{v8::internal::JumpTableInfoWriter@{v8::internal::JumpTableInfoWriter}!Emit@{Emit}}
 \index{Emit@{Emit}!v8::internal::JumpTableInfoWriter@{v8::internal::JumpTableInfoWriter}}
 \doxysubsubsection{\texorpdfstring{Emit()}{Emit()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Jump\+Table\+Info\+Writer\+::\+Emit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Assembler}{Assembler}} $\ast$}]{assm }\end{DoxyParamCaption})}
 
+
+
+Definition at line 24 of file jump-\/table-\/info.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24                                               \{}
+\DoxyCodeLine{25   \textcolor{keywordflow}{for} (\textcolor{keyword}{auto} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = \mbox{\hyperlink{classv8_1_1internal_1_1JumpTableInfoWriter_afd90ee5f35ace9815b8b425dc16ccd6a}{entries\_}}.begin(); \mbox{\hyperlink{namespacev8_1_1internal}{i}} != \mbox{\hyperlink{classv8_1_1internal_1_1JumpTableInfoWriter_afd90ee5f35ace9815b8b425dc16ccd6a}{entries\_}}.end(); ++\mbox{\hyperlink{namespacev8_1_1internal}{i}}) \{}
+\DoxyCodeLine{26     static\_assert(\mbox{\hyperlink{structv8_1_1internal_1_1JumpTableInfoEntry_a342a1e83f5889402300ede1fbbd91dfe}{JumpTableInfoEntry::kPCOffsetSize}} == \mbox{\hyperlink{namespacev8_1_1internal_ab33bc54081b89932fcaa3a6d9d83794f}{kUInt32Size}});}
+\DoxyCodeLine{27     assm-\/>dd(\mbox{\hyperlink{namespacev8_1_1internal}{i}}-\/>pc\_offset);}
+\DoxyCodeLine{28     static\_assert(\mbox{\hyperlink{structv8_1_1internal_1_1JumpTableInfoEntry_a0a7b21db67596571a707cb696669a3f1}{JumpTableInfoEntry::kTargetSize}} == \mbox{\hyperlink{namespacev8_1_1internal_a914d19dea357ee280bea7580796a62b5}{kInt32Size}});}
+\DoxyCodeLine{29     assm-\/>dd(\mbox{\hyperlink{namespacev8_1_1internal}{i}}-\/>target);}
+\DoxyCodeLine{30     static\_assert(\mbox{\hyperlink{structv8_1_1internal_1_1JumpTableInfoEntry_a51db3abee49183609f936deb8937af26}{JumpTableInfoEntry::kSize}} ==}
+\DoxyCodeLine{31                   \mbox{\hyperlink{structv8_1_1internal_1_1JumpTableInfoEntry_a342a1e83f5889402300ede1fbbd91dfe}{JumpTableInfoEntry::kPCOffsetSize}} +}
+\DoxyCodeLine{32                       \mbox{\hyperlink{structv8_1_1internal_1_1JumpTableInfoEntry_a0a7b21db67596571a707cb696669a3f1}{JumpTableInfoEntry::kTargetSize}});}
+\DoxyCodeLine{33   \}}
+\DoxyCodeLine{34 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Assembler\+::dd(), entries\+\_\+, v8\+::internal\+::k\+Int32\+Size, v8\+::internal\+::\+Jump\+Table\+Info\+Entry\+::k\+PCOffset\+Size, v8\+::internal\+::\+Jump\+Table\+Info\+Entry\+::k\+Size, v8\+::internal\+::\+Jump\+Table\+Info\+Entry\+::k\+Target\+Size, and v8\+::internal\+::k\+UInt32\+Size.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JumpTableInfoWriter_a6655bbcc35d22526ca1dd2708a741dde_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JumpTableInfoWriter_a535f5ea225b5b7a9cb162d37882d379d}\label{classv8_1_1internal_1_1JumpTableInfoWriter_a535f5ea225b5b7a9cb162d37882d379d}} 
 \index{v8::internal::JumpTableInfoWriter@{v8::internal::JumpTableInfoWriter}!entry\_count@{entry\_count}}
 \index{entry\_count@{entry\_count}!v8::internal::JumpTableInfoWriter@{v8::internal::JumpTableInfoWriter}}
 \doxysubsubsection{\texorpdfstring{entry\_count()}{entry\_count()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Jump\+Table\+Info\+Writer\+::entry\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Definition at line 18 of file jump-\/table-\/info.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1JumpTableInfoWriter_afd90ee5f35ace9815b8b425dc16ccd6a}{entries\_}}.size(); \}}
+
+\end{DoxyCode}
+
+
+References entries\+\_\+.
+
+
+
+Referenced by size\+\_\+in\+\_\+bytes().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JumpTableInfoWriter_a535f5ea225b5b7a9cb162d37882d379d_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1JumpTableInfoWriter_acbff9ef436773b2c95cdd0dd35657af0}\label{classv8_1_1internal_1_1JumpTableInfoWriter_acbff9ef436773b2c95cdd0dd35657af0}} 
 \index{v8::internal::JumpTableInfoWriter@{v8::internal::JumpTableInfoWriter}!size\_in\_bytes@{size\_in\_bytes}}
 \index{size\_in\_bytes@{size\_in\_bytes}!v8::internal::JumpTableInfoWriter@{v8::internal::JumpTableInfoWriter}}
@@ -44,7 +137,47 @@ uint32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1JumpTableInfoWriter_acbff9
 
 
 
+Definition at line 20 of file jump-\/table-\/info.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{20                                                   \{}
+\DoxyCodeLine{21   \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1JumpTableInfoWriter_a535f5ea225b5b7a9cb162d37882d379d}{entry\_count}}() * \mbox{\hyperlink{structv8_1_1internal_1_1JumpTableInfoEntry_a51db3abee49183609f936deb8937af26}{JumpTableInfoEntry::kSize}});}
+\DoxyCodeLine{22 \}}
+
+\end{DoxyCode}
+
+
+References entry\+\_\+count(), and v8\+::internal\+::\+Jump\+Table\+Info\+Entry\+::k\+Size.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1JumpTableInfoWriter_acbff9ef436773b2c95cdd0dd35657af0_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1JumpTableInfoWriter_afd90ee5f35ace9815b8b425dc16ccd6a}\label{classv8_1_1internal_1_1JumpTableInfoWriter_afd90ee5f35ace9815b8b425dc16ccd6a}} 
+\index{v8::internal::JumpTableInfoWriter@{v8::internal::JumpTableInfoWriter}!entries\_@{entries\_}}
+\index{entries\_@{entries\_}!v8::internal::JumpTableInfoWriter@{v8::internal::JumpTableInfoWriter}}
+\doxysubsubsection{\texorpdfstring{entries\_}{entries\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structv8_1_1internal_1_1JumpTableInfoEntry}{Jump\+Table\+Info\+Entry}}$>$ v8\+::internal\+::\+Jump\+Table\+Info\+Writer\+::entries\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 50 of file jump-\/table-\/info.\+h.
+
+
+
+Referenced by Add(), Emit(), and entry\+\_\+count().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{jump-table-info_8h}{jump-\/table-\/info.\+h}}\item 
-\mbox{\hyperlink{jump-table-info_8cc}{jump-\/table-\/info.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/codegen/\mbox{\hyperlink{jump-table-info_8h}{jump-\/table-\/info.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/codegen/\mbox{\hyperlink{jump-table-info_8cc}{jump-\/table-\/info.\+cc}}\end{DoxyCompactItemize}

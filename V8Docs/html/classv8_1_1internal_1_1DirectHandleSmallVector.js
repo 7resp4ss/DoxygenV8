@@ -4,15 +4,17 @@ var classv8_1_1internal_1_1DirectHandleSmallVector =
     [ "const_reference", "classv8_1_1internal_1_1DirectHandleSmallVector.html#ac66891fcded98bb0b76cf317b86a4e56", null ],
     [ "const_reverse_iterator", "classv8_1_1internal_1_1DirectHandleSmallVector.html#a22d2c2433ed3b0e80ef503ed15f087bd", null ],
     [ "difference_type", "classv8_1_1internal_1_1DirectHandleSmallVector.html#ab8ac43b0734060dbbfeccfcb83622f3b", null ],
+    [ "element_type", "classv8_1_1internal_1_1DirectHandleSmallVector.html#ada2bfcccf3696e12e44e5f255b4bb100", null ],
     [ "iterator", "classv8_1_1internal_1_1DirectHandleSmallVector.html#ac3c44615234582d0500470353700286a", null ],
     [ "reference", "classv8_1_1internal_1_1DirectHandleSmallVector.html#af8282f0c16c9647a41ed8f8f841add37", null ],
     [ "reverse_iterator", "classv8_1_1internal_1_1DirectHandleSmallVector.html#aa6f9361b4e4af11b1140c7c8f6a965ee", null ],
     [ "size_type", "classv8_1_1internal_1_1DirectHandleSmallVector.html#a85f4881328eb3b22be74d2acd50ef531", null ],
     [ "value_type", "classv8_1_1internal_1_1DirectHandleSmallVector.html#a3d8f37f8fa1b1f8ec4fb905ef57c517b", null ],
+    [ "vector_type", "classv8_1_1internal_1_1DirectHandleSmallVector.html#affc19e66b1de4fa2c7abd475daa7b394", null ],
     [ "DirectHandleSmallVector", "classv8_1_1internal_1_1DirectHandleSmallVector.html#ab0d91feff5fca63a50504a4284738ba8", null ],
     [ "DirectHandleSmallVector", "classv8_1_1internal_1_1DirectHandleSmallVector.html#a75b0334e5216416709474a1acfdbbc4a", null ],
     [ "DirectHandleSmallVector", "classv8_1_1internal_1_1DirectHandleSmallVector.html#a8d9219e5617ff91c3a895021686106fb", null ],
-    [ "DirectHandleSmallVector", "classv8_1_1internal_1_1DirectHandleSmallVector.html#aa9a87d96c0cd5e460a67a3f7dcbda907", null ],
+    [ "DirectHandleSmallVector", "classv8_1_1internal_1_1DirectHandleSmallVector.html#a29507ef2b67f6b7f5515cae773099d9a", null ],
     [ "at", "classv8_1_1internal_1_1DirectHandleSmallVector.html#afb0ff92579e805d3edd9aa3544b42165", null ],
     [ "at", "classv8_1_1internal_1_1DirectHandleSmallVector.html#ae10590d2e8a1b8fbe31f0908e88fb26d", null ],
     [ "back", "classv8_1_1internal_1_1DirectHandleSmallVector.html#ac464cc1b4bcda1c834aa0e2e5a82a093", null ],
@@ -47,5 +49,7 @@ var classv8_1_1internal_1_1DirectHandleSmallVector =
     [ "reserve", "classv8_1_1internal_1_1DirectHandleSmallVector.html#ace5198ee34e4f12850f1d6f4e13af2f7", null ],
     [ "resize", "classv8_1_1internal_1_1DirectHandleSmallVector.html#a9cfae138ee28e663e38493324e666ba2", null ],
     [ "resize", "classv8_1_1internal_1_1DirectHandleSmallVector.html#ac782875fe2582ec4664ec407f4593fe6", null ],
-    [ "size", "classv8_1_1internal_1_1DirectHandleSmallVector.html#a89899226165a7cb1d2c77d13839f8fc9", null ]
+    [ "size", "classv8_1_1internal_1_1DirectHandleSmallVector.html#a89899226165a7cb1d2c77d13839f8fc9", null ],
+    [ "backing_", "classv8_1_1internal_1_1DirectHandleSmallVector.html#a1b870e69987f4a0c7f090fe990917faf", null ],
+    [ "kInlineSize", "classv8_1_1internal_1_1DirectHandleSmallVector.html#a8d07f791a356973de17ecaab24d38ae3", null ]
 ];

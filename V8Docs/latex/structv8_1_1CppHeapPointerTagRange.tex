@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$v8-\/sandbox.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::Cpp\+Heap\+Pointer\+Tag\+Range\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{structv8_1_1CppHeapPointerTagRange__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -20,6 +30,13 @@ bool \mbox{\hyperlink{structv8_1_1CppHeapPointerTagRange_a1b35aeeec4b9818b08e3a5
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 70 of file v8-\/sandbox.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{structv8_1_1CppHeapPointerTagRange_a085ceaf7cdf103e03d5315bcbeeb2192}\label{structv8_1_1CppHeapPointerTagRange_a085ceaf7cdf103e03d5315bcbeeb2192}} 
 \index{v8::CppHeapPointerTagRange@{v8::CppHeapPointerTagRange}!CppHeapPointerTagRange@{CppHeapPointerTagRange}}
@@ -27,6 +44,15 @@ bool \mbox{\hyperlink{structv8_1_1CppHeapPointerTagRange_a1b35aeeec4b9818b08e3a5
 \doxysubsubsection{\texorpdfstring{CppHeapPointerTagRange()}{CppHeapPointerTagRange()}}
 {\footnotesize\ttfamily constexpr v8\+::\+Cpp\+Heap\+Pointer\+Tag\+Range\+::\+Cpp\+Heap\+Pointer\+Tag\+Range (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_aaa20110c92e8833826af037fe31401b2}{Cpp\+Heap\+Pointer\+Tag}}}]{lower,  }\item[{\mbox{\hyperlink{namespacev8_aaa20110c92e8833826af037fe31401b2}{Cpp\+Heap\+Pointer\+Tag}}}]{upper }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
 
+
+
+Definition at line 71 of file v8-\/sandbox.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{73       : \mbox{\hyperlink{structv8_1_1CppHeapPointerTagRange_aa253bdc08aee6d94af2eca4879fe1770}{lower\_bound}}(lower), \mbox{\hyperlink{structv8_1_1CppHeapPointerTagRange_af539e61e0fd008b7130772c2fb49d702}{upper\_bound}}(upper) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -38,12 +64,60 @@ bool \mbox{\hyperlink{structv8_1_1CppHeapPointerTagRange_a1b35aeeec4b9818b08e3a5
 
 
 
+Definition at line 83 of file v8-\/sandbox.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{83                                   \{}
+\DoxyCodeLine{84     \textcolor{comment}{// Note: the cast to uint32\_t is important here. Otherwise, the uint16\_t's}}
+\DoxyCodeLine{85     \textcolor{comment}{// would be promoted to int in the range check below, which would result in}}
+\DoxyCodeLine{86     \textcolor{comment}{// undefined behavior (signed integer undeflow) if the actual value is less}}
+\DoxyCodeLine{87     \textcolor{comment}{// than the lower bound. Then, the compiler would take advantage of the}}
+\DoxyCodeLine{88     \textcolor{comment}{// undefined behavior and turn the range check into a simple}}
+\DoxyCodeLine{89     \textcolor{comment}{// `actual\_tag <= last\_tag` comparison, which is incorrect.}}
+\DoxyCodeLine{90     uint32\_t actual\_tag = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{namespaceunibrow_a0869a94c1a582a2b47889b990444deb9}{uint16\_t}}\textcolor{keyword}{>}(entry);}
+\DoxyCodeLine{91     \textcolor{comment}{// The actual\_tag is shifted to the left by one and contains the marking}}
+\DoxyCodeLine{92     \textcolor{comment}{// bit in the LSB. To ignore that during the type check, simply add one to}}
+\DoxyCodeLine{93     \textcolor{comment}{// the (shifted) range.}}
+\DoxyCodeLine{94     constexpr \textcolor{keywordtype}{int} kTagShift = \mbox{\hyperlink{namespacev8_1_1internal_a8c8e7deb05996563b15d9c7c84c96962}{internal::kCppHeapPointerTagShift}};}
+\DoxyCodeLine{95     uint32\_t first\_tag = \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(\mbox{\hyperlink{structv8_1_1CppHeapPointerTagRange_aa253bdc08aee6d94af2eca4879fe1770}{lower\_bound}}) << kTagShift;}
+\DoxyCodeLine{96     uint32\_t last\_tag = (\textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(\mbox{\hyperlink{structv8_1_1CppHeapPointerTagRange_af539e61e0fd008b7130772c2fb49d702}{upper\_bound}}) << kTagShift) + 1;}
+\DoxyCodeLine{97     \textcolor{keywordflow}{return} actual\_tag >= first\_tag \&\& actual\_tag <= last\_tag;}
+\DoxyCodeLine{98   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::k\+Cpp\+Heap\+Pointer\+Tag\+Shift, lower\+\_\+bound, and upper\+\_\+bound.
+
+
+
+Referenced by v8\+::internal\+::\+Read\+Cpp\+Heap\+Pointer\+Field().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1CppHeapPointerTagRange_a1b35aeeec4b9818b08e3a54ab3002e8c_icgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{structv8_1_1CppHeapPointerTagRange_aa253bdc08aee6d94af2eca4879fe1770}\label{structv8_1_1CppHeapPointerTagRange_aa253bdc08aee6d94af2eca4879fe1770}} 
 \index{v8::CppHeapPointerTagRange@{v8::CppHeapPointerTagRange}!lower\_bound@{lower\_bound}}
 \index{lower\_bound@{lower\_bound}!v8::CppHeapPointerTagRange@{v8::CppHeapPointerTagRange}}
 \doxysubsubsection{\texorpdfstring{lower\_bound}{lower\_bound}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_aaa20110c92e8833826af037fe31401b2}{Cpp\+Heap\+Pointer\+Tag}} v8\+::\+Cpp\+Heap\+Pointer\+Tag\+Range\+::lower\+\_\+bound}
+
+
+
+Definition at line 74 of file v8-\/sandbox.\+h.
+
+
+
+Referenced by Check\+Tag\+Of(), v8\+::\+Object\+::\+Unwrap(), and v8\+::\+Cpp\+Heap\+External\+::\+Value\+Impl().
 
 \mbox{\Hypertarget{structv8_1_1CppHeapPointerTagRange_af539e61e0fd008b7130772c2fb49d702}\label{structv8_1_1CppHeapPointerTagRange_af539e61e0fd008b7130772c2fb49d702}} 
 \index{v8::CppHeapPointerTagRange@{v8::CppHeapPointerTagRange}!upper\_bound@{upper\_bound}}
@@ -53,6 +127,14 @@ bool \mbox{\hyperlink{structv8_1_1CppHeapPointerTagRange_a1b35aeeec4b9818b08e3a5
 
 
 
+Definition at line 75 of file v8-\/sandbox.\+h.
+
+
+
+Referenced by Check\+Tag\+Of(), v8\+::\+Object\+::\+Unwrap(), and v8\+::\+Cpp\+Heap\+External\+::\+Value\+Impl().
+
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-sandbox_8h}{v8-\/sandbox.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/\mbox{\hyperlink{v8-sandbox_8h}{v8-\/sandbox.\+h}}\end{DoxyCompactItemize}

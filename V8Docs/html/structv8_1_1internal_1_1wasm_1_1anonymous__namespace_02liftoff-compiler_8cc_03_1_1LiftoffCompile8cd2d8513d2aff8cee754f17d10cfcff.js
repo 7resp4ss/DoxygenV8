@@ -1,0 +1,6 @@
+var structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff_compiler_8cc_03_1_1LiftoffCompile8cd2d8513d2aff8cee754f17d10cfcff =
+[
+    [ "Entry", "structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompilea2eb9cb32673bbd1f754f295391ceb17.html", "structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompilea2eb9cb32673bbd1f754f295391ceb17" ],
+    [ "SpilledRegistersForInspection", "structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompile8cd2d8513d2aff8cee754f17d10cfcff.html#aab69d4c14688db1163ea72d43f3547dd", null ],
+    [ "entries", "structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompile8cd2d8513d2aff8cee754f17d10cfcff.html#a72cd0667304070e687acf8edcae37939", null ]
+];

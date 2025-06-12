@@ -6,6 +6,8 @@ var classv8_1_1internal_1_1torque_1_1cpp_1_1Function =
     [ "Function", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#af9db3db86217ac9e716bd4f1022b3ef7", null ],
     [ "~Function", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#a7fb3fcf5d7c5c2524430d46a1cc01d40", null ],
     [ "AddParameter", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#a286b75022904185fcb009b343dcf5fea", null ],
+    [ "DefaultGetter", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#aedb29e12b4f7d689921915054c1dd1b1", null ],
+    [ "DefaultSetter", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#aba0e56f79655dfe21d1c1238dac58de4", null ],
     [ "GetParameterNames", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#a3e73097dc7c54811ccf5865d8918d6ac", null ],
     [ "GetParameters", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#a099d6180fa421eb26bbc8ff4833ea24c", null ],
     [ "HasFlag", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#a37c4380fd6b3b20383f5d49b5595c643", null ],
@@ -20,5 +22,13 @@ var classv8_1_1internal_1_1torque_1_1cpp_1_1Function =
     [ "SetFlag", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#a7ebaa4837ff37febba84d223fd675bc7", null ],
     [ "SetFlags", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#ab185a5aada29404aef44b6368405bd53", null ],
     [ "SetName", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#a6ba22b2f1837006cc3ee2f5be82929d6", null ],
-    [ "SetReturnType", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#af86c0c2cec6d31bb4a4b2c6b33e4d982", null ]
+    [ "SetReturnType", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#af86c0c2cec6d31bb4a4b2c6b33e4d982", null ],
+    [ "description_", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#a5fcb5fe1949478a3f7712b65f3ffdbea", null ],
+    [ "flags_", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#a6fc5efa7969b093ec9be6b65aa9e281f", null ],
+    [ "kAutomaticIndentation", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#a54f6d95059d6999fecd22d529da22ed6", null ],
+    [ "name_", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#a0c16b83917366a546361df66402807dc", null ],
+    [ "owning_class_", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#a0929874eb3036d22b96203ffc5e58513", null ],
+    [ "parameters_", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#af5c272d97be51797896e0a0d4c82f6bf", null ],
+    [ "pos_", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#a44b8bc2281523504398df62bbca4d108", null ],
+    [ "return_type_", "classv8_1_1internal_1_1torque_1_1cpp_1_1Function.html#aa96a4f99b250f263619076be68d6b39a", null ]
 ];

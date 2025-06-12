@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$code-\/serializer.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Code\+Serializer\+::Off\+Thread\+Deserialize\+Data\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -11,11 +21,29 @@
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Script}{Script}} $>$ \mbox{\hyperlink{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_aec9b6184f2651479afef2818daccf490}{Get\+Only\+Script}} (\mbox{\hyperlink{classv8_1_1internal_1_1LocalHeap}{Local\+Heap}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a761e4e5929b1553283fd6a532822bb17}{heap}})
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a762ea8c20f2b1ad59a443165a8de2d65}{Maybe\+Indirect\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1SharedFunctionInfo}{Shared\+Function\+Info}} $>$ \mbox{\hyperlink{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a2eb15a1c1b67e166e4e3e91c6c52f17d}{maybe\+\_\+result}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{namespacev8_1_1internal_ac3ca492beb1ed3688e9047193656ecc4}{Indirect\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Script}{Script}} $>$ $>$ \mbox{\hyperlink{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a1e1deee21ba7cf9fbbc3fa2023a1aeb7}{scripts}}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1PersistentHandles}{Persistent\+Handles}} $>$ \mbox{\hyperlink{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a4ffc295f8071ecbc59e0a408d3e0f434}{persistent\+\_\+handles}}
+\item 
+\mbox{\hyperlink{structv8_1_1ScriptCompiler_1_1CachedData_a6d6c63396ffc1ae0ca835b48a726ffc4}{Serialized\+Code\+Sanity\+Check\+Result}} \mbox{\hyperlink{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a5285b8363f5542b2c7cfc14271d1459c}{sanity\+\_\+check\+\_\+result}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_ae04c417031051085bc6ef4aa551ae27f}{Code\+Serializer}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 62 of file code-\/serializer.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -25,12 +53,86 @@ class \mbox{\hyperlink{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeseri
 \doxysubsubsection{\texorpdfstring{GetOnlyScript()}{GetOnlyScript()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Script}{Script}} $>$ v8\+::internal\+::\+Code\+Serializer\+::\+Off\+Thread\+Deserialize\+Data\+::\+Get\+Only\+Script (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1LocalHeap}{Local\+Heap}} $\ast$}]{heap }\end{DoxyParamCaption})}
 
+
+
+Definition at line 562 of file code-\/serializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{563                      \{}
+\DoxyCodeLine{564   std::unique\_ptr<PersistentHandles> previous\_persistent\_handles =}
+\DoxyCodeLine{565       \mbox{\hyperlink{namespaceheap}{heap}}-\/>DetachPersistentHandles();}
+\DoxyCodeLine{566   \mbox{\hyperlink{namespaceheap}{heap}}-\/>AttachPersistentHandles(std::move(\mbox{\hyperlink{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a4ffc295f8071ecbc59e0a408d3e0f434}{persistent\_handles}}));}
+\DoxyCodeLine{567 }
+\DoxyCodeLine{568   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a1e1deee21ba7cf9fbbc3fa2023a1aeb7}{scripts}}.size(), 1);}
+\DoxyCodeLine{569   \textcolor{comment}{// Make a non-\/persistent handle to return.}}
+\DoxyCodeLine{570   DirectHandle<Script> \mbox{\hyperlink{namespacev8_1_1internal_afb7e5cd394b9632dddc2e7807b11b2ab}{script}} = \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(*\mbox{\hyperlink{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a1e1deee21ba7cf9fbbc3fa2023a1aeb7}{scripts}}[0], \mbox{\hyperlink{namespaceheap}{heap}});}
+\DoxyCodeLine{571   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(*\mbox{\hyperlink{namespacev8_1_1internal_afb7e5cd394b9632dddc2e7807b11b2ab}{script}}, \mbox{\hyperlink{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a2eb15a1c1b67e166e4e3e91c6c52f17d}{maybe\_result}}.ToHandleChecked()-\/>script());}
+\DoxyCodeLine{572 }
+\DoxyCodeLine{573   \mbox{\hyperlink{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a4ffc295f8071ecbc59e0a408d3e0f434}{persistent\_handles}} = \mbox{\hyperlink{namespaceheap}{heap}}-\/>DetachPersistentHandles();}
+\DoxyCodeLine{574   \textcolor{keywordflow}{if} (previous\_persistent\_handles) \{}
+\DoxyCodeLine{575     \mbox{\hyperlink{namespaceheap}{heap}}-\/>AttachPersistentHandles(std::move(previous\_persistent\_handles));}
+\DoxyCodeLine{576   \}}
+\DoxyCodeLine{577 }
+\DoxyCodeLine{578   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_afb7e5cd394b9632dddc2e7807b11b2ab}{script}};}
+\DoxyCodeLine{579 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+EQ, v8\+::internal\+::direct\+\_\+handle(), maybe\+\_\+result, persistent\+\_\+handles, v8\+::internal\+::script, and scripts.
+
+
+
+Referenced by v8\+::internal\+::\+Background\+Deserialize\+Task\+::\+Merge\+With\+Existing\+Script(), and v8\+::internal\+::\+Background\+Deserialize\+Task\+::\+Run().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_aec9b6184f2651479afef2818daccf490_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_aec9b6184f2651479afef2818daccf490_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_ade4ed6a80953ee7f5aefa6e7664eec8b}\label{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_ade4ed6a80953ee7f5aefa6e7664eec8b}} 
 \index{v8::internal::CodeSerializer::OffThreadDeserializeData@{v8::internal::CodeSerializer::OffThreadDeserializeData}!HasResult@{HasResult}}
 \index{HasResult@{HasResult}!v8::internal::CodeSerializer::OffThreadDeserializeData@{v8::internal::CodeSerializer::OffThreadDeserializeData}}
 \doxysubsubsection{\texorpdfstring{HasResult()}{HasResult()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Code\+Serializer\+::\+Off\+Thread\+Deserialize\+Data\+::\+Has\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 64 of file code-\/serializer.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{64 \{ \textcolor{keywordflow}{return} !\mbox{\hyperlink{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a2eb15a1c1b67e166e4e3e91c6c52f17d}{maybe\_result}}.is\_null(); \}}
+
+\end{DoxyCode}
+
+
+References maybe\+\_\+result.
+
+
+
+Referenced by v8\+::internal\+::\+Background\+Deserialize\+Task\+::\+Run(), and v8\+::internal\+::\+Background\+Deserialize\+Task\+::\+Should\+Merge\+With\+Existing\+Script().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_ade4ed6a80953ee7f5aefa6e7664eec8b_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Friends And Related Function Documentation}
@@ -42,7 +144,66 @@ class \mbox{\hyperlink{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeseri
 
 
 
+Definition at line 68 of file code-\/serializer.\+h.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a2eb15a1c1b67e166e4e3e91c6c52f17d}\label{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a2eb15a1c1b67e166e4e3e91c6c52f17d}} 
+\index{v8::internal::CodeSerializer::OffThreadDeserializeData@{v8::internal::CodeSerializer::OffThreadDeserializeData}!maybe\_result@{maybe\_result}}
+\index{maybe\_result@{maybe\_result}!v8::internal::CodeSerializer::OffThreadDeserializeData@{v8::internal::CodeSerializer::OffThreadDeserializeData}}
+\doxysubsubsection{\texorpdfstring{maybe\_result}{maybe\_result}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a762ea8c20f2b1ad59a443165a8de2d65}{Maybe\+Indirect\+Handle}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1SharedFunctionInfo}{Shared\+Function\+Info}}$>$ v8\+::internal\+::\+Code\+Serializer\+::\+Off\+Thread\+Deserialize\+Data\+::maybe\+\_\+result\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 69 of file code-\/serializer.\+h.
+
+
+
+Referenced by Get\+Only\+Script(), and Has\+Result().
+
+\mbox{\Hypertarget{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a4ffc295f8071ecbc59e0a408d3e0f434}\label{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a4ffc295f8071ecbc59e0a408d3e0f434}} 
+\index{v8::internal::CodeSerializer::OffThreadDeserializeData@{v8::internal::CodeSerializer::OffThreadDeserializeData}!persistent\_handles@{persistent\_handles}}
+\index{persistent\_handles@{persistent\_handles}!v8::internal::CodeSerializer::OffThreadDeserializeData@{v8::internal::CodeSerializer::OffThreadDeserializeData}}
+\doxysubsubsection{\texorpdfstring{persistent\_handles}{persistent\_handles}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1internal_1_1PersistentHandles}{Persistent\+Handles}}$>$ v8\+::internal\+::\+Code\+Serializer\+::\+Off\+Thread\+Deserialize\+Data\+::persistent\+\_\+handles\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 71 of file code-\/serializer.\+h.
+
+
+
+Referenced by Get\+Only\+Script().
+
+\mbox{\Hypertarget{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a5285b8363f5542b2c7cfc14271d1459c}\label{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a5285b8363f5542b2c7cfc14271d1459c}} 
+\index{v8::internal::CodeSerializer::OffThreadDeserializeData@{v8::internal::CodeSerializer::OffThreadDeserializeData}!sanity\_check\_result@{sanity\_check\_result}}
+\index{sanity\_check\_result@{sanity\_check\_result}!v8::internal::CodeSerializer::OffThreadDeserializeData@{v8::internal::CodeSerializer::OffThreadDeserializeData}}
+\doxysubsubsection{\texorpdfstring{sanity\_check\_result}{sanity\_check\_result}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structv8_1_1ScriptCompiler_1_1CachedData_a6d6c63396ffc1ae0ca835b48a726ffc4}{Serialized\+Code\+Sanity\+Check\+Result}} v8\+::internal\+::\+Code\+Serializer\+::\+Off\+Thread\+Deserialize\+Data\+::sanity\+\_\+check\+\_\+result\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 72 of file code-\/serializer.\+h.
+
+\mbox{\Hypertarget{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a1e1deee21ba7cf9fbbc3fa2023a1aeb7}\label{structv8_1_1internal_1_1CodeSerializer_1_1OffThreadDeserializeData_a1e1deee21ba7cf9fbbc3fa2023a1aeb7}} 
+\index{v8::internal::CodeSerializer::OffThreadDeserializeData@{v8::internal::CodeSerializer::OffThreadDeserializeData}!scripts@{scripts}}
+\index{scripts@{scripts}!v8::internal::CodeSerializer::OffThreadDeserializeData@{v8::internal::CodeSerializer::OffThreadDeserializeData}}
+\doxysubsubsection{\texorpdfstring{scripts}{scripts}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{namespacev8_1_1internal_ac3ca492beb1ed3688e9047193656ecc4}{Indirect\+Handle}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1Script}{Script}}$>$ $>$ v8\+::internal\+::\+Code\+Serializer\+::\+Off\+Thread\+Deserialize\+Data\+::scripts\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 70 of file code-\/serializer.\+h.
+
+
+
+Referenced by Get\+Only\+Script().
+
+
+
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{code-serializer_8h}{code-\/serializer.\+h}}\item 
-\mbox{\hyperlink{code-serializer_8cc}{code-\/serializer.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/snapshot/\mbox{\hyperlink{code-serializer_8h}{code-\/serializer.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/snapshot/\mbox{\hyperlink{code-serializer_8cc}{code-\/serializer.\+cc}}\end{DoxyCompactItemize}

@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$minor-\/gc-\/job.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Minor\+GCJob\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MinorGCJob__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -18,6 +28,27 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_aa0fe34adb2726deaa9672b1
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a9c89ab8f7d5fa87b473ab82402561141}{Cancel\+Task\+If\+Scheduled}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_ac334a1e63ccfd281de34780829576399}{Is\+Scheduled}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$const \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a6af632f3a6c4fbe3e3b2e7087e2b3267}{heap\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1CancelableTaskManager_afd51b41b3b41751744fa3203cc424e00}{Cancelable\+Task\+Manager\+::\+Id}} \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a9a86f818aa82c86a93fbe9ae43aed5e7}{current\+\_\+task\+\_\+id\+\_\+}}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1AllocationObserver}{Allocation\+Observer}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a64a373ba0d5c5049c2227668871e2251}{minor\+\_\+gc\+\_\+task\+\_\+observer\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 24 of file minor-\/gc-\/job.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -29,6 +60,16 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a9c89ab8f7d5fa87b473ab82
 
 
 
+Definition at line 133 of file minor-\/gc-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{134     : \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a6af632f3a6c4fbe3e3b2e7087e2b3267}{heap\_}}(\mbox{\hyperlink{namespaceheap}{heap}}),}
+\DoxyCodeLine{135       \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a64a373ba0d5c5049c2227668871e2251}{minor\_gc\_task\_observer\_}}(\textcolor{keyword}{new} ScheduleMinorGCTaskObserver(\textcolor{keyword}{this}, \mbox{\hyperlink{namespaceheap}{heap}})) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MinorGCJob_a9c89ab8f7d5fa87b473ab82402561141}\label{classv8_1_1internal_1_1MinorGCJob_a9c89ab8f7d5fa87b473ab82402561141}} 
 \index{v8::internal::MinorGCJob@{v8::internal::MinorGCJob}!CancelTaskIfScheduled@{CancelTaskIfScheduled}}
@@ -36,6 +77,80 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a9c89ab8f7d5fa87b473ab82
 \doxysubsubsection{\texorpdfstring{CancelTaskIfScheduled()}{CancelTaskIfScheduled()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Minor\+GCJob\+::\+Cancel\+Task\+If\+Scheduled (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 153 of file minor-\/gc-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{153                                        \{}
+\DoxyCodeLine{154   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_ac334a1e63ccfd281de34780829576399}{IsScheduled}}()) \{}
+\DoxyCodeLine{155     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{156   \}}
+\DoxyCodeLine{157   \textcolor{comment}{// The task may have ran and bailed out already if major incremental marking}}
+\DoxyCodeLine{158   \textcolor{comment}{// was running, in which `TryAbort` will return `kTaskRemoved`.}}
+\DoxyCodeLine{159   \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a6af632f3a6c4fbe3e3b2e7087e2b3267}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ae5160ad63bc51ff7b36e8f247be48f63}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a6ca088205654decf7abab43340be424a}{cancelable\_task\_manager}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1CancelableTaskManager_aee123633df3403c91bc08a3aa193507b}{TryAbort}}(\mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a9a86f818aa82c86a93fbe9ae43aed5e7}{current\_task\_id\_}});}
+\DoxyCodeLine{160   \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a9a86f818aa82c86a93fbe9ae43aed5e7}{current\_task\_id\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1CancelableTaskManager_aeced01d51e2e17fe43f5286404519146}{CancelableTaskManager::kInvalidTaskId}};}
+\DoxyCodeLine{161 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::cancelable\+\_\+task\+\_\+manager(), current\+\_\+task\+\_\+id\+\_\+, heap\+\_\+, v8\+::internal\+::\+Heap\+::isolate(), Is\+Scheduled(), v8\+::internal\+::\+Cancelable\+Task\+Manager\+::k\+Invalid\+Task\+Id, and v8\+::internal\+::\+Cancelable\+Task\+Manager\+::\+Try\+Abort().
+
+
+
+Referenced by v8\+::internal\+::\+Heap\+::\+Garbage\+Collection\+Prologue().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MinorGCJob_a9c89ab8f7d5fa87b473ab82402561141_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MinorGCJob_a9c89ab8f7d5fa87b473ab82402561141_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MinorGCJob_ac334a1e63ccfd281de34780829576399}\label{classv8_1_1internal_1_1MinorGCJob_ac334a1e63ccfd281de34780829576399}} 
+\index{v8::internal::MinorGCJob@{v8::internal::MinorGCJob}!IsScheduled@{IsScheduled}}
+\index{IsScheduled@{IsScheduled}!v8::internal::MinorGCJob@{v8::internal::MinorGCJob}}
+\doxysubsubsection{\texorpdfstring{IsScheduled()}{IsScheduled()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Minor\+GCJob\+::\+Is\+Scheduled (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 37 of file minor-\/gc-\/job.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{37                            \{}
+\DoxyCodeLine{38     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a9a86f818aa82c86a93fbe9ae43aed5e7}{current\_task\_id\_}} != \mbox{\hyperlink{classv8_1_1internal_1_1CancelableTaskManager_aeced01d51e2e17fe43f5286404519146}{CancelableTaskManager::kInvalidTaskId}};}
+\DoxyCodeLine{39   \}}
+
+\end{DoxyCode}
+
+
+References current\+\_\+task\+\_\+id\+\_\+, and v8\+::internal\+::\+Cancelable\+Task\+Manager\+::k\+Invalid\+Task\+Id.
+
+
+
+Referenced by Cancel\+Task\+If\+Scheduled(), and Try\+Schedule\+Task().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MinorGCJob_ac334a1e63ccfd281de34780829576399_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1MinorGCJob_aa0fe34adb2726deaa9672b1d0c14dadf}\label{classv8_1_1internal_1_1MinorGCJob_aa0fe34adb2726deaa9672b1d0c14dadf}} 
 \index{v8::internal::MinorGCJob@{v8::internal::MinorGCJob}!TryScheduleTask@{TryScheduleTask}}
 \index{TryScheduleTask@{TryScheduleTask}!v8::internal::MinorGCJob@{v8::internal::MinorGCJob}}
@@ -44,7 +159,101 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a9c89ab8f7d5fa87b473ab82
 
 
 
+Definition at line 137 of file minor-\/gc-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{137                                  \{}
+\DoxyCodeLine{138   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.minor\_gc\_task || \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_ac334a1e63ccfd281de34780829576399}{IsScheduled}}() || \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a6af632f3a6c4fbe3e3b2e7087e2b3267}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a22dabf94de324c0eb88a91d74839f4ec}{IsTearingDown}}()) \{}
+\DoxyCodeLine{139     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{140   \}}
+\DoxyCodeLine{141   \textcolor{keyword}{const} \textcolor{keyword}{auto} priority = \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.minor\_gc\_task\_with\_lower\_priority}
+\DoxyCodeLine{142                             ? \mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051a602dfdb2b16ea7a1f4392dc3d5761f7d}{TaskPriority::kUserVisible}}}
+\DoxyCodeLine{143                             : \mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051a495bb545d1c5053ead9743a8b7692209}{TaskPriority::kUserBlocking}};}
+\DoxyCodeLine{144   std::shared\_ptr<v8::TaskRunner> taskrunner =}
+\DoxyCodeLine{145       \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a6af632f3a6c4fbe3e3b2e7087e2b3267}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a9172273910750cf7b754837a3bf76afc}{GetForegroundTaskRunner}}(priority);}
+\DoxyCodeLine{146   \textcolor{keywordflow}{if} (taskrunner-\/>NonNestableTasksEnabled()) \{}
+\DoxyCodeLine{147     std::unique\_ptr<Task> task = std::make\_unique<Task>(\mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a6af632f3a6c4fbe3e3b2e7087e2b3267}{heap\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_ae5160ad63bc51ff7b36e8f247be48f63}{isolate}}(), \textcolor{keyword}{this});}
+\DoxyCodeLine{148     \mbox{\hyperlink{classv8_1_1internal_1_1MinorGCJob_a9a86f818aa82c86a93fbe9ae43aed5e7}{current\_task\_id\_}} = task-\/>id();}
+\DoxyCodeLine{149     taskrunner-\/>PostNonNestableTask(std::move(task));}
+\DoxyCodeLine{150   \}}
+\DoxyCodeLine{151 \}}
+
+\end{DoxyCode}
+
+
+References current\+\_\+task\+\_\+id\+\_\+, v8\+::internal\+::\+Heap\+::\+Get\+Foreground\+Task\+Runner(), heap\+\_\+, v8\+::internal\+::\+Heap\+::isolate(), Is\+Scheduled(), v8\+::internal\+::\+Heap\+::\+Is\+Tearing\+Down(), v8\+::k\+User\+Blocking, v8\+::k\+User\+Visible, and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::\+Heap\+::\+Start\+Minor\+MSConcurrent\+Marking\+If\+Needed(), and v8\+::internal\+::\+Schedule\+Minor\+GCTask\+Observer\+::\+Step().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MinorGCJob_aa0fe34adb2726deaa9672b1d0c14dadf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1MinorGCJob_aa0fe34adb2726deaa9672b1d0c14dadf_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MinorGCJob_a9a86f818aa82c86a93fbe9ae43aed5e7}\label{classv8_1_1internal_1_1MinorGCJob_a9a86f818aa82c86a93fbe9ae43aed5e7}} 
+\index{v8::internal::MinorGCJob@{v8::internal::MinorGCJob}!current\_task\_id\_@{current\_task\_id\_}}
+\index{current\_task\_id\_@{current\_task\_id\_}!v8::internal::MinorGCJob@{v8::internal::MinorGCJob}}
+\doxysubsubsection{\texorpdfstring{current\_task\_id\_}{current\_task\_id\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1CancelableTaskManager_afd51b41b3b41751744fa3203cc424e00}{Cancelable\+Task\+Manager\+::\+Id}} v8\+::internal\+::\+Minor\+GCJob\+::current\+\_\+task\+\_\+id\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      \mbox{\hyperlink{classv8_1_1internal_1_1CancelableTaskManager_aeced01d51e2e17fe43f5286404519146}{CancelableTaskManager::kInvalidTaskId}}}
+
+\end{DoxyCode}
+
+
+Definition at line 42 of file minor-\/gc-\/job.\+h.
+
+
+
+Referenced by Cancel\+Task\+If\+Scheduled(), Is\+Scheduled(), v8\+::internal\+::\+Minor\+GCJob\+::\+Task\+::\+Run\+Internal(), and Try\+Schedule\+Task().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MinorGCJob_a6af632f3a6c4fbe3e3b2e7087e2b3267}\label{classv8_1_1internal_1_1MinorGCJob_a6af632f3a6c4fbe3e3b2e7087e2b3267}} 
+\index{v8::internal::MinorGCJob@{v8::internal::MinorGCJob}!heap\_@{heap\_}}
+\index{heap\_@{heap\_}!v8::internal::MinorGCJob@{v8::internal::MinorGCJob}}
+\doxysubsubsection{\texorpdfstring{heap\_}{heap\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}}$\ast$ const v8\+::internal\+::\+Minor\+GCJob\+::heap\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 41 of file minor-\/gc-\/job.\+h.
+
+
+
+Referenced by Cancel\+Task\+If\+Scheduled(), and Try\+Schedule\+Task().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MinorGCJob_a64a373ba0d5c5049c2227668871e2251}\label{classv8_1_1internal_1_1MinorGCJob_a64a373ba0d5c5049c2227668871e2251}} 
+\index{v8::internal::MinorGCJob@{v8::internal::MinorGCJob}!minor\_gc\_task\_observer\_@{minor\_gc\_task\_observer\_}}
+\index{minor\_gc\_task\_observer\_@{minor\_gc\_task\_observer\_}!v8::internal::MinorGCJob@{v8::internal::MinorGCJob}}
+\doxysubsubsection{\texorpdfstring{minor\_gc\_task\_observer\_}{minor\_gc\_task\_observer\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1internal_1_1AllocationObserver}{Allocation\+Observer}}$>$ v8\+::internal\+::\+Minor\+GCJob\+::minor\+\_\+gc\+\_\+task\+\_\+observer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 44 of file minor-\/gc-\/job.\+h.
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{minor-gc-job_8h}{minor-\/gc-\/job.\+h}}\item 
-\mbox{\hyperlink{minor-gc-job_8cc}{minor-\/gc-\/job.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{minor-gc-job_8h}{minor-\/gc-\/job.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{minor-gc-job_8cc}{minor-\/gc-\/job.\+cc}}\end{DoxyCompactItemize}

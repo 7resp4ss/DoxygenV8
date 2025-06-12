@@ -41,5 +41,6 @@ var classv8_1_1internal_1_1wasm_1_1WasmWrapperTSGraphBuilder =
     [ "QualifiesForFastTransform", "classv8_1_1internal_1_1wasm_1_1WasmWrapperTSGraphBuilder.html#a37c14136baef17f1a39fcd0c40fcae04", null ],
     [ "SafeLoad", "classv8_1_1internal_1_1wasm_1_1WasmWrapperTSGraphBuilder.html#a68cb76ed4dfb299fe08d4186a759f6c3", null ],
     [ "SafeStore", "classv8_1_1internal_1_1wasm_1_1WasmWrapperTSGraphBuilder.html#a90a4ced6a46a04c8892ba3ff8fa2fe35", null ],
-    [ "ToJS", "classv8_1_1internal_1_1wasm_1_1WasmWrapperTSGraphBuilder.html#a1939a6e87e48b331bf06e6ed9d8b8ade", null ]
+    [ "ToJS", "classv8_1_1internal_1_1wasm_1_1WasmWrapperTSGraphBuilder.html#a1939a6e87e48b331bf06e6ed9d8b8ade", null ],
+    [ "sig_", "classv8_1_1internal_1_1wasm_1_1WasmWrapperTSGraphBuilder.html#ae60554da5e468b9f2b488dae3bf325f6", null ]
 ];

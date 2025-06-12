@@ -1,10 +1,27 @@
 \hypertarget{structv8_1_1internal_1_1compiler_1_1MemoryOptimizationPhase}{}\doxysection{v8\+::internal\+::compiler\+::Memory\+Optimization\+Phase Struct Reference}
 \label{structv8_1_1internal_1_1compiler_1_1MemoryOptimizationPhase}\index{v8::internal::compiler::MemoryOptimizationPhase@{v8::internal::compiler::MemoryOptimizationPhase}}
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Memory\+Optimization\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{structv8_1_1internal_1_1compiler_1_1MemoryOptimizationPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1MemoryOptimizationPhase_a010c9c07549327f07c2f3ad168d59176}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
+void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1MemoryOptimizationPhase_a010c9c07549327f07c2f3ad168d59176}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1325 of file pipeline.\+cc.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -16,6 +33,51 @@ void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1MemoryOptimizationPhas
 
 
 
+Definition at line 1328 of file pipeline.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1328                                                   \{}
+\DoxyCodeLine{1329     \textcolor{comment}{// The memory optimizer requires the graphs to be trimmed, so trim now.}}
+\DoxyCodeLine{1330     GraphTrimmer trimmer(temp\_zone, data-\/>graph());}
+\DoxyCodeLine{1331     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a4107c005c14e5351157d6a5d020f7bba}{NodeVector}} roots(temp\_zone);}
+\DoxyCodeLine{1332     data-\/>jsgraph()-\/>GetCachedNodes(\&roots);}
+\DoxyCodeLine{1333     \{}
+\DoxyCodeLine{1334       UnparkedScopeIfNeeded scope(data-\/>broker(),}
+\DoxyCodeLine{1335                                   \mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_turbo\_trimming);}
+\DoxyCodeLine{1336       trimmer.TrimGraph(roots.begin(), roots.end());}
+\DoxyCodeLine{1337     \}}
+\DoxyCodeLine{1338 }
+\DoxyCodeLine{1339     \textcolor{comment}{// Optimize allocations and load/store operations.}}
+\DoxyCodeLine{1340 \textcolor{preprocessor}{\#if V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{1341     \textcolor{keywordtype}{bool} is\_wasm = data-\/>info()-\/>IsWasm() || data-\/>info()-\/>IsWasmBuiltin();}
+\DoxyCodeLine{1342 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{1343     \textcolor{keywordtype}{bool} is\_wasm = \textcolor{keyword}{false};}
+\DoxyCodeLine{1344 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{1345     MemoryOptimizer optimizer(}
+\DoxyCodeLine{1346         data-\/>broker(), data-\/>jsgraph(), temp\_zone,}
+\DoxyCodeLine{1347         data-\/>info()-\/>allocation\_folding()}
+\DoxyCodeLine{1348             ? \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MemoryLowering_afe8b3fa68b82b5908a393a29627384dba054c340aca0461db29a397baab2214c6}{MemoryLowering::AllocationFolding::kDoAllocationFolding}}}
+\DoxyCodeLine{1349             : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MemoryLowering_afe8b3fa68b82b5908a393a29627384dba07e1af0308f008670f9fa825cea26839}{MemoryLowering::AllocationFolding::kDontAllocationFolding}},}
+\DoxyCodeLine{1350         data-\/>debug\_name(), \&data-\/>info()-\/>tick\_counter(), is\_wasm);}
+\DoxyCodeLine{1351     optimizer.Optimize();}
+\DoxyCodeLine{1352   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::begin(), v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::end(), v8\+::internal\+::compiler\+::\+Memory\+Lowering\+::k\+Do\+Allocation\+Folding, v8\+::internal\+::compiler\+::\+Memory\+Lowering\+::k\+Dont\+Allocation\+Folding, v8\+::internal\+::compiler\+::\+Memory\+Optimizer\+::\+Optimize(), v8\+::internal\+::compiler\+::\+Graph\+Trimmer\+::\+Trim\+Graph(), and v8\+::internal\+::v8\+\_\+flags.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1MemoryOptimizationPhase_a010c9c07549327f07c2f3ad168d59176_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}

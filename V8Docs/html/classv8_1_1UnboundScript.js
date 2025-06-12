@@ -6,5 +6,6 @@ var classv8_1_1UnboundScript =
     [ "GetLineNumber", "classv8_1_1UnboundScript.html#ab88d876a3ae9bced64785ad94cb79a22", null ],
     [ "GetScriptName", "classv8_1_1UnboundScript.html#ab2fede0349c51fc1b0643153f7c20351", null ],
     [ "GetSourceMappingURL", "classv8_1_1UnboundScript.html#a9568bcd5cd55dd85233926dfd5d8fc27", null ],
-    [ "GetSourceURL", "classv8_1_1UnboundScript.html#acd0cf7b521821347e9f6ce7b6c007b40", null ]
+    [ "GetSourceURL", "classv8_1_1UnboundScript.html#acd0cf7b521821347e9f6ce7b6c007b40", null ],
+    [ "kNoScriptId", "classv8_1_1UnboundScript.html#a2d36aeb3abd52d41cf05d1d5f036a0bd", null ]
 ];

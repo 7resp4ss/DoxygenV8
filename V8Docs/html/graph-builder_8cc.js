@@ -1,5 +1,7 @@
 var graph_builder_8cc =
 [
+    [ "GraphBuilder", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1anonymous__namespace_02graph-builder_8cc_03_1_1GraphBuilder.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1anonymous__namespace_02graph-builder_8cc_03_1_1GraphBuilder" ],
+    [ "BlockData", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1anonymous__namespace_02graph-builder_8cc_03_1_1GraphBuilder_1_1BlockData.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1anonymous__namespace_02graph-builder_8cc_03_1_1GraphBuilder_1_1BlockData" ],
     [ "ATOMIC_WORD32_PAIR_BINOP", "graph-builder_8cc.html#a8376596efea28514fc7bb758d0f50ee1", null ],
     [ "BIGINT_BINOP_CASE", "graph-builder_8cc.html#a40d30941c2c90121d4f399bd7e38bb24", null ],
     [ "BINOP", "graph-builder_8cc.html#a563857580dd4abf557bc319e2b960fae", null ],
@@ -15,20 +17,5 @@ var graph_builder_8cc =
     [ "TRUNCATE_OBJECT_TO_PRIMITIVE_CASE", "graph-builder_8cc.html#a24dad6e6db1af283f8a8f597e48e815d", null ],
     [ "UNARY_CASE", "graph-builder_8cc.html#a523fffe7ccca9f182bb6970f0c5d6570", null ],
     [ "BuildGraph", "graph-builder_8cc.html#a24a60da57b59f466a1939002ec15693d", null ],
-    [ "assembler", "graph-builder_8cc.html#a9e397f4923fb16957ab72033ab7fecac", null ],
-    [ "block", "graph-builder_8cc.html#a9a63426410caf3ad0e4c7010c6d7e2f0", null ],
-    [ "block_mapping", "graph-builder_8cc.html#aead965c34b465373a0a11b3b9f5360af", null ],
-    [ "broker", "graph-builder_8cc.html#af88aca2403db6e64cd8bca9eda102a86", null ],
-    [ "final_frame_state", "graph-builder_8cc.html#afa5d492e43ddcbdbd9fa0974a48b779c", null ],
-    [ "graph_zone", "graph-builder_8cc.html#ab554ff773f02a3fc0720fca9775dce78", null ],
-    [ "inside_region", "graph-builder_8cc.html#a5db129f0b070100c7dca266d7af84e4c", null ],
-    [ "isolate", "graph-builder_8cc.html#a9990dda08de44f6aee0aaf44c50da7d9", null ],
-    [ "js_wasm_calls_sidetable", "graph-builder_8cc.html#a1a3e86f90fa766d5b3044f96772c454e", null ],
-    [ "linkage", "graph-builder_8cc.html#af97d4be930be06ad1e71c0c6a130dcff", null ],
-    [ "op_mapping", "graph-builder_8cc.html#a661315cbe11a61345205944db4baa5c5", null ],
-    [ "origins", "graph-builder_8cc.html#aca5ac118321cc0cb2a8e7d4c92c40e23", null ],
-    [ "phase_zone", "graph-builder_8cc.html#a92305aa4ca35c6155a1ad3c018b28c49", null ],
-    [ "pipeline_kind", "graph-builder_8cc.html#a267b2ca3908ef9ebf52fc8a075827211", null ],
-    [ "schedule", "graph-builder_8cc.html#a970e7f41771cbd0ccc6f2f1ab01faab0", null ],
-    [ "source_positions", "graph-builder_8cc.html#acc2fa1f7c7062f53a2840f0064a43ef1", null ]
+    [ "IsValidSmi", "graph-builder_8cc.html#a59b085f0ed7086f3c2d83a3aa3e88515", null ]
 ];

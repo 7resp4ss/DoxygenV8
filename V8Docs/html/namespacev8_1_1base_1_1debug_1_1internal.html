@@ -90,7 +90,7 @@ $(document).ready(function(){initNavTree('namespacev8_1_1base_1_1debug_1_1intern
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a53e36da8d924a887b0a694989260e4c3"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacev8_1_1base_1_1debug_1_1internal.html#a53e36da8d924a887b0a694989260e4c3">itoa_r</a> (intptr_t i, char *buf, size_t sz, int <a class="el" href="instruction-selector-x64_8cc.html#a7971003206f2f3d97ca8b90452bc2d92">base</a>, size_t padding)</td></tr>
+<tr class="memitem:a53e36da8d924a887b0a694989260e4c3"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacev8_1_1base_1_1debug_1_1internal.html#a53e36da8d924a887b0a694989260e4c3">itoa_r</a> (intptr_t i, char *buf, size_t sz, <a class="el" href="classint.html">int</a> base, size_t padding)</td></tr>
 <tr class="separator:a53e36da8d924a887b0a694989260e4c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -121,7 +121,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="classint.html">int</a>&#160;</td>
           <td class="paramname"><em>base</em>, </td>
         </tr>
         <tr>
@@ -138,6 +138,81 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="stack__trace__posix_8cc_source.html#l00421">421</a> of file <a class="el" href="stack__trace__posix_8cc_source.html">stack_trace_posix.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;                                                                         {</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;  <span class="comment">// Make sure we can write at least one NUL byte.</span></div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;  <span class="keywordtype">size_t</span> n = 1;</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;  <span class="keywordflow">if</span> (n &gt; sz) <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160; </div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;  <span class="keywordflow">if</span> (base &lt; 2 || base &gt; 16) {</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    buf[0] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;  }</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160; </div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;  <span class="keywordtype">char</span>* start = buf;</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160; </div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;  <a class="code" href="classuintptr__t.html">uintptr_t</a> j = <a class="code" href="namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03.html#ad86b3cf21e19e97ce484f32b894d548c">i</a>;</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160; </div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;  <span class="comment">// Handle negative numbers (only for base 10).</span></div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="namespacev8_1_1internal.html">i</a> &lt; 0 &amp;&amp; base == 10) {</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    <span class="comment">// This does &quot;j = -i&quot; while avoiding integer overflow.</span></div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    j = <span class="keyword">static_cast&lt;</span><a class="code" href="classuintptr__t.html">uintptr_t</a><span class="keyword">&gt;</span>(-(<a class="code" href="namespacev8_1_1internal.html">i</a> + 1)) + 1;</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160; </div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    <span class="comment">// Make sure we can write the &#39;-&#39; character.</span></div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    <span class="keywordflow">if</span> (++n &gt; sz) {</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;      buf[0] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    }</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    *start++ = <span class="charliteral">&#39;-&#39;</span>;</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;  }</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160; </div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;  <span class="comment">// Loop until we have converted the entire number. Output at least one</span></div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;  <span class="comment">// character (i.e. &#39;0&#39;).</span></div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;  <span class="keywordtype">char</span>* ptr = start;</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;  <span class="keywordflow">do</span> {</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    <span class="comment">// Make sure there is still enough space left in our output buffer.</span></div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <span class="keywordflow">if</span> (++n &gt; sz) {</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;      buf[0] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;    }</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160; </div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    <span class="comment">// Output the next digit.</span></div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    *ptr++ = <span class="stringliteral">&quot;0123456789abcdef&quot;</span>[j % base];</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    j /= base;</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160; </div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;    <span class="keywordflow">if</span> (padding &gt; 0) padding--;</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;  } <span class="keywordflow">while</span> (j &gt; 0 || padding &gt; 0);</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160; </div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;  <span class="comment">// Terminate the output with a NUL character.</span></div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;  *ptr = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160; </div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;  <span class="comment">// Conversion to ASCII actually resulted in the digits being in reverse</span></div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;  <span class="comment">// order. We can&#39;t easily generate them in forward order, as we can&#39;t tell</span></div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;  <span class="comment">// the number of characters needed until we are done converting.</span></div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;  <span class="comment">// So, now, we reverse the string (except for the possible &quot;-&quot; sign).</span></div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;  <span class="keywordflow">while</span> (--ptr &gt; start) {</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;    <span class="keywordtype">char</span> ch = *ptr;</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    *ptr = *start;</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;    *start++ = ch;</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;  }</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;  <span class="keywordflow">return</span> buf;</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;}</div>
+<div class="ttc" id="aclassuintptr__t_html"><div class="ttname"><a href="classuintptr__t.html">uintptr_t</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_html_ad86b3cf21e19e97ce484f32b894d548c"><div class="ttname"><a href="namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03.html#ad86b3cf21e19e97ce484f32b894d548c">v8::internal::anonymous_namespace{json-stringifier.cc}::i</a></div><div class="ttdeci">size_t i</div><div class="ttdef"><b>Definition:</b> <a href="json-stringifier_8cc_source.html#l00548">json-stringifier.cc:548</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_html"><div class="ttname"><a href="namespacev8_1_1internal.html">v8::internal</a></div><div class="ttdef"><b>Definition:</b> <a href="api-arguments-inl_8h_source.html#l00020">api-arguments-inl.h:20</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="json-stringifier_8cc_source.html#l00548">v8::internal::anonymous_namespace{json-stringifier.cc}::i</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="stack__trace__posix_8cc_source.html#l00201">v8::base::debug::anonymous_namespace{stack_trace_posix.cc}::StackDumpSignalHandler()</a>.</p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacev8_1_1base_1_1debug_1_1internal_a53e36da8d924a887b0a694989260e4c3_icgraph.svg" width="471" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -146,7 +221,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacev8.html">v8</a></li><li class="navelem"><a class="el" href="namespacev8_1_1base.html">base</a></li><li class="navelem"><a class="el" href="namespacev8_1_1base_1_1debug.html">debug</a></li><li class="navelem"><a class="el" href="namespacev8_1_1base_1_1debug_1_1internal.html">internal</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:43:03 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jun 12 2025 16:02:23 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

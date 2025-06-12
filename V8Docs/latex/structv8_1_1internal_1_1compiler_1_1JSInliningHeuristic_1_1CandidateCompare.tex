@@ -1,0 +1,92 @@
+\hypertarget{structv8_1_1internal_1_1compiler_1_1JSInliningHeuristic_1_1CandidateCompare}{}\doxysection{v8\+::internal\+::compiler\+::JSInlining\+Heuristic\+::Candidate\+Compare Struct Reference}
+\label{structv8_1_1internal_1_1compiler_1_1JSInliningHeuristic_1_1CandidateCompare}\index{v8::internal::compiler::JSInliningHeuristic::CandidateCompare@{v8::internal::compiler::JSInliningHeuristic::CandidateCompare}}
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::JSInlining\+Heuristic\+::Candidate\+Compare\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{structv8_1_1internal_1_1compiler_1_1JSInliningHeuristic_1_1CandidateCompare__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1JSInliningHeuristic_1_1CandidateCompare_a1f00453ca9373e504345a9d3e9f3cbfb}{operator()}} (const \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1JSInliningHeuristic_1_1Candidate}{Candidate}} \&left, const \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1JSInliningHeuristic_1_1Candidate}{Candidate}} \&right) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 92 of file js-\/inlining-\/heuristic.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structv8_1_1internal_1_1compiler_1_1JSInliningHeuristic_1_1CandidateCompare_a1f00453ca9373e504345a9d3e9f3cbfb}\label{structv8_1_1internal_1_1compiler_1_1JSInliningHeuristic_1_1CandidateCompare_a1f00453ca9373e504345a9d3e9f3cbfb}} 
+\index{v8::internal::compiler::JSInliningHeuristic::CandidateCompare@{v8::internal::compiler::JSInliningHeuristic::CandidateCompare}!operator()@{operator()}}
+\index{operator()@{operator()}!v8::internal::compiler::JSInliningHeuristic::CandidateCompare@{v8::internal::compiler::JSInliningHeuristic::CandidateCompare}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::\+JSInlining\+Heuristic\+::\+Candidate\+Compare\+::operator() (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1JSInliningHeuristic_1_1Candidate}{Candidate}} \&}]{left,  }\item[{const \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1JSInliningHeuristic_1_1Candidate}{Candidate}} \&}]{right }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 867 of file js-\/inlining-\/heuristic.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{868                                                          \{}
+\DoxyCodeLine{869   constexpr \textcolor{keywordtype}{bool} kInlineLeftFirst = \textcolor{keyword}{true}, kInlineRightFirst = \textcolor{keyword}{false};}
+\DoxyCodeLine{870 }
+\DoxyCodeLine{871   \textcolor{keywordflow}{if} (right.frequency.IsUnknown()) \{}
+\DoxyCodeLine{872     \textcolor{keywordflow}{if} (left.frequency.IsUnknown()) \{}
+\DoxyCodeLine{873       \textcolor{comment}{// If left and right are both unknown then the ordering is indeterminate,}}
+\DoxyCodeLine{874       \textcolor{comment}{// which breaks strict weak ordering requirements, so we fall back to the}}
+\DoxyCodeLine{875       \textcolor{comment}{// node id as a tie breaker.}}
+\DoxyCodeLine{876       \textcolor{keywordflow}{if} (left.total\_size < right.total\_size) \{}
+\DoxyCodeLine{877         \textcolor{keywordflow}{return} kInlineLeftFirst;}
+\DoxyCodeLine{878       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (left.total\_size > right.total\_size) \{}
+\DoxyCodeLine{879         \textcolor{keywordflow}{return} kInlineRightFirst;}
+\DoxyCodeLine{880       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{881         \textcolor{keywordflow}{return} left.node-\/>id() > right.node-\/>id();}
+\DoxyCodeLine{882       \}}
+\DoxyCodeLine{883     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{884       \textcolor{keywordflow}{return} kInlineLeftFirst;}
+\DoxyCodeLine{885     \}}
+\DoxyCodeLine{886   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (left.frequency.IsUnknown()) \{}
+\DoxyCodeLine{887     \textcolor{keywordflow}{return} kInlineRightFirst;}
+\DoxyCodeLine{888   \}}
+\DoxyCodeLine{889 }
+\DoxyCodeLine{890   \textcolor{keywordtype}{float} left\_score = left.frequency.value() / left.total\_size;}
+\DoxyCodeLine{891   \textcolor{keywordtype}{float} right\_score = right.frequency.value() / right.total\_size;}
+\DoxyCodeLine{892 }
+\DoxyCodeLine{893   \textcolor{keywordflow}{if} (left\_score > right\_score) \{}
+\DoxyCodeLine{894     \textcolor{keywordflow}{return} kInlineLeftFirst;}
+\DoxyCodeLine{895   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (left\_score < right\_score) \{}
+\DoxyCodeLine{896     \textcolor{keywordflow}{return} kInlineRightFirst;}
+\DoxyCodeLine{897   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{898     \textcolor{keywordflow}{return} left.node-\/>id() > right.node-\/>id();}
+\DoxyCodeLine{899   \}}
+\DoxyCodeLine{900 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+JSInlining\+Heuristic\+::\+Candidate\+::frequency, v8\+::internal\+::compiler\+::\+Node\+::id(), v8\+::internal\+::compiler\+::\+Call\+Frequency\+::\+Is\+Unknown(), v8\+::internal\+::compiler\+::\+JSInlining\+Heuristic\+::\+Candidate\+::node, v8\+::internal\+::compiler\+::\+JSInlining\+Heuristic\+::\+Candidate\+::total\+\_\+size, and v8\+::internal\+::compiler\+::\+Call\+Frequency\+::value().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1JSInliningHeuristic_1_1CandidateCompare_a1f00453ca9373e504345a9d3e9f3cbfb_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{js-inlining-heuristic_8h}{js-\/inlining-\/heuristic.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{js-inlining-heuristic_8cc}{js-\/inlining-\/heuristic.\+cc}}\end{DoxyCompactItemize}

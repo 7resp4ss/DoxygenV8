@@ -18,5 +18,14 @@ var classv8_1_1internal_1_1compiler_1_1Frame =
     [ "set_invalidates_sp", "classv8_1_1internal_1_1compiler_1_1Frame.html#a0a7e1a581fa6a86dcb2daed9a0898a75", null ],
     [ "SetAllocatedDoubleRegisters", "classv8_1_1internal_1_1compiler_1_1Frame.html#a6d2f8cefe32fe80c3052dfbf538b75dd", null ],
     [ "SetAllocatedRegisters", "classv8_1_1internal_1_1compiler_1_1Frame.html#a0d49fa15e4d05e9d3733d34ce3afee32", null ],
-    [ "tagged_slots", "classv8_1_1internal_1_1compiler_1_1Frame.html#af5297b6a4384bbfebe6794273a7fe024", null ]
+    [ "tagged_slots", "classv8_1_1internal_1_1compiler_1_1Frame.html#af5297b6a4384bbfebe6794273a7fe024", null ],
+    [ "allocated_double_registers_", "classv8_1_1internal_1_1compiler_1_1Frame.html#a8472651623acb3c413274af4b826544c", null ],
+    [ "allocated_registers_", "classv8_1_1internal_1_1compiler_1_1Frame.html#a8061bc0f1543a114c391f2dca455c6f5", null ],
+    [ "fixed_slot_count_", "classv8_1_1internal_1_1compiler_1_1Frame.html#a9ba6f5b60978473c3d6a781eff9874fb", null ],
+    [ "invalidates_sp_", "classv8_1_1internal_1_1compiler_1_1Frame.html#ae0437b8fdac58a03c742adc3be47132e", null ],
+    [ "return_slot_count_", "classv8_1_1internal_1_1compiler_1_1Frame.html#ac5b328132e3691f25fd088011dc792e0", null ],
+    [ "slot_allocator_", "classv8_1_1internal_1_1compiler_1_1Frame.html#add6331b25c1cd87f45ec9fad793a8541", null ],
+    [ "spill_slot_count_", "classv8_1_1internal_1_1compiler_1_1Frame.html#a7b91da880f693ef388c921c32ae9c667", null ],
+    [ "tagged_slots_bits_", "classv8_1_1internal_1_1compiler_1_1Frame.html#a2171183920d9ddb6b1a3bfd05f335ecb", null ],
+    [ "zone_", "classv8_1_1internal_1_1compiler_1_1Frame.html#a60a35ecf73d53c8d49f9900544613fb0", null ]
 ];

@@ -1,12 +1,14 @@
 var turbofan_graph_visualizer_8cc =
 [
     [ "GraphC1Visualizer", "classv8_1_1internal_1_1compiler_1_1GraphC1Visualizer.html", "classv8_1_1internal_1_1compiler_1_1GraphC1Visualizer" ],
+    [ "Tag", "classv8_1_1internal_1_1compiler_1_1GraphC1Visualizer_1_1Tag.html", "classv8_1_1internal_1_1compiler_1_1GraphC1Visualizer_1_1Tag" ],
     [ "get_cached_trace_turbo_filename", "turbofan-graph-visualizer_8cc.html#a51d08001fbb0380fcdd1ef572c17c3b2", null ],
     [ "GetVisualizerLogFileName", "turbofan-graph-visualizer_8cc.html#aba37cfbab57a391e69d293b93ad81e32", null ],
     [ "JsonPrintAllBytecodeSources", "turbofan-graph-visualizer_8cc.html#a8b2e6ccf1b423a6900d6b447c371b0f3", null ],
     [ "JsonPrintAllSourceWithPositions", "turbofan-graph-visualizer_8cc.html#a6ada2635fbf158198af003f718d34a99", null ],
     [ "JsonPrintBytecodeSource", "turbofan-graph-visualizer_8cc.html#a09c9f2c995952b0cf3447f1befbf4610", null ],
     [ "JsonPrintFunctionSource", "turbofan-graph-visualizer_8cc.html#aa228a8f4da632161b045194a2c25e1d1", null ],
+    [ "JsonPrintInlinedFunctionInfo", "turbofan-graph-visualizer_8cc.html#a2d2cf26379463e4a3a9e8ec0c1b05292", null ],
     [ "operator<<", "turbofan-graph-visualizer_8cc.html#a940eddda221812b15ab476f365a761fe", null ],
     [ "operator<<", "turbofan-graph-visualizer_8cc.html#a29c228ab588940f19f1520c9fa290b77", null ],
     [ "operator<<", "turbofan-graph-visualizer_8cc.html#a46b33ab7b5befbb4b32b6d1e7e69cd2c", null ],
@@ -22,7 +24,12 @@ var turbofan_graph_visualizer_8cc =
     [ "operator<<", "turbofan-graph-visualizer_8cc.html#a7cd4eb0653b777fba27f58e0978c5089", null ],
     [ "operator<<", "turbofan-graph-visualizer_8cc.html#ad75dd052c19d316da94295f570c5c737", null ],
     [ "operator<<", "turbofan-graph-visualizer_8cc.html#adf47684bc386dfb4e8f3732ac607ae7a", null ],
+    [ "PrintIndent", "turbofan-graph-visualizer_8cc.html#a52af27c90a8eb686059be4457be34047", null ],
+    [ "PrintScheduledGraph", "turbofan-graph-visualizer_8cc.html#a25719de653135366ff268f39746f7e6b", null ],
+    [ "PrintScheduledNode", "turbofan-graph-visualizer_8cc.html#a496c35aabcd36fb6ebb6e7be92a728fc", null ],
     [ "PrintTopLevelLiveRanges", "turbofan-graph-visualizer_8cc.html#adbc492e0d2a7d68addf8436a92dc073d", null ],
+    [ "SafeId", "turbofan-graph-visualizer_8cc.html#a4a2e971f0caf7ef0be73261909334211", null ],
+    [ "SafeMnemonic", "turbofan-graph-visualizer_8cc.html#a253064caa10abcc9658851b31f3a12b1", null ],
     [ "kOnStack", "turbofan-graph-visualizer_8cc.html#a1a468f6402937d9b07f3719e148f911d", null ],
     [ "kUnvisited", "turbofan-graph-visualizer_8cc.html#a4307712b5db9d879cc68bef07f992093", null ],
     [ "kVisited", "turbofan-graph-visualizer_8cc.html#ae52fc6c975ee4f4817cf536b71166342", null ]

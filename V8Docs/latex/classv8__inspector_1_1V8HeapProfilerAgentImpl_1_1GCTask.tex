@@ -17,16 +17,30 @@ Collaboration diagram for v8\+\_\+inspector\+::V8\+Heap\+Profiler\+Agent\+Impl\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=238pt]{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask__coll__graph}
+\includegraphics[width=350pt]{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_a0cba2ef8b5e7bcd42f75563b399150b7}{GCTask}} (\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structv8__inspector_1_1V8HeapProfilerAgentImpl_1_1AsyncCallbacks}{Async\+Callbacks}} $>$ async\+Callbacks)
+\mbox{\hyperlink{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_a0cba2ef8b5e7bcd42f75563b399150b7}{GCTask}} (\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$isolate, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structv8__inspector_1_1V8HeapProfilerAgentImpl_1_1AsyncCallbacks}{Async\+Callbacks}} $>$ async\+Callbacks)
 \item 
 void \mbox{\hyperlink{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_a103598f6b45e579f17f4879ca7a4bede}{Run}} () override
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$ \mbox{\hyperlink{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_ad22ffe1921538bfee500d6c373af8a62}{m\+\_\+isolate}}
+\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{structv8__inspector_1_1V8HeapProfilerAgentImpl_1_1AsyncCallbacks}{Async\+Callbacks}} $>$ \mbox{\hyperlink{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_a73fa4667e143451a1d3c7d53213519de}{m\+\_\+async\+Callbacks}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 160 of file v8-\/heap-\/profiler-\/agent-\/impl.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -36,6 +50,15 @@ void \mbox{\hyperlink{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_a1
 \doxysubsubsection{\texorpdfstring{GCTask()}{GCTask()}}
 {\footnotesize\ttfamily v8\+\_\+inspector\+::\+V8\+Heap\+Profiler\+Agent\+Impl\+::\+GCTask\+::\+GCTask (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$}]{isolate,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structv8__inspector_1_1V8HeapProfilerAgentImpl_1_1AsyncCallbacks}{Async\+Callbacks}} $>$}]{async\+Callbacks }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 162 of file v8-\/heap-\/profiler-\/agent-\/impl.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{163       : \mbox{\hyperlink{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_ad22ffe1921538bfee500d6c373af8a62}{m\_isolate}}(isolate), \mbox{\hyperlink{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_a73fa4667e143451a1d3c7d53213519de}{m\_asyncCallbacks}}(asyncCallbacks) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -51,6 +74,69 @@ Implements \mbox{\hyperlink{classv8_1_1Task_a6bd5bda0e357fcc2e727bf7b0170f99a}{v
 
 
 
+Definition at line 165 of file v8-\/heap-\/profiler-\/agent-\/impl.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{165                       \{}
+\DoxyCodeLine{166     std::shared\_ptr<AsyncCallbacks> asyncCallbacks = \mbox{\hyperlink{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_a73fa4667e143451a1d3c7d53213519de}{m\_asyncCallbacks}}.lock();}
+\DoxyCodeLine{167     \textcolor{keywordflow}{if} (!asyncCallbacks) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{168     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{v8::base::MutexGuard}} lock(\&asyncCallbacks-\/>m\_mutex);}
+\DoxyCodeLine{169     \textcolor{keywordflow}{if} (asyncCallbacks-\/>m\_canceled) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{170     \mbox{\hyperlink{namespacev8_1_1debug_a54c0113b5ded898fdbeb68c672110177}{v8::debug::ForceGarbageCollection}}(\mbox{\hyperlink{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_ad22ffe1921538bfee500d6c373af8a62}{m\_isolate}},}
+\DoxyCodeLine{171                                       v8::StackState::kNoHeapPointers);}
+\DoxyCodeLine{172     \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& callback : asyncCallbacks-\/>m\_gcCallbacks) \{}
+\DoxyCodeLine{173       callback-\/>sendSuccess();}
+\DoxyCodeLine{174     \}}
+\DoxyCodeLine{175     asyncCallbacks-\/>m\_gcCallbacks.clear();}
+\DoxyCodeLine{176   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::debug\+::\+Force\+Garbage\+Collection(), m\+\_\+async\+Callbacks, and m\+\_\+isolate.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_a103598f6b45e579f17f4879ca7a4bede_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_a73fa4667e143451a1d3c7d53213519de}\label{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_a73fa4667e143451a1d3c7d53213519de}} 
+\index{v8\_inspector::V8HeapProfilerAgentImpl::GCTask@{v8\_inspector::V8HeapProfilerAgentImpl::GCTask}!m\_asyncCallbacks@{m\_asyncCallbacks}}
+\index{m\_asyncCallbacks@{m\_asyncCallbacks}!v8\_inspector::V8HeapProfilerAgentImpl::GCTask@{v8\_inspector::V8HeapProfilerAgentImpl::GCTask}}
+\doxysubsubsection{\texorpdfstring{m\_asyncCallbacks}{m\_asyncCallbacks}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{structv8__inspector_1_1V8HeapProfilerAgentImpl_1_1AsyncCallbacks}{Async\+Callbacks}}$>$ v8\+\_\+inspector\+::\+V8\+Heap\+Profiler\+Agent\+Impl\+::\+GCTask\+::m\+\_\+async\+Callbacks\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 180 of file v8-\/heap-\/profiler-\/agent-\/impl.\+cc.
+
+
+
+Referenced by Run().
+
+\mbox{\Hypertarget{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_ad22ffe1921538bfee500d6c373af8a62}\label{classv8__inspector_1_1V8HeapProfilerAgentImpl_1_1GCTask_ad22ffe1921538bfee500d6c373af8a62}} 
+\index{v8\_inspector::V8HeapProfilerAgentImpl::GCTask@{v8\_inspector::V8HeapProfilerAgentImpl::GCTask}!m\_isolate@{m\_isolate}}
+\index{m\_isolate@{m\_isolate}!v8\_inspector::V8HeapProfilerAgentImpl::GCTask@{v8\_inspector::V8HeapProfilerAgentImpl::GCTask}}
+\doxysubsubsection{\texorpdfstring{m\_isolate}{m\_isolate}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}}$\ast$ v8\+\_\+inspector\+::\+V8\+Heap\+Profiler\+Agent\+Impl\+::\+GCTask\+::m\+\_\+isolate\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 179 of file v8-\/heap-\/profiler-\/agent-\/impl.\+cc.
+
+
+
+Referenced by Run().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-heap-profiler-agent-impl_8cc}{v8-\/heap-\/profiler-\/agent-\/impl.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/inspector/\mbox{\hyperlink{v8-heap-profiler-agent-impl_8cc}{v8-\/heap-\/profiler-\/agent-\/impl.\+cc}}\end{DoxyCompactItemize}

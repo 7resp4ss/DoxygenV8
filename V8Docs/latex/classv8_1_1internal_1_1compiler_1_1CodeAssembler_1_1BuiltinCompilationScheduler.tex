@@ -4,17 +4,50 @@
 
 {\ttfamily \#include $<$code-\/assembler.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Code\+Assembler\+::Builtin\+Compilation\+Scheduler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a615d5fabc29298707644d2fb4432a290}{$\sim$\+Builtin\+Compilation\+Scheduler}} ()
 \item 
-int \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a00210f6be241dc2c1db4cea62a2fa713}{builtins\+\_\+installed\+\_\+count}} () const
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a00210f6be241dc2c1db4cea62a2fa713}{builtins\+\_\+installed\+\_\+count}} () const
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a54dd7e2a7369e58d6a819d77f9d23f10}{Compile\+Code}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}}, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TurbofanCompilationJob}{Turbofan\+Compilation\+Job}} $>$ job)
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_af211cc243cd1801bdc4afb2d3f6cc2d7}{Await\+And\+Finalize\+Current\+Batch}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}})
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_aa31456273f9dbd1ea55f5552f09c3458}{Queue\+Job}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}}, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TurbofanCompilationJob}{Turbofan\+Compilation\+Job}} $>$ job)
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_ad555cf27c3e12fd55138ca8f4a6df827}{Finalize\+Job\+On\+Main\+Thread}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1TurbofanCompilationJob}{Turbofan\+Compilation\+Job}} $\ast$job)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a4fba36df0044895d135f7023fa67f15a}{builtins\+\_\+installed\+\_\+count\+\_\+}} = 0
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a7bae7ecc22cea620eb68b6f78d2be6bd}{current\+\_\+batch\+\_\+zone\+\_\+size\+\_\+}} = 0
+\item 
+std\+::deque$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TurbofanCompilationJob}{Turbofan\+Compilation\+Job}} $>$ $>$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_abe424e5a0ba33ec7e45d36d965500018}{main\+\_\+thread\+\_\+output\+\_\+queue\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 441 of file code-\/assembler.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -26,6 +59,23 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1Builti
 
 
 
+Definition at line 161 of file code-\/assembler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{161                                                                        \{}
+\DoxyCodeLine{162   \textcolor{comment}{// Did you forget to call AwaitAndFinalizeCurrentBatch()?}}
+\DoxyCodeLine{163   \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(0, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a7bae7ecc22cea620eb68b6f78d2be6bd}{current\_batch\_zone\_size\_}});}
+\DoxyCodeLine{164   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_abe424e5a0ba33ec7e45d36d965500018}{main\_thread\_output\_queue\_}}.empty());}
+\DoxyCodeLine{165 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, CHECK\+\_\+\+EQ, current\+\_\+batch\+\_\+zone\+\_\+size\+\_\+, and main\+\_\+thread\+\_\+output\+\_\+queue\+\_\+.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_af211cc243cd1801bdc4afb2d3f6cc2d7}\label{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_af211cc243cd1801bdc4afb2d3f6cc2d7}} 
 \index{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}!AwaitAndFinalizeCurrentBatch@{AwaitAndFinalizeCurrentBatch}}
@@ -33,12 +83,56 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1Builti
 \doxysubsubsection{\texorpdfstring{AwaitAndFinalizeCurrentBatch()}{AwaitAndFinalizeCurrentBatch()}}
 {\footnotesize\ttfamily void v8\+::internal\+::compiler\+::\+Code\+Assembler\+::\+Builtin\+Compilation\+Scheduler\+::\+Await\+And\+Finalize\+Current\+Batch (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})}
 
+
+
+Definition at line 221 of file code-\/assembler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{222                       \{}
+\DoxyCodeLine{223   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.concurrent\_builtin\_generation) \{}
+\DoxyCodeLine{224     \textcolor{keyword}{auto}* dispatcher = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a6c0aa7adb516c0df9e03e9b7cee59729}{optimizing\_compile\_dispatcher}}();}
+\DoxyCodeLine{225     dispatcher-\/>\mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileDispatcher_af50b211cf16425a75bcd6adcc3489ffc}{WaitUntilCompilationJobsDone}}();}
+\DoxyCodeLine{226     \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a4fba36df0044895d135f7023fa67f15a}{builtins\_installed\_count\_}} =}
+\DoxyCodeLine{227         dispatcher-\/>InstallGeneratedBuiltins(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a4fba36df0044895d135f7023fa67f15a}{builtins\_installed\_count\_}});}
+\DoxyCodeLine{228   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{229     \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.turbo\_profiling, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_abe424e5a0ba33ec7e45d36d965500018}{main\_thread\_output\_queue\_}}.empty());}
+\DoxyCodeLine{230     \textcolor{keywordflow}{while} (!\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_abe424e5a0ba33ec7e45d36d965500018}{main\_thread\_output\_queue\_}}.empty()) \{}
+\DoxyCodeLine{231       \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_ad555cf27c3e12fd55138ca8f4a6df827}{FinalizeJobOnMainThread}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_abe424e5a0ba33ec7e45d36d965500018}{main\_thread\_output\_queue\_}}.front().get());}
+\DoxyCodeLine{232       \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_abe424e5a0ba33ec7e45d36d965500018}{main\_thread\_output\_queue\_}}.pop\_front();}
+\DoxyCodeLine{233     \}}
+\DoxyCodeLine{234   \}}
+\DoxyCodeLine{235   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a7bae7ecc22cea620eb68b6f78d2be6bd}{current\_batch\_zone\_size\_}} = 0;}
+\DoxyCodeLine{236 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+IMPLIES, v8\+::internal\+::compiler\+::\+Code\+Assembler\+::isolate(), v8\+::internal\+::\+Isolate\+::optimizing\+\_\+compile\+\_\+dispatcher(), v8\+::internal\+::v8\+\_\+flags, and v8\+::internal\+::\+Optimizing\+Compile\+Dispatcher\+::\+Wait\+Until\+Compilation\+Jobs\+Done().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_af211cc243cd1801bdc4afb2d3f6cc2d7_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a00210f6be241dc2c1db4cea62a2fa713}\label{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a00210f6be241dc2c1db4cea62a2fa713}} 
 \index{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}!builtins\_installed\_count@{builtins\_installed\_count}}
 \index{builtins\_installed\_count@{builtins\_installed\_count}!v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}}
 \doxysubsubsection{\texorpdfstring{builtins\_installed\_count()}{builtins\_installed\_count()}}
-{\footnotesize\ttfamily int v8\+::internal\+::compiler\+::\+Code\+Assembler\+::\+Builtin\+Compilation\+Scheduler\+::builtins\+\_\+installed\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::compiler\+::\+Code\+Assembler\+::\+Builtin\+Compilation\+Scheduler\+::builtins\+\_\+installed\+\_\+count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 445 of file code-\/assembler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{445 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a4fba36df0044895d135f7023fa67f15a}{builtins\_installed\_count\_}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a54dd7e2a7369e58d6a819d77f9d23f10}\label{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a54dd7e2a7369e58d6a819d77f9d23f10}} 
 \index{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}!CompileCode@{CompileCode}}
 \index{CompileCode@{CompileCode}!v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}}
@@ -47,7 +141,180 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1Builti
 
 
 
+Definition at line 167 of file code-\/assembler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{168                                                                  \{}
+\DoxyCodeLine{169 \textcolor{preprocessor}{\#ifdef V8\_USE\_ADDRESS\_SANITIZER}}
+\DoxyCodeLine{170   constexpr \textcolor{keywordtype}{size\_t} kInputZoneBatchSize = 128UL * \mbox{\hyperlink{namespacev8_1_1internal_af46551c5713d2a3a1be4dca973e521e0}{MB}};}
+\DoxyCodeLine{171 \textcolor{preprocessor}{\#else   }\textcolor{comment}{// !V8\_USE\_ADDRESS\_SANITIZER}}
+\DoxyCodeLine{172   constexpr \textcolor{keywordtype}{size\_t} kInputZoneBatchSize = 1536UL * \mbox{\hyperlink{namespacev8_1_1internal_af46551c5713d2a3a1be4dca973e521e0}{MB}};}
+\DoxyCodeLine{173 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_USE\_ADDRESS\_SANITIZER}}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{175   \textcolor{comment}{// This must be called from the main thread.}}
+\DoxyCodeLine{176   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_a81c60d3524b03db2f154b7f682e7796f}{ThreadId::Current}}(), \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a863567eca5cd2e437780d09553235557}{thread\_id}}());}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(job-\/>compilation\_info()-\/>code\_kind() == \mbox{\hyperlink{builtins-utils_8h_a8ddc47515f89d0e3691438a6244e6642}{CodeKind::BUILTIN}} ||}
+\DoxyCodeLine{179          job-\/>compilation\_info()-\/>code\_kind() == CodeKind::BYTECODE\_HANDLER);}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{181   \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1CompilationJob_a5139448eb71cada82780ab292fe35e9ea77e01e83c7c3ed97092d7dc1dab5832d}{CompilationJob::SUCCEEDED}}, job-\/>PrepareJob(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}}));}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{183   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a7bae7ecc22cea620eb68b6f78d2be6bd}{current\_batch\_zone\_size\_}} >= kInputZoneBatchSize) \{}
+\DoxyCodeLine{184     \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_af211cc243cd1801bdc4afb2d3f6cc2d7}{AwaitAndFinalizeCurrentBatch}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}});}
+\DoxyCodeLine{185   \}}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_aa31456273f9dbd1ea55f5552f09c3458}{QueueJob}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}}, std::move(job));}
+\DoxyCodeLine{188 \}}
+
+\end{DoxyCode}
+
+
+References BUILTIN, CHECK\+\_\+\+EQ, v8\+::internal\+::\+Thread\+Id\+::\+Current(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, v8\+::internal\+::compiler\+::\+Code\+Assembler\+::isolate(), v8\+::internal\+::\+MB, v8\+::internal\+::\+Compilation\+Job\+::\+SUCCEEDED, and v8\+::internal\+::\+Isolate\+::thread\+\_\+id().
+
+
+
+Referenced by v8\+::internal\+::anonymous\+\_\+namespace\{setup-\/builtins-\/internal.\+cc\}\+::\+Compile\+Bytecode\+Handler(), v8\+::internal\+::anonymous\+\_\+namespace\{setup-\/builtins-\/internal.\+cc\}\+::\+Compile\+CSLinkage\+Code\+Stub\+Builtin(), and v8\+::internal\+::anonymous\+\_\+namespace\{setup-\/builtins-\/internal.\+cc\}\+::\+Compile\+JSLinkage\+Code\+Stub\+Builtin().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a54dd7e2a7369e58d6a819d77f9d23f10_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a54dd7e2a7369e58d6a819d77f9d23f10_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_ad555cf27c3e12fd55138ca8f4a6df827}\label{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_ad555cf27c3e12fd55138ca8f4a6df827}} 
+\index{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}!FinalizeJobOnMainThread@{FinalizeJobOnMainThread}}
+\index{FinalizeJobOnMainThread@{FinalizeJobOnMainThread}!v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}}
+\doxysubsubsection{\texorpdfstring{FinalizeJobOnMainThread()}{FinalizeJobOnMainThread()}}
+{\footnotesize\ttfamily void v8\+::internal\+::compiler\+::\+Code\+Assembler\+::\+Builtin\+Compilation\+Scheduler\+::\+Finalize\+Job\+On\+Main\+Thread (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1TurbofanCompilationJob}{Turbofan\+Compilation\+Job}} $\ast$}]{job }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 215 of file code-\/assembler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{216                                                    \{}
+\DoxyCodeLine{217   \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1CompilationJob_a5139448eb71cada82780ab292fe35e9ea77e01e83c7c3ed97092d7dc1dab5832d}{CompilationJob::SUCCEEDED}}, job-\/>FinalizeJob(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}}));}
+\DoxyCodeLine{218   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a4fba36df0044895d135f7023fa67f15a}{builtins\_installed\_count\_}}++;}
+\DoxyCodeLine{219 \}}
+
+\end{DoxyCode}
+
+
+References CHECK\+\_\+\+EQ, v8\+::internal\+::\+Optimized\+Compilation\+Job\+::\+Finalize\+Job(), v8\+::internal\+::compiler\+::\+Code\+Assembler\+::isolate(), and v8\+::internal\+::\+Compilation\+Job\+::\+SUCCEEDED.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_ad555cf27c3e12fd55138ca8f4a6df827_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_aa31456273f9dbd1ea55f5552f09c3458}\label{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_aa31456273f9dbd1ea55f5552f09c3458}} 
+\index{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}!QueueJob@{QueueJob}}
+\index{QueueJob@{QueueJob}!v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}}
+\doxysubsubsection{\texorpdfstring{QueueJob()}{QueueJob()}}
+{\footnotesize\ttfamily void v8\+::internal\+::compiler\+::\+Code\+Assembler\+::\+Builtin\+Compilation\+Scheduler\+::\+Queue\+Job (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TurbofanCompilationJob}{Turbofan\+Compilation\+Job}} $>$}]{job }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 190 of file code-\/assembler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{191                                                                  \{}
+\DoxyCodeLine{192   \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a7bae7ecc22cea620eb68b6f78d2be6bd}{current\_batch\_zone\_size\_}} +=}
+\DoxyCodeLine{193       job-\/>compilation\_info()-\/>zone()-\/>allocation\_size();}
+\DoxyCodeLine{194   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.concurrent\_builtin\_generation) \{}
+\DoxyCodeLine{195     \textcolor{keyword}{auto}* dispatcher = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a6c0aa7adb516c0df9e03e9b7cee59729}{optimizing\_compile\_dispatcher}}();}
+\DoxyCodeLine{196     \textcolor{comment}{// Spin until we can queue the job.}}
+\DoxyCodeLine{197     \textcolor{keywordflow}{while} (!dispatcher-\/>TryQueueForOptimization(job)) \{}
+\DoxyCodeLine{198       std::this\_thread::yield();}
+\DoxyCodeLine{199     \}}
+\DoxyCodeLine{200   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{201     \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1CompilationJob_a5139448eb71cada82780ab292fe35e9ea77e01e83c7c3ed97092d7dc1dab5832d}{CompilationJob::SUCCEEDED}},}
+\DoxyCodeLine{202              job-\/>ExecuteJob(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a9690b82e4f9b4c8a9160630396cde0b3}{counters}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Counters_aa27049ebe05a1e1a0df0d0a03f679b9d}{runtime\_call\_stats}}(),}
+\DoxyCodeLine{203                              \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a7d651964318bc41040dda0bc730388e5}{main\_thread\_local\_isolate}}()));}
+\DoxyCodeLine{204     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.turbo\_profiling) \{}
+\DoxyCodeLine{205       \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_abe424e5a0ba33ec7e45d36d965500018}{main\_thread\_output\_queue\_}}.push\_back(std::move(job));}
+\DoxyCodeLine{206     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{207       \textcolor{comment}{// When profiling builtins for PGO, each builtin must be completely}}
+\DoxyCodeLine{208       \textcolor{comment}{// generated one at a time (i.e. PrepareJob, ExecuteJob, and FinalizeJob)}}
+\DoxyCodeLine{209       \textcolor{comment}{// instead of batched.}}
+\DoxyCodeLine{210       \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_ad555cf27c3e12fd55138ca8f4a6df827}{FinalizeJobOnMainThread}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssembler_a4d458686853d53d8773487bb2cc36c61}{isolate}}, job.get());}
+\DoxyCodeLine{211     \}}
+\DoxyCodeLine{212   \}}
+\DoxyCodeLine{213 \}}
+
+\end{DoxyCode}
+
+
+References CHECK\+\_\+\+EQ, v8\+::internal\+::\+Isolate\+::counters(), v8\+::internal\+::compiler\+::\+Code\+Assembler\+::isolate(), v8\+::internal\+::\+Isolate\+::main\+\_\+thread\+\_\+local\+\_\+isolate(), v8\+::internal\+::\+Isolate\+::optimizing\+\_\+compile\+\_\+dispatcher(), v8\+::internal\+::\+Counters\+::runtime\+\_\+call\+\_\+stats(), v8\+::internal\+::\+Compilation\+Job\+::\+SUCCEEDED, and v8\+::internal\+::v8\+\_\+flags.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_aa31456273f9dbd1ea55f5552f09c3458_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a4fba36df0044895d135f7023fa67f15a}\label{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a4fba36df0044895d135f7023fa67f15a}} 
+\index{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}!builtins\_installed\_count\_@{builtins\_installed\_count\_}}
+\index{builtins\_installed\_count\_@{builtins\_installed\_count\_}!v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}}
+\doxysubsubsection{\texorpdfstring{builtins\_installed\_count\_}{builtins\_installed\_count\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::compiler\+::\+Code\+Assembler\+::\+Builtin\+Compilation\+Scheduler\+::builtins\+\_\+installed\+\_\+count\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 458 of file code-\/assembler.\+h.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a7bae7ecc22cea620eb68b6f78d2be6bd}\label{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_a7bae7ecc22cea620eb68b6f78d2be6bd}} 
+\index{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}!current\_batch\_zone\_size\_@{current\_batch\_zone\_size\_}}
+\index{current\_batch\_zone\_size\_@{current\_batch\_zone\_size\_}!v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}}
+\doxysubsubsection{\texorpdfstring{current\_batch\_zone\_size\_}{current\_batch\_zone\_size\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::compiler\+::\+Code\+Assembler\+::\+Builtin\+Compilation\+Scheduler\+::current\+\_\+batch\+\_\+zone\+\_\+size\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 461 of file code-\/assembler.\+h.
+
+
+
+Referenced by $\sim$\+Builtin\+Compilation\+Scheduler().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_abe424e5a0ba33ec7e45d36d965500018}\label{classv8_1_1internal_1_1compiler_1_1CodeAssembler_1_1BuiltinCompilationScheduler_abe424e5a0ba33ec7e45d36d965500018}} 
+\index{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}!main\_thread\_output\_queue\_@{main\_thread\_output\_queue\_}}
+\index{main\_thread\_output\_queue\_@{main\_thread\_output\_queue\_}!v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler@{v8::internal::compiler::CodeAssembler::BuiltinCompilationScheduler}}
+\doxysubsubsection{\texorpdfstring{main\_thread\_output\_queue\_}{main\_thread\_output\_queue\_}}
+{\footnotesize\ttfamily std\+::deque$<$std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1internal_1_1TurbofanCompilationJob}{Turbofan\+Compilation\+Job}}$>$ $>$ v8\+::internal\+::compiler\+::\+Code\+Assembler\+::\+Builtin\+Compilation\+Scheduler\+::main\+\_\+thread\+\_\+output\+\_\+queue\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 467 of file code-\/assembler.\+h.
+
+
+
+Referenced by $\sim$\+Builtin\+Compilation\+Scheduler().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{code-assembler_8h}{code-\/assembler.\+h}}\item 
-\mbox{\hyperlink{code-assembler_8cc}{code-\/assembler.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{code-assembler_8h}{code-\/assembler.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{code-assembler_8cc}{code-\/assembler.\+cc}}\end{DoxyCompactItemize}

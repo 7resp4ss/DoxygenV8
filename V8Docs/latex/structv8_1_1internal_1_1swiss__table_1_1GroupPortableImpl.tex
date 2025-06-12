@@ -4,10 +4,20 @@
 
 {\ttfamily \#include $<$swiss-\/hash-\/table-\/helpers.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::swiss\+\_\+table\+::Group\+Portable\+Impl\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a7d23991d3d35511eea4667eeaba933c0}{Group\+Portable\+Impl}} (const \mbox{\hyperlink{namespacev8_1_1internal_1_1swiss__table_accadbecfe8edabee7f25e969a4e79aed}{ctrl\+\_\+t}} $\ast$\mbox{\hyperlink{class-debug-reader-generator_8cc_aede818ff693a0360e722300214ad6a52}{pos}})
+\mbox{\hyperlink{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a7d23991d3d35511eea4667eeaba933c0}{Group\+Portable\+Impl}} (const \mbox{\hyperlink{namespacev8_1_1internal_1_1swiss__table_accadbecfe8edabee7f25e969a4e79aed}{ctrl\+\_\+t}} $\ast$pos)
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1swiss__table_1_1BitMask}{Bit\+Mask}}$<$ uint64\+\_\+t, \mbox{\hyperlink{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a85906a0176ab7d8fcda4ec3851fe05a6}{k\+Width}}, 3 $>$ \mbox{\hyperlink{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a476cb3742743fb52e649d41d1bd3d0b3}{Match}} (\mbox{\hyperlink{namespacev8_1_1internal_1_1swiss__table_a4e4b673179073d52c68df65303d2fa8a}{h2\+\_\+t}} hash) const
 \item 
@@ -29,6 +39,13 @@ static constexpr uint64\+\_\+t \mbox{\hyperlink{structv8_1_1internal_1_1swiss__t
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 288 of file swiss-\/hash-\/table-\/helpers.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a7d23991d3d35511eea4667eeaba933c0}\label{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a7d23991d3d35511eea4667eeaba933c0}} 
 \index{v8::internal::swiss\_table::GroupPortableImpl@{v8::internal::swiss\_table::GroupPortableImpl}!GroupPortableImpl@{GroupPortableImpl}}
@@ -38,6 +55,16 @@ static constexpr uint64\+\_\+t \mbox{\hyperlink{structv8_1_1internal_1_1swiss__t
 
 
 
+Definition at line 291 of file swiss-\/hash-\/table-\/helpers.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{292       : \mbox{\hyperlink{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a066e6af69cdce8dba4f7686f95f297b2}{ctrl}}(base::ReadLittleEndianValue<uint64\_t>(}
+\DoxyCodeLine{293             \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classuintptr__t}{uintptr\_t}}\textcolor{keyword}{>}(\textcolor{keyword}{const\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_1_1swiss__table_accadbecfe8edabee7f25e969a4e79aed}{ctrl\_t}}*\textcolor{keyword}{>}(pos)))) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a476cb3742743fb52e649d41d1bd3d0b3}\label{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a476cb3742743fb52e649d41d1bd3d0b3}} 
 \index{v8::internal::swiss\_table::GroupPortableImpl@{v8::internal::swiss\_table::GroupPortableImpl}!Match@{Match}}
@@ -45,11 +72,55 @@ static constexpr uint64\+\_\+t \mbox{\hyperlink{structv8_1_1internal_1_1swiss__t
 \doxysubsubsection{\texorpdfstring{Match()}{Match()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1swiss__table_1_1BitMask}{Bit\+Mask}}$<$uint64\+\_\+t, \mbox{\hyperlink{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a85906a0176ab7d8fcda4ec3851fe05a6}{k\+Width}}, 3$>$ v8\+::internal\+::swiss\+\_\+table\+::\+Group\+Portable\+Impl\+::\+Match (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1swiss__table_a4e4b673179073d52c68df65303d2fa8a}{h2\+\_\+t}}}]{hash }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 299 of file swiss-\/hash-\/table-\/helpers.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{299                                                       \{}
+\DoxyCodeLine{300     \textcolor{comment}{// For the technique, see:}}
+\DoxyCodeLine{301     \textcolor{comment}{// http://graphics.stanford.edu/\string~seander/bithacks.html\#\#ValueInWord}}
+\DoxyCodeLine{302     \textcolor{comment}{// (Determine if a word has a byte equal to n).}}
+\DoxyCodeLine{303     \textcolor{comment}{//}}
+\DoxyCodeLine{304     \textcolor{comment}{// Caveat: there are false positives but:}}
+\DoxyCodeLine{305     \textcolor{comment}{// -\/ they only occur if |hash| actually appears elsewhere in |ctrl|}}
+\DoxyCodeLine{306     \textcolor{comment}{// -\/ they never occur on kEmpty, kDeleted, kSentinel}}
+\DoxyCodeLine{307     \textcolor{comment}{// -\/ they will be handled gracefully by subsequent checks in code}}
+\DoxyCodeLine{308     \textcolor{comment}{//}}
+\DoxyCodeLine{309     \textcolor{comment}{// Example:}}
+\DoxyCodeLine{310     \textcolor{comment}{//   v = 0x1716151413121110}}
+\DoxyCodeLine{311     \textcolor{comment}{//   hash = 0x12}}
+\DoxyCodeLine{312     \textcolor{comment}{//   retval = (v -\/ lsbs) \& \string~v \& msbs = 0x0000000080800000}}
+\DoxyCodeLine{313     \textcolor{keyword}{auto} x = \mbox{\hyperlink{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a066e6af69cdce8dba4f7686f95f297b2}{ctrl}} \string^ (\mbox{\hyperlink{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_ac8bd565f9d173a302a9915de41ccca09}{kLsbs}} * hash);}
+\DoxyCodeLine{314     \textcolor{keywordflow}{return} BitMask<uint64\_t, kWidth, 3>((x -\/ \mbox{\hyperlink{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_ac8bd565f9d173a302a9915de41ccca09}{kLsbs}}) \& \string~x \& \mbox{\hyperlink{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a9ac9798b26d9f712669e0558d4c4dacb}{kMsbs}});}
+\DoxyCodeLine{315   \}}
+
+\end{DoxyCode}
+
+
+References ctrl, k\+Lsbs, and k\+Msbs.
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_afb6b22eaa7a471181a413f902b30fcc9}\label{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_afb6b22eaa7a471181a413f902b30fcc9}} 
 \index{v8::internal::swiss\_table::GroupPortableImpl@{v8::internal::swiss\_table::GroupPortableImpl}!MatchEmpty@{MatchEmpty}}
 \index{MatchEmpty@{MatchEmpty}!v8::internal::swiss\_table::GroupPortableImpl@{v8::internal::swiss\_table::GroupPortableImpl}}
 \doxysubsubsection{\texorpdfstring{MatchEmpty()}{MatchEmpty()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1swiss__table_1_1BitMask}{Bit\+Mask}}$<$uint64\+\_\+t, \mbox{\hyperlink{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a85906a0176ab7d8fcda4ec3851fe05a6}{k\+Width}}, 3$>$ v8\+::internal\+::swiss\+\_\+table\+::\+Group\+Portable\+Impl\+::\+Match\+Empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 318 of file swiss-\/hash-\/table-\/helpers.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{318                                                   \{}
+\DoxyCodeLine{319     \textcolor{keywordflow}{return} BitMask<uint64\_t, kWidth, 3>((\mbox{\hyperlink{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a066e6af69cdce8dba4f7686f95f297b2}{ctrl}} \& (\string~\mbox{\hyperlink{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a066e6af69cdce8dba4f7686f95f297b2}{ctrl}} << 6)) \& \mbox{\hyperlink{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a9ac9798b26d9f712669e0558d4c4dacb}{kMsbs}});}
+\DoxyCodeLine{320   \}}
+
+\end{DoxyCode}
+
+
+References ctrl, and k\+Msbs.
 
 
 
@@ -60,17 +131,41 @@ static constexpr uint64\+\_\+t \mbox{\hyperlink{structv8_1_1internal_1_1swiss__t
 \doxysubsubsection{\texorpdfstring{ctrl}{ctrl}}
 {\footnotesize\ttfamily uint64\+\_\+t v8\+::internal\+::swiss\+\_\+table\+::\+Group\+Portable\+Impl\+::ctrl}
 
+
+
+Definition at line 322 of file swiss-\/hash-\/table-\/helpers.\+h.
+
+
+
+Referenced by Match(), and Match\+Empty().
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_ac8bd565f9d173a302a9915de41ccca09}\label{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_ac8bd565f9d173a302a9915de41ccca09}} 
 \index{v8::internal::swiss\_table::GroupPortableImpl@{v8::internal::swiss\_table::GroupPortableImpl}!kLsbs@{kLsbs}}
 \index{kLsbs@{kLsbs}!v8::internal::swiss\_table::GroupPortableImpl@{v8::internal::swiss\_table::GroupPortableImpl}}
 \doxysubsubsection{\texorpdfstring{kLsbs}{kLsbs}}
 {\footnotesize\ttfamily constexpr uint64\+\_\+t v8\+::internal\+::swiss\+\_\+table\+::\+Group\+Portable\+Impl\+::k\+Lsbs = 0x0101010101010101\+ULL\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
 
+
+
+Definition at line 296 of file swiss-\/hash-\/table-\/helpers.\+h.
+
+
+
+Referenced by Match().
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a9ac9798b26d9f712669e0558d4c4dacb}\label{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a9ac9798b26d9f712669e0558d4c4dacb}} 
 \index{v8::internal::swiss\_table::GroupPortableImpl@{v8::internal::swiss\_table::GroupPortableImpl}!kMsbs@{kMsbs}}
 \index{kMsbs@{kMsbs}!v8::internal::swiss\_table::GroupPortableImpl@{v8::internal::swiss\_table::GroupPortableImpl}}
 \doxysubsubsection{\texorpdfstring{kMsbs}{kMsbs}}
 {\footnotesize\ttfamily constexpr uint64\+\_\+t v8\+::internal\+::swiss\+\_\+table\+::\+Group\+Portable\+Impl\+::k\+Msbs = 0x8080808080808080\+ULL\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line 295 of file swiss-\/hash-\/table-\/helpers.\+h.
+
+
+
+Referenced by Match(), and Match\+Empty().
 
 \mbox{\Hypertarget{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a85906a0176ab7d8fcda4ec3851fe05a6}\label{structv8_1_1internal_1_1swiss__table_1_1GroupPortableImpl_a85906a0176ab7d8fcda4ec3851fe05a6}} 
 \index{v8::internal::swiss\_table::GroupPortableImpl@{v8::internal::swiss\_table::GroupPortableImpl}!kWidth@{kWidth}}
@@ -80,6 +175,14 @@ static constexpr uint64\+\_\+t \mbox{\hyperlink{structv8_1_1internal_1_1swiss__t
 
 
 
+Definition at line 289 of file swiss-\/hash-\/table-\/helpers.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Swiss\+Name\+Dictionary\+::\+Max\+Usable\+Capacity(), and v8\+::internal\+::\+Swiss\+Name\+Dictionary\+::\+Set\+Ctrl().
+
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{swiss-hash-table-helpers_8h}{swiss-\/hash-\/table-\/helpers.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{swiss-hash-table-helpers_8h}{swiss-\/hash-\/table-\/helpers.\+h}}\end{DoxyCompactItemize}

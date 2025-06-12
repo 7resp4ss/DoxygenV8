@@ -90,13 +90,24 @@ $(document).ready(function(){initNavTree('classv8_1_1internal_1_1compiler_1_1Sch
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="verifier_8h_source.html">verifier.h</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for v8::internal::compiler::ScheduleVerifier:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classv8_1_1internal_1_1compiler_1_1ScheduleVerifier__coll__graph.svg" width="172" height="103"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ac9dd5c8cf231784a64601369e0b3d596"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classv8_1_1internal_1_1compiler_1_1ScheduleVerifier.html#ac9dd5c8cf231784a64601369e0b3d596">Run</a> (<a class="el" href="classv8_1_1internal_1_1compiler_1_1Schedule.html">Schedule</a> *<a class="el" href="graph-builder_8cc.html#a970e7f41771cbd0ccc6f2f1ab01faab0">schedule</a>)</td></tr>
+<tr class="memitem:ac9dd5c8cf231784a64601369e0b3d596"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classv8_1_1internal_1_1compiler_1_1ScheduleVerifier.html#ac9dd5c8cf231784a64601369e0b3d596">Run</a> (<a class="el" href="classv8_1_1internal_1_1compiler_1_1Schedule.html">Schedule</a> *schedule)</td></tr>
 <tr class="separator:ac9dd5c8cf231784a64601369e0b3d596"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="verifier_8h_source.html#l00061">61</a> of file <a class="el" href="verifier_8h_source.html">verifier.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ac9dd5c8cf231784a64601369e0b3d596"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac9dd5c8cf231784a64601369e0b3d596">&#9670;&nbsp;</a></span>Run()</h2>
 
@@ -121,11 +132,215 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="verifier_8cc_source.html#l02182">2182</a> of file <a class="el" href="verifier_8cc_source.html">verifier.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l02182"></a><span class="lineno"> 2182</span>&#160;                                             {</div>
+<div class="line"><a name="l02183"></a><span class="lineno"> 2183</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">size_t</span> count = schedule-&gt;BasicBlockCount();</div>
+<div class="line"><a name="l02184"></a><span class="lineno"> 2184</span>&#160;  Zone tmp_zone(schedule-&gt;zone()-&gt;allocator(), <a class="code" href="zone_8h.html#a6b1fd0a126df3f1b788cee19d9cce66e">ZONE_NAME</a>);</div>
+<div class="line"><a name="l02185"></a><span class="lineno"> 2185</span>&#160;  Zone* zone = &amp;tmp_zone;</div>
+<div class="line"><a name="l02186"></a><span class="lineno"> 2186</span>&#160;  BasicBlock* start = schedule-&gt;start();</div>
+<div class="line"><a name="l02187"></a><span class="lineno"> 2187</span>&#160;  <a class="code" href="namespacev8_1_1internal_1_1compiler.html#af7f325435904b8f37ff61a0ba3e6ba43">BasicBlockVector</a>* rpo_order = schedule-&gt;rpo_order();</div>
+<div class="line"><a name="l02188"></a><span class="lineno"> 2188</span>&#160; </div>
+<div class="line"><a name="l02189"></a><span class="lineno"> 2189</span>&#160;  <span class="comment">// Verify the RPO order contains only blocks from this schedule.</span></div>
+<div class="line"><a name="l02190"></a><span class="lineno"> 2190</span>&#160;  <a class="code" href="src_2base_2logging_8h.html#a1c7c9b7f14b9a33ea69cbe4578016a19">CHECK_GE</a>(count, rpo_order-&gt;size());</div>
+<div class="line"><a name="l02191"></a><span class="lineno"> 2191</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="classv8_1_1internal_1_1ZoneVector.html#a6c4c7526dcdcfec60a1d00461eb1697e">BasicBlockVector::iterator</a> b = rpo_order-&gt;begin(); b != rpo_order-&gt;end();</div>
+<div class="line"><a name="l02192"></a><span class="lineno"> 2192</span>&#160;       ++b) {</div>
+<div class="line"><a name="l02193"></a><span class="lineno"> 2193</span>&#160;    <a class="code" href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a>((*b), schedule-&gt;GetBlockById((*b)-&gt;id()));</div>
+<div class="line"><a name="l02194"></a><span class="lineno"> 2194</span>&#160;    <span class="comment">// All predecessors and successors should be in rpo and in this schedule.</span></div>
+<div class="line"><a name="l02195"></a><span class="lineno"> 2195</span>&#160;    <span class="keywordflow">for</span> (BasicBlock <span class="keyword">const</span>* predecessor : (*b)-&gt;predecessors()) {</div>
+<div class="line"><a name="l02196"></a><span class="lineno"> 2196</span>&#160;      <a class="code" href="src_2base_2logging_8h.html#a1c7c9b7f14b9a33ea69cbe4578016a19">CHECK_GE</a>(predecessor-&gt;rpo_number(), 0);</div>
+<div class="line"><a name="l02197"></a><span class="lineno"> 2197</span>&#160;      <a class="code" href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a>(predecessor, schedule-&gt;GetBlockById(predecessor-&gt;id()));</div>
+<div class="line"><a name="l02198"></a><span class="lineno"> 2198</span>&#160;    }</div>
+<div class="line"><a name="l02199"></a><span class="lineno"> 2199</span>&#160;    <span class="keywordflow">for</span> (BasicBlock <span class="keyword">const</span>* successor : (*b)-&gt;successors()) {</div>
+<div class="line"><a name="l02200"></a><span class="lineno"> 2200</span>&#160;      <a class="code" href="src_2base_2logging_8h.html#a1c7c9b7f14b9a33ea69cbe4578016a19">CHECK_GE</a>(successor-&gt;rpo_number(), 0);</div>
+<div class="line"><a name="l02201"></a><span class="lineno"> 2201</span>&#160;      <a class="code" href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a>(successor, schedule-&gt;GetBlockById(successor-&gt;id()));</div>
+<div class="line"><a name="l02202"></a><span class="lineno"> 2202</span>&#160;    }</div>
+<div class="line"><a name="l02203"></a><span class="lineno"> 2203</span>&#160;  }</div>
+<div class="line"><a name="l02204"></a><span class="lineno"> 2204</span>&#160; </div>
+<div class="line"><a name="l02205"></a><span class="lineno"> 2205</span>&#160;  <span class="comment">// Verify RPO numbers of blocks.</span></div>
+<div class="line"><a name="l02206"></a><span class="lineno"> 2206</span>&#160;  <a class="code" href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a>(start, rpo_order-&gt;at(0));  <span class="comment">// Start should be first.</span></div>
+<div class="line"><a name="l02207"></a><span class="lineno"> 2207</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> b = 0; b &lt; rpo_order-&gt;size(); b++) {</div>
+<div class="line"><a name="l02208"></a><span class="lineno"> 2208</span>&#160;    BasicBlock* block = rpo_order-&gt;at(b);</div>
+<div class="line"><a name="l02209"></a><span class="lineno"> 2209</span>&#160;    <a class="code" href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(b), block-&gt;rpo_number());</div>
+<div class="line"><a name="l02210"></a><span class="lineno"> 2210</span>&#160;    BasicBlock* dom = block-&gt;dominator();</div>
+<div class="line"><a name="l02211"></a><span class="lineno"> 2211</span>&#160;    <span class="keywordflow">if</span> (b == 0) {</div>
+<div class="line"><a name="l02212"></a><span class="lineno"> 2212</span>&#160;      <span class="comment">// All blocks except start should have a dominator.</span></div>
+<div class="line"><a name="l02213"></a><span class="lineno"> 2213</span>&#160;      <a class="code" href="src_2base_2logging_8h.html#a7bf1ad59490562f507223cd6ca2cc6fa">CHECK_NULL</a>(dom);</div>
+<div class="line"><a name="l02214"></a><span class="lineno"> 2214</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l02215"></a><span class="lineno"> 2215</span>&#160;      <span class="comment">// Check that the immediate dominator appears somewhere before the block.</span></div>
+<div class="line"><a name="l02216"></a><span class="lineno"> 2216</span>&#160;      <a class="code" href="src_2base_2logging_8h.html#a9154b181227e4b02e465befe50219158">CHECK_NOT_NULL</a>(dom);</div>
+<div class="line"><a name="l02217"></a><span class="lineno"> 2217</span>&#160;      <a class="code" href="src_2base_2logging_8h.html#a45a0717f39b7011dc823c1fe7b83e6fc">CHECK_LT</a>(dom-&gt;rpo_number(), block-&gt;rpo_number());</div>
+<div class="line"><a name="l02218"></a><span class="lineno"> 2218</span>&#160;    }</div>
+<div class="line"><a name="l02219"></a><span class="lineno"> 2219</span>&#160;  }</div>
+<div class="line"><a name="l02220"></a><span class="lineno"> 2220</span>&#160; </div>
+<div class="line"><a name="l02221"></a><span class="lineno"> 2221</span>&#160;  <span class="comment">// Verify that all blocks reachable from start are in the RPO.</span></div>
+<div class="line"><a name="l02222"></a><span class="lineno"> 2222</span>&#160;  BitVector marked(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(count), zone);</div>
+<div class="line"><a name="l02223"></a><span class="lineno"> 2223</span>&#160;  {</div>
+<div class="line"><a name="l02224"></a><span class="lineno"> 2224</span>&#160;    ZoneQueue&lt;BasicBlock*&gt; queue(zone);</div>
+<div class="line"><a name="l02225"></a><span class="lineno"> 2225</span>&#160;    queue.push(start);</div>
+<div class="line"><a name="l02226"></a><span class="lineno"> 2226</span>&#160;    marked.Add(start-&gt;id().ToInt());</div>
+<div class="line"><a name="l02227"></a><span class="lineno"> 2227</span>&#160;    <span class="keywordflow">while</span> (!queue.empty()) {</div>
+<div class="line"><a name="l02228"></a><span class="lineno"> 2228</span>&#160;      BasicBlock* block = queue.front();</div>
+<div class="line"><a name="l02229"></a><span class="lineno"> 2229</span>&#160;      queue.pop();</div>
+<div class="line"><a name="l02230"></a><span class="lineno"> 2230</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> s = 0; s &lt; block-&gt;SuccessorCount(); s++) {</div>
+<div class="line"><a name="l02231"></a><span class="lineno"> 2231</span>&#160;        BasicBlock* succ = block-&gt;SuccessorAt(s);</div>
+<div class="line"><a name="l02232"></a><span class="lineno"> 2232</span>&#160;        <span class="keywordflow">if</span> (!marked.Contains(succ-&gt;id().ToInt())) {</div>
+<div class="line"><a name="l02233"></a><span class="lineno"> 2233</span>&#160;          marked.Add(succ-&gt;id().ToInt());</div>
+<div class="line"><a name="l02234"></a><span class="lineno"> 2234</span>&#160;          queue.push(succ);</div>
+<div class="line"><a name="l02235"></a><span class="lineno"> 2235</span>&#160;        }</div>
+<div class="line"><a name="l02236"></a><span class="lineno"> 2236</span>&#160;      }</div>
+<div class="line"><a name="l02237"></a><span class="lineno"> 2237</span>&#160;    }</div>
+<div class="line"><a name="l02238"></a><span class="lineno"> 2238</span>&#160;  }</div>
+<div class="line"><a name="l02239"></a><span class="lineno"> 2239</span>&#160;  <span class="comment">// Verify marked blocks are in the RPO.</span></div>
+<div class="line"><a name="l02240"></a><span class="lineno"> 2240</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="namespacev8_1_1internal.html">i</a> = 0; i &lt; static_cast&lt;int&gt;(count); <a class="code" href="namespacev8_1_1internal.html">i</a>++) {</div>
+<div class="line"><a name="l02241"></a><span class="lineno"> 2241</span>&#160;    BasicBlock* block = schedule-&gt;GetBlockById(<a class="code" href="classv8_1_1internal_1_1compiler_1_1BasicBlock_1_1Id.html#a8e465370cd1b216b46c84a5bb42f4f97">BasicBlock::Id::FromInt</a>(<a class="code" href="namespacev8_1_1internal.html">i</a>));</div>
+<div class="line"><a name="l02242"></a><span class="lineno"> 2242</span>&#160;    <span class="keywordflow">if</span> (marked.Contains(<a class="code" href="namespacev8_1_1internal.html">i</a>)) {</div>
+<div class="line"><a name="l02243"></a><span class="lineno"> 2243</span>&#160;      <a class="code" href="src_2base_2logging_8h.html#a1c7c9b7f14b9a33ea69cbe4578016a19">CHECK_GE</a>(block-&gt;rpo_number(), 0);</div>
+<div class="line"><a name="l02244"></a><span class="lineno"> 2244</span>&#160;      <a class="code" href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a>(block, rpo_order-&gt;at(block-&gt;rpo_number()));</div>
+<div class="line"><a name="l02245"></a><span class="lineno"> 2245</span>&#160;    }</div>
+<div class="line"><a name="l02246"></a><span class="lineno"> 2246</span>&#160;  }</div>
+<div class="line"><a name="l02247"></a><span class="lineno"> 2247</span>&#160;  <span class="comment">// Verify RPO blocks are marked.</span></div>
+<div class="line"><a name="l02248"></a><span class="lineno"> 2248</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> b = 0; b &lt; rpo_order-&gt;size(); b++) {</div>
+<div class="line"><a name="l02249"></a><span class="lineno"> 2249</span>&#160;    <a class="code" href="src_2base_2logging_8h.html#a3e1cfef60e774a81f30eaddf26a3a274">CHECK</a>(marked.Contains(rpo_order-&gt;at(b)-&gt;id().ToInt()));</div>
+<div class="line"><a name="l02250"></a><span class="lineno"> 2250</span>&#160;  }</div>
+<div class="line"><a name="l02251"></a><span class="lineno"> 2251</span>&#160; </div>
+<div class="line"><a name="l02252"></a><span class="lineno"> 2252</span>&#160;  {</div>
+<div class="line"><a name="l02253"></a><span class="lineno"> 2253</span>&#160;    <span class="comment">// Verify the dominance relation.</span></div>
+<div class="line"><a name="l02254"></a><span class="lineno"> 2254</span>&#160;    ZoneVector&lt;BitVector*&gt; dominators(zone);</div>
+<div class="line"><a name="l02255"></a><span class="lineno"> 2255</span>&#160;    dominators.resize(count, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l02256"></a><span class="lineno"> 2256</span>&#160; </div>
+<div class="line"><a name="l02257"></a><span class="lineno"> 2257</span>&#160;    <span class="comment">// Compute a set of all the nodes that dominate a given node by using</span></div>
+<div class="line"><a name="l02258"></a><span class="lineno"> 2258</span>&#160;    <span class="comment">// a forward fixpoint. O(n^2).</span></div>
+<div class="line"><a name="l02259"></a><span class="lineno"> 2259</span>&#160;    ZoneQueue&lt;BasicBlock*&gt; queue(zone);</div>
+<div class="line"><a name="l02260"></a><span class="lineno"> 2260</span>&#160;    queue.push(start);</div>
+<div class="line"><a name="l02261"></a><span class="lineno"> 2261</span>&#160;    dominators[start-&gt;id().ToSize()] =</div>
+<div class="line"><a name="l02262"></a><span class="lineno"> 2262</span>&#160;        zone-&gt;New&lt;BitVector&gt;(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(count), zone);</div>
+<div class="line"><a name="l02263"></a><span class="lineno"> 2263</span>&#160;    <span class="keywordflow">while</span> (!queue.empty()) {</div>
+<div class="line"><a name="l02264"></a><span class="lineno"> 2264</span>&#160;      BasicBlock* block = queue.front();</div>
+<div class="line"><a name="l02265"></a><span class="lineno"> 2265</span>&#160;      queue.pop();</div>
+<div class="line"><a name="l02266"></a><span class="lineno"> 2266</span>&#160;      BitVector* block_doms = dominators[block-&gt;id().ToSize()];</div>
+<div class="line"><a name="l02267"></a><span class="lineno"> 2267</span>&#160;      BasicBlock* idom = block-&gt;dominator();</div>
+<div class="line"><a name="l02268"></a><span class="lineno"> 2268</span>&#160;      <span class="keywordflow">if</span> (idom != <span class="keyword">nullptr</span> &amp;&amp; !block_doms-&gt;Contains(idom-&gt;id().ToInt())) {</div>
+<div class="line"><a name="l02269"></a><span class="lineno"> 2269</span>&#160;        <a class="code" href="src_2base_2logging_8h.html#a0d093cb749cfc7ab5993726392df681f">FATAL</a>(<span class="stringliteral">&quot;Block B%d is not dominated by B%d&quot;</span>, block-&gt;rpo_number(),</div>
+<div class="line"><a name="l02270"></a><span class="lineno"> 2270</span>&#160;              idom-&gt;rpo_number());</div>
+<div class="line"><a name="l02271"></a><span class="lineno"> 2271</span>&#160;      }</div>
+<div class="line"><a name="l02272"></a><span class="lineno"> 2272</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> s = 0; s &lt; block-&gt;SuccessorCount(); s++) {</div>
+<div class="line"><a name="l02273"></a><span class="lineno"> 2273</span>&#160;        BasicBlock* succ = block-&gt;SuccessorAt(s);</div>
+<div class="line"><a name="l02274"></a><span class="lineno"> 2274</span>&#160;        BitVector* succ_doms = dominators[succ-&gt;id().ToSize()];</div>
+<div class="line"><a name="l02275"></a><span class="lineno"> 2275</span>&#160; </div>
+<div class="line"><a name="l02276"></a><span class="lineno"> 2276</span>&#160;        <span class="keywordflow">if</span> (succ_doms == <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l02277"></a><span class="lineno"> 2277</span>&#160;          <span class="comment">// First time visiting the node. S.doms = B U B.doms</span></div>
+<div class="line"><a name="l02278"></a><span class="lineno"> 2278</span>&#160;          succ_doms = zone-&gt;New&lt;BitVector&gt;(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(count), zone);</div>
+<div class="line"><a name="l02279"></a><span class="lineno"> 2279</span>&#160;          succ_doms-&gt;CopyFrom(*block_doms);</div>
+<div class="line"><a name="l02280"></a><span class="lineno"> 2280</span>&#160;          succ_doms-&gt;Add(block-&gt;id().ToInt());</div>
+<div class="line"><a name="l02281"></a><span class="lineno"> 2281</span>&#160;          dominators[succ-&gt;id().ToSize()] = succ_doms;</div>
+<div class="line"><a name="l02282"></a><span class="lineno"> 2282</span>&#160;          queue.push(succ);</div>
+<div class="line"><a name="l02283"></a><span class="lineno"> 2283</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l02284"></a><span class="lineno"> 2284</span>&#160;          <span class="comment">// Nth time visiting the successor. S.doms = S.doms ^ (B U B.doms)</span></div>
+<div class="line"><a name="l02285"></a><span class="lineno"> 2285</span>&#160;          <span class="keywordtype">bool</span> had = succ_doms-&gt;Contains(block-&gt;id().ToInt());</div>
+<div class="line"><a name="l02286"></a><span class="lineno"> 2286</span>&#160;          <span class="keywordflow">if</span> (had) succ_doms-&gt;Remove(block-&gt;id().ToInt());</div>
+<div class="line"><a name="l02287"></a><span class="lineno"> 2287</span>&#160;          <span class="keywordflow">if</span> (succ_doms-&gt;IntersectIsChanged(*block_doms)) queue.push(succ);</div>
+<div class="line"><a name="l02288"></a><span class="lineno"> 2288</span>&#160;          <span class="keywordflow">if</span> (had) succ_doms-&gt;Add(block-&gt;id().ToInt());</div>
+<div class="line"><a name="l02289"></a><span class="lineno"> 2289</span>&#160;        }</div>
+<div class="line"><a name="l02290"></a><span class="lineno"> 2290</span>&#160;      }</div>
+<div class="line"><a name="l02291"></a><span class="lineno"> 2291</span>&#160;    }</div>
+<div class="line"><a name="l02292"></a><span class="lineno"> 2292</span>&#160; </div>
+<div class="line"><a name="l02293"></a><span class="lineno"> 2293</span>&#160;    <span class="comment">// Verify the immediateness of dominators.</span></div>
+<div class="line"><a name="l02294"></a><span class="lineno"> 2294</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="classv8_1_1internal_1_1ZoneVector.html#a6c4c7526dcdcfec60a1d00461eb1697e">BasicBlockVector::iterator</a> b = rpo_order-&gt;begin();</div>
+<div class="line"><a name="l02295"></a><span class="lineno"> 2295</span>&#160;         b != rpo_order-&gt;end(); ++b) {</div>
+<div class="line"><a name="l02296"></a><span class="lineno"> 2296</span>&#160;      BasicBlock* block = *b;</div>
+<div class="line"><a name="l02297"></a><span class="lineno"> 2297</span>&#160;      BasicBlock* idom = block-&gt;dominator();</div>
+<div class="line"><a name="l02298"></a><span class="lineno"> 2298</span>&#160;      <span class="keywordflow">if</span> (idom == <span class="keyword">nullptr</span>) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l02299"></a><span class="lineno"> 2299</span>&#160;      BitVector* block_doms = dominators[block-&gt;id().ToSize()];</div>
+<div class="line"><a name="l02300"></a><span class="lineno"> 2300</span>&#160; </div>
+<div class="line"><a name="l02301"></a><span class="lineno"> 2301</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <span class="keywordtype">id</span> : *block_doms) {</div>
+<div class="line"><a name="l02302"></a><span class="lineno"> 2302</span>&#160;        BasicBlock* dom = schedule-&gt;GetBlockById(<a class="code" href="classv8_1_1internal_1_1compiler_1_1BasicBlock_1_1Id.html#a8e465370cd1b216b46c84a5bb42f4f97">BasicBlock::Id::FromInt</a>(<span class="keywordtype">id</span>));</div>
+<div class="line"><a name="l02303"></a><span class="lineno"> 2303</span>&#160;        <span class="keywordflow">if</span> (dom != idom &amp;&amp;</div>
+<div class="line"><a name="l02304"></a><span class="lineno"> 2304</span>&#160;            !dominators[idom-&gt;id().ToSize()]-&gt;Contains(dom-&gt;id().ToInt())) {</div>
+<div class="line"><a name="l02305"></a><span class="lineno"> 2305</span>&#160;          <a class="code" href="src_2base_2logging_8h.html#a0d093cb749cfc7ab5993726392df681f">FATAL</a>(<span class="stringliteral">&quot;Block B%d is not immediately dominated by B%d&quot;</span>,</div>
+<div class="line"><a name="l02306"></a><span class="lineno"> 2306</span>&#160;                block-&gt;rpo_number(), idom-&gt;rpo_number());</div>
+<div class="line"><a name="l02307"></a><span class="lineno"> 2307</span>&#160;        }</div>
+<div class="line"><a name="l02308"></a><span class="lineno"> 2308</span>&#160;      }</div>
+<div class="line"><a name="l02309"></a><span class="lineno"> 2309</span>&#160;    }</div>
+<div class="line"><a name="l02310"></a><span class="lineno"> 2310</span>&#160;  }</div>
+<div class="line"><a name="l02311"></a><span class="lineno"> 2311</span>&#160; </div>
+<div class="line"><a name="l02312"></a><span class="lineno"> 2312</span>&#160;  <span class="comment">// Verify phis are placed in the block of their control input.</span></div>
+<div class="line"><a name="l02313"></a><span class="lineno"> 2313</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="classv8_1_1internal_1_1ZoneVector.html#a6c4c7526dcdcfec60a1d00461eb1697e">BasicBlockVector::iterator</a> b = rpo_order-&gt;begin(); b != rpo_order-&gt;end();</div>
+<div class="line"><a name="l02314"></a><span class="lineno"> 2314</span>&#160;       ++b) {</div>
+<div class="line"><a name="l02315"></a><span class="lineno"> 2315</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="classv8_1_1internal_1_1compiler_1_1BasicBlock.html#a1835d16d38cb85cb692f82748c6f3f77">BasicBlock::const_iterator</a> <a class="code" href="namespacev8_1_1internal.html">i</a> = (*b)-&gt;begin(); <a class="code" href="namespacev8_1_1internal.html">i</a> != (*b)-&gt;end(); ++<a class="code" href="namespacev8_1_1internal.html">i</a>) {</div>
+<div class="line"><a name="l02316"></a><span class="lineno"> 2316</span>&#160;      Node* phi = *<a class="code" href="namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03.html#ad86b3cf21e19e97ce484f32b894d548c">i</a>;</div>
+<div class="line"><a name="l02317"></a><span class="lineno"> 2317</span>&#160;      <span class="keywordflow">if</span> (phi-&gt;opcode() != IrOpcode::kPhi) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l02318"></a><span class="lineno"> 2318</span>&#160;      <span class="comment">// TODO(titzer): Nasty special case. Phis from RawMachineAssembler</span></div>
+<div class="line"><a name="l02319"></a><span class="lineno"> 2319</span>&#160;      <span class="comment">// schedules don&#39;t have control inputs.</span></div>
+<div class="line"><a name="l02320"></a><span class="lineno"> 2320</span>&#160;      <span class="keywordflow">if</span> (phi-&gt;InputCount() &gt; phi-&gt;op()-&gt;ValueInputCount()) {</div>
+<div class="line"><a name="l02321"></a><span class="lineno"> 2321</span>&#160;        Node* control = <a class="code" href="classv8_1_1internal_1_1compiler_1_1NodeProperties.html#a1dd28ca4d552fdf2edfef50070c8ac3d">NodeProperties::GetControlInput</a>(phi);</div>
+<div class="line"><a name="l02322"></a><span class="lineno"> 2322</span>&#160;        <a class="code" href="src_2base_2logging_8h.html#a3e1cfef60e774a81f30eaddf26a3a274">CHECK</a>(control-&gt;opcode() == IrOpcode::kMerge ||</div>
+<div class="line"><a name="l02323"></a><span class="lineno"> 2323</span>&#160;              control-&gt;opcode() == IrOpcode::kLoop);</div>
+<div class="line"><a name="l02324"></a><span class="lineno"> 2324</span>&#160;        <a class="code" href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a>((*b), schedule-&gt;block(control));</div>
+<div class="line"><a name="l02325"></a><span class="lineno"> 2325</span>&#160;      }</div>
+<div class="line"><a name="l02326"></a><span class="lineno"> 2326</span>&#160;    }</div>
+<div class="line"><a name="l02327"></a><span class="lineno"> 2327</span>&#160;  }</div>
+<div class="line"><a name="l02328"></a><span class="lineno"> 2328</span>&#160; </div>
+<div class="line"><a name="l02329"></a><span class="lineno"> 2329</span>&#160;  <span class="comment">// Verify that all uses are dominated by their definitions.</span></div>
+<div class="line"><a name="l02330"></a><span class="lineno"> 2330</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="classv8_1_1internal_1_1ZoneVector.html#a6c4c7526dcdcfec60a1d00461eb1697e">BasicBlockVector::iterator</a> b = rpo_order-&gt;begin(); b != rpo_order-&gt;end();</div>
+<div class="line"><a name="l02331"></a><span class="lineno"> 2331</span>&#160;       ++b) {</div>
+<div class="line"><a name="l02332"></a><span class="lineno"> 2332</span>&#160;    BasicBlock* block = *b;</div>
+<div class="line"><a name="l02333"></a><span class="lineno"> 2333</span>&#160; </div>
+<div class="line"><a name="l02334"></a><span class="lineno"> 2334</span>&#160;    <span class="comment">// Check inputs to control for this block.</span></div>
+<div class="line"><a name="l02335"></a><span class="lineno"> 2335</span>&#160;    Node* control = block-&gt;control_input();</div>
+<div class="line"><a name="l02336"></a><span class="lineno"> 2336</span>&#160;    <span class="keywordflow">if</span> (control != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l02337"></a><span class="lineno"> 2337</span>&#160;      <a class="code" href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a>(block, schedule-&gt;block(control));</div>
+<div class="line"><a name="l02338"></a><span class="lineno"> 2338</span>&#160;      <a class="code" href="namespacev8_1_1internal_1_1compiler.html#ad84fa099333bac40cbb61520d441eecc">CheckInputsDominate</a>(schedule, block, control,</div>
+<div class="line"><a name="l02339"></a><span class="lineno"> 2339</span>&#160;                          <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(block-&gt;NodeCount()) - 1);</div>
+<div class="line"><a name="l02340"></a><span class="lineno"> 2340</span>&#160;    }</div>
+<div class="line"><a name="l02341"></a><span class="lineno"> 2341</span>&#160;    <span class="comment">// Check inputs for all nodes in the block.</span></div>
+<div class="line"><a name="l02342"></a><span class="lineno"> 2342</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> <a class="code" href="namespacev8_1_1internal.html">i</a> = 0; <a class="code" href="namespacev8_1_1internal.html">i</a> &lt; block-&gt;NodeCount(); <a class="code" href="namespacev8_1_1internal.html">i</a>++) {</div>
+<div class="line"><a name="l02343"></a><span class="lineno"> 2343</span>&#160;      Node* node = block-&gt;NodeAt(<a class="code" href="namespacev8_1_1internal.html">i</a>);</div>
+<div class="line"><a name="l02344"></a><span class="lineno"> 2344</span>&#160;      <a class="code" href="namespacev8_1_1internal_1_1compiler.html#ad84fa099333bac40cbb61520d441eecc">CheckInputsDominate</a>(schedule, block, node, <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="namespacev8_1_1internal.html">i</a>) - 1);</div>
+<div class="line"><a name="l02345"></a><span class="lineno"> 2345</span>&#160;    }</div>
+<div class="line"><a name="l02346"></a><span class="lineno"> 2346</span>&#160;  }</div>
+<div class="line"><a name="l02347"></a><span class="lineno"> 2347</span>&#160;}</div>
+<div class="ttc" id="aclassv8_1_1internal_1_1ZoneVector_html_a6c4c7526dcdcfec60a1d00461eb1697e"><div class="ttname"><a href="classv8_1_1internal_1_1ZoneVector.html#a6c4c7526dcdcfec60a1d00461eb1697e">v8::internal::ZoneVector&lt; BasicBlock * &gt;::iterator</a></div><div class="ttdeci">BasicBlock * * iterator</div><div class="ttdef"><b>Definition:</b> <a href="zone-containers_8h_source.html#l00055">zone-containers.h:55</a></div></div>
+<div class="ttc" id="aclassv8_1_1internal_1_1compiler_1_1BasicBlock_1_1Id_html_a8e465370cd1b216b46c84a5bb42f4f97"><div class="ttname"><a href="classv8_1_1internal_1_1compiler_1_1BasicBlock_1_1Id.html#a8e465370cd1b216b46c84a5bb42f4f97">v8::internal::compiler::BasicBlock::Id::FromInt</a></div><div class="ttdeci">static Id FromInt(int index)</div><div class="ttdef"><b>Definition:</b> <a href="schedule_8h_source.html#l00051">schedule.h:51</a></div></div>
+<div class="ttc" id="aclassv8_1_1internal_1_1compiler_1_1BasicBlock_html_a1835d16d38cb85cb692f82748c6f3f77"><div class="ttname"><a href="classv8_1_1internal_1_1compiler_1_1BasicBlock.html#a1835d16d38cb85cb692f82748c6f3f77">v8::internal::compiler::BasicBlock::const_iterator</a></div><div class="ttdeci">NodeVector::const_iterator const_iterator</div><div class="ttdef"><b>Definition:</b> <a href="schedule_8h_source.html#l00105">schedule.h:105</a></div></div>
+<div class="ttc" id="aclassv8_1_1internal_1_1compiler_1_1NodeProperties_html_a1dd28ca4d552fdf2edfef50070c8ac3d"><div class="ttname"><a href="classv8_1_1internal_1_1compiler_1_1NodeProperties.html#a1dd28ca4d552fdf2edfef50070c8ac3d">v8::internal::compiler::NodeProperties::GetControlInput</a></div><div class="ttdeci">static Node * GetControlInput(Node *node, int index=0)</div><div class="ttdef"><b>Definition:</b> <a href="node-properties_8h_source.html#l00090">node-properties.h:90</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_html_ad86b3cf21e19e97ce484f32b894d548c"><div class="ttname"><a href="namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03.html#ad86b3cf21e19e97ce484f32b894d548c">v8::internal::anonymous_namespace{json-stringifier.cc}::i</a></div><div class="ttdeci">size_t i</div><div class="ttdef"><b>Definition:</b> <a href="json-stringifier_8cc_source.html#l00548">json-stringifier.cc:548</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_1_1compiler_html_ad84fa099333bac40cbb61520d441eecc"><div class="ttname"><a href="namespacev8_1_1internal_1_1compiler.html#ad84fa099333bac40cbb61520d441eecc">v8::internal::compiler::CheckInputsDominate</a></div><div class="ttdeci">static void CheckInputsDominate(Schedule *schedule, BasicBlock *block, Node *node, int use_pos)</div><div class="ttdef"><b>Definition:</b> <a href="verifier_8cc_source.html#l02151">verifier.cc:2151</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_1_1compiler_html_af7f325435904b8f37ff61a0ba3e6ba43"><div class="ttname"><a href="namespacev8_1_1internal_1_1compiler.html#af7f325435904b8f37ff61a0ba3e6ba43">v8::internal::compiler::BasicBlockVector</a></div><div class="ttdeci">ZoneVector&lt; BasicBlock * &gt; BasicBlockVector</div><div class="ttdef"><b>Definition:</b> <a href="schedule_8h_source.html#l00023">schedule.h:23</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_html"><div class="ttname"><a href="namespacev8_1_1internal.html">v8::internal</a></div><div class="ttdef"><b>Definition:</b> <a href="api-arguments-inl_8h_source.html#l00020">api-arguments-inl.h:20</a></div></div>
+<div class="ttc" id="asrc_2base_2logging_8h_html_a0d093cb749cfc7ab5993726392df681f"><div class="ttname"><a href="src_2base_2logging_8h.html#a0d093cb749cfc7ab5993726392df681f">FATAL</a></div><div class="ttdeci">#define FATAL(...)</div><div class="ttdef"><b>Definition:</b> <a href="src_2base_2logging_8h_source.html#l00047">logging.h:47</a></div></div>
+<div class="ttc" id="asrc_2base_2logging_8h_html_a1c7c9b7f14b9a33ea69cbe4578016a19"><div class="ttname"><a href="src_2base_2logging_8h.html#a1c7c9b7f14b9a33ea69cbe4578016a19">CHECK_GE</a></div><div class="ttdeci">#define CHECK_GE(lhs, rhs)</div></div>
+<div class="ttc" id="asrc_2base_2logging_8h_html_a3e1cfef60e774a81f30eaddf26a3a274"><div class="ttname"><a href="src_2base_2logging_8h.html#a3e1cfef60e774a81f30eaddf26a3a274">CHECK</a></div><div class="ttdeci">#define CHECK(condition)</div><div class="ttdef"><b>Definition:</b> <a href="src_2base_2logging_8h_source.html#l00124">logging.h:124</a></div></div>
+<div class="ttc" id="asrc_2base_2logging_8h_html_a45a0717f39b7011dc823c1fe7b83e6fc"><div class="ttname"><a href="src_2base_2logging_8h.html#a45a0717f39b7011dc823c1fe7b83e6fc">CHECK_LT</a></div><div class="ttdeci">#define CHECK_LT(lhs, rhs)</div></div>
+<div class="ttc" id="asrc_2base_2logging_8h_html_a7bf1ad59490562f507223cd6ca2cc6fa"><div class="ttname"><a href="src_2base_2logging_8h.html#a7bf1ad59490562f507223cd6ca2cc6fa">CHECK_NULL</a></div><div class="ttdeci">#define CHECK_NULL(val)</div></div>
+<div class="ttc" id="asrc_2base_2logging_8h_html_a9154b181227e4b02e465befe50219158"><div class="ttname"><a href="src_2base_2logging_8h.html#a9154b181227e4b02e465befe50219158">CHECK_NOT_NULL</a></div><div class="ttdeci">#define CHECK_NOT_NULL(val)</div></div>
+<div class="ttc" id="asrc_2base_2logging_8h_html_aca32614b4d2aea7dd9abdeb222bf02f3"><div class="ttname"><a href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a></div><div class="ttdeci">#define CHECK_EQ(lhs, rhs)</div></div>
+<div class="ttc" id="azone_8h_html_a6b1fd0a126df3f1b788cee19d9cce66e"><div class="ttname"><a href="zone_8h.html#a6b1fd0a126df3f1b788cee19d9cce66e">ZONE_NAME</a></div><div class="ttdeci">#define ZONE_NAME</div><div class="ttdef"><b>Definition:</b> <a href="zone_8h_source.html#l00022">zone.h:22</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="bit-vector_8h_source.html#l00185">v8::internal::BitVector::Add()</a>, <a class="el" href="zone_8h_source.html#l00212">v8::internal::Zone::allocator()</a>, <a class="el" href="zone-containers_8h_source.html#l00246">v8::internal::ZoneVector&lt; T &gt;::at()</a>, <a class="el" href="schedule_8h_source.html#l00223">v8::internal::compiler::Schedule::BasicBlockCount()</a>, <a class="el" href="zone-containers_8h_source.html#l00276">v8::internal::ZoneVector&lt; T &gt;::begin()</a>, <a class="el" href="schedule_8cc_source.html#l00169">v8::internal::compiler::Schedule::block()</a>, <a class="el" href="src_2base_2logging_8h_source.html#l00124">CHECK</a>, <a class="el" href="src_2base_2logging_8h.html#aca32614b4d2aea7dd9abdeb222bf02f3">CHECK_EQ</a>, <a class="el" href="src_2base_2logging_8h.html#a1c7c9b7f14b9a33ea69cbe4578016a19">CHECK_GE</a>, <a class="el" href="src_2base_2logging_8h.html#a45a0717f39b7011dc823c1fe7b83e6fc">CHECK_LT</a>, <a class="el" href="src_2base_2logging_8h.html#a9154b181227e4b02e465befe50219158">CHECK_NOT_NULL</a>, <a class="el" href="src_2base_2logging_8h.html#a7bf1ad59490562f507223cd6ca2cc6fa">CHECK_NULL</a>, <a class="el" href="verifier_8cc_source.html#l02151">v8::internal::compiler::CheckInputsDominate()</a>, <a class="el" href="bit-vector_8h_source.html#l00180">v8::internal::BitVector::Contains()</a>, <a class="el" href="schedule_8h_source.html#l00129">v8::internal::compiler::BasicBlock::control_input()</a>, <a class="el" href="bit-vector_8h_source.html#l00155">v8::internal::BitVector::CopyFrom()</a>, <a class="el" href="schedule_8h_source.html#l00138">v8::internal::compiler::BasicBlock::dominator()</a>, <a class="el" href="zone-containers_8h_source.html#l00280">v8::internal::ZoneVector&lt; T &gt;::end()</a>, <a class="el" href="src_2base_2logging_8h_source.html#l00047">FATAL</a>, <a class="el" href="schedule_8h_source.html#l00051">v8::internal::compiler::BasicBlock::Id::FromInt()</a>, <a class="el" href="schedule_8cc_source.html#l00181">v8::internal::compiler::Schedule::GetBlockById()</a>, <a class="el" href="node-properties_8h_source.html#l00090">v8::internal::compiler::NodeProperties::GetControlInput()</a>, <a class="el" href="json-stringifier_8cc_source.html#l00548">v8::internal::anonymous_namespace{json-stringifier.cc}::i</a>, <a class="el" href="schedule_8h_source.html#l00062">v8::internal::compiler::BasicBlock::id()</a>, <a class="el" href="node_8h_source.html#l00059">v8::internal::compiler::Node::InputCount()</a>, <a class="el" href="bit-vector_8h_source.html#l00227">v8::internal::BitVector::IntersectIsChanged()</a>, <a class="el" href="zone_8h_source.html#l00108">v8::internal::Zone::New()</a>, <a class="el" href="schedule_8h_source.html#l00093">v8::internal::compiler::BasicBlock::NodeAt()</a>, <a class="el" href="schedule_8h_source.html#l00094">v8::internal::compiler::BasicBlock::NodeCount()</a>, <a class="el" href="node_8h_source.html#l00050">v8::internal::compiler::Node::op()</a>, <a class="el" href="node_8h_source.html#l00052">v8::internal::compiler::Node::opcode()</a>, <a class="el" href="schedule_8h_source.html#l00073">v8::internal::compiler::BasicBlock::predecessors()</a>, <a class="el" href="bit-vector_8h_source.html#l00197">v8::internal::BitVector::Remove()</a>, <a class="el" href="zone-containers_8h_source.html#l00200">v8::internal::ZoneVector&lt; T &gt;::resize()</a>, <a class="el" href="schedule_8h_source.html#l00156">v8::internal::compiler::BasicBlock::rpo_number()</a>, <a class="el" href="schedule_8h_source.html#l00280">v8::internal::compiler::Schedule::rpo_order()</a>, <a class="el" href="zone-containers_8h_source.html#l00238">v8::internal::ZoneVector&lt; T &gt;::size()</a>, <a class="el" href="schedule_8h_source.html#l00283">v8::internal::compiler::Schedule::start()</a>, <a class="el" href="schedule_8h_source.html#l00085">v8::internal::compiler::BasicBlock::SuccessorAt()</a>, <a class="el" href="schedule_8h_source.html#l00084">v8::internal::compiler::BasicBlock::SuccessorCount()</a>, <a class="el" href="schedule_8h_source.html#l00082">v8::internal::compiler::BasicBlock::successors()</a>, <a class="el" href="schedule_8h_source.html#l00048">v8::internal::compiler::BasicBlock::Id::ToInt()</a>, <a class="el" href="schedule_8h_source.html#l00049">v8::internal::compiler::BasicBlock::Id::ToSize()</a>, <a class="el" href="operator_8h_source.html#l00101">v8::internal::compiler::Operator::ValueInputCount()</a>, <a class="el" href="schedule_8h_source.html#l00286">v8::internal::compiler::Schedule::zone()</a>, and <a class="el" href="zone_8h_source.html#l00022">ZONE_NAME</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="pipeline_8cc_source.html#l00374">v8::internal::compiler::anonymous_namespace{pipeline.cc}::TraceScheduleAndVerify()</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classv8_1_1internal_1_1compiler_1_1ScheduleVerifier_ac9dd5c8cf231784a64601369e0b3d596_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classv8_1_1internal_1_1compiler_1_1ScheduleVerifier_ac9dd5c8cf231784a64601369e0b3d596_icgraph.svg" width="100%" height="361"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="verifier_8h_source.html">verifier.h</a></li>
-<li><a class="el" href="verifier_8cc.html">verifier.cc</a></li>
+<li>/mnt/V8SourceCode/src/compiler/<a class="el" href="verifier_8h_source.html">verifier.h</a></li>
+<li>/mnt/V8SourceCode/src/compiler/<a class="el" href="verifier_8cc_source.html">verifier.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -133,7 +348,7 @@ Static Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacev8.html">v8</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal.html">internal</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal_1_1compiler.html">compiler</a></li><li class="navelem"><a class="el" href="classv8_1_1internal_1_1compiler_1_1ScheduleVerifier.html">ScheduleVerifier</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:46:07 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jun 12 2025 16:10:25 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

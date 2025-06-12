@@ -1,6 +1,7 @@
 var code_generator_mips64_8cc =
 [
     [ "MipsOperandConverter", "classv8_1_1internal_1_1compiler_1_1MipsOperandConverter.html", "classv8_1_1internal_1_1compiler_1_1MipsOperandConverter" ],
+    [ "OutOfLineRecordWrite", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-mips64_8cc_03_1_1OutOfLineRecordWrite.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-mips64_8cc_03_1_1OutOfLineRecordWrite" ],
     [ "__", "code-generator-mips64_8cc.html#a0a87998f4e8cee4888f2a89df3d5639b", null ],
     [ "__", "code-generator-mips64_8cc.html#a0a87998f4e8cee4888f2a89df3d5639b", null ],
     [ "__", "code-generator-mips64_8cc.html#a0a87998f4e8cee4888f2a89df3d5639b", null ],
@@ -19,13 +20,17 @@ var code_generator_mips64_8cc =
     [ "CREATE_OOL_CLASS", "code-generator-mips64_8cc.html#aa4ab0c7287bcb5c7507f752e6a5f5749", null ],
     [ "TRACE", "code-generator-mips64_8cc.html#a5f6aa8edcd99914757600b5d3b259bb7", null ],
     [ "UNSUPPORTED_COND", "code-generator-mips64_8cc.html#a7f39fa22dccc5274a592becbb43303c0", null ],
+    [ "AdjustStackPointerForTailCall", "code-generator-mips64_8cc.html#af3dc49b22018d4b227704757b4c4f1e5", null ],
     [ "AssembleBranchToLabels", "code-generator-mips64_8cc.html#a607d414510cad926115d8bd1c15546d8", null ],
-    [ "index_", "code-generator-mips64_8cc.html#ac77b0a626f082a92127505b4dd27819f", null ],
-    [ "mode_", "code-generator-mips64_8cc.html#adc5709192230b7fde07de03eb2974043", null ],
-    [ "must_save_lr_", "code-generator-mips64_8cc.html#a41a2de46b73ead1c0417e8f1751a5022", null ],
-    [ "object_", "code-generator-mips64_8cc.html#a5563c55e446f92e237e9fb9b07b423b6", null ],
-    [ "scratch0_", "code-generator-mips64_8cc.html#ac15c8035db0676f79a4eeae4edd9ca09", null ],
-    [ "scratch1_", "code-generator-mips64_8cc.html#a460fb6d04dc26e9fae0093b9e62635ad", null ],
-    [ "value_", "code-generator-mips64_8cc.html#ac1b34591c0a6bb909fcc2d34d0b5aaff", null ],
-    [ "zone_", "code-generator-mips64_8cc.html#a4979f6e7e64e9ee56f4229d03fa20c69", null ]
+    [ "CREATE_OOL_CLASS", "code-generator-mips64_8cc.html#a25ecd3ab5ec2d1dfc6985cb7a93fd643", null ],
+    [ "CREATE_OOL_CLASS", "code-generator-mips64_8cc.html#a21ad28e85a141ecf3f032079e2a866d7", null ],
+    [ "CREATE_OOL_CLASS", "code-generator-mips64_8cc.html#a24c7ef13cf0971d42df47680c746afd9", null ],
+    [ "CREATE_OOL_CLASS", "code-generator-mips64_8cc.html#accf92ddc825e7a56538b300218b4e7a8", null ],
+    [ "FlagsConditionToConditionCmp", "code-generator-mips64_8cc.html#a79b7088b0ee131725a7f2c3d1c115c26", null ],
+    [ "FlagsConditionToConditionCmpFPU", "code-generator-mips64_8cc.html#a489e03a4f734ea715eac3c373778cc79", null ],
+    [ "FlagsConditionToConditionOvf", "code-generator-mips64_8cc.html#ac10fb9913a4cd7fa8cbbaf43781f0713", null ],
+    [ "FlagsConditionToConditionTst", "code-generator-mips64_8cc.html#a41bbfc080fb4f68cff2753606d6337cc", null ],
+    [ "HasRegisterInput", "code-generator-mips64_8cc.html#a3774af211d609ef676fc7bc0ea44598d", null ],
+    [ "Is32BitOperand", "code-generator-mips64_8cc.html#a5dc42aa11815cfb413874f350e0fe003", null ],
+    [ "Use32BitMove", "code-generator-mips64_8cc.html#a48edceda91e3946a08dcc4c5b25f03b3", null ]
 ];

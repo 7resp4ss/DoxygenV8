@@ -12,14 +12,14 @@ var v8_traced_handle_8h =
       [ "kInitializingStore", "v8-traced-handle_8h.html#a42d5475e87b6f24e173e8c118cb86fcbac822dce461a96db7bbccc85453251b27", null ],
       [ "kAssigningStore", "v8-traced-handle_8h.html#a42d5475e87b6f24e173e8c118cb86fcba1b056fa1368b59819a8cd7c520a57bed", null ]
     ] ],
-    [ "CopyTracedReference", "v8-traced-handle_8h.html#a37d21c2fa2512d8fb58b29a3eb39230b", null ],
-    [ "DisposeTracedReference", "v8-traced-handle_8h.html#ad34c5656b7a2c99fcb478be0db8562c8", null ],
-    [ "GlobalizeTracedReference", "v8-traced-handle_8h.html#aec434a2346df65cbfe661a18331aa472", null ],
-    [ "MoveTracedReference", "v8-traced-handle_8h.html#a771a9589bf80c645e46b0f2c45ee9ee9", null ],
-    [ "operator!=", "v8-traced-handle_8h.html#adb5e289a0e830c1077056351d68f4963", null ],
-    [ "operator!=", "v8-traced-handle_8h.html#a152b271a1c50b01cf3b8feaa882bc972", null ],
-    [ "operator!=", "v8-traced-handle_8h.html#ac0439624b1f91535160d253cc1d1d264", null ],
-    [ "operator==", "v8-traced-handle_8h.html#a3b47249bff134ec5ebda075c6172a9f7", null ],
-    [ "operator==", "v8-traced-handle_8h.html#a49e1237c765e08b4e48e07c86e433188", null ],
-    [ "operator==", "v8-traced-handle_8h.html#aa07ab4f139bf79668031f9a3790ada05", null ]
+    [ "CopyTracedReference", "v8-traced-handle_8h.html#a4edad248a945d958c43b64c11a0c3768", null ],
+    [ "DisposeTracedReference", "v8-traced-handle_8h.html#a3aaba6c4cd7f4cf2991cf2869afb86c9", null ],
+    [ "GlobalizeTracedReference", "v8-traced-handle_8h.html#ad47354ab56dec966ac9c7671e5fe64fa", null ],
+    [ "MoveTracedReference", "v8-traced-handle_8h.html#adbcd7844ecbb1f5604b0c9636437aea3", null ],
+    [ "operator!=", "v8-traced-handle_8h.html#a305310a55edbbc96972faabe3d6d60ba", null ],
+    [ "operator!=", "v8-traced-handle_8h.html#ad45f6d91b62ef31fbf7264fe3818e447", null ],
+    [ "operator!=", "v8-traced-handle_8h.html#a43e55a8868be906570b61be2ca65e7e8", null ],
+    [ "operator==", "v8-traced-handle_8h.html#a534abd1e9eb7129a4bbf036b29f9d37c", null ],
+    [ "operator==", "v8-traced-handle_8h.html#a724b3f7aa166cfd3e38b74a6595254d1", null ],
+    [ "operator==", "v8-traced-handle_8h.html#a4d37ce42374bb3e291227d70e8a4f861", null ]
 ];

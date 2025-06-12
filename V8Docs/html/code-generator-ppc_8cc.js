@@ -1,6 +1,7 @@
 var code_generator_ppc_8cc =
 [
     [ "PPCOperandConverter", "classv8_1_1internal_1_1compiler_1_1PPCOperandConverter.html", "classv8_1_1internal_1_1compiler_1_1PPCOperandConverter" ],
+    [ "OutOfLineRecordWrite", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-ppc_8cc_03_1_1OutOfLineRecordWrite.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-ppc_8cc_03_1_1OutOfLineRecordWrite" ],
     [ "__", "code-generator-ppc_8cc.html#a0a87998f4e8cee4888f2a89df3d5639b", null ],
     [ "ASSEMBLE_ADD_WITH_OVERFLOW", "code-generator-ppc_8cc.html#ac7826003a81d595911fc1d07f88c5853", null ],
     [ "ASSEMBLE_ADD_WITH_OVERFLOW32", "code-generator-ppc_8cc.html#a06035aedec816645664dad56b33406fd", null ],
@@ -55,15 +56,8 @@ var code_generator_ppc_8cc =
     [ "SIMD_STORE_LANE_LIST", "code-generator-ppc_8cc.html#ad49e2bc2bb0973235bc223f1117347cb", null ],
     [ "SIMD_UNOP_LIST", "code-generator-ppc_8cc.html#a1528a0fe5de5116a019a1bdcca5b26fe", null ],
     [ "SIMD_UNOP_WITH_SCRATCH_LIST", "code-generator-ppc_8cc.html#a71009c2b460a53886bddc6c84945f0cb", null ],
-    [ "indirect_pointer_tag_", "code-generator-ppc_8cc.html#ac65776d707ac07cc6389ba76807fa3a7", null ],
-    [ "mode_", "code-generator-ppc_8cc.html#adc5709192230b7fde07de03eb2974043", null ],
-    [ "must_save_lr_", "code-generator-ppc_8cc.html#a41a2de46b73ead1c0417e8f1751a5022", null ],
-    [ "object_", "code-generator-ppc_8cc.html#a5563c55e446f92e237e9fb9b07b423b6", null ],
-    [ "offset_", "code-generator-ppc_8cc.html#a8e90325bfb7feccda2309273ba63ed6f", null ],
-    [ "offset_immediate_", "code-generator-ppc_8cc.html#a5411ccfbe08524a4cbe3ef903ff5897a", null ],
-    [ "scratch0_", "code-generator-ppc_8cc.html#ac15c8035db0676f79a4eeae4edd9ca09", null ],
-    [ "scratch1_", "code-generator-ppc_8cc.html#a460fb6d04dc26e9fae0093b9e62635ad", null ],
-    [ "unwinding_info_writer_", "code-generator-ppc_8cc.html#a169281d819fe1cec036d4799afb2accf", null ],
-    [ "value_", "code-generator-ppc_8cc.html#ac1b34591c0a6bb909fcc2d34d0b5aaff", null ],
-    [ "zone_", "code-generator-ppc_8cc.html#a4979f6e7e64e9ee56f4229d03fa20c69", null ]
+    [ "AdjustStackPointerForTailCall", "code-generator-ppc_8cc.html#af36650d12935597c2cc6c2ee74a1a1e2", null ],
+    [ "FlagsConditionToCondition", "code-generator-ppc_8cc.html#a4c0cdcab07bb10ea35c5c0205fbd78a9", null ],
+    [ "FlushPendingPushRegisters", "code-generator-ppc_8cc.html#a1083a6f290236e5c4d6dbc31aecf923f", null ],
+    [ "HasRegisterInput", "code-generator-ppc_8cc.html#a3774af211d609ef676fc7bc0ea44598d", null ]
 ];

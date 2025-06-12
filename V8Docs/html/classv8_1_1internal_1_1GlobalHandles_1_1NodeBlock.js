@@ -9,6 +9,8 @@ var classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock =
     [ "begin_address", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a90a16beae86858d76e26a079ea0b21aa", null ],
     [ "DecreaseUsage", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#af017ab7397a0443206d4c4f6dbafe162", null ],
     [ "end_address", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#ab187aae22dd2c5f62d6b1bea286d1179", null ],
+    [ "From", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a6ad0db48a7be816690c578457ffd376e", null ],
+    [ "From", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a703a329bb7b42e4dd111c01f87e39b1f", null ],
     [ "global_handles", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a0f8535509042939e23e397246a59f162", null ],
     [ "IncreaseUsage", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#add4a996dcfd4c67cc298194bc4a11c2d", null ],
     [ "ListAdd", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a0e6c9d2c8f9147f8b364db1b1904592c", null ],
@@ -16,5 +18,12 @@ var classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock =
     [ "next", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a2ea784f913b57a1bd83ed2be7ee8d8fb", null ],
     [ "next_used", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a3b9cfbac8ab1f7f6a30459c988f5a6e7", null ],
     [ "operator=", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a35cc47897bf322aaee32185127b48f82", null ],
-    [ "space", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a5245e259a1801c13fea0424c1e9cc214", null ]
+    [ "space", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a5245e259a1801c13fea0424c1e9cc214", null ],
+    [ "global_handles_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#ad125177c8719aabeb403190c9c634dfa", null ],
+    [ "next_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a87bd0d677b56e45b2b4b920271ee69a3", null ],
+    [ "next_used_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a33a6741aa6edf38886ee09b493a89ddc", null ],
+    [ "nodes_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#abbecbceee2fc1c620ccaf031ae5a36a3", null ],
+    [ "prev_used_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a809a9e8d2f6562505d31d329336b34b9", null ],
+    [ "space_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a742775c635eb6bcd19b7d074d44bad78", null ],
+    [ "used_nodes_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a8922ac720fc6fb434b92c12354635948", null ]
 ];

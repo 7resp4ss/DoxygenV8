@@ -1,7 +1,23 @@
 var classv8_1_1internal_1_1compiler_1_1Truncation =
 [
+    [ "TruncationKind", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a57e5ae8af5246a16f5069af75ab49a99", [
+      [ "kNone", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a57e5ae8af5246a16f5069af75ab49a99a35c3ace1970663a16e5c65baa5941b13", null ],
+      [ "kBool", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a57e5ae8af5246a16f5069af75ab49a99a18268c9f691ba5a5f650049d9d0da8dc", null ],
+      [ "kWord32", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a57e5ae8af5246a16f5069af75ab49a99af30575882aa69e9db7afa3e0a5873fc7", null ],
+      [ "kWord64", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a57e5ae8af5246a16f5069af75ab49a99a926ba425515b649646a1efad469174d9", null ],
+      [ "kOddballAndBigIntToNumber", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a57e5ae8af5246a16f5069af75ab49a99a243486fa13853ea649af36c5cfbc2c5a", null ],
+      [ "kBooleanAndNullAndBigIntToNumber", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a57e5ae8af5246a16f5069af75ab49a99ad1fecf313421a7d51f2cdc89b448813e", null ],
+      [ "kAny", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a57e5ae8af5246a16f5069af75ab49a99a198158a4155a179dc73ad4bea1159c1d", null ]
+    ] ],
+    [ "Truncation", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a756953c071a2ecc7ff184d53a0aec0f1", null ],
+    [ "Any", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a56a9fc188f3a8b45367d600620726465", null ],
+    [ "Bool", "classv8_1_1internal_1_1compiler_1_1Truncation.html#ad61f87959f8ff937d743877b2bac0672", null ],
+    [ "BooleanAndNullAndBigIntToNumber", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a5a4a829f6de19c48863ad7a0fd9ac8cf", null ],
     [ "check_safe_integer", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a70c83da9fb1a0bdd159ce798326ec137", null ],
     [ "description", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a996ba2de25b47dc647c54b1d35931b81", null ],
+    [ "Generalize", "classv8_1_1internal_1_1compiler_1_1Truncation.html#ab9ba28a6b072c6789c06d8f2b5df449f", null ],
+    [ "Generalize", "classv8_1_1internal_1_1compiler_1_1Truncation.html#ab228452a6e82d5fc92e933f1f12569ea", null ],
+    [ "GeneralizeIdentifyZeros", "classv8_1_1internal_1_1compiler_1_1Truncation.html#afb9a0fc37486e80cc8d7d57f7fe269c7", null ],
     [ "IdentifiesUndefinedAndZero", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a5a2fd95c63bb91a75989a3af700fa60e", null ],
     [ "IdentifiesZeroAndMinusZero", "classv8_1_1internal_1_1compiler_1_1Truncation.html#ab0603ea8bea7c3a59a356dd6a02f0ec1", null ],
     [ "identify_zeros", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a73be21ba2bfeae18f64e35fb73dea536", null ],
@@ -10,10 +26,21 @@ var classv8_1_1internal_1_1compiler_1_1Truncation =
     [ "IsUsedAsBool", "classv8_1_1internal_1_1compiler_1_1Truncation.html#aacf8c4b02596c1927ba023a580e0365f", null ],
     [ "IsUsedAsWord32", "classv8_1_1internal_1_1compiler_1_1Truncation.html#af8966aea5628668ba99e9b2034c272ef", null ],
     [ "IsUsedAsWord64", "classv8_1_1internal_1_1compiler_1_1Truncation.html#ae64761bf37636a70c450716c43d082c0", null ],
+    [ "kind", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a419d841d2e21ff2d4f2cd6067ed49bde", null ],
+    [ "LessGeneral", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a5eb6ed4cb9e563757c5f1dc597fa5a29", null ],
+    [ "LessGeneralIdentifyZeros", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a658e50168d46df79a62c9a33cc73fba3", null ],
+    [ "None", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a5e954b4eb6f20de540969d9cb27cbb95", null ],
+    [ "OddballAndBigIntToNumber", "classv8_1_1internal_1_1compiler_1_1Truncation.html#abbfd5d1d777ca747267b2a44f73f22ed", null ],
     [ "operator!=", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a5c049ef887de8562fb994b425f4c5637", null ],
     [ "operator==", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a8811d47324e4b086674844b58d1aaeaf", null ],
     [ "TruncatesBooleanAndNullAndBigIntToNumber", "classv8_1_1internal_1_1compiler_1_1Truncation.html#ad035b2909f16b4f75307729e4fbec3c9", null ],
     [ "TruncatesOddballAndBigIntToNumber", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a3f658f54970856ebe8e566b2700020bb", null ],
+    [ "Word32", "classv8_1_1internal_1_1compiler_1_1Truncation.html#aaadebb94a94f514fc0d04b3e92acf0d8", null ],
+    [ "Word32WithSafeIntCheck", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a244c43cf22ae7004b9924c9ef7e56f77", null ],
+    [ "Word64", "classv8_1_1internal_1_1compiler_1_1Truncation.html#ae65d78d9b6afc4eb0ca4919a0a8c62a6", null ],
     [ "hash_value", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a753646aabfc3584a8928c5784bcb0a78", null ],
-    [ "SimplifiedLoweringVerifier", "classv8_1_1internal_1_1compiler_1_1Truncation.html#ae7c8588060de12acca8e46f8e5d4bf05", null ]
+    [ "SimplifiedLoweringVerifier", "classv8_1_1internal_1_1compiler_1_1Truncation.html#ae7c8588060de12acca8e46f8e5d4bf05", null ],
+    [ "check_safe_integer_", "classv8_1_1internal_1_1compiler_1_1Truncation.html#a0ebd34fa42bc13d161a95284390e8ccc", null ],
+    [ "identify_zeros_", "classv8_1_1internal_1_1compiler_1_1Truncation.html#aa72ab2c9cf5d171f0d60bd127b42a3d6", null ],
+    [ "kind_", "classv8_1_1internal_1_1compiler_1_1Truncation.html#aa4dd6915a8a7f7356f2eb96a68eb854a", null ]
 ];

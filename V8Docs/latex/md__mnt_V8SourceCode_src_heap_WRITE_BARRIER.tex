@@ -1,0 +1,45 @@
+V8 uses a write barrier to inform the GC about changes to the heap by the mutator. A write barrier is emitted for heap stores like {\ttfamily host.\+field = value}. The write barrier is required for multiple purposes\+:
+\begin{DoxyItemize}
+\item Records old-\/to-\/new references for the generational GC to work.
+\item During marking it prevents black-\/to-\/white references during incremental/concurrent marking.
+\item During marking it records old-\/to-\/old references (pointers to objects on evacuation candidates)
+\end{DoxyItemize}
+
+The generational barrier is always enabled, while the other barriers are only enabled while incremental/concurrent marking is running.\hypertarget{md__mnt_V8SourceCode_src_heap_WRITE_BARRIER_autotoc_md20}{}\doxysection{Overview}\label{md__mnt_V8SourceCode_src_heap_WRITE_BARRIER_autotoc_md20}
+The barrier is split into multiple separate parts (ordered from fastest to slowest)\+:
+\begin{DoxyEnumerate}
+\item fast (inline) code path,
+\item deferred (out-\/of-\/line) code path,
+\item the shared slow path and
+\item the C++ slow path.
+\end{DoxyEnumerate}
+
+The fast and deferred code paths of the write barrier have different implementations in all compilers and C++. These code paths are also emitted for each write barrier/call site. Only the slow path is shared across all write barrier locations.
+
+CSA and the interpreter do not have their own barrier but reuse Turbofan\textquotesingle{}s write barrier. While implementations for compilers differ, the general idea is still pretty much the same for all of them.\hypertarget{md__mnt_V8SourceCode_src_heap_WRITE_BARRIER_autotoc_md21}{}\doxysubsection{Fast path  (\#1)}\label{md__mnt_V8SourceCode_src_heap_WRITE_BARRIER_autotoc_md21}
+Checks whether the host object has the {\ttfamily POINTERS\+\_\+\+FROM\+\_\+\+HERE\+\_\+\+ARE\+\_\+\+INTERESTING} flag set on its page header. If yes, the write barrier will jump into the deferred code path. Otherwise regular execution continues as usual. This check will be skipped if value is a Smi.
+
+
+\begin{DoxyItemize}
+\item Turbofan implements the fast path in \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/compiler/backend/x64/code-generator-x64.cc?q=kArchAtomicStoreWithWriteBarrier}{\texttt{ code-\/generator-\/x64.\+cc}} for the {\ttfamily k\+Arch\+Atomic\+Store\+With\+Write\+Barrier} instruction opcode.
+\item Maglev implements the fast path in \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/maglev/maglev-assembler.cc?q=MaglevAssembler::CheckAndEmitDeferredWriteBarrier}{\texttt{ maglev-\/assembler-\/x64.\+cc}} in the \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/maglev/maglev-ir.cc?q=StoreTaggedFieldWithWriteBarrier::GenerateCode}{\texttt{ Store\+Tagged\+Field\+With\+Write\+Barrier}} node.
+\item Sparkplug implements it in \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/codegen/x64/macro-assembler-x64.cc?q=MacroAssembler::RecordWrite\%28}{\texttt{ Macro\+Assembler\+::\+Record\+Write}}.
+\item For C++ the fast path is implemented in \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/heap/heap-write-barrier-inl.h?q=CombinedWriteBarrierInternal}{\texttt{ Combined\+Write\+Barrier\+Internal}}.
+\end{DoxyItemize}\hypertarget{md__mnt_V8SourceCode_src_heap_WRITE_BARRIER_autotoc_md22}{}\doxysubsection{Deferred code path (\#2)}\label{md__mnt_V8SourceCode_src_heap_WRITE_BARRIER_autotoc_md22}
+Checks whether the value object has the {\ttfamily POINTERS\+\_\+\+TO\+\_\+\+HERE\+\_\+\+ARE\+\_\+\+INTERESTING} flag set on its page header. If yes, the write barrier will call the builtin function for the slow path. Otherwise the deferred code jumps back to the regular instruction stream.
+
+
+\begin{DoxyItemize}
+\item Turbofan implements the deferred code path in the \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/compiler/backend/x64/code-generator-x64.cc?q=OutOfLineRecordWrite}{\texttt{ Out\+Of\+Line\+Record\+Write}} class.
+\item Maglev emits this code path using \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/maglev/maglev-assembler.cc?q=MaglevAssembler::CheckAndEmitDeferredWriteBarrier}{\texttt{ Make\+Deferred\+Code}} in the same function as the fast path.
+\item Sparkplug is the only compiler which does not emit this check in some out of line code path but instead emits them directly inline in \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/codegen/x64/macro-assembler-x64.cc?q=MacroAssembler::RecordWrite\%28}{\texttt{ Macro\+Assembler\+::\+Record\+Write}}.
+\end{DoxyItemize}\hypertarget{md__mnt_V8SourceCode_src_heap_WRITE_BARRIER_autotoc_md23}{}\doxysubsection{Slow path (\#3)}\label{md__mnt_V8SourceCode_src_heap_WRITE_BARRIER_autotoc_md23}
+The slow path of the barrier is shared between all compilers and call sites. In the generational barrier the field/slot is simply recorded in the old-\/to-\/new slot set. During incremental/concurrent marking it also marks the {\ttfamily value} object and may record the slot in the old-\/to-\/old remembered set for pointers to evacuation candidates. This part of the barrier is implemented in CSA in \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/builtins-internal-gen.cc?q=WriteBarrierCodeStubAssembler}{\texttt{ builtins-\/internal-\/gen.\+cc}} and used in the \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/builtins-internal-gen.cc?q=RecordWriteSaveFp}{\texttt{ Record\+Write\+XXX}} builtins.\hypertarget{md__mnt_V8SourceCode_src_heap_WRITE_BARRIER_autotoc_md24}{}\doxysubsection{C++ slow path (\#4)}\label{md__mnt_V8SourceCode_src_heap_WRITE_BARRIER_autotoc_md24}
+Inserting into the slot set in the \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/builtins-internal-gen.cc?q=RecordWriteSaveFp}{\texttt{ Record\+Write\+XXX}} builtins may need to {\ttfamily malloc()} memory. The builtin therefore may call into C++ for this operation. The C++ function for this is \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/heap/heap.cc?q=Heap::InsertIntoRememberedSetFromCode}{\texttt{ Heap\+::\+Insert\+Into\+Remembered\+Set\+From\+Code}}.\hypertarget{md__mnt_V8SourceCode_src_heap_WRITE_BARRIER_autotoc_md25}{}\doxysection{Indirect pointer barrier}\label{md__mnt_V8SourceCode_src_heap_WRITE_BARRIER_autotoc_md25}
+V8 also needs a special barrier for pointers into the trusted space with the sandbox. This barrier is only implemented for 64-\/bit architectures and only used in builtins written in either CSA or assembler.
+
+This barrier is only active during incremental marking. Therefore the fast path of this barrier only jumps into the deferred code path if marking is active. Checking the host object flags is not necessary.
+
+The Turbofan indirect pointer write barrier is implemented as a separate instruction opcode \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/compiler/backend/x64/code-generator-x64.cc?q=kArchStoreIndirectWithWriteBarrier}{\texttt{ k\+Arch\+Store\+Indirect\+With\+Write\+Barrier}}. The deferred code path is implemented in the \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/compiler/backend/x64/code-generator-x64.cc?q=OutOfLineRecordWrite}{\texttt{ Out\+Of\+Line\+Record\+Write}} class along with the regular write barrier.
+
+Assembler builtins can emit this barrier using \href{https://source.chromium.org/chromium/chromium/src/+/main:v8/src/codegen/x64/macro-assembler-x64.cc?q=MacroAssembler::RecordWrite\%28}{\texttt{ Macro\+Assembler\+::\+Record\+Write}}. This method handles both the indirect pointer but also the regular write barrier. 

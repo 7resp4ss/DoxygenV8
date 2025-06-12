@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::compiler\+::turboshaft\+::Builtin\+Pip
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=229pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinPipeline__inherit__graph}
+\includegraphics[width=244pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinPipeline__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::compiler\+::turboshaft\+::Builtin\+P
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=229pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinPipeline__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinPipeline__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -33,6 +33,13 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinPi
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 521 of file pipelines.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinPipeline_a9d2c67408ddf9b1f875ad9347aa7e151}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinPipeline_a9d2c67408ddf9b1f875ad9347aa7e151}} 
 \index{v8::internal::compiler::turboshaft::BuiltinPipeline@{v8::internal::compiler::turboshaft::BuiltinPipeline}!BuiltinPipeline@{BuiltinPipeline}}
@@ -40,6 +47,15 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinPi
 \doxysubsubsection{\texorpdfstring{BuiltinPipeline()}{BuiltinPipeline()}}
 {\footnotesize\ttfamily v8\+::internal\+::compiler\+::turboshaft\+::\+Builtin\+Pipeline\+::\+Builtin\+Pipeline (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData}{Pipeline\+Data}} $\ast$}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
+
+
+Definition at line 523 of file pipelines.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{523 : \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Pipeline_a29b1c71a6656523e09218ada06d14df2}{Pipeline}}(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Pipeline_a6037f24494fdb679a037d44629969baf}{data}}) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -51,7 +67,61 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinPi
 
 
 
+Definition at line 153 of file pipelines.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{153                                       \{}
+\DoxyCodeLine{154   Tracing::Scope tracing\_scope(\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Pipeline_a6037f24494fdb679a037d44629969baf}{data}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Pipeline_a580627e6f97d356f2fdd1bc61cf18980}{info}}());}
+\DoxyCodeLine{155 }
+\DoxyCodeLine{156   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(Run<CsaEarlyMachineOptimizationPhase>());}
+\DoxyCodeLine{157   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(Run<CsaLoadEliminationPhase>());}
+\DoxyCodeLine{158   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(Run<CsaLateEscapeAnalysisPhase>());}
+\DoxyCodeLine{159   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(Run<CsaBranchEliminationPhase>());}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Pipeline_a6037f24494fdb679a037d44629969baf}{data}}()-\/>isolate()-\/>builtins\_effects\_analyzer() != \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{162     \textcolor{comment}{// Effect computations has to run before CsaMemoryOptimizationPhase, so that}}
+\DoxyCodeLine{163     \textcolor{comment}{// Allocate aren't lowered to builtin calls.}}
+\DoxyCodeLine{164     \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(Run<CsaEffectsComputationPhase>());}
+\DoxyCodeLine{165   \}}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{167   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(Run<CsaMemoryOptimizationPhase>());}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{169   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.turboshaft\_enable\_debug\_features) \{}
+\DoxyCodeLine{170     \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(Run<DebugFeatureLoweringPhase>());}
+\DoxyCodeLine{171   \}}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(Run<CodeEliminationAndSimplificationPhase>());}
+\DoxyCodeLine{174 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+::data(), v8\+::internal\+::compiler\+::turboshaft\+::\+Pipeline\+::info(), and v8\+::internal\+::v8\+\_\+flags.
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Code\+Assembler\+Turboshaft\+Compilation\+Job\+::\+Execute\+Job\+Impl(), and v8\+::internal\+::compiler\+::\+Pipeline\+::\+Generate\+Code\+For\+Turboshaft\+Builtin().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinPipeline_ab24e1eff3c56a5752f842b63c2bfe094_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinPipeline_ab24e1eff3c56a5752f842b63c2bfe094_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pipelines_8h}{pipelines.\+h}}\item 
-\mbox{\hyperlink{pipelines_8cc}{pipelines.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{pipelines_8h}{pipelines.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/turboshaft/\mbox{\hyperlink{pipelines_8cc}{pipelines.\+cc}}\end{DoxyCompactItemize}

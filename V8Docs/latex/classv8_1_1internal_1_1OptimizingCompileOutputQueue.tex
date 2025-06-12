@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$optimizing-\/compile-\/dispatcher.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Optimizing\+Compile\+Output\+Queue\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1OptimizingCompileOutputQueue__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -11,12 +21,26 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a3ccf5
 \item 
 std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TurbofanCompilationJob}{Turbofan\+Compilation\+Job}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a90794f1d5891c9d3e71bb4f8639e4055}{Dequeue}} ()
 \item 
-int \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a289c70b969e617443cb3becd51255e3d}{Install\+Generated\+Builtins}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, int installed\+\_\+count)
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a289c70b969e617443cb3becd51255e3d}{Install\+Generated\+Builtins}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classint}{int}} installed\+\_\+count)
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a7e5983e8ae1285d9c78ac3348fc613ff}{size}} () const
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_ab93d1204589c8416895a70e9aa2c13f8}{empty}} () const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::deque$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TurbofanCompilationJob}{Turbofan\+Compilation\+Job}} $\ast$ $>$ \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}{queue\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_aeb02efa26eeb875598d96ffcd15c0ebd}{mutex\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 155 of file optimizing-\/compile-\/dispatcher.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -26,24 +50,166 @@ int \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a289c70
 \doxysubsubsection{\texorpdfstring{Dequeue()}{Dequeue()}}
 {\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TurbofanCompilationJob}{Turbofan\+Compilation\+Job}} $>$ v8\+::internal\+::\+Optimizing\+Compile\+Output\+Queue\+::\+Dequeue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 464 of file optimizing-\/compile-\/dispatcher.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{464                                       \{}
+\DoxyCodeLine{465   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_aeb02efa26eeb875598d96ffcd15c0ebd}{mutex\_}});}
+\DoxyCodeLine{466   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}{queue\_}}.empty()) \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{467   std::unique\_ptr<TurbofanCompilationJob> job(\mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}{queue\_}}.front());}
+\DoxyCodeLine{468   \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}{queue\_}}.pop\_front();}
+\DoxyCodeLine{469   \textcolor{keywordflow}{return} job;}
+\DoxyCodeLine{470 \}}
+
+\end{DoxyCode}
+
+
+References mutex\+\_\+, and queue\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Optimizing\+Compile\+Dispatcher\+::\+Flush\+Output\+Queue(), and v8\+::internal\+::\+Optimizing\+Compile\+Dispatcher\+::\+Install\+Optimized\+Functions().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a90794f1d5891c9d3e71bb4f8639e4055_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1OptimizingCompileOutputQueue_ab93d1204589c8416895a70e9aa2c13f8}\label{classv8_1_1internal_1_1OptimizingCompileOutputQueue_ab93d1204589c8416895a70e9aa2c13f8}} 
 \index{v8::internal::OptimizingCompileOutputQueue@{v8::internal::OptimizingCompileOutputQueue}!empty@{empty}}
 \index{empty@{empty}!v8::internal::OptimizingCompileOutputQueue@{v8::internal::OptimizingCompileOutputQueue}}
 \doxysubsubsection{\texorpdfstring{empty()}{empty()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Optimizing\+Compile\+Output\+Queue\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Definition at line 474 of file optimizing-\/compile-\/dispatcher.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{474 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}{queue\_}}.empty(); \}}
+
+\end{DoxyCode}
+
+
+References queue\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Optimizing\+Compile\+Dispatcher\+::\+Has\+Jobs().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1OptimizingCompileOutputQueue_ab93d1204589c8416895a70e9aa2c13f8_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a3ccf5abfceb6d6e6e76cdd019c1280ea}\label{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a3ccf5abfceb6d6e6e76cdd019c1280ea}} 
 \index{v8::internal::OptimizingCompileOutputQueue@{v8::internal::OptimizingCompileOutputQueue}!Enqueue@{Enqueue}}
 \index{Enqueue@{Enqueue}!v8::internal::OptimizingCompileOutputQueue@{v8::internal::OptimizingCompileOutputQueue}}
 \doxysubsubsection{\texorpdfstring{Enqueue()}{Enqueue()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Optimizing\+Compile\+Output\+Queue\+::\+Enqueue (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1TurbofanCompilationJob}{Turbofan\+Compilation\+Job}} $\ast$}]{job }\end{DoxyParamCaption})}
 
+
+
+Definition at line 458 of file optimizing-\/compile-\/dispatcher.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{458                                                                       \{}
+\DoxyCodeLine{459   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_aeb02efa26eeb875598d96ffcd15c0ebd}{mutex\_}});}
+\DoxyCodeLine{460   \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}{queue\_}}.push\_back(job);}
+\DoxyCodeLine{461 \}}
+
+\end{DoxyCode}
+
+
+References mutex\+\_\+, and queue\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Optimizing\+Compile\+Dispatcher\+::\+Queue\+Finished\+Job().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a3ccf5abfceb6d6e6e76cdd019c1280ea_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a289c70b969e617443cb3becd51255e3d}\label{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a289c70b969e617443cb3becd51255e3d}} 
 \index{v8::internal::OptimizingCompileOutputQueue@{v8::internal::OptimizingCompileOutputQueue}!InstallGeneratedBuiltins@{InstallGeneratedBuiltins}}
 \index{InstallGeneratedBuiltins@{InstallGeneratedBuiltins}!v8::internal::OptimizingCompileOutputQueue@{v8::internal::OptimizingCompileOutputQueue}}
 \doxysubsubsection{\texorpdfstring{InstallGeneratedBuiltins()}{InstallGeneratedBuiltins()}}
-{\footnotesize\ttfamily int v8\+::internal\+::\+Optimizing\+Compile\+Output\+Queue\+::\+Install\+Generated\+Builtins (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{int}]{installed\+\_\+count }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::\+Optimizing\+Compile\+Output\+Queue\+::\+Install\+Generated\+Builtins (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classint}{int}}}]{installed\+\_\+count }\end{DoxyParamCaption})}
 
+
+
+Definition at line 476 of file optimizing-\/compile-\/dispatcher.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{477                                            \{}
+\DoxyCodeLine{478   \textcolor{comment}{// Builtin generation needs to be deterministic, meaning heap allocations must}}
+\DoxyCodeLine{479   \textcolor{comment}{// happen in a deterministic order. To ensure determinism with concurrent}}
+\DoxyCodeLine{480   \textcolor{comment}{// compilation, only finalize contiguous builtins in ascending order of their}}
+\DoxyCodeLine{481   \textcolor{comment}{// finalization order, which is set at job creation time.}}
+\DoxyCodeLine{482 }
+\DoxyCodeLine{483   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(isolate-\/>IsGeneratingEmbeddedBuiltins());}
+\DoxyCodeLine{484 }
+\DoxyCodeLine{485   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_aeb02efa26eeb875598d96ffcd15c0ebd}{mutex\_}});}
+\DoxyCodeLine{486 }
+\DoxyCodeLine{487   \mbox{\hyperlink{namespacev8_1_1base_ae8575343c68d7ad91cf7aaf24cd6643f}{std::sort}}(\mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}{queue\_}}.begin(), \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}{queue\_}}.end(),}
+\DoxyCodeLine{488             [](\textcolor{keyword}{const} TurbofanCompilationJob* job1,}
+\DoxyCodeLine{489                \textcolor{keyword}{const} TurbofanCompilationJob* job2) \{}
+\DoxyCodeLine{490               return job1-\/>FinalizeOrder() < job2-\/>FinalizeOrder();}
+\DoxyCodeLine{491             \});}
+\DoxyCodeLine{492 }
+\DoxyCodeLine{493   \textcolor{keywordflow}{while} (!\mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}{queue\_}}.empty()) \{}
+\DoxyCodeLine{494     \textcolor{keywordtype}{int} current = \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}{queue\_}}.front()-\/>FinalizeOrder();}
+\DoxyCodeLine{495     \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(installed\_count, current);}
+\DoxyCodeLine{496     std::unique\_ptr<TurbofanCompilationJob> job(\mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}{queue\_}}.front());}
+\DoxyCodeLine{497     \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}{queue\_}}.pop\_front();}
+\DoxyCodeLine{498     \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1CompilationJob_a5139448eb71cada82780ab292fe35e9ea77e01e83c7c3ed97092d7dc1dab5832d}{CompilationJob::SUCCEEDED}}, job-\/>FinalizeJob(isolate));}
+\DoxyCodeLine{499     installed\_count = current + 1;}
+\DoxyCodeLine{500   \}}
+\DoxyCodeLine{501   \textcolor{keywordflow}{return} installed\_count;}
+\DoxyCodeLine{502 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, CHECK\+\_\+\+EQ, v8\+::internal\+::\+Isolate\+::\+Is\+Generating\+Embedded\+Builtins(), mutex\+\_\+, queue\+\_\+, v8\+::base\+::sort(), and v8\+::internal\+::\+Compilation\+Job\+::\+SUCCEEDED.
+
+
+
+Referenced by v8\+::internal\+::\+Optimizing\+Compile\+Dispatcher\+::\+Install\+Generated\+Builtins().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a289c70b969e617443cb3becd51255e3d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a289c70b969e617443cb3becd51255e3d_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a7e5983e8ae1285d9c78ac3348fc613ff}\label{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a7e5983e8ae1285d9c78ac3348fc613ff}} 
 \index{v8::internal::OptimizingCompileOutputQueue@{v8::internal::OptimizingCompileOutputQueue}!size@{size}}
 \index{size@{size}!v8::internal::OptimizingCompileOutputQueue@{v8::internal::OptimizingCompileOutputQueue}}
@@ -52,7 +218,63 @@ int \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a289c70
 
 
 
+Definition at line 472 of file optimizing-\/compile-\/dispatcher.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{472 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}{queue\_}}.size(); \}}
+
+\end{DoxyCode}
+
+
+References queue\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Optimizing\+Compile\+Dispatcher\+::$\sim$\+Optimizing\+Compile\+Dispatcher().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1OptimizingCompileOutputQueue_a7e5983e8ae1285d9c78ac3348fc613ff_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1OptimizingCompileOutputQueue_aeb02efa26eeb875598d96ffcd15c0ebd}\label{classv8_1_1internal_1_1OptimizingCompileOutputQueue_aeb02efa26eeb875598d96ffcd15c0ebd}} 
+\index{v8::internal::OptimizingCompileOutputQueue@{v8::internal::OptimizingCompileOutputQueue}!mutex\_@{mutex\_}}
+\index{mutex\_@{mutex\_}!v8::internal::OptimizingCompileOutputQueue@{v8::internal::OptimizingCompileOutputQueue}}
+\doxysubsubsection{\texorpdfstring{mutex\_}{mutex\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} v8\+::internal\+::\+Optimizing\+Compile\+Output\+Queue\+::mutex\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 171 of file optimizing-\/compile-\/dispatcher.\+h.
+
+
+
+Referenced by Dequeue(), Enqueue(), and Install\+Generated\+Builtins().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}\label{classv8_1_1internal_1_1OptimizingCompileOutputQueue_af20b7344f49dc574152889c061959cdb}} 
+\index{v8::internal::OptimizingCompileOutputQueue@{v8::internal::OptimizingCompileOutputQueue}!queue\_@{queue\_}}
+\index{queue\_@{queue\_}!v8::internal::OptimizingCompileOutputQueue@{v8::internal::OptimizingCompileOutputQueue}}
+\doxysubsubsection{\texorpdfstring{queue\_}{queue\_}}
+{\footnotesize\ttfamily std\+::deque$<$\mbox{\hyperlink{classv8_1_1internal_1_1TurbofanCompilationJob}{Turbofan\+Compilation\+Job}}$\ast$$>$ v8\+::internal\+::\+Optimizing\+Compile\+Output\+Queue\+::queue\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 167 of file optimizing-\/compile-\/dispatcher.\+h.
+
+
+
+Referenced by Dequeue(), empty(), Enqueue(), Install\+Generated\+Builtins(), and size().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{optimizing-compile-dispatcher_8h}{optimizing-\/compile-\/dispatcher.\+h}}\item 
-\mbox{\hyperlink{optimizing-compile-dispatcher_8cc}{optimizing-\/compile-\/dispatcher.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler-\/dispatcher/\mbox{\hyperlink{optimizing-compile-dispatcher_8h}{optimizing-\/compile-\/dispatcher.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler-\/dispatcher/\mbox{\hyperlink{optimizing-compile-dispatcher_8cc}{optimizing-\/compile-\/dispatcher.\+cc}}\end{DoxyCompactItemize}

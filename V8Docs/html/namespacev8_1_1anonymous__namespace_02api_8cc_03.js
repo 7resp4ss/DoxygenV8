@@ -1,0 +1,58 @@
+var namespacev8_1_1anonymous__namespace_02api_8cc_03 =
+[
+    [ "ArrayBufferAllocator", "classv8_1_1anonymous__namespace_02api_8cc_03_1_1ArrayBufferAllocator.html", "classv8_1_1anonymous__namespace_02api_8cc_03_1_1ArrayBufferAllocator" ],
+    [ "ExtensionResource", "classv8_1_1anonymous__namespace_02api_8cc_03_1_1ExtensionResource.html", "classv8_1_1anonymous__namespace_02api_8cc_03_1_1ExtensionResource" ],
+    [ "ObjectVisitorDeepFreezer", "classv8_1_1anonymous__namespace_02api_8cc_03_1_1ObjectVisitorDeepFreezer.html", "classv8_1_1anonymous__namespace_02api_8cc_03_1_1ObjectVisitorDeepFreezer" ],
+    [ "MapAsArrayKind", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a481159ff680242cc5bd233eec9752807", [
+      [ "kEntries", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a481159ff680242cc5bd233eec9752807aff64f3fbbbd9c4a41c7b3ff6be475c13", null ],
+      [ "kKeys", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a481159ff680242cc5bd233eec9752807a483fa394ab62e18939fb54147532a2df", null ],
+      [ "kValues", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a481159ff680242cc5bd233eec9752807abab1c3b845d0ba03d1bcb1c341044cf4", null ]
+    ] ],
+    [ "PropertyType", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#aee67f6498efaf91096081972c64809f6", [
+      [ "kNamed", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#aee67f6498efaf91096081972c64809f6a3de65b7d55d7330a42c36baee8e0333b", null ],
+      [ "kIndexed", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#aee67f6498efaf91096081972c64809f6adc7427e2b5b867ac8708950e3047c47d", null ]
+    ] ],
+    [ "SetAsArrayKind", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a50361b8b6af2206cd6a4b18f9d96edcc", [
+      [ "kEntries", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a50361b8b6af2206cd6a4b18f9d96edccaff64f3fbbbd9c4a41c7b3ff6be475c13", null ],
+      [ "kValues", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a50361b8b6af2206cd6a4b18f9d96edccabab1c3b845d0ba03d1bcb1c341044cf4", null ]
+    ] ],
+    [ "AddPropertiesAndElementsToObject", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a1671f1d11fea656e3bfa1399eaf1d072", null ],
+    [ "CompileStreamedSource", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#ad30ab2ee2fa4a990ea47fb17b96e2217", null ],
+    [ "CreateIndexedInterceptorInfo", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a76716a2dc1d20c47818f41fd03712547", null ],
+    [ "CreateInterceptorInfo", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a80482cd86e079bf54e4dd11db66648cf", null ],
+    [ "CreateNamedInterceptorInfo", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#afbad3a23cd64e2192b70d7b10b792423", null ],
+    [ "EnsureConstructor", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#af972bc9c5c1eb9e95cf4e8dca25124a1", null ],
+    [ "EnsureNotPublished", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a0cae5aaa2176bbe358ae4d1ea54d0d23", null ],
+    [ "FunctionTemplateNew", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#afa1ae6b0add67ab5e7c25912d04ccb29", null ],
+    [ "GetAlignedPointerFromEmbedderDataInCreationContextImpl", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#abd566572d9e82745f21612ba19be0411", null ],
+    [ "GetCreationContextCheckedImpl", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a7aff3f76676fc1e961963d4db2ec2968", null ],
+    [ "GetCreationContextImpl", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#ac6bbb1f7e04c3840dfc11fb367d10ed1", null ],
+    [ "GetExternalResourceFromForwardingTable", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a7314b30453375e592255d03aa5be15bd", null ],
+    [ "GetInitializedFlag", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#aaf438012374211789fa02d811937bf45", null ],
+    [ "GetScriptDetails", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#ab7bbb0e3c5dccb74f33799d52a35ce1d", null ],
+    [ "GetSerializedDataFromFixedArray", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#acedc9d78e064326fa3e770edfcbc3a4c", null ],
+    [ "HasExternalStringResource", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#ace699a6ccf23d44629828874f904c5d2", null ],
+    [ "IsJSReceiverSafeToFreeze", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a6e3e9ddafc08f492604a0494a1a049c9", null ],
+    [ "MakeAccessorInfo", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#ac7375c25de17cdacb51ddec7630bb56d", null ],
+    [ "MapAsArray", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a6d5324cb9f81fa98f858033f29a0d88e", null ],
+    [ "MayContainObjectsToFreeze", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a110e245af602b5d1b3323621b37aab28", null ],
+    [ "NewString", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a408c41f6b80448d0da837195808cdc4d", null ],
+    [ "NewString", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#ad695a60b545e8c4883cb948d647ed392", null ],
+    [ "NewString", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#abc66c8df3cc5c0fda930b83e9e4d2fe1", null ],
+    [ "ObjectTemplateSetNamedPropertyHandler", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a7ac2a44376d99ad54aa512cf9d1aad1d", null ],
+    [ "PrepareArguments", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a96de5f914775bd0f7464273f7f03d3c0", null ],
+    [ "RequiresEmbedderSupportToFreeze", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a4b43edb5b708522bd09dc15cba52450e", null ],
+    [ "SetAsArray", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a10c08cbed4495df6796edd8d73b96f4f", null ],
+    [ "SetPrototypeImpl", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a98d9b68d8db3876595146f6558497948", null ],
+    [ "StringLength", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a924e1e954f6e3f472a0fef41de5ccc47", null ],
+    [ "StringLength", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#ae66d85fcd56f4df319f527cbf989afd3", null ],
+    [ "StringLength", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a4b6d2ec3336d3207a8aba4b244cdd635", null ],
+    [ "TemplateSetAccessor", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#ab450ab5bcdeff7b4066cfeb8f62fdbbe", null ],
+    [ "ToHandle", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a7908801ec278cdfa48f537bc73de930c", null ],
+    [ "ToHandle", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a0be2944595d695733e968a9a946d9fcc", null ],
+    [ "ToHandle", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a06e05d97538daead62846f62ab57b946", null ],
+    [ "ToHandle", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a27597a7b4f4cc2fd7787db35ccf3654e", null ],
+    [ "ToInternal", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a34898924e4222da7579e20aff21a9620", null ],
+    [ "ToObject", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#ae7165265166edb47786472c2cf9a92de", null ],
+    [ "WriteUtf8Impl", "namespacev8_1_1anonymous__namespace_02api_8cc_03.html#a72594df36c621c2cfaf6370f38aca7bf", null ]
+];

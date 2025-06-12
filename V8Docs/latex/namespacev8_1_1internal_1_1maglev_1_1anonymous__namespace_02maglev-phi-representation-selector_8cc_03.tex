@@ -1,0 +1,134 @@
+\hypertarget{namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-phi-representation-selector_8cc_03}{}\doxysection{v8\+::internal\+::maglev\+::anonymous\+\_\+namespace\{maglev-\/phi-\/representation-\/selector.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-phi-representation-selector_8cc_03}\index{v8::internal::maglev::anonymous\_namespace\lcurly{}maglev-\/phi-\/representation-\/selector.cc\rcurly{}@{v8::internal::maglev::anonymous\_namespace\lcurly{}maglev-\/phi-\/representation-\/selector.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_a1f79cb46bd5bd0041c0a54358b3d2cec}{Opcode}} \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-phi-representation-selector_8cc_03_a39b3710e558defb8210e6320e3c98e07}{Get\+Opcode\+For\+Conversion}} (\mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_a3314ac8c3e0bd8b4886122d4288832b9}{Value\+Representation}} from, \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_a3314ac8c3e0bd8b4886122d4288832b9}{Value\+Representation}} to, \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} truncating)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-phi-representation-selector_8cc_03_a39b3710e558defb8210e6320e3c98e07}\label{namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-phi-representation-selector_8cc_03_a39b3710e558defb8210e6320e3c98e07}} 
+\index{v8::internal::maglev::anonymous\_namespace\lcurly{}maglev-\/phi-\/representation-\/selector.cc\rcurly{}@{v8::internal::maglev::anonymous\_namespace\lcurly{}maglev-\/phi-\/representation-\/selector.cc\rcurly{}}!GetOpcodeForConversion@{GetOpcodeForConversion}}
+\index{GetOpcodeForConversion@{GetOpcodeForConversion}!v8::internal::maglev::anonymous\_namespace\lcurly{}maglev-\/phi-\/representation-\/selector.cc\rcurly{}@{v8::internal::maglev::anonymous\_namespace\lcurly{}maglev-\/phi-\/representation-\/selector.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{GetOpcodeForConversion()}{GetOpcodeForConversion()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_a1f79cb46bd5bd0041c0a54358b3d2cec}{Opcode}} v8\+::internal\+::maglev\+::anonymous\+\_\+namespace\{maglev-\/phi-\/representation-\/selector.\+cc\}\+::Get\+Opcode\+For\+Conversion (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_a3314ac8c3e0bd8b4886122d4288832b9}{Value\+Representation}}}]{from,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_a3314ac8c3e0bd8b4886122d4288832b9}{Value\+Representation}}}]{to,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}}}]{truncating }\end{DoxyParamCaption})}
+
+
+
+Definition at line 359 of file maglev-\/phi-\/representation-\/selector.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{360                                                \{}
+\DoxyCodeLine{361   \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(from, ValueRepresentation::kTagged);}
+\DoxyCodeLine{362   \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(to, ValueRepresentation::kTagged);}
+\DoxyCodeLine{363 }
+\DoxyCodeLine{364   \textcolor{keywordflow}{switch} (from) \{}
+\DoxyCodeLine{365     \textcolor{keywordflow}{case} ValueRepresentation::kInt32:}
+\DoxyCodeLine{366       \textcolor{keywordflow}{switch} (to) \{}
+\DoxyCodeLine{367         \textcolor{keywordflow}{case} ValueRepresentation::kUint32:}
+\DoxyCodeLine{368           \textcolor{keywordflow}{return} Opcode::kCheckedInt32ToUint32;}
+\DoxyCodeLine{369         \textcolor{keywordflow}{case} ValueRepresentation::kFloat64:}
+\DoxyCodeLine{370         \textcolor{keywordflow}{case} ValueRepresentation::kHoleyFloat64:}
+\DoxyCodeLine{371           \textcolor{keywordflow}{return} Opcode::kChangeInt32ToFloat64;}
+\DoxyCodeLine{372 }
+\DoxyCodeLine{373         \textcolor{keywordflow}{case} ValueRepresentation::kInt32:}
+\DoxyCodeLine{374         \textcolor{keywordflow}{case} ValueRepresentation::kTagged:}
+\DoxyCodeLine{375         \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02ic_8cc_03_a4631bacb0230cb3812dd449094232bc8a38a8b13c0eb02da9a968bf2c3b4af0f6}{ValueRepresentation::kIntPtr}}:}
+\DoxyCodeLine{376           \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{377       \}}
+\DoxyCodeLine{378     \textcolor{keywordflow}{case} ValueRepresentation::kUint32:}
+\DoxyCodeLine{379       \textcolor{keywordflow}{switch} (to) \{}
+\DoxyCodeLine{380         \textcolor{keywordflow}{case} ValueRepresentation::kInt32:}
+\DoxyCodeLine{381           \textcolor{keywordflow}{return} Opcode::kCheckedUint32ToInt32;}
+\DoxyCodeLine{382 }
+\DoxyCodeLine{383         \textcolor{keywordflow}{case} ValueRepresentation::kFloat64:}
+\DoxyCodeLine{384         \textcolor{keywordflow}{case} ValueRepresentation::kHoleyFloat64:}
+\DoxyCodeLine{385           \textcolor{keywordflow}{return} Opcode::kChangeUint32ToFloat64;}
+\DoxyCodeLine{386 }
+\DoxyCodeLine{387         \textcolor{keywordflow}{case} ValueRepresentation::kUint32:}
+\DoxyCodeLine{388         \textcolor{keywordflow}{case} ValueRepresentation::kTagged:}
+\DoxyCodeLine{389         \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02ic_8cc_03_a4631bacb0230cb3812dd449094232bc8a38a8b13c0eb02da9a968bf2c3b4af0f6}{ValueRepresentation::kIntPtr}}:}
+\DoxyCodeLine{390           \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{391       \}}
+\DoxyCodeLine{392     \textcolor{keywordflow}{case} ValueRepresentation::kFloat64:}
+\DoxyCodeLine{393       \textcolor{keywordflow}{switch} (to) \{}
+\DoxyCodeLine{394         \textcolor{keywordflow}{case} ValueRepresentation::kInt32:}
+\DoxyCodeLine{395           \textcolor{keywordflow}{if} (truncating) \{}
+\DoxyCodeLine{396             \textcolor{keywordflow}{return} Opcode::kTruncateFloat64ToInt32;}
+\DoxyCodeLine{397           \}}
+\DoxyCodeLine{398           \textcolor{keywordflow}{return} Opcode::kCheckedTruncateFloat64ToInt32;}
+\DoxyCodeLine{399         \textcolor{keywordflow}{case} ValueRepresentation::kUint32:}
+\DoxyCodeLine{400           \textcolor{comment}{// The graph builder never inserts Tagged-\/>Uint32 conversions, so we}}
+\DoxyCodeLine{401           \textcolor{comment}{// don't have to handle this case.}}
+\DoxyCodeLine{402           \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{403         \textcolor{keywordflow}{case} ValueRepresentation::kHoleyFloat64:}
+\DoxyCodeLine{404 \textcolor{preprocessor}{\#ifdef V8\_ENABLE\_EXPERIMENTAL\_UNDEFINED\_DOUBLE}}
+\DoxyCodeLine{405           \textcolor{comment}{// When converting to kHoleyFloat64 representation, we need to turn}}
+\DoxyCodeLine{406           \textcolor{comment}{// those NaN patterns that have a special interpretation in}}
+\DoxyCodeLine{407           \textcolor{comment}{// HoleyFloat64 (e.g. undefined and hole) into the canonical NaN so}}
+\DoxyCodeLine{408           \textcolor{comment}{// that they keep representing NaNs in the new representation.}}
+\DoxyCodeLine{409           \textcolor{keywordflow}{return} Opcode::kFloat64ToHoleyFloat64;}
+\DoxyCodeLine{410 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{411           \textcolor{keywordflow}{return} Opcode::kIdentity;}
+\DoxyCodeLine{412 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_ENABLE\_EXPERIMENTAL\_UNDEFINED\_DOUBLE}}
+\DoxyCodeLine{413 }
+\DoxyCodeLine{414         \textcolor{keywordflow}{case} ValueRepresentation::kFloat64:}
+\DoxyCodeLine{415         \textcolor{keywordflow}{case} ValueRepresentation::kTagged:}
+\DoxyCodeLine{416         \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02ic_8cc_03_a4631bacb0230cb3812dd449094232bc8a38a8b13c0eb02da9a968bf2c3b4af0f6}{ValueRepresentation::kIntPtr}}:}
+\DoxyCodeLine{417           \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{418       \}}
+\DoxyCodeLine{419     \textcolor{keywordflow}{case} ValueRepresentation::kHoleyFloat64:}
+\DoxyCodeLine{420       \textcolor{keywordflow}{switch} (to) \{}
+\DoxyCodeLine{421         \textcolor{keywordflow}{case} ValueRepresentation::kInt32:}
+\DoxyCodeLine{422           \textcolor{comment}{// Holes are NaNs, so we can truncate them to int32 same as real NaNs.}}
+\DoxyCodeLine{423           \textcolor{keywordflow}{if} (truncating) \{}
+\DoxyCodeLine{424             \textcolor{keywordflow}{return} Opcode::kTruncateFloat64ToInt32;}
+\DoxyCodeLine{425           \}}
+\DoxyCodeLine{426           \textcolor{keywordflow}{return} Opcode::kCheckedTruncateFloat64ToInt32;}
+\DoxyCodeLine{427         \textcolor{keywordflow}{case} ValueRepresentation::kUint32:}
+\DoxyCodeLine{428           \textcolor{comment}{// The graph builder never inserts Tagged-\/>Uint32 conversions, so we}}
+\DoxyCodeLine{429           \textcolor{comment}{// don't have to handle this case.}}
+\DoxyCodeLine{430           \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{431         \textcolor{keywordflow}{case} ValueRepresentation::kFloat64:}
+\DoxyCodeLine{432           \textcolor{keywordflow}{return} Opcode::kHoleyFloat64ToMaybeNanFloat64;}
+\DoxyCodeLine{433 }
+\DoxyCodeLine{434         \textcolor{keywordflow}{case} ValueRepresentation::kHoleyFloat64:}
+\DoxyCodeLine{435         \textcolor{keywordflow}{case} ValueRepresentation::kTagged:}
+\DoxyCodeLine{436         \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02ic_8cc_03_a4631bacb0230cb3812dd449094232bc8a38a8b13c0eb02da9a968bf2c3b4af0f6}{ValueRepresentation::kIntPtr}}:}
+\DoxyCodeLine{437           \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{438       \}}
+\DoxyCodeLine{439 }
+\DoxyCodeLine{440     \textcolor{keywordflow}{case} ValueRepresentation::kTagged:}
+\DoxyCodeLine{441     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02ic_8cc_03_a4631bacb0230cb3812dd449094232bc8a38a8b13c0eb02da9a968bf2c3b4af0f6}{ValueRepresentation::kIntPtr}}:}
+\DoxyCodeLine{442       \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{443   \}}
+\DoxyCodeLine{444   \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}();}
+\DoxyCodeLine{445 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+NE, v8\+::internal\+::maglev\+::k\+Float64, v8\+::internal\+::maglev\+::k\+Holey\+Float64, v8\+::internal\+::maglev\+::k\+Int32, v8\+::internal\+::maglev\+::k\+Int\+Ptr, v8\+::internal\+::maglev\+::k\+Tagged, v8\+::internal\+::maglev\+::k\+Uint32, and v8\+::internal\+::\+UNREACHABLE().
+
+
+
+Referenced by v8\+::internal\+::maglev\+::\+Maglev\+Phi\+Representation\+Selector\+::\+Convert\+Tagged\+Phi\+To(), and v8\+::internal\+::maglev\+::\+Maglev\+Phi\+Representation\+Selector\+::\+Update\+Untagging\+Of\+Phi().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-phi-representation-selector_8cc_03_a39b3710e558defb8210e6320e3c98e07_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-phi-representation-selector_8cc_03_a39b3710e558defb8210e6320e3c98e07_icgraph}
+\end{center}
+\end{figure}

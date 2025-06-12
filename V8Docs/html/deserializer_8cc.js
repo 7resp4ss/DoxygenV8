@@ -14,5 +14,11 @@ var deserializer_8cc =
     [ "CASE_RANGE", "deserializer_8cc.html#ae819c3ed333f92bb026e9cf6a1a84585", null ],
     [ "CASE_RANGE_ALL_SPACES", "deserializer_8cc.html#aa01e8f6600988c698765fe298f6bfdd9", null ],
     [ "PRIxTAGGED", "deserializer_8cc.html#a2488bcef27e7182f0cf2cc676839aec7", null ],
-    [ "EXPORT_TEMPLATE_DEFINE", "deserializer_8cc.html#aa16367f015eb3f43bc51056deb4f86b8", null ]
+    [ "ComputeRawHashField", "deserializer_8cc.html#a25c715cb41b21d2108961b876b7d403a", null ],
+    [ "EXPORT_TEMPLATE_DEFINE", "deserializer_8cc.html#aa16367f015eb3f43bc51056deb4f86b8", null ],
+    [ "NoExternalReferencesCallback", "deserializer_8cc.html#a2722128e5d020007333b94262c15d957", null ],
+    [ "PostProcessExternalString", "deserializer_8cc.html#ab1d30dc3ff43b82d5984b05c68696430", null ],
+    [ "SnapshotSpaceName", "deserializer_8cc.html#a534109f1932fe6d66fcafe9e28a36b68", null ],
+    [ "SpaceToAllocation", "deserializer_8cc.html#a85649f3b2bf624fd307e6690beb64d71", null ],
+    [ "VerifyBytecodeCount", "deserializer_8cc.html#a733ab76e1f4a52575c8b82d6666483c0", null ]
 ];

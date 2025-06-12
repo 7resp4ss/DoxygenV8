@@ -1,6 +1,7 @@
 var perfetto_logger_8cc =
 [
-    [ "isolates_", "perfetto-logger_8cc.html#a3fd505e0d8e7ba164602a0e0191968f4", null ],
-    [ "mutex_", "perfetto-logger_8cc.html#aa79b1c3ffa58499b08380edb5aa7dc13", null ],
-    [ "num_active_data_sources_", "perfetto-logger_8cc.html#a9e09bf7542377a894b7f5b47a72169d3", null ]
+    [ "IsolateRegistry", "classv8_1_1internal_1_1anonymous__namespace_02perfetto-logger_8cc_03_1_1IsolateRegistry.html", "classv8_1_1internal_1_1anonymous__namespace_02perfetto-logger_8cc_03_1_1IsolateRegistry" ],
+    [ "NewCodeTraceContext", "perfetto-logger_8cc.html#a176e17770fa15ffe72fdf51c6be45497", null ],
+    [ "NewTracePacket", "perfetto-logger_8cc.html#a10b5b41653855de08f7b42c3555b8666", null ],
+    [ "WriteJsCode", "perfetto-logger_8cc.html#ac2ddbabde3820220442dfcee898c6141", null ]
 ];

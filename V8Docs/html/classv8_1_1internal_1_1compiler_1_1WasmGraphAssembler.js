@@ -25,6 +25,7 @@ var classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler =
     [ "BuildSmiShiftBitsConstant32", "classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler.html#a9fedfc53eb4a065e2e10ad68e1ab1915", null ],
     [ "BuildTruncateIntPtrToInt32", "classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler.html#a97e511bcf51852a2ad8276793f0ab924", null ],
     [ "CallBuiltin", "classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler.html#a20a2319674662dc309cf9fc65e47b1bd", null ],
+    [ "CallBuiltinImpl", "classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler.html#a0047bd1aa3c08ed7a3332f00d97faead", null ],
     [ "CallBuiltinThroughJumptable", "classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler.html#a7b9fa4d9fea0c93a239a62d77b8c7b06", null ],
     [ "CallBuiltinWithFrameState", "classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler.html#a64593d7b5e35d0f5dbec31e347939bd0", null ],
     [ "FieldOffset", "classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler.html#a1c5eeeabeb1dc6beb132f6e35ac50c97", null ],
@@ -95,5 +96,6 @@ var classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler =
     [ "WasmTypeCast", "classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler.html#a04cb2149eb6ebc0517413a9d020203a9", null ],
     [ "WasmTypeCastAbstract", "classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler.html#a61063e45861ea7996f2de662c7aede99", null ],
     [ "WasmTypeCheck", "classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler.html#a126ebe67556b77075100a70369ce945c", null ],
-    [ "WasmTypeCheckAbstract", "classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler.html#ac0b849a8a5f98fd40d4d8bcd2328c0f1", null ]
+    [ "WasmTypeCheckAbstract", "classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler.html#ac0b849a8a5f98fd40d4d8bcd2328c0f1", null ],
+    [ "simplified_", "classv8_1_1internal_1_1compiler_1_1WasmGraphAssembler.html#a753cc33e18a41271203e774804324416", null ]
 ];

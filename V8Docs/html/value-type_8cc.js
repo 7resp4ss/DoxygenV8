@@ -9,5 +9,7 @@ var value_type_8cc =
     [ "NUMERIC_CASE", "value-type_8cc.html#a9c33ee23ae3c5420f2f894bd0a60cf38", null ],
     [ "EquivalentNumericSig", "value-type_8cc.html#a25732cbe4fc2403b5762182dfd3398bd", null ],
     [ "GetI32Sig", "value-type_8cc.html#a927de8c7544d785c4fb75df8eb0796a7", null ],
+    [ "PrintGenericHeaptypeName", "value-type_8cc.html#a6031ca6dc513978614ee41e37f0b0e25", null ],
+    [ "ReplaceTypeInSig", "value-type_8cc.html#ab42a9d93c8ce7052ff77945246367d87", null ],
     [ "WasmReturnTypeFromSignature", "value-type_8cc.html#a4b78a0f7f1772e8f741d3209435d4e19", null ]
 ];

@@ -1,0 +1,260 @@
+\hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03}{}\doxysection{cppgc\+::internal\+::anonymous\+\_\+namespace\{compactor.\+cc\} Namespace Reference}
+\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03}\index{cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classcppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_1_1MovableReferences}{Movable\+References}}
+\item 
+class \mbox{\hyperlink{classcppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_1_1CompactionState}{Compaction\+State}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_aabf1ac3278df53e2ce4d012d3333b7de}{Compact\+Page}} (\mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPage}{Normal\+Page}} $\ast$page, \mbox{\hyperlink{classcppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_1_1CompactionState}{Compaction\+State}} \&compaction\+\_\+state, \mbox{\hyperlink{namespacecppgc_1_1internal_a2e27dcadb45728a61d487fc8975f9f48}{Sticky\+Bits}} sticky\+\_\+bits)
+\item 
+void \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_a308bf4189241fcdc01f0bd0f4f8875da}{Compact\+Space}} (\mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageSpace}{Normal\+Page\+Space}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}}, \mbox{\hyperlink{classcppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_1_1MovableReferences}{Movable\+References}} \&movable\+\_\+references, \mbox{\hyperlink{namespacecppgc_1_1internal_a2e27dcadb45728a61d487fc8975f9f48}{Sticky\+Bits}} sticky\+\_\+bits)
+\item 
+size\+\_\+t \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_a66fc3742efe06ac17561156aab9ef4f0}{Update\+Heap\+Residency}} (const std\+::vector$<$ \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageSpace}{Normal\+Page\+Space}} $\ast$ $>$ \&spaces)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr size\+\_\+t \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_a0561f78a72742fb05ae34f1840b28a1f}{k\+Free\+List\+Size\+Threshold}} = 512 $\ast$ \mbox{\hyperlink{namespacecppgc_1_1internal_ac3dfbfd759ff34e664439eed37a8876e}{k\+KB}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_aabf1ac3278df53e2ce4d012d3333b7de}\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_aabf1ac3278df53e2ce4d012d3333b7de}} 
+\index{cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}}!CompactPage@{CompactPage}}
+\index{CompactPage@{CompactPage}!cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{CompactPage()}{CompactPage()}}
+{\footnotesize\ttfamily void cppgc\+::internal\+::anonymous\+\_\+namespace\{compactor.\+cc\}\+::Compact\+Page (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPage}{Normal\+Page}} $\ast$}]{page,  }\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_1_1CompactionState}{Compaction\+State}} \&}]{compaction\+\_\+state,  }\item[{\mbox{\hyperlink{namespacecppgc_1_1internal_a2e27dcadb45728a61d487fc8975f9f48}{Sticky\+Bits}}}]{sticky\+\_\+bits }\end{DoxyParamCaption})}
+
+
+
+Definition at line 335 of file compactor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{336                                          \{}
+\DoxyCodeLine{337   compaction\_state.AddPage(page);}
+\DoxyCodeLine{338 }
+\DoxyCodeLine{339   page-\/>object\_start\_bitmap().Clear();}
+\DoxyCodeLine{340 }
+\DoxyCodeLine{341   \textcolor{keywordflow}{for} (\mbox{\hyperlink{namespacev8_1_1base_aed4219b45684a3840c8b930b5df90ea9}{Address}} header\_address = page-\/>PayloadStart();}
+\DoxyCodeLine{342        header\_address < page-\/>PayloadEnd();) \{}
+\DoxyCodeLine{343     HeapObjectHeader* header =}
+\DoxyCodeLine{344         \textcolor{keyword}{reinterpret\_cast<}HeapObjectHeader*\textcolor{keyword}{>}(header\_address);}
+\DoxyCodeLine{345     \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} = header-\/>AllocatedSize();}
+\DoxyCodeLine{346     \mbox{\hyperlink{src_2base_2logging_8h_afd957f297df7e9ee36c46185e961485f}{DCHECK\_GT}}(\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}}, 0u);}
+\DoxyCodeLine{347     \mbox{\hyperlink{src_2base_2logging_8h_af1a711c8d5520dff78858ddefd2ad668}{DCHECK\_LT}}(\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}}, \mbox{\hyperlink{namespacecppgc_1_1internal_a31164e981f2a7080855c4ba02f1a910b}{kPageSize}});}
+\DoxyCodeLine{348 }
+\DoxyCodeLine{349     \textcolor{keywordflow}{if} (header-\/>IsFree()) \{}
+\DoxyCodeLine{350       \textcolor{comment}{// Unpoison the freelist entry so that we can compact into it as wanted.}}
+\DoxyCodeLine{351       \mbox{\hyperlink{asan_8h_a1bde985325c2af6ffc519c47b9092f35}{ASAN\_UNPOISON\_MEMORY\_REGION}}(header\_address, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}});}
+\DoxyCodeLine{352       header\_address += \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}};}
+\DoxyCodeLine{353       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{354     \}}
+\DoxyCodeLine{355 }
+\DoxyCodeLine{356     \textcolor{keywordflow}{if} (!header-\/>IsMarked()) \{}
+\DoxyCodeLine{357       \textcolor{comment}{// Compaction is currently launched only from AtomicPhaseEpilogue, so it's}}
+\DoxyCodeLine{358       \textcolor{comment}{// guaranteed to be on the mutator thread -\/ no need to postpone}}
+\DoxyCodeLine{359       \textcolor{comment}{// finalization.}}
+\DoxyCodeLine{360       header-\/>Finalize();}
+\DoxyCodeLine{361 }
+\DoxyCodeLine{362       \textcolor{comment}{// As compaction is under way, leave the freed memory accessible}}
+\DoxyCodeLine{363       \textcolor{comment}{// while compacting the rest of the page. We just zap the payload}}
+\DoxyCodeLine{364       \textcolor{comment}{// to catch out other finalizers trying to access it.}}
+\DoxyCodeLine{365 \textcolor{preprocessor}{\#if DEBUG || defined(V8\_USE\_MEMORY\_SANITIZER) || \(\backslash\)}}
+\DoxyCodeLine{366 \textcolor{preprocessor}{    defined(V8\_USE\_ADDRESS\_SANITIZER)}}
+\DoxyCodeLine{367       \mbox{\hyperlink{namespacecppgc_1_1internal_ad208e52a76e72b34322ef849122ae084}{ZapMemory}}(header, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}});}
+\DoxyCodeLine{368 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{369       header\_address += \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}};}
+\DoxyCodeLine{370       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{371     \}}
+\DoxyCodeLine{372 }
+\DoxyCodeLine{373     \textcolor{comment}{// Object is marked.}}
+\DoxyCodeLine{374 \textcolor{preprocessor}{\#if defined(CPPGC\_YOUNG\_GENERATION)}}
+\DoxyCodeLine{375     \textcolor{keywordflow}{if} (sticky\_bits == StickyBits::kDisabled) header-\/>Unmark();}
+\DoxyCodeLine{376 \textcolor{preprocessor}{\#else   }\textcolor{comment}{// !defined(CPPGC\_YOUNG\_GENERATION)}}
+\DoxyCodeLine{377     header-\/>Unmark();}
+\DoxyCodeLine{378 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// !defined(CPPGC\_YOUNG\_GENERATION)}}
+\DoxyCodeLine{379 }
+\DoxyCodeLine{380     \textcolor{comment}{// Potentially unpoison the live object as well as it is the source of}}
+\DoxyCodeLine{381     \textcolor{comment}{// the copy.}}
+\DoxyCodeLine{382     \mbox{\hyperlink{asan_8h_a1bde985325c2af6ffc519c47b9092f35}{ASAN\_UNPOISON\_MEMORY\_REGION}}(header-\/>ObjectStart(), header-\/>ObjectSize());}
+\DoxyCodeLine{383     compaction\_state.RelocateObject(page, header\_address, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}});}
+\DoxyCodeLine{384     header\_address += \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}};}
+\DoxyCodeLine{385   \}}
+\DoxyCodeLine{386 }
+\DoxyCodeLine{387   compaction\_state.FinishCompactingPage(page);}
+\DoxyCodeLine{388 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::anonymous\+\_\+namespace\{compactor.\+cc\}\+::\+Compaction\+State\+::\+Add\+Page(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Allocated\+Size(), ASAN\+\_\+\+UNPOISON\+\_\+\+MEMORY\+\_\+\+REGION, cppgc\+::internal\+::\+Object\+Start\+Bitmap\+::\+Clear(), DCHECK\+\_\+\+GT, DCHECK\+\_\+\+LT, cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Finalize(), cppgc\+::internal\+::anonymous\+\_\+namespace\{compactor.\+cc\}\+::\+Compaction\+State\+::\+Finish\+Compacting\+Page(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Is\+Free(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Is\+Marked(), cppgc\+::internal\+::k\+Disabled, cppgc\+::internal\+::k\+Page\+Size, cppgc\+::internal\+::\+Normal\+Page\+::object\+\_\+start\+\_\+bitmap(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Object\+Size(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Object\+Start(), cppgc\+::internal\+::\+Normal\+Page\+::\+Payload\+Start(), cppgc\+::internal\+::anonymous\+\_\+namespace\{compactor.\+cc\}\+::\+Compaction\+State\+::\+Relocate\+Object(), size(), cppgc\+::internal\+::\+Heap\+Object\+Header\+::\+Unmark(), and cppgc\+::internal\+::\+Zap\+Memory().
+
+
+
+Referenced by Compact\+Space().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_aabf1ac3278df53e2ce4d012d3333b7de_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_aabf1ac3278df53e2ce4d012d3333b7de_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_a308bf4189241fcdc01f0bd0f4f8875da}\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_a308bf4189241fcdc01f0bd0f4f8875da}} 
+\index{cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}}!CompactSpace@{CompactSpace}}
+\index{CompactSpace@{CompactSpace}!cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{CompactSpace()}{CompactSpace()}}
+{\footnotesize\ttfamily void cppgc\+::internal\+::anonymous\+\_\+namespace\{compactor.\+cc\}\+::Compact\+Space (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageSpace}{Normal\+Page\+Space}} $\ast$}]{space,  }\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_1_1MovableReferences}{Movable\+References}} \&}]{movable\+\_\+references,  }\item[{\mbox{\hyperlink{namespacecppgc_1_1internal_a2e27dcadb45728a61d487fc8975f9f48}{Sticky\+Bits}}}]{sticky\+\_\+bits }\end{DoxyParamCaption})}
+
+
+
+Definition at line 390 of file compactor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{391                                           \{}
+\DoxyCodeLine{392   \textcolor{keyword}{using} Pages = NormalPageSpace::Pages;}
+\DoxyCodeLine{393 }
+\DoxyCodeLine{394 \textcolor{preprocessor}{\#ifdef V8\_USE\_ADDRESS\_SANITIZER}}
+\DoxyCodeLine{395   UnmarkedObjectsPoisoner().Traverse(*\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}});}
+\DoxyCodeLine{396 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_USE\_ADDRESS\_SANITIZER}}
+\DoxyCodeLine{397 }
+\DoxyCodeLine{398   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}-\/>is\_compactable());}
+\DoxyCodeLine{399 }
+\DoxyCodeLine{400   \mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}-\/>free\_list().Clear();}
+\DoxyCodeLine{401 }
+\DoxyCodeLine{402   \textcolor{comment}{// Compaction generally follows Jonker's algorithm for fast garbage}}
+\DoxyCodeLine{403   \textcolor{comment}{// compaction. Compaction is performed in-\/place, sliding objects down over}}
+\DoxyCodeLine{404   \textcolor{comment}{// unused holes for a smaller heap page footprint and improved locality. A}}
+\DoxyCodeLine{405   \textcolor{comment}{// "{}compaction pointer"{} is consequently kept, pointing to the next available}}
+\DoxyCodeLine{406   \textcolor{comment}{// address to move objects down to. It will belong to one of the already}}
+\DoxyCodeLine{407   \textcolor{comment}{// compacted pages for this space, but as compaction proceeds, it will not}}
+\DoxyCodeLine{408   \textcolor{comment}{// belong to the same page as the one being currently compacted.}}
+\DoxyCodeLine{409   \textcolor{comment}{//}}
+\DoxyCodeLine{410   \textcolor{comment}{// The compaction pointer is represented by the}}
+\DoxyCodeLine{411   \textcolor{comment}{// |(current\_page\_, used\_bytes\_in\_current\_page\_)| pair, with}}
+\DoxyCodeLine{412   \textcolor{comment}{// |used\_bytes\_in\_current\_page\_| being the offset into |current\_page\_|, making}}
+\DoxyCodeLine{413   \textcolor{comment}{// up the next available location. When the compaction of an arena page causes}}
+\DoxyCodeLine{414   \textcolor{comment}{// the compaction pointer to exhaust the current page it is compacting into,}}
+\DoxyCodeLine{415   \textcolor{comment}{// page compaction will advance the current page of the compaction}}
+\DoxyCodeLine{416   \textcolor{comment}{// pointer, as well as the allocation point.}}
+\DoxyCodeLine{417   \textcolor{comment}{//}}
+\DoxyCodeLine{418   \textcolor{comment}{// By construction, the page compaction can be performed without having}}
+\DoxyCodeLine{419   \textcolor{comment}{// to allocate any new pages. So to arrange for the page compaction's}}
+\DoxyCodeLine{420   \textcolor{comment}{// supply of freed, available pages, we chain them together after each}}
+\DoxyCodeLine{421   \textcolor{comment}{// has been "{}compacted from"{}. The page compaction will then reuse those}}
+\DoxyCodeLine{422   \textcolor{comment}{// as needed, and once finished, the chained, available pages can be}}
+\DoxyCodeLine{423   \textcolor{comment}{// released back to the OS.}}
+\DoxyCodeLine{424   \textcolor{comment}{//}}
+\DoxyCodeLine{425   \textcolor{comment}{// To ease the passing of the compaction state when iterating over an}}
+\DoxyCodeLine{426   \textcolor{comment}{// arena's pages, package it up into a |CompactionState|.}}
+\DoxyCodeLine{427 }
+\DoxyCodeLine{428   Pages pages = \mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}-\/>RemoveAllPages();}
+\DoxyCodeLine{429   \textcolor{keywordflow}{if} (pages.empty()) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{430 }
+\DoxyCodeLine{431   CompactionState compaction\_state(\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}, movable\_references);}
+\DoxyCodeLine{432   \textcolor{keywordflow}{for} (BasePage* page : pages) \{}
+\DoxyCodeLine{433     page-\/>ResetMarkedBytes();}
+\DoxyCodeLine{434     \textcolor{comment}{// Large objects do not belong to this arena.}}
+\DoxyCodeLine{435     \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_aabf1ac3278df53e2ce4d012d3333b7de}{CompactPage}}(NormalPage::From(page), compaction\_state, sticky\_bits);}
+\DoxyCodeLine{436   \}}
+\DoxyCodeLine{437 }
+\DoxyCodeLine{438   compaction\_state.FinishCompactingSpace();}
+\DoxyCodeLine{439   \textcolor{comment}{// Sweeping will verify object start bitmap of compacted space.}}
+\DoxyCodeLine{440 \}}
+
+\end{DoxyCode}
+
+
+References Compact\+Page(), DCHECK, cppgc\+::internal\+::anonymous\+\_\+namespace\{compactor.\+cc\}\+::\+Compaction\+State\+::\+Finish\+Compacting\+Space(), cppgc\+::internal\+::\+Normal\+Page\+::\+From(), and space.
+
+
+
+Referenced by cppgc\+::internal\+::\+Compactor\+::\+Compact\+Spaces\+If\+Enabled().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_a308bf4189241fcdc01f0bd0f4f8875da_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_a308bf4189241fcdc01f0bd0f4f8875da_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_a66fc3742efe06ac17561156aab9ef4f0}\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_a66fc3742efe06ac17561156aab9ef4f0}} 
+\index{cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}}!UpdateHeapResidency@{UpdateHeapResidency}}
+\index{UpdateHeapResidency@{UpdateHeapResidency}!cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{UpdateHeapResidency()}{UpdateHeapResidency()}}
+{\footnotesize\ttfamily size\+\_\+t cppgc\+::internal\+::anonymous\+\_\+namespace\{compactor.\+cc\}\+::Update\+Heap\+Residency (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{classcppgc_1_1internal_1_1NormalPageSpace}{Normal\+Page\+Space}} $\ast$ $>$ \&}]{spaces }\end{DoxyParamCaption})}
+
+
+
+Definition at line 442 of file compactor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{442                                                                       \{}
+\DoxyCodeLine{443   \textcolor{keywordflow}{return} std::accumulate(spaces.cbegin(), spaces.cend(), 0u,}
+\DoxyCodeLine{444                          [](\textcolor{keywordtype}{size\_t} acc, \textcolor{keyword}{const} NormalPageSpace* \mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}) \{}
+\DoxyCodeLine{445                            DCHECK(space-\/>is\_compactable());}
+\DoxyCodeLine{446                            if (!space-\/>size()) return acc;}
+\DoxyCodeLine{447                            return acc + space-\/>free\_list().Size();}
+\DoxyCodeLine{448                          \});}
+\DoxyCodeLine{449 \}}
+
+\end{DoxyCode}
+
+
+References space.
+
+
+
+Referenced by cppgc\+::internal\+::\+Compactor\+::\+Should\+Compact().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_a66fc3742efe06ac17561156aab9ef4f0_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_a0561f78a72742fb05ae34f1840b28a1f}\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02compactor_8cc_03_a0561f78a72742fb05ae34f1840b28a1f}} 
+\index{cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}}!kFreeListSizeThreshold@{kFreeListSizeThreshold}}
+\index{kFreeListSizeThreshold@{kFreeListSizeThreshold}!cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}compactor.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{kFreeListSizeThreshold}{kFreeListSizeThreshold}}
+{\footnotesize\ttfamily constexpr size\+\_\+t cppgc\+::internal\+::anonymous\+\_\+namespace\{compactor.\+cc\}\+::k\+Free\+List\+Size\+Threshold = 512 $\ast$ \mbox{\hyperlink{namespacecppgc_1_1internal_ac3dfbfd759ff34e664439eed37a8876e}{k\+KB}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line 29 of file compactor.\+cc.
+
+
+
+Referenced by cppgc\+::internal\+::\+Compactor\+::\+Should\+Compact().
+

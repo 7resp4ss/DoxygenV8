@@ -1,0 +1,7 @@
+var namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev_compilation_info_8cc_03 =
+[
+    [ "MaglevCompilationHandleScope", "classv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-compilation-info_8cc_03_1_1MaglevCompilationHandleScope.html", "classv8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-compilation-info_8cc_03_1_1MaglevCompilationHandleScope" ],
+    [ "CanonicalHandle", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-compilation-info_8cc_03.html#afcf68ec199ca13563b6c25a6725bebe4", null ],
+    [ "SpecializeToFunctionContext", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-compilation-info_8cc_03.html#a54b5afb1a8122adcb724450a7e372dca", null ],
+    [ "kMaglevZoneName", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-compilation-info_8cc_03.html#a02086ba3a7db6910024ebebbf1eb0dad", null ]
+];

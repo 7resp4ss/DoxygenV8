@@ -3,7 +3,7 @@
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-double \mbox{\hyperlink{namespacev8_1_1internal_1_1math_a4589bc01b4fe9b6dff94ba4d5bdbb82a}{pow}} (double \mbox{\hyperlink{liveedit-diff_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}}, double \mbox{\hyperlink{namespacev8_1_1internal_aeb5be8c54a68c0a55508c931639d71da}{y}})
+double \mbox{\hyperlink{namespacev8_1_1internal_1_1math_a4589bc01b4fe9b6dff94ba4d5bdbb82a}{pow}} (double x, double \mbox{\hyperlink{namespacev8_1_1internal_aeb5be8c54a68c0a55508c931639d71da}{y}})
 \end{DoxyCompactItemize}
 
 
@@ -14,3 +14,73 @@ double \mbox{\hyperlink{namespacev8_1_1internal_1_1math_a4589bc01b4fe9b6dff94ba4
 \doxysubsubsection{\texorpdfstring{pow()}{pow()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} double v8\+::internal\+::math\+::pow (\begin{DoxyParamCaption}\item[{double}]{x,  }\item[{double}]{y }\end{DoxyParamCaption})}
 
+
+
+Definition at line 14 of file ieee754.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{14                                \{}
+\DoxyCodeLine{15   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.use\_std\_math\_pow) \{}
+\DoxyCodeLine{16     \textcolor{keywordflow}{if} (std::isnan(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}})) \{}
+\DoxyCodeLine{17       \textcolor{comment}{// 1. If exponent is NaN, return NaN.}}
+\DoxyCodeLine{18       \textcolor{keywordflow}{return} std::numeric\_limits<double>::quiet\_NaN();}
+\DoxyCodeLine{19     \}}
+\DoxyCodeLine{20     \textcolor{keywordflow}{if} (std::isinf(\mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}}) \&\& (x == 1 || x == -\/1)) \{}
+\DoxyCodeLine{21       \textcolor{comment}{// 9. If exponent is +∞𝔽, then}}
+\DoxyCodeLine{22       \textcolor{comment}{//   b. If abs(ℝ(base)) = 1, return NaN.}}
+\DoxyCodeLine{23       \textcolor{comment}{// and}}
+\DoxyCodeLine{24       \textcolor{comment}{// 10. If exponent is -\/∞𝔽, then}}
+\DoxyCodeLine{25       \textcolor{comment}{//   b. If abs(ℝ(base)) = 1, return NaN.}}
+\DoxyCodeLine{26       \textcolor{keywordflow}{return} std::numeric\_limits<double>::quiet\_NaN();}
+\DoxyCodeLine{27     \}}
+\DoxyCodeLine{28     \textcolor{keywordflow}{if} (std::isnan(x)) \{}
+\DoxyCodeLine{29       \textcolor{comment}{// std::pow distinguishes between quiet and signaling NaN; JS doesn't.}}
+\DoxyCodeLine{30       x = std::numeric\_limits<double>::quiet\_NaN();}
+\DoxyCodeLine{31     \}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \textcolor{comment}{// The following special cases just exist to match the optimizing compilers'}}
+\DoxyCodeLine{34     \textcolor{comment}{// behavior, which avoid calls to `pow` in those cases.}}
+\DoxyCodeLine{35     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}} == 2) \{}
+\DoxyCodeLine{36       \textcolor{comment}{// x ** 2   ==>   x * x}}
+\DoxyCodeLine{37       \textcolor{keywordflow}{return} x * x;}
+\DoxyCodeLine{38     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}} == 0.5) \{}
+\DoxyCodeLine{39       \textcolor{comment}{// x ** 0.5   ==>  sqrt(x), except if x is -\/Infinity}}
+\DoxyCodeLine{40       \textcolor{keywordflow}{if} (std::isinf(x)) \{}
+\DoxyCodeLine{41         \textcolor{keywordflow}{return} std::numeric\_limits<double>::infinity();}
+\DoxyCodeLine{42       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{43         \textcolor{comment}{// Note the +0 so that we get +0 for -\/0**0.5 rather than -\/0.}}
+\DoxyCodeLine{44         \textcolor{keywordflow}{return} std::sqrt(x + 0);}
+\DoxyCodeLine{45       \}}
+\DoxyCodeLine{46     \}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_1_1math_a4589bc01b4fe9b6dff94ba4d5bdbb82a}{std::pow}}(x, \mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}});}
+\DoxyCodeLine{49   \}}
+\DoxyCodeLine{50   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_1_1math_a4589bc01b4fe9b6dff94ba4d5bdbb82a}{base::ieee754::legacy::pow}}(x, \mbox{\hyperlink{namespacev8_1_1base_1_1internal_aba8167f197e892214b9dc1aba34983de}{y}});}
+\DoxyCodeLine{51 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::ieee754\+::legacy\+::pow(), v8\+::internal\+::v8\+\_\+flags, and v8\+::internal\+::y.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::float64\+\_\+pow\+\_\+wrapper(), v8\+::internal\+::compiler\+::turboshaft\+::\+Machine\+Optimization\+Reducer$<$ Next $>$\+::\+Float\+Binop(), v8\+::internal\+::compiler\+::\+Machine\+Operator\+Reducer\+::\+Reduce(), v8\+::internal\+::\+Parser\+::\+Shortcut\+Literal\+Binary\+Expression(), and v8\+::internal\+::maglev\+::\+Maglev\+Graph\+Builder\+::\+Try\+Fold\+Float64\+Binary\+Operation\+For\+To\+Number().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1math_a4589bc01b4fe9b6dff94ba4d5bdbb82a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1math_a4589bc01b4fe9b6dff94ba4d5bdbb82a_icgraph}
+\end{center}
+\end{figure}

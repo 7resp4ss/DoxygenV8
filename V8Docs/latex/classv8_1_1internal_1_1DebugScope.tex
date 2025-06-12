@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$debug.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Debug\+Scope\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1DebugScope__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -15,6 +25,33 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_a02dd15cacc9b6c6894b4530
 \item 
 \mbox{\hyperlink{classv8_1_1base_1_1TimeDelta}{base\+::\+Time\+Delta}} \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_a6bffdf2ad934a5831f03211c240d35e0}{Elapsed\+Time\+Since\+Creation}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_ab81bcd6a6f4c3afcf9b9fea0c76f9dfb}{isolate}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Debug}{Debug}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_aae7baabde9efb99b881531707a53700d}{debug\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1DebugScope}{Debug\+Scope}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_ab5d5e4e98ae30a3576ec7f242df203ec}{prev\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a333e5f682c28e1331a6da1c110c4db1a}{Stack\+Frame\+Id}} \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_a86d9f1daca8b7cf6bd1111e6878e1b46}{break\+\_\+frame\+\_\+id\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1PostponeInterruptsScope}{Postpone\+Interrupts\+Scope}} \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_aea106dfd70a2df2d900d744e03f8688e}{no\+\_\+interrupts\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_ae209e1a5bcd078dccfc841504fe477ab}{terminate\+\_\+on\+\_\+resume\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer}{base\+::\+Elapsed\+Timer}} \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_a9592e2c86db668c56a373edbf11a7c90}{timer\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 739 of file debug.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -24,12 +61,91 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_a02dd15cacc9b6c6894b4530
 \doxysubsubsection{\texorpdfstring{DebugScope()}{DebugScope()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Debug\+Scope\+::\+Debug\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Debug}{Debug}} $\ast$}]{debug }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
+
+
+Definition at line 2954 of file debug.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2955     : \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_aae7baabde9efb99b881531707a53700d}{debug\_}}(debug),}
+\DoxyCodeLine{2956       \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_ab5d5e4e98ae30a3576ec7f242df203ec}{prev\_}}(\textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_ab470ff3fe22c196e837db04a750efa3c}{DebugScope}}*\textcolor{keyword}{>}(}
+\DoxyCodeLine{2957           \mbox{\hyperlink{namespacev8_1_1base_a2e581b5cd5e9342670c135a3b365160c}{base::Relaxed\_Load}}(\&debug-\/>thread\_local\_.current\_debug\_scope\_))),}
+\DoxyCodeLine{2958       \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_aea106dfd70a2df2d900d744e03f8688e}{no\_interrupts\_}}(\mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_aae7baabde9efb99b881531707a53700d}{debug\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Debug_ac22a19f35dcbc62cfaca88508d96a6c3}{isolate\_}}) \{}
+\DoxyCodeLine{2959   \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_a9592e2c86db668c56a373edbf11a7c90}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_a451f6e2636acacce40e1dad13fbf7a20}{Start}}();}
+\DoxyCodeLine{2960   \textcolor{comment}{// Link recursive debugger entry.}}
+\DoxyCodeLine{2961   \mbox{\hyperlink{namespacev8_1_1base_a00edf83b5d65612ce19389ada4d812d7}{base::Relaxed\_Store}}(\&\mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_aae7baabde9efb99b881531707a53700d}{debug\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Debug_a53a68bcea05768f663420c704a67d9bf}{thread\_local\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1Debug_1_1ThreadLocal_a40cbf57da627ea2158a23933e8a55760}{current\_debug\_scope\_}},}
+\DoxyCodeLine{2962                       \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacev8_1_1base_adeba7076324e70cd6ee49ff00d63b9fa}{base::AtomicWord}}\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{2963   \textcolor{comment}{// Store the previous frame id and return value.}}
+\DoxyCodeLine{2964   \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_a86d9f1daca8b7cf6bd1111e6878e1b46}{break\_frame\_id\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_aae7baabde9efb99b881531707a53700d}{debug\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Debug_a7c0d11660912ea0187080c45eadc123f}{break\_frame\_id}}();}
+\DoxyCodeLine{2965 }
+\DoxyCodeLine{2966   \textcolor{comment}{// Create the new break info. If there is no proper frames there is no break}}
+\DoxyCodeLine{2967   \textcolor{comment}{// frame id.}}
+\DoxyCodeLine{2968   DebuggableStackFrameIterator it(\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a05a2b08b2b0f2d5aef8dc053e2ea3d9b}{Isolate::Current}}());}
+\DoxyCodeLine{2969   \textcolor{keywordtype}{bool} has\_frames = !it.done();}
+\DoxyCodeLine{2970   \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_aae7baabde9efb99b881531707a53700d}{debug\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Debug_a53a68bcea05768f663420c704a67d9bf}{thread\_local\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1Debug_1_1ThreadLocal_ab9f999a8ec3884e025714f8f9fb98522}{break\_frame\_id\_}} =}
+\DoxyCodeLine{2971       has\_frames ? it.frame()-\/>id() : \mbox{\hyperlink{namespacev8_1_1internal_a333e5f682c28e1331a6da1c110c4db1aa918a8ae95f5f2464a0dffff1ae7cfdd6}{StackFrameId::NO\_ID}};}
+\DoxyCodeLine{2972 }
+\DoxyCodeLine{2973   \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_aae7baabde9efb99b881531707a53700d}{debug\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Debug_a0af073e83729d8eb34106711d01f6354}{UpdateState}}();}
+\DoxyCodeLine{2974 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Debug\+::break\+\_\+frame\+\_\+id(), v8\+::internal\+::\+Debug\+::\+Thread\+Local\+::break\+\_\+frame\+\_\+id\+\_\+, break\+\_\+frame\+\_\+id\+\_\+, v8\+::internal\+::\+Isolate\+::\+Current(), v8\+::internal\+::\+Debug\+::\+Thread\+Local\+::current\+\_\+debug\+\_\+scope\+\_\+, debug\+\_\+, v8\+::internal\+::\+Debuggable\+Stack\+Frame\+Iterator\+::done(), v8\+::internal\+::\+Debuggable\+Stack\+Frame\+Iterator\+::frame(), v8\+::internal\+::\+Stack\+Frame\+::id(), v8\+::internal\+::\+NO\+\_\+\+ID, v8\+::base\+::\+Relaxed\+\_\+\+Store(), v8\+::base\+::\+Elapsed\+Timer\+::\+Start(), v8\+::internal\+::\+Debug\+::thread\+\_\+local\+\_\+, timer\+\_\+, and v8\+::internal\+::\+Debug\+::\+Update\+State().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1DebugScope_ab470ff3fe22c196e837db04a750efa3c_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1DebugScope_af39c6c249340a8a58c64e6f1e59b7139}\label{classv8_1_1internal_1_1DebugScope_af39c6c249340a8a58c64e6f1e59b7139}} 
 \index{v8::internal::DebugScope@{v8::internal::DebugScope}!````~DebugScope@{$\sim$DebugScope}}
 \index{````~DebugScope@{$\sim$DebugScope}!v8::internal::DebugScope@{v8::internal::DebugScope}}
 \doxysubsubsection{\texorpdfstring{$\sim$DebugScope()}{~DebugScope()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Debug\+Scope\+::$\sim$\+Debug\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 2982 of file debug.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2982                         \{}
+\DoxyCodeLine{2983   \textcolor{comment}{// Terminate on resume must have been handled by retrieving it, if this is}}
+\DoxyCodeLine{2984   \textcolor{comment}{// the outer scope.}}
+\DoxyCodeLine{2985   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_ae209e1a5bcd078dccfc841504fe477ab}{terminate\_on\_resume\_}}) \{}
+\DoxyCodeLine{2986     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_ab5d5e4e98ae30a3576ec7f242df203ec}{prev\_}}) \{}
+\DoxyCodeLine{2987       \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_aae7baabde9efb99b881531707a53700d}{debug\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Debug_ac22a19f35dcbc62cfaca88508d96a6c3}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a39a1d363e13113d1ca51a5c032312f3e}{stack\_guard}}()-\/>RequestTerminateExecution();}
+\DoxyCodeLine{2988     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{2989       \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_ab5d5e4e98ae30a3576ec7f242df203ec}{prev\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_a02dd15cacc9b6c6894b4530405b5a95b}{set\_terminate\_on\_resume}}();}
+\DoxyCodeLine{2990     \}}
+\DoxyCodeLine{2991   \}}
+\DoxyCodeLine{2992   \textcolor{comment}{// Leaving this debugger entry.}}
+\DoxyCodeLine{2993   \mbox{\hyperlink{namespacev8_1_1base_a00edf83b5d65612ce19389ada4d812d7}{base::Relaxed\_Store}}(\&\mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_aae7baabde9efb99b881531707a53700d}{debug\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Debug_a53a68bcea05768f663420c704a67d9bf}{thread\_local\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1Debug_1_1ThreadLocal_a40cbf57da627ea2158a23933e8a55760}{current\_debug\_scope\_}},}
+\DoxyCodeLine{2994                       \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacev8_1_1base_adeba7076324e70cd6ee49ff00d63b9fa}{base::AtomicWord}}\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_ab5d5e4e98ae30a3576ec7f242df203ec}{prev\_}}));}
+\DoxyCodeLine{2995 }
+\DoxyCodeLine{2996   \textcolor{comment}{// Restore to the previous break state.}}
+\DoxyCodeLine{2997   \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_aae7baabde9efb99b881531707a53700d}{debug\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Debug_a53a68bcea05768f663420c704a67d9bf}{thread\_local\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1Debug_1_1ThreadLocal_ab9f999a8ec3884e025714f8f9fb98522}{break\_frame\_id\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_a86d9f1daca8b7cf6bd1111e6878e1b46}{break\_frame\_id\_}};}
+\DoxyCodeLine{2998 }
+\DoxyCodeLine{2999   \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_aae7baabde9efb99b881531707a53700d}{debug\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Debug_a0af073e83729d8eb34106711d01f6354}{UpdateState}}();}
+\DoxyCodeLine{3000 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Debug\+::\+Thread\+Local\+::break\+\_\+frame\+\_\+id\+\_\+, break\+\_\+frame\+\_\+id\+\_\+, v8\+::internal\+::\+Debug\+::\+Thread\+Local\+::current\+\_\+debug\+\_\+scope\+\_\+, debug\+\_\+, v8\+::internal\+::\+Debug\+::isolate\+\_\+, prev\+\_\+, v8\+::base\+::\+Relaxed\+\_\+\+Store(), set\+\_\+terminate\+\_\+on\+\_\+resume(), v8\+::internal\+::\+Isolate\+::stack\+\_\+guard(), terminate\+\_\+on\+\_\+resume\+\_\+, v8\+::internal\+::\+Debug\+::thread\+\_\+local\+\_\+, and v8\+::internal\+::\+Debug\+::\+Update\+State().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1DebugScope_af39c6c249340a8a58c64e6f1e59b7139_cgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Function Documentation}
@@ -39,6 +155,56 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_a02dd15cacc9b6c6894b4530
 \doxysubsubsection{\texorpdfstring{ElapsedTimeSinceCreation()}{ElapsedTimeSinceCreation()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1TimeDelta}{base\+::\+Time\+Delta}} v8\+::internal\+::\+Debug\+Scope\+::\+Elapsed\+Time\+Since\+Creation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 2978 of file debug.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2978                                                    \{}
+\DoxyCodeLine{2979   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_a9592e2c86db668c56a373edbf11a7c90}{timer\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer_a322a9d18bf9a1a89a232fc014639207b}{Elapsed}}();}
+\DoxyCodeLine{2980 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Elapsed\+Timer\+::\+Elapsed(), and timer\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Debug\+::\+Notify\+Debugger\+Paused\+Event\+Sent().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1DebugScope_a6bffdf2ad934a5831f03211c240d35e0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1DebugScope_a6bffdf2ad934a5831f03211c240d35e0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1DebugScope_ab81bcd6a6f4c3afcf9b9fea0c76f9dfb}\label{classv8_1_1internal_1_1DebugScope_ab81bcd6a6f4c3afcf9b9fea0c76f9dfb}} 
+\index{v8::internal::DebugScope@{v8::internal::DebugScope}!isolate@{isolate}}
+\index{isolate@{isolate}!v8::internal::DebugScope@{v8::internal::DebugScope}}
+\doxysubsubsection{\texorpdfstring{isolate()}{isolate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}}$\ast$ v8\+::internal\+::\+Debug\+Scope\+::isolate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 749 of file debug.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{749 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_aae7baabde9efb99b881531707a53700d}{debug\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Debug_ac22a19f35dcbc62cfaca88508d96a6c3}{isolate\_}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1DebugScope_a02dd15cacc9b6c6894b4530405b5a95b}\label{classv8_1_1internal_1_1DebugScope_a02dd15cacc9b6c6894b4530405b5a95b}} 
 \index{v8::internal::DebugScope@{v8::internal::DebugScope}!set\_terminate\_on\_resume@{set\_terminate\_on\_resume}}
 \index{set\_terminate\_on\_resume@{set\_terminate\_on\_resume}!v8::internal::DebugScope@{v8::internal::DebugScope}}
@@ -47,7 +213,115 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_a02dd15cacc9b6c6894b4530
 
 
 
+Definition at line 2976 of file debug.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{2976 \{ \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope_ae209e1a5bcd078dccfc841504fe477ab}{terminate\_on\_resume\_}} = \textcolor{keyword}{true}; \}}
+
+\end{DoxyCode}
+
+
+References terminate\+\_\+on\+\_\+resume\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Debug\+::\+Set\+Terminate\+On\+Resume(), and $\sim$\+Debug\+Scope().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1DebugScope_a02dd15cacc9b6c6894b4530405b5a95b_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1DebugScope_a86d9f1daca8b7cf6bd1111e6878e1b46}\label{classv8_1_1internal_1_1DebugScope_a86d9f1daca8b7cf6bd1111e6878e1b46}} 
+\index{v8::internal::DebugScope@{v8::internal::DebugScope}!break\_frame\_id\_@{break\_frame\_id\_}}
+\index{break\_frame\_id\_@{break\_frame\_id\_}!v8::internal::DebugScope@{v8::internal::DebugScope}}
+\doxysubsubsection{\texorpdfstring{break\_frame\_id\_}{break\_frame\_id\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a333e5f682c28e1331a6da1c110c4db1a}{Stack\+Frame\+Id}} v8\+::internal\+::\+Debug\+Scope\+::break\+\_\+frame\+\_\+id\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 753 of file debug.\+h.
+
+
+
+Referenced by Debug\+Scope(), and $\sim$\+Debug\+Scope().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1DebugScope_aae7baabde9efb99b881531707a53700d}\label{classv8_1_1internal_1_1DebugScope_aae7baabde9efb99b881531707a53700d}} 
+\index{v8::internal::DebugScope@{v8::internal::DebugScope}!debug\_@{debug\_}}
+\index{debug\_@{debug\_}!v8::internal::DebugScope@{v8::internal::DebugScope}}
+\doxysubsubsection{\texorpdfstring{debug\_}{debug\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Debug}{Debug}}$\ast$ v8\+::internal\+::\+Debug\+Scope\+::debug\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 751 of file debug.\+h.
+
+
+
+Referenced by Debug\+Scope(), and $\sim$\+Debug\+Scope().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1DebugScope_aea106dfd70a2df2d900d744e03f8688e}\label{classv8_1_1internal_1_1DebugScope_aea106dfd70a2df2d900d744e03f8688e}} 
+\index{v8::internal::DebugScope@{v8::internal::DebugScope}!no\_interrupts\_@{no\_interrupts\_}}
+\index{no\_interrupts\_@{no\_interrupts\_}!v8::internal::DebugScope@{v8::internal::DebugScope}}
+\doxysubsubsection{\texorpdfstring{no\_interrupts\_}{no\_interrupts\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1PostponeInterruptsScope}{Postpone\+Interrupts\+Scope}} v8\+::internal\+::\+Debug\+Scope\+::no\+\_\+interrupts\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 754 of file debug.\+h.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1DebugScope_ab5d5e4e98ae30a3576ec7f242df203ec}\label{classv8_1_1internal_1_1DebugScope_ab5d5e4e98ae30a3576ec7f242df203ec}} 
+\index{v8::internal::DebugScope@{v8::internal::DebugScope}!prev\_@{prev\_}}
+\index{prev\_@{prev\_}!v8::internal::DebugScope@{v8::internal::DebugScope}}
+\doxysubsubsection{\texorpdfstring{prev\_}{prev\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1DebugScope}{Debug\+Scope}}$\ast$ v8\+::internal\+::\+Debug\+Scope\+::prev\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 752 of file debug.\+h.
+
+
+
+Referenced by $\sim$\+Debug\+Scope().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1DebugScope_ae209e1a5bcd078dccfc841504fe477ab}\label{classv8_1_1internal_1_1DebugScope_ae209e1a5bcd078dccfc841504fe477ab}} 
+\index{v8::internal::DebugScope@{v8::internal::DebugScope}!terminate\_on\_resume\_@{terminate\_on\_resume\_}}
+\index{terminate\_on\_resume\_@{terminate\_on\_resume\_}!v8::internal::DebugScope@{v8::internal::DebugScope}}
+\doxysubsubsection{\texorpdfstring{terminate\_on\_resume\_}{terminate\_on\_resume\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Debug\+Scope\+::terminate\+\_\+on\+\_\+resume\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 756 of file debug.\+h.
+
+
+
+Referenced by set\+\_\+terminate\+\_\+on\+\_\+resume(), and $\sim$\+Debug\+Scope().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1DebugScope_a9592e2c86db668c56a373edbf11a7c90}\label{classv8_1_1internal_1_1DebugScope_a9592e2c86db668c56a373edbf11a7c90}} 
+\index{v8::internal::DebugScope@{v8::internal::DebugScope}!timer\_@{timer\_}}
+\index{timer\_@{timer\_}!v8::internal::DebugScope@{v8::internal::DebugScope}}
+\doxysubsubsection{\texorpdfstring{timer\_}{timer\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1ElapsedTimer}{base\+::\+Elapsed\+Timer}} v8\+::internal\+::\+Debug\+Scope\+::timer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 760 of file debug.\+h.
+
+
+
+Referenced by Debug\+Scope(), and Elapsed\+Time\+Since\+Creation().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{debug_8h}{debug.\+h}}\item 
-\mbox{\hyperlink{debug_8cc}{debug.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/debug/\mbox{\hyperlink{debug_8h}{debug.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/debug/\mbox{\hyperlink{debug_8cc}{debug.\+cc}}\end{DoxyCompactItemize}

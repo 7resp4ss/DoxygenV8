@@ -17,7 +17,7 @@ Collaboration diagram for v8\+::internal\+::Source\+Position\+Info\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_aa4506550d41eb9cf723298a16c88de8f}{Source\+Position\+Info}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1SourcePosition}{Source\+Position}} \mbox{\hyperlink{class-debug-reader-generator_8cc_aede818ff693a0360e722300214ad6a52}{pos}}, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1SharedFunctionInfo}{Shared\+Function\+Info}} $>$ f)
+\mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_aa4506550d41eb9cf723298a16c88de8f}{Source\+Position\+Info}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1SourcePosition}{Source\+Position}} pos, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1SharedFunctionInfo}{Shared\+Function\+Info}} $>$ f)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -28,10 +28,17 @@ Collaboration diagram for v8\+::internal\+::Source\+Position\+Info\+:
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_ac3ca492beb1ed3688e9047193656ecc4}{Indirect\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Script}{Script}} $>$ \mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_a838a5976754bc0d80dae5b19cde5d7ea}{script}}
 \item 
-int \mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_aa8df9f446e4194fbb7ba862b6da3cb48}{line}} = -\/1
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_aa8df9f446e4194fbb7ba862b6da3cb48}{line}} = -\/1
 \item 
-int \mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_ab67c90230c1939348fa1f329ca7e9308}{column}} = -\/1
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_ab67c90230c1939348fa1f329ca7e9308}{column}} = -\/1
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 183 of file source-\/position.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -43,18 +50,68 @@ int \mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_ab67c90230c19393
 
 
 
+Definition at line 151 of file source-\/position.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{153     : \mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_a133bb8211a0460bc9a029de26a0fceb3}{position}}(pos), \mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_a98d441c08068756ce5bb72ec0e49b7e3}{shared}}(\mbox{\hyperlink{namespacev8_1_1internal_a15cafb1d1ed1ac577609eb5e764384e8}{indirect\_handle}}(sfi, isolate)) \{}
+\DoxyCodeLine{154   \{}
+\DoxyCodeLine{155     \mbox{\hyperlink{namespacev8_1_1internal_af2248a427f8ff8f81e68a2a87758e145}{DisallowGarbageCollection}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{no\_gc}};}
+\DoxyCodeLine{156     \textcolor{keywordflow}{if} (sfi.is\_null()) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{157     \mbox{\hyperlink{namespacev8_1_1internal_a5297fd2c72981b2220e6b9a831570fb3}{Tagged<Object>}} maybe\_script = sfi-\/>script();}
+\DoxyCodeLine{158     \textcolor{keywordflow}{if} (!IsScript(maybe\_script)) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{159     \mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_a838a5976754bc0d80dae5b19cde5d7ea}{script}} = \mbox{\hyperlink{namespacev8_1_1internal_a8c89f00da07e125218128b9fbf0a321c}{handle}}(Cast<Script>(maybe\_script), isolate);}
+\DoxyCodeLine{160   \}}
+\DoxyCodeLine{161   Script::PositionInfo info;}
+\DoxyCodeLine{162   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1Script_ac427846a768686b1037ee1c349f3c775}{Script::GetPositionInfo}}(\mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_a838a5976754bc0d80dae5b19cde5d7ea}{script}}, pos.ScriptOffset(), \&info)) \{}
+\DoxyCodeLine{163     \mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_aa8df9f446e4194fbb7ba862b6da3cb48}{line}} = info.line;}
+\DoxyCodeLine{164     \mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_ab67c90230c1939348fa1f329ca7e9308}{column}} = info.column;}
+\DoxyCodeLine{165   \}}
+\DoxyCodeLine{166 \}}
+
+\end{DoxyCode}
+
+
+References column, v8\+::internal\+::\+Script\+::\+Position\+Info\+::column, v8\+::internal\+::\+Script\+::\+Get\+Position\+Info(), v8\+::internal\+::handle(), v8\+::internal\+::\+Direct\+Handle$<$ T $>$\+::is\+\_\+null(), line, v8\+::internal\+::\+Script\+::\+Position\+Info\+::line, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::no\+\_\+gc, script, and v8\+::internal\+::\+Source\+Position\+::\+Script\+Offset().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1SourcePositionInfo_aa4506550d41eb9cf723298a16c88de8f_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{structv8_1_1internal_1_1SourcePositionInfo_ab67c90230c1939348fa1f329ca7e9308}\label{structv8_1_1internal_1_1SourcePositionInfo_ab67c90230c1939348fa1f329ca7e9308}} 
 \index{v8::internal::SourcePositionInfo@{v8::internal::SourcePositionInfo}!column@{column}}
 \index{column@{column}!v8::internal::SourcePositionInfo@{v8::internal::SourcePositionInfo}}
 \doxysubsubsection{\texorpdfstring{column}{column}}
-{\footnotesize\ttfamily int v8\+::internal\+::\+Source\+Position\+Info\+::column = -\/1}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::\+Source\+Position\+Info\+::column = -\/1}
+
+
+
+Definition at line 191 of file source-\/position.\+h.
+
+
+
+Referenced by v8\+::internal\+::operator$<$$<$(), and Source\+Position\+Info().
 
 \mbox{\Hypertarget{structv8_1_1internal_1_1SourcePositionInfo_aa8df9f446e4194fbb7ba862b6da3cb48}\label{structv8_1_1internal_1_1SourcePositionInfo_aa8df9f446e4194fbb7ba862b6da3cb48}} 
 \index{v8::internal::SourcePositionInfo@{v8::internal::SourcePositionInfo}!line@{line}}
 \index{line@{line}!v8::internal::SourcePositionInfo@{v8::internal::SourcePositionInfo}}
 \doxysubsubsection{\texorpdfstring{line}{line}}
-{\footnotesize\ttfamily int v8\+::internal\+::\+Source\+Position\+Info\+::line = -\/1}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::internal\+::\+Source\+Position\+Info\+::line = -\/1}
+
+
+
+Definition at line 190 of file source-\/position.\+h.
+
+
+
+Referenced by v8\+::internal\+::operator$<$$<$(), and Source\+Position\+Info().
 
 \mbox{\Hypertarget{structv8_1_1internal_1_1SourcePositionInfo_a133bb8211a0460bc9a029de26a0fceb3}\label{structv8_1_1internal_1_1SourcePositionInfo_a133bb8211a0460bc9a029de26a0fceb3}} 
 \index{v8::internal::SourcePositionInfo@{v8::internal::SourcePositionInfo}!position@{position}}
@@ -62,11 +119,23 @@ int \mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_ab67c90230c19393
 \doxysubsubsection{\texorpdfstring{position}{position}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1SourcePosition}{Source\+Position}} v8\+::internal\+::\+Source\+Position\+Info\+::position}
 
+
+
+Definition at line 187 of file source-\/position.\+h.
+
 \mbox{\Hypertarget{structv8_1_1internal_1_1SourcePositionInfo_a838a5976754bc0d80dae5b19cde5d7ea}\label{structv8_1_1internal_1_1SourcePositionInfo_a838a5976754bc0d80dae5b19cde5d7ea}} 
 \index{v8::internal::SourcePositionInfo@{v8::internal::SourcePositionInfo}!script@{script}}
 \index{script@{script}!v8::internal::SourcePositionInfo@{v8::internal::SourcePositionInfo}}
 \doxysubsubsection{\texorpdfstring{script}{script}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_ac3ca492beb1ed3688e9047193656ecc4}{Indirect\+Handle}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1Script}{Script}}$>$ v8\+::internal\+::\+Source\+Position\+Info\+::script}
+
+
+
+Definition at line 189 of file source-\/position.\+h.
+
+
+
+Referenced by v8\+::internal\+::operator$<$$<$(), and Source\+Position\+Info().
 
 \mbox{\Hypertarget{structv8_1_1internal_1_1SourcePositionInfo_a98d441c08068756ce5bb72ec0e49b7e3}\label{structv8_1_1internal_1_1SourcePositionInfo_a98d441c08068756ce5bb72ec0e49b7e3}} 
 \index{v8::internal::SourcePositionInfo@{v8::internal::SourcePositionInfo}!shared@{shared}}
@@ -76,7 +145,11 @@ int \mbox{\hyperlink{structv8_1_1internal_1_1SourcePositionInfo_ab67c90230c19393
 
 
 
+Definition at line 188 of file source-\/position.\+h.
+
+
+
 The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{source-position_8h}{source-\/position.\+h}}\item 
-\mbox{\hyperlink{source-position_8cc}{source-\/position.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/codegen/\mbox{\hyperlink{source-position_8h}{source-\/position.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/codegen/\mbox{\hyperlink{source-position_8cc}{source-\/position.\+cc}}\end{DoxyCompactItemize}

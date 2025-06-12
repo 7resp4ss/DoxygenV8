@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$source-\/position-\/table.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Source\+Position\+Table\+Builder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1SourcePositionTableBuilder__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -19,7 +29,7 @@ enum \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_ace5e6d7
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a2d364496eb73ba8d3b67e430c31ba741}{Add\+Position}} (\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} code\+\_\+offset, \mbox{\hyperlink{classv8_1_1internal_1_1SourcePosition}{Source\+Position}} source\+\_\+position, \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} is\+\_\+statement, \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} is\+\_\+breakable=\mbox{\hyperlink{namespacev8_1_1internal_a7f5302a7c7fd292ffd4a5f9758bd3686}{true}})
 \item 
-{\footnotesize template$<$typename IsolateT $>$ }\\\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TrustedByteArray}{Trusted\+Byte\+Array}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a7f32a136db5c2660c333e8e365268fbd}{To\+Source\+Position\+Table}} (IsolateT $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+{\footnotesize template$<$typename IsolateT $>$ }\\\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TrustedByteArray}{Trusted\+Byte\+Array}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a7f32a136db5c2660c333e8e365268fbd}{To\+Source\+Position\+Table}} (IsolateT $\ast$isolate)
 \item 
 \mbox{\hyperlink{classv8_1_1base_1_1OwnedVector}{base\+::\+Owned\+Vector}}$<$ uint8\+\_\+t $>$ \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a75ec6220cee6b5292cb8eb8e683eab92}{To\+Source\+Position\+Table\+Vector}} ()
 \item 
@@ -27,6 +37,27 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a2d36449
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a3c84d5420b8106fde076808ed4be0e7c}{Lazy}} () const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_aad6a1519589e8cb05002e1c366e404a5}{Add\+Entry}} (const \mbox{\hyperlink{structv8_1_1internal_1_1PositionTableEntry}{Position\+Table\+Entry}} \&entry)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_ace5e6d700c3b9e619441897f31646581}{Recording\+Mode}} \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a5b78cbb4e3f24f7b08e651a0d3ae67e1}{mode\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector}{Zone\+Vector}}$<$ uint8\+\_\+t $>$ \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a8f532740e7b41e5eb286311654be3135}{bytes\+\_\+}}
+\item 
+\mbox{\hyperlink{structv8_1_1internal_1_1PositionTableEntry}{Position\+Table\+Entry}} \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a547cd069c66df22ee1610fffd7a37670}{previous\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 41 of file source-\/position-\/table.\+h.
+
 
 
 \doxysubsection{Member Enumeration Documentation}
@@ -52,6 +83,24 @@ RECORD\+\_\+\+SOURCE\+\_\+\+POSITIONS&\\
 \end{DoxyEnumFields}
 
 
+Definition at line 43 of file source-\/position-\/table.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{43                      \{}
+\DoxyCodeLine{44     \textcolor{comment}{// Indicates that source positions are never to be generated. (Resulting in}}
+\DoxyCodeLine{45     \textcolor{comment}{// an empty table).}}
+\DoxyCodeLine{46     \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_ace5e6d700c3b9e619441897f31646581a49569b15f66477a7987e843a1649b5aa}{OMIT\_SOURCE\_POSITIONS}},}
+\DoxyCodeLine{47     \textcolor{comment}{// Indicates that source positions are not currently required, but may be}}
+\DoxyCodeLine{48     \textcolor{comment}{// generated later.}}
+\DoxyCodeLine{49     \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_ace5e6d700c3b9e619441897f31646581a09f9ea1b7517ae056269cb9edb93ca37}{LAZY\_SOURCE\_POSITIONS}},}
+\DoxyCodeLine{50     \textcolor{comment}{// Indicates that source positions should be immediately generated.}}
+\DoxyCodeLine{51     \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_ace5e6d700c3b9e619441897f31646581a8a896bf8ffa99314568451f2b4eee38d}{RECORD\_SOURCE\_POSITIONS}}}
+\DoxyCodeLine{52   \};}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SourcePositionTableBuilder_a002c482c7db7810cabd9113e8b98df6b}\label{classv8_1_1internal_1_1SourcePositionTableBuilder_a002c482c7db7810cabd9113e8b98df6b}} 
 \index{v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}!SourcePositionTableBuilder@{SourcePositionTableBuilder}}
@@ -61,25 +110,155 @@ RECORD\+\_\+\+SOURCE\+\_\+\+POSITIONS&\\
 
 
 
+Definition at line 159 of file source-\/position-\/table.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{161     : \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a5b78cbb4e3f24f7b08e651a0d3ae67e1}{mode\_}}(\mbox{\hyperlink{flag-definitions_8h_adaf90f045d5cd2710edd625b8685472a}{mode}}),}
+\DoxyCodeLine{162       \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a8f532740e7b41e5eb286311654be3135}{bytes\_}}(zone),}
+\DoxyCodeLine{163 \textcolor{preprocessor}{\#ifdef ENABLE\_SLOW\_DCHECKS}}
+\DoxyCodeLine{164       raw\_entries\_(zone),}
+\DoxyCodeLine{165 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{166       \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a547cd069c66df22ee1610fffd7a37670}{previous\_}}() \{}
+\DoxyCodeLine{167 \}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1SourcePositionTableBuilder_aad6a1519589e8cb05002e1c366e404a5}\label{classv8_1_1internal_1_1SourcePositionTableBuilder_aad6a1519589e8cb05002e1c366e404a5}} 
+\index{v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}!AddEntry@{AddEntry}}
+\index{AddEntry@{AddEntry}!v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}}
+\doxysubsubsection{\texorpdfstring{AddEntry()}{AddEntry()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Source\+Position\+Table\+Builder\+::\+Add\+Entry (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structv8_1_1internal_1_1PositionTableEntry}{Position\+Table\+Entry}} \&}]{entry }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line 179 of file source-\/position-\/table.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{180                                      \{}
+\DoxyCodeLine{181   PositionTableEntry tmp(entry);}
+\DoxyCodeLine{182   \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02source-position-table_8cc_03_ad58fa4daae335d9332438ddc9b1c07d4}{SubtractFromEntry}}(\&tmp, \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a547cd069c66df22ee1610fffd7a37670}{previous\_}});}
+\DoxyCodeLine{183   \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02source-position-table_8cc_03_a4090e16ccac620bc7c484b0e0ad9f2c5}{EncodeEntry}}(\&\mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a8f532740e7b41e5eb286311654be3135}{bytes\_}}, tmp);}
+\DoxyCodeLine{184   \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a547cd069c66df22ee1610fffd7a37670}{previous\_}} = entry;}
+\DoxyCodeLine{185 \textcolor{preprocessor}{\#ifdef ENABLE\_SLOW\_DCHECKS}}
+\DoxyCodeLine{186   raw\_entries\_.push\_back(entry);}
+\DoxyCodeLine{187 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{188 \}}
+
+\end{DoxyCode}
+
+
+References bytes\+\_\+, v8\+::internal\+::anonymous\+\_\+namespace\{source-\/position-\/table.\+cc\}\+::\+Encode\+Entry(), previous\+\_\+, and v8\+::internal\+::anonymous\+\_\+namespace\{source-\/position-\/table.\+cc\}\+::\+Subtract\+From\+Entry().
+
+
+
+Referenced by Add\+Position().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SourcePositionTableBuilder_aad6a1519589e8cb05002e1c366e404a5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SourcePositionTableBuilder_aad6a1519589e8cb05002e1c366e404a5_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SourcePositionTableBuilder_a2d364496eb73ba8d3b67e430c31ba741}\label{classv8_1_1internal_1_1SourcePositionTableBuilder_a2d364496eb73ba8d3b67e430c31ba741}} 
 \index{v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}!AddPosition@{AddPosition}}
 \index{AddPosition@{AddPosition}!v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}}
 \doxysubsubsection{\texorpdfstring{AddPosition()}{AddPosition()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Source\+Position\+Table\+Builder\+::\+Add\+Position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}}}]{code\+\_\+offset,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1SourcePosition}{Source\+Position}}}]{source\+\_\+position,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}}}]{is\+\_\+statement,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}}}]{is\+\_\+breakable = {\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a7f5302a7c7fd292ffd4a5f9758bd3686}{true}}} }\end{DoxyParamCaption})}
 
+
+
+Definition at line 169 of file source-\/position-\/table.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{172                                                                 \{}
+\DoxyCodeLine{173   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_acbb935fda9fd97c896f213c747e65520}{Omit}}()) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{174   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(source\_position.IsKnown());}
+\DoxyCodeLine{175   \textcolor{keywordtype}{int} offset = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(code\_offset);}
+\DoxyCodeLine{176   \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_aad6a1519589e8cb05002e1c366e404a5}{AddEntry}}(\{offset, source\_position.raw(), is\_statement, is\_breakable\});}
+\DoxyCodeLine{177 \}}
+
+\end{DoxyCode}
+
+
+References Add\+Entry(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Source\+Position\+::\+Is\+Known(), Omit(), and v8\+::internal\+::\+Source\+Position\+::raw().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Code\+Generator\+::\+Assemble\+Source\+Position(), v8\+::internal\+::interpreter\+::\+Bytecode\+Array\+Writer\+::\+Set\+Function\+Entry\+Source\+Position(), v8\+::internal\+::anonymous\+\_\+namespace\{liveedit.\+cc\}\+::\+Translate\+Source\+Position\+Table(), and v8\+::internal\+::interpreter\+::\+Bytecode\+Array\+Writer\+::\+Update\+Source\+Position\+Table().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SourcePositionTableBuilder_a2d364496eb73ba8d3b67e430c31ba741_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SourcePositionTableBuilder_a2d364496eb73ba8d3b67e430c31ba741_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SourcePositionTableBuilder_a3c84d5420b8106fde076808ed4be0e7c}\label{classv8_1_1internal_1_1SourcePositionTableBuilder_a3c84d5420b8106fde076808ed4be0e7c}} 
 \index{v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}!Lazy@{Lazy}}
 \index{Lazy@{Lazy}!v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}}
 \doxysubsubsection{\texorpdfstring{Lazy()}{Lazy()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Source\+Position\+Table\+Builder\+::\+Lazy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 66 of file source-\/position-\/table.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a5b78cbb4e3f24f7b08e651a0d3ae67e1}{mode\_}} == \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_ace5e6d700c3b9e619441897f31646581a09f9ea1b7517ae056269cb9edb93ca37}{LAZY\_SOURCE\_POSITIONS}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SourcePositionTableBuilder_acbb935fda9fd97c896f213c747e65520}\label{classv8_1_1internal_1_1SourcePositionTableBuilder_acbb935fda9fd97c896f213c747e65520}} 
 \index{v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}!Omit@{Omit}}
 \index{Omit@{Omit}!v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}}
 \doxysubsubsection{\texorpdfstring{Omit()}{Omit()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Source\+Position\+Table\+Builder\+::\+Omit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 65 of file source-\/position-\/table.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{65 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a5b78cbb4e3f24f7b08e651a0d3ae67e1}{mode\_}} != \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_ace5e6d700c3b9e619441897f31646581a8a896bf8ffa99314568451f2b4eee38d}{RECORD\_SOURCE\_POSITIONS}}; \}}
+
+\end{DoxyCode}
+
+
+Referenced by Add\+Position(), and To\+Source\+Position\+Table().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SourcePositionTableBuilder_acbb935fda9fd97c896f213c747e65520_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SourcePositionTableBuilder_a7f32a136db5c2660c333e8e365268fbd}\label{classv8_1_1internal_1_1SourcePositionTableBuilder_a7f32a136db5c2660c333e8e365268fbd}} 
 \index{v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}!ToSourcePositionTable@{ToSourcePositionTable}}
 \index{ToSourcePositionTable@{ToSourcePositionTable}!v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}}
@@ -87,6 +266,58 @@ RECORD\+\_\+\+SOURCE\+\_\+\+POSITIONS&\\
 {\footnotesize\ttfamily template$<$typename IsolateT $>$ \\
 \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TrustedByteArray}{Trusted\+Byte\+Array}} $>$ v8\+::internal\+::\+Source\+Position\+Table\+Builder\+::\+To\+Source\+Position\+Table (\begin{DoxyParamCaption}\item[{IsolateT $\ast$}]{isolate }\end{DoxyParamCaption})}
 
+
+
+Definition at line 191 of file source-\/position-\/table.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{192                        \{}
+\DoxyCodeLine{193   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a8f532740e7b41e5eb286311654be3135}{bytes\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector_a40b4c6f563e6b4253b77a7351e3c88b2}{empty}}()) \textcolor{keywordflow}{return} isolate-\/>factory()-\/>empty\_trusted\_byte\_array();}
+\DoxyCodeLine{194   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_acbb935fda9fd97c896f213c747e65520}{Omit}}());}
+\DoxyCodeLine{195 }
+\DoxyCodeLine{196   Handle<TrustedByteArray> table =}
+\DoxyCodeLine{197       isolate-\/>factory()-\/>NewTrustedByteArray(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a8f532740e7b41e5eb286311654be3135}{bytes\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector_a60320a4772cc860e5b2b858c0ce7f8ad}{size}}()));}
+\DoxyCodeLine{198   \mbox{\hyperlink{namespacev8_1_1internal_ae0ee98c9174e5955450c56da22cb8f6a}{MemCopy}}(table-\/>begin(), \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a8f532740e7b41e5eb286311654be3135}{bytes\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector_a9461541ad32e42d834bc4debf2497162}{data}}(), \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a8f532740e7b41e5eb286311654be3135}{bytes\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector_a60320a4772cc860e5b2b858c0ce7f8ad}{size}}());}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{200 \textcolor{preprocessor}{\#ifdef ENABLE\_SLOW\_DCHECKS}}
+\DoxyCodeLine{201   \textcolor{comment}{// Brute force testing: Record all positions and decode}}
+\DoxyCodeLine{202   \textcolor{comment}{// the entire table to verify they are identical.}}
+\DoxyCodeLine{203   SourcePositionTableIterator it(}
+\DoxyCodeLine{204       *table, \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableIterator_a55b1e8485a7a35eee24201c81370e226a57ce27cfec99341b002f4d4d694aebbd}{SourcePositionTableIterator::kAll}},}
+\DoxyCodeLine{205       \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableIterator_a98c043260ef62334d36923813551c281afb53ce2d773f2fc314d1908d2b918d3f}{SourcePositionTableIterator::kDontSkipFunctionEntry}});}
+\DoxyCodeLine{206   CheckTableEquals(raw\_entries\_, \&it);}
+\DoxyCodeLine{207   \textcolor{comment}{// No additional source positions after creating the table.}}
+\DoxyCodeLine{208   \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_a5b78cbb4e3f24f7b08e651a0d3ae67e1}{mode\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_ace5e6d700c3b9e619441897f31646581a49569b15f66477a7987e843a1649b5aa}{OMIT\_SOURCE\_POSITIONS}};}
+\DoxyCodeLine{209 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{210   \textcolor{keywordflow}{return} table;}
+\DoxyCodeLine{211 \}}
+
+\end{DoxyCode}
+
+
+References bytes\+\_\+, v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::data(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::empty(), v8\+::internal\+::\+Source\+Position\+Table\+Iterator\+::k\+All, v8\+::internal\+::\+Source\+Position\+Table\+Iterator\+::k\+Dont\+Skip\+Function\+Entry, v8\+::internal\+::\+Mem\+Copy(), mode\+\_\+, Omit(), OMIT\+\_\+\+SOURCE\+\_\+\+POSITIONS, and v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::size().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+Code\+Generator\+::\+Finalize\+Code(), and v8\+::internal\+::anonymous\+\_\+namespace\{liveedit.\+cc\}\+::\+Translate\+Source\+Position\+Table().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SourcePositionTableBuilder_a7f32a136db5c2660c333e8e365268fbd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SourcePositionTableBuilder_a7f32a136db5c2660c333e8e365268fbd_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SourcePositionTableBuilder_a75ec6220cee6b5292cb8eb8e683eab92}\label{classv8_1_1internal_1_1SourcePositionTableBuilder_a75ec6220cee6b5292cb8eb8e683eab92}} 
 \index{v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}!ToSourcePositionTableVector@{ToSourcePositionTableVector}}
 \index{ToSourcePositionTableVector@{ToSourcePositionTableVector}!v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}}
@@ -95,7 +326,64 @@ RECORD\+\_\+\+SOURCE\+\_\+\+POSITIONS&\\
 
 
 
+Referenced by v8\+::internal\+::compiler\+::\+Code\+Generator\+::\+Get\+Source\+Position\+Table().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SourcePositionTableBuilder_a75ec6220cee6b5292cb8eb8e683eab92_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1SourcePositionTableBuilder_a8f532740e7b41e5eb286311654be3135}\label{classv8_1_1internal_1_1SourcePositionTableBuilder_a8f532740e7b41e5eb286311654be3135}} 
+\index{v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}!bytes\_@{bytes\_}}
+\index{bytes\_@{bytes\_}!v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}}
+\doxysubsubsection{\texorpdfstring{bytes\_}{bytes\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector}{Zone\+Vector}}$<$uint8\+\_\+t$>$ v8\+::internal\+::\+Source\+Position\+Table\+Builder\+::bytes\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 72 of file source-\/position-\/table.\+h.
+
+
+
+Referenced by Add\+Entry(), and To\+Source\+Position\+Table().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1SourcePositionTableBuilder_a5b78cbb4e3f24f7b08e651a0d3ae67e1}\label{classv8_1_1internal_1_1SourcePositionTableBuilder_a5b78cbb4e3f24f7b08e651a0d3ae67e1}} 
+\index{v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}!mode\_@{mode\_}}
+\index{mode\_@{mode\_}!v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}}
+\doxysubsubsection{\texorpdfstring{mode\_}{mode\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1SourcePositionTableBuilder_ace5e6d700c3b9e619441897f31646581}{Recording\+Mode}} v8\+::internal\+::\+Source\+Position\+Table\+Builder\+::mode\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 71 of file source-\/position-\/table.\+h.
+
+
+
+Referenced by To\+Source\+Position\+Table().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1SourcePositionTableBuilder_a547cd069c66df22ee1610fffd7a37670}\label{classv8_1_1internal_1_1SourcePositionTableBuilder_a547cd069c66df22ee1610fffd7a37670}} 
+\index{v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}!previous\_@{previous\_}}
+\index{previous\_@{previous\_}!v8::internal::SourcePositionTableBuilder@{v8::internal::SourcePositionTableBuilder}}
+\doxysubsubsection{\texorpdfstring{previous\_}{previous\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structv8_1_1internal_1_1PositionTableEntry}{Position\+Table\+Entry}} v8\+::internal\+::\+Source\+Position\+Table\+Builder\+::previous\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 76 of file source-\/position-\/table.\+h.
+
+
+
+Referenced by Add\+Entry().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{source-position-table_8h}{source-\/position-\/table.\+h}}\item 
-\mbox{\hyperlink{source-position-table_8cc}{source-\/position-\/table.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/codegen/\mbox{\hyperlink{source-position-table_8h}{source-\/position-\/table.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/codegen/\mbox{\hyperlink{source-position-table_8cc}{source-\/position-\/table.\+cc}}\end{DoxyCompactItemize}

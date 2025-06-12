@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::platform\+::Default\+Job\+State\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=247pt]{classv8_1_1platform_1_1DefaultJobState__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultJobState__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Classes}
@@ -32,7 +32,7 @@ class \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_1_1JobDelegate}{Jo
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a2044ff146d93b8db13b391cd151b5787}{Default\+Job\+State}} (\mbox{\hyperlink{classv8_1_1Platform}{Platform}} $\ast$platform, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1JobTask}{Job\+Task}} $>$ job\+\_\+task, \mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051}{Task\+Priority}} \mbox{\hyperlink{module-compiler_8cc_a12a507bc765598b5db4100af52f045e3}{priority}}, size\+\_\+t num\+\_\+worker\+\_\+threads)
+\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a2044ff146d93b8db13b391cd151b5787}{Default\+Job\+State}} (\mbox{\hyperlink{classv8_1_1Platform}{Platform}} $\ast$platform, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1JobTask}{Job\+Task}} $>$ job\+\_\+task, \mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051}{Task\+Priority}} priority, size\+\_\+t num\+\_\+worker\+\_\+threads)
 \item 
 virtual \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ac1a142efe3835dfda1950b704aeddfff}{$\sim$\+Default\+Job\+State}} ()
 \item 
@@ -56,6 +56,43 @@ bool \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ade49e359ee93124caf
 \item 
 void \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a2f541a9db746ffa9b70620f105ff7cc2}{Update\+Priority}} (\mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051}{Task\+Priority}})
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a76bf7b98e9bb0d402205616f5ccd423e}{Capped\+Max\+Concurrency}} (size\+\_\+t worker\+\_\+count) const
+\item 
+void \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_acd6bd4b3beb74d4822357e4518312e05}{Call\+On\+Worker\+Thread}} (\mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051}{Task\+Priority}} priority, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1Task}{Task}} $>$ task)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1Platform}{Platform}} $\ast$const \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a3a2010ad7e2d821f4b586be1e04b42be}{platform\+\_\+}}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1JobTask}{Job\+Task}} $>$ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a18ce4b816d9c1dbee64752a66fb9849a}{job\+\_\+task\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a20a0b5474c19d08e571549a25285d126}{mutex\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051}{Task\+Priority}} \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a326ad061087371c0ad0d309d1315ad4e}{priority\+\_\+}}
+\item 
+size\+\_\+t \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\+\_\+workers\+\_\+}} = 0
+\item 
+size\+\_\+t \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a1ac99452c0cf7b28784f63df11b778b1}{pending\+\_\+tasks\+\_\+}} = 0
+\item 
+std\+::atomic\+\_\+bool \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a02a353c9f9a5545c8c1d78d76aa77f69}{is\+\_\+canceled\+\_\+}} \{\mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\}
+\item 
+size\+\_\+t \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_afaab51afece0b155641aff13848d8e97}{num\+\_\+worker\+\_\+threads\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable}{base\+::\+Condition\+Variable}} \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a2ae68efeb115b2b40b66085c1d7c34ea}{worker\+\_\+released\+\_\+condition\+\_\+}}
+\item 
+std\+::atomic$<$ uint32\+\_\+t $>$ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a3360446f008356db269630dfe4b90cf0}{assigned\+\_\+task\+\_\+ids\+\_\+}} \{0\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 19 of file default-\/job.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -65,11 +102,36 @@ void \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a2f541a9db746ffa9b7
 \doxysubsubsection{\texorpdfstring{DefaultJobState()}{DefaultJobState()}}
 {\footnotesize\ttfamily v8\+::platform\+::\+Default\+Job\+State\+::\+Default\+Job\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Platform}{Platform}} $\ast$}]{platform,  }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1JobTask}{Job\+Task}} $>$}]{job\+\_\+task,  }\item[{\mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051}{Task\+Priority}}}]{priority,  }\item[{size\+\_\+t}]{num\+\_\+worker\+\_\+threads }\end{DoxyParamCaption})}
 
+
+
+Definition at line 31 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{35     : \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a3a2010ad7e2d821f4b586be1e04b42be}{platform\_}}(platform),}
+\DoxyCodeLine{36       \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a18ce4b816d9c1dbee64752a66fb9849a}{job\_task\_}}(std::move(job\_task)),}
+\DoxyCodeLine{37       \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a326ad061087371c0ad0d309d1315ad4e}{priority\_}}(priority),}
+\DoxyCodeLine{38       \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_afaab51afece0b155641aff13848d8e97}{num\_worker\_threads\_}}(std::min(num\_worker\_threads, \mbox{\hyperlink{namespacev8_1_1platform_1_1anonymous__namespace_02default-job_8cc_03_a52d8efaf907c85fd81d7d283bee06338}{kMaxWorkersPerJob}})) \{\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_ac1a142efe3835dfda1950b704aeddfff}\label{classv8_1_1platform_1_1DefaultJobState_ac1a142efe3835dfda1950b704aeddfff}} 
 \index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!````~DefaultJobState@{$\sim$DefaultJobState}}
 \index{````~DefaultJobState@{$\sim$DefaultJobState}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
 \doxysubsubsection{\texorpdfstring{$\sim$DefaultJobState()}{~DefaultJobState()}}
 {\footnotesize\ttfamily v8\+::platform\+::\+Default\+Job\+State\+::$\sim$\+Default\+Job\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 40 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40 \{ \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(0\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a709d6f30f1192434c1eb74d0f8a3bc3a}{U}}, \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}}); \}}
+
+\end{DoxyCode}
+
+
+References active\+\_\+workers\+\_\+, DCHECK\+\_\+\+EQ, and v8\+::base\+::internal\+::U.
 
 
 
@@ -80,11 +142,109 @@ void \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a2f541a9db746ffa9b7
 \doxysubsubsection{\texorpdfstring{AcquireTaskId()}{AcquireTaskId()}}
 {\footnotesize\ttfamily uint8\+\_\+t v8\+::platform\+::\+Default\+Job\+State\+::\+Acquire\+Task\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 64 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{64                                        \{}
+\DoxyCodeLine{65   static\_assert(\mbox{\hyperlink{namespacev8_1_1platform_1_1anonymous__namespace_02default-job_8cc_03_a52d8efaf907c85fd81d7d283bee06338}{kMaxWorkersPerJob}} <= \textcolor{keyword}{sizeof}(\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a3360446f008356db269630dfe4b90cf0}{assigned\_task\_ids\_}}) * 8,}
+\DoxyCodeLine{66                 \textcolor{stringliteral}{"{}TaskId bitfield isn't big enough to fit kMaxWorkersPerJob."{}});}
+\DoxyCodeLine{67   uint32\_t assigned\_task\_ids =}
+\DoxyCodeLine{68       \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a3360446f008356db269630dfe4b90cf0}{assigned\_task\_ids\_}}.load(std::memory\_order\_relaxed);}
+\DoxyCodeLine{69   \mbox{\hyperlink{src_2base_2logging_8h_a16b382527f19b805fc8f856668f2270b}{DCHECK\_LE}}(\mbox{\hyperlink{namespacev8_1_1base_1_1bits_a474615d6b417607441ea6a7b9f25faae}{v8::base::bits::CountPopulation}}(assigned\_task\_ids) + 1,}
+\DoxyCodeLine{70             \mbox{\hyperlink{namespacev8_1_1platform_1_1anonymous__namespace_02default-job_8cc_03_a52d8efaf907c85fd81d7d283bee06338}{kMaxWorkersPerJob}});}
+\DoxyCodeLine{71   uint32\_t new\_assigned\_task\_ids = 0;}
+\DoxyCodeLine{72   uint8\_t task\_id = 0;}
+\DoxyCodeLine{73   \textcolor{comment}{// memory\_order\_acquire on success, matched with memory\_order\_release in}}
+\DoxyCodeLine{74   \textcolor{comment}{// ReleaseTaskId() so that operations done by previous threads that had}}
+\DoxyCodeLine{75   \textcolor{comment}{// the same task\_id become visible to the current thread.}}
+\DoxyCodeLine{76   \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{77     \textcolor{comment}{// Count trailing one bits. This is the id of the right-\/most 0-\/bit in}}
+\DoxyCodeLine{78     \textcolor{comment}{// |assigned\_task\_ids|.}}
+\DoxyCodeLine{79     task\_id = \mbox{\hyperlink{namespacev8_1_1base_1_1bits_a2627d88b22c6291284e4e57953da1d5e}{v8::base::bits::CountTrailingZeros32}}(\string~assigned\_task\_ids);}
+\DoxyCodeLine{80     new\_assigned\_task\_ids = assigned\_task\_ids | (uint32\_t(1) << task\_id);}
+\DoxyCodeLine{81   \} \textcolor{keywordflow}{while} (!\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a3360446f008356db269630dfe4b90cf0}{assigned\_task\_ids\_}}.compare\_exchange\_weak(}
+\DoxyCodeLine{82       assigned\_task\_ids, new\_assigned\_task\_ids, std::memory\_order\_acquire,}
+\DoxyCodeLine{83       std::memory\_order\_relaxed));}
+\DoxyCodeLine{84   \textcolor{keywordflow}{return} task\_id;}
+\DoxyCodeLine{85 \}}
+
+\end{DoxyCode}
+
+
+References assigned\+\_\+task\+\_\+ids\+\_\+, v8\+::base\+::bits\+::\+Count\+Population(), v8\+::base\+::bits\+::\+Count\+Trailing\+Zeros32(), DCHECK\+\_\+\+LE, and v8\+::platform\+::anonymous\+\_\+namespace\{default-\/job.\+cc\}\+::k\+Max\+Workers\+Per\+Job.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultJobState_a85dff51705b98cf9a0e210bc7200fdac_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_acd6bd4b3beb74d4822357e4518312e05}\label{classv8_1_1platform_1_1DefaultJobState_acd6bd4b3beb74d4822357e4518312e05}} 
+\index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!CallOnWorkerThread@{CallOnWorkerThread}}
+\index{CallOnWorkerThread@{CallOnWorkerThread}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
+\doxysubsubsection{\texorpdfstring{CallOnWorkerThread()}{CallOnWorkerThread()}}
+{\footnotesize\ttfamily void v8\+::platform\+::\+Default\+Job\+State\+::\+Call\+On\+Worker\+Thread (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051}{Task\+Priority}}}]{priority,  }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1Task}{Task}} $>$}]{task }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 215 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{216                                                                    \{}
+\DoxyCodeLine{217   \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a3a2010ad7e2d821f4b586be1e04b42be}{platform\_}}-\/>\mbox{\hyperlink{classv8_1_1Platform_a061c7d8b981dab5da6a04a8f6f8419b6}{PostTaskOnWorkerThread}}(priority, std::move(task));}
+\DoxyCodeLine{218 \}}
+
+\end{DoxyCode}
+
+
+References platform\+\_\+, and v8\+::\+Platform\+::\+Post\+Task\+On\+Worker\+Thread().
+
+
+
+Referenced by Did\+Run\+Task(), Join(), and Notify\+Concurrency\+Increase().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultJobState_acd6bd4b3beb74d4822357e4518312e05_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultJobState_acd6bd4b3beb74d4822357e4518312e05_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a1ae8751aadd79ba5a1b07176fc8443ef}\label{classv8_1_1platform_1_1DefaultJobState_a1ae8751aadd79ba5a1b07176fc8443ef}} 
 \index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!CancelAndDetach@{CancelAndDetach}}
 \index{CancelAndDetach@{CancelAndDetach}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
 \doxysubsubsection{\texorpdfstring{CancelAndDetach()}{CancelAndDetach()}}
 {\footnotesize\ttfamily void v8\+::platform\+::\+Default\+Job\+State\+::\+Cancel\+And\+Detach (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 158 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{158                                       \{}
+\DoxyCodeLine{159   \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a02a353c9f9a5545c8c1d78d76aa77f69}{is\_canceled\_}}.store(\textcolor{keyword}{true}, std::memory\_order\_relaxed);}
+\DoxyCodeLine{160 \}}
+
+\end{DoxyCode}
+
+
+References is\+\_\+canceled\+\_\+.
 
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a2df8647b097f113c500864bfc3eeb2b0}\label{classv8_1_1platform_1_1DefaultJobState_a2df8647b097f113c500864bfc3eeb2b0}} 
 \index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!CancelAndWait@{CancelAndWait}}
@@ -92,23 +252,183 @@ void \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a2f541a9db746ffa9b7
 \doxysubsubsection{\texorpdfstring{CancelAndWait()}{CancelAndWait()}}
 {\footnotesize\ttfamily void v8\+::platform\+::\+Default\+Job\+State\+::\+Cancel\+And\+Wait (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 148 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{148                                     \{}
+\DoxyCodeLine{149   \{}
+\DoxyCodeLine{150     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a20a0b5474c19d08e571549a25285d126}{mutex\_}});}
+\DoxyCodeLine{151     \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a02a353c9f9a5545c8c1d78d76aa77f69}{is\_canceled\_}}.store(\textcolor{keyword}{true}, std::memory\_order\_relaxed);}
+\DoxyCodeLine{152     \textcolor{keywordflow}{while} (\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} > 0) \{}
+\DoxyCodeLine{153       \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a2ae68efeb115b2b40b66085c1d7c34ea}{worker\_released\_condition\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable_a29ca064849ef418937bbedcb0900279c}{Wait}}(\&\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a20a0b5474c19d08e571549a25285d126}{mutex\_}});}
+\DoxyCodeLine{154     \}}
+\DoxyCodeLine{155   \}}
+\DoxyCodeLine{156 \}}
+
+\end{DoxyCode}
+
+
+References active\+\_\+workers\+\_\+, is\+\_\+canceled\+\_\+, mutex\+\_\+, v8\+::base\+::\+Condition\+Variable\+::\+Wait(), and worker\+\_\+released\+\_\+condition\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultJobState_a2df8647b097f113c500864bfc3eeb2b0_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_aa1154729463c1038a3acba6273da757b}\label{classv8_1_1platform_1_1DefaultJobState_aa1154729463c1038a3acba6273da757b}} 
 \index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!CanRunFirstTask@{CanRunFirstTask}}
 \index{CanRunFirstTask@{CanRunFirstTask}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
 \doxysubsubsection{\texorpdfstring{CanRunFirstTask()}{CanRunFirstTask()}}
 {\footnotesize\ttfamily bool v8\+::platform\+::\+Default\+Job\+State\+::\+Can\+Run\+First\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 168 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{168                                       \{}
+\DoxyCodeLine{169   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a20a0b5474c19d08e571549a25285d126}{mutex\_}});}
+\DoxyCodeLine{170   -\/-\/\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a1ac99452c0cf7b28784f63df11b778b1}{pending\_tasks\_}};}
+\DoxyCodeLine{171   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a02a353c9f9a5545c8c1d78d76aa77f69}{is\_canceled\_}}.load(std::memory\_order\_relaxed)) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{172   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} >= \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a76bf7b98e9bb0d402205616f5ccd423e}{CappedMaxConcurrency}}(\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}})) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{173   \textcolor{comment}{// Acquire current worker.}}
+\DoxyCodeLine{174   ++\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}};}
+\DoxyCodeLine{175   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{176 \}}
+
+\end{DoxyCode}
+
+
+References active\+\_\+workers\+\_\+, Capped\+Max\+Concurrency(), is\+\_\+canceled\+\_\+, mutex\+\_\+, and pending\+\_\+tasks\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultJobState_aa1154729463c1038a3acba6273da757b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a76bf7b98e9bb0d402205616f5ccd423e}\label{classv8_1_1platform_1_1DefaultJobState_a76bf7b98e9bb0d402205616f5ccd423e}} 
+\index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!CappedMaxConcurrency@{CappedMaxConcurrency}}
+\index{CappedMaxConcurrency@{CappedMaxConcurrency}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
+\doxysubsubsection{\texorpdfstring{CappedMaxConcurrency()}{CappedMaxConcurrency()}}
+{\footnotesize\ttfamily size\+\_\+t v8\+::platform\+::\+Default\+Job\+State\+::\+Capped\+Max\+Concurrency (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{worker\+\_\+count }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 210 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{210                                                                       \{}
+\DoxyCodeLine{211   \textcolor{keywordflow}{return} std::min(\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a18ce4b816d9c1dbee64752a66fb9849a}{job\_task\_}}-\/>GetMaxConcurrency(worker\_count),}
+\DoxyCodeLine{212                   \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_afaab51afece0b155641aff13848d8e97}{num\_worker\_threads\_}});}
+\DoxyCodeLine{213 \}}
+
+\end{DoxyCode}
+
+
+References job\+\_\+task\+\_\+, and num\+\_\+worker\+\_\+threads\+\_\+.
+
+
+
+Referenced by Can\+Run\+First\+Task(), Did\+Run\+Task(), Join(), and Notify\+Concurrency\+Increase().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultJobState_a76bf7b98e9bb0d402205616f5ccd423e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_ade49e359ee93124caf1a47620a7a62bf}\label{classv8_1_1platform_1_1DefaultJobState_ade49e359ee93124caf1a47620a7a62bf}} 
 \index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!DidRunTask@{DidRunTask}}
 \index{DidRunTask@{DidRunTask}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
 \doxysubsubsection{\texorpdfstring{DidRunTask()}{DidRunTask()}}
 {\footnotesize\ttfamily bool v8\+::platform\+::\+Default\+Job\+State\+::\+Did\+Run\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 178 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{178                                  \{}
+\DoxyCodeLine{179   \textcolor{keywordtype}{size\_t} num\_tasks\_to\_post = 0;}
+\DoxyCodeLine{180   \mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051}{TaskPriority}} priority;}
+\DoxyCodeLine{181   \{}
+\DoxyCodeLine{182     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a20a0b5474c19d08e571549a25285d126}{mutex\_}});}
+\DoxyCodeLine{183     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} max\_concurrency = \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a76bf7b98e9bb0d402205616f5ccd423e}{CappedMaxConcurrency}}(\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} -\/ 1);}
+\DoxyCodeLine{184     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a02a353c9f9a5545c8c1d78d76aa77f69}{is\_canceled\_}}.load(std::memory\_order\_relaxed) ||}
+\DoxyCodeLine{185         \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} > max\_concurrency) \{}
+\DoxyCodeLine{186       \textcolor{comment}{// Release current worker and notify.}}
+\DoxyCodeLine{187       -\/-\/\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}};}
+\DoxyCodeLine{188       \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a2ae68efeb115b2b40b66085c1d7c34ea}{worker\_released\_condition\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable_ab95e3ebf6594803215e1fea18848eb97}{NotifyOne}}();}
+\DoxyCodeLine{189       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{190     \}}
+\DoxyCodeLine{191     \textcolor{comment}{// Consider |pending\_tasks\_| to avoid posting too many tasks.}}
+\DoxyCodeLine{192     \textcolor{keywordflow}{if} (max\_concurrency > \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} + \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a1ac99452c0cf7b28784f63df11b778b1}{pending\_tasks\_}}) \{}
+\DoxyCodeLine{193       num\_tasks\_to\_post = max\_concurrency -\/ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} -\/ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a1ac99452c0cf7b28784f63df11b778b1}{pending\_tasks\_}};}
+\DoxyCodeLine{194       \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a1ac99452c0cf7b28784f63df11b778b1}{pending\_tasks\_}} += num\_tasks\_to\_post;}
+\DoxyCodeLine{195     \}}
+\DoxyCodeLine{196     priority = \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a326ad061087371c0ad0d309d1315ad4e}{priority\_}};}
+\DoxyCodeLine{197   \}}
+\DoxyCodeLine{198   \textcolor{comment}{// Post additional worker tasks to reach |max\_concurrency| in the case that}}
+\DoxyCodeLine{199   \textcolor{comment}{// max concurrency increased. This is not strictly necessary, since}}
+\DoxyCodeLine{200   \textcolor{comment}{// NotifyConcurrencyIncrease() should eventually be invoked. However, some}}
+\DoxyCodeLine{201   \textcolor{comment}{// users of PostJob() batch work and tend to call NotifyConcurrencyIncrease()}}
+\DoxyCodeLine{202   \textcolor{comment}{// late. Posting here allows us to spawn new workers sooner.}}
+\DoxyCodeLine{203   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < num\_tasks\_to\_post; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{204     \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_acd6bd4b3beb74d4822357e4518312e05}{CallOnWorkerThread}}(priority, std::make\_unique<DefaultJobWorker>(}
+\DoxyCodeLine{205                                      shared\_from\_this(), \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a18ce4b816d9c1dbee64752a66fb9849a}{job\_task\_}}.get()));}
+\DoxyCodeLine{206   \}}
+\DoxyCodeLine{207   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{208 \}}
+
+\end{DoxyCode}
+
+
+References active\+\_\+workers\+\_\+, Call\+On\+Worker\+Thread(), Capped\+Max\+Concurrency(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, is\+\_\+canceled\+\_\+, job\+\_\+task\+\_\+, mutex\+\_\+, v8\+::base\+::\+Condition\+Variable\+::\+Notify\+One(), pending\+\_\+tasks\+\_\+, priority\+\_\+, and worker\+\_\+released\+\_\+condition\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultJobState_ade49e359ee93124caf1a47620a7a62bf_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a67f8c792a4fa75e3556504d8c8890089}\label{classv8_1_1platform_1_1DefaultJobState_a67f8c792a4fa75e3556504d8c8890089}} 
 \index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!IsActive@{IsActive}}
 \index{IsActive@{IsActive}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
 \doxysubsubsection{\texorpdfstring{IsActive()}{IsActive()}}
 {\footnotesize\ttfamily bool v8\+::platform\+::\+Default\+Job\+State\+::\+Is\+Active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 162 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{162                                \{}
+\DoxyCodeLine{163   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a20a0b5474c19d08e571549a25285d126}{mutex\_}});}
+\DoxyCodeLine{164   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a18ce4b816d9c1dbee64752a66fb9849a}{job\_task\_}}-\/>GetMaxConcurrency(\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}}) != 0 ||}
+\DoxyCodeLine{165          \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} != 0;}
+\DoxyCodeLine{166 \}}
+
+\end{DoxyCode}
+
+
+References active\+\_\+workers\+\_\+, job\+\_\+task\+\_\+, and mutex\+\_\+.
 
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a60ec992744a842ca865ca7f0839093c1}\label{classv8_1_1platform_1_1DefaultJobState_a60ec992744a842ca865ca7f0839093c1}} 
 \index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!Join@{Join}}
@@ -116,18 +436,162 @@ void \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a2f541a9db746ffa9b7
 \doxysubsubsection{\texorpdfstring{Join()}{Join()}}
 {\footnotesize\ttfamily void v8\+::platform\+::\+Default\+Job\+State\+::\+Join (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 95 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{95                            \{}
+\DoxyCodeLine{96   \textcolor{keyword}{auto} WaitForParticipationOpportunity = [\textcolor{keyword}{this}]() -\/> \textcolor{keywordtype}{size\_t} \{}
+\DoxyCodeLine{97     \textcolor{comment}{// Subtract one from active\_workers\_ since the current thread is not}}
+\DoxyCodeLine{98     \textcolor{comment}{// participating yet.}}
+\DoxyCodeLine{99     \textcolor{keywordtype}{size\_t} max\_concurrency = \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a76bf7b98e9bb0d402205616f5ccd423e}{CappedMaxConcurrency}}(\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} -\/ 1);}
+\DoxyCodeLine{100     \textcolor{comment}{// Wait until we can participate in the job.}}
+\DoxyCodeLine{101     \textcolor{keywordflow}{while} (\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} > max\_concurrency \&\& \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} > 1) \{}
+\DoxyCodeLine{102       \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a2ae68efeb115b2b40b66085c1d7c34ea}{worker\_released\_condition\_}}.\mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable_a29ca064849ef418937bbedcb0900279c}{Wait}}(\&\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a20a0b5474c19d08e571549a25285d126}{mutex\_}});}
+\DoxyCodeLine{103       max\_concurrency = \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a76bf7b98e9bb0d402205616f5ccd423e}{CappedMaxConcurrency}}(\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} -\/ 1);}
+\DoxyCodeLine{104     \}}
+\DoxyCodeLine{105     \mbox{\hyperlink{src_2base_2logging_8h_a16b382527f19b805fc8f856668f2270b}{DCHECK\_LE}}(0, max\_concurrency);}
+\DoxyCodeLine{106     \textcolor{keywordflow}{if} (max\_concurrency != 0) \textcolor{keywordflow}{return} max\_concurrency;}
+\DoxyCodeLine{107     \textcolor{comment}{// The job is done (max\_concurrency dropped to zero).}}
+\DoxyCodeLine{108     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(1, \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}});}
+\DoxyCodeLine{109     \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} = 0;}
+\DoxyCodeLine{110     \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a02a353c9f9a5545c8c1d78d76aa77f69}{is\_canceled\_}}.store(\textcolor{keyword}{true}, std::memory\_order\_relaxed);}
+\DoxyCodeLine{111     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{112   \};}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114   \textcolor{keywordtype}{size\_t} num\_tasks\_to\_post = 0;}
+\DoxyCodeLine{115   \{}
+\DoxyCodeLine{116     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a20a0b5474c19d08e571549a25285d126}{mutex\_}});}
+\DoxyCodeLine{117     \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a326ad061087371c0ad0d309d1315ad4e}{priority\_}} = \mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051a495bb545d1c5053ead9743a8b7692209}{TaskPriority::kUserBlocking}};}
+\DoxyCodeLine{118     \textcolor{comment}{// Reserve a worker for the joining (current) thread.}}
+\DoxyCodeLine{119     \textcolor{comment}{// GetMaxConcurrency() is ignored here, but if necessary we wait below}}
+\DoxyCodeLine{120     \textcolor{comment}{// for workers to return so we don't exceed GetMaxConcurrency().}}
+\DoxyCodeLine{121     ++\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_afaab51afece0b155641aff13848d8e97}{num\_worker\_threads\_}};}
+\DoxyCodeLine{122     ++\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}};}
+\DoxyCodeLine{123     \textcolor{keywordtype}{size\_t} max\_concurrency = WaitForParticipationOpportunity();}
+\DoxyCodeLine{124     \textcolor{keywordflow}{if} (max\_concurrency == 0) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{125     \textcolor{comment}{// Compute the number of additional worker tasks to spawn.}}
+\DoxyCodeLine{126     \textcolor{keywordflow}{if} (max\_concurrency > \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} + \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a1ac99452c0cf7b28784f63df11b778b1}{pending\_tasks\_}}) \{}
+\DoxyCodeLine{127       num\_tasks\_to\_post = max\_concurrency -\/ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} -\/ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a1ac99452c0cf7b28784f63df11b778b1}{pending\_tasks\_}};}
+\DoxyCodeLine{128       \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a1ac99452c0cf7b28784f63df11b778b1}{pending\_tasks\_}} += num\_tasks\_to\_post;}
+\DoxyCodeLine{129     \}}
+\DoxyCodeLine{130   \}}
+\DoxyCodeLine{131   \textcolor{comment}{// Spawn more worker tasks if needed.}}
+\DoxyCodeLine{132   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < num\_tasks\_to\_post; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{133     \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_acd6bd4b3beb74d4822357e4518312e05}{CallOnWorkerThread}}(\mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051a495bb545d1c5053ead9743a8b7692209}{TaskPriority::kUserBlocking}},}
+\DoxyCodeLine{134                        std::make\_unique<DefaultJobWorker>(shared\_from\_this(),}
+\DoxyCodeLine{135                                                           \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a18ce4b816d9c1dbee64752a66fb9849a}{job\_task\_}}.get()));}
+\DoxyCodeLine{136   \}}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138   \mbox{\hyperlink{namespacecppgc_a74aa606ef974ec10b401c6538a239245}{DefaultJobState::JobDelegate}} delegate(\textcolor{keyword}{this}, \textcolor{keyword}{true});}
+\DoxyCodeLine{139   \textcolor{keywordflow}{while} (\textcolor{keyword}{true}) \{}
+\DoxyCodeLine{140     \textcolor{comment}{// Participate in job execution, as one active worker.}}
+\DoxyCodeLine{141     \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a18ce4b816d9c1dbee64752a66fb9849a}{job\_task\_}}-\/>Run(\&delegate);}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a20a0b5474c19d08e571549a25285d126}{mutex\_}});}
+\DoxyCodeLine{144     \textcolor{keywordflow}{if} (WaitForParticipationOpportunity() == 0) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{145   \}}
+\DoxyCodeLine{146 \}}
+
+\end{DoxyCode}
+
+
+References active\+\_\+workers\+\_\+, Call\+On\+Worker\+Thread(), Capped\+Max\+Concurrency(), DCHECK\+\_\+\+EQ, DCHECK\+\_\+\+LE, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, is\+\_\+canceled\+\_\+, job\+\_\+task\+\_\+, v8\+::k\+User\+Blocking, mutex\+\_\+, num\+\_\+worker\+\_\+threads\+\_\+, pending\+\_\+tasks\+\_\+, priority\+\_\+, v8\+::base\+::\+Condition\+Variable\+::\+Wait(), and worker\+\_\+released\+\_\+condition\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultJobState_a60ec992744a842ca865ca7f0839093c1_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a39651c8abd166fc22b87553955da1e99}\label{classv8_1_1platform_1_1DefaultJobState_a39651c8abd166fc22b87553955da1e99}} 
 \index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!NotifyConcurrencyIncrease@{NotifyConcurrencyIncrease}}
 \index{NotifyConcurrencyIncrease@{NotifyConcurrencyIncrease}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
 \doxysubsubsection{\texorpdfstring{NotifyConcurrencyIncrease()}{NotifyConcurrencyIncrease()}}
 {\footnotesize\ttfamily void v8\+::platform\+::\+Default\+Job\+State\+::\+Notify\+Concurrency\+Increase (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 42 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{42                                                 \{}
+\DoxyCodeLine{43   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a02a353c9f9a5545c8c1d78d76aa77f69}{is\_canceled\_}}.load(std::memory\_order\_relaxed)) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   \textcolor{keywordtype}{size\_t} num\_tasks\_to\_post = 0;}
+\DoxyCodeLine{46   \mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051}{TaskPriority}} priority;}
+\DoxyCodeLine{47   \{}
+\DoxyCodeLine{48     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a20a0b5474c19d08e571549a25285d126}{mutex\_}});}
+\DoxyCodeLine{49     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} max\_concurrency = \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a76bf7b98e9bb0d402205616f5ccd423e}{CappedMaxConcurrency}}(\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}});}
+\DoxyCodeLine{50     \textcolor{comment}{// Consider |pending\_tasks\_| to avoid posting too many tasks.}}
+\DoxyCodeLine{51     \textcolor{keywordflow}{if} (max\_concurrency > \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} + \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a1ac99452c0cf7b28784f63df11b778b1}{pending\_tasks\_}}) \{}
+\DoxyCodeLine{52       num\_tasks\_to\_post = max\_concurrency -\/ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}{active\_workers\_}} -\/ \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a1ac99452c0cf7b28784f63df11b778b1}{pending\_tasks\_}};}
+\DoxyCodeLine{53       \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a1ac99452c0cf7b28784f63df11b778b1}{pending\_tasks\_}} += num\_tasks\_to\_post;}
+\DoxyCodeLine{54     \}}
+\DoxyCodeLine{55     priority = \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a326ad061087371c0ad0d309d1315ad4e}{priority\_}};}
+\DoxyCodeLine{56   \}}
+\DoxyCodeLine{57   \textcolor{comment}{// Post additional worker tasks to reach |max\_concurrency|.}}
+\DoxyCodeLine{58   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < num\_tasks\_to\_post; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{59     \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_acd6bd4b3beb74d4822357e4518312e05}{CallOnWorkerThread}}(priority, std::make\_unique<DefaultJobWorker>(}
+\DoxyCodeLine{60                                      shared\_from\_this(), \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a18ce4b816d9c1dbee64752a66fb9849a}{job\_task\_}}.get()));}
+\DoxyCodeLine{61   \}}
+\DoxyCodeLine{62 \}}
+
+\end{DoxyCode}
+
+
+References active\+\_\+workers\+\_\+, Call\+On\+Worker\+Thread(), Capped\+Max\+Concurrency(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, is\+\_\+canceled\+\_\+, job\+\_\+task\+\_\+, mutex\+\_\+, pending\+\_\+tasks\+\_\+, and priority\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultJobState_a39651c8abd166fc22b87553955da1e99_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a211cc69392b2147f603046a9e9dbee54}\label{classv8_1_1platform_1_1DefaultJobState_a211cc69392b2147f603046a9e9dbee54}} 
 \index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!ReleaseTaskId@{ReleaseTaskId}}
 \index{ReleaseTaskId@{ReleaseTaskId}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
 \doxysubsubsection{\texorpdfstring{ReleaseTaskId()}{ReleaseTaskId()}}
 {\footnotesize\ttfamily void v8\+::platform\+::\+Default\+Job\+State\+::\+Release\+Task\+Id (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{task\+\_\+id }\end{DoxyParamCaption})}
 
+
+
+Definition at line 87 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{87                                                    \{}
+\DoxyCodeLine{88   \textcolor{comment}{// memory\_order\_release to match AcquireTaskId().}}
+\DoxyCodeLine{89   uint32\_t previous\_task\_ids = \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a3360446f008356db269630dfe4b90cf0}{assigned\_task\_ids\_}}.fetch\_and(}
+\DoxyCodeLine{90       \string~(uint32\_t(1) << task\_id), std::memory\_order\_release);}
+\DoxyCodeLine{91   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(previous\_task\_ids \& (uint32\_t(1) << task\_id));}
+\DoxyCodeLine{92   \mbox{\hyperlink{src_2base_2macros_8h_a280b0798f270f4b3f361c9ab64832956}{USE}}(previous\_task\_ids);}
+\DoxyCodeLine{93 \}}
+
+\end{DoxyCode}
+
+
+References assigned\+\_\+task\+\_\+ids\+\_\+, DCHECK, and USE.
+
+
+
+Referenced by v8\+::platform\+::\+Default\+Job\+State\+::\+Job\+Delegate\+::$\sim$\+Job\+Delegate().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1platform_1_1DefaultJobState_a211cc69392b2147f603046a9e9dbee54_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a2f541a9db746ffa9b70620f105ff7cc2}\label{classv8_1_1platform_1_1DefaultJobState_a2f541a9db746ffa9b70620f105ff7cc2}} 
 \index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!UpdatePriority@{UpdatePriority}}
 \index{UpdatePriority@{UpdatePriority}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
@@ -136,7 +600,166 @@ void \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a2f541a9db746ffa9b7
 
 
 
+Definition at line 220 of file default-\/job.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{220                                                           \{}
+\DoxyCodeLine{221   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a20a0b5474c19d08e571549a25285d126}{mutex\_}});}
+\DoxyCodeLine{222   \mbox{\hyperlink{classv8_1_1platform_1_1DefaultJobState_a326ad061087371c0ad0d309d1315ad4e}{priority\_}} = priority;}
+\DoxyCodeLine{223 \}}
+
+\end{DoxyCode}
+
+
+References mutex\+\_\+, and priority\+\_\+.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}\label{classv8_1_1platform_1_1DefaultJobState_ab4a9cae7e44bdb953d6fb6c0e5a15b58}} 
+\index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!active\_workers\_@{active\_workers\_}}
+\index{active\_workers\_@{active\_workers\_}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
+\doxysubsubsection{\texorpdfstring{active\_workers\_}{active\_workers\_}}
+{\footnotesize\ttfamily size\+\_\+t v8\+::platform\+::\+Default\+Job\+State\+::active\+\_\+workers\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 91 of file default-\/job.\+h.
+
+
+
+Referenced by Cancel\+And\+Wait(), Can\+Run\+First\+Task(), Did\+Run\+Task(), Is\+Active(), Join(), Notify\+Concurrency\+Increase(), and $\sim$\+Default\+Job\+State().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a3360446f008356db269630dfe4b90cf0}\label{classv8_1_1platform_1_1DefaultJobState_a3360446f008356db269630dfe4b90cf0}} 
+\index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!assigned\_task\_ids\_@{assigned\_task\_ids\_}}
+\index{assigned\_task\_ids\_@{assigned\_task\_ids\_}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
+\doxysubsubsection{\texorpdfstring{assigned\_task\_ids\_}{assigned\_task\_ids\_}}
+{\footnotesize\ttfamily std\+::atomic$<$uint32\+\_\+t$>$ v8\+::platform\+::\+Default\+Job\+State\+::assigned\+\_\+task\+\_\+ids\+\_\+ \{0\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 101 of file default-\/job.\+h.
+
+
+
+Referenced by Acquire\+Task\+Id(), and Release\+Task\+Id().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a02a353c9f9a5545c8c1d78d76aa77f69}\label{classv8_1_1platform_1_1DefaultJobState_a02a353c9f9a5545c8c1d78d76aa77f69}} 
+\index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!is\_canceled\_@{is\_canceled\_}}
+\index{is\_canceled\_@{is\_canceled\_}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
+\doxysubsubsection{\texorpdfstring{is\_canceled\_}{is\_canceled\_}}
+{\footnotesize\ttfamily std\+::atomic\+\_\+bool v8\+::platform\+::\+Default\+Job\+State\+::is\+\_\+canceled\+\_\+ \{\mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 95 of file default-\/job.\+h.
+
+
+
+Referenced by Cancel\+And\+Detach(), Cancel\+And\+Wait(), Can\+Run\+First\+Task(), Did\+Run\+Task(), Join(), and Notify\+Concurrency\+Increase().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a18ce4b816d9c1dbee64752a66fb9849a}\label{classv8_1_1platform_1_1DefaultJobState_a18ce4b816d9c1dbee64752a66fb9849a}} 
+\index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!job\_task\_@{job\_task\_}}
+\index{job\_task\_@{job\_task\_}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
+\doxysubsubsection{\texorpdfstring{job\_task\_}{job\_task\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1JobTask}{Job\+Task}}$>$ v8\+::platform\+::\+Default\+Job\+State\+::job\+\_\+task\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 85 of file default-\/job.\+h.
+
+
+
+Referenced by Capped\+Max\+Concurrency(), Did\+Run\+Task(), Is\+Active(), Join(), and Notify\+Concurrency\+Increase().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a20a0b5474c19d08e571549a25285d126}\label{classv8_1_1platform_1_1DefaultJobState_a20a0b5474c19d08e571549a25285d126}} 
+\index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!mutex\_@{mutex\_}}
+\index{mutex\_@{mutex\_}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
+\doxysubsubsection{\texorpdfstring{mutex\_}{mutex\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} v8\+::platform\+::\+Default\+Job\+State\+::mutex\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 88 of file default-\/job.\+h.
+
+
+
+Referenced by Cancel\+And\+Wait(), Can\+Run\+First\+Task(), Did\+Run\+Task(), Is\+Active(), Join(), Notify\+Concurrency\+Increase(), and Update\+Priority().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_afaab51afece0b155641aff13848d8e97}\label{classv8_1_1platform_1_1DefaultJobState_afaab51afece0b155641aff13848d8e97}} 
+\index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!num\_worker\_threads\_@{num\_worker\_threads\_}}
+\index{num\_worker\_threads\_@{num\_worker\_threads\_}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
+\doxysubsubsection{\texorpdfstring{num\_worker\_threads\_}{num\_worker\_threads\_}}
+{\footnotesize\ttfamily size\+\_\+t v8\+::platform\+::\+Default\+Job\+State\+::num\+\_\+worker\+\_\+threads\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 97 of file default-\/job.\+h.
+
+
+
+Referenced by Capped\+Max\+Concurrency(), and Join().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a1ac99452c0cf7b28784f63df11b778b1}\label{classv8_1_1platform_1_1DefaultJobState_a1ac99452c0cf7b28784f63df11b778b1}} 
+\index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!pending\_tasks\_@{pending\_tasks\_}}
+\index{pending\_tasks\_@{pending\_tasks\_}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
+\doxysubsubsection{\texorpdfstring{pending\_tasks\_}{pending\_tasks\_}}
+{\footnotesize\ttfamily size\+\_\+t v8\+::platform\+::\+Default\+Job\+State\+::pending\+\_\+tasks\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 93 of file default-\/job.\+h.
+
+
+
+Referenced by Can\+Run\+First\+Task(), Did\+Run\+Task(), Join(), and Notify\+Concurrency\+Increase().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a3a2010ad7e2d821f4b586be1e04b42be}\label{classv8_1_1platform_1_1DefaultJobState_a3a2010ad7e2d821f4b586be1e04b42be}} 
+\index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!platform\_@{platform\_}}
+\index{platform\_@{platform\_}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
+\doxysubsubsection{\texorpdfstring{platform\_}{platform\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1Platform}{Platform}}$\ast$ const v8\+::platform\+::\+Default\+Job\+State\+::platform\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 84 of file default-\/job.\+h.
+
+
+
+Referenced by Call\+On\+Worker\+Thread().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a326ad061087371c0ad0d309d1315ad4e}\label{classv8_1_1platform_1_1DefaultJobState_a326ad061087371c0ad0d309d1315ad4e}} 
+\index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!priority\_@{priority\_}}
+\index{priority\_@{priority\_}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
+\doxysubsubsection{\texorpdfstring{priority\_}{priority\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_a680c1a715d1d5df94b21e8b1ee1bf051}{Task\+Priority}} v8\+::platform\+::\+Default\+Job\+State\+::priority\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 89 of file default-\/job.\+h.
+
+
+
+Referenced by Did\+Run\+Task(), Join(), Notify\+Concurrency\+Increase(), and Update\+Priority().
+
+\mbox{\Hypertarget{classv8_1_1platform_1_1DefaultJobState_a2ae68efeb115b2b40b66085c1d7c34ea}\label{classv8_1_1platform_1_1DefaultJobState_a2ae68efeb115b2b40b66085c1d7c34ea}} 
+\index{v8::platform::DefaultJobState@{v8::platform::DefaultJobState}!worker\_released\_condition\_@{worker\_released\_condition\_}}
+\index{worker\_released\_condition\_@{worker\_released\_condition\_}!v8::platform::DefaultJobState@{v8::platform::DefaultJobState}}
+\doxysubsubsection{\texorpdfstring{worker\_released\_condition\_}{worker\_released\_condition\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1ConditionVariable}{base\+::\+Condition\+Variable}} v8\+::platform\+::\+Default\+Job\+State\+::worker\+\_\+released\+\_\+condition\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 99 of file default-\/job.\+h.
+
+
+
+Referenced by Cancel\+And\+Wait(), Did\+Run\+Task(), and Join().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{default-job_8h}{default-\/job.\+h}}\item 
-\mbox{\hyperlink{default-job_8cc}{default-\/job.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/libplatform/\mbox{\hyperlink{default-job_8h}{default-\/job.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/libplatform/\mbox{\hyperlink{default-job_8cc}{default-\/job.\+cc}}\end{DoxyCompactItemize}

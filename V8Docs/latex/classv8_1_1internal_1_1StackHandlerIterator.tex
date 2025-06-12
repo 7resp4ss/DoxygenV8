@@ -1,5 +1,15 @@
 \hypertarget{classv8_1_1internal_1_1StackHandlerIterator}{}\doxysection{v8\+::internal\+::Stack\+Handler\+Iterator Class Reference}
 \label{classv8_1_1internal_1_1StackHandlerIterator}\index{v8::internal::StackHandlerIterator@{v8::internal::StackHandlerIterator}}
+
+
+Collaboration diagram for v8\+::internal\+::Stack\+Handler\+Iterator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StackHandlerIterator__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -11,6 +21,20 @@
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_ac6ca34d63d4c39ceeb854aa03389e08e}{Advance}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_ab3a0e3e0ef4f2f9b07e6f53086ac567e}{limit\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1StackHandler}{Stack\+Handler}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_a1524e6a3f7e16a9dd93008f49ec4f4a5}{handler\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 92 of file frames.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -22,6 +46,59 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_ac6ca34d63d4c3
 
 
 
+Definition at line 94 of file frames.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{95       : \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_ab3a0e3e0ef4f2f9b07e6f53086ac567e}{limit\_}}(frame-\/>fp()), \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_a1524e6a3f7e16a9dd93008f49ec4f4a5}{handler\_}}(\mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_ae5991ba4875106c9a5d24a5596f15089}{handler}}) \{}
+\DoxyCodeLine{96 \textcolor{preprocessor}{\#if V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{97 \textcolor{preprocessor}{\#if !V8\_ENABLE\_DRUMBRAKE \&\& !USE\_SIMULATOR}}
+\DoxyCodeLine{98     \textcolor{comment}{// Make sure the handler has already been unwound to this frame. With stack}}
+\DoxyCodeLine{99     \textcolor{comment}{// switching this is not equivalent to the inequality below, because the}}
+\DoxyCodeLine{100     \textcolor{comment}{// frame and the handler could be in different stacks.}}
+\DoxyCodeLine{101     \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(frame-\/>isolate()-\/>wasm\_stacks().empty(),}
+\DoxyCodeLine{102                    frame-\/>InFastCCall() || frame-\/>sp() <= \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02frames_8cc_03_a2e92b3f735d7788adc5d3a789968a665}{AddressOf}}(\mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_ae5991ba4875106c9a5d24a5596f15089}{handler}}));}
+\DoxyCodeLine{103 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// !V8\_ENABLE\_DRUMBRAKE || !USE\_SIMULATOR}}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105     \textcolor{comment}{// For CWasmEntry frames, the handler was registered by the last C++}}
+\DoxyCodeLine{106     \textcolor{comment}{// frame (Execution::CallWasm), so even though its address is already}}
+\DoxyCodeLine{107     \textcolor{comment}{// beyond the limit, we know we always want to unwind one handler.}}
+\DoxyCodeLine{108     \textcolor{keywordflow}{if} (frame-\/>is\_c\_wasm\_entry()) \{}
+\DoxyCodeLine{109       \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_a1524e6a3f7e16a9dd93008f49ec4f4a5}{handler\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_a1524e6a3f7e16a9dd93008f49ec4f4a5}{handler\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1StackHandler_ae90ebbcf509d7347b1eaf6f34e0a6fa6}{next}}();}
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#if V8\_ENABLE\_DRUMBRAKE}}
+\DoxyCodeLine{111     \textcolor{comment}{// Do the same for GenericWasmToJsInterpreterWrapper frames.}}
+\DoxyCodeLine{112     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.wasm\_jitless \&\& frame-\/>is\_wasm\_to\_js()) \{}
+\DoxyCodeLine{113       \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_a1524e6a3f7e16a9dd93008f49ec4f4a5}{handler\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_a1524e6a3f7e16a9dd93008f49ec4f4a5}{handler\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1StackHandler_ae90ebbcf509d7347b1eaf6f34e0a6fa6}{next}}();}
+\DoxyCodeLine{114 \textcolor{preprocessor}{\#ifdef USE\_SIMULATOR}}
+\DoxyCodeLine{115       \textcolor{comment}{// If we are running in the simulator, the handler\_ address here will}}
+\DoxyCodeLine{116       \textcolor{comment}{// refer to the 'actual' stack, not to the 'simulated' stack, so we need}}
+\DoxyCodeLine{117       \textcolor{comment}{// to fix 'limit\_' to make sure that the StackHandlerIterator won't skip}}
+\DoxyCodeLine{118       \textcolor{comment}{// any handler.}}
+\DoxyCodeLine{119       \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_ab3a0e3e0ef4f2f9b07e6f53086ac567e}{limit\_}} = 0;}
+\DoxyCodeLine{120 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// USE\_SIMULATOR}}
+\DoxyCodeLine{121 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_ENABLE\_DRUMBRAKE}}
+\DoxyCodeLine{122     \}}
+\DoxyCodeLine{123 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{124     \textcolor{comment}{// Make sure the handler has already been unwound to this frame.}}
+\DoxyCodeLine{125     \mbox{\hyperlink{src_2base_2logging_8h_a16b382527f19b805fc8f856668f2270b}{DCHECK\_LE}}(frame-\/>sp(), \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02frames_8cc_03_a2e92b3f735d7788adc5d3a789968a665}{AddressOf}}(\mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_ae5991ba4875106c9a5d24a5596f15089}{handler}}));}
+\DoxyCodeLine{126 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{127   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::anonymous\+\_\+namespace\{frames.\+cc\}\+::\+Address\+Of(), DCHECK\+\_\+\+IMPLIES, DCHECK\+\_\+\+LE, handler(), handler\+\_\+, v8\+::internal\+::\+Stack\+Frame\+::\+In\+Fast\+CCall(), v8\+::internal\+::\+Stack\+Frame\+::isolate(), limit\+\_\+, v8\+::internal\+::\+Stack\+Handler\+::next(), v8\+::internal\+::\+Stack\+Frame\+::sp(), and v8\+::internal\+::v8\+\_\+flags.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StackHandlerIterator_a50d3e9cba310dc834852d96ea57b2c1b_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1StackHandlerIterator_ac6ca34d63d4c39ceeb854aa03389e08e}\label{classv8_1_1internal_1_1StackHandlerIterator_ac6ca34d63d4c39ceeb854aa03389e08e}} 
 \index{v8::internal::StackHandlerIterator@{v8::internal::StackHandlerIterator}!Advance@{Advance}}
@@ -29,12 +106,81 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_ac6ca34d63d4c3
 \doxysubsubsection{\texorpdfstring{Advance()}{Advance()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Stack\+Handler\+Iterator\+::\+Advance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 132 of file frames.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{132                  \{}
+\DoxyCodeLine{133     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_a5cba6d55b733036f3598a40dda685f9e}{done}}());}
+\DoxyCodeLine{134     \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_a1524e6a3f7e16a9dd93008f49ec4f4a5}{handler\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_a1524e6a3f7e16a9dd93008f49ec4f4a5}{handler\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1StackHandler_ae90ebbcf509d7347b1eaf6f34e0a6fa6}{next}}();}
+\DoxyCodeLine{135   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), done(), handler\+\_\+, and v8\+::internal\+::\+Stack\+Handler\+::next().
+
+
+
+Referenced by v8\+::internal\+::\+Stack\+Frame\+Iterator\+::\+Advance().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StackHandlerIterator_ac6ca34d63d4c39ceeb854aa03389e08e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StackHandlerIterator_ac6ca34d63d4c39ceeb854aa03389e08e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1StackHandlerIterator_a5cba6d55b733036f3598a40dda685f9e}\label{classv8_1_1internal_1_1StackHandlerIterator_a5cba6d55b733036f3598a40dda685f9e}} 
 \index{v8::internal::StackHandlerIterator@{v8::internal::StackHandlerIterator}!done@{done}}
 \index{done@{done}!v8::internal::StackHandlerIterator@{v8::internal::StackHandlerIterator}}
 \doxysubsubsection{\texorpdfstring{done()}{done()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Stack\+Handler\+Iterator\+::done (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 131 of file frames.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{131 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_a1524e6a3f7e16a9dd93008f49ec4f4a5}{handler\_}} == \textcolor{keyword}{nullptr} || \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02frames_8cc_03_a2e92b3f735d7788adc5d3a789968a665}{AddressOf}}(\mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_a1524e6a3f7e16a9dd93008f49ec4f4a5}{handler\_}}) > \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_ab3a0e3e0ef4f2f9b07e6f53086ac567e}{limit\_}}; \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::anonymous\+\_\+namespace\{frames.\+cc\}\+::\+Address\+Of(), handler\+\_\+, and limit\+\_\+.
+
+
+
+Referenced by Advance(), and v8\+::internal\+::\+Stack\+Frame\+Iterator\+::\+Advance().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StackHandlerIterator_a5cba6d55b733036f3598a40dda685f9e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StackHandlerIterator_a5cba6d55b733036f3598a40dda685f9e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1StackHandlerIterator_ae5991ba4875106c9a5d24a5596f15089}\label{classv8_1_1internal_1_1StackHandlerIterator_ae5991ba4875106c9a5d24a5596f15089}} 
 \index{v8::internal::StackHandlerIterator@{v8::internal::StackHandlerIterator}!handler@{handler}}
 \index{handler@{handler}!v8::internal::StackHandlerIterator@{v8::internal::StackHandlerIterator}}
@@ -43,6 +189,62 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_ac6ca34d63d4c3
 
 
 
+Definition at line 129 of file frames.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{129 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1StackHandlerIterator_a1524e6a3f7e16a9dd93008f49ec4f4a5}{handler\_}}; \}}
+
+\end{DoxyCode}
+
+
+References handler\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Stack\+Frame\+Iterator\+::\+Advance(), and Stack\+Handler\+Iterator().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1StackHandlerIterator_ae5991ba4875106c9a5d24a5596f15089_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1StackHandlerIterator_a1524e6a3f7e16a9dd93008f49ec4f4a5}\label{classv8_1_1internal_1_1StackHandlerIterator_a1524e6a3f7e16a9dd93008f49ec4f4a5}} 
+\index{v8::internal::StackHandlerIterator@{v8::internal::StackHandlerIterator}!handler\_@{handler\_}}
+\index{handler\_@{handler\_}!v8::internal::StackHandlerIterator@{v8::internal::StackHandlerIterator}}
+\doxysubsubsection{\texorpdfstring{handler\_}{handler\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1StackHandler}{Stack\+Handler}}$\ast$ v8\+::internal\+::\+Stack\+Handler\+Iterator\+::handler\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 144 of file frames.\+cc.
+
+
+
+Referenced by Advance(), done(), handler(), and Stack\+Handler\+Iterator().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1StackHandlerIterator_ab3a0e3e0ef4f2f9b07e6f53086ac567e}\label{classv8_1_1internal_1_1StackHandlerIterator_ab3a0e3e0ef4f2f9b07e6f53086ac567e}} 
+\index{v8::internal::StackHandlerIterator@{v8::internal::StackHandlerIterator}!limit\_@{limit\_}}
+\index{limit\_@{limit\_}!v8::internal::StackHandlerIterator@{v8::internal::StackHandlerIterator}}
+\doxysubsubsection{\texorpdfstring{limit\_}{limit\_}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} v8\+::internal\+::\+Stack\+Handler\+Iterator\+::limit\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 141 of file frames.\+cc.
+
+
+
+Referenced by done(), and Stack\+Handler\+Iterator().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{frames_8cc}{frames.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/execution/\mbox{\hyperlink{frames_8cc}{frames.\+cc}}\end{DoxyCompactItemize}

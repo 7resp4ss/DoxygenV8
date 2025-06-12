@@ -4,17 +4,41 @@
 
 {\ttfamily \#include $<$d8.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::Serialization\+Data\+Queue\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1SerializationDataQueue__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{classv8_1_1SerializationDataQueue_a29553b2dbd5de7b71087c0fc09c63174}{Enqueue}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1SerializationData}{Serialization\+Data}} $>$ \mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}})
+void \mbox{\hyperlink{classv8_1_1SerializationDataQueue_a29553b2dbd5de7b71087c0fc09c63174}{Enqueue}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1SerializationData}{Serialization\+Data}} $>$ data)
 \item 
-bool \mbox{\hyperlink{classv8_1_1SerializationDataQueue_a484b964c7f57003203c3c80905abd384}{Dequeue}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1SerializationData}{Serialization\+Data}} $>$ $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}})
+bool \mbox{\hyperlink{classv8_1_1SerializationDataQueue_a484b964c7f57003203c3c80905abd384}{Dequeue}} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1SerializationData}{Serialization\+Data}} $>$ $\ast$data)
 \item 
 bool \mbox{\hyperlink{classv8_1_1SerializationDataQueue_a9103ef577bcfe534f12347a6c8480062}{Is\+Empty}} ()
 \item 
 void \mbox{\hyperlink{classv8_1_1SerializationDataQueue_ab01f3774e08176cfb4d1dddfda6d04a4}{Clear}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} \mbox{\hyperlink{classv8_1_1SerializationDataQueue_a035630fcfb8c2c756ae319ac5aab170c}{mutex\+\_\+}}
+\item 
+std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1SerializationData}{Serialization\+Data}} $>$ $>$ \mbox{\hyperlink{classv8_1_1SerializationDataQueue_a0c304b13abce2b1d81e82392adce66e1}{data\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 175 of file d8.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -24,18 +48,82 @@ void \mbox{\hyperlink{classv8_1_1SerializationDataQueue_ab01f3774e08176cfb4d1ddd
 \doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
 {\footnotesize\ttfamily void v8\+::\+Serialization\+Data\+Queue\+::\+Clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 5360 of file d8.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5360                                    \{}
+\DoxyCodeLine{5361   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} lock\_guard(\&\mbox{\hyperlink{classv8_1_1SerializationDataQueue_a035630fcfb8c2c756ae319ac5aab170c}{mutex\_}});}
+\DoxyCodeLine{5362   \mbox{\hyperlink{classv8_1_1SerializationDataQueue_a0c304b13abce2b1d81e82392adce66e1}{data\_}}.clear();}
+\DoxyCodeLine{5363 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1SerializationDataQueue_a484b964c7f57003203c3c80905abd384}\label{classv8_1_1SerializationDataQueue_a484b964c7f57003203c3c80905abd384}} 
 \index{v8::SerializationDataQueue@{v8::SerializationDataQueue}!Dequeue@{Dequeue}}
 \index{Dequeue@{Dequeue}!v8::SerializationDataQueue@{v8::SerializationDataQueue}}
 \doxysubsubsection{\texorpdfstring{Dequeue()}{Dequeue()}}
 {\footnotesize\ttfamily bool v8\+::\+Serialization\+Data\+Queue\+::\+Dequeue (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1SerializationData}{Serialization\+Data}} $>$ $\ast$}]{data }\end{DoxyParamCaption})}
 
+
+
+Definition at line 5345 of file d8.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5346                                                 \{}
+\DoxyCodeLine{5347   out\_data-\/>reset();}
+\DoxyCodeLine{5348   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} lock\_guard(\&\mbox{\hyperlink{classv8_1_1SerializationDataQueue_a035630fcfb8c2c756ae319ac5aab170c}{mutex\_}});}
+\DoxyCodeLine{5349   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1SerializationDataQueue_a0c304b13abce2b1d81e82392adce66e1}{data\_}}.empty()) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{5350   *out\_data = std::move(\mbox{\hyperlink{classv8_1_1SerializationDataQueue_a0c304b13abce2b1d81e82392adce66e1}{data\_}}[0]);}
+\DoxyCodeLine{5351   \mbox{\hyperlink{classv8_1_1SerializationDataQueue_a0c304b13abce2b1d81e82392adce66e1}{data\_}}.erase(\mbox{\hyperlink{classv8_1_1SerializationDataQueue_a0c304b13abce2b1d81e82392adce66e1}{data\_}}.begin());}
+\DoxyCodeLine{5352   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{5353 \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::\+Worker\+::\+Get\+Message(), and v8\+::\+Worker\+::\+Try\+Get\+Message().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1SerializationDataQueue_a484b964c7f57003203c3c80905abd384_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1SerializationDataQueue_a29553b2dbd5de7b71087c0fc09c63174}\label{classv8_1_1SerializationDataQueue_a29553b2dbd5de7b71087c0fc09c63174}} 
 \index{v8::SerializationDataQueue@{v8::SerializationDataQueue}!Enqueue@{Enqueue}}
 \index{Enqueue@{Enqueue}!v8::SerializationDataQueue@{v8::SerializationDataQueue}}
 \doxysubsubsection{\texorpdfstring{Enqueue()}{Enqueue()}}
 {\footnotesize\ttfamily void v8\+::\+Serialization\+Data\+Queue\+::\+Enqueue (\begin{DoxyParamCaption}\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1SerializationData}{Serialization\+Data}} $>$}]{data }\end{DoxyParamCaption})}
 
+
+
+Definition at line 5340 of file d8.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5340                                                                           \{}
+\DoxyCodeLine{5341   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} lock\_guard(\&\mbox{\hyperlink{classv8_1_1SerializationDataQueue_a035630fcfb8c2c756ae319ac5aab170c}{mutex\_}});}
+\DoxyCodeLine{5342   \mbox{\hyperlink{classv8_1_1SerializationDataQueue_a0c304b13abce2b1d81e82392adce66e1}{data\_}}.push\_back(std::move(data));}
+\DoxyCodeLine{5343 \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::\+Worker\+::\+Execute\+In\+Thread(), and v8\+::\+Worker\+::\+Post\+Message\+Out().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1SerializationDataQueue_a29553b2dbd5de7b71087c0fc09c63174_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1SerializationDataQueue_a9103ef577bcfe534f12347a6c8480062}\label{classv8_1_1SerializationDataQueue_a9103ef577bcfe534f12347a6c8480062}} 
 \index{v8::SerializationDataQueue@{v8::SerializationDataQueue}!IsEmpty@{IsEmpty}}
 \index{IsEmpty@{IsEmpty}!v8::SerializationDataQueue@{v8::SerializationDataQueue}}
@@ -44,7 +132,42 @@ void \mbox{\hyperlink{classv8_1_1SerializationDataQueue_ab01f3774e08176cfb4d1ddd
 
 
 
+Definition at line 5355 of file d8.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5355                                      \{}
+\DoxyCodeLine{5356   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} lock\_guard(\&\mbox{\hyperlink{classv8_1_1SerializationDataQueue_a035630fcfb8c2c756ae319ac5aab170c}{mutex\_}});}
+\DoxyCodeLine{5357   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1SerializationDataQueue_a0c304b13abce2b1d81e82392adce66e1}{data\_}}.empty();}
+\DoxyCodeLine{5358 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1SerializationDataQueue_a0c304b13abce2b1d81e82392adce66e1}\label{classv8_1_1SerializationDataQueue_a0c304b13abce2b1d81e82392adce66e1}} 
+\index{v8::SerializationDataQueue@{v8::SerializationDataQueue}!data\_@{data\_}}
+\index{data\_@{data\_}!v8::SerializationDataQueue@{v8::SerializationDataQueue}}
+\doxysubsubsection{\texorpdfstring{data\_}{data\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1SerializationData}{Serialization\+Data}}$>$ $>$ v8\+::\+Serialization\+Data\+Queue\+::data\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 184 of file d8.\+h.
+
+\mbox{\Hypertarget{classv8_1_1SerializationDataQueue_a035630fcfb8c2c756ae319ac5aab170c}\label{classv8_1_1SerializationDataQueue_a035630fcfb8c2c756ae319ac5aab170c}} 
+\index{v8::SerializationDataQueue@{v8::SerializationDataQueue}!mutex\_@{mutex\_}}
+\index{mutex\_@{mutex\_}!v8::SerializationDataQueue@{v8::SerializationDataQueue}}
+\doxysubsubsection{\texorpdfstring{mutex\_}{mutex\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} v8\+::\+Serialization\+Data\+Queue\+::mutex\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 183 of file d8.\+h.
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{d8_8h}{d8.\+h}}\item 
-\mbox{\hyperlink{d8_8cc}{d8.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/d8/\mbox{\hyperlink{d8_8h}{d8.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/d8/\mbox{\hyperlink{d8_8cc}{d8.\+cc}}\end{DoxyCompactItemize}

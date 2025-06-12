@@ -1,0 +1,198 @@
+\hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03}{}\doxysection{cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.cc\} Namespace Reference}
+\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03}\index{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classcppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_1_1ConcurrentMarkingTask}{Concurrent\+Marking\+Task}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$Stats\+Collector\+::\+Concurrent\+Scope\+Id scope\+\_\+id, size\+\_\+t k\+Deadline\+Check\+Interval = k\+Default\+Deadline\+Check\+Interval, typename Worklist\+Local , typename Callback $>$ }\\bool \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_a6bed7f84966ec4d415c76e073dd48b13}{Drain\+Worklist\+With\+Yielding}} (\mbox{\hyperlink{namespacecppgc_a74aa606ef974ec10b401c6538a239245}{Job\+Delegate}} $\ast$job\+\_\+delegate, \mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector}{Stats\+Collector}} $\ast$stats\+\_\+collector, \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkingState}{Concurrent\+Marking\+State}} \&marking\+\_\+state, \mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase}{Concurrent\+Marker\+Base}} \&concurrent\+\_\+marker, Worklist\+Local \&worklist\+\_\+local, Callback callback)
+\item 
+size\+\_\+t \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_aea7fd112d48395b8f30aa2135faa0ab2}{Work\+Size\+For\+Concurrent\+Marking}} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists}{Marking\+Worklists}} \&marking\+\_\+worklists)
+\item 
+bool \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_acc676f4d55fdf4d7a38dc51dea1bd2b4}{Has\+Work\+For\+Concurrent\+Marking}} (\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists}{Marking\+Worklists}} \&marking\+\_\+worklists)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr double \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_a7073e87cabd2aab7083ad3f65dfec9f2}{k\+Marking\+Schedule\+Ratio\+Before\+Concurrent\+Priority\+Increase}}
+\item 
+static constexpr size\+\_\+t \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_ae83575397c473f0d2288343237d139e9}{k\+Default\+Deadline\+Check\+Interval}} = 750u
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_a6bed7f84966ec4d415c76e073dd48b13}\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_a6bed7f84966ec4d415c76e073dd48b13}} 
+\index{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}}!DrainWorklistWithYielding@{DrainWorklistWithYielding}}
+\index{DrainWorklistWithYielding@{DrainWorklistWithYielding}!cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{DrainWorklistWithYielding()}{DrainWorklistWithYielding()}}
+{\footnotesize\ttfamily template$<$Stats\+Collector\+::\+Concurrent\+Scope\+Id scope\+\_\+id, size\+\_\+t k\+Deadline\+Check\+Interval = k\+Default\+Deadline\+Check\+Interval, typename Worklist\+Local , typename Callback $>$ \\
+bool cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::Drain\+Worklist\+With\+Yielding (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacecppgc_a74aa606ef974ec10b401c6538a239245}{Job\+Delegate}} $\ast$}]{job\+\_\+delegate,  }\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector}{Stats\+Collector}} $\ast$}]{stats\+\_\+collector,  }\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkingState}{Concurrent\+Marking\+State}} \&}]{marking\+\_\+state,  }\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1ConcurrentMarkerBase}{Concurrent\+Marker\+Base}} \&}]{concurrent\+\_\+marker,  }\item[{Worklist\+Local \&}]{worklist\+\_\+local,  }\item[{Callback}]{callback }\end{DoxyParamCaption})}
+
+
+
+Definition at line 27 of file concurrent-\/marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{32                                                   \{}
+\DoxyCodeLine{33   \textcolor{keywordflow}{return} DrainWorklistWithPredicate<kDeadlineCheckInterval>(}
+\DoxyCodeLine{34       [\&concurrent\_marker, \&marking\_state, job\_delegate]() \{}
+\DoxyCodeLine{35         concurrent\_marker.AddConcurrentlyMarkedBytes(}
+\DoxyCodeLine{36             marking\_state.RecentlyMarkedBytes());}
+\DoxyCodeLine{37         \textcolor{keywordflow}{return} job\_delegate-\/>ShouldYield();}
+\DoxyCodeLine{38       \},}
+\DoxyCodeLine{39       [stats\_collector]() \{}
+\DoxyCodeLine{40         \textcolor{keywordflow}{return} StatsCollector::DisabledConcurrentScope(stats\_collector,}
+\DoxyCodeLine{41                                                        scope\_id);}
+\DoxyCodeLine{42       \},}
+\DoxyCodeLine{43       worklist\_local, callback);}
+\DoxyCodeLine{44 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Add\+Concurrently\+Marked\+Bytes(), cppgc\+::internal\+::\+Basic\+Marking\+State\+::\+Recently\+Marked\+Bytes(), and v8\+::\+Job\+Delegate\+::\+Should\+Yield().
+
+
+
+Referenced by cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::\+Concurrent\+Marking\+Task\+::\+Process\+Worklists().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_a6bed7f84966ec4d415c76e073dd48b13_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_a6bed7f84966ec4d415c76e073dd48b13_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_acc676f4d55fdf4d7a38dc51dea1bd2b4}\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_acc676f4d55fdf4d7a38dc51dea1bd2b4}} 
+\index{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}}!HasWorkForConcurrentMarking@{HasWorkForConcurrentMarking}}
+\index{HasWorkForConcurrentMarking@{HasWorkForConcurrentMarking}!cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{HasWorkForConcurrentMarking()}{HasWorkForConcurrentMarking()}}
+{\footnotesize\ttfamily bool cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::Has\+Work\+For\+Concurrent\+Marking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists}{Marking\+Worklists}} \&}]{marking\+\_\+worklists }\end{DoxyParamCaption})}
+
+
+
+Definition at line 55 of file concurrent-\/marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{55                                                                       \{}
+\DoxyCodeLine{56   \textcolor{keywordflow}{return} !marking\_worklists.marking\_worklist()-\/>IsEmpty() ||}
+\DoxyCodeLine{57          !marking\_worklists.write\_barrier\_worklist()-\/>IsEmpty() ||}
+\DoxyCodeLine{58          !marking\_worklists.previously\_not\_fully\_constructed\_worklist()}
+\DoxyCodeLine{59               -\/>IsEmpty();}
+\DoxyCodeLine{60 \}}
+
+\end{DoxyCode}
+
+
+References heap\+::base\+::\+Worklist$<$ Entry\+Type, Min\+Segment\+Size $>$\+::\+Is\+Empty(), cppgc\+::internal\+::\+Marking\+Worklists\+::marking\+\_\+worklist(), cppgc\+::internal\+::\+Marking\+Worklists\+::previously\+\_\+not\+\_\+fully\+\_\+constructed\+\_\+worklist(), and cppgc\+::internal\+::\+Marking\+Worklists\+::write\+\_\+barrier\+\_\+worklist().
+
+
+
+Referenced by cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Notify\+Incremental\+Mutator\+Step\+Completed(), cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Notify\+Of\+Work\+If\+Needed(), and cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::\+Concurrent\+Marking\+Task\+::\+Run().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_acc676f4d55fdf4d7a38dc51dea1bd2b4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_acc676f4d55fdf4d7a38dc51dea1bd2b4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_aea7fd112d48395b8f30aa2135faa0ab2}\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_aea7fd112d48395b8f30aa2135faa0ab2}} 
+\index{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}}!WorkSizeForConcurrentMarking@{WorkSizeForConcurrentMarking}}
+\index{WorkSizeForConcurrentMarking@{WorkSizeForConcurrentMarking}!cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{WorkSizeForConcurrentMarking()}{WorkSizeForConcurrentMarking()}}
+{\footnotesize\ttfamily size\+\_\+t cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::Work\+Size\+For\+Concurrent\+Marking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1MarkingWorklists}{Marking\+Worklists}} \&}]{marking\+\_\+worklists }\end{DoxyParamCaption})}
+
+
+
+Definition at line 46 of file concurrent-\/marker.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{46                                                                          \{}
+\DoxyCodeLine{47   \textcolor{keywordflow}{return} marking\_worklists.marking\_worklist()-\/>Size() +}
+\DoxyCodeLine{48          marking\_worklists.write\_barrier\_worklist()-\/>Size() +}
+\DoxyCodeLine{49          marking\_worklists.previously\_not\_fully\_constructed\_worklist()-\/>Size();}
+\DoxyCodeLine{50 \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Marking\+Worklists\+::marking\+\_\+worklist(), cppgc\+::internal\+::\+Marking\+Worklists\+::previously\+\_\+not\+\_\+fully\+\_\+constructed\+\_\+worklist(), heap\+::base\+::\+Worklist$<$ Entry\+Type, Min\+Segment\+Size $>$\+::\+Size(), and cppgc\+::internal\+::\+Marking\+Worklists\+::write\+\_\+barrier\+\_\+worklist().
+
+
+
+Referenced by cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::\+Concurrent\+Marking\+Task\+::\+Get\+Max\+Concurrency().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_aea7fd112d48395b8f30aa2135faa0ab2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_aea7fd112d48395b8f30aa2135faa0ab2_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_ae83575397c473f0d2288343237d139e9}\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_ae83575397c473f0d2288343237d139e9}} 
+\index{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}}!kDefaultDeadlineCheckInterval@{kDefaultDeadlineCheckInterval}}
+\index{kDefaultDeadlineCheckInterval@{kDefaultDeadlineCheckInterval}!cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{kDefaultDeadlineCheckInterval}{kDefaultDeadlineCheckInterval}}
+{\footnotesize\ttfamily constexpr size\+\_\+t cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::k\+Default\+Deadline\+Check\+Interval = 750u\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line 22 of file concurrent-\/marker.\+cc.
+
+\mbox{\Hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_a7073e87cabd2aab7083ad3f65dfec9f2}\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02concurrent-marker_8cc_03_a7073e87cabd2aab7083ad3f65dfec9f2}} 
+\index{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}}!kMarkingScheduleRatioBeforeConcurrentPriorityIncrease@{kMarkingScheduleRatioBeforeConcurrentPriorityIncrease}}
+\index{kMarkingScheduleRatioBeforeConcurrentPriorityIncrease@{kMarkingScheduleRatioBeforeConcurrentPriorityIncrease}!cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}concurrent-\/marker.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{kMarkingScheduleRatioBeforeConcurrentPriorityIncrease}{kMarkingScheduleRatioBeforeConcurrentPriorityIncrease}}
+{\footnotesize\ttfamily constexpr double cppgc\+::internal\+::anonymous\+\_\+namespace\{concurrent-\/marker.\+cc\}\+::k\+Marking\+Schedule\+Ratio\+Before\+Concurrent\+Priority\+Increase\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{    0.5}
+
+\end{DoxyCode}
+
+
+Definition at line 19 of file concurrent-\/marker.\+cc.
+
+
+
+Referenced by cppgc\+::internal\+::\+Concurrent\+Marker\+Base\+::\+Increase\+Marking\+Priority\+If\+Needed().
+

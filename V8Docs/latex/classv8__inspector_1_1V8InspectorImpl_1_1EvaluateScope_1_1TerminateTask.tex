@@ -17,7 +17,7 @@ Collaboration diagram for v8\+\_\+inspector\+::V8\+Inspector\+Impl\+::Evaluate\+
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=273pt]{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask__coll__graph}
+\includegraphics[width=350pt]{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -27,6 +27,20 @@ Collaboration diagram for v8\+\_\+inspector\+::V8\+Inspector\+Impl\+::Evaluate\+
 \item 
 void \mbox{\hyperlink{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask_af3f2e14153f7b7ab3012cd555c7bceea}{Run}} () override
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$ \mbox{\hyperlink{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask_a06fa26654f89c42f054738321563a65f}{m\+\_\+isolate}}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1CancelToken}{Cancel\+Token}} $>$ \mbox{\hyperlink{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask_a6ad09e9d991952a5b0791d85be740a00}{m\+\_\+token}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 482 of file v8-\/inspector-\/impl.\+cc.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -36,6 +50,15 @@ void \mbox{\hyperlink{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1
 \doxysubsubsection{\texorpdfstring{TerminateTask()}{TerminateTask()}}
 {\footnotesize\ttfamily v8\+\_\+inspector\+::\+V8\+Inspector\+Impl\+::\+Evaluate\+Scope\+::\+Terminate\+Task\+::\+Terminate\+Task (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$}]{isolate,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1CancelToken}{Cancel\+Token}} $>$}]{token }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 484 of file v8-\/inspector-\/impl.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{485       : \mbox{\hyperlink{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask_a06fa26654f89c42f054738321563a65f}{m\_isolate}}(\mbox{\hyperlink{classv8__inspector_1_1V8InspectorImpl_a76d62cba06864a3c0d57a2b1294080d7}{isolate}}), \mbox{\hyperlink{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask_a6ad09e9d991952a5b0791d85be740a00}{m\_token}}(std::move(token)) \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -51,6 +74,56 @@ Implements \mbox{\hyperlink{classv8_1_1Task_a6bd5bda0e357fcc2e727bf7b0170f99a}{v
 
 
 
+Definition at line 487 of file v8-\/inspector-\/impl.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{487                       \{}
+\DoxyCodeLine{488     \textcolor{comment}{// CancelToken contains m\_canceled bool which may be changed from main}}
+\DoxyCodeLine{489     \textcolor{comment}{// thread, so lock mutex first.}}
+\DoxyCodeLine{490     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{v8::base::MutexGuard}} lock(\&\mbox{\hyperlink{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask_a6ad09e9d991952a5b0791d85be740a00}{m\_token}}-\/>m\_mutex);}
+\DoxyCodeLine{491     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask_a6ad09e9d991952a5b0791d85be740a00}{m\_token}}-\/>m\_canceled) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{492     \mbox{\hyperlink{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask_a06fa26654f89c42f054738321563a65f}{m\_isolate}}-\/>\mbox{\hyperlink{classv8_1_1Isolate_ad212b2e0b66ff5d586cd79cfa0b555fb}{TerminateExecution}}();}
+\DoxyCodeLine{493   \}}
+
+\end{DoxyCode}
+
+
+References v8\+\_\+inspector\+::\+V8\+Inspector\+Impl\+::m\+\_\+isolate, and v8\+::\+Isolate\+::\+Terminate\+Execution().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask_af3f2e14153f7b7ab3012cd555c7bceea_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask_a06fa26654f89c42f054738321563a65f}\label{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask_a06fa26654f89c42f054738321563a65f}} 
+\index{v8\_inspector::V8InspectorImpl::EvaluateScope::TerminateTask@{v8\_inspector::V8InspectorImpl::EvaluateScope::TerminateTask}!m\_isolate@{m\_isolate}}
+\index{m\_isolate@{m\_isolate}!v8\_inspector::V8InspectorImpl::EvaluateScope::TerminateTask@{v8\_inspector::V8InspectorImpl::EvaluateScope::TerminateTask}}
+\doxysubsubsection{\texorpdfstring{m\_isolate}{m\_isolate}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}}$\ast$ v8\+\_\+inspector\+::\+V8\+Inspector\+Impl\+::\+Evaluate\+Scope\+::\+Terminate\+Task\+::m\+\_\+isolate\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 496 of file v8-\/inspector-\/impl.\+cc.
+
+\mbox{\Hypertarget{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask_a6ad09e9d991952a5b0791d85be740a00}\label{classv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1TerminateTask_a6ad09e9d991952a5b0791d85be740a00}} 
+\index{v8\_inspector::V8InspectorImpl::EvaluateScope::TerminateTask@{v8\_inspector::V8InspectorImpl::EvaluateScope::TerminateTask}!m\_token@{m\_token}}
+\index{m\_token@{m\_token}!v8\_inspector::V8InspectorImpl::EvaluateScope::TerminateTask@{v8\_inspector::V8InspectorImpl::EvaluateScope::TerminateTask}}
+\doxysubsubsection{\texorpdfstring{m\_token}{m\_token}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{structv8__inspector_1_1V8InspectorImpl_1_1EvaluateScope_1_1CancelToken}{Cancel\+Token}}$>$ v8\+\_\+inspector\+::\+V8\+Inspector\+Impl\+::\+Evaluate\+Scope\+::\+Terminate\+Task\+::m\+\_\+token\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 497 of file v8-\/inspector-\/impl.\+cc.
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-inspector-impl_8cc}{v8-\/inspector-\/impl.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/inspector/\mbox{\hyperlink{v8-inspector-impl_8cc}{v8-\/inspector-\/impl.\+cc}}\end{DoxyCompactItemize}

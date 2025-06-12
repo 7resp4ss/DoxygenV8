@@ -6,6 +6,6 @@ var abort_mode_8h =
       [ "kImmediateCrash", "abort-mode_8h.html#a37a9b036b2bb53802e6b5d0842ca0fada3ae13cea59392a41e8b3af2bd9932584", null ],
       [ "kDefault", "abort-mode_8h.html#a37a9b036b2bb53802e6b5d0842ca0fada6867faeaa475fda467e48267db2bb8a8", null ]
     ] ],
-    [ "ControlledCrashesAreHarmless", "abort-mode_8h.html#ae83b7b4feebac8b47a357faaaa528765", null ],
-    [ "DcheckFailuresAreIgnored", "abort-mode_8h.html#ac3e79031380656aa6e038eb4dbb10094", null ]
+    [ "ControlledCrashesAreHarmless", "abort-mode_8h.html#ab07ee7967170f9823a6f42947855ff7f", null ],
+    [ "DcheckFailuresAreIgnored", "abort-mode_8h.html#afd541a766b85e1504dbab59e9f4daf41", null ]
 ];

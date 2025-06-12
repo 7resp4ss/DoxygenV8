@@ -2,6 +2,11 @@
 \label{classv8_1_1String_1_1ValueView}\index{v8::String::ValueView@{v8::String::ValueView}}
 
 
+Returns a view onto a string\textquotesingle{}s contents.  
+
+
+
+
 {\ttfamily \#include $<$v8-\/primitive.\+h$>$}
 
 
@@ -11,13 +16,13 @@ Collaboration diagram for v8\+::String\+::Value\+View\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=200pt]{classv8_1_1String_1_1ValueView__coll__graph}
+\includegraphics[height=550pt]{classv8_1_1String_1_1ValueView__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1String_1_1ValueView_ab361776052ad2fd4213c6899a1946c60}{Value\+View}} (\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1String}{v8\+::\+String}} $>$ str)
+\mbox{\hyperlink{classv8_1_1String_1_1ValueView_ab361776052ad2fd4213c6899a1946c60}{Value\+View}} (\mbox{\hyperlink{classv8_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1String}{v8\+::\+String}} $>$ str)
 \item 
 \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a5bfa7cca779c87a150d61376635e9237}{$\sim$\+Value\+View}} ()
 \item 
@@ -33,14 +38,42 @@ bool \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a164534062ba2cd8fd76348fe6d
 \item 
 void \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a7529239e65cacef7cdd9bbc44bb91807}{operator=}} (const \mbox{\hyperlink{classv8_1_1String_1_1ValueView}{Value\+View}} \&)=delete
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a9b6efcbd796530a5c257497c2c489dcf}{Check\+One\+Byte}} (bool \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a164534062ba2cd8fd76348fe6d8b9544}{is\+\_\+one\+\_\+byte}}) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1String}{v8\+::\+String}} $>$ \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a3ad06341f44918d1a8487b6fc43d320f}{flat\+\_\+str\+\_\+}}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>const uint8\_t $\ast$ \mbox{\hyperlink{classv8_1_1String_1_1ValueView_abfcd5d60ebcbe1eb08dff1ea414b93c8}{data8\_}}\\
+\>const uint16\_t $\ast$ \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a47f35a66c02f3f70e03658fda39d2694}{data16\_}}\\
+\}; \\
+
+\end{tabbing}\item 
+uint32\+\_\+t \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a85c90b17a6457189bddb99c0869180fc}{length\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a6ce2dbaada337b5206789ee53cbd0249}{is\+\_\+one\+\_\+byte\+\_\+}}
+\item 
+char \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a638d7e15b5fe41a364c22b1fea5caeb7}{no\+\_\+gc\+\_\+debug\+\_\+scope\+\_\+}} \mbox{[}\mbox{\hyperlink{classv8_1_1internal_1_1Internals_ad4bf7f9468161225f8d3652da28c41ec}{internal\+::\+Internals\+::k\+Disallow\+Garbage\+Collection\+Size}}\mbox{]}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Returns a view onto a string\textquotesingle{}s contents.
+Returns a view onto a string\textquotesingle{}s contents. 
 
 WARNING\+: This does not copy the string\textquotesingle{}s contents, and will therefore be invalidated if the GC can move the string while the \mbox{\hyperlink{classv8_1_1String_1_1ValueView}{Value\+View}} is alive. It is therefore required that no GC or allocation can happen while there is an active \mbox{\hyperlink{classv8_1_1String_1_1ValueView}{Value\+View}}. This requirement may be relaxed in the future.
 
 \mbox{\hyperlink{classv8_1_1V8}{V8}} strings are either encoded as one-\/byte or two-\/bytes per character. 
+
+Definition at line 704 of file v8-\/primitive.\+h.
+
+
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1String_1_1ValueView_ab361776052ad2fd4213c6899a1946c60}\label{classv8_1_1String_1_1ValueView_ab361776052ad2fd4213c6899a1946c60}} 
@@ -49,11 +82,69 @@ WARNING\+: This does not copy the string\textquotesingle{}s contents, and will t
 \doxysubsubsection{\texorpdfstring{ValueView()}{ValueView()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::\+String\+::\+Value\+View\+::\+Value\+View (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$}]{v8\+\_\+isolate,  }\item[{\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1String}{v8\+::\+String}} $>$}]{str }\end{DoxyParamCaption})}
 
+
+
+Definition at line 11091 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11092                                                     \{}
+\DoxyCodeLine{11093   \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{i::Isolate}}* i\_isolate = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{i::Isolate}}*\textcolor{keyword}{>}(v8\_isolate);}
+\DoxyCodeLine{11094   \mbox{\hyperlink{classv8_1_1internal_1_1HandleScope}{i::HandleScope}} scope(i\_isolate);}
+\DoxyCodeLine{11095   \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{i::DirectHandle<i::String>}} i\_str = \mbox{\hyperlink{classv8_1_1Utils_a9d3ed89b4ca4e995ba472f8091ea424f}{Utils::OpenDirectHandle}}(*str);}
+\DoxyCodeLine{11096   \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{i::DirectHandle<i::String>}} i\_flat\_str = i::String::Flatten(i\_isolate, i\_str);}
+\DoxyCodeLine{11097 }
+\DoxyCodeLine{11098   \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a3ad06341f44918d1a8487b6fc43d320f}{flat\_str\_}} = Utils::ToLocal(i\_flat\_str);}
+\DoxyCodeLine{11099 }
+\DoxyCodeLine{11100   \mbox{\hyperlink{classv8_1_1internal_1_1PerThreadAssertScope}{i::DisallowGarbageCollectionInRelease}}* \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{no\_gc}} =}
+\DoxyCodeLine{11101       \textcolor{keyword}{new} (\mbox{\hyperlink{classv8_1_1String_1_1ValueView_a638d7e15b5fe41a364c22b1fea5caeb7}{no\_gc\_debug\_scope\_}}) \mbox{\hyperlink{classv8_1_1internal_1_1PerThreadAssertScope}{i::DisallowGarbageCollectionInRelease}}();}
+\DoxyCodeLine{11102   i::String::FlatContent flat\_content = i\_flat\_str-\/>GetFlatContent(*\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{no\_gc}});}
+\DoxyCodeLine{11103   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(flat\_content.IsFlat());}
+\DoxyCodeLine{11104   \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a6ce2dbaada337b5206789ee53cbd0249}{is\_one\_byte\_}} = flat\_content.IsOneByte();}
+\DoxyCodeLine{11105   \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a85c90b17a6457189bddb99c0869180fc}{length\_}} = flat\_content.length();}
+\DoxyCodeLine{11106   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1String_1_1ValueView_a6ce2dbaada337b5206789ee53cbd0249}{is\_one\_byte\_}}) \{}
+\DoxyCodeLine{11107     \mbox{\hyperlink{classv8_1_1String_1_1ValueView_abfcd5d60ebcbe1eb08dff1ea414b93c8}{data8\_}} = flat\_content.ToOneByteVector().data();}
+\DoxyCodeLine{11108   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{11109     \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a47f35a66c02f3f70e03658fda39d2694}{data16\_}} = flat\_content.ToUC16Vector().data();}
+\DoxyCodeLine{11110   \}}
+\DoxyCodeLine{11111 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::no\+\_\+gc, and v8\+::\+Utils\+::\+Open\+Direct\+Handle().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1String_1_1ValueView_ab361776052ad2fd4213c6899a1946c60_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1String_1_1ValueView_a5bfa7cca779c87a150d61376635e9237}\label{classv8_1_1String_1_1ValueView_a5bfa7cca779c87a150d61376635e9237}} 
 \index{v8::String::ValueView@{v8::String::ValueView}!````~ValueView@{$\sim$ValueView}}
 \index{````~ValueView@{$\sim$ValueView}!v8::String::ValueView@{v8::String::ValueView}}
 \doxysubsubsection{\texorpdfstring{$\sim$ValueView()}{~ValueView()}}
 {\footnotesize\ttfamily v8\+::\+String\+::\+Value\+View\+::$\sim$\+Value\+View (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 11113 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11113                             \{}
+\DoxyCodeLine{11114   \textcolor{keyword}{using} \mbox{\hyperlink{namespacev8_1_1internal_a2af7d691f4f2e221a694cde5d6273a44}{i::DisallowGarbageCollectionInRelease}};}
+\DoxyCodeLine{11115   \mbox{\hyperlink{namespacev8_1_1internal_a2af7d691f4f2e221a694cde5d6273a44}{DisallowGarbageCollectionInRelease}}* \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{no\_gc}} =}
+\DoxyCodeLine{11116       \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_a2af7d691f4f2e221a694cde5d6273a44}{DisallowGarbageCollectionInRelease}}*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1String_1_1ValueView_a638d7e15b5fe41a364c22b1fea5caeb7}{no\_gc\_debug\_scope\_}});}
+\DoxyCodeLine{11117   \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{no\_gc}}-\/>\string~DisallowGarbageCollectionInRelease();}
+\DoxyCodeLine{11118 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::no\+\_\+gc.
 
 \mbox{\Hypertarget{classv8_1_1String_1_1ValueView_ab152b4988c7c1593df5b4ecd0e0bb112}\label{classv8_1_1String_1_1ValueView_ab152b4988c7c1593df5b4ecd0e0bb112}} 
 \index{v8::String::ValueView@{v8::String::ValueView}!ValueView@{ValueView}}
@@ -64,30 +155,111 @@ WARNING\+: This does not copy the string\textquotesingle{}s contents, and will t
 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1String_1_1ValueView_a9b6efcbd796530a5c257497c2c489dcf}\label{classv8_1_1String_1_1ValueView_a9b6efcbd796530a5c257497c2c489dcf}} 
+\index{v8::String::ValueView@{v8::String::ValueView}!CheckOneByte@{CheckOneByte}}
+\index{CheckOneByte@{CheckOneByte}!v8::String::ValueView@{v8::String::ValueView}}
+\doxysubsubsection{\texorpdfstring{CheckOneByte()}{CheckOneByte()}}
+{\footnotesize\ttfamily void v8\+::\+String\+::\+Value\+View\+::\+Check\+One\+Byte (\begin{DoxyParamCaption}\item[{bool}]{is\+\_\+one\+\_\+byte }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 11120 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11120                                                          \{}
+\DoxyCodeLine{11121   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1String_1_1ValueView_a164534062ba2cd8fd76348fe6d8b9544}{is\_one\_byte}}) \{}
+\DoxyCodeLine{11122     \mbox{\hyperlink{classv8_1_1Utils_a1a1e634bae095bf6ff0ed2d9d737be00}{Utils::ApiCheck}}(\mbox{\hyperlink{classv8_1_1String_1_1ValueView_a6ce2dbaada337b5206789ee53cbd0249}{is\_one\_byte\_}}, \textcolor{stringliteral}{"{}v8::String::ValueView::data8"{}},}
+\DoxyCodeLine{11123                     \textcolor{stringliteral}{"{}Called the one-\/byte accessor on a two-\/byte string view."{}});}
+\DoxyCodeLine{11124   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{11125     \mbox{\hyperlink{classv8_1_1Utils_a1a1e634bae095bf6ff0ed2d9d737be00}{Utils::ApiCheck}}(!\mbox{\hyperlink{classv8_1_1String_1_1ValueView_a6ce2dbaada337b5206789ee53cbd0249}{is\_one\_byte\_}}, \textcolor{stringliteral}{"{}v8::String::ValueView::data16"{}},}
+\DoxyCodeLine{11126                     \textcolor{stringliteral}{"{}Called the two-\/byte accessor on a one-\/byte string view."{}});}
+\DoxyCodeLine{11127   \}}
+\DoxyCodeLine{11128 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Utils\+::\+Api\+Check().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1String_1_1ValueView_a9b6efcbd796530a5c257497c2c489dcf_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1String_1_1ValueView_a8f6820224f466365259efcef310348cf}\label{classv8_1_1String_1_1ValueView_a8f6820224f466365259efcef310348cf}} 
 \index{v8::String::ValueView@{v8::String::ValueView}!data16@{data16}}
 \index{data16@{data16}!v8::String::ValueView@{v8::String::ValueView}}
 \doxysubsubsection{\texorpdfstring{data16()}{data16()}}
 {\footnotesize\ttfamily const uint16\+\_\+t$\ast$ v8\+::\+String\+::\+Value\+View\+::data16 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 714 of file v8-\/primitive.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{714                                    \{}
+\DoxyCodeLine{715 \textcolor{preprocessor}{\#if V8\_ENABLE\_CHECKS}}
+\DoxyCodeLine{716       \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a9b6efcbd796530a5c257497c2c489dcf}{CheckOneByte}}(\textcolor{keyword}{false});}
+\DoxyCodeLine{717 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{718       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a47f35a66c02f3f70e03658fda39d2694}{data16\_}};}
+\DoxyCodeLine{719     \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1String_1_1ValueView_a9b9b5ce82e9d905707267c2bc7a69a2b}\label{classv8_1_1String_1_1ValueView_a9b9b5ce82e9d905707267c2bc7a69a2b}} 
 \index{v8::String::ValueView@{v8::String::ValueView}!data8@{data8}}
 \index{data8@{data8}!v8::String::ValueView@{v8::String::ValueView}}
 \doxysubsubsection{\texorpdfstring{data8()}{data8()}}
 {\footnotesize\ttfamily const uint8\+\_\+t$\ast$ v8\+::\+String\+::\+Value\+View\+::data8 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 708 of file v8-\/primitive.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{708                                  \{}
+\DoxyCodeLine{709 \textcolor{preprocessor}{\#if V8\_ENABLE\_CHECKS}}
+\DoxyCodeLine{710       \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a9b6efcbd796530a5c257497c2c489dcf}{CheckOneByte}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{711 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{712       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1String_1_1ValueView_abfcd5d60ebcbe1eb08dff1ea414b93c8}{data8\_}};}
+\DoxyCodeLine{713     \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1String_1_1ValueView_a164534062ba2cd8fd76348fe6d8b9544}\label{classv8_1_1String_1_1ValueView_a164534062ba2cd8fd76348fe6d8b9544}} 
 \index{v8::String::ValueView@{v8::String::ValueView}!is\_one\_byte@{is\_one\_byte}}
 \index{is\_one\_byte@{is\_one\_byte}!v8::String::ValueView@{v8::String::ValueView}}
 \doxysubsubsection{\texorpdfstring{is\_one\_byte()}{is\_one\_byte()}}
 {\footnotesize\ttfamily bool v8\+::\+String\+::\+Value\+View\+::is\+\_\+one\+\_\+byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 721 of file v8-\/primitive.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{721 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a6ce2dbaada337b5206789ee53cbd0249}{is\_one\_byte\_}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1String_1_1ValueView_a83e3772e349a3f23bc67488f820feb85}\label{classv8_1_1String_1_1ValueView_a83e3772e349a3f23bc67488f820feb85}} 
 \index{v8::String::ValueView@{v8::String::ValueView}!length@{length}}
 \index{length@{length}!v8::String::ValueView@{v8::String::ValueView}}
 \doxysubsubsection{\texorpdfstring{length()}{length()}}
 {\footnotesize\ttfamily uint32\+\_\+t v8\+::\+String\+::\+Value\+View\+::length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 720 of file v8-\/primitive.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{720 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1String_1_1ValueView_a85c90b17a6457189bddb99c0869180fc}{length\_}}; \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1String_1_1ValueView_a7529239e65cacef7cdd9bbc44bb91807}\label{classv8_1_1String_1_1ValueView_a7529239e65cacef7cdd9bbc44bb91807}} 
 \index{v8::String::ValueView@{v8::String::ValueView}!operator=@{operator=}}
 \index{operator=@{operator=}!v8::String::ValueView@{v8::String::ValueView}}
@@ -97,11 +269,19 @@ WARNING\+: This does not copy the string\textquotesingle{}s contents, and will t
 
 
 \doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1String_1_1ValueView_a952199159231790357cc67cbd94bff3d}\label{classv8_1_1String_1_1ValueView_a952199159231790357cc67cbd94bff3d}} 
+\doxysubsubsection{\texorpdfstring{}{}}
+{\footnotesize\ttfamily union \{ ... \} \hspace{0.3cm}{\ttfamily [private]}}
+
 \mbox{\Hypertarget{classv8_1_1String_1_1ValueView_a47f35a66c02f3f70e03658fda39d2694}\label{classv8_1_1String_1_1ValueView_a47f35a66c02f3f70e03658fda39d2694}} 
 \index{v8::String::ValueView@{v8::String::ValueView}!data16\_@{data16\_}}
 \index{data16\_@{data16\_}!v8::String::ValueView@{v8::String::ValueView}}
 \doxysubsubsection{\texorpdfstring{data16\_}{data16\_}}
 {\footnotesize\ttfamily const uint16\+\_\+t$\ast$ v8\+::\+String\+::\+Value\+View\+::data16\+\_\+}
+
+
+
+Definition at line 733 of file v8-\/primitive.\+h.
 
 \mbox{\Hypertarget{classv8_1_1String_1_1ValueView_abfcd5d60ebcbe1eb08dff1ea414b93c8}\label{classv8_1_1String_1_1ValueView_abfcd5d60ebcbe1eb08dff1ea414b93c8}} 
 \index{v8::String::ValueView@{v8::String::ValueView}!data8\_@{data8\_}}
@@ -111,7 +291,51 @@ WARNING\+: This does not copy the string\textquotesingle{}s contents, and will t
 
 
 
+Definition at line 732 of file v8-\/primitive.\+h.
+
+\mbox{\Hypertarget{classv8_1_1String_1_1ValueView_a3ad06341f44918d1a8487b6fc43d320f}\label{classv8_1_1String_1_1ValueView_a3ad06341f44918d1a8487b6fc43d320f}} 
+\index{v8::String::ValueView@{v8::String::ValueView}!flat\_str\_@{flat\_str\_}}
+\index{flat\_str\_@{flat\_str\_}!v8::String::ValueView@{v8::String::ValueView}}
+\doxysubsubsection{\texorpdfstring{flat\_str\_}{flat\_str\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1Local}{Local}}$<$\mbox{\hyperlink{classv8_1_1String}{v8\+::\+String}}$>$ v8\+::\+String\+::\+Value\+View\+::flat\+\_\+str\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 730 of file v8-\/primitive.\+h.
+
+\mbox{\Hypertarget{classv8_1_1String_1_1ValueView_a6ce2dbaada337b5206789ee53cbd0249}\label{classv8_1_1String_1_1ValueView_a6ce2dbaada337b5206789ee53cbd0249}} 
+\index{v8::String::ValueView@{v8::String::ValueView}!is\_one\_byte\_@{is\_one\_byte\_}}
+\index{is\_one\_byte\_@{is\_one\_byte\_}!v8::String::ValueView@{v8::String::ValueView}}
+\doxysubsubsection{\texorpdfstring{is\_one\_byte\_}{is\_one\_byte\_}}
+{\footnotesize\ttfamily bool v8\+::\+String\+::\+Value\+View\+::is\+\_\+one\+\_\+byte\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 736 of file v8-\/primitive.\+h.
+
+\mbox{\Hypertarget{classv8_1_1String_1_1ValueView_a85c90b17a6457189bddb99c0869180fc}\label{classv8_1_1String_1_1ValueView_a85c90b17a6457189bddb99c0869180fc}} 
+\index{v8::String::ValueView@{v8::String::ValueView}!length\_@{length\_}}
+\index{length\_@{length\_}!v8::String::ValueView@{v8::String::ValueView}}
+\doxysubsubsection{\texorpdfstring{length\_}{length\_}}
+{\footnotesize\ttfamily uint32\+\_\+t v8\+::\+String\+::\+Value\+View\+::length\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 735 of file v8-\/primitive.\+h.
+
+\mbox{\Hypertarget{classv8_1_1String_1_1ValueView_a638d7e15b5fe41a364c22b1fea5caeb7}\label{classv8_1_1String_1_1ValueView_a638d7e15b5fe41a364c22b1fea5caeb7}} 
+\index{v8::String::ValueView@{v8::String::ValueView}!no\_gc\_debug\_scope\_@{no\_gc\_debug\_scope\_}}
+\index{no\_gc\_debug\_scope\_@{no\_gc\_debug\_scope\_}!v8::String::ValueView@{v8::String::ValueView}}
+\doxysubsubsection{\texorpdfstring{no\_gc\_debug\_scope\_}{no\_gc\_debug\_scope\_}}
+{\footnotesize\ttfamily char v8\+::\+String\+::\+Value\+View\+::no\+\_\+gc\+\_\+debug\+\_\+scope\+\_\+\mbox{[}\mbox{\hyperlink{classv8_1_1internal_1_1Internals_ad4bf7f9468161225f8d3652da28c41ec}{internal\+::\+Internals\+::k\+Disallow\+Garbage\+Collection\+Size}}\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 739 of file v8-\/primitive.\+h.
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-primitive_8h}{v8-\/primitive.\+h}}\item 
-\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/\mbox{\hyperlink{v8-primitive_8h}{v8-\/primitive.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/api/\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}

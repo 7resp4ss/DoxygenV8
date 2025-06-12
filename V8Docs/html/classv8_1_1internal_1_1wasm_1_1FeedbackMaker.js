@@ -9,5 +9,16 @@ var classv8_1_1internal_1_1wasm_1_1FeedbackMaker =
     [ "GetResult", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#aefda39b4f72b34a82b4c94cb0de549ee", null ],
     [ "HasTargetCached", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#a35024221f0a5d84611039a0670393b88", null ],
     [ "set_has_non_inlineable_targets", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#a421bfdaf8fe8b4f0e852affdc3da0352", null ],
-    [ "set_megamorphic", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#a66eb2e349511d93e32a382a683834e17", null ]
+    [ "set_megamorphic", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#a66eb2e349511d93e32a382a683834e17", null ],
+    [ "cache_usage_", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#a74a8471ae23a09befac111d1fa94f064", null ],
+    [ "counts_cache_", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#aea42c4ef1afb972bf2797399683207e7", null ],
+    [ "func_index_", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#ab949e31f99ea4d685c9ad55c495d3743", null ],
+    [ "has_non_inlineable_targets_", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#ad0b6271abe0b371fb05b9cfc3ede0f5a", null ],
+    [ "instance_data_", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#a1de5839ed3afdbc96278501fce06c95a", null ],
+    [ "is_megamorphic_", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#ac5e0bf69ca78dec84766bcb99337a1dc", null ],
+    [ "isolate_", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#a5494dd4e759c71ec8dfab525fb7cb4e1", null ],
+    [ "num_imported_functions_", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#af5d6075341ff19ff2ae481c9df75665a", null ],
+    [ "result_", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#a7cdb91edd1fad24d531f68e6b1b53fb6", null ],
+    [ "seen_calls_", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#a7614c91282ffebca7c6b28e13265f028", null ],
+    [ "targets_cache_", "classv8_1_1internal_1_1wasm_1_1FeedbackMaker.html#adbcf8884373c5ab48d1fe9e7b6cdbb6a", null ]
 ];

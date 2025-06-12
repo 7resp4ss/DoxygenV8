@@ -4,6 +4,7 @@ var classv8_1_1internal_1_1compiler_1_1Mips64OperandGenerator =
     [ "CanBeImmediate", "classv8_1_1internal_1_1compiler_1_1Mips64OperandGenerator.html#a993fedd0cb3760ba58b306473c7f5959", null ],
     [ "CanBeImmediate", "classv8_1_1internal_1_1compiler_1_1Mips64OperandGenerator.html#af6fe18fb815f7e223d53f2915342dd6d", null ],
     [ "GetOptionalIntegerConstant", "classv8_1_1internal_1_1compiler_1_1Mips64OperandGenerator.html#adb3ee7a7bade4a6e22377eb61ba3692d", null ],
+    [ "ImmediateFitsAddrMode1Instruction", "classv8_1_1internal_1_1compiler_1_1Mips64OperandGenerator.html#a31817926b00a0df08523e00102c0af5b", null ],
     [ "IsIntegerConstant", "classv8_1_1internal_1_1compiler_1_1Mips64OperandGenerator.html#a012408f839339cb6dfed629752454984", null ],
     [ "UseOperand", "classv8_1_1internal_1_1compiler_1_1Mips64OperandGenerator.html#a038b16814987d822e7ec4d36d462fc77", null ],
     [ "UseRegisterOrImmediateZero", "classv8_1_1internal_1_1compiler_1_1Mips64OperandGenerator.html#a34c7f892cba61ad5eee4455316c8c450", null ]

@@ -1,0 +1,139 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{experimental.\+cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}experimental.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}experimental.cc\rcurly{}}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03_1_1CompilationResult}{Compilation\+Result}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::optional$<$ \mbox{\hyperlink{structv8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03_1_1CompilationResult}{Compilation\+Result}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03_a05b4b1b29499af31468f49564f1cad60}{Compile\+Impl}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1IrRegExpData}{Ir\+Reg\+Exp\+Data}} $>$ re\+\_\+data)
+\item 
+int32\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03_ae5e85afa6583a1d7785325b1524ddebe}{Exec\+Raw\+Impl}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1RegExp_ad8210535ffaeb395868a2a91ea9cb195}{Reg\+Exp\+::\+Call\+Origin}} \mbox{\hyperlink{namespacev8_1_1internal_aebfb25595e65f77c770e3eea294958e6}{call\+\_\+origin}}, \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TrustedByteArray}{Trusted\+Byte\+Array}} $>$ bytecode, \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$ subject, \mbox{\hyperlink{classint}{int}} capture\+\_\+count, int32\+\_\+t $\ast$output\+\_\+registers, int32\+\_\+t output\+\_\+register\+\_\+count, int32\+\_\+t subject\+\_\+index)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03_a05b4b1b29499af31468f49564f1cad60}\label{namespacev8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03_a05b4b1b29499af31468f49564f1cad60}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}experimental.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}experimental.cc\rcurly{}}!CompileImpl@{CompileImpl}}
+\index{CompileImpl@{CompileImpl}!v8::internal::anonymous\_namespace\lcurly{}experimental.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}experimental.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{CompileImpl()}{CompileImpl()}}
+{\footnotesize\ttfamily std\+::optional$<$\mbox{\hyperlink{structv8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03_1_1CompilationResult}{Compilation\+Result}}$>$ v8\+::internal\+::anonymous\+\_\+namespace\{experimental.\+cc\}\+::Compile\+Impl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1IrRegExpData}{Ir\+Reg\+Exp\+Data}} $>$}]{re\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Definition at line 79 of file experimental.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{80                                                           \{}
+\DoxyCodeLine{81   Zone zone(isolate-\/>allocator(), \mbox{\hyperlink{zone_8h_a6b1fd0a126df3f1b788cee19d9cce66e}{ZONE\_NAME}});}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83   DirectHandle<String> source(re\_data-\/>source(), isolate);}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85   \textcolor{comment}{// Parse and compile the regexp source.}}
+\DoxyCodeLine{86   RegExpCompileData parse\_result;}
+\DoxyCodeLine{87   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!isolate-\/>has\_exception());}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89   \mbox{\hyperlink{namespacev8_1_1internal_a8adefc3d0e54f7ba3acfa57e74967447}{RegExpFlags}} \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}} = JSRegExp::AsRegExpFlags(re\_data-\/>flags());}
+\DoxyCodeLine{90   \textcolor{keywordtype}{bool} parse\_success = RegExpParser::ParseRegExpFromHeapString(}
+\DoxyCodeLine{91       isolate, \&zone, source, \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}}, \&parse\_result);}
+\DoxyCodeLine{92   \textcolor{keywordflow}{if} (!parse\_success) \{}
+\DoxyCodeLine{93     \textcolor{comment}{// The pattern was already parsed successfully during initialization, so}}
+\DoxyCodeLine{94     \textcolor{comment}{// the only way parsing can fail now is because of stack overflow.}}
+\DoxyCodeLine{95     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(parse\_result.error, RegExpError::kStackOverflow);}
+\DoxyCodeLine{96     \mbox{\hyperlink{src_2base_2macros_8h_a280b0798f270f4b3f361c9ab64832956}{USE}}(RegExp::ThrowRegExpException(isolate, \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}}, source,}
+\DoxyCodeLine{97                                      parse\_result.error));}
+\DoxyCodeLine{98     \textcolor{keywordflow}{return} std::nullopt;}
+\DoxyCodeLine{99   \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101   ZoneList<RegExpInstruction> bytecode = \mbox{\hyperlink{namespacev8_1_1anonymous__namespace_02d8_8cc_03_a3bd874f9cb72c17a13fd8c5222da25ad}{ExperimentalRegExpCompiler::Compile}}(}
+\DoxyCodeLine{102       parse\_result.tree, JSRegExp::AsRegExpFlags(re\_data-\/>flags()), \&zone);}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104   CompilationResult \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{105   \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.bytecode = \mbox{\hyperlink{namespacev8_1_1internal_ab65746656b77e43cc3f9866df6c36632}{VectorToByteArray}}(isolate, bytecode.ToVector());}
+\DoxyCodeLine{106   \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}}.capture\_name\_map =}
+\DoxyCodeLine{107       RegExp::CreateCaptureNameMap(isolate, parse\_result.named\_captures);}
+\DoxyCodeLine{108   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{109 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::allocator(), v8\+::internal\+::\+JSReg\+Exp\+::\+As\+Reg\+Exp\+Flags(), v8\+::internal\+::\+Experimental\+Reg\+Exp\+Compiler\+::\+Compile(), v8\+::internal\+::\+Reg\+Exp\+::\+Create\+Capture\+Name\+Map(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, v8\+::internal\+::\+Reg\+Exp\+Compile\+Data\+::error, v8\+::internal\+::flags, v8\+::internal\+::\+Isolate\+::has\+\_\+exception(), v8\+::internal\+::\+Reg\+Exp\+Compile\+Data\+::named\+\_\+captures, v8\+::internal\+::\+Reg\+Exp\+Parser\+::\+Parse\+Reg\+Exp\+From\+Heap\+String(), v8\+::base\+::internal\+::result, v8\+::internal\+::\+Reg\+Exp\+::\+Throw\+Reg\+Exp\+Exception(), v8\+::internal\+::\+Zone\+List$<$ T $>$\+::\+To\+Vector(), v8\+::internal\+::\+Reg\+Exp\+Compile\+Data\+::tree, USE, v8\+::internal\+::\+Vector\+To\+Byte\+Array(), and ZONE\+\_\+\+NAME.
+
+
+
+Referenced by v8\+::internal\+::\+Experimental\+Reg\+Exp\+::\+Compile(), and v8\+::internal\+::\+Experimental\+Reg\+Exp\+::\+Oneshot\+Exec\+Raw().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03_a05b4b1b29499af31468f49564f1cad60_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03_a05b4b1b29499af31468f49564f1cad60_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03_ae5e85afa6583a1d7785325b1524ddebe}\label{namespacev8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03_ae5e85afa6583a1d7785325b1524ddebe}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}experimental.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}experimental.cc\rcurly{}}!ExecRawImpl@{ExecRawImpl}}
+\index{ExecRawImpl@{ExecRawImpl}!v8::internal::anonymous\_namespace\lcurly{}experimental.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}experimental.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ExecRawImpl()}{ExecRawImpl()}}
+{\footnotesize\ttfamily int32\+\_\+t v8\+::internal\+::anonymous\+\_\+namespace\{experimental.\+cc\}\+::Exec\+Raw\+Impl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1RegExp_ad8210535ffaeb395868a2a91ea9cb195}{Reg\+Exp\+::\+Call\+Origin}}}]{call\+\_\+origin,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TrustedByteArray}{Trusted\+Byte\+Array}} $>$}]{bytecode,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$}]{subject,  }\item[{\mbox{\hyperlink{classint}{int}}}]{capture\+\_\+count,  }\item[{int32\+\_\+t $\ast$}]{output\+\_\+registers,  }\item[{int32\+\_\+t}]{output\+\_\+register\+\_\+count,  }\item[{int32\+\_\+t}]{subject\+\_\+index }\end{DoxyParamCaption})}
+
+
+
+Definition at line 150 of file experimental.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{153                                                                           \{}
+\DoxyCodeLine{154   \mbox{\hyperlink{namespacev8_1_1internal_af2248a427f8ff8f81e68a2a87758e145}{DisallowGarbageCollection}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{no\_gc}};}
+\DoxyCodeLine{155   \textcolor{comment}{// TODO(cbruni): remove once gcmole is fixed.}}
+\DoxyCodeLine{156   \mbox{\hyperlink{namespacev8_1_1internal_aba0e823c839e006ab9ad80fdceb770b5}{DisableGCMole}} no\_gc\_mole;}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158   \textcolor{keywordtype}{int} register\_count\_per\_match =}
+\DoxyCodeLine{159       JSRegExp::RegistersForCaptureCount(capture\_count);}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161   \mbox{\hyperlink{namespaceunibrow_ab0275d47f9778d486eafe88b18c5851d}{int32\_t}} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{162   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(subject-\/>IsFlat());}
+\DoxyCodeLine{163   Zone zone(isolate-\/>allocator(), \mbox{\hyperlink{zone_8h_a6b1fd0a126df3f1b788cee19d9cce66e}{ZONE\_NAME}});}
+\DoxyCodeLine{164   \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}} = ExperimentalRegExpInterpreter::FindMatches(}
+\DoxyCodeLine{165       isolate, \mbox{\hyperlink{namespacev8_1_1internal_aebfb25595e65f77c770e3eea294958e6}{call\_origin}}, bytecode, register\_count\_per\_match, subject,}
+\DoxyCodeLine{166       subject\_index, output\_registers, output\_register\_count, \&zone);}
+\DoxyCodeLine{167   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9840f2bf0b4780133662292486d0bc01}{result}};}
+\DoxyCodeLine{168 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::allocator(), v8\+::internal\+::call\+\_\+origin, v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Experimental\+Reg\+Exp\+Interpreter\+::\+Find\+Matches(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::no\+\_\+gc, v8\+::internal\+::\+JSReg\+Exp\+::\+Registers\+For\+Capture\+Count(), v8\+::base\+::internal\+::result, and ZONE\+\_\+\+NAME.
+
+
+
+Referenced by v8\+::internal\+::\+Experimental\+Reg\+Exp\+::\+Exec\+Raw(), and v8\+::internal\+::\+Experimental\+Reg\+Exp\+::\+Oneshot\+Exec\+Raw().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03_ae5e85afa6583a1d7785325b1524ddebe_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02experimental_8cc_03_ae5e85afa6583a1d7785325b1524ddebe_icgraph}
+\end{center}
+\end{figure}

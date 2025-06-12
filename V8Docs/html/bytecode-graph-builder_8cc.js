@@ -1,10 +1,12 @@
 var bytecode_graph_builder_8cc =
 [
     [ "BytecodeGraphBuilder", "classv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder.html", "classv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder" ],
+    [ "ExceptionHandler", "structv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1ExceptionHandler.html", "structv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1ExceptionHandler" ],
     [ "Environment", "classv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1Environment.html", "classv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1Environment" ],
     [ "SubEnvironment", "structv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1SubEnvironment.html", "structv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1SubEnvironment" ],
     [ "BytecodePositionDecorator", "classv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1BytecodePositionDecorator.html", "classv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1BytecodePositionDecorator" ],
     [ "OsrIteratorState", "classv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1OsrIteratorState.html", "classv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1OsrIteratorState" ],
+    [ "IteratorsStates", "structv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1OsrIteratorState_1_1IteratorsStates.html", "structv8_1_1internal_1_1compiler_1_1BytecodeGraphBuilder_1_1OsrIteratorState_1_1IteratorsStates" ],
     [ "BYTECODE_CASE", "bytecode-graph-builder_8cc.html#aa0a4db3c76c7196b64c87008301780db", null ],
     [ "DEBUG_BREAK", "bytecode-graph-builder_8cc.html#afde0e2c7429846fc8e4e1649174f8943", null ],
     [ "DECLARE_VISIT_BYTECODE", "bytecode-graph-builder_8cc.html#a91a723c0c29ce7367981931094aa42d4", null ],

@@ -1,5 +1,8 @@
 var simplified_operator_8cc =
 [
+    [ "TransitionAndStoreElementParameters", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02simplified-operator_8cc_03_1_1TransitionAndStoreElementParameters.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02simplified-operator_8cc_03_1_1TransitionAndStoreElementParameters" ],
+    [ "TransitionAndStoreNonNumberElementParameters", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02simplified-operator_8cc_03_1_1Transitic9534aa8bb3bc7b58e262f435cde4c84.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02simplified-operator_8cc_03_1_1Transitic9534aa8bb3bc7b58e262f435cde4c84" ],
+    [ "TransitionAndStoreNumberElementParameters", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02simplified-operator_8cc_03_1_1Transiti72315aaebc023efee839412bac398ca3.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02simplified-operator_8cc_03_1_1Transiti72315aaebc023efee839412bac398ca3" ],
     [ "SimplifiedOperatorGlobalCache", "structv8_1_1internal_1_1compiler_1_1SimplifiedOperatorGlobalCache.html", "structv8_1_1internal_1_1compiler_1_1SimplifiedOperatorGlobalCache" ],
     [ "CheckIfOperator", "structv8_1_1internal_1_1compiler_1_1SimplifiedOperatorGlobalCache_1_1CheckIfOperator.html", "structv8_1_1internal_1_1compiler_1_1SimplifiedOperatorGlobalCache_1_1CheckIfOperator" ],
     [ "FindOrderedHashMapEntryOperator", "structv8_1_1internal_1_1compiler_1_1SimplifiedOperatorGlobalCache_1_1FindOrderedHashMapEntryOperator.html", "structv8_1_1internal_1_1compiler_1_1SimplifiedOperatorGlobalCache_1_1FindOrderedHashMapEntryOperator" ],
@@ -100,6 +103,9 @@ var simplified_operator_8cc =
     [ "hash_value", "simplified-operator_8cc.html#ac1026e141e66c733088c6b96dc7c3c39", null ],
     [ "hash_value", "simplified-operator_8cc.html#a00878a6c734a1ca9f05e970795ddabb0", null ],
     [ "hash_value", "simplified-operator_8cc.html#a1947581cd2b3fdf4b8703a895aadbd98", null ],
+    [ "hash_value", "simplified-operator_8cc.html#a5dc1f59acb76c7dfaadc39ef4cb9b1f2", null ],
+    [ "hash_value", "simplified-operator_8cc.html#a68f9bca726c41ce05e5a92f5152d8201", null ],
+    [ "hash_value", "simplified-operator_8cc.html#a0e41edaaf8c2fbaac745d6ca489a0cf0", null ],
     [ "IsCheckedWithFeedback", "simplified-operator_8cc.html#add0a420ae75b5c394b699d4edfb6b139", null ],
     [ "MapGuardMapsOf", "simplified-operator_8cc.html#a56d02674cc57aeb8bb34c16e92f268e7", null ],
     [ "NewArgumentsElementsParametersOf", "simplified-operator_8cc.html#a3eb0767089d1479ced77d8c3e4a4ffd8", null ],
@@ -134,6 +140,9 @@ var simplified_operator_8cc =
     [ "operator<<", "simplified-operator_8cc.html#a0461213077446a09f0c1f508e5aec9c8", null ],
     [ "operator<<", "simplified-operator_8cc.html#a660aa47ab1ae804a94ec326a89fb1aa8", null ],
     [ "operator<<", "simplified-operator_8cc.html#a368456186c9925c46eadd752b3ed46e5", null ],
+    [ "operator<<", "simplified-operator_8cc.html#ad1f82df64e7f425656007f8c09cfc5ba", null ],
+    [ "operator<<", "simplified-operator_8cc.html#a1401a7612f482d4ad399fec9e8584cf7", null ],
+    [ "operator<<", "simplified-operator_8cc.html#ac6e7b045755602e0f8d7c5dac46b4209", null ],
     [ "operator==", "simplified-operator_8cc.html#a4df18c0637f1acddc58583b9b7ae0f60", null ],
     [ "operator==", "simplified-operator_8cc.html#a6f9d1cda91d06ca509c645cf8900fb26", null ],
     [ "operator==", "simplified-operator_8cc.html#a9d7b70202859cc5774cb71fab829a518", null ],
@@ -154,10 +163,10 @@ var simplified_operator_8cc =
     [ "operator==", "simplified-operator_8cc.html#a944c61e6d09f8505f08ee711bb620c3f", null ],
     [ "operator==", "simplified-operator_8cc.html#aef15d4165e318b4eb2901c4170f68a68", null ],
     [ "operator==", "simplified-operator_8cc.html#ac5eee82f7b24e744441e49af22769189", null ],
+    [ "operator==", "simplified-operator_8cc.html#ace4dd94258181b5e746f481796792f1b", null ],
+    [ "operator==", "simplified-operator_8cc.html#ad661dbfc1c9c0738e79ade0cb2caa1b5", null ],
+    [ "operator==", "simplified-operator_8cc.html#a97bc9babc2cbbde782cdf85c32963390", null ],
     [ "SilenceNanModeOf", "simplified-operator_8cc.html#a7ed7194f6ced2fc331f33d0a5b8a7838", null ],
     [ "SpeculativeBigIntAsNParametersOf", "simplified-operator_8cc.html#adbba9852894123321422cc4ce4ad80c2", null ],
-    [ "ValueTypeParameterOf", "simplified-operator_8cc.html#a9efa83fb0e8b79cb3a5789eba7681756", null ],
-    [ "double_map_", "simplified-operator_8cc.html#aba0d7f9a753787e736cfc3347b124038", null ],
-    [ "fast_map_", "simplified-operator_8cc.html#a3add3773266fe9e500063bf6bd9759c4", null ],
-    [ "value_type_", "simplified-operator_8cc.html#a92ba0ffd02664413b697e399455e07f0", null ]
+    [ "ValueTypeParameterOf", "simplified-operator_8cc.html#a9efa83fb0e8b79cb3a5789eba7681756", null ]
 ];

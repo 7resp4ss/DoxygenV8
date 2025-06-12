@@ -7,5 +7,7 @@ var classv8_1_1internal_1_1ObjectCacheIndexMap =
     [ "LookupOrInsert", "classv8_1_1internal_1_1ObjectCacheIndexMap.html#a5ea8a5dd5285727b96c50c881df19760", null ],
     [ "operator=", "classv8_1_1internal_1_1ObjectCacheIndexMap.html#a46f7f027130945ec078fa75a8339a566", null ],
     [ "size", "classv8_1_1internal_1_1ObjectCacheIndexMap.html#acc58417634b2aff07228192bd82efb17", null ],
-    [ "Values", "classv8_1_1internal_1_1ObjectCacheIndexMap.html#a45f0110b26fae688cc21696dd0135141", null ]
+    [ "Values", "classv8_1_1internal_1_1ObjectCacheIndexMap.html#a45f0110b26fae688cc21696dd0135141", null ],
+    [ "map_", "classv8_1_1internal_1_1ObjectCacheIndexMap.html#a86bdfdd2f46f426ab6b8a6531c98cb1a", null ],
+    [ "next_index_", "classv8_1_1internal_1_1ObjectCacheIndexMap.html#a74cfd2b53a66dabf4eb5386a14e120cf", null ]
 ];

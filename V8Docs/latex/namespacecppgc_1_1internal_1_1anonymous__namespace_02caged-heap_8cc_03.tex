@@ -1,0 +1,78 @@
+\hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02caged-heap_8cc_03}{}\doxysection{cppgc\+::internal\+::anonymous\+\_\+namespace\{caged-\/heap.cc\} Namespace Reference}
+\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02caged-heap_8cc_03}\index{cppgc::internal::anonymous\_namespace\lcurly{}caged-\/heap.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}caged-\/heap.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcppgc_1_1internal_1_1VirtualMemory}{Virtual\+Memory}} \mbox{\hyperlink{namespacecppgc_1_1internal_1_1anonymous__namespace_02caged-heap_8cc_03_aa6230aec01a0b540b8dee865b5d65240}{Reserve\+Caged\+Heap}} (\mbox{\hyperlink{namespacecppgc_ae7d41c486a869bec62aa1b8c9c55c142}{Page\+Allocator}} \&platform\+\_\+allocator)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacecppgc_1_1internal_1_1anonymous__namespace_02caged-heap_8cc_03_aa6230aec01a0b540b8dee865b5d65240}\label{namespacecppgc_1_1internal_1_1anonymous__namespace_02caged-heap_8cc_03_aa6230aec01a0b540b8dee865b5d65240}} 
+\index{cppgc::internal::anonymous\_namespace\lcurly{}caged-\/heap.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}caged-\/heap.cc\rcurly{}}!ReserveCagedHeap@{ReserveCagedHeap}}
+\index{ReserveCagedHeap@{ReserveCagedHeap}!cppgc::internal::anonymous\_namespace\lcurly{}caged-\/heap.cc\rcurly{}@{cppgc::internal::anonymous\_namespace\lcurly{}caged-\/heap.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ReserveCagedHeap()}{ReserveCagedHeap()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1VirtualMemory}{Virtual\+Memory}} cppgc\+::internal\+::anonymous\+\_\+namespace\{caged-\/heap.\+cc\}\+::Reserve\+Caged\+Heap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacecppgc_ae7d41c486a869bec62aa1b8c9c55c142}{Page\+Allocator}} \&}]{platform\+\_\+allocator }\end{DoxyParamCaption})}
+
+
+
+Definition at line 40 of file caged-\/heap.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40                                                                   \{}
+\DoxyCodeLine{41   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(0u, api\_constants::kCagedHeapMaxReservationSize \%}
+\DoxyCodeLine{42                     platform\_allocator.AllocatePageSize());}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44   \textcolor{keyword}{static} constexpr \textcolor{keywordtype}{size\_t} kAllocationTries = 4;}
+\DoxyCodeLine{45   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < kAllocationTries; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#if defined(CPPGC\_POINTER\_COMPRESSION)}}
+\DoxyCodeLine{47     \textcolor{comment}{// We want compressed pointers to have the most significant bit set to 1.}}
+\DoxyCodeLine{48     \textcolor{comment}{// That way, on decompression the bit will be sign-\/extended. This saves us a}}
+\DoxyCodeLine{49     \textcolor{comment}{// branch and 'or' operation during compression.}}
+\DoxyCodeLine{50     \textcolor{comment}{//}}
+\DoxyCodeLine{51     \textcolor{comment}{// We achieve this by over-\/reserving the cage and selecting a sub-\/region}}
+\DoxyCodeLine{52     \textcolor{comment}{// from the upper half of the reservation that has the bit pattern we need.}}
+\DoxyCodeLine{53     \textcolor{comment}{// Examples:}}
+\DoxyCodeLine{54     \textcolor{comment}{// -\/ For a 4GB cage with 1 bit of pointer compression shift, reserve 8GB and}}
+\DoxyCodeLine{55     \textcolor{comment}{// use the upper 4GB.}}
+\DoxyCodeLine{56     \textcolor{comment}{// -\/ For an 8GB cage with 3 bits of pointer compression shift, reserve 32GB}}
+\DoxyCodeLine{57     \textcolor{comment}{// and use the first 8GB of the upper 16 GB.}}
+\DoxyCodeLine{58     \textcolor{comment}{//}}
+\DoxyCodeLine{59     \textcolor{comment}{// TODO(chromium:1325007): Provide API in PageAllocator to left trim}}
+\DoxyCodeLine{60     \textcolor{comment}{// allocations and return unused portions of the reservation back to the OS.}}
+\DoxyCodeLine{61     \textcolor{keyword}{static} constexpr \textcolor{keywordtype}{size\_t} kTryReserveSize =}
+\DoxyCodeLine{62         2 * api\_constants::kCagedHeapMaxReservationSize;}
+\DoxyCodeLine{63     \textcolor{keyword}{static} constexpr \textcolor{keywordtype}{size\_t} kTryReserveAlignment =}
+\DoxyCodeLine{64         2 * api\_constants::kCagedHeapReservationAlignment;}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#else   }\textcolor{comment}{// !defined(CPPGC\_POINTER\_COMPRESSION)}}
+\DoxyCodeLine{66     \textcolor{keyword}{static} constexpr \textcolor{keywordtype}{size\_t} kTryReserveSize =}
+\DoxyCodeLine{67         api\_constants::kCagedHeapMaxReservationSize;}
+\DoxyCodeLine{68     \textcolor{keyword}{static} constexpr \textcolor{keywordtype}{size\_t} kTryReserveAlignment =}
+\DoxyCodeLine{69         api\_constants::kCagedHeapReservationAlignment;}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// !defined(CPPGC\_POINTER\_COMPRESSION)}}
+\DoxyCodeLine{71     \textcolor{keywordtype}{void}* hint = \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\mbox{\hyperlink{src_2base_2macros_8h_aa0de4a420e74c8df8076fc2aaf4af27a}{RoundDown}}(}
+\DoxyCodeLine{72         \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classuintptr__t}{uintptr\_t}}\textcolor{keyword}{>}(platform\_allocator.GetRandomMmapAddr()),}
+\DoxyCodeLine{73         kTryReserveAlignment));}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     VirtualMemory memory(\&platform\_allocator, kTryReserveSize,}
+\DoxyCodeLine{76                          kTryReserveAlignment, hint);}
+\DoxyCodeLine{77     \textcolor{keywordflow}{if} (memory.IsReserved()) \textcolor{keywordflow}{return} memory;}
+\DoxyCodeLine{78   \}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80   \mbox{\hyperlink{namespacecppgc_1_1internal_af2de8a2a288069d21c5077af318676da}{GetGlobalOOMHandler}}()(\textcolor{stringliteral}{"{}Oilpan: CagedHeap reservation."{}});}
+\DoxyCodeLine{81 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Page\+Allocator\+::\+Allocate\+Page\+Size(), DCHECK\+\_\+\+EQ, cppgc\+::internal\+::\+Get\+Global\+OOMHandler(), v8\+::\+Page\+Allocator\+::\+Get\+Random\+Mmap\+Addr(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, cppgc\+::internal\+::\+Virtual\+Memory\+::\+Is\+Reserved(), and Round\+Down().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacecppgc_1_1internal_1_1anonymous__namespace_02caged-heap_8cc_03_aa6230aec01a0b540b8dee865b5d65240_cgraph}
+\end{center}
+\end{figure}

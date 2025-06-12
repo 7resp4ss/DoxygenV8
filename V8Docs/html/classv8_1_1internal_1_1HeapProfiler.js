@@ -1,5 +1,6 @@
 var classv8_1_1internal_1_1HeapProfiler =
 [
+    [ "HeapSnapshotMode", "classv8_1_1internal_1_1HeapProfiler.html#af87e620c37734e128ff73e1e832cb797", null ],
     [ "InternalBuildEmbedderGraphCallback", "classv8_1_1internal_1_1HeapProfiler.html#a03a95687dceb6dc700c4933953207278", null ],
     [ "HeapProfiler", "classv8_1_1internal_1_1HeapProfiler.html#a9db62c5fefbbac5e205b512ae91ab7a5", null ],
     [ "~HeapProfiler", "classv8_1_1internal_1_1HeapProfiler.html#a1cf95599d2fb11cd318328a7e38678a0", null ],
@@ -21,11 +22,13 @@ var classv8_1_1internal_1_1HeapProfiler =
     [ "GetSnapshotsCount", "classv8_1_1internal_1_1HeapProfiler.html#a3e8a29a7f8d090252fdb899252bc1d62", null ],
     [ "HasBuildEmbedderGraphCallback", "classv8_1_1internal_1_1HeapProfiler.html#a98bbf4843d20d90713e9fa1af356f0d1", null ],
     [ "HasGetDetachednessCallback", "classv8_1_1internal_1_1HeapProfiler.html#a71fd53ab3de945ad284f371f05dfdf54", null ],
+    [ "heap", "classv8_1_1internal_1_1HeapProfiler.html#a0a6ad5252f49a2b3ef66f26135cc7935", null ],
     [ "heap_object_map", "classv8_1_1internal_1_1HeapProfiler.html#a660896b5f7acda76179d9b9596a3ff80", null ],
     [ "is_sampling_allocations", "classv8_1_1internal_1_1HeapProfiler.html#a86086b88dc16e57899c00bf16d963e54", null ],
     [ "is_tracking_object_moves", "classv8_1_1internal_1_1HeapProfiler.html#ae87176da078ec37dd37f8d5581bbd4d3", null ],
     [ "isolate", "classv8_1_1internal_1_1HeapProfiler.html#acc795f70a0d73747e6ebf24e9885df97", null ],
     [ "IsTakingSnapshot", "classv8_1_1internal_1_1HeapProfiler.html#a6b678d6f7669c03769c01e8d27a9eea0", null ],
+    [ "MaybeClearStringsStorage", "classv8_1_1internal_1_1HeapProfiler.html#a6814a265b679bc19f93d2dc59058c9e2", null ],
     [ "names", "classv8_1_1internal_1_1HeapProfiler.html#a2c3b79b27d7d31d3c379d80d7d4a5820", null ],
     [ "ObjectMoveEvent", "classv8_1_1internal_1_1HeapProfiler.html#a8b042db71e07c728ba40fbaecc6fad70", null ],
     [ "operator=", "classv8_1_1internal_1_1HeapProfiler.html#a9dc52acc2d64feb44e4221b379a47d46", null ],
@@ -44,5 +47,17 @@ var classv8_1_1internal_1_1HeapProfiler =
     [ "TakeSnapshotToFile", "classv8_1_1internal_1_1HeapProfiler.html#a4288476dca3f68f111e852720b1a8e93", null ],
     [ "TakeSnapshotToString", "classv8_1_1internal_1_1HeapProfiler.html#a3c15763635a5e3e1e51d30bdf1e1fa94", null ],
     [ "UpdateObjectSizeEvent", "classv8_1_1internal_1_1HeapProfiler.html#a9cab209e97b9fe157554bdc45257140d", null ],
-    [ "WriteSnapshotToDiskAfterGC", "classv8_1_1internal_1_1HeapProfiler.html#a80f13262a12e719a2309bf6cf59a7e43", null ]
+    [ "WriteSnapshotToDiskAfterGC", "classv8_1_1internal_1_1HeapProfiler.html#a80f13262a12e719a2309bf6cf59a7e43", null ],
+    [ "allocation_tracker_", "classv8_1_1internal_1_1HeapProfiler.html#abf4a5f31c9c50921cb160f74a8f1cb52", null ],
+    [ "build_embedder_graph_callbacks_", "classv8_1_1internal_1_1HeapProfiler.html#a06e9a0257f80acb6add9a82e8f0bad7f", null ],
+    [ "get_detachedness_callback_", "classv8_1_1internal_1_1HeapProfiler.html#af7eb56b7384fe5146383cf7e2ad6d135", null ],
+    [ "ids_", "classv8_1_1internal_1_1HeapProfiler.html#a868004570be26168db12fd73c4a699a6", null ],
+    [ "internal_build_embedder_graph_callback_", "classv8_1_1internal_1_1HeapProfiler.html#a8d6b04549301d154d6c19d26f7d7da14", null ],
+    [ "is_taking_snapshot_", "classv8_1_1internal_1_1HeapProfiler.html#a831cf1f143b2ec7ed0a38a1fba4c2a99", null ],
+    [ "is_tracking_object_moves_", "classv8_1_1internal_1_1HeapProfiler.html#ad852f5f2e2f6f181e07ea0d06ddc32fc", null ],
+    [ "names_", "classv8_1_1internal_1_1HeapProfiler.html#a13495f292df36ef66abe37f1a1dfd770", null ],
+    [ "native_move_listener_", "classv8_1_1internal_1_1HeapProfiler.html#a8e731681fd99f116623cd7824c6d13b1", null ],
+    [ "profiler_mutex_", "classv8_1_1internal_1_1HeapProfiler.html#a0d197c12657bdf94d4da0ce0e833c40e", null ],
+    [ "sampling_heap_profiler_", "classv8_1_1internal_1_1HeapProfiler.html#a3f7fe8dd609a79a3dad3a9760a380723", null ],
+    [ "snapshots_", "classv8_1_1internal_1_1HeapProfiler.html#a121f3cdf1fa5723007e68697e0209186", null ]
 ];

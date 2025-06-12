@@ -1,5 +1,28 @@
 var namespacev8_1_1bigint =
 [
+    [ "anonymous_namespace{bitwise.cc}", "namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03.html", [
+      [ "TruncateAndSubFromPowerOfTwo", "namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03.html#a548f089b86e9d5304444f38e337b9c65", null ],
+      [ "TruncateToNBits", "namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03.html#ab09167d56f9d3f21fc9420f9f75aecec", null ]
+    ] ],
+    [ "anonymous_namespace{div-barrett.cc}", "namespacev8_1_1bigint_1_1anonymous__namespace_02div-barrett_8cc_03.html", [
+      [ "DcheckIntegerPartRange", "namespacev8_1_1bigint_1_1anonymous__namespace_02div-barrett_8cc_03.html#a8b348a2ea276252b7c6b78ab281c3dc1", null ]
+    ] ],
+    [ "anonymous_namespace{div-burnikel.cc}", "namespacev8_1_1bigint_1_1anonymous__namespace_02div-burnikel_8cc_03.html", "namespacev8_1_1bigint_1_1anonymous__namespace_02div-burnikel_8cc_03" ],
+    [ "anonymous_namespace{div-helpers.cc}", "namespacev8_1_1bigint_1_1anonymous__namespace_02div-helpers_8cc_03.html", [
+      [ "Copy", "namespacev8_1_1bigint_1_1anonymous__namespace_02div-helpers_8cc_03.html#a7db777dc64a4907eca160e11dd6bc534", null ]
+    ] ],
+    [ "anonymous_namespace{mul-fft.cc}", "namespacev8_1_1bigint_1_1anonymous__namespace_02mul-fft_8cc_03.html", "namespacev8_1_1bigint_1_1anonymous__namespace_02mul-fft_8cc_03" ],
+    [ "anonymous_namespace{mul-karatsuba.cc}", "namespacev8_1_1bigint_1_1anonymous__namespace_02mul-karatsuba_8cc_03.html", [
+      [ "KaratsubaLength", "namespacev8_1_1bigint_1_1anonymous__namespace_02mul-karatsuba_8cc_03.html#a514017d9c63ee21964d3725a5025da8d", null ],
+      [ "KaratsubaSubtractionHelper", "namespacev8_1_1bigint_1_1anonymous__namespace_02mul-karatsuba_8cc_03.html#a8f262dca5686a2aa09b76a223e1f8a50", null ],
+      [ "RoundUpLen", "namespacev8_1_1bigint_1_1anonymous__namespace_02mul-karatsuba_8cc_03.html#ab740401b1261cecb74a1f4177236f7b1", null ]
+    ] ],
+    [ "anonymous_namespace{mul-toom.cc}", "namespacev8_1_1bigint_1_1anonymous__namespace_02mul-toom_8cc_03.html", [
+      [ "DivideByThree", "namespacev8_1_1bigint_1_1anonymous__namespace_02mul-toom_8cc_03.html#a5e2e286d423d7e3f4d2eae8ea5820fc1", null ],
+      [ "DivideByTwo", "namespacev8_1_1bigint_1_1anonymous__namespace_02mul-toom_8cc_03.html#a173e34989812f7ed0ad5e2dc52da75d7", null ],
+      [ "TimesTwo", "namespacev8_1_1bigint_1_1anonymous__namespace_02mul-toom_8cc_03.html#aa9b56bde123aa36378d37ac1ce4678de", null ]
+    ] ],
+    [ "anonymous_namespace{tostring.cc}", "namespacev8_1_1bigint_1_1anonymous__namespace_02tostring_8cc_03.html", "namespacev8_1_1bigint_1_1anonymous__namespace_02tostring_8cc_03" ],
     [ "ProcessorImpl", "classv8_1_1bigint_1_1ProcessorImpl.html", "classv8_1_1bigint_1_1ProcessorImpl" ],
     [ "Storage", "classv8_1_1bigint_1_1Storage.html", "classv8_1_1bigint_1_1Storage" ],
     [ "ScratchDigits", "classv8_1_1bigint_1_1ScratchDigits.html", "classv8_1_1bigint_1_1ScratchDigits" ],
@@ -47,6 +70,7 @@ var namespacev8_1_1bigint =
     [ "CountTrailingZeros", "namespacev8_1_1bigint.html#a81ab25ec816094fb071ae04acce2bed5", null ],
     [ "digit_add2", "namespacev8_1_1bigint.html#afb32f55cbb695a68cdfddafc4cb59306", null ],
     [ "digit_add3", "namespacev8_1_1bigint.html#a7c3c6ce0c415265af39ab35c25f27f17", null ],
+    [ "digit_div", "namespacev8_1_1bigint.html#a0c3f3297cdb9602cf9aefc9d8bea7726", null ],
     [ "digit_ismax", "namespacev8_1_1bigint.html#ae5e466508c1f8959810cd4222432b996", null ],
     [ "digit_mul", "namespacev8_1_1bigint.html#afa5da2470515df61819f0b3eba9b2ff2", null ],
     [ "digit_sub", "namespacev8_1_1bigint.html#ac537ef12c8f3d6bfd6d60bded18d08fc", null ],
@@ -82,12 +106,19 @@ var namespacev8_1_1bigint =
     [ "ToStringResultLength", "namespacev8_1_1bigint.html#a066cfb8ab735b5197b71ee354e64a57a", null ],
     [ "kBarrettThreshold", "namespacev8_1_1bigint.html#ad173c7b9153dbd4f8bcf0ed84847f70a", null ],
     [ "kBurnikelThreshold", "namespacev8_1_1bigint.html#ae0c6fa1e99f6844e9b5c44682acc28ca", null ],
+    [ "kCharBits", "namespacev8_1_1bigint.html#aa4c076706fb6ffd142c6033db038c700", null ],
+    [ "kCharValue", "namespacev8_1_1bigint.html#a45a5993a86664366e86c25ca2f6da62a", null ],
+    [ "kDigitBits", "namespacev8_1_1bigint.html#a4879833909bc4b7a5117ec7d35362977", null ],
     [ "kFftInnerThreshold", "namespacev8_1_1bigint.html#a76537e140473e7616d7ab6a80859aa9f", null ],
     [ "kFftThreshold", "namespacev8_1_1bigint.html#a22442c8f0baece81b3f0de1b06c4fd53", null ],
     [ "kFromStringLargeThreshold", "namespacev8_1_1bigint.html#afb1e2a94451964afa3c5bafd67c129d0", null ],
+    [ "kHalfDigitBase", "namespacev8_1_1bigint.html#a58887c20c17728025544ecdc5b3b7c9b", null ],
+    [ "kHalfDigitBits", "namespacev8_1_1bigint.html#a4121e0c5972746cf583cb4ad81280f99", null ],
+    [ "kHalfDigitMask", "namespacev8_1_1bigint.html#a67f11b3e9e9c3b3101a9edacaebc8262", null ],
     [ "kInvertNewtonExtraSpace", "namespacev8_1_1bigint.html#a9dcecae06476c665fe5ec39200deb604", null ],
     [ "kKaratsubaThreshold", "namespacev8_1_1bigint.html#af86a1ff63cd5eedf17bfc81b7f3c1710", null ],
     [ "kNewtonInversionThreshold", "namespacev8_1_1bigint.html#ad13a7a82cc7030e2c8b0e130ca1ca205", null ],
+    [ "kStackParts", "namespacev8_1_1bigint.html#a90bf467e766b2a0e6c247b305440b28b", null ],
     [ "kStringZapValue", "namespacev8_1_1bigint.html#a5757a9a976e85d7caf294fb78c834204", null ],
     [ "kToomThreshold", "namespacev8_1_1bigint.html#a5c5f2eb43b0256cc799efde056216142", null ],
     [ "kToStringFastThreshold", "namespacev8_1_1bigint.html#aed9a0a5253df83039e8952bf1248589c", null ]

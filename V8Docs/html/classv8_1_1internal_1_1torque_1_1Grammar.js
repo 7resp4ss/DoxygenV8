@@ -2,9 +2,16 @@ var classv8_1_1internal_1_1torque_1_1Grammar =
 [
     [ "PatternFunction", "classv8_1_1internal_1_1torque_1_1Grammar.html#a1598ba4a21ce1f3a3165a764422ca755", null ],
     [ "Grammar", "classv8_1_1internal_1_1torque_1_1Grammar.html#a3e2e65d0801eeea499c4afd29f37e600", null ],
+    [ "CastParseResult", "classv8_1_1internal_1_1torque_1_1Grammar.html#a8bbbddbd4a1b79879a145e38e56903ee", null ],
     [ "CheckIf", "classv8_1_1internal_1_1torque_1_1Grammar.html#ac8be8266e8e9cbdde7702c5644824f9f", null ],
     [ "lexer", "classv8_1_1internal_1_1torque_1_1Grammar.html#ae0bed965387a8d9be3ddebc380348f64", null ],
     [ "List", "classv8_1_1internal_1_1torque_1_1Grammar.html#af51118d10a7de7c51f752e5febd2d4a3", null ],
+    [ "MakeExtendedVector", "classv8_1_1internal_1_1torque_1_1Grammar.html#a46856dc390ecac5b274d0c4db6ecdae7", null ],
+    [ "MakeSingletonVector", "classv8_1_1internal_1_1torque_1_1Grammar.html#ac6fa6e20a051a099b67818967ab50a30", null ],
+    [ "MatchAnyChar", "classv8_1_1internal_1_1torque_1_1Grammar.html#ab0b56837f0f197141b03c8b36c1db437", null ],
+    [ "MatchChar", "classv8_1_1internal_1_1torque_1_1Grammar.html#aad2a0e67ae8e035f5d78f1d71197c31d", null ],
+    [ "MatchChar", "classv8_1_1internal_1_1torque_1_1Grammar.html#ade1d54885c0902e1903a2c363cc37199", null ],
+    [ "MatchString", "classv8_1_1internal_1_1torque_1_1Grammar.html#adc53679933c1efc1a394aed50c5cd4c0", null ],
     [ "NewSymbol", "classv8_1_1internal_1_1torque_1_1Grammar.html#a25319e13e6e56ccbe90d50477b38bf37", null ],
     [ "NonemptyList", "classv8_1_1internal_1_1torque_1_1Grammar.html#a7d3e3d517bde798a1a5c62adc3f92181", null ],
     [ "Optional", "classv8_1_1internal_1_1torque_1_1Grammar.html#a2675a91e4bfc1600391b427144190b9d", null ],
@@ -13,5 +20,11 @@ var classv8_1_1internal_1_1torque_1_1Grammar =
     [ "Sequence", "classv8_1_1internal_1_1torque_1_1Grammar.html#a33be9b1aa751149cbfbeac74ada17271", null ],
     [ "SetWhitespace", "classv8_1_1internal_1_1torque_1_1Grammar.html#a3c7a9d96dc6baff9612eff658213fcb7", null ],
     [ "Token", "classv8_1_1internal_1_1torque_1_1Grammar.html#a454021c6d9a324066f01c24e99f89488", null ],
-    [ "TryOrDefault", "classv8_1_1internal_1_1torque_1_1Grammar.html#a76a8566abe0b2880dfac1299d69fff00", null ]
+    [ "TryOrDefault", "classv8_1_1internal_1_1torque_1_1Grammar.html#a76a8566abe0b2880dfac1299d69fff00", null ],
+    [ "YieldDefaultValue", "classv8_1_1internal_1_1torque_1_1Grammar.html#a8c71386419b8f62aa7d4c4c061f4362a", null ],
+    [ "YieldIntegralConstant", "classv8_1_1internal_1_1torque_1_1Grammar.html#aebdccc41dc20b705b50ab5e39787b641", null ],
+    [ "YieldMatchedInput", "classv8_1_1internal_1_1torque_1_1Grammar.html#a07150568e0556548eef0c2c4ab7a82bd", null ],
+    [ "generated_symbols_", "classv8_1_1internal_1_1torque_1_1Grammar.html#a21bd66ba6ffba40528ac6521d5950f9e", null ],
+    [ "lexer_", "classv8_1_1internal_1_1torque_1_1Grammar.html#af1d6817977569b9a87051e9efa4b94ab", null ],
+    [ "start_", "classv8_1_1internal_1_1torque_1_1Grammar.html#ae82350c20419d9ea5737b4e723fbb734", null ]
 ];

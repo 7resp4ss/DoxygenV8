@@ -12,6 +12,10 @@ var classv8_1_1internal_1_1StackTraceFailureMessage =
     [ "end_marker_", "classv8_1_1internal_1_1StackTraceFailureMessage.html#ad077ff9b0bdfc929a19fdf709dbe8d8d", null ],
     [ "isolate_", "classv8_1_1internal_1_1StackTraceFailureMessage.html#ad919136529b74a6301820807294a72c5", null ],
     [ "js_stack_trace_", "classv8_1_1internal_1_1StackTraceFailureMessage.html#aa1e1b6fdb0f84dc1c947181cc4517c74", null ],
+    [ "kEndMarker", "classv8_1_1internal_1_1StackTraceFailureMessage.html#add9832cd69a261529150a25011fe4314", null ],
+    [ "kMiddleMarker", "classv8_1_1internal_1_1StackTraceFailureMessage.html#af90b7ff0e110f55d3698ee3c015d99bc", null ],
+    [ "kStacktraceBufferSize", "classv8_1_1internal_1_1StackTraceFailureMessage.html#a5ab25bd06c0fcffec5fccbd3fb3b1e55", null ],
+    [ "kStartMarker", "classv8_1_1internal_1_1StackTraceFailureMessage.html#acc1cf61939387a952289004f2c697949", null ],
     [ "middle_marker_", "classv8_1_1internal_1_1StackTraceFailureMessage.html#a28f7bae3ae3b0624d76b3091cfb1a8e6", null ],
     [ "ptrs_", "classv8_1_1internal_1_1StackTraceFailureMessage.html#a4f2ccfcf0c59e63a3540fd10fb8ac614", null ],
     [ "start_marker_", "classv8_1_1internal_1_1StackTraceFailureMessage.html#ab8e57012377fd8ed28a8add41ab2c838", null ]

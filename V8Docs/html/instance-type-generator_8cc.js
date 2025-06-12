@@ -1,10 +1,12 @@
 var instance_type_generator_8cc =
 [
-    [ "children", "instance-type-generator_8cc.html#af30425eefe667053743626132db13c4c", null ],
-    [ "end", "instance-type-generator_8cc.html#abce9f5dc9c83f2639b72024fdee5d388", null ],
-    [ "num_own_values", "instance-type-generator_8cc.html#a95f493b9f9babdef0712fd8966d0b536", null ],
-    [ "num_values", "instance-type-generator_8cc.html#a8661caffd887e5cc0715092a2674c846", null ],
-    [ "start", "instance-type-generator_8cc.html#a37722a150250e2a5a98e5e0d11e53449", null ],
-    [ "type", "instance-type-generator_8cc.html#a1564546707823c867ea5647655ec2ec2", null ],
-    [ "value", "instance-type-generator_8cc.html#ac4f474c82e82cbb89ca7c36dd52be0ed", null ]
+    [ "InstanceTypeTree", "structv8_1_1internal_1_1torque_1_1anonymous__namespace_02instance-type-generator_8cc_03_1_1InstanceTypeTree.html", "structv8_1_1internal_1_1torque_1_1anonymous__namespace_02instance-type-generator_8cc_03_1_1InstanceTypeTree" ],
+    [ "CompareUnconstrainedTypes", "structv8_1_1internal_1_1torque_1_1anonymous__namespace_02instance-type-generator_8cc_03_1_1CompareUnconstrainedTypes.html", "structv8_1_1internal_1_1torque_1_1anonymous__namespace_02instance-type-generator_8cc_03_1_1CompareUnconstrainedTypes" ],
+    [ "AssignInstanceTypes", "instance-type-generator_8cc.html#ad5bac85a1da6d65c8c84f21f164257bd", null ],
+    [ "BuildInstanceTypeTree", "instance-type-generator_8cc.html#a9b9f7f076357ba9bccdd97c95d3a2fb0", null ],
+    [ "PrintInstanceTypes", "instance-type-generator_8cc.html#a6dfffaa873c3df2e3d18b2abc61e868a", null ],
+    [ "PropagateInstanceTypeConstraints", "instance-type-generator_8cc.html#a6050ad74d73c878d5c87781c2acceeb5", null ],
+    [ "SelectOwnValues", "instance-type-generator_8cc.html#ace49f41685ca514d2cb3805fd03fec4b", null ],
+    [ "SolveInstanceTypeConstraints", "instance-type-generator_8cc.html#a7ec9da2ca5c4d5987936871e10c09fa3", null ],
+    [ "SolveInstanceTypeConstraints", "instance-type-generator_8cc.html#aa878c6e87cc5f56f76f06fe58af1c327", null ]
 ];

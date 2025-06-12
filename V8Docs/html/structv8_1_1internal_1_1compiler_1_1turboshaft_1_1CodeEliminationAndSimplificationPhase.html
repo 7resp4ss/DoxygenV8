@@ -90,13 +90,24 @@ $(document).ready(function(){initNavTree('structv8_1_1internal_1_1compiler_1_1tu
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="code-elimination-and-simplification-phase_8h_source.html">code-elimination-and-simplification-phase.h</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for v8::internal::compiler::turboshaft::CodeEliminationAndSimplificationPhase:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CodeEliminationAndSimplificationPhase__coll__graph.svg" width="222" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7113a3b1b1a12d4441adbf3e651f183e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CodeEliminationAndSimplificationPhase.html#a7113a3b1b1a12d4441adbf3e651f183e">Run</a> (<a class="el" href="classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData.html">PipelineData</a> *<a class="el" href="builtins_8cc.html#ad2a98ce8e8b889a9843d6839653a11a1">data</a>, <a class="el" href="classv8_1_1internal_1_1Zone.html">Zone</a> *temp_zone)</td></tr>
+<tr class="memitem:a7113a3b1b1a12d4441adbf3e651f183e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CodeEliminationAndSimplificationPhase.html#a7113a3b1b1a12d4441adbf3e651f183e">Run</a> (<a class="el" href="classv8_1_1internal_1_1compiler_1_1turboshaft_1_1PipelineData.html">PipelineData</a> *data, <a class="el" href="classv8_1_1internal_1_1Zone.html">Zone</a> *temp_zone)</td></tr>
 <tr class="separator:a7113a3b1b1a12d4441adbf3e651f183e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="code-elimination-and-simplification-phase_8h_source.html#l00012">12</a> of file <a class="el" href="code-elimination-and-simplification-phase_8h_source.html">code-elimination-and-simplification-phase.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7113a3b1b1a12d4441adbf3e651f183e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7113a3b1b1a12d4441adbf3e651f183e">&#9670;&nbsp;</a></span>Run()</h2>
 
@@ -123,11 +134,42 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="code-elimination-and-simplification-phase_8cc_source.html#l00022">22</a> of file <a class="el" href="code-elimination-and-simplification-phase_8cc_source.html">code-elimination-and-simplification-phase.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                                                                 {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  UnparkedScopeIfNeeded scope(data-&gt;broker(), <a class="code" href="flag-definitions_8h.html#a186f91782e6bd63105cf92242b870b34">DEBUG_BOOL</a>);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  CopyingPhase&lt;DeadCodeEliminationReducer, StackCheckLoweringReducer,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#if V8_ENABLE_WEBASSEMBLY</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;               WasmJSLoweringReducer,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;               LoadStoreSimplificationReducer,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;               <span class="comment">// We make sure that DuplicationOptimizationReducer runs after</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;               <span class="comment">// LoadStoreSimplificationReducer, so that it can optimize</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;               <span class="comment">// Loads/Stores produced by LoadStoreSimplificationReducer</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;               <span class="comment">// (which, for simplificy, doesn&#39;t use the Assembler helper</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;               <span class="comment">// methods, but only calls Next::ReduceLoad/Store).</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;               DuplicationOptimizationReducer,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;               InstructionSelectionNormalizationReducer,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;               ValueNumberingReducer&gt;<a class="code" href="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CodeEliminationAndSimplificationPhase.html#a7113a3b1b1a12d4441adbf3e651f183e">::Run</a>(data, temp_zone);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="ttc" id="aflag-definitions_8h_html_a186f91782e6bd63105cf92242b870b34"><div class="ttname"><a href="flag-definitions_8h.html#a186f91782e6bd63105cf92242b870b34">DEBUG_BOOL</a></div><div class="ttdeci">too high values may cause the compiler to set high thresholds for inlining to as much as possible avoid inlined allocation of objects that cannot escape trace load stores from virtual maglev objects use TurboFan fast string builder analyze liveness of environment slots and zap dead values trace TurboFan load elimination emit data about basic block usage in builtins to this enable builtin reordering when run mksnapshot flag for emit warnings when applying builtin profile data DEBUG_BOOL</div><div class="ttdef"><b>Definition:</b> <a href="flag-definitions_8h_source.html#l01478">flag-definitions.h:1478</a></div></div>
+<div class="ttc" id="astructv8_1_1internal_1_1compiler_1_1turboshaft_1_1CodeEliminationAndSimplificationPhase_html_a7113a3b1b1a12d4441adbf3e651f183e"><div class="ttname"><a href="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CodeEliminationAndSimplificationPhase.html#a7113a3b1b1a12d4441adbf3e651f183e">v8::internal::compiler::turboshaft::CodeEliminationAndSimplificationPhase::Run</a></div><div class="ttdeci">void Run(PipelineData *data, Zone *temp_zone)</div><div class="ttdef"><b>Definition:</b> <a href="code-elimination-and-simplification-phase_8cc_source.html#l00022">code-elimination-and-simplification-phase.cc:22</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="turboshaft_2phase_8h_source.html#l00331">v8::internal::compiler::turboshaft::PipelineData::broker()</a>, and <a class="el" href="flag-definitions_8h_source.html#l01478">DEBUG_BOOL</a>.</p>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CodeEliminationAndSimplificationPhase_a7113a3b1b1a12d4441adbf3e651f183e_cgraph.svg" width="456" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
-<li><a class="el" href="code-elimination-and-simplification-phase_8h_source.html">code-elimination-and-simplification-phase.h</a></li>
-<li><a class="el" href="code-elimination-and-simplification-phase_8cc.html">code-elimination-and-simplification-phase.cc</a></li>
+<li>/mnt/V8SourceCode/src/compiler/turboshaft/<a class="el" href="code-elimination-and-simplification-phase_8h_source.html">code-elimination-and-simplification-phase.h</a></li>
+<li>/mnt/V8SourceCode/src/compiler/turboshaft/<a class="el" href="code-elimination-and-simplification-phase_8cc_source.html">code-elimination-and-simplification-phase.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -135,7 +177,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacev8.html">v8</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal.html">internal</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal_1_1compiler.html">compiler</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal_1_1compiler_1_1turboshaft.html">turboshaft</a></li><li class="navelem"><a class="el" href="structv8_1_1internal_1_1compiler_1_1turboshaft_1_1CodeEliminationAndSimplificationPhase.html">CodeEliminationAndSimplificationPhase</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:46:10 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jun 12 2025 16:10:39 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

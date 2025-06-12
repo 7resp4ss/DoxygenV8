@@ -1,5 +1,9 @@
 var namespacev8_1_1internal_1_1trap__handler =
 [
+    [ "anonymous_namespace{handler-outside.cc}", "namespacev8_1_1internal_1_1trap__handler_1_1anonymous__namespace_02handler-outside_8cc_03.html", [
+      [ "ValidateCodeObjects", "namespacev8_1_1internal_1_1trap__handler_1_1anonymous__namespace_02handler-outside_8cc_03.html#a4f48689cd54466e3cd8f3db9c64737a5", null ],
+      [ "VerifyCodeRangeIsDisjoint", "namespacev8_1_1internal_1_1trap__handler_1_1anonymous__namespace_02handler-outside_8cc_03.html#afe876f75939896cb6ccbca2ead1478d4", null ]
+    ] ],
     [ "CodeProtectionInfo", "structv8_1_1internal_1_1trap__handler_1_1CodeProtectionInfo.html", "structv8_1_1internal_1_1trap__handler_1_1CodeProtectionInfo" ],
     [ "MetadataLock", "classv8_1_1internal_1_1trap__handler_1_1MetadataLock.html", "classv8_1_1internal_1_1trap__handler_1_1MetadataLock" ],
     [ "CodeProtectionInfoListEntry", "structv8_1_1internal_1_1trap__handler_1_1CodeProtectionInfoListEntry.html", "structv8_1_1internal_1_1trap__handler_1_1CodeProtectionInfoListEntry" ],

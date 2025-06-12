@@ -4,6 +4,7 @@ var classv8_1_1internal_1_1wasm_1_1WasmValue =
     [ "WasmValue", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#ad80e751cab9c4efb8fa37c994978e495", null ],
     [ "WasmValue", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#ade5bc309c93ff4cb1c5b0654c3c16680", null ],
     [ "CopyTo", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#a550bfbefaf86f5455044c1d14a0e9d14", null ],
+    [ "ForUintPtr", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#aadd3cceccb1b6224f7946e247c1e1c56", null ],
     [ "module", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#a475d66a1bb8c5616f85472fb6913a294", null ],
     [ "operator==", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#a89ecdb5e6b66d0c9f4b03b9606baa63f", null ],
     [ "Packed", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#ac4b4aa4641c4089301f07aa2156d3ce4", null ],
@@ -12,5 +13,8 @@ var classv8_1_1internal_1_1wasm_1_1WasmValue =
     [ "to_string", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#aad20f3aaac7bcc451271846aba2be8c4", null ],
     [ "to_unchecked", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#a114207861d563a99bf9e29083fbfdfb5", null ],
     [ "type", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#af9461a05c338902f173070ca236d9afd", null ],
-    [ "zero_byte_representation", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#a75e500e15f975bd0fddc21490da83bb0", null ]
+    [ "zero_byte_representation", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#a75e500e15f975bd0fddc21490da83bb0", null ],
+    [ "bit_pattern_", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#a86daa8a4796cf516d6c3f78b52f8d584", null ],
+    [ "module_", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#a30e6e8dffaca84084869829cd6ed4dbf", null ],
+    [ "type_", "classv8_1_1internal_1_1wasm_1_1WasmValue.html#a63f154db9d2a15f589b66116590e36f4", null ]
 ];

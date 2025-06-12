@@ -23,10 +23,22 @@ var instruction_selector_riscv_8h =
     [ "EmitS128Load", "instruction-selector-riscv_8h.html#a9df5f2a3ebd6372657f7d92be4c4c1f5", null ],
     [ "EmitWordCompareZero", "instruction-selector-riscv_8h.html#a12112df82964e4b15af13e3420e779a0", null ],
     [ "TryMatchImmediate", "instruction-selector-riscv_8h.html#a0f5a11a07f6611dd6e72b46322358acc", null ],
+    [ "VisitBinop", "instruction-selector-riscv_8h.html#a665caaa45dc4ae3b09f11a826065383a", null ],
+    [ "VisitBinop", "instruction-selector-riscv_8h.html#a969cd0dd1711b289866a814713d5f1c0", null ],
+    [ "VisitBinop", "instruction-selector-riscv_8h.html#a19f9130316f7d5a5fb6053e3de38ad41", null ],
+    [ "VisitBinop", "instruction-selector-riscv_8h.html#a3d5ab32bb673a58ccce40ec18a9f2765", null ],
+    [ "VisitCompare", "instruction-selector-riscv_8h.html#a832fe69de45d70b8c4d01b8ebc2f7877", null ],
     [ "VisitFloat32Compare", "instruction-selector-riscv_8h.html#a6f7d79e815dc178131272f540875486e", null ],
     [ "VisitFloat64Compare", "instruction-selector-riscv_8h.html#a98382537d7de7c3b7100f76ab1676638", null ],
+    [ "VisitRR", "instruction-selector-riscv_8h.html#a62bbe28bb4dab79644dadc8ef204b347", null ],
     [ "VisitRR", "instruction-selector-riscv_8h.html#a6004ae97a4ea42d6acd06cee38576834", null ],
+    [ "VisitRRI", "instruction-selector-riscv_8h.html#a11181fe96b7d25d104152e40ecd2857d", null ],
+    [ "VisitRRIR", "instruction-selector-riscv_8h.html#ab07b4987e50e98b38cabe15707a0b48f", null ],
+    [ "VisitRRO", "instruction-selector-riscv_8h.html#af8d1d134be37abac08418cacbde24995", null ],
     [ "VisitRRR", "instruction-selector-riscv_8h.html#a7014d66482a977dabece6b49873dd419", null ],
     [ "VisitRRRR", "instruction-selector-riscv_8h.html#a63f62a40e3aba4584bf2bbc99c080df1", null ],
-    [ "VisitWordCompare", "instruction-selector-riscv_8h.html#a14ae278ceef62ba63f66d7b70e0ae974", null ]
+    [ "VisitSimdShift", "instruction-selector-riscv_8h.html#a3b23681758bfc4debdbf97b3c0f6ccf9", null ],
+    [ "VisitUniqueRRR", "instruction-selector-riscv_8h.html#a2e4a67e710f2a4d9c2ac4ec9a55bc02a", null ],
+    [ "VisitWordCompare", "instruction-selector-riscv_8h.html#a14ae278ceef62ba63f66d7b70e0ae974", null ],
+    [ "VisitWordCompareZero", "instruction-selector-riscv_8h.html#a9e1e9887096b1b3835c6a21090180a97", null ]
 ];

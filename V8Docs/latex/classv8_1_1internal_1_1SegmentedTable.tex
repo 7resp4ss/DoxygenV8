@@ -2,6 +2,11 @@
 \label{classv8_1_1internal_1_1SegmentedTable}\index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
 
 
+A thread-\/safe table with a fixed maximum size split into segments.  
+
+
+
+
 {\ttfamily \#include $<$segmented-\/table.\+h$>$}
 
 
@@ -11,7 +16,7 @@ Inheritance diagram for v8\+::internal\+::Segmented\+Table$<$ Entry, size $>$\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=239pt]{classv8_1_1internal_1_1SegmentedTable__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1SegmentedTable__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -88,7 +93,7 @@ uint32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_aefb638882b
 \item 
 static constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a98cf442ccc8db31ec185855b3ef6ec3d}{k\+Is\+Write\+Protected}} = Entry\+::\+Is\+Write\+Protected
 \item 
-static constexpr int \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_af47bd6319a270841c17d3ca4d52c6184}{k\+Entry\+Size}} = sizeof(Entry)
+static constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_af47bd6319a270841c17d3ca4d52c6184}{k\+Entry\+Size}} = sizeof(Entry)
 \item 
 static constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_af5261a9204a574c7867ca14ed6ebdc56}{k\+Use\+Contiguous\+Memory}} = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}
 \item 
@@ -110,7 +115,7 @@ static constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871c
 \subsubsection*{template$<$typename Entry, size\+\_\+t size$>$\newline
 class v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$}
 
-A thread-\/safe table with a fixed maximum size split into segments.
+A thread-\/safe table with a fixed maximum size split into segments. 
 
 The table provides thread-\/safe methods to allocate and free of segments and an inline freelist implementation. Allocation and Freeing of entries is implemented in subclasses since it depends on if the table is manually managed or GCed.
 
@@ -121,6 +126,10 @@ The Entry type defines how the freelist is represented. For that, it must implem
 \item void Make\+Freelist\+Entry(uint32\+\_\+t next\+\_\+entry\+\_\+index)
 \item uint32\+\_\+t Get\+Next\+Freelist\+Entry() 
 \end{DoxyItemize}
+
+Definition at line 34 of file segmented-\/table.\+h.
+
+
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_af8df2d29ac3f9d6efbdf79d3ddbcc95a}\label{classv8_1_1internal_1_1SegmentedTable_af8df2d29ac3f9d6efbdf79d3ddbcc95a}} 
@@ -147,6 +156,21 @@ The Entry type defines how the freelist is represented. For that, it must implem
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 std\+::pair$<$ typename \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::\mbox{\hyperlink{structv8_1_1internal_1_1SegmentedTable_1_1Segment}{Segment}}, typename \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::\mbox{\hyperlink{structv8_1_1internal_1_1SegmentedTable_1_1FreelistHead}{Freelist\+Head}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::Allocate\+And\+Initialize\+Segment\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 220 of file segmented-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{220                                                           \{}
+\DoxyCodeLine{221   \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} res = \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a210f6da5f2320dda65c278bd2a987f38}{TryAllocateAndInitializeSegment}}()) \{}
+\DoxyCodeLine{222     \textcolor{keywordflow}{return} *res;}
+\DoxyCodeLine{223   \}}
+\DoxyCodeLine{224   \mbox{\hyperlink{classv8_1_1internal_1_1V8_a977b087d4ee58955efe72b33136a4e94}{V8::FatalProcessOutOfMemory}}(\textcolor{keyword}{nullptr},}
+\DoxyCodeLine{225                               \textcolor{stringliteral}{"{}SegmentedTable::AllocateAndInitializeSegment"{}});}
+\DoxyCodeLine{226 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a5e935f40bee4aa836511d3708ddbfda0}\label{classv8_1_1internal_1_1SegmentedTable_a5e935f40bee4aa836511d3708ddbfda0}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!at@{at}}
 \index{at@{at}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
@@ -154,12 +178,54 @@ std\+::pair$<$ typename \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 Entry \& \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::at (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 34 of file segmented-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34                                                      \{}
+\DoxyCodeLine{35   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a097388232d47016f5f48c9d32456321b}{base\_}}[\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}];}
+\DoxyCodeLine{36 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::base\+\_\+, and v8\+::internal\+::index.
+
+
+
+Referenced by v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Try\+Allocate\+Entry\+From\+Freelist(), and v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Zero\+Internal\+Null\+Entry().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a5e935f40bee4aa836511d3708ddbfda0_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a09248a192c73052c917b34829e184f92}\label{classv8_1_1internal_1_1SegmentedTable_a09248a192c73052c917b34829e184f92}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!at@{at}}
 \index{at@{at}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
 \doxysubsubsection{\texorpdfstring{at()}{at()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 const Entry \& \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::at (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 39 of file segmented-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39                                                                  \{}
+\DoxyCodeLine{40   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a097388232d47016f5f48c9d32456321b}{base\_}}[\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}];}
+\DoxyCodeLine{41 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::base\+\_\+, and v8\+::internal\+::index.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_ab126f982999e572dec9fa435008ccded}\label{classv8_1_1internal_1_1SegmentedTable_ab126f982999e572dec9fa435008ccded}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!base@{base}}
@@ -168,6 +234,30 @@ const Entry \& \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::int
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::base\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 56 of file segmented-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{56                                                 \{}
+\DoxyCodeLine{57   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a6799f39bfc332d89b03de3214de30d67}{is\_initialized}}());}
+\DoxyCodeLine{58   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a097388232d47016f5f48c9d32456321b}{base\_}});}
+\DoxyCodeLine{59 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::base\+\_\+, v8\+::internal\+::\+DCHECK(), and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::is\+\_\+initialized().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_ab126f982999e572dec9fa435008ccded_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_ac292584e6e68dc5d39e39055cd8febb8}\label{classv8_1_1internal_1_1SegmentedTable_ac292584e6e68dc5d39e39055cd8febb8}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!FillSegmentsPool@{FillSegmentsPool}}
 \index{FillSegmentsPool@{FillSegmentsPool}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
@@ -175,6 +265,44 @@ const Entry \& \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::int
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 std\+::optional$<$ typename \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::\mbox{\hyperlink{structv8_1_1internal_1_1SegmentedTable_1_1Segment}{Segment}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::Fill\+Segments\+Pool (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}}}]{return\+\_\+a\+\_\+segment }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 198 of file segmented-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{198                                                                    \{}
+\DoxyCodeLine{199   std::optional<Segment> res;}
+\DoxyCodeLine{200   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_aed1d595f6a9035741411122d2ec8b491}{kSegmentPoolSize}}; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{201     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a3905faa01fdaf81f9cfd8b925dac4416}{segment\_pool\_}}[\mbox{\hyperlink{namespacev8_1_1internal}{i}}].load(std::memory\_order\_acquire), 0);}
+\DoxyCodeLine{202     \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} start =}
+\DoxyCodeLine{203         \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}}-\/>\mbox{\hyperlink{classv8_1_1VirtualAddressSpace_a507753f63e8c88702ca7f85a3f503c95}{AllocatePages}}(\mbox{\hyperlink{classv8_1_1VirtualAddressSpace_a3a8f4984c524f2c30a8b00a6b8bff41a}{VirtualAddressSpace::kNoHint}}, \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a0108b93cb85f7197751f63bb4dbcbb4a}{kSegmentSize}},}
+\DoxyCodeLine{204                             \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_ac7a070f2964f69e6cbfedb71048605ad}{kAlignment}}, \mbox{\hyperlink{namespacev8_afd990b3ba59f8683a014651f68dd2555af34c23f2eed93c9645e1aa681c77bec5}{PagePermissions::kReadWrite}});}
+\DoxyCodeLine{205     \textcolor{keywordflow}{if} (!start) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{206     uint32\_t offset = \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(start -\/ \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}}-\/>\mbox{\hyperlink{classv8_1_1VirtualAddressSpace_a0d1b4fa7f1cc543711aa912dc2323712}{base}}());}
+\DoxyCodeLine{207     \textcolor{keywordflow}{if} (return\_a\_segment \&\& \mbox{\hyperlink{namespacev8_1_1internal}{i}} == 0) \{}
+\DoxyCodeLine{208       res.emplace(\mbox{\hyperlink{structv8_1_1internal_1_1SegmentedTable_1_1Segment_a1a49a341bae11984fb6b88eee0eaf142}{Segment::At}}(offset));}
+\DoxyCodeLine{209       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{210     \}}
+\DoxyCodeLine{211     \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(offset, 0);}
+\DoxyCodeLine{212     \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a3905faa01fdaf81f9cfd8b925dac4416}{segment\_pool\_}}[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}].store(offset, std::memory\_order\_release);}
+\DoxyCodeLine{213   \}}
+\DoxyCodeLine{214   \textcolor{keywordflow}{return} res;}
+\DoxyCodeLine{215 \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Initialize(), and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Try\+Allocate\+Segment().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_ac292584e6e68dc5d39e39055cd8febb8_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a98e2c68aec897cc079ab143afc7bcf6f}\label{classv8_1_1internal_1_1SegmentedTable_a98e2c68aec897cc079ab143afc7bcf6f}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!FreeTableSegment@{FreeTableSegment}}
 \index{FreeTableSegment@{FreeTableSegment}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
@@ -182,6 +310,58 @@ std\+::optional$<$ typename \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTab
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 void \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::Free\+Table\+Segment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structv8_1_1internal_1_1SegmentedTable_1_1Segment}{Segment}}}]{segment }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 241 of file segmented-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{241                                                                   \{}
+\DoxyCodeLine{242   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_aff7d1c3350d709a9da4f36bf0b47b8c0}{kUseSegmentPool}}) \{}
+\DoxyCodeLine{243     \textcolor{comment}{// Offset 0 is used as a marker for free entries. Thus we cannot store it in}}
+\DoxyCodeLine{244     \textcolor{comment}{// the pool.}}
+\DoxyCodeLine{245     \textcolor{keywordflow}{if} (segment.offset() != 0) \{}
+\DoxyCodeLine{246       \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(*\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a36e350809a9e6b95422e8f639e471a9b}{segment\_pool\_grow\_mutex\_}});}
+\DoxyCodeLine{247       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_aed1d595f6a9035741411122d2ec8b491}{kSegmentPoolSize}}; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{248         uint32\_t cur = \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a3905faa01fdaf81f9cfd8b925dac4416}{segment\_pool\_}}[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}].load(std::memory\_order\_relaxed);}
+\DoxyCodeLine{249         \textcolor{keywordflow}{if} (cur == 0) \{}
+\DoxyCodeLine{250           \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a3905faa01fdaf81f9cfd8b925dac4416}{segment\_pool\_}}[\mbox{\hyperlink{namespacev8_1_1internal}{i}}].compare\_exchange\_weak(}
+\DoxyCodeLine{251                   cur, segment.offset(), std::memory\_order\_acq\_rel)) \{}
+\DoxyCodeLine{252             \textcolor{keywordflow}{return};}
+\DoxyCodeLine{253           \}}
+\DoxyCodeLine{254         \}}
+\DoxyCodeLine{255       \}}
+\DoxyCodeLine{256     \}}
+\DoxyCodeLine{257   \}}
+\DoxyCodeLine{258   \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} segment\_start = \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}}-\/>\mbox{\hyperlink{classv8_1_1VirtualAddressSpace_a0d1b4fa7f1cc543711aa912dc2323712}{base}}() + segment.offset();}
+\DoxyCodeLine{259   \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}}-\/>\mbox{\hyperlink{classv8_1_1VirtualAddressSpace_a1e0f659a566ee6d617210c91c98c2836}{FreePages}}(segment\_start, \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a0108b93cb85f7197751f63bb4dbcbb4a}{kSegmentSize}});}
+\DoxyCodeLine{260 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Virtual\+Address\+Space\+::base(), v8\+::\+Virtual\+Address\+Space\+::\+Free\+Pages(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::k\+Segment\+Pool\+Size, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::k\+Segment\+Size, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::k\+Use\+Segment\+Pool, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Segment\+::offset(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::segment\+\_\+pool\+\_\+, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::segment\+\_\+pool\+\_\+grow\+\_\+mutex\+\_\+, and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::vas\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Generic\+Sweep(), and v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Tear\+Down\+Space().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a98e2c68aec897cc079ab143afc7bcf6f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a98e2c68aec897cc079ab143afc7bcf6f_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a90da5b29133f5d1a9a90f2b63fdf631f}\label{classv8_1_1internal_1_1SegmentedTable_a90da5b29133f5d1a9a90f2b63fdf631f}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!Initialize@{Initialize}}
 \index{Initialize@{Initialize}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
@@ -189,6 +369,86 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 void \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::Initialize\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 62 of file segmented-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{62                                              \{}
+\DoxyCodeLine{63   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a6799f39bfc332d89b03de3214de30d67}{is\_initialized}}());}
+\DoxyCodeLine{64   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}}, \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66   VirtualAddressSpace* root\_space = \mbox{\hyperlink{namespacev8_1_1internal_a927fdd6d2695ea1cee819f49508ace7e}{GetPlatformVirtualAddressSpace}}();}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#ifdef V8\_TARGET\_ARCH\_64\_BIT}}
+\DoxyCodeLine{69   static\_assert(\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_af5261a9204a574c7867ca14ed6ebdc56}{kUseContiguousMemory}});}
+\DoxyCodeLine{70   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{src_2base_2macros_8h_ab7a19c1f785f31f2b190afc19875368a}{IsAligned}}(kReservationSize, root\_space-\/>allocation\_granularity()));}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72   \textcolor{keywordflow}{if} (root\_space-\/>CanAllocateSubspaces()) \{}
+\DoxyCodeLine{73     \textcolor{keyword}{auto} subspace = root\_space-\/>AllocateSubspace(\mbox{\hyperlink{classv8_1_1VirtualAddressSpace_a3a8f4984c524f2c30a8b00a6b8bff41a}{VirtualAddressSpace::kNoHint}},}
+\DoxyCodeLine{74                                                  kReservationSize, \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_ac7a070f2964f69e6cbfedb71048605ad}{kAlignment}},}
+\DoxyCodeLine{75                                                  \mbox{\hyperlink{namespacev8_afd990b3ba59f8683a014651f68dd2555af34c23f2eed93c9645e1aa681c77bec5}{PagePermissions::kReadWrite}});}
+\DoxyCodeLine{76     \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}} = subspace.release();}
+\DoxyCodeLine{77     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_aff7d1c3350d709a9da4f36bf0b47b8c0}{kUseSegmentPool}}) \{}
+\DoxyCodeLine{78       \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a36e350809a9e6b95422e8f639e471a9b}{segment\_pool\_grow\_mutex\_}} = \textcolor{keyword}{new} base::Mutex();}
+\DoxyCodeLine{79     \}}
+\DoxyCodeLine{80   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{81     \textcolor{comment}{// This may be required on old Windows versions that don't support}}
+\DoxyCodeLine{82     \textcolor{comment}{// VirtualAlloc2, which is required for subspaces. In that case, just use a}}
+\DoxyCodeLine{83     \textcolor{comment}{// fully-\/backed emulated subspace.}}
+\DoxyCodeLine{84     \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} reservation\_base = root\_space-\/>AllocatePages(}
+\DoxyCodeLine{85         \mbox{\hyperlink{classv8_1_1VirtualAddressSpace_a3a8f4984c524f2c30a8b00a6b8bff41a}{VirtualAddressSpace::kNoHint}}, kReservationSize, \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_ac7a070f2964f69e6cbfedb71048605ad}{kAlignment}},}
+\DoxyCodeLine{86         \mbox{\hyperlink{namespacev8_afd990b3ba59f8683a014651f68dd2555af5d6f15f85f8db76149a52e2f4a2aa70}{PagePermissions::kNoAccess}});}
+\DoxyCodeLine{87     \textcolor{keywordflow}{if} (reservation\_base) \{}
+\DoxyCodeLine{88       \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}} = \textcolor{keyword}{new} base::EmulatedVirtualAddressSubspace(}
+\DoxyCodeLine{89           root\_space, reservation\_base, kReservationSize, kReservationSize);}
+\DoxyCodeLine{90     \}}
+\DoxyCodeLine{91     \textcolor{comment}{// EmulatedVirtualAddressSubspace does not suppert AllocatePagesArray.}}
+\DoxyCodeLine{92     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_aff7d1c3350d709a9da4f36bf0b47b8c0}{kUseSegmentPool}});}
+\DoxyCodeLine{93   \}}
+\DoxyCodeLine{94   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}}) \{}
+\DoxyCodeLine{95     \mbox{\hyperlink{classv8_1_1internal_1_1V8_a977b087d4ee58955efe72b33136a4e94}{V8::FatalProcessOutOfMemory}}(}
+\DoxyCodeLine{96         \textcolor{keyword}{nullptr}, \textcolor{stringliteral}{"{}SegmentedTable::InitializeTable (subspace allocation)"{}});}
+\DoxyCodeLine{97   \}}
+\DoxyCodeLine{98 \textcolor{preprocessor}{\#else  }\textcolor{comment}{// V8\_TARGET\_ARCH\_64\_BIT}}
+\DoxyCodeLine{99   static\_assert(!\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_af5261a9204a574c7867ca14ed6ebdc56}{kUseContiguousMemory}});}
+\DoxyCodeLine{100   \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}} = root\_space;}
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103   \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a097388232d47016f5f48c9d32456321b}{base\_}} = \textcolor{keyword}{reinterpret\_cast<}Entry*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}}-\/>\mbox{\hyperlink{classv8_1_1VirtualAddressSpace_a0d1b4fa7f1cc543711aa912dc2323712}{base}}());}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105   \textcolor{keywordflow}{if} constexpr (\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_af5261a9204a574c7867ca14ed6ebdc56}{kUseContiguousMemory}} \&\& \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a98cf442ccc8db31ec185855b3ef6ec3d}{kIsWriteProtected}}) \{}
+\DoxyCodeLine{106     \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadIsolation_a1d9e4c7b02f557093bf373b0a4e93fc4}{ThreadIsolation::WriteProtectMemory}}(}
+\DoxyCodeLine{107         \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_ab126f982999e572dec9fa435008ccded}{base}}(), \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}}, PageAllocator::Permission::kNoAccess));}
+\DoxyCodeLine{108   \}}
+\DoxyCodeLine{109 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Virtual\+Address\+Space\+::\+Allocate\+Pages(), v8\+::\+Virtual\+Address\+Space\+::\+Allocate\+Subspace(), v8\+::\+Virtual\+Address\+Space\+::allocation\+\_\+granularity(), v8\+::\+Virtual\+Address\+Space\+::\+Can\+Allocate\+Subspaces(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, v8\+::internal\+::\+Get\+Platform\+Virtual\+Address\+Space(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::is\+\_\+initialized(), Is\+Aligned(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::k\+Alignment, v8\+::k\+No\+Access, v8\+::\+Virtual\+Address\+Space\+::k\+No\+Hint, v8\+::k\+Read\+Write, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::k\+Use\+Contiguous\+Memory, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::k\+Use\+Segment\+Pool, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::segment\+\_\+pool\+\_\+grow\+\_\+mutex\+\_\+, and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::vas\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Initialize().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a90da5b29133f5d1a9a90f2b63fdf631f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a90da5b29133f5d1a9a90f2b63fdf631f_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a2698c7c4e18d6d7ae38d9b9a1496f7d3}\label{classv8_1_1internal_1_1SegmentedTable_a2698c7c4e18d6d7ae38d9b9a1496f7d3}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!InitializeFreeList@{InitializeFreeList}}
 \index{InitializeFreeList@{InitializeFreeList}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
@@ -196,6 +456,55 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::\mbox{\hyperlink{structv8_1_1internal_1_1SegmentedTable_1_1FreelistHead}{Freelist\+Head}} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::Initialize\+Free\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structv8_1_1internal_1_1SegmentedTable_1_1Segment}{Segment}}}]{segment,  }\item[{uint32\+\_\+t}]{start\+\_\+offset = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 128 of file segmented-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{129                                                                        \{}
+\DoxyCodeLine{130   \mbox{\hyperlink{src_2base_2logging_8h_af1a711c8d5520dff78858ddefd2ad668}{DCHECK\_LT}}(start\_offset, \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a01370b791f4b5d633e9ae2fc363aaf15}{kEntriesPerSegment}});}
+\DoxyCodeLine{131   uint32\_t num\_entries = \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a01370b791f4b5d633e9ae2fc363aaf15}{kEntriesPerSegment}} -\/ start\_offset;}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133   uint32\_t first = segment.first\_entry() + start\_offset;}
+\DoxyCodeLine{134   uint32\_t last = segment.last\_entry();}
+\DoxyCodeLine{135   \{}
+\DoxyCodeLine{136     WriteIterator it = \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_ac4414a3741068d3003a55ddbf3bbaea0}{iter\_at}}(first);}
+\DoxyCodeLine{137     \textcolor{keywordflow}{while} (it.index() != last) \{}
+\DoxyCodeLine{138       it-\/>MakeFreelistEntry(it.index() + 1);}
+\DoxyCodeLine{139       ++it;}
+\DoxyCodeLine{140     \}}
+\DoxyCodeLine{141     it-\/>MakeFreelistEntry(0);}
+\DoxyCodeLine{142   \}}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{144   \textcolor{keywordflow}{return} FreelistHead(first, num\_entries);}
+\DoxyCodeLine{145 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+LT, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Segment\+::first\+\_\+entry(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Write\+Iterator\+::index(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::iter\+\_\+at(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::k\+Entries\+Per\+Segment, and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Segment\+::last\+\_\+entry().
+
+
+
+Referenced by v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Try\+Extend().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a2698c7c4e18d6d7ae38d9b9a1496f7d3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a2698c7c4e18d6d7ae38d9b9a1496f7d3_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a6799f39bfc332d89b03de3214de30d67}\label{classv8_1_1internal_1_1SegmentedTable_a6799f39bfc332d89b03de3214de30d67}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!is\_initialized@{is\_initialized}}
 \index{is\_initialized@{is\_initialized}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
@@ -203,6 +512,42 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::is\+\_\+initialized\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 50 of file segmented-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{50                                                        \{}
+\DoxyCodeLine{51   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a097388232d47016f5f48c9d32456321b}{base\_}} || \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a097388232d47016f5f48c9d32456321b}{base\_}}) == \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}}-\/>\mbox{\hyperlink{classv8_1_1VirtualAddressSpace_a0d1b4fa7f1cc543711aa912dc2323712}{base}}());}
+\DoxyCodeLine{52   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}} != \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{53 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Virtual\+Address\+Space\+::base(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::base\+\_\+, v8\+::internal\+::\+DCHECK(), and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::vas\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Allocate\+Entry\+Below(), v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Attach\+Space\+To\+Read\+Only\+Segments(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::base(), v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Detach\+Space\+From\+Read\+Only\+Segments(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Initialize(), v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Seal\+Read\+Only\+Segments(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Tear\+Down(), v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Tear\+Down(), v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Tear\+Down\+Space(), v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Try\+Allocate\+Entry(), and v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Unseal\+Read\+Only\+Segments().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a6799f39bfc332d89b03de3214de30d67_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a6799f39bfc332d89b03de3214de30d67_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_ac4414a3741068d3003a55ddbf3bbaea0}\label{classv8_1_1internal_1_1SegmentedTable_ac4414a3741068d3003a55ddbf3bbaea0}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!iter\_at@{iter\_at}}
 \index{iter\_at@{iter\_at}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
@@ -210,6 +555,33 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_1_1WriteIterator}{Write\+Iterator}} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::iter\+\_\+at (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 45 of file segmented-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{45                                                    \{}
+\DoxyCodeLine{46   \textcolor{keywordflow}{return} WriteIterator(\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a097388232d47016f5f48c9d32456321b}{base\_}}, \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}});}
+\DoxyCodeLine{47 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::base\+\_\+, and v8\+::internal\+::index.
+
+
+
+Referenced by v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Generic\+Sweep(), and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Initialize\+Free\+List().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_ac4414a3741068d3003a55ddbf3bbaea0_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a760e41f7e545b5865d66688b80767482}\label{classv8_1_1internal_1_1SegmentedTable_a760e41f7e545b5865d66688b80767482}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!operator=@{operator=}}
 \index{operator=@{operator=}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
@@ -224,6 +596,51 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 void \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::Tear\+Down\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 112 of file segmented-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{112                                            \{}
+\DoxyCodeLine{113   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a6799f39bfc332d89b03de3214de30d67}{is\_initialized}}());}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a36e350809a9e6b95422e8f639e471a9b}{segment\_pool\_grow\_mutex\_}}) \{}
+\DoxyCodeLine{116     \textcolor{keyword}{delete} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a36e350809a9e6b95422e8f639e471a9b}{segment\_pool\_grow\_mutex\_}};}
+\DoxyCodeLine{117   \}}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119   \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a097388232d47016f5f48c9d32456321b}{base\_}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{120 \textcolor{preprocessor}{\#ifdef V8\_TARGET\_ARCH\_64\_BIT}}
+\DoxyCodeLine{121   \textcolor{keyword}{delete} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}};}
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{123   \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{124 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::base\+\_\+, v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::is\+\_\+initialized(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::segment\+\_\+pool\+\_\+grow\+\_\+mutex\+\_\+, and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::vas\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Tear\+Down().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a2cfdb07012a5ae848125c147ec5596d1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a2cfdb07012a5ae848125c147ec5596d1_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a210f6da5f2320dda65c278bd2a987f38}\label{classv8_1_1internal_1_1SegmentedTable_a210f6da5f2320dda65c278bd2a987f38}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!TryAllocateAndInitializeSegment@{TryAllocateAndInitializeSegment}}
 \index{TryAllocateAndInitializeSegment@{TryAllocateAndInitializeSegment}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
@@ -231,6 +648,46 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 std\+::optional$<$ std\+::pair$<$ typename \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::\mbox{\hyperlink{structv8_1_1internal_1_1SegmentedTable_1_1Segment}{Segment}}, typename \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::\mbox{\hyperlink{structv8_1_1internal_1_1SegmentedTable_1_1FreelistHead}{Freelist\+Head}} $>$ $>$ \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::Try\+Allocate\+And\+Initialize\+Segment\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 231 of file segmented-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{231                                                              \{}
+\DoxyCodeLine{232   \textcolor{keyword}{auto} segment = \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a024dd88dacb0279eda24b7ef799eb0f4}{TryAllocateSegment}}();}
+\DoxyCodeLine{233   \textcolor{keywordflow}{if} (!segment) \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{234   \mbox{\hyperlink{src_2base_2logging_8h_a96a75539aa82216cdde2250a11126ea0}{DCHECK\_IMPLIES}}(!\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_af5261a9204a574c7867ca14ed6ebdc56}{kUseContiguousMemory}},}
+\DoxyCodeLine{235                  (*segment).number() > \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a525d63eaf7af885a7efc876d53b159e1}{kNumReadOnlySegments}});}
+\DoxyCodeLine{236   FreelistHead freelist = \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2698c7c4e18d6d7ae38d9b9a1496f7d3}{InitializeFreeList}}(*segment);}
+\DoxyCodeLine{237   \textcolor{keywordflow}{return} \{\{*segment, freelist\}\};}
+\DoxyCodeLine{238 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Try\+Allocate\+Segment().
+
+
+
+Referenced by v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Try\+Extend().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a210f6da5f2320dda65c278bd2a987f38_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a210f6da5f2320dda65c278bd2a987f38_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a024dd88dacb0279eda24b7ef799eb0f4}\label{classv8_1_1internal_1_1SegmentedTable_a024dd88dacb0279eda24b7ef799eb0f4}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!TryAllocateSegment@{TryAllocateSegment}}
 \index{TryAllocateSegment@{TryAllocateSegment}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
@@ -238,6 +695,64 @@ std\+::optional$<$ std\+::pair$<$ typename \mbox{\hyperlink{classv8_1_1internal_
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 std\+::optional$<$ typename \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::\mbox{\hyperlink{structv8_1_1internal_1_1SegmentedTable_1_1Segment}{Segment}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::Try\+Allocate\+Segment\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 169 of file segmented-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{169                                                 \{}
+\DoxyCodeLine{170   \textcolor{keywordflow}{if} constexpr (!\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_aff7d1c3350d709a9da4f36bf0b47b8c0}{kUseSegmentPool}}) \{}
+\DoxyCodeLine{171     \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} start =}
+\DoxyCodeLine{172         \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}}-\/>\mbox{\hyperlink{classv8_1_1VirtualAddressSpace_a507753f63e8c88702ca7f85a3f503c95}{AllocatePages}}(\mbox{\hyperlink{classv8_1_1VirtualAddressSpace_a3a8f4984c524f2c30a8b00a6b8bff41a}{VirtualAddressSpace::kNoHint}}, \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a0108b93cb85f7197751f63bb4dbcbb4a}{kSegmentSize}},}
+\DoxyCodeLine{173                             \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a0108b93cb85f7197751f63bb4dbcbb4a}{kSegmentSize}}, \mbox{\hyperlink{namespacev8_afd990b3ba59f8683a014651f68dd2555af34c23f2eed93c9645e1aa681c77bec5}{PagePermissions::kReadWrite}});}
+\DoxyCodeLine{174     \textcolor{keywordflow}{if} (!start) \{}
+\DoxyCodeLine{175       \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{176     \}}
+\DoxyCodeLine{177     uint32\_t offset = \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(start -\/ \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}{vas\_}}-\/>\mbox{\hyperlink{classv8_1_1VirtualAddressSpace_a0d1b4fa7f1cc543711aa912dc2323712}{base}}());}
+\DoxyCodeLine{178     \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1SegmentedTable_1_1Segment_a1a49a341bae11984fb6b88eee0eaf142}{Segment::At}}(offset);}
+\DoxyCodeLine{179   \}}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{181   \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} segment = \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a298ae21cf248ea9b89066fbd36eb5c5f}{TryGetSegmentFromPool}}()) \{}
+\DoxyCodeLine{182     \textcolor{keywordflow}{return} segment;}
+\DoxyCodeLine{183   \}}
+\DoxyCodeLine{184 }
+\DoxyCodeLine{185   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(*\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a36e350809a9e6b95422e8f639e471a9b}{segment\_pool\_grow\_mutex\_}});}
+\DoxyCodeLine{186   \textcolor{comment}{// Try again to get a segment from the pool with the mutex held. Either}}
+\DoxyCodeLine{187   \textcolor{comment}{// another thread filled the pool before us and we should get a segment here,}}
+\DoxyCodeLine{188   \textcolor{comment}{// or the pool is guaranteed to be empty and we can proceed to fill it.}}
+\DoxyCodeLine{189   \textcolor{keywordflow}{if} (\textcolor{keyword}{auto} segment = \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a298ae21cf248ea9b89066fbd36eb5c5f}{TryGetSegmentFromPool}}()) \{}
+\DoxyCodeLine{190     \textcolor{keywordflow}{return} segment;}
+\DoxyCodeLine{191   \}}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_ac292584e6e68dc5d39e39055cd8febb8}{FillSegmentsPool}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{194 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Virtual\+Address\+Space\+::\+Allocate\+Pages(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Segment\+::\+At(), v8\+::\+Virtual\+Address\+Space\+::base(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Fill\+Segments\+Pool(), v8\+::\+Virtual\+Address\+Space\+::k\+No\+Hint, v8\+::k\+Read\+Write, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::k\+Segment\+Size, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::k\+Use\+Segment\+Pool, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::segment\+\_\+pool\+\_\+grow\+\_\+mutex\+\_\+, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Try\+Get\+Segment\+From\+Pool(), and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::vas\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Try\+Allocate\+And\+Initialize\+Segment().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a024dd88dacb0279eda24b7ef799eb0f4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a024dd88dacb0279eda24b7ef799eb0f4_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a298ae21cf248ea9b89066fbd36eb5c5f}\label{classv8_1_1internal_1_1SegmentedTable_a298ae21cf248ea9b89066fbd36eb5c5f}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!TryGetSegmentFromPool@{TryGetSegmentFromPool}}
 \index{TryGetSegmentFromPool@{TryGetSegmentFromPool}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
@@ -247,6 +762,55 @@ std\+::optional$<$ typename \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTab
 
 
 
+Definition at line 149 of file segmented-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{149                                                    \{}
+\DoxyCodeLine{150   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_aff7d1c3350d709a9da4f36bf0b47b8c0}{kUseSegmentPool}});}
+\DoxyCodeLine{151   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; i < static\_cast<int>(\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_aed1d595f6a9035741411122d2ec8b491}{kSegmentPoolSize}}); ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{152     uint32\_t segment = \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a3905faa01fdaf81f9cfd8b925dac4416}{segment\_pool\_}}[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}].load(std::memory\_order\_relaxed);}
+\DoxyCodeLine{153     \textcolor{keywordflow}{if} (segment != 0) \{}
+\DoxyCodeLine{154       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a3905faa01fdaf81f9cfd8b925dac4416}{segment\_pool\_}}[\mbox{\hyperlink{namespacev8_1_1internal}{i}}].compare\_exchange\_weak(segment, 0,}
+\DoxyCodeLine{155                                                  std::memory\_order\_acq\_rel)) \{}
+\DoxyCodeLine{156         \textcolor{keywordflow}{return} \mbox{\hyperlink{structv8_1_1internal_1_1SegmentedTable_1_1Segment_a1a49a341bae11984fb6b88eee0eaf142}{Segment::At}}(segment);}
+\DoxyCodeLine{157       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{158         \textcolor{comment}{// Retry if CAS failed. This is needed to ensure the pool really is}}
+\DoxyCodeLine{159         \textcolor{comment}{// empty when this method returns \{\}.}}
+\DoxyCodeLine{160         -\/-\/\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}};}
+\DoxyCodeLine{161       \}}
+\DoxyCodeLine{162     \}}
+\DoxyCodeLine{163   \}}
+\DoxyCodeLine{164   \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{165 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Segment\+::\+At(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::k\+Segment\+Pool\+Size, v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::k\+Use\+Segment\+Pool, and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::segment\+\_\+pool\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Try\+Allocate\+Segment().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a298ae21cf248ea9b89066fbd36eb5c5f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SegmentedTable_a298ae21cf248ea9b89066fbd36eb5c5f_icgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a097388232d47016f5f48c9d32456321b}\label{classv8_1_1internal_1_1SegmentedTable_a097388232d47016f5f48c9d32456321b}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!base\_@{base\_}}
@@ -254,6 +818,14 @@ std\+::optional$<$ typename \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTab
 \doxysubsubsection{\texorpdfstring{base\_}{base\_}}
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 Entry$\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::base\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 247 of file segmented-\/table.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::at(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::base(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::is\+\_\+initialized(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::iter\+\_\+at(), and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Tear\+Down().
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_ac7a070f2964f69e6cbfedb71048605ad}\label{classv8_1_1internal_1_1SegmentedTable_ac7a070f2964f69e6cbfedb71048605ad}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!kAlignment@{kAlignment}}
@@ -268,6 +840,14 @@ constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293a
 \DoxyCodeLine{      \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a0108b93cb85f7197751f63bb4dbcbb4a}{kSegmentSize}} * (\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_aff7d1c3350d709a9da4f36bf0b47b8c0}{kUseSegmentPool}} ? \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_aed1d595f6a9035741411122d2ec8b491}{kSegmentPoolSize}} : 1)}
 
 \end{DoxyCode}
+
+
+Definition at line 75 of file segmented-\/table.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Initialize(), and v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Initialize().
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a01370b791f4b5d633e9ae2fc363aaf15}\label{classv8_1_1internal_1_1SegmentedTable_a01370b791f4b5d633e9ae2fc363aaf15}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!kEntriesPerSegment@{kEntriesPerSegment}}
 \index{kEntriesPerSegment@{kEntriesPerSegment}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
@@ -275,12 +855,24 @@ constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293a
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::k\+Entries\+Per\+Segment = \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_a0108b93cb85f7197751f63bb4dbcbb4a}{k\+Segment\+Size}} / \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_af47bd6319a270841c17d3ca4d52c6184}{k\+Entry\+Size}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}}
 
+
+
+Definition at line 74 of file segmented-\/table.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Segment\+::\+Containing(), and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Initialize\+Free\+List().
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_af47bd6319a270841c17d3ca4d52c6184}\label{classv8_1_1internal_1_1SegmentedTable_af47bd6319a270841c17d3ca4d52c6184}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!kEntrySize@{kEntrySize}}
 \index{kEntrySize@{kEntrySize}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
 \doxysubsubsection{\texorpdfstring{kEntrySize}{kEntrySize}}
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
-constexpr int \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::k\+Entry\+Size = sizeof(Entry)\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}}
+constexpr \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::k\+Entry\+Size = sizeof(Entry)\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 37 of file segmented-\/table.\+h.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a98cf442ccc8db31ec185855b3ef6ec3d}\label{classv8_1_1internal_1_1SegmentedTable_a98cf442ccc8db31ec185855b3ef6ec3d}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!kIsWriteProtected@{kIsWriteProtected}}
@@ -288,6 +880,14 @@ constexpr int \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::inte
 \doxysubsubsection{\texorpdfstring{kIsWriteProtected}{kIsWriteProtected}}
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::k\+Is\+Write\+Protected = Entry\+::\+Is\+Write\+Protected\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 36 of file segmented-\/table.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Zero\+Internal\+Null\+Entry().
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a525d63eaf7af885a7efc876d53b159e1}\label{classv8_1_1internal_1_1SegmentedTable_a525d63eaf7af885a7efc876d53b159e1}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!kNumReadOnlySegments@{kNumReadOnlySegments}}
@@ -302,12 +902,24 @@ constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293a
 \DoxyCodeLine{      (\mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_aff7d1c3350d709a9da4f36bf0b47b8c0}{kUseSegmentPool}} ? \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_aed1d595f6a9035741411122d2ec8b491}{kSegmentPoolSize}} : 1)}
 
 \end{DoxyCode}
+
+
+Definition at line 79 of file segmented-\/table.\+h.
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_aed1d595f6a9035741411122d2ec8b491}\label{classv8_1_1internal_1_1SegmentedTable_aed1d595f6a9035741411122d2ec8b491}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!kSegmentPoolSize@{kSegmentPoolSize}}
 \index{kSegmentPoolSize@{kSegmentPoolSize}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
 \doxysubsubsection{\texorpdfstring{kSegmentPoolSize}{kSegmentPoolSize}}
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::k\+Segment\+Pool\+Size = 4\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 73 of file segmented-\/table.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Free\+Table\+Segment(), and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Try\+Get\+Segment\+From\+Pool().
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a0108b93cb85f7197751f63bb4dbcbb4a}\label{classv8_1_1internal_1_1SegmentedTable_a0108b93cb85f7197751f63bb4dbcbb4a}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!kSegmentSize@{kSegmentSize}}
@@ -316,12 +928,28 @@ constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293a
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::k\+Segment\+Size = 16 $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_a93b2e7c72fa0878021b495b6f3cec820}{KB}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}}
 
+
+
+Definition at line 62 of file segmented-\/table.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Segment\+::\+At(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Free\+Table\+Segment(), and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Try\+Allocate\+Segment().
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_af5261a9204a574c7867ca14ed6ebdc56}\label{classv8_1_1internal_1_1SegmentedTable_af5261a9204a574c7867ca14ed6ebdc56}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!kUseContiguousMemory@{kUseContiguousMemory}}
 \index{kUseContiguousMemory@{kUseContiguousMemory}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
 \doxysubsubsection{\texorpdfstring{kUseContiguousMemory}{kUseContiguousMemory}}
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::k\+Use\+Contiguous\+Memory = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 56 of file segmented-\/table.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Attach\+Space\+To\+Read\+Only\+Segments(), v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Extend(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Initialize(), v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Initialize(), and v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Tear\+Down().
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_aff7d1c3350d709a9da4f36bf0b47b8c0}\label{classv8_1_1internal_1_1SegmentedTable_aff7d1c3350d709a9da4f36bf0b47b8c0}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!kUseSegmentPool@{kUseSegmentPool}}
@@ -330,12 +958,28 @@ constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511c
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::k\+Use\+Segment\+Pool = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}}
 
+
+
+Definition at line 57 of file segmented-\/table.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Free\+Table\+Segment(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Initialize(), v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Initialize(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Try\+Allocate\+Segment(), and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Try\+Get\+Segment\+From\+Pool().
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_aefb638882b1a695bedf09efa523cb98e}\label{classv8_1_1internal_1_1SegmentedTable_aefb638882b1a695bedf09efa523cb98e}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!read\_only\_segments\_used\_@{read\_only\_segments\_used\_}}
 \index{read\_only\_segments\_used\_@{read\_only\_segments\_used\_}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
 \doxysubsubsection{\texorpdfstring{read\_only\_segments\_used\_}{read\_only\_segments\_used\_}}
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 uint32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::read\+\_\+only\+\_\+segments\+\_\+used\+\_\+ = 0\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 261 of file segmented-\/table.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Detach\+Space\+From\+Read\+Only\+Segments(), and v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Try\+Extend().
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a3905faa01fdaf81f9cfd8b925dac4416}\label{classv8_1_1internal_1_1SegmentedTable_a3905faa01fdaf81f9cfd8b925dac4416}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!segment\_pool\_@{segment\_pool\_}}
@@ -344,12 +988,28 @@ uint32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::inte
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 std\+::array$<$std\+::atomic$<$uint32\+\_\+t$>$, \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable_aed1d595f6a9035741411122d2ec8b491}{k\+Segment\+Pool\+Size}}$>$ \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::segment\+\_\+pool\+\_\+ = \{\}\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 259 of file segmented-\/table.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Free\+Table\+Segment(), and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Try\+Get\+Segment\+From\+Pool().
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a36e350809a9e6b95422e8f639e471a9b}\label{classv8_1_1internal_1_1SegmentedTable_a36e350809a9e6b95422e8f639e471a9b}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!segment\_pool\_grow\_mutex\_@{segment\_pool\_grow\_mutex\_}}
 \index{segment\_pool\_grow\_mutex\_@{segment\_pool\_grow\_mutex\_}!v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}}
 \doxysubsubsection{\texorpdfstring{segment\_pool\_grow\_mutex\_}{segment\_pool\_grow\_mutex\_}}
 {\footnotesize\ttfamily template$<$typename Entry , size\+\_\+t size$>$ \\
 \mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}}$\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1SegmentedTable}{v8\+::internal\+::\+Segmented\+Table}}$<$ Entry, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} $>$\+::segment\+\_\+pool\+\_\+grow\+\_\+mutex\+\_\+ = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 258 of file segmented-\/table.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Free\+Table\+Segment(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Initialize(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Tear\+Down(), and v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Try\+Allocate\+Segment().
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}\label{classv8_1_1internal_1_1SegmentedTable_a2549c846632c44b78c582618984f1d5c}} 
 \index{v8::internal::SegmentedTable$<$ Entry, size $>$@{v8::internal::SegmentedTable$<$ Entry, size $>$}!vas\_@{vas\_}}
@@ -360,7 +1020,15 @@ std\+::array$<$std\+::atomic$<$uint32\+\_\+t$>$, \mbox{\hyperlink{classv8_1_1int
 
 
 
+Definition at line 252 of file segmented-\/table.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Free\+Table\+Segment(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Initialize(), v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Initialize(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::is\+\_\+initialized(), v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Seal\+Read\+Only\+Segments(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Tear\+Down(), v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Tear\+Down(), v8\+::internal\+::\+Segmented\+Table$<$ Entry, size $>$\+::\+Try\+Allocate\+Segment(), and v8\+::internal\+::\+External\+Entity\+Table$<$ Entry, size $>$\+::\+Unseal\+Read\+Only\+Segments().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{segmented-table_8h}{segmented-\/table.\+h}}\item 
-\mbox{\hyperlink{segmented-table-inl_8h}{segmented-\/table-\/inl.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/common/\mbox{\hyperlink{segmented-table_8h}{segmented-\/table.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/common/\mbox{\hyperlink{segmented-table-inl_8h}{segmented-\/table-\/inl.\+h}}\end{DoxyCompactItemize}

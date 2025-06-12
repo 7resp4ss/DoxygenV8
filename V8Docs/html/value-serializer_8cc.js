@@ -5,6 +5,35 @@ var value_serializer_8cc =
     [ "READ_NEXT_ERROR_TAG", "value-serializer_8cc.html#a29e255491b1ce9082ca8c748f1f6ea97", null ],
     [ "TYPED_ARRAY_CASE", "value-serializer_8cc.html#a572dd685ddbfe9f50630f494b10dc032", null ],
     [ "TYPED_ARRAY_CASE", "value-serializer_8cc.html#a572dd685ddbfe9f50630f494b10dc032", null ],
+    [ "JSArrayBufferViewIsBackedByRab", "value-serializer_8cc.html#a59f696c2563e69183f43016767dd10b8", null ],
+    [ "JSArrayBufferViewIsLengthTracking", "value-serializer_8cc.html#a6f6f622f0ea31cdf431548affb757f64", null ],
+    [ "ArrayBufferViewTag", "value-serializer_8cc.html#a1607bd8128df8118883ca94e28d7809d", [
+      [ "kInt8Array", "value-serializer_8cc.html#a1607bd8128df8118883ca94e28d7809daeee27ec5630863539e99d658af4ad3d1", null ],
+      [ "kUint8Array", "value-serializer_8cc.html#a1607bd8128df8118883ca94e28d7809dae7529f071277c4c73e8609ffb6d9df34", null ],
+      [ "kUint8ClampedArray", "value-serializer_8cc.html#a1607bd8128df8118883ca94e28d7809da3aabcf5e24c162836b6d4faad28cbe1e", null ],
+      [ "kInt16Array", "value-serializer_8cc.html#a1607bd8128df8118883ca94e28d7809da59b7396f806cae1e28466dfb4396c0cf", null ],
+      [ "kUint16Array", "value-serializer_8cc.html#a1607bd8128df8118883ca94e28d7809da584c64d5e6cdafc5ed9e5c0de24ff42c", null ],
+      [ "kInt32Array", "value-serializer_8cc.html#a1607bd8128df8118883ca94e28d7809dadabca96b0d66f6835057fe25965dbf20", null ],
+      [ "kUint32Array", "value-serializer_8cc.html#a1607bd8128df8118883ca94e28d7809da978b90ff4b5533cc69db678e3c33565f", null ],
+      [ "kFloat16Array", "value-serializer_8cc.html#a1607bd8128df8118883ca94e28d7809da240875e168e41d2de156b8c203b7f9d2", null ],
+      [ "kFloat32Array", "value-serializer_8cc.html#a1607bd8128df8118883ca94e28d7809da0275d8bae09b8bf1fc75ef98d22b4a5c", null ],
+      [ "kFloat64Array", "value-serializer_8cc.html#a1607bd8128df8118883ca94e28d7809da7097cb326f5fbeccbe80effc12dc5328", null ],
+      [ "kBigInt64Array", "value-serializer_8cc.html#a1607bd8128df8118883ca94e28d7809dae3bd18989589da405b6d6ad7770d4f5c", null ],
+      [ "kBigUint64Array", "value-serializer_8cc.html#a1607bd8128df8118883ca94e28d7809da17410bce258a3e93c2c96f148ee44f80", null ],
+      [ "kDataView", "value-serializer_8cc.html#a1607bd8128df8118883ca94e28d7809dac77704b6f8c5c619741f76743e0c6685", null ]
+    ] ],
+    [ "ErrorTag", "value-serializer_8cc.html#af3ea3931d106a73e9051073ba6fe4060", [
+      [ "kEvalErrorPrototype", "value-serializer_8cc.html#af3ea3931d106a73e9051073ba6fe4060aadfc6ae1aa9c16f718f483acdc496e08", null ],
+      [ "kRangeErrorPrototype", "value-serializer_8cc.html#af3ea3931d106a73e9051073ba6fe4060a9e90c388a773b25537df371d66267909", null ],
+      [ "kReferenceErrorPrototype", "value-serializer_8cc.html#af3ea3931d106a73e9051073ba6fe4060a119223c147f5f16d265cf12768784df8", null ],
+      [ "kSyntaxErrorPrototype", "value-serializer_8cc.html#af3ea3931d106a73e9051073ba6fe4060a4ea2d11e45c9bdf5eb2e8916c1bf887c", null ],
+      [ "kTypeErrorPrototype", "value-serializer_8cc.html#af3ea3931d106a73e9051073ba6fe4060aca1e4f1a1c8a4b36d89d5c439e1806e0", null ],
+      [ "kUriErrorPrototype", "value-serializer_8cc.html#af3ea3931d106a73e9051073ba6fe4060a52380602f24cab91373664e16c5b1a8c", null ],
+      [ "kMessage", "value-serializer_8cc.html#af3ea3931d106a73e9051073ba6fe4060a9b74dc5b6954a9e2ba62b24c1f8c01e0", null ],
+      [ "kCause", "value-serializer_8cc.html#af3ea3931d106a73e9051073ba6fe4060a8848799245405eb21b60213b4bf3d2e5", null ],
+      [ "kStack", "value-serializer_8cc.html#af3ea3931d106a73e9051073ba6fe4060a5f4930a7bc3cf140a4d53f44f47ed789", null ],
+      [ "kEnd", "value-serializer_8cc.html#af3ea3931d106a73e9051073ba6fe4060a374bf9ba57a441a600d65b212cf9d13c", null ]
+    ] ],
     [ "SerializationTag", "value-serializer_8cc.html#a482944934a1ccec1124aff7156b0efa1", [
       [ "kVersion", "value-serializer_8cc.html#a482944934a1ccec1124aff7156b0efa1a2047375d501cf789651332e8d3c985cc", null ],
       [ "kPadding", "value-serializer_8cc.html#a482944934a1ccec1124aff7156b0efa1a3cb795aa4472ac474bc8fb791cb24828", null ],
@@ -63,5 +92,16 @@ var value_serializer_8cc =
       [ "kLegacyReservedOffscreenCanvas", "value-serializer_8cc.html#a482944934a1ccec1124aff7156b0efa1ade0d70c3455c6b1dc097db69aa9797e6", null ],
       [ "kLegacyReservedCryptoKey", "value-serializer_8cc.html#a482944934a1ccec1124aff7156b0efa1a6a2a35799df1821504273a9c0d3a7c8d", null ],
       [ "kLegacyReservedRTCCertificate", "value-serializer_8cc.html#a482944934a1ccec1124aff7156b0efa1ae40f5f4dfe11c279323c0d6dc30ec442", null ]
-    ] ]
+    ] ],
+    [ "WasmMemoryArrayBufferTag", "value-serializer_8cc.html#a5d1186dbc8164956c65555b6a2ea4bcf", [
+      [ "kFixedLength", "value-serializer_8cc.html#a5d1186dbc8164956c65555b6a2ea4bcfaa3699dc88d4f5f1c2f497753c1f5086d", null ],
+      [ "kResizableNotFollowedByWasmMemory", "value-serializer_8cc.html#a5d1186dbc8164956c65555b6a2ea4bcfa7221876fea4492cc41e381addaa9a4a2", null ],
+      [ "kResizableFollowedByWasmMemory", "value-serializer_8cc.html#a5d1186dbc8164956c65555b6a2ea4bcfa3f813fb3a58ceab914faca9d8ba09af5", null ]
+    ] ],
+    [ "BytesNeededForVarint", "value-serializer_8cc.html#a4823ab1627a5d1bdee29c2af87f1612e", null ],
+    [ "CommitProperties", "value-serializer_8cc.html#a6cd7348ca0c184af82c0fdcc4424d2d0", null ],
+    [ "IsValidObjectKey", "value-serializer_8cc.html#ace61e3e615a5ecbd3be129bc2d11e697", null ],
+    [ "SetPropertiesFromKeyValuePairs", "value-serializer_8cc.html#a9b09ee1c559d1de9a630b13397d3fece", null ],
+    [ "ThrowDeserializationExceptionIfNonePending", "value-serializer_8cc.html#abf00d9f4afebf8bd92bdcbe21082c78a", null ],
+    [ "kLatestVersion", "value-serializer_8cc.html#ae8bf225ed6b7de41cabc7c1596daf0d9", null ]
 ];

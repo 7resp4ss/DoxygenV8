@@ -1,6 +1,6 @@
 var namespacev8_1_1base_1_1impl =
 [
-    [ "JoinedStringViews", "structv8_1_1base_1_1impl_1_1JoinedStringViews.html", null ],
+    [ "JoinedStringViews", "structv8_1_1base_1_1impl_1_1JoinedStringViews.html", "structv8_1_1base_1_1impl_1_1JoinedStringViews" ],
     [ "FormattedStringPart", "structv8_1_1base_1_1impl_1_1FormattedStringPart.html", null ],
     [ "FormattedStringPart< I >", "structv8_1_1base_1_1impl_1_1FormattedStringPart_3_01I_01_4.html", "structv8_1_1base_1_1impl_1_1FormattedStringPart_3_01I_01_4" ],
     [ "FormattedStringPart< S >", "structv8_1_1base_1_1impl_1_1FormattedStringPart_3_01S_01_4.html", "structv8_1_1base_1_1impl_1_1FormattedStringPart_3_01S_01_4" ],

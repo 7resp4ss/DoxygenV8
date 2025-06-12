@@ -7,6 +7,7 @@ var instruction_selector_8h =
     [ "Features", "classv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1Features.html", "classv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1Features" ],
     [ "LoadView", "classv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1LoadView.html", "classv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1LoadView" ],
     [ "StoreView", "classv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1StoreView.html", "classv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1StoreView" ],
+    [ "FrameStateInput", "structv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1FrameStateInput.html", "structv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1FrameStateInput" ],
     [ "Hash", "structv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1FrameStateInput_1_1Hash.html", "structv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1FrameStateInput_1_1Hash" ],
     [ "Equal", "structv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1FrameStateInput_1_1Equal.html", "structv8_1_1internal_1_1compiler_1_1InstructionSelector_1_1FrameStateInput_1_1Equal" ],
     [ "DECLARE_GENERATOR_T", "instruction-selector_8h.html#ade05b68a100c0bf904a6517051aceb66", null ],

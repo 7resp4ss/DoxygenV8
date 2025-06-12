@@ -27,8 +27,15 @@ Collaboration diagram for v8\+::internal\+::Read\+Only\+Promotion\+:
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} void \mbox{\hyperlink{classv8_1_1internal_1_1ReadOnlyPromotion_a2f805092c91a128f3d09f6ad8a6a2a4e}{Promote}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, const \mbox{\hyperlink{classv8_1_1internal_1_1SafepointScope}{Safepoint\+Scope}} \&safepoint\+\_\+scope, const \mbox{\hyperlink{namespacev8_1_1internal_af2248a427f8ff8f81e68a2a87758e145}{Disallow\+Garbage\+Collection}} \&no\+\_\+gc)
+static \mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} void \mbox{\hyperlink{classv8_1_1internal_1_1ReadOnlyPromotion_a2f805092c91a128f3d09f6ad8a6a2a4e}{Promote}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, const \mbox{\hyperlink{classv8_1_1internal_1_1SafepointScope}{Safepoint\+Scope}} \&safepoint\+\_\+scope, const \mbox{\hyperlink{namespacev8_1_1internal_af2248a427f8ff8f81e68a2a87758e145}{Disallow\+Garbage\+Collection}} \&no\+\_\+gc)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 17 of file read-\/only-\/promotion.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -40,7 +47,45 @@ static \mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{
 
 
 
+Definition at line 778 of file read-\/only-\/promotion.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{780                                                                         \{}
+\DoxyCodeLine{781   \textcolor{comment}{// Visit the mutable heap and determine the set of objects that can be}}
+\DoxyCodeLine{782   \textcolor{comment}{// promoted to RO space.}}
+\DoxyCodeLine{783   std::vector<Tagged<HeapObject>> promotees =}
+\DoxyCodeLine{784       Committee::DeterminePromotees(isolate, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{no\_gc}}, safepoint\_scope);}
+\DoxyCodeLine{785   \textcolor{comment}{// Physically copy promotee objects to RO space and track all object moves.}}
+\DoxyCodeLine{786   \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02read-only-promotion_8cc_03_a824c4cab632e1345be4d7ee08a713631}{HeapObjectMap}} moves;}
+\DoxyCodeLine{787   ReadOnlyPromotionImpl::CopyToReadOnlyHeap(isolate, promotees, \&moves);}
+\DoxyCodeLine{788   \textcolor{comment}{// Update all references to moved objects to point at their new location in}}
+\DoxyCodeLine{789   \textcolor{comment}{// RO space.}}
+\DoxyCodeLine{790   ReadOnlyPromotionImpl::UpdatePointers(isolate, safepoint\_scope, moves);}
+\DoxyCodeLine{791   ReadOnlyPromotionImpl::DeleteDeadObjects(isolate, safepoint\_scope, moves);}
+\DoxyCodeLine{792   ReadOnlyPromotionImpl::Verify(isolate, safepoint\_scope);}
+\DoxyCodeLine{793 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::no\+\_\+gc.
+
+
+
+Referenced by v8\+::internal\+::\+Snapshot\+Creator\+Impl\+::\+Create\+Blob().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ReadOnlyPromotion_a2f805092c91a128f3d09f6ad8a6a2a4e_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{read-only-promotion_8h}{read-\/only-\/promotion.\+h}}\item 
-\mbox{\hyperlink{read-only-promotion_8cc}{read-\/only-\/promotion.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{read-only-promotion_8h}{read-\/only-\/promotion.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{read-only-promotion_8cc}{read-\/only-\/promotion.\+cc}}\end{DoxyCompactItemize}

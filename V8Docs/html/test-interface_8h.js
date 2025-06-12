@@ -1,5 +1,5 @@
 var test_interface_8h =
 [
-    [ "DumpAsyncTaskStacksStateForTest", "test-interface_8h.html#a7931d9851e97480a8f640a145dad64c5", null ],
-    [ "SetMaxAsyncTaskStacksForTest", "test-interface_8h.html#a6c68a9eff1e41928b6ef4b5edb9aa336", null ]
+    [ "DumpAsyncTaskStacksStateForTest", "test-interface_8h.html#a17bd1f860ba1d447b62409b9d497328b", null ],
+    [ "SetMaxAsyncTaskStacksForTest", "test-interface_8h.html#a54da9f2d664326d83a067f3df51bfea2", null ]
 ];

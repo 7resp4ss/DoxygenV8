@@ -1,5 +1,5 @@
-\hypertarget{compiler_8cc}{}\doxysection{compiler.\+cc File Reference}
-\label{compiler_8cc}\index{compiler.cc@{compiler.cc}}
+\hypertarget{compiler_8cc}{}\doxysection{/mnt/\+V8\+Source\+Code/src/codegen/compiler.cc File Reference}
+\label{compiler_8cc}\index{/mnt/V8SourceCode/src/codegen/compiler.cc@{/mnt/V8SourceCode/src/codegen/compiler.cc}}
 {\ttfamily \#include \char`\"{}src/codegen/compiler.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$algorithm$>$}\newline
 {\ttfamily \#include $<$memory$>$}\newline
@@ -8,6 +8,7 @@
 {\ttfamily \#include \char`\"{}src/asmjs/asm-\/js.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/ast/prettyprinter.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/ast/scopes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/fpu.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/base/platform/time.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/baseline/baseline.\+h\char`\"{}}\newline
@@ -64,22 +65,130 @@
 {\ttfamily \#include \char`\"{}src/tracing/traced-\/value.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/utils/ostreams.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}src/zone/zone-\/list-\/inl.\+h\char`\"{}}\newline
+Include dependency graph for compiler.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compiler_8cc__incl}
+\end{center}
+\end{figure}
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_1_1CompilerTracer}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Compiler\+Tracer}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_1_1OptimizedCodeCache}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Optimized\+Code\+Cache}}
+\item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1ConstantPoolPointerForwarder}{v8\+::internal\+::\+Constant\+Pool\+Pointer\+Forwarder}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_1_1ScriptCompileTimerScope}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Script\+Compile\+Timer\+Scope}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_1_1StressBackgroundCompileThread}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Stress\+Background\+Compile\+Thread}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_1_1StressBackgroundCompileThread_1_1SourceStream}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Stress\+Background\+Compile\+Thread\+::\+Source\+Stream}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
  \mbox{\hyperlink{namespacev8}{v8}}
-\item 
+\begin{DoxyCompactList}\small\item\em This file provides additional API on top of the default one for making API calls, which come from embedder C++ functions. \end{DoxyCompactList}\item 
  \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_1_1anonymous__namespace_02compiler_8cc_03}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::anonymous\+\_\+namespace\{compiler.\+cc\}}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a0976db2654583170c3e6559ec4cfc29c}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Compile\+Result\+Behavior}} \{ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a0976db2654583170c3e6559ec4cfc29ca6867faeaa475fda467e48267db2bb8a8}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::k\+Default}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a0976db2654583170c3e6559ec4cfc29ca811b77ee3866e2804eb82aeab3205506}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::k\+Discard\+For\+Testing}}
+ \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{namespacev8_1_1internal_a6f98d17959d24ee7a67fbc6a2ef94a8e}{v8\+::internal\+::\+Set\+Script\+Fields\+From\+Details}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Tagged$<$ Script $>$ script, const Script\+Details \&script\+\_\+details, Disallow\+Garbage\+Collection $\ast$no\+\_\+gc)
+constexpr bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_ac08e14836efa041ffff6e3df483fe6fb}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Is\+OSR}} (Bytecode\+Offset osr\+\_\+offset)
 \item 
-bool \mbox{\hyperlink{namespacev8_1_1internal_a60538c02c9226eca5a98a60ff96ea9db}{v8\+::internal\+::\+Modify\+Code\+Generation\+From\+Strings}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Direct\+Handle$<$ Native\+Context $>$ \mbox{\hyperlink{js-call-reducer_8cc_a0835767fe473cead88c1afdf3175bce8}{context}}, Handle$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{i\+::\+Object}} $>$ $\ast$\mbox{\hyperlink{maglev-code-generator_8cc_ada8b48e004e823cabe5fcb41baf29163}{source}}, bool is\+\_\+code\+\_\+like)
+Script\+Origin\+Options \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_ad213df4394e135b8aeffff958dcc1adb}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Origin\+Options\+For\+Eval}} (Tagged$<$ Object $>$ script, Parsing\+While\+Debugging parsing\+\_\+while\+\_\+debugging)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a9c8e560212dfd9486bc89ca3dca19ccd}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Log\+Unoptimized\+Compilation}} (Isolate $\ast$isolate, Direct\+Handle$<$ Shared\+Function\+Info $>$ shared, Log\+Event\+Listener\+::\+Code\+Tag code\+\_\+type, base\+::\+Time\+Delta time\+\_\+taken\+\_\+to\+\_\+execute, base\+::\+Time\+Delta time\+\_\+taken\+\_\+to\+\_\+finalize)
+\item 
+uint64\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_ad2b5021e6aeffb7fd3fb3cdd8085cb64}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Get\+Next\+Trace\+Id}} ()
+\item 
+{\footnotesize template$<$typename IsolateT $>$ }\\void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a2008f97335bf5a8e9e60d4cac4bc18de}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Install\+Unoptimized\+Code}} (Unoptimized\+Compilation\+Info $\ast$compilation\+\_\+info, Direct\+Handle$<$ Shared\+Function\+Info $>$ shared\+\_\+info, IsolateT $\ast$isolate)
+\item 
+{\footnotesize template$<$typename IsolateT $>$ }\\void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a79c86bdd21e25bca49970be6fb904335}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Ensure\+Infos\+Array\+On\+Script}} (Direct\+Handle$<$ Script $>$ script, Parse\+Info $\ast$parse\+\_\+info, IsolateT $\ast$isolate)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_af58583b308993c9f3bf46a079a2735ed}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Update\+Shared\+Function\+Flags\+After\+Compilation}} (Function\+Literal $\ast$literal)
+\item 
+{\footnotesize template$<$typename IsolateT $>$ }\\Compilation\+Job\+::\+Status \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a86aa3cba12e244c9750e92de43976830}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Finalize\+Single\+Unoptimized\+Compilation\+Job}} (Unoptimized\+Compilation\+Job $\ast$job, Handle$<$ Shared\+Function\+Info $>$ shared\+\_\+info, IsolateT $\ast$isolate, Finalize\+Unoptimized\+Compilation\+Data\+List $\ast$finalize\+\_\+unoptimized\+\_\+compilation\+\_\+data\+\_\+list)
+\item 
+std\+::unique\+\_\+ptr$<$ Unoptimized\+Compilation\+Job $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_aa07dc0da4b9adc2a4441190bf27d861b}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Execute\+Single\+Unoptimized\+Compilation\+Job}} (Parse\+Info $\ast$parse\+\_\+info, Function\+Literal $\ast$literal, Handle$<$ Script $>$ script, Accounting\+Allocator $\ast$allocator, std\+::vector$<$ Function\+Literal $\ast$ $>$ $\ast$eager\+\_\+inner\+\_\+literals, Local\+Isolate $\ast$local\+\_\+isolate)
+\item 
+{\footnotesize template$<$typename IsolateT $>$ }\\bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a07708c29a444c155f5051e4764dde8d0}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Iteratively\+Execute\+And\+Finalize\+Unoptimized\+Compilation\+Jobs}} (IsolateT $\ast$isolate, Handle$<$ Script $>$ script, Parse\+Info $\ast$parse\+\_\+info, Accounting\+Allocator $\ast$allocator, Is\+Compiled\+Scope $\ast$is\+\_\+compiled\+\_\+scope, Finalize\+Unoptimized\+Compilation\+Data\+List $\ast$finalize\+\_\+unoptimized\+\_\+compilation\+\_\+data\+\_\+list, Deferred\+Finalization\+Job\+Data\+List $\ast$jobs\+\_\+to\+\_\+retry\+\_\+finalization\+\_\+on\+\_\+main\+\_\+thread)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a6b1c4d848bd85c6b2810714677b15678}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Finalize\+Deferred\+Unoptimized\+Compilation\+Jobs}} (Isolate $\ast$isolate, Direct\+Handle$<$ Script $>$ script, Deferred\+Finalization\+Job\+Data\+List $\ast$deferred\+\_\+jobs, Pending\+Compilation\+Error\+Handler $\ast$pending\+\_\+error\+\_\+handler, Finalize\+Unoptimized\+Compilation\+Data\+List $\ast$finalize\+\_\+unoptimized\+\_\+compilation\+\_\+data\+\_\+list)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a85274e085fcfd4343b0b14366546587c}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Prepare\+Job\+With\+Handle\+Scope}} (Optimized\+Compilation\+Job $\ast$job, Isolate $\ast$isolate, Optimized\+Compilation\+Info $\ast$compilation\+\_\+info, Concurrency\+Mode \mbox{\hyperlink{flag-definitions_8h_adaf90f045d5cd2710edd625b8685472a}{mode}})
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_aceb47b6087ee7acf05485fa803b83bd1}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Compile\+Turbofan\+\_\+\+Not\+Concurrent}} (Isolate $\ast$isolate, Turbofan\+Compilation\+Job $\ast$job)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a986a529c0bb5d74b575630d6f0be8db8}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Compile\+Turbofan\+\_\+\+Concurrent}} (Isolate $\ast$isolate, std\+::unique\+\_\+ptr$<$ Turbofan\+Compilation\+Job $>$ job)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a972d1159c932671b0163fb6bb5565a43}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Should\+Optimize}} (Code\+Kind code\+\_\+kind, Direct\+Handle$<$ Shared\+Function\+Info $>$ shared)
+\item 
+Maybe\+Handle$<$ Code $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a71fd202bc746783a3f0632cd9faed957}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Compile\+Turbofan}} (Isolate $\ast$isolate, Handle$<$ JSFunction $>$ function, Direct\+Handle$<$ Shared\+Function\+Info $>$ shared, Concurrency\+Mode \mbox{\hyperlink{flag-definitions_8h_adaf90f045d5cd2710edd625b8685472a}{mode}}, Bytecode\+Offset osr\+\_\+offset, Compile\+Result\+Behavior result\+\_\+behavior)
+\item 
+Maybe\+Handle$<$ Code $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a450cb5444aed10182c3e947f322f90b9}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Compile\+Maglev}} (Isolate $\ast$isolate, Handle$<$ JSFunction $>$ function, Concurrency\+Mode \mbox{\hyperlink{flag-definitions_8h_adaf90f045d5cd2710edd625b8685472a}{mode}}, Bytecode\+Offset osr\+\_\+offset, Compile\+Result\+Behavior result\+\_\+behavior)
+\item 
+Maybe\+Handle$<$ Code $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a8b28c7129bb6bb24f61b07962ab4d660}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Get\+Or\+Compile\+Optimized}} (Isolate $\ast$isolate, Direct\+Handle$<$ JSFunction $>$ function, Concurrency\+Mode \mbox{\hyperlink{flag-definitions_8h_adaf90f045d5cd2710edd625b8685472a}{mode}}, Code\+Kind code\+\_\+kind, Bytecode\+Offset osr\+\_\+offset=Bytecode\+Offset\+::\+None(), Compile\+Result\+Behavior result\+\_\+behavior=\mbox{\hyperlink{macro-assembler_8h_a3872c5a03589982fb1db526e1fbe7d4da6867faeaa475fda467e48267db2bb8a8}{Compile\+Result\+Behavior\+::k\+Default}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a90db9c29ae467109ec996ca08820c617}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Spawn\+Duplicate\+Concurrent\+Job\+For\+Stress\+Testing}} (Isolate $\ast$isolate, Direct\+Handle$<$ JSFunction $>$ function, Concurrency\+Mode \mbox{\hyperlink{flag-definitions_8h_adaf90f045d5cd2710edd625b8685472a}{mode}}, Code\+Kind code\+\_\+kind)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_abdc425e9b253075ecf09b935efc589c4}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Fail\+And\+Clear\+Exception}} (Isolate $\ast$isolate)
+\item 
+{\footnotesize template$<$typename IsolateT $>$ }\\bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a914ec90bfedf4f9b1c0808cabc1f7585}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Prepare\+Exception}} (IsolateT $\ast$isolate, Parse\+Info $\ast$parse\+\_\+info)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a86a6f005a1a821774ffab4ef52c8a4c0}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Fail\+With\+Prepared\+Exception}} (Isolate $\ast$isolate, Handle$<$ Script $>$ script, const Pending\+Compilation\+Error\+Handler $\ast$pending\+\_\+error\+\_\+handler, Compiler\+::\+Clear\+Exception\+Flag flag=Compiler\+::\+KEEP\+\_\+\+EXCEPTION)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a8dd58b1296194bb12455b1604c110f98}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Fail\+With\+Exception}} (Isolate $\ast$isolate, Handle$<$ Script $>$ script, Parse\+Info $\ast$parse\+\_\+info, Compiler\+::\+Clear\+Exception\+Flag flag)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a0f001835c4a1d389299023f0a07e1196}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Finalize\+Unoptimized\+Compilation}} (Isolate $\ast$isolate, Handle$<$ Script $>$ script, const Unoptimized\+Compile\+Flags \&\mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}}, const Unoptimized\+Compile\+State $\ast$compile\+\_\+state, const Finalize\+Unoptimized\+Compilation\+Data\+List \&finalize\+\_\+unoptimized\+\_\+compilation\+\_\+data\+\_\+list)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_ae7375e61187d701d81ebc669f413db5c}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Finalize\+Unoptimized\+Script\+Compilation}} (Isolate $\ast$isolate, Handle$<$ Script $>$ script, const Unoptimized\+Compile\+Flags \&\mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}}, const Unoptimized\+Compile\+State $\ast$compile\+\_\+state, const Finalize\+Unoptimized\+Compilation\+Data\+List \&finalize\+\_\+unoptimized\+\_\+compilation\+\_\+data\+\_\+list)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_aa87de8d998f2bfe331a4cc37725502a9}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Compile\+All\+With\+Baseline}} (Isolate $\ast$isolate, const Finalize\+Unoptimized\+Compilation\+Data\+List \&finalize\+\_\+unoptimized\+\_\+compilation\+\_\+data\+\_\+list)
+\item 
+{\footnotesize template$<$typename IsolateT $>$ }\\Handle$<$ Shared\+Function\+Info $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a8f9a44a92a566bd45e8302f17b4c0478}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Create\+Top\+Level\+Shared\+Function\+Info}} (Parse\+Info $\ast$parse\+\_\+info, Direct\+Handle$<$ Script $>$ script, IsolateT $\ast$isolate)
+\item 
+Handle$<$ Shared\+Function\+Info $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a35c17fcef508462bbd39c0ee0ca45cf7}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Get\+Or\+Create\+Top\+Level\+Shared\+Function\+Info}} (Parse\+Info $\ast$parse\+\_\+info, Direct\+Handle$<$ Script $>$ script, Isolate $\ast$isolate, Is\+Compiled\+Scope $\ast$is\+\_\+compiled\+\_\+scope)
+\item 
+Maybe\+Handle$<$ Shared\+Function\+Info $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a67c91908fd29d3c44c4a299b8e236477}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Compile\+Toplevel}} (Parse\+Info $\ast$parse\+\_\+info, Handle$<$ Script $>$ script, Maybe\+Direct\+Handle$<$ Scope\+Info $>$ maybe\+\_\+outer\+\_\+scope\+\_\+info, Isolate $\ast$isolate, Is\+Compiled\+Scope $\ast$is\+\_\+compiled\+\_\+scope)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_a6f98d17959d24ee7a67fbc6a2ef94a8e}{v8\+::internal\+::\+Set\+Script\+Fields\+From\+Details}} (Isolate $\ast$isolate, Tagged$<$ Script $>$ script, const Script\+Details \&script\+\_\+details, Disallow\+Garbage\+Collection $\ast$no\+\_\+gc)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_ae35744f0d19de3c916c147713226d5d1}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Verify\+Code\+Merge}} (Isolate $\ast$isolate, Direct\+Handle$<$ Script $>$ script)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_a60538c02c9226eca5a98a60ff96ea9db}{v8\+::internal\+::\+Modify\+Code\+Generation\+From\+Strings}} (Isolate $\ast$isolate, Direct\+Handle$<$ Native\+Context $>$ context, Handle$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{i\+::\+Object}} $>$ $\ast$source, bool is\+\_\+code\+\_\+like)
+\item 
+Handle$<$ Script $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_ad48156be9df4f030c0cfb31d9fbd0740}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+New\+Script}} (Isolate $\ast$isolate, Parse\+Info $\ast$parse\+\_\+info, Direct\+Handle$<$ String $>$ source, Script\+Details script\+\_\+details, Natives\+Flag natives)
+\item 
+Maybe\+Direct\+Handle$<$ Shared\+Function\+Info $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_ac3ec27ef7a94eacfa41da10c968fe196}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Compile\+Script\+On\+Main\+Thread}} (const Unoptimized\+Compile\+Flags \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}}, Direct\+Handle$<$ String $>$ source, const Script\+Details \&script\+\_\+details, Natives\+Flag natives, \mbox{\hyperlink{classv8_1_1Extension}{v8\+::\+Extension}} $\ast$extension, Isolate $\ast$isolate, Maybe\+Handle$<$ Script $>$ maybe\+\_\+script, Is\+Compiled\+Scope $\ast$is\+\_\+compiled\+\_\+scope, Compile\+Hint\+Callback compile\+\_\+hint\+\_\+callback=\mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}, void $\ast$compile\+\_\+hint\+\_\+callback\+\_\+data=\mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}})
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a4b72ed599aebc4bebc5fc5ff43cb679a}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Can\+Background\+Compile}} (const Script\+Details \&script\+\_\+details, \mbox{\hyperlink{classv8_1_1Extension}{v8\+::\+Extension}} $\ast$extension, Script\+Compiler\+::\+Compile\+Options compile\+\_\+options, Natives\+Flag natives)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_a47615b810d1d62c548950177bc68a882}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Compilation\+Exception\+Is\+Range\+Error}} (Isolate $\ast$isolate, Direct\+Handle$<$ Object $>$ obj)
+\item 
+Maybe\+Direct\+Handle$<$ Shared\+Function\+Info $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_ac4307867978cc96a720d82dbce38a792}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Compile\+Script\+On\+Both\+Background\+And\+Main\+Thread}} (Handle$<$ String $>$ source, const Script\+Details \&script\+\_\+details, Isolate $\ast$isolate, Is\+Compiled\+Scope $\ast$is\+\_\+compiled\+\_\+scope)
+\item 
+Script\+Compiler\+::\+In\+Memory\+Cache\+Result \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_1_1anonymous__namespace_02compiler_8cc_03_a27db643511e922ec14582e85acf7fa1e}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Categorize\+Lookup\+Result}} (const Compilation\+Cache\+Script\+::\+Lookup\+Result \&lookup\+\_\+result)
+\item 
+Maybe\+Direct\+Handle$<$ Shared\+Function\+Info $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02compiler_8cc_03_aaeaa81092ff3df9efd634fec795f9381}{v8\+::internal\+::anonymous\+\_\+namespace\{compiler.\+cc\}\+::\+Get\+Shared\+Function\+Info\+For\+Script\+Impl}} (Isolate $\ast$isolate, Handle$<$ String $>$ source, const Script\+Details \&script\+\_\+details, \mbox{\hyperlink{classv8_1_1Extension}{v8\+::\+Extension}} $\ast$extension, Aligned\+Cached\+Data $\ast$cached\+\_\+data, Background\+Deserialize\+Task $\ast$deserialize\+\_\+task, \mbox{\hyperlink{namespacev8_ac5f6fa49988876d9156acd467e6b0048}{v8\+::\+Compile\+Hint\+Callback}} compile\+\_\+hint\+\_\+callback, void $\ast$compile\+\_\+hint\+\_\+callback\+\_\+data, Script\+Compiler\+::\+Compile\+Options compile\+\_\+options, Script\+Compiler\+::\+No\+Cache\+Reason no\+\_\+cache\+\_\+reason, Natives\+Flag natives, Script\+Compiler\+::\+Compilation\+Details $\ast$compilation\+\_\+details)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{namespacev8_1_1internal_a0a6548eb8e49b47c065f0573eebaff55}{v8\+::internal\+::force\+\_\+gc\+\_\+during\+\_\+next\+\_\+merge\+\_\+for\+\_\+testing\+\_\+}} = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}
 \end{DoxyCompactItemize}

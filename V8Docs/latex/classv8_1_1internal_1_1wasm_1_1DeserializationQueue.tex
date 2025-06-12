@@ -1,5 +1,15 @@
 \hypertarget{classv8_1_1internal_1_1wasm_1_1DeserializationQueue}{}\doxysection{v8\+::internal\+::wasm\+::Deserialization\+Queue Class Reference}
 \label{classv8_1_1internal_1_1wasm_1_1DeserializationQueue}\index{v8::internal::wasm::DeserializationQueue@{v8::internal::wasm::DeserializationQueue}}
+
+
+Collaboration diagram for v8\+::internal\+::wasm\+::Deserialization\+Queue\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1DeserializationQueue__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -11,6 +21,20 @@ std\+::vector$<$ \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1Deserializatio
 \item 
 \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a8e39379f2f120fb86bdfbdead6373307}{Num\+Batches}} () const
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a6e887acf12a2ab36874aee308874412b}{mutex\+\_\+}}
+\item 
+std\+::queue$<$ std\+::vector$<$ \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1DeserializationUnit}{Deserialization\+Unit}} $>$ $>$ \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}{queue\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 659 of file wasm-\/serialization.\+cc.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -20,18 +44,114 @@ std\+::vector$<$ \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1Deserializatio
 \doxysubsubsection{\texorpdfstring{Add()}{Add()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_ac81d27d6edb00aeed62a3e4745b8cba0}{void}} v8\+::internal\+::wasm\+::\+Deserialization\+Queue\+::\+Add (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1DeserializationUnit}{Deserialization\+Unit}} $>$}]{batch }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 661 of file wasm-\/serialization.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{661                                                  \{}
+\DoxyCodeLine{662     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!batch.empty());}
+\DoxyCodeLine{663     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a6e887acf12a2ab36874aee308874412b}{mutex\_}});}
+\DoxyCodeLine{664     \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}{queue\_}}.emplace(std::move(batch));}
+\DoxyCodeLine{665   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), mutex\+\_\+, and queue\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Native\+Module\+Deserializer\+::\+Read(), and v8\+::internal\+::wasm\+::\+Deserialize\+Code\+Task\+::\+Run().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4c4b7d4ce7fe8b8a33dad6f755d57fe6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4c4b7d4ce7fe8b8a33dad6f755d57fe6_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a8e39379f2f120fb86bdfbdead6373307}\label{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a8e39379f2f120fb86bdfbdead6373307}} 
 \index{v8::internal::wasm::DeserializationQueue@{v8::internal::wasm::DeserializationQueue}!NumBatches@{NumBatches}}
 \index{NumBatches@{NumBatches}!v8::internal::wasm::DeserializationQueue@{v8::internal::wasm::DeserializationQueue}}
 \doxysubsubsection{\texorpdfstring{NumBatches()}{NumBatches()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::wasm\+::\+Deserialization\+Queue\+::\+Num\+Batches (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 688 of file wasm-\/serialization.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{688                             \{}
+\DoxyCodeLine{689     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a6e887acf12a2ab36874aee308874412b}{mutex\_}});}
+\DoxyCodeLine{690     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}{queue\_}}.size();}
+\DoxyCodeLine{691   \}}
+
+\end{DoxyCode}
+
+
+References mutex\+\_\+, and queue\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Deserialize\+Code\+Task\+::\+Get\+Max\+Concurrency(), and v8\+::internal\+::wasm\+::\+Deserialize\+Code\+Task\+::\+Try\+Publishing().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a8e39379f2f120fb86bdfbdead6373307_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a1936c5e18661e2a52beac7261a8f9465}\label{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a1936c5e18661e2a52beac7261a8f9465}} 
 \index{v8::internal::wasm::DeserializationQueue@{v8::internal::wasm::DeserializationQueue}!Pop@{Pop}}
 \index{Pop@{Pop}!v8::internal::wasm::DeserializationQueue@{v8::internal::wasm::DeserializationQueue}}
 \doxysubsubsection{\texorpdfstring{Pop()}{Pop()}}
 {\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1DeserializationUnit}{Deserialization\+Unit}}$>$ v8\+::internal\+::wasm\+::\+Deserialization\+Queue\+::\+Pop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 667 of file wasm-\/serialization.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{667                                        \{}
+\DoxyCodeLine{668     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a6e887acf12a2ab36874aee308874412b}{mutex\_}});}
+\DoxyCodeLine{669     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}{queue\_}}.empty()) \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{670     \textcolor{keyword}{auto} batch = std::move(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}{queue\_}}.front());}
+\DoxyCodeLine{671     \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}{queue\_}}.pop();}
+\DoxyCodeLine{672     \textcolor{keywordflow}{return} batch;}
+\DoxyCodeLine{673   \}}
+
+\end{DoxyCode}
+
+
+References mutex\+\_\+, and queue\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Deserialize\+Code\+Task\+::\+Run().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a1936c5e18661e2a52beac7261a8f9465_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a82f2c4a67558db7f43573f8cc777bdba}\label{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a82f2c4a67558db7f43573f8cc777bdba}} 
 \index{v8::internal::wasm::DeserializationQueue@{v8::internal::wasm::DeserializationQueue}!PopAll@{PopAll}}
 \index{PopAll@{PopAll}!v8::internal::wasm::DeserializationQueue@{v8::internal::wasm::DeserializationQueue}}
@@ -40,6 +160,73 @@ std\+::vector$<$ \mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1Deserializatio
 
 
 
+Definition at line 675 of file wasm-\/serialization.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{675                                           \{}
+\DoxyCodeLine{676     \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} guard(\&\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a6e887acf12a2ab36874aee308874412b}{mutex\_}});}
+\DoxyCodeLine{677     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}{queue\_}}.empty()) \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{678     \textcolor{keyword}{auto} units = std::move(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}{queue\_}}.front());}
+\DoxyCodeLine{679     \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}{queue\_}}.pop();}
+\DoxyCodeLine{680     \textcolor{keywordflow}{while} (!\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}{queue\_}}.empty()) \{}
+\DoxyCodeLine{681       units.insert(units.end(), std::make\_move\_iterator(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}{queue\_}}.front().begin()),}
+\DoxyCodeLine{682                    std::make\_move\_iterator(\mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}{queue\_}}.front().end()));}
+\DoxyCodeLine{683       \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}{queue\_}}.pop();}
+\DoxyCodeLine{684     \}}
+\DoxyCodeLine{685     \textcolor{keywordflow}{return} units;}
+\DoxyCodeLine{686   \}}
+
+\end{DoxyCode}
+
+
+References mutex\+\_\+, and queue\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::wasm\+::\+Deserialize\+Code\+Task\+::\+Try\+Publishing().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a82f2c4a67558db7f43573f8cc777bdba_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a6e887acf12a2ab36874aee308874412b}\label{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a6e887acf12a2ab36874aee308874412b}} 
+\index{v8::internal::wasm::DeserializationQueue@{v8::internal::wasm::DeserializationQueue}!mutex\_@{mutex\_}}
+\index{mutex\_@{mutex\_}!v8::internal::wasm::DeserializationQueue@{v8::internal::wasm::DeserializationQueue}}
+\doxysubsubsection{\texorpdfstring{mutex\_}{mutex\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} v8\+::internal\+::wasm\+::\+Deserialization\+Queue\+::mutex\+\_\+\hspace{0.3cm}{\ttfamily [mutable]}, {\ttfamily [private]}}
+
+
+
+Definition at line 694 of file wasm-\/serialization.\+cc.
+
+
+
+Referenced by Add(), Num\+Batches(), Pop(), and Pop\+All().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}\label{classv8_1_1internal_1_1wasm_1_1DeserializationQueue_a4aa4e39ae86b006a08fafd731c1231fb}} 
+\index{v8::internal::wasm::DeserializationQueue@{v8::internal::wasm::DeserializationQueue}!queue\_@{queue\_}}
+\index{queue\_@{queue\_}!v8::internal::wasm::DeserializationQueue@{v8::internal::wasm::DeserializationQueue}}
+\doxysubsubsection{\texorpdfstring{queue\_}{queue\_}}
+{\footnotesize\ttfamily std\+::queue$<$std\+::vector$<$\mbox{\hyperlink{structv8_1_1internal_1_1wasm_1_1DeserializationUnit}{Deserialization\+Unit}}$>$ $>$ v8\+::internal\+::wasm\+::\+Deserialization\+Queue\+::queue\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 695 of file wasm-\/serialization.\+cc.
+
+
+
+Referenced by Add(), Num\+Batches(), Pop(), and Pop\+All().
+
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{wasm-serialization_8cc}{wasm-\/serialization.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{wasm-serialization_8cc}{wasm-\/serialization.\+cc}}\end{DoxyCompactItemize}

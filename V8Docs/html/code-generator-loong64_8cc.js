@@ -1,6 +1,7 @@
 var code_generator_loong64_8cc =
 [
     [ "Loong64OperandConverter", "classv8_1_1internal_1_1compiler_1_1Loong64OperandConverter.html", "classv8_1_1internal_1_1compiler_1_1Loong64OperandConverter" ],
+    [ "OutOfLineRecordWrite", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-loong64_8cc_03_1_1OutOfLineRecordWrite.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-loong64_8cc_03_1_1OutOfLineRecordWrite" ],
     [ "__", "code-generator-loong64_8cc.html#a0a87998f4e8cee4888f2a89df3d5639b", null ],
     [ "__", "code-generator-loong64_8cc.html#a0a87998f4e8cee4888f2a89df3d5639b", null ],
     [ "__", "code-generator-loong64_8cc.html#a0a87998f4e8cee4888f2a89df3d5639b", null ],
@@ -18,13 +19,19 @@ var code_generator_loong64_8cc =
     [ "CREATE_OOL_CLASS", "code-generator-loong64_8cc.html#a92a6b94acec06972023dfa35543b564f", null ],
     [ "TRACE", "code-generator-loong64_8cc.html#a5f6aa8edcd99914757600b5d3b259bb7", null ],
     [ "UNSUPPORTED_COND", "code-generator-loong64_8cc.html#a7f39fa22dccc5274a592becbb43303c0", null ],
+    [ "AdjustStackPointerForTailCall", "code-generator-loong64_8cc.html#a439275ce869c590cb7a01e4894c82e38", null ],
     [ "AssembleBranchToLabels", "code-generator-loong64_8cc.html#a607d414510cad926115d8bd1c15546d8", null ],
+    [ "CREATE_OOL_CLASS", "code-generator-loong64_8cc.html#af59157ae153b5f78c24b76f63063572a", null ],
+    [ "CREATE_OOL_CLASS", "code-generator-loong64_8cc.html#abf43dd38325d3690b052cef4e0bbb2d5", null ],
+    [ "CREATE_OOL_CLASS", "code-generator-loong64_8cc.html#a95a6ce5a1344bb7f280849e603c83a07", null ],
+    [ "CREATE_OOL_CLASS", "code-generator-loong64_8cc.html#a29b77ab13151d32540d794031dda0691", null ],
+    [ "FlagsConditionToConditionCmp", "code-generator-loong64_8cc.html#a80ad89474281cc8894cb5094297cc3ae", null ],
+    [ "FlagsConditionToConditionCmpFPU", "code-generator-loong64_8cc.html#a13155b0184205ba9f9060652b0c13841", null ],
+    [ "FlagsConditionToConditionOvf", "code-generator-loong64_8cc.html#a56dac5d2ebdba651a5c3e6f738375b27", null ],
+    [ "FlagsConditionToConditionTst", "code-generator-loong64_8cc.html#aff2e7620e1004422d209e43dfb03ce71", null ],
+    [ "HasRegisterInput", "code-generator-loong64_8cc.html#a3774af211d609ef676fc7bc0ea44598d", null ],
+    [ "Is32BitOperand", "code-generator-loong64_8cc.html#ad489520c7a7ba308fd7da3117f6d9f62", null ],
+    [ "RecordTrapInfoIfNeeded", "code-generator-loong64_8cc.html#a64b95ba94611dffb7685cd3725694619", null ],
     [ "SignExtend", "code-generator-loong64_8cc.html#a1479dfc8cbfa03a4f12e3ee55153fafb", null ],
-    [ "indirect_pointer_tag_", "code-generator-loong64_8cc.html#ac65776d707ac07cc6389ba76807fa3a7", null ],
-    [ "mode_", "code-generator-loong64_8cc.html#adc5709192230b7fde07de03eb2974043", null ],
-    [ "must_save_lr_", "code-generator-loong64_8cc.html#a41a2de46b73ead1c0417e8f1751a5022", null ],
-    [ "object_", "code-generator-loong64_8cc.html#a5563c55e446f92e237e9fb9b07b423b6", null ],
-    [ "offset_", "code-generator-loong64_8cc.html#ab11f8f1256e847420fa280346be66736", null ],
-    [ "value_", "code-generator-loong64_8cc.html#ac1b34591c0a6bb909fcc2d34d0b5aaff", null ],
-    [ "zone_", "code-generator-loong64_8cc.html#a4979f6e7e64e9ee56f4229d03fa20c69", null ]
+    [ "Use32BitMove", "code-generator-loong64_8cc.html#acd1ca65e12489d6e3a818eabcc489593", null ]
 ];

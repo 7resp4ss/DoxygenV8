@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::Large\+Object\+Space\+Object\+Iterator
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=226pt]{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator__inherit__graph}
+\includegraphics[width=271pt]{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::Large\+Object\+Space\+Object\+Iterat
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=226pt]{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -31,7 +31,19 @@ Collaboration diagram for v8\+::internal\+::Large\+Object\+Space\+Object\+Iterat
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator_aaaa09e4e0008cad96058de5ea0cd5fd3}{Next}} () override
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1LargePageMetadata}{Large\+Page\+Metadata}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator_a8a83d0847a5fd015e1ba1c702fecfe1f}{current\+\_\+}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 211 of file large-\/spaces.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -40,6 +52,21 @@ Collaboration diagram for v8\+::internal\+::Large\+Object\+Space\+Object\+Iterat
 \index{LargeObjectSpaceObjectIterator@{LargeObjectSpaceObjectIterator}!v8::internal::LargeObjectSpaceObjectIterator@{v8::internal::LargeObjectSpaceObjectIterator}}
 \doxysubsubsection{\texorpdfstring{LargeObjectSpaceObjectIterator()}{LargeObjectSpaceObjectIterator()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Large\+Object\+Space\+Object\+Iterator\+::\+Large\+Object\+Space\+Object\+Iterator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1LargeObjectSpace}{Large\+Object\+Space}} $\ast$}]{space }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Definition at line 36 of file large-\/spaces.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{37                              \{}
+\DoxyCodeLine{38   \mbox{\hyperlink{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator_a8a83d0847a5fd015e1ba1c702fecfe1f}{current\_}} = \mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}-\/>first\_page();}
+\DoxyCodeLine{39 \}}
+
+\end{DoxyCode}
+
+
+References current\+\_\+, and space.
 
 
 
@@ -56,7 +83,64 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1ObjectIterator_ace07e1df8cc81
 
 
 
+Definition at line 41 of file large-\/spaces.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{41                                                         \{}
+\DoxyCodeLine{42   \textcolor{keywordflow}{while} (\mbox{\hyperlink{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator_a8a83d0847a5fd015e1ba1c702fecfe1f}{current\_}} != \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{43     \mbox{\hyperlink{namespacev8_1_1internal_a57f5ecf71b9a2757b0555b2be4c640b8}{Tagged<HeapObject>}} \textcolor{keywordtype}{object} = \mbox{\hyperlink{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator_a8a83d0847a5fd015e1ba1c702fecfe1f}{current\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1LargePageMetadata_aa81d2320947766137b1c995447fb464c}{GetObject}}();}
+\DoxyCodeLine{44     \mbox{\hyperlink{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator_a8a83d0847a5fd015e1ba1c702fecfe1f}{current\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator_a8a83d0847a5fd015e1ba1c702fecfe1f}{current\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1LargePageMetadata_a2158d053ca804ab26d7af9541a110861}{next\_page}}();}
+\DoxyCodeLine{45     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_1_1InstanceTypeChecker_abbf68b3bf1ca62b0645f031cdc769188}{IsFreeSpaceOrFiller}}(\textcolor{keywordtype}{object})) \textcolor{keywordflow}{return} object;}
+\DoxyCodeLine{46   \}}
+\DoxyCodeLine{47   \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a57f5ecf71b9a2757b0555b2be4c640b8}{Tagged<HeapObject>}}();}
+\DoxyCodeLine{48 \}}
+
+\end{DoxyCode}
+
+
+References current\+\_\+, v8\+::internal\+::\+Large\+Page\+Metadata\+::\+Get\+Object(), v8\+::internal\+::\+Instance\+Type\+Checker\+::\+Is\+Free\+Space\+Or\+Filler(), v8\+::internal\+::\+Large\+Page\+Metadata\+::next\+\_\+page(), and v8\+::internal\+::\+Tagged$<$ Heap\+Object $>$.
+
+
+
+Referenced by v8\+::internal\+::\+Heap\+::\+Collect\+All\+Available\+Garbage(), and v8\+::internal\+::\+Code\+Statistics\+::\+Collect\+Code\+Statistics().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator_aaaa09e4e0008cad96058de5ea0cd5fd3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator_aaaa09e4e0008cad96058de5ea0cd5fd3_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator_a8a83d0847a5fd015e1ba1c702fecfe1f}\label{classv8_1_1internal_1_1LargeObjectSpaceObjectIterator_a8a83d0847a5fd015e1ba1c702fecfe1f}} 
+\index{v8::internal::LargeObjectSpaceObjectIterator@{v8::internal::LargeObjectSpaceObjectIterator}!current\_@{current\_}}
+\index{current\_@{current\_}!v8::internal::LargeObjectSpaceObjectIterator@{v8::internal::LargeObjectSpaceObjectIterator}}
+\doxysubsubsection{\texorpdfstring{current\_}{current\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1LargePageMetadata}{Large\+Page\+Metadata}}$\ast$ v8\+::internal\+::\+Large\+Object\+Space\+Object\+Iterator\+::current\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 218 of file large-\/spaces.\+h.
+
+
+
+Referenced by Large\+Object\+Space\+Object\+Iterator(), and Next().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{large-spaces_8h}{large-\/spaces.\+h}}\item 
-\mbox{\hyperlink{large-spaces_8cc}{large-\/spaces.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{large-spaces_8h}{large-\/spaces.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/\mbox{\hyperlink{large-spaces_8cc}{large-\/spaces.\+cc}}\end{DoxyCompactItemize}

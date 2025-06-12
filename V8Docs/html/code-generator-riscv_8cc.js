@@ -1,6 +1,7 @@
 var code_generator_riscv_8cc =
 [
     [ "RiscvOperandConverter", "classv8_1_1internal_1_1compiler_1_1RiscvOperandConverter.html", "classv8_1_1internal_1_1compiler_1_1RiscvOperandConverter" ],
+    [ "OutOfLineRecordWrite", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-riscv_8cc_03_1_1OutOfLineRecordWrite.html", "classv8_1_1internal_1_1compiler_1_1anonymous__namespace_02code-generator-riscv_8cc_03_1_1OutOfLineRecordWrite" ],
     [ "__", "code-generator-riscv_8cc.html#a0a87998f4e8cee4888f2a89df3d5639b", null ],
     [ "__", "code-generator-riscv_8cc.html#a0a87998f4e8cee4888f2a89df3d5639b", null ],
     [ "__", "code-generator-riscv_8cc.html#a0a87998f4e8cee4888f2a89df3d5639b", null ],
@@ -22,20 +23,21 @@ var code_generator_riscv_8cc =
     [ "ASSEMBLE_RVV_UNOP_INTEGER_VV", "code-generator-riscv_8cc.html#a9659d1d3699db9bd45328bb77b93e161", null ],
     [ "TRACE", "code-generator-riscv_8cc.html#a5f6aa8edcd99914757600b5d3b259bb7", null ],
     [ "UNSUPPORTED_COND", "code-generator-riscv_8cc.html#a7f39fa22dccc5274a592becbb43303c0", null ],
+    [ "AdjustStackPointerForTailCall", "code-generator-riscv_8cc.html#aab56e128ce85bd10daf4608e8a426f9a", null ],
     [ "AssembleBranchToLabels", "code-generator-riscv_8cc.html#a607d414510cad926115d8bd1c15546d8", null ],
+    [ "FlagsConditionToConditionCmp", "code-generator-riscv_8cc.html#ad8ecdc22463b52c57e9bc1927362da27", null ],
+    [ "FlagsConditionToConditionCmpFPU", "code-generator-riscv_8cc.html#af837ffab0153df075dda3162d7e8a3fa", null ],
+    [ "FlagsConditionToConditionTst", "code-generator-riscv_8cc.html#a91c1545e32760b68e7e505b868f70460", null ],
+    [ "HasRegisterInput", "code-generator-riscv_8cc.html#a3774af211d609ef676fc7bc0ea44598d", null ],
     [ "if", "code-generator-riscv_8cc.html#a3747c79301145dc087d31ce28c59564f", null ],
     [ "if", "code-generator-riscv_8cc.html#a78411a01f2200ed207b3ad1f46fd0ddb", null ],
     [ "if", "code-generator-riscv_8cc.html#aa583abbe977ca41df2196a083796b84a", null ],
+    [ "Is32BitOperand", "code-generator-riscv_8cc.html#a93018869f80976fabf654dc56fcf6ca4", null ],
     [ "IsInludeEqual", "code-generator-riscv_8cc.html#a0e18729456368353dd6cab38d6c7e620", null ],
+    [ "RecordTrapInfoIfNeeded", "code-generator-riscv_8cc.html#ae381e03011886f1c288169f874978cd0", null ],
     [ "TRACE", "code-generator-riscv_8cc.html#a3762add7a183a4d1750c04e5fa1a6d17", null ],
     [ "UNIMPLEMENTED", "code-generator-riscv_8cc.html#af413822112d238aed70b6b1eee0feac7", null ],
     [ "UNIMPLEMENTED", "code-generator-riscv_8cc.html#a538499d2a66bf6e9d3182a57104edec9", null ],
-    [ "else", "code-generator-riscv_8cc.html#adfb90f7265e4b3bd9956cbbea98e4a0f", null ],
-    [ "indirect_pointer_tag_", "code-generator-riscv_8cc.html#ac65776d707ac07cc6389ba76807fa3a7", null ],
-    [ "mode_", "code-generator-riscv_8cc.html#adc5709192230b7fde07de03eb2974043", null ],
-    [ "must_save_lr_", "code-generator-riscv_8cc.html#a41a2de46b73ead1c0417e8f1751a5022", null ],
-    [ "object_", "code-generator-riscv_8cc.html#a5563c55e446f92e237e9fb9b07b423b6", null ],
-    [ "offset_", "code-generator-riscv_8cc.html#ab11f8f1256e847420fa280346be66736", null ],
-    [ "value_", "code-generator-riscv_8cc.html#ac1b34591c0a6bb909fcc2d34d0b5aaff", null ],
-    [ "zone_", "code-generator-riscv_8cc.html#a4979f6e7e64e9ee56f4229d03fa20c69", null ]
+    [ "Use32BitMove", "code-generator-riscv_8cc.html#afcdba362d792b7c73815b2105b3cba95", null ],
+    [ "else", "code-generator-riscv_8cc.html#adfb90f7265e4b3bd9956cbbea98e4a0f", null ]
 ];

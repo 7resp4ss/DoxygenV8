@@ -1,5 +1,111 @@
 var namespacev8_1_1internal_1_1maglev =
 [
+    [ "anonymous_namespace{maglev-assembler-arm.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-arm_8cc_03.html", [
+      [ "AllocateRaw", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-arm_8cc_03.html#ae236fbaf51ddd3988b21b8e303944c02", null ],
+      [ "SubSizeAndTagObject", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-arm_8cc_03.html#a013e245078d376dfaf55a8728ebec689", null ],
+      [ "SubSizeAndTagObject", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-arm_8cc_03.html#a81d068aca7cd15177545579f1e354094", null ]
+    ] ],
+    [ "anonymous_namespace{maglev-assembler-arm64.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-arm64_8cc_03.html", [
+      [ "AllocateRaw", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-arm64_8cc_03.html#a414d4c66aa248d0f9ad13a0f69419027", null ],
+      [ "SubSizeAndTagObject", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-arm64_8cc_03.html#a1aa1f8b4bf9d05c9cfaa508eeae0b172", null ],
+      [ "SubSizeAndTagObject", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-arm64_8cc_03.html#a29e0db3868bdb3674c493c87b882a0a7", null ]
+    ] ],
+    [ "anonymous_namespace{maglev-assembler-s390.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-s390_8cc_03.html", [
+      [ "AllocateRaw", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-s390_8cc_03.html#a40a22e44151dde27a4c62eef2a320990", null ],
+      [ "SubSizeAndTagObject", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-s390_8cc_03.html#a573bcaef9a590b2dedfb41a0265fc3f9", null ],
+      [ "SubSizeAndTagObject", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-s390_8cc_03.html#afeb08f760cccb716eb616abcfd24dae1", null ]
+    ] ],
+    [ "anonymous_namespace{maglev-assembler-x64.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-x64_8cc_03.html", [
+      [ "AllocateRaw", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-x64_8cc_03.html#a226d4658ca94549255f0e33f62112ca8", null ],
+      [ "LoadNewAllocationTop", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-x64_8cc_03.html#a52369a52ca0070985936142320593264", null ],
+      [ "LoadNewAllocationTop", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-assembler-x64_8cc_03.html#a8d790daf544c55936eecec264f482d43", null ]
+    ] ],
+    [ "anonymous_namespace{maglev-code-generator.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03.html", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-code-generator_8cc_03" ],
+    [ "anonymous_namespace{maglev-compilation-info.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-compilation-info_8cc_03.html", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-compilation-info_8cc_03" ],
+    [ "anonymous_namespace{maglev-concurrent-dispatcher.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-concurrent-dispatcher_8cc_03.html", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-concurrent-dispatcher_8cc_03" ],
+    [ "anonymous_namespace{maglev-graph-builder.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-graph-builder_8cc_03.html", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-graph-builder_8cc_03" ],
+    [ "anonymous_namespace{maglev-interpreter-frame-state.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html", [
+      [ "AspectIncludes", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#a245f15dfe6a046b55583511fc6abfd39", null ],
+      [ "EnsureTagged", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#a3fdd56d0357d2dfeec96dc336cdfd50f", null ],
+      [ "FromFloat64ToTagged", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#a33cbbf65c9dcd50e1084d468c03bc23d", null ],
+      [ "FromHoleyFloat64ToTagged", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#a460dcb025ead8172ad7bfecf53387364", null ],
+      [ "FromInt32ToTagged", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#a4ec49a5c5cc5647baf17474594caf6d9", null ],
+      [ "FromIntPtrToTagged", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#a2f6ecab3ed54b27dc8e8a26b36527c2b", null ],
+      [ "FromUint32ToTagged", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#a9a6679ceb9b943818ee224d23ec716f4", null ],
+      [ "MaybeEmptyAspectIncludes", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#a9ab61d1d5d167c47665881cbce54c470", null ],
+      [ "MaybeNullAspectIncludes", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#ac1cd4af8f515dcef4c4ece84a52e6a3f", null ],
+      [ "NextInIgnoreList", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#ae5de3d495f93e07b7691daf24ed6ed98", null ],
+      [ "NodeInfoIncludes", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#a206c434cdc64983e4d3945bb3a16f371", null ],
+      [ "NodeInfoIsEmpty", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#abeb696b21b084ad3d5cd859564a38fac", null ],
+      [ "NodeInfoTypeIs", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#aa0986f5b527c03bcd93845ba77734efc", null ],
+      [ "NonTaggedToTagged", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#abbde99a0ee697d6b72808d102fac7388", null ],
+      [ "PrintAfterMerge", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#af96763a2db44df1a1b2842bb77b11817", null ],
+      [ "PrintBeforeMerge", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#a28de542605f7293fcd6f94c4b33652b4", null ],
+      [ "SameValue", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-interpreter-frame-state_8cc_03.html#a6c3e725f2169dddc39bf231dbbe6eeb8", null ]
+    ] ],
+    [ "anonymous_namespace{maglev-ir-arm.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm_8cc_03.html", [
+      [ "ReduceInterruptBudgetType", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm_8cc_03.html#af86b05fa30ecf0329c5662ffa346fb30", [
+        [ "kLoop", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm_8cc_03.html#af86b05fa30ecf0329c5662ffa346fb30a5abf964b8f1290e57e3247b3c8b7d6ce", null ],
+        [ "kReturn", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm_8cc_03.html#af86b05fa30ecf0329c5662ffa346fb30ad7ec42086e89c1b1ffe3a16edfc12ef3", null ]
+      ] ],
+      [ "GenerateReduceInterruptBudget", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm_8cc_03.html#ad34764158f46a2be94f399d5b51bb4ea", null ],
+      [ "HandleInterruptsAndTiering", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm_8cc_03.html#aa12996d34093e6b2ce9008db48e0a14b", null ],
+      [ "Uint32Mod", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm_8cc_03.html#a97e6a1efe5738e95fe7bed69cee5bc78", null ]
+    ] ],
+    [ "anonymous_namespace{maglev-ir-arm64.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm64_8cc_03.html", [
+      [ "ReduceInterruptBudgetType", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm64_8cc_03.html#aba2d7475039eb9f99970d289d7450f3d", [
+        [ "kLoop", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm64_8cc_03.html#aba2d7475039eb9f99970d289d7450f3da5abf964b8f1290e57e3247b3c8b7d6ce", null ],
+        [ "kReturn", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm64_8cc_03.html#aba2d7475039eb9f99970d289d7450f3dad7ec42086e89c1b1ffe3a16edfc12ef3", null ]
+      ] ],
+      [ "GenerateReduceInterruptBudget", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm64_8cc_03.html#ac18b5a82ddd9d4938a7ac08cc2ab1add", null ],
+      [ "HandleInterruptsAndTiering", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm64_8cc_03.html#ae617594b2ea7cb9ca37a173fe48bc6e5", null ],
+      [ "TryGetAddImmediateInt32ConstantInput", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm64_8cc_03.html#ade837c204aa8ece6ab1ccfffdc04a194", null ],
+      [ "TryGetLogicalImmediateInt32ConstantInput", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-arm64_8cc_03.html#a9ee7e1f605ab025d6bc26ad5e3749a0e", null ]
+    ] ],
+    [ "anonymous_namespace{maglev-ir-riscv.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-riscv_8cc_03.html", [
+      [ "ReduceInterruptBudgetType", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-riscv_8cc_03.html#a0d5906ebfe31ab6ee02f0f7b8cf78fad", [
+        [ "kLoop", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-riscv_8cc_03.html#a0d5906ebfe31ab6ee02f0f7b8cf78fada5abf964b8f1290e57e3247b3c8b7d6ce", null ],
+        [ "kReturn", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-riscv_8cc_03.html#a0d5906ebfe31ab6ee02f0f7b8cf78fadad7ec42086e89c1b1ffe3a16edfc12ef3", null ]
+      ] ],
+      [ "GenerateReduceInterruptBudget", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-riscv_8cc_03.html#ad24f648c081b4c5906057151a49c0825", null ],
+      [ "HandleInterruptsAndTiering", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-riscv_8cc_03.html#ab46a80dab45d5c1ddd2be9dfa8332582", null ]
+    ] ],
+    [ "anonymous_namespace{maglev-ir-s390.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-s390_8cc_03.html", [
+      [ "ReduceInterruptBudgetType", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-s390_8cc_03.html#af4fcd284b8292a95fac38df7c6e356fb", [
+        [ "kLoop", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-s390_8cc_03.html#af4fcd284b8292a95fac38df7c6e356fba5abf964b8f1290e57e3247b3c8b7d6ce", null ],
+        [ "kReturn", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-s390_8cc_03.html#af4fcd284b8292a95fac38df7c6e356fbad7ec42086e89c1b1ffe3a16edfc12ef3", null ]
+      ] ],
+      [ "GenerateReduceInterruptBudget", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-s390_8cc_03.html#a6f49104c80be64d9e8ab384083592e5d", null ],
+      [ "HandleInterruptsAndTiering", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-s390_8cc_03.html#ae7d17ebecf8e0208ec1ba246af6c7360", null ]
+    ] ],
+    [ "anonymous_namespace{maglev-ir-x64.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-x64_8cc_03.html", [
+      [ "ReduceInterruptBudgetType", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-x64_8cc_03.html#ad3a91e5844a9355d215f16ceb4fe3cb0", [
+        [ "kLoop", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-x64_8cc_03.html#ad3a91e5844a9355d215f16ceb4fe3cb0a5abf964b8f1290e57e3247b3c8b7d6ce", null ],
+        [ "kReturn", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-x64_8cc_03.html#ad3a91e5844a9355d215f16ceb4fe3cb0ad7ec42086e89c1b1ffe3a16edfc12ef3", null ]
+      ] ],
+      [ "GenerateReduceInterruptBudget", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-x64_8cc_03.html#a2925cb3ad4715cb1ed2f3e791877cf7d", null ],
+      [ "HandleInterruptsAndTiering", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir-x64_8cc_03.html#a10db00f9db4522e05bbe69de9f1c4773", null ]
+    ] ],
+    [ "anonymous_namespace{maglev-ir.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir_8cc_03.html", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-ir_8cc_03" ],
+    [ "anonymous_namespace{maglev-phi-representation-selector.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-phi-representation-selector_8cc_03.html", [
+      [ "GetOpcodeForConversion", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-phi-representation-selector_8cc_03.html#a39b3710e558defb8210e6320e3c98e07", null ]
+    ] ],
+    [ "anonymous_namespace{maglev-regalloc.cc}", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html", [
+      [ "BlockReverseIterator", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html#aac0154321e91e7a3d0aa93d1fce21a9d", null ],
+      [ "GetRegisterHint", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html#ae90a8369aef39b40004ca0fd912bb9f1", null ],
+      [ "GetReservedRegisters", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html#a95fc1e7b974fcfb2b070ed3eb305e543", null ],
+      [ "HighestPostDominatingHole", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html#a2a3f6842356c01d8195564f3787e3aac", null ],
+      [ "HighestPostDominatingHole", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html#ad31ca762e693af3dab3b0c27b155d675", null ],
+      [ "InputHint", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html#a2bfdad091cc448769c98862dba853d87", null ],
+      [ "IsDeadNodeToSkip", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html#aae79f305fa7b396dee1a5968db293af2", null ],
+      [ "IsLiveAtTarget", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html#a1734b81a6e299f173861ed10ff9eef67", null ],
+      [ "IsTargetOfNodeFallthrough", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html#a2ad179cd7622d4310864738d221b864f", null ],
+      [ "NearestPostDominatingHole", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html#a3de33ad8786d517e279abaefe9866f7b", null ],
+      [ "OperandForNodeRegister", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html#ab4d8a31c490ec7d5be215d5295ddaf3c", null ],
+      [ "SameAsInput", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html#a8721b4c694b26f7bfd4ff17ea89e6bbb", null ],
+      [ "initialized_merge", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html#a4be9602b1b9cfa13463380f584b81177", null ],
+      [ "initialized_node", "namespacev8_1_1internal_1_1maglev_1_1anonymous__namespace_02maglev-regalloc_8cc_03.html#adc4a4e4d34f19a4cb5ebe5a10dfc166d", null ]
+    ] ],
     [ "detail", "namespacev8_1_1internal_1_1maglev_1_1detail.html", "namespacev8_1_1internal_1_1maglev_1_1detail" ],
     [ "MaglevConcurrentDispatcher", null, [
       [ "JobTask", "classv8_1_1internal_1_1maglev_1_1MaglevConcurrentDispatcher_1_1JobTask.html", "classv8_1_1internal_1_1maglev_1_1MaglevConcurrentDispatcher_1_1JobTask" ]
@@ -16,19 +122,19 @@ var namespacev8_1_1internal_1_1maglev =
     [ "MaglevCodeGenerator", "classv8_1_1internal_1_1maglev_1_1MaglevCodeGenerator.html", "classv8_1_1internal_1_1maglev_1_1MaglevCodeGenerator" ],
     [ "MaglevCompilationInfo", "classv8_1_1internal_1_1maglev_1_1MaglevCompilationInfo.html", "classv8_1_1internal_1_1maglev_1_1MaglevCompilationInfo" ],
     [ "MaglevCompilationUnit", "classv8_1_1internal_1_1maglev_1_1MaglevCompilationUnit.html", "classv8_1_1internal_1_1maglev_1_1MaglevCompilationUnit" ],
-    [ "MaglevCompiler", "classv8_1_1internal_1_1maglev_1_1MaglevCompiler.html", null ],
-    [ "DeoptInfoVisitor", "classv8_1_1internal_1_1maglev_1_1DeoptInfoVisitor.html", null ],
+    [ "MaglevCompiler", "classv8_1_1internal_1_1maglev_1_1MaglevCompiler.html", "classv8_1_1internal_1_1maglev_1_1MaglevCompiler" ],
+    [ "DeoptInfoVisitor", "classv8_1_1internal_1_1maglev_1_1DeoptInfoVisitor.html", "classv8_1_1internal_1_1maglev_1_1DeoptInfoVisitor" ],
     [ "CallArguments", "classv8_1_1internal_1_1maglev_1_1CallArguments.html", "classv8_1_1internal_1_1maglev_1_1CallArguments" ],
-    [ "MaglevGraphBuilder", "classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder.html", "classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder" ],
     [ "MaybeReduceResult", "classv8_1_1internal_1_1maglev_1_1MaybeReduceResult.html", "classv8_1_1internal_1_1maglev_1_1MaybeReduceResult" ],
     [ "ReduceResult", "classv8_1_1internal_1_1maglev_1_1ReduceResult.html", "classv8_1_1internal_1_1maglev_1_1ReduceResult" ],
     [ "CatchBlockDetails", "structv8_1_1internal_1_1maglev_1_1CatchBlockDetails.html", "structv8_1_1internal_1_1maglev_1_1CatchBlockDetails" ],
     [ "MaglevCallerDetails", "structv8_1_1internal_1_1maglev_1_1MaglevCallerDetails.html", "structv8_1_1internal_1_1maglev_1_1MaglevCallerDetails" ],
     [ "MaglevCallSiteInfo", "structv8_1_1internal_1_1maglev_1_1MaglevCallSiteInfo.html", "structv8_1_1internal_1_1maglev_1_1MaglevCallSiteInfo" ],
+    [ "MaglevGraphBuilder", "classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder.html", "classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder" ],
     [ "MaglevGraphLabeller", "classv8_1_1internal_1_1maglev_1_1MaglevGraphLabeller.html", "classv8_1_1internal_1_1maglev_1_1MaglevGraphLabeller" ],
-    [ "MaglevPrintingVisitor", "classv8_1_1internal_1_1maglev_1_1MaglevPrintingVisitor.html", "classv8_1_1internal_1_1maglev_1_1MaglevPrintingVisitor" ],
     [ "PrintNode", "classv8_1_1internal_1_1maglev_1_1PrintNode.html", "classv8_1_1internal_1_1maglev_1_1PrintNode" ],
     [ "PrintNodeLabel", "classv8_1_1internal_1_1maglev_1_1PrintNodeLabel.html", "classv8_1_1internal_1_1maglev_1_1PrintNodeLabel" ],
+    [ "MaglevPrintingVisitor", "classv8_1_1internal_1_1maglev_1_1MaglevPrintingVisitor.html", "classv8_1_1internal_1_1maglev_1_1MaglevPrintingVisitor" ],
     [ "GraphProcessor", "classv8_1_1internal_1_1maglev_1_1GraphProcessor.html", "classv8_1_1internal_1_1maglev_1_1GraphProcessor" ],
     [ "ProcessingState", "classv8_1_1internal_1_1maglev_1_1ProcessingState.html", "classv8_1_1internal_1_1maglev_1_1ProcessingState" ],
     [ "NodeMultiProcessor", "classv8_1_1internal_1_1maglev_1_1NodeMultiProcessor.html", null ],
@@ -166,7 +272,6 @@ var namespacev8_1_1internal_1_1maglev =
     [ "RegisterInput", "classv8_1_1internal_1_1maglev_1_1RegisterInput.html", "classv8_1_1internal_1_1maglev_1_1RegisterInput" ],
     [ "SmiConstant", "classv8_1_1internal_1_1maglev_1_1SmiConstant.html", "classv8_1_1internal_1_1maglev_1_1SmiConstant" ],
     [ "TaggedIndexConstant", "classv8_1_1internal_1_1maglev_1_1TaggedIndexConstant.html", "classv8_1_1internal_1_1maglev_1_1TaggedIndexConstant" ],
-    [ "ExternalConstant", "classv8_1_1internal_1_1maglev_1_1ExternalConstant.html", "classv8_1_1internal_1_1maglev_1_1ExternalConstant" ],
     [ "Constant", "classv8_1_1internal_1_1maglev_1_1Constant.html", "classv8_1_1internal_1_1maglev_1_1Constant" ],
     [ "RootConstant", "classv8_1_1internal_1_1maglev_1_1RootConstant.html", "classv8_1_1internal_1_1maglev_1_1RootConstant" ],
     [ "TrustedConstant", "classv8_1_1internal_1_1maglev_1_1TrustedConstant.html", "classv8_1_1internal_1_1maglev_1_1TrustedConstant" ],
@@ -352,8 +457,8 @@ var namespacev8_1_1internal_1_1maglev =
     [ "MaxCallDepthProcessor", "classv8_1_1internal_1_1maglev_1_1MaxCallDepthProcessor.html", "classv8_1_1internal_1_1maglev_1_1MaxCallDepthProcessor" ],
     [ "LiveRangeAndNextUseProcessor", "classv8_1_1internal_1_1maglev_1_1LiveRangeAndNextUseProcessor.html", "classv8_1_1internal_1_1maglev_1_1LiveRangeAndNextUseProcessor" ],
     [ "AllocatableRegisters", "structv8_1_1internal_1_1maglev_1_1AllocatableRegisters.html", null ],
-    [ "AllocatableRegisters< Register >", "structv8_1_1internal_1_1maglev_1_1AllocatableRegisters_3_01Register_01_4.html", null ],
-    [ "AllocatableRegisters< DoubleRegister >", "structv8_1_1internal_1_1maglev_1_1AllocatableRegisters_3_01DoubleRegister_01_4.html", null ],
+    [ "AllocatableRegisters< Register >", "structv8_1_1internal_1_1maglev_1_1AllocatableRegisters_3_01Register_01_4.html", "structv8_1_1internal_1_1maglev_1_1AllocatableRegisters_3_01Register_01_4" ],
+    [ "AllocatableRegisters< DoubleRegister >", "structv8_1_1internal_1_1maglev_1_1AllocatableRegisters_3_01DoubleRegister_01_4.html", "structv8_1_1internal_1_1maglev_1_1AllocatableRegisters_3_01DoubleRegister_01_4" ],
     [ "RegisterStateFlags", "structv8_1_1internal_1_1maglev_1_1RegisterStateFlags.html", "structv8_1_1internal_1_1maglev_1_1RegisterStateFlags" ],
     [ "RegisterMerge", "structv8_1_1internal_1_1maglev_1_1RegisterMerge.html", "structv8_1_1internal_1_1maglev_1_1RegisterMerge" ],
     [ "RegallocInfo", "structv8_1_1internal_1_1maglev_1_1RegallocInfo.html", "structv8_1_1internal_1_1maglev_1_1RegallocInfo" ],
@@ -465,6 +570,7 @@ var namespacev8_1_1internal_1_1maglev =
     [ "HasOnlyJSTypedArrayMaps", "namespacev8_1_1internal_1_1maglev.html#a57d46387c4c2e8b34fabd28032deb426", null ],
     [ "HasOnlyNumberMaps", "namespacev8_1_1internal_1_1maglev.html#a4e4a32f2f178ce13060fdce74db38551", null ],
     [ "HasOnlyStringMaps", "namespacev8_1_1internal_1_1maglev.html#a1bf107c50a62d130103d884619f633ec", null ],
+    [ "Int32Identity", "namespacev8_1_1internal_1_1maglev.html#a953829fa834819cec78628ebbe2a0635", null ],
     [ "IntersectType", "namespacev8_1_1internal_1_1maglev.html#a6769b2471ca9a35dcbad2332df28b6ca", null ],
     [ "IsBranchControlNode", "namespacev8_1_1internal_1_1maglev.html#adf22c9f8a013e2113467ade34fcc7fbf", null ],
     [ "IsCommutativeNode", "namespacev8_1_1internal_1_1maglev.html#a9eff763eeeecd4240eb06f84989b9d92", null ],
@@ -478,6 +584,8 @@ var namespacev8_1_1internal_1_1maglev =
     [ "IsInitializingOrTransitioning", "namespacev8_1_1internal_1_1maglev.html#a6b1c7268b3f1b8c79db28ba7c12d3afd", null ],
     [ "IsInstanceOfLeafNodeType", "namespacev8_1_1internal_1_1maglev.html#a260db5286401d0f78aa7278aa5fa934b", null ],
     [ "IsInstanceOfNodeType", "namespacev8_1_1internal_1_1maglev.html#aa47c08a5b4975e6bb510631f6406f837", null ],
+    [ "IsMaglevEnabled", "namespacev8_1_1internal_1_1maglev.html#a7406a952d2c33446062616dd41e79809", null ],
+    [ "IsMaglevOsrEnabled", "namespacev8_1_1internal_1_1maglev.html#a6c437af0c4ce8c8ff4a81f80058cdfe8", null ],
     [ "IsSimpleFieldStore", "namespacev8_1_1internal_1_1maglev.html#aafbf709edd01defcd24e4ea56c489b07", null ],
     [ "IsTerminalControlNode", "namespacev8_1_1internal_1_1maglev.html#a3d3ae60e4aeb24da2b16c61e480c7f52", null ],
     [ "IsTypedArrayStore", "namespacev8_1_1internal_1_1maglev.html#ab42cf700e2a89f16a013d574189b185d", null ],
@@ -508,7 +616,7 @@ var namespacev8_1_1internal_1_1maglev =
     [ "operator<<", "namespacev8_1_1internal_1_1maglev.html#a9f07b8d4fac3928d80f6311bdac3cf3d", null ],
     [ "operator<<", "namespacev8_1_1internal_1_1maglev.html#a95c2d4dbfcb9cd4a0ddad57b482e0d03", null ],
     [ "operator==", "namespacev8_1_1internal_1_1maglev.html#a8342563c0e00c8429b6f51ea3f9a71a7", null ],
-    [ "PrintGraph", "namespacev8_1_1internal_1_1maglev.html#a22816ab4fc7441f8af75899cf16a34ad", null ],
+    [ "PrintGraph", "namespacev8_1_1internal_1_1maglev.html#a314d5fc85ee6e5972092bf3175c8909a", null ],
     [ "RepeatValue", "namespacev8_1_1internal_1_1maglev.html#a928677b95462466da6efc8e13e6b5533", null ],
     [ "requires", "namespacev8_1_1internal_1_1maglev.html#a10c1bd2859db590d6e37888024ec35c1", null ],
     [ "ScaleFactorFromInt", "namespacev8_1_1internal_1_1maglev.html#a39dc8f9d3ac8c94152434cf911e63028", null ],
@@ -518,7 +626,6 @@ var namespacev8_1_1internal_1_1maglev =
     [ "StaticPropertiesForOpcode", "namespacev8_1_1internal_1_1maglev.html#a5e35b90cbb0e00915f5b4393bba8072e", null ],
     [ "StaticTypeForConstant", "namespacev8_1_1internal_1_1maglev.html#a0df380d0d883503197181a0ac5d1c47d", null ],
     [ "StaticTypeForMap", "namespacev8_1_1internal_1_1maglev.html#ab1f7199c0074d61cbcbf737698300a5b", null ],
-    [ "StaticTypeForNode", "namespacev8_1_1internal_1_1maglev.html#a95dda117ccb800077a839a641bce59ec", null ],
     [ "STORE_CONSTANT_TYPED_ARRAY", "namespacev8_1_1internal_1_1maglev.html#a2698e2858ec64088263ac347a705e696", null ],
     [ "STORE_TYPED_ARRAY", "namespacev8_1_1internal_1_1maglev.html#a95415ab220faa069de9f0ee8dde50867", null ],
     [ "SubSizeAndTagObject", "namespacev8_1_1internal_1_1maglev.html#a575d55c37c1b7591a640cf8ab90df106", null ],
@@ -541,6 +648,34 @@ var namespacev8_1_1internal_1_1maglev =
     [ "HoleyFloat64", "namespacev8_1_1internal_1_1maglev.html#a10fb2fa452c13cdf9ef9c8de48fbf444", null ],
     [ "INT16_ELEMENTS", "namespacev8_1_1internal_1_1maglev.html#a7f564708b3501bccbd1c837a6368106a", null ],
     [ "INT8_ELEMENTS", "namespacev8_1_1internal_1_1maglev.html#a4bef062f292035432db505b6218c88b6", null ],
+    [ "kAllocatableDoubleRegisterCount", "namespacev8_1_1internal_1_1maglev.html#a054026eab251991bccb4c922c8ec508d", null ],
+    [ "kAllocatableGeneralRegisterCount", "namespacev8_1_1internal_1_1maglev.html#aa8aa8ba5ed167b48c496c94a1b8de15b", null ],
+    [ "kFirstBranchControlNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#ae55b2de51ad27f265e590a0934d3af22", null ],
+    [ "kFirstConditionalControlNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#aee99de5a71b17b650aab68dd3ff4f488", null ],
+    [ "kFirstConstantNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#abb09d772f27c6ed2b97ece05977a4c46", null ],
+    [ "kFirstControlNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#aa7c00a8181ae76f9e2c3f7c767407ac0", null ],
+    [ "kFirstGapMoveNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#a5e18182561af08b6867ae38db3274748", null ],
+    [ "kFirstNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#a302486ccf9fe689c9bdb6a8073650de9", null ],
+    [ "kFirstOpcode", "namespacev8_1_1internal_1_1maglev.html#ad0fe187bb6928dff26734c1d67a5c059", null ],
+    [ "kFirstTerminalControlNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#ae135ce804a2e8ef600500f431c12dc71", null ],
+    [ "kFirstUnconditionalControlNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#a168de81f5587891ceab575c44d84a1b2", null ],
+    [ "kFirstValidNodeId", "namespacev8_1_1internal_1_1maglev.html#a742081b3196c05a823970c1fd74c1dec", null ],
+    [ "kFirstValueNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#aa0a8919caf476759b7c413e869daf7cf", null ],
+    [ "kInvalidNodeId", "namespacev8_1_1internal_1_1maglev.html#a05c152c8f2fbb154573bd78f7cd50f6a", null ],
+    [ "kLastBranchControlNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#a9baa4e26e8098ece6d5611c38039ad79", null ],
+    [ "kLastConditionalControlNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#a70553cd5d8d52c435fe6ff79e8f0a99d", null ],
+    [ "kLastConstantNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#a54a456d319eef4b140e895ffd90b120b", null ],
+    [ "kLastControlNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#a2604a66a1605efbbdcef5fda1a70ed12", null ],
+    [ "kLastGapMoveNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#a0eff89428349ff00e41ca33627deb4ba", null ],
+    [ "kLastNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#a07fc513101ce1f912e53162501f8f12a", null ],
+    [ "kLastOpcode", "namespacev8_1_1internal_1_1maglev.html#a0dc588f4a4851e4ab3ee6a4c8b76a2d3", null ],
+    [ "kLastTerminalControlNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#a5f3021189725081fd3147ad59d34afb1", null ],
+    [ "kLastUnconditionalControlNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#add72ebfd9df8e2ff0edc70fed17279e3", null ],
+    [ "kLastValueNodeOpcode", "namespacev8_1_1internal_1_1maglev.html#a9e835e51bdbb5917b07ab3765d475155", null ],
+    [ "kNoVreg", "namespacev8_1_1internal_1_1maglev.html#aa43cf0651586da94be8d1801deb0d30f", null ],
+    [ "kNumAssertConditions", "namespacev8_1_1internal_1_1maglev.html#a96354121a977f167cb322dc6e813ed75", null ],
+    [ "kNumberOfLeafNodeTypes", "namespacev8_1_1internal_1_1maglev.html#ad864f317bb12d5c2f8eaec80e5bc56c0", null ],
+    [ "kOpcodeCount", "namespacev8_1_1internal_1_1maglev.html#a1f7ebd633e99636ac26998fb680698c8", null ],
     [ "UINT16_ELEMENTS", "namespacev8_1_1internal_1_1maglev.html#add304443cde5434e6984383005768368", null ],
     [ "UINT8_CLAMPED_ELEMENTS", "namespacev8_1_1internal_1_1maglev.html#a084ed46425bc1355a3db5b4d3e7dbd1a", null ],
     [ "UINT8_ELEMENTS", "namespacev8_1_1internal_1_1maglev.html#a7cf844b8c5a4f62701716757741c3410", null ]

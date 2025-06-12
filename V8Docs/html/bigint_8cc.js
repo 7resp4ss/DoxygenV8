@@ -2,6 +2,8 @@ var bigint_8cc =
 [
     [ "MutableBigInt", "classv8_1_1internal_1_1MutableBigInt.html", "classv8_1_1internal_1_1MutableBigInt" ],
     [ "CastTraits< MutableBigInt >", "structv8_1_1internal_1_1CastTraits_3_01MutableBigInt_01_4.html", null ],
+    [ "AbsoluteGreater", "bigint_8cc.html#a55767f282f3e94bfb9474c1719704cea", null ],
+    [ "AbsoluteLess", "bigint_8cc.html#af72cb89dbad3b544ab25ab3dd84a7785", null ],
     [ "MutableBigInt_AbsoluteAddAndCanonicalize", "bigint_8cc.html#ab0f2dc77ede8fa916a4736206503e434", null ],
     [ "MutableBigInt_AbsoluteCompare", "bigint_8cc.html#a7757eb07527352b6d4b76ca1d64485ba", null ],
     [ "MutableBigInt_AbsoluteDivAndCanonicalize", "bigint_8cc.html#ad54f7637dfd7ce61df095a7c95a356ce", null ],
@@ -21,7 +23,9 @@ var bigint_8cc =
     [ "MutableBigInt_RightShiftAndCanonicalize", "bigint_8cc.html#a3fd576f84d29abd842a6b12404916a3b", null ],
     [ "requires", "bigint_8cc.html#a85217d46a04bc981f759171149c68f49", null ],
     [ "RightShiftResultLength", "bigint_8cc.html#a0cf2d5ca908a7d029f669e21a8adcef5", null ],
+    [ "RightTrimString", "bigint_8cc.html#aa3c120fdb4f6d40b58083f0232c23a46", null ],
     [ "Terminate", "bigint_8cc.html#a76c9877c652dfde7cd9da64360976aca", null ],
     [ "Terminate", "bigint_8cc.html#a781b2309ba22adc1dec3aeb1c486af2f", null ],
-    [ "ThrowBigIntTooBig", "bigint_8cc.html#ae803e62ab9ac05a2e57cf8efcedfea98", null ]
+    [ "ThrowBigIntTooBig", "bigint_8cc.html#ae803e62ab9ac05a2e57cf8efcedfea98", null ],
+    [ "UnequalSign", "bigint_8cc.html#ac295c0963f4434d508fe3772495a46d0", null ]
 ];

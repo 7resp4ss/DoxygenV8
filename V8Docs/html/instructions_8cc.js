@@ -1,6 +1,8 @@
 var instructions_8cc =
 [
     [ "TORQUE_INSTRUCTION_BOILERPLATE_DEFINITIONS", "instructions_8cc.html#a21bbf59c0b70f3d789f92c2854e31d4d", null ],
+    [ "ExpectSubtype", "instructions_8cc.html#adfdec34af14bc1c9c1de84979eac38f0", null ],
+    [ "ExpectType", "instructions_8cc.html#a8689d1a6064fd5321f8cd4fc49cb1b7a", null ],
     [ "operator<<", "instructions_8cc.html#afcd34a9be70a43dba9bb78935f7c3883", null ],
     [ "operator<<", "instructions_8cc.html#a5e924f288a6719a9194f54a077b37449", null ],
     [ "operator<<", "instructions_8cc.html#a7028cd7f993b81a58c9c755ccdbedaea", null ],

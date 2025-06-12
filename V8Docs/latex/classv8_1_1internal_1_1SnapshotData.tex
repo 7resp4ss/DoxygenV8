@@ -57,6 +57,13 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1SnapshotData_a04bbb6445de09d650c75
 \doxysubsection*{Additional Inherited Members}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 70 of file snapshot-\/data.\+h.
+
+
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SnapshotData_afa6acd7590bd5c1aa45a55bba609de8a}\label{classv8_1_1internal_1_1SnapshotData_afa6acd7590bd5c1aa45a55bba609de8a}} 
 \index{v8::internal::SnapshotData@{v8::internal::SnapshotData}!SnapshotData@{SnapshotData}}
@@ -64,18 +71,78 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1SnapshotData_a04bbb6445de09d650c75
 \doxysubsubsection{\texorpdfstring{SnapshotData()}{SnapshotData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Snapshot\+Data\+::\+Snapshot\+Data (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1Serializer}{Serializer}} $\ast$}]{serializer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
+
+
+Definition at line 23 of file snapshot-\/data.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23                                                        \{}
+\DoxyCodeLine{24   \mbox{\hyperlink{namespacev8_1_1internal_af2248a427f8ff8f81e68a2a87758e145}{DisallowGarbageCollection}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{no\_gc}};}
+\DoxyCodeLine{25   \textcolor{keyword}{const} std::vector<uint8\_t>* payload = serializer-\/>Payload();}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27   \textcolor{comment}{// Calculate sizes.}}
+\DoxyCodeLine{28   uint32\_t \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} = \mbox{\hyperlink{classv8_1_1internal_1_1SnapshotData_a0895a7571369257e2e9bb545327906c7}{kHeaderSize}} + \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(payload-\/>size());}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30   \textcolor{comment}{// Allocate backing store and create result data.}}
+\DoxyCodeLine{31   \mbox{\hyperlink{classv8_1_1internal_1_1SerializedData_afbfbeb68613a42f9076c7568f8e0afb0}{AllocateData}}(\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}});}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33   \textcolor{comment}{// Zero out pre-\/payload data. Part of that is only used for padding.}}
+\DoxyCodeLine{34   memset(\mbox{\hyperlink{classv8_1_1internal_1_1SerializedData_a93440d72ae5a03b63cd2f3e461ed4f85}{data\_}}, 0, \mbox{\hyperlink{classv8_1_1internal_1_1SnapshotData_a0895a7571369257e2e9bb545327906c7}{kHeaderSize}});}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36   \textcolor{comment}{// Set header values.}}
+\DoxyCodeLine{37   \mbox{\hyperlink{classv8_1_1internal_1_1SerializedData_ab546a46afc7195d0a4d0476577f904f1}{SetMagicNumber}}();}
+\DoxyCodeLine{38   \mbox{\hyperlink{classv8_1_1internal_1_1SerializedData_a617333e419eb38d576477bee55228b1c}{SetHeaderValue}}(\mbox{\hyperlink{classv8_1_1internal_1_1SnapshotData_a8cd2a841789d01c5ffd3f10cfeecb03a}{kPayloadLengthOffset}}, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(payload-\/>size()));}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40   \textcolor{comment}{// Copy serialized data.}}
+\DoxyCodeLine{41   \mbox{\hyperlink{namespacev8_1_1internal_a052d7f70643dfdd0705dcc768fea6e67}{CopyBytes}}(\mbox{\hyperlink{classv8_1_1internal_1_1SerializedData_a93440d72ae5a03b63cd2f3e461ed4f85}{data\_}} + \mbox{\hyperlink{classv8_1_1internal_1_1SnapshotData_a0895a7571369257e2e9bb545327906c7}{kHeaderSize}}, payload-\/>data(),}
+\DoxyCodeLine{42             \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(payload-\/>size()));}
+\DoxyCodeLine{43 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Serialized\+Data\+::\+Allocate\+Data(), v8\+::internal\+::\+Copy\+Bytes(), v8\+::internal\+::\+Serialized\+Data\+::data\+\_\+, k\+Header\+Size, k\+Payload\+Length\+Offset, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::no\+\_\+gc, v8\+::internal\+::\+Serializer\+::\+Payload(), v8\+::internal\+::\+Serialized\+Data\+::\+Set\+Header\+Value(), v8\+::internal\+::\+Serialized\+Data\+::\+Set\+Magic\+Number(), and size().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SnapshotData_afa6acd7590bd5c1aa45a55bba609de8a_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SnapshotData_a214a9456a9cb4db8dc27a5d5364a1785}\label{classv8_1_1internal_1_1SnapshotData_a214a9456a9cb4db8dc27a5d5364a1785}} 
 \index{v8::internal::SnapshotData@{v8::internal::SnapshotData}!SnapshotData@{SnapshotData}}
 \index{SnapshotData@{SnapshotData}!v8::internal::SnapshotData@{v8::internal::SnapshotData}}
 \doxysubsubsection{\texorpdfstring{SnapshotData()}{SnapshotData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Snapshot\+Data\+::\+Snapshot\+Data (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1base_1_1Vector}{base\+::\+Vector}}$<$ const uint8\+\_\+t $>$}]{snapshot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
 
+
+
+Definition at line 76 of file snapshot-\/data.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{77       : \mbox{\hyperlink{classv8_1_1internal_1_1SerializedData_afe2a5e1055f2a11ab3944cd86fb09157}{SerializedData}}(\textcolor{keyword}{const\_cast<}uint8\_t*\textcolor{keyword}{>}(snapshot.begin()),}
+\DoxyCodeLine{78                        snapshot.length()) \{\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SnapshotData_a4734294f217b959a7205d6cc0bafc024}\label{classv8_1_1internal_1_1SnapshotData_a4734294f217b959a7205d6cc0bafc024}} 
 \index{v8::internal::SnapshotData@{v8::internal::SnapshotData}!SnapshotData@{SnapshotData}}
 \index{SnapshotData@{SnapshotData}!v8::internal::SnapshotData@{v8::internal::SnapshotData}}
 \doxysubsubsection{\texorpdfstring{SnapshotData()}{SnapshotData()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Snapshot\+Data\+::\+Snapshot\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
 
+
+
+Definition at line 89 of file snapshot-\/data.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{89 : \mbox{\hyperlink{classv8_1_1internal_1_1SerializedData_afe2a5e1055f2a11ab3944cd86fb09157}{SerializedData}}() \{\}}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Member Function Documentation}
@@ -85,18 +152,112 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1SnapshotData_a04bbb6445de09d650c75
 \doxysubsubsection{\texorpdfstring{Payload()}{Payload()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Vector}{base\+::\+Vector}}$<$ const uint8\+\_\+t $>$ v8\+::internal\+::\+Snapshot\+Data\+::\+Payload (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
 
+
+
+Definition at line 45 of file snapshot-\/data.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{45                                                       \{}
+\DoxyCodeLine{46   \textcolor{keyword}{const} uint8\_t* payload = \mbox{\hyperlink{classv8_1_1internal_1_1SerializedData_a93440d72ae5a03b63cd2f3e461ed4f85}{data\_}} + \mbox{\hyperlink{classv8_1_1internal_1_1SnapshotData_a0895a7571369257e2e9bb545327906c7}{kHeaderSize}};}
+\DoxyCodeLine{47   uint32\_t \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}} = \mbox{\hyperlink{classv8_1_1internal_1_1SerializedData_afc826b682f302d60470d162db461d7cc}{GetHeaderValue}}(\mbox{\hyperlink{classv8_1_1internal_1_1SnapshotData_a8cd2a841789d01c5ffd3f10cfeecb03a}{kPayloadLengthOffset}});}
+\DoxyCodeLine{48   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1SerializedData_a93440d72ae5a03b63cd2f3e461ed4f85}{data\_}} + \mbox{\hyperlink{classv8_1_1internal_1_1SerializedData_ad4e6f69ddd63b35ed0efed21d0f0fb02}{size\_}}, payload + \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}});}
+\DoxyCodeLine{49   \textcolor{keywordflow}{return} base::Vector<const uint8\_t>(payload, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}});}
+\DoxyCodeLine{50 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Serialized\+Data\+::data\+\_\+, DCHECK\+\_\+\+EQ, v8\+::internal\+::\+Serialized\+Data\+::\+Get\+Header\+Value(), k\+Header\+Size, k\+Payload\+Length\+Offset, v8\+::internal\+::length, and v8\+::internal\+::\+Serialized\+Data\+::size\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Read\+Only\+Artifacts\+::\+Initialize\+Checksum(), and v8\+::internal\+::\+Read\+Only\+Artifacts\+::\+Verify\+Checksum().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SnapshotData_a9bda4c1d5d443a4495042d17b5900e1b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SnapshotData_a9bda4c1d5d443a4495042d17b5900e1b_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SnapshotData_a7b07ad292a21de871dd9ecb4b3718b73}\label{classv8_1_1internal_1_1SnapshotData_a7b07ad292a21de871dd9ecb4b3718b73}} 
 \index{v8::internal::SnapshotData@{v8::internal::SnapshotData}!RawData@{RawData}}
 \index{RawData@{RawData}!v8::internal::SnapshotData@{v8::internal::SnapshotData}}
 \doxysubsubsection{\texorpdfstring{RawData()}{RawData()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Vector}{base\+::\+Vector}}$<$const uint8\+\_\+t$>$ v8\+::internal\+::\+Snapshot\+Data\+::\+Raw\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 82 of file snapshot-\/data.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{82                                             \{}
+\DoxyCodeLine{83     \textcolor{keywordflow}{return} base::Vector<const uint8\_t>(\mbox{\hyperlink{classv8_1_1internal_1_1SerializedData_a93440d72ae5a03b63cd2f3e461ed4f85}{data\_}}, \mbox{\hyperlink{classv8_1_1internal_1_1SerializedData_ad4e6f69ddd63b35ed0efed21d0f0fb02}{size\_}});}
+\DoxyCodeLine{84   \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+::internal\+::\+Snapshot\+Compression\+::\+Compress(), v8\+::internal\+::anonymous\+\_\+namespace\{snapshot.\+cc\}\+::\+Snapshot\+Impl\+::\+Create\+Snapshot\+Blob(), v8\+::internal\+::\+Snapshot\+Compression\+::\+Decompress(), and v8\+::internal\+::\+Context\+Deserializer\+::\+Deserialize\+Context().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SnapshotData_a7b07ad292a21de871dd9ecb4b3718b73_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SnapshotData_a190c9fce5e39ad8139ffb0d5705ca374}\label{classv8_1_1internal_1_1SnapshotData_a190c9fce5e39ad8139ffb0d5705ca374}} 
 \index{v8::internal::SnapshotData@{v8::internal::SnapshotData}!Resize@{Resize}}
 \index{Resize@{Resize}!v8::internal::SnapshotData@{v8::internal::SnapshotData}}
 \doxysubsubsection{\texorpdfstring{Resize()}{Resize()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Snapshot\+Data\+::\+Resize (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
 
+
+
+Definition at line 94 of file snapshot-\/data.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{94 \{ \mbox{\hyperlink{classv8_1_1internal_1_1SerializedData_ad4e6f69ddd63b35ed0efed21d0f0fb02}{size\_}} = \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}}; \}}
+
+\end{DoxyCode}
+
+
+References size().
+
+
+
+Referenced by v8\+::internal\+::\+Snapshot\+Compression\+::\+Compress().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{classv8_1_1internal_1_1SnapshotData_a190c9fce5e39ad8139ffb0d5705ca374_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1SnapshotData_a190c9fce5e39ad8139ffb0d5705ca374_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Friends And Related Function Documentation}
@@ -108,12 +269,24 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1SnapshotData_a04bbb6445de09d650c75
 
 
 
+Definition at line 90 of file snapshot-\/data.\+h.
+
+
+
 \doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1SnapshotData_a0895a7571369257e2e9bb545327906c7}\label{classv8_1_1internal_1_1SnapshotData_a0895a7571369257e2e9bb545327906c7}} 
 \index{v8::internal::SnapshotData@{v8::internal::SnapshotData}!kHeaderSize@{kHeaderSize}}
 \index{kHeaderSize@{kHeaderSize}!v8::internal::SnapshotData@{v8::internal::SnapshotData}}
 \doxysubsubsection{\texorpdfstring{kHeaderSize}{kHeaderSize}}
 {\footnotesize\ttfamily const uint32\+\_\+t v8\+::internal\+::\+Snapshot\+Data\+::k\+Header\+Size = \mbox{\hyperlink{classv8_1_1internal_1_1SnapshotData_a8cd2a841789d01c5ffd3f10cfeecb03a}{k\+Payload\+Length\+Offset}} + \mbox{\hyperlink{namespacev8_1_1internal_ab33bc54081b89932fcaa3a6d9d83794f}{k\+UInt32\+Size}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 101 of file snapshot-\/data.\+h.
+
+
+
+Referenced by Payload(), and Snapshot\+Data().
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1SnapshotData_a8cd2a841789d01c5ffd3f10cfeecb03a}\label{classv8_1_1internal_1_1SnapshotData_a8cd2a841789d01c5ffd3f10cfeecb03a}} 
 \index{v8::internal::SnapshotData@{v8::internal::SnapshotData}!kPayloadLengthOffset@{kPayloadLengthOffset}}
@@ -123,7 +296,15 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1SnapshotData_a04bbb6445de09d650c75
 
 
 
+Definition at line 100 of file snapshot-\/data.\+h.
+
+
+
+Referenced by Payload(), and Snapshot\+Data().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{snapshot-data_8h}{snapshot-\/data.\+h}}\item 
-\mbox{\hyperlink{snapshot-data_8cc}{snapshot-\/data.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/snapshot/\mbox{\hyperlink{snapshot-data_8h}{snapshot-\/data.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/snapshot/\mbox{\hyperlink{snapshot-data_8cc}{snapshot-\/data.\+cc}}\end{DoxyCompactItemize}

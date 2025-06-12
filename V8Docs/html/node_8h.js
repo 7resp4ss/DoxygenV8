@@ -3,6 +3,8 @@ var node_8h =
     [ "Node", "classv8_1_1internal_1_1compiler_1_1Node.html", "classv8_1_1internal_1_1compiler_1_1Node" ],
     [ "UseEdges", "classv8_1_1internal_1_1compiler_1_1Node_1_1UseEdges.html", "classv8_1_1internal_1_1compiler_1_1Node_1_1UseEdges" ],
     [ "Uses", "classv8_1_1internal_1_1compiler_1_1Node_1_1Uses.html", "classv8_1_1internal_1_1compiler_1_1Node_1_1Uses" ],
+    [ "OutOfLineInputs", "structv8_1_1internal_1_1compiler_1_1Node_1_1OutOfLineInputs.html", "structv8_1_1internal_1_1compiler_1_1Node_1_1OutOfLineInputs" ],
+    [ "Use", "structv8_1_1internal_1_1compiler_1_1Node_1_1Use.html", "structv8_1_1internal_1_1compiler_1_1Node_1_1Use" ],
     [ "NodeWrapper", "classv8_1_1internal_1_1compiler_1_1NodeWrapper.html", "classv8_1_1internal_1_1compiler_1_1NodeWrapper" ],
     [ "Effect", "classv8_1_1internal_1_1compiler_1_1Effect.html", "classv8_1_1internal_1_1compiler_1_1Effect" ],
     [ "Control", "classv8_1_1internal_1_1compiler_1_1Control.html", "classv8_1_1internal_1_1compiler_1_1Control" ],

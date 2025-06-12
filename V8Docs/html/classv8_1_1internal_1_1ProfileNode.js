@@ -1,5 +1,7 @@
 var classv8_1_1internal_1_1ProfileNode =
 [
+    [ "Equals", "structv8_1_1internal_1_1ProfileNode_1_1Equals.html", "structv8_1_1internal_1_1ProfileNode_1_1Equals" ],
+    [ "Hasher", "structv8_1_1internal_1_1ProfileNode_1_1Hasher.html", "structv8_1_1internal_1_1ProfileNode_1_1Hasher" ],
     [ "ProfileNode", "classv8_1_1internal_1_1ProfileNode.html#ab96915cce1a94c316ff5f28e39adc5f2", null ],
     [ "~ProfileNode", "classv8_1_1internal_1_1ProfileNode.html#a78b6bfdc5f99e4f78c845b0b4808e365", null ],
     [ "ProfileNode", "classv8_1_1internal_1_1ProfileNode.html#a06ad9fa2431f10038bf5760c9d92eafa", null ],
@@ -21,5 +23,15 @@ var classv8_1_1internal_1_1ProfileNode =
     [ "parent", "classv8_1_1internal_1_1ProfileNode.html#acfbfeca70506178e2c05d25f87d3e346", null ],
     [ "Print", "classv8_1_1internal_1_1ProfileNode.html#a248ab739281297b37074ed351083667d", null ],
     [ "self_ticks", "classv8_1_1internal_1_1ProfileNode.html#a60efca09718668796c648fa5b791f41b", null ],
-    [ "source_type", "classv8_1_1internal_1_1ProfileNode.html#a863af0e61823d7d2cf8723bd696b4519", null ]
+    [ "source_type", "classv8_1_1internal_1_1ProfileNode.html#a863af0e61823d7d2cf8723bd696b4519", null ],
+    [ "children_", "classv8_1_1internal_1_1ProfileNode.html#ac3efedcb4d725953da6db4bea3da401a", null ],
+    [ "children_list_", "classv8_1_1internal_1_1ProfileNode.html#adfdbf890db397062e0185b0ac4a243e4", null ],
+    [ "deopt_infos_", "classv8_1_1internal_1_1ProfileNode.html#a06173625ff00433b333748aa6d47b318", null ],
+    [ "entry_", "classv8_1_1internal_1_1ProfileNode.html#a17419f0e9ea349339e44a9882246988d", null ],
+    [ "id_", "classv8_1_1internal_1_1ProfileNode.html#ae8481feeaa84904bc894cc00da7720cf", null ],
+    [ "line_and_column_", "classv8_1_1internal_1_1ProfileNode.html#a6ac5a37180ec1ccb49d6ec200a36fdbe", null ],
+    [ "line_and_column_ticks_", "classv8_1_1internal_1_1ProfileNode.html#a44930fdc5a7c323a612490be2d461631", null ],
+    [ "parent_", "classv8_1_1internal_1_1ProfileNode.html#a6d89e348aea3515f312931e35fc2964e", null ],
+    [ "self_ticks_", "classv8_1_1internal_1_1ProfileNode.html#a055ff62f17af6dacd8315d7f0c574b93", null ],
+    [ "tree_", "classv8_1_1internal_1_1ProfileNode.html#a95ffcc86cc201a6b62b3e5db28c3b8a0", null ]
 ];

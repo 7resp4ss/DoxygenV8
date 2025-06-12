@@ -1,6 +1,6 @@
 var safe__math__clang__gcc__impl_8h =
 [
-    [ "CheckedMulFastAsmOp", "structv8_1_1base_1_1internal_1_1CheckedMulFastAsmOp.html", null ],
+    [ "CheckedMulFastAsmOp", "structv8_1_1base_1_1internal_1_1CheckedMulFastAsmOp.html", "structv8_1_1base_1_1internal_1_1CheckedMulFastAsmOp" ],
     [ "ClampedAddFastAsmOp", "structv8_1_1base_1_1internal_1_1ClampedAddFastAsmOp.html", "structv8_1_1base_1_1internal_1_1ClampedAddFastAsmOp" ],
     [ "ClampedSubFastAsmOp", "structv8_1_1base_1_1internal_1_1ClampedSubFastAsmOp.html", "structv8_1_1base_1_1internal_1_1ClampedSubFastAsmOp" ],
     [ "ClampedMulFastAsmOp", "structv8_1_1base_1_1internal_1_1ClampedMulFastAsmOp.html", "structv8_1_1base_1_1internal_1_1ClampedMulFastAsmOp" ],

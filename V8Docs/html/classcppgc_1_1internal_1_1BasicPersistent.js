@@ -11,7 +11,11 @@ var classcppgc_1_1internal_1_1BasicPersistent =
     [ "BasicPersistent", "classcppgc_1_1internal_1_1BasicPersistent.html#abbfbd78f28338f9391df14a80498fe87", null ],
     [ "BasicPersistent", "classcppgc_1_1internal_1_1BasicPersistent.html#ad5fe4c870f08b5bb572a086f5ad63f90", null ],
     [ "~BasicPersistent", "classcppgc_1_1internal_1_1BasicPersistent.html#a72c5fa34d75229671de4e28c2164434d", null ],
+    [ "Assign", "classcppgc_1_1internal_1_1BasicPersistent.html#aab1bd921c765010259c7bf330191d36e", null ],
     [ "Clear", "classcppgc_1_1internal_1_1BasicPersistent.html#a74dde4359237ebdcc5056566265ad8be", null ],
+    [ "ClearFromGC", "classcppgc_1_1internal_1_1BasicPersistent.html#a9ff55e8067a28a046b306ce67826fb0e", null ],
+    [ "GetFromGC", "classcppgc_1_1internal_1_1BasicPersistent.html#aee20b025e1641c25c99444603acdb87d", null ],
+    [ "IsValid", "classcppgc_1_1internal_1_1BasicPersistent.html#ad7bc7ebcebac9a06a9cee57aad99f8a9", null ],
     [ "operator bool", "classcppgc_1_1internal_1_1BasicPersistent.html#aa482ce311ee265edc2e0fa0133de8648", null ],
     [ "operator T*", "classcppgc_1_1internal_1_1BasicPersistent.html#a5ef52055741895dd89ffc999f701bf2e", null ],
     [ "operator*", "classcppgc_1_1internal_1_1BasicPersistent.html#a50295294d691b463d134b901900430c5", null ],
@@ -25,6 +29,7 @@ var classcppgc_1_1internal_1_1BasicPersistent =
     [ "operator=", "classcppgc_1_1internal_1_1BasicPersistent.html#a6b3c6a6c531bdc692cf43a9d25979e05", null ],
     [ "Release", "classcppgc_1_1internal_1_1BasicPersistent.html#a90d5684e32d8663a2a686331b7357402", null ],
     [ "To", "classcppgc_1_1internal_1_1BasicPersistent.html#a628a1ecf8ca2dc61ed6f886f78e311a9", null ],
+    [ "TraceAsRoot", "classcppgc_1_1internal_1_1BasicPersistent.html#a8d59a83af6d5339f892c57cf6c2038ea", null ],
     [ "V8_CLANG_NO_SANITIZE", "classcppgc_1_1internal_1_1BasicPersistent.html#ae84f58e3ddb48d7a5238d8219cfbebc2", null ],
     [ "internal::RootVisitor", "classcppgc_1_1internal_1_1BasicPersistent.html#a1e8014cc4b0022f6f0d76d517579d510", null ]
 ];

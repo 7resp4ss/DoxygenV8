@@ -13,6 +13,7 @@ var clamped__math__impl_8h =
     [ "ClampedMaxOp", "structv8_1_1base_1_1internal_1_1ClampedMaxOp.html", null ],
     [ "ClampedMinOp", "structv8_1_1base_1_1internal_1_1ClampedMinOp.html", null ],
     [ "BASE_FLOAT_ARITHMETIC_OPS", "clamped__math__impl_8h.html#a16d9b9bfbc9cb51e62b6c9bde37384dd", null ],
+    [ "Do", "clamped__math__impl_8h.html#a6e32ddc50b7dda400051c1420f37fa56", null ],
     [ "if", "clamped__math__impl_8h.html#a445d20ee7b513ed654c93c662150d040", null ],
     [ "if", "clamped__math__impl_8h.html#a13ff12c66cd7693599ad7178898709e5", null ],
     [ "requires", "clamped__math__impl_8h.html#a19a57e016e3a375fc5b8c771db05427f", null ],

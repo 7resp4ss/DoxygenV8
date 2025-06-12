@@ -1,0 +1,4 @@
+var structcppgc_1_1internal_1_1MakeGarbageCollectedTraitInternal_1_1AllocationDispatcher_3_01GCInfoTaefc38591fdda28796a038e87d8bc1f0 =
+[
+    [ "Invoke", "structcppgc_1_1internal_1_1MakeGarbageCollectedTraitInternal_1_1AllocationDispatcher_3_01GCInfoTaefc38591fdda28796a038e87d8bc1f0.html#a969861f26ce04c8974d3d2088401d8f8", null ]
+];

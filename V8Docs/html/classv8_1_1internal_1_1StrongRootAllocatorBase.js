@@ -8,5 +8,6 @@ var classv8_1_1internal_1_1StrongRootAllocatorBase =
     [ "allocate_impl", "classv8_1_1internal_1_1StrongRootAllocatorBase.html#a2eca364c11b5a661ab97409f96b20673", null ],
     [ "deallocate_impl", "classv8_1_1internal_1_1StrongRootAllocatorBase.html#ad136a06f93395aeaca889fe4c7248d90", null ],
     [ "heap", "classv8_1_1internal_1_1StrongRootAllocatorBase.html#a7af59fa241dbf5d9da3a9c3f30cbf36f", null ],
-    [ "operator==", "classv8_1_1internal_1_1StrongRootAllocatorBase.html#a28c60b8a3e985ef9ad483055a252af0d", null ]
+    [ "operator==", "classv8_1_1internal_1_1StrongRootAllocatorBase.html#a28c60b8a3e985ef9ad483055a252af0d", null ],
+    [ "heap_", "classv8_1_1internal_1_1StrongRootAllocatorBase.html#a6658eaff190292aec972537a3fa5e242", null ]
 ];

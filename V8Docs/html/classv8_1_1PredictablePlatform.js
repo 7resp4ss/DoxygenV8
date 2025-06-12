@@ -15,5 +15,7 @@ var classv8_1_1PredictablePlatform =
     [ "operator=", "classv8_1_1PredictablePlatform.html#a96a2c91fc39d569dba829fb7eb1e89e3", null ],
     [ "platform", "classv8_1_1PredictablePlatform.html#a1a30a1c9949f3c45f0447328f5b352aa", null ],
     [ "PostDelayedTaskOnWorkerThreadImpl", "classv8_1_1PredictablePlatform.html#ae38789c04a66ad4103076f8626e72d1f", null ],
-    [ "PostTaskOnWorkerThreadImpl", "classv8_1_1PredictablePlatform.html#aa8d1e4983bf7363bf085464c6f1ba233", null ]
+    [ "PostTaskOnWorkerThreadImpl", "classv8_1_1PredictablePlatform.html#aa8d1e4983bf7363bf085464c6f1ba233", null ],
+    [ "platform_", "classv8_1_1PredictablePlatform.html#ac6d13a98b291958c50c9bc34678d55cb", null ],
+    [ "synthetic_time_", "classv8_1_1PredictablePlatform.html#af4d874b81928ad9e78eab0504efe846d", null ]
 ];

@@ -1,5 +1,5 @@
-\hypertarget{cov_8cc}{}\doxysection{cov.\+cc File Reference}
-\label{cov_8cc}\index{cov.cc@{cov.cc}}
+\hypertarget{cov_8cc}{}\doxysection{/mnt/\+V8\+Source\+Code/src/fuzzilli/cov.cc File Reference}
+\label{cov_8cc}\index{/mnt/V8SourceCode/src/fuzzilli/cov.cc@{/mnt/V8SourceCode/src/fuzzilli/cov.cc}}
 {\ttfamily \#include \char`\"{}src/fuzzilli/cov.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$fcntl.\+h$>$}\newline
 {\ttfamily \#include $<$inttypes.\+h$>$}\newline
@@ -36,7 +36,7 @@ struct \mbox{\hyperlink{structshmem__data}{shmem\+\_\+data}}
 \item 
 void \mbox{\hyperlink{cov_8cc_a2b1c73a9a6d945a63686fa089d885e18}{sanitizer\+\_\+cov\+\_\+reset\+\_\+edgeguards}} ()
 \item 
-void \mbox{\hyperlink{cov_8cc_a0b37f6efa162621b5323f5971e17fdb6}{\+\_\+\+\_\+sanitizer\+\_\+cov\+\_\+trace\+\_\+pc\+\_\+guard\+\_\+init}} (uint32\+\_\+t $\ast$\mbox{\hyperlink{instance-type-generator_8cc_a37722a150250e2a5a98e5e0d11e53449}{start}}, uint32\+\_\+t $\ast$stop)
+void \mbox{\hyperlink{cov_8cc_a0b37f6efa162621b5323f5971e17fdb6}{\+\_\+\+\_\+sanitizer\+\_\+cov\+\_\+trace\+\_\+pc\+\_\+guard\+\_\+init}} (uint32\+\_\+t $\ast$start, uint32\+\_\+t $\ast$stop)
 \item 
 uint32\+\_\+t \mbox{\hyperlink{cov_8cc_a32f32858f0a21c5ab824acc870c00846}{sanitizer\+\_\+cov\+\_\+count\+\_\+discovered\+\_\+edges}} ()
 \item 
@@ -68,11 +68,19 @@ uint32\+\_\+t \mbox{\hyperlink{cov_8cc_ab5434c7f03fd4d049f18955f4ee3f0a6}{builti
 \doxysubsubsection{\texorpdfstring{MAX\_EDGES}{MAX\_EDGES}}
 {\footnotesize\ttfamily \#define MAX\+\_\+\+EDGES~((\mbox{\hyperlink{cov_8cc_a16e67aa18d42bbdb08ac9af1c8d0f4f9}{SHM\+\_\+\+SIZE}} -\/ 4) $\ast$ 8)}
 
+
+
+Definition at line 20 of file cov.\+cc.
+
 \mbox{\Hypertarget{cov_8cc_a16e67aa18d42bbdb08ac9af1c8d0f4f9}\label{cov_8cc_a16e67aa18d42bbdb08ac9af1c8d0f4f9}} 
 \index{cov.cc@{cov.cc}!SHM\_SIZE@{SHM\_SIZE}}
 \index{SHM\_SIZE@{SHM\_SIZE}!cov.cc@{cov.cc}}
 \doxysubsubsection{\texorpdfstring{SHM\_SIZE}{SHM\_SIZE}}
 {\footnotesize\ttfamily \#define SHM\+\_\+\+SIZE~0x100000}
+
+
+
+Definition at line 19 of file cov.\+cc.
 
 
 
@@ -83,36 +91,265 @@ uint32\+\_\+t \mbox{\hyperlink{cov_8cc_ab5434c7f03fd4d049f18955f4ee3f0a6}{builti
 \doxysubsubsection{\texorpdfstring{\_\_sanitizer\_cov\_trace\_pc\_guard()}{\_\_sanitizer\_cov\_trace\_pc\_guard()}}
 {\footnotesize\ttfamily void \+\_\+\+\_\+sanitizer\+\_\+cov\+\_\+trace\+\_\+pc\+\_\+guard (\begin{DoxyParamCaption}\item[{uint32\+\_\+t $\ast$}]{guard }\end{DoxyParamCaption})}
 
+
+
+Definition at line 101 of file cov.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{101                                                                 \{}
+\DoxyCodeLine{102   \textcolor{comment}{// There's a small race condition here: if this function executes in two}}
+\DoxyCodeLine{103   \textcolor{comment}{// threads for the same edge at the same time, the first thread might disable}}
+\DoxyCodeLine{104   \textcolor{comment}{// the edge (by setting the guard to zero) before the second thread fetches}}
+\DoxyCodeLine{105   \textcolor{comment}{// the guard value (and thus the index). However, our instrumentation ignores}}
+\DoxyCodeLine{106   \textcolor{comment}{// the first edge (see libcoverage.c) and so the race is unproblematic.}}
+\DoxyCodeLine{107   uint32\_t \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = *guard;}
+\DoxyCodeLine{108   \mbox{\hyperlink{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}{shmem}}-\/>\mbox{\hyperlink{structshmem__data_ab2d5f09b290e17d696ee2c7bfc047ff4}{edges}}[\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} / 8] |= 1 << (\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} \% 8);}
+\DoxyCodeLine{109   *guard = 0;}
+\DoxyCodeLine{110 \}}
+
+\end{DoxyCode}
+
+
+References shmem\+\_\+data\+::edges, v8\+::internal\+::index, and shmem.
+
 \mbox{\Hypertarget{cov_8cc_a0b37f6efa162621b5323f5971e17fdb6}\label{cov_8cc_a0b37f6efa162621b5323f5971e17fdb6}} 
 \index{cov.cc@{cov.cc}!\_\_sanitizer\_cov\_trace\_pc\_guard\_init@{\_\_sanitizer\_cov\_trace\_pc\_guard\_init}}
 \index{\_\_sanitizer\_cov\_trace\_pc\_guard\_init@{\_\_sanitizer\_cov\_trace\_pc\_guard\_init}!cov.cc@{cov.cc}}
 \doxysubsubsection{\texorpdfstring{\_\_sanitizer\_cov\_trace\_pc\_guard\_init()}{\_\_sanitizer\_cov\_trace\_pc\_guard\_init()}}
 {\footnotesize\ttfamily void \+\_\+\+\_\+sanitizer\+\_\+cov\+\_\+trace\+\_\+pc\+\_\+guard\+\_\+init (\begin{DoxyParamCaption}\item[{uint32\+\_\+t $\ast$}]{start,  }\item[{uint32\+\_\+t $\ast$}]{stop }\end{DoxyParamCaption})}
 
+
+
+Definition at line 39 of file cov.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40                                                                     \{}
+\DoxyCodeLine{41   \textcolor{comment}{// We should initialize the shared memory region only once. We can initialize}}
+\DoxyCodeLine{42   \textcolor{comment}{// it multiple times if it's the same region, which is something that appears}}
+\DoxyCodeLine{43   \textcolor{comment}{// to happen on e.g. macOS. If we ever see a different region, we will likely}}
+\DoxyCodeLine{44   \textcolor{comment}{// overwrite the previous one, which is probably not intended and as such we}}
+\DoxyCodeLine{45   \textcolor{comment}{// fail with an error.}}
+\DoxyCodeLine{46   \textcolor{keywordflow}{if} (\mbox{\hyperlink{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}{shmem}}) \{}
+\DoxyCodeLine{47     \textcolor{keywordflow}{if} (!(\mbox{\hyperlink{cov_8cc_adaa19c02e52bdfa1075c53d0001327ad}{edges\_start}} == start \&\& \mbox{\hyperlink{cov_8cc_a5d7285f4891c66805155393ad64cd866}{edges\_stop}} == stop)) \{}
+\DoxyCodeLine{48       fprintf(stderr,}
+\DoxyCodeLine{49               \textcolor{stringliteral}{"{}[COV] Multiple initialization of shmem!"{}}}
+\DoxyCodeLine{50               \textcolor{stringliteral}{"{} This is probably not intended! Currently only one edge"{}}}
+\DoxyCodeLine{51               \textcolor{stringliteral}{"{} region is supported\(\backslash\)n"{}});}
+\DoxyCodeLine{52       \_exit(-\/1);}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54     \textcolor{comment}{// Already initialized.}}
+\DoxyCodeLine{55     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{56   \}}
+\DoxyCodeLine{57   \textcolor{comment}{// Map the shared memory region}}
+\DoxyCodeLine{58   \textcolor{keyword}{const} \textcolor{keywordtype}{char}* shm\_key = getenv(\textcolor{stringliteral}{"{}SHM\_ID"{}});}
+\DoxyCodeLine{59   \textcolor{keywordflow}{if} (!shm\_key) \{}
+\DoxyCodeLine{60     fprintf(stderr, \textcolor{stringliteral}{"{}[COV] no shared memory bitmap available, skipping\(\backslash\)n"{}});}
+\DoxyCodeLine{61     \mbox{\hyperlink{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}{shmem}} = (\textcolor{keyword}{struct }\mbox{\hyperlink{structshmem__data}{shmem\_data}}*)\mbox{\hyperlink{namespacev8_1_1base_ae4fff10e3ebd41a16b51534d4e07db1f}{v8::base::Malloc}}(\mbox{\hyperlink{cov_8cc_a16e67aa18d42bbdb08ac9af1c8d0f4f9}{SHM\_SIZE}});}
+\DoxyCodeLine{62   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{63     \textcolor{keywordtype}{int} fd = shm\_open(shm\_key, O\_RDWR, S\_IREAD | S\_IWRITE);}
+\DoxyCodeLine{64     \textcolor{keywordflow}{if} (fd <= -\/1) \{}
+\DoxyCodeLine{65       fprintf(stderr, \textcolor{stringliteral}{"{}[COV] Failed to open shared memory region\(\backslash\)n"{}});}
+\DoxyCodeLine{66       \_exit(-\/1);}
+\DoxyCodeLine{67     \}}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     \mbox{\hyperlink{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}{shmem}} = (\textcolor{keyword}{struct }\mbox{\hyperlink{structshmem__data}{shmem\_data}}*)mmap(0, \mbox{\hyperlink{cov_8cc_a16e67aa18d42bbdb08ac9af1c8d0f4f9}{SHM\_SIZE}}, PROT\_READ | PROT\_WRITE,}
+\DoxyCodeLine{70                                      MAP\_SHARED, fd, 0);}
+\DoxyCodeLine{71     \textcolor{keywordflow}{if} (\mbox{\hyperlink{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}{shmem}} == MAP\_FAILED) \{}
+\DoxyCodeLine{72       fprintf(stderr, \textcolor{stringliteral}{"{}[COV] Failed to mmap shared memory region\(\backslash\)n"{}});}
+\DoxyCodeLine{73       \_exit(-\/1);}
+\DoxyCodeLine{74     \}}
+\DoxyCodeLine{75   \}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77   \mbox{\hyperlink{cov_8cc_adaa19c02e52bdfa1075c53d0001327ad}{edges\_start}} = start;}
+\DoxyCodeLine{78   \mbox{\hyperlink{cov_8cc_a5d7285f4891c66805155393ad64cd866}{edges\_stop}} = stop;}
+\DoxyCodeLine{79   \mbox{\hyperlink{cov_8cc_a2b1c73a9a6d945a63686fa089d885e18}{sanitizer\_cov\_reset\_edgeguards}}();}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81   \mbox{\hyperlink{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}{shmem}}-\/>\mbox{\hyperlink{structshmem__data_adfe1a35d76d0398eb827a9fda6b84fec}{num\_edges}} = \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(stop -\/ start);}
+\DoxyCodeLine{82   \mbox{\hyperlink{cov_8cc_a980be673db832663268dfa05136d2168}{builtins\_start}} = 1 + \mbox{\hyperlink{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}{shmem}}-\/>\mbox{\hyperlink{structshmem__data_adfe1a35d76d0398eb827a9fda6b84fec}{num\_edges}};}
+\DoxyCodeLine{83   fprintf(stderr,}
+\DoxyCodeLine{84           \textcolor{stringliteral}{"{}[COV] edge counters initialized. Shared memory: \%s with \%u edges\(\backslash\)n"{}},}
+\DoxyCodeLine{85           shm\_key, \mbox{\hyperlink{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}{shmem}}-\/>\mbox{\hyperlink{structshmem__data_adfe1a35d76d0398eb827a9fda6b84fec}{num\_edges}});}
+\DoxyCodeLine{86 \}}
+
+\end{DoxyCode}
+
+
+References builtins\+\_\+start, edges\+\_\+start, edges\+\_\+stop, v8\+::base\+::\+Malloc(), shmem\+\_\+data\+::num\+\_\+edges, sanitizer\+\_\+cov\+\_\+reset\+\_\+edgeguards(), SHM\+\_\+\+SIZE, and shmem.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cov_8cc_a0b37f6efa162621b5323f5971e17fdb6_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{cov_8cc_a7470bba54fd80c33553f62e135a5f32e}\label{cov_8cc_a7470bba54fd80c33553f62e135a5f32e}} 
 \index{cov.cc@{cov.cc}!cov\_init\_builtins\_edges@{cov\_init\_builtins\_edges}}
 \index{cov\_init\_builtins\_edges@{cov\_init\_builtins\_edges}!cov.cc@{cov.cc}}
 \doxysubsubsection{\texorpdfstring{cov\_init\_builtins\_edges()}{cov\_init\_builtins\_edges()}}
 {\footnotesize\ttfamily void cov\+\_\+init\+\_\+builtins\+\_\+edges (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{num\+\_\+edges }\end{DoxyParamCaption})}
 
+
+
+Definition at line 112 of file cov.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{112                                                  \{}
+\DoxyCodeLine{113   \textcolor{keywordflow}{if} (num\_edges + \mbox{\hyperlink{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}{shmem}}-\/>\mbox{\hyperlink{structshmem__data_adfe1a35d76d0398eb827a9fda6b84fec}{num\_edges}} > \mbox{\hyperlink{cov_8cc_a31a83f886935080b58e4c0c44ab19ec0}{MAX\_EDGES}}) \{}
+\DoxyCodeLine{114     fprintf(stderr,}
+\DoxyCodeLine{115             \textcolor{stringliteral}{"{}[COV] Error: Insufficient amount of edges left for builtins "{}}}
+\DoxyCodeLine{116             \textcolor{stringliteral}{"{}coverage.\(\backslash\)n"{}});}
+\DoxyCodeLine{117     exit(-\/1);}
+\DoxyCodeLine{118   \}}
+\DoxyCodeLine{119   \mbox{\hyperlink{cov_8cc_ab5434c7f03fd4d049f18955f4ee3f0a6}{builtins\_edge\_count}} = num\_edges;}
+\DoxyCodeLine{120   \mbox{\hyperlink{cov_8cc_a980be673db832663268dfa05136d2168}{builtins\_start}} = 1 + \mbox{\hyperlink{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}{shmem}}-\/>\mbox{\hyperlink{structshmem__data_adfe1a35d76d0398eb827a9fda6b84fec}{num\_edges}};}
+\DoxyCodeLine{121   \mbox{\hyperlink{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}{shmem}}-\/>\mbox{\hyperlink{structshmem__data_adfe1a35d76d0398eb827a9fda6b84fec}{num\_edges}} += \mbox{\hyperlink{cov_8cc_ab5434c7f03fd4d049f18955f4ee3f0a6}{builtins\_edge\_count}};}
+\DoxyCodeLine{122   fprintf(stderr, \textcolor{stringliteral}{"{}[COV] Additional \%d edges for builtins initialized.\(\backslash\)n"{}},}
+\DoxyCodeLine{123           num\_edges);}
+\DoxyCodeLine{124 \}}
+
+\end{DoxyCode}
+
+
+References builtins\+\_\+edge\+\_\+count, builtins\+\_\+start, MAX\+\_\+\+EDGES, shmem\+\_\+data\+::num\+\_\+edges, and shmem.
+
+
+
+Referenced by v8\+::\+Shell\+::\+Main().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cov_8cc_a7470bba54fd80c33553f62e135a5f32e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{cov_8cc_a3be14f6f0ac6fcb3de6cd2709c0f737a}\label{cov_8cc_a3be14f6f0ac6fcb3de6cd2709c0f737a}} 
 \index{cov.cc@{cov.cc}!cov\_update\_builtins\_basic\_block\_coverage@{cov\_update\_builtins\_basic\_block\_coverage}}
 \index{cov\_update\_builtins\_basic\_block\_coverage@{cov\_update\_builtins\_basic\_block\_coverage}!cov.cc@{cov.cc}}
 \doxysubsubsection{\texorpdfstring{cov\_update\_builtins\_basic\_block\_coverage()}{cov\_update\_builtins\_basic\_block\_coverage()}}
 {\footnotesize\ttfamily void cov\+\_\+update\+\_\+builtins\+\_\+basic\+\_\+block\+\_\+coverage (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ bool $>$ \&}]{cov\+\_\+map }\end{DoxyParamCaption})}
 
+
+
+Definition at line 129 of file cov.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{130                                     \{}
+\DoxyCodeLine{131   \textcolor{keywordflow}{if} (cov\_map.size() != \mbox{\hyperlink{cov_8cc_ab5434c7f03fd4d049f18955f4ee3f0a6}{builtins\_edge\_count}}) \{}
+\DoxyCodeLine{132     fprintf(stderr, \textcolor{stringliteral}{"{}[COV] Error: Size of builtins cov map changed.\(\backslash\)n"{}});}
+\DoxyCodeLine{133     exit(-\/1);}
+\DoxyCodeLine{134   \}}
+\DoxyCodeLine{135   \textcolor{keywordflow}{for} (uint32\_t \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < cov\_map.size(); ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{136     \textcolor{keywordflow}{if} (cov\_map[\mbox{\hyperlink{namespacev8_1_1internal}{i}}]) \{}
+\DoxyCodeLine{137       \textcolor{keyword}{const} uint32\_t byteIndex = (\mbox{\hyperlink{namespacev8_1_1internal}{i}} + \mbox{\hyperlink{cov_8cc_a980be673db832663268dfa05136d2168}{builtins\_start}}) >> 3;}
+\DoxyCodeLine{138       \textcolor{keyword}{const} uint32\_t bitIndex = (\mbox{\hyperlink{namespacev8_1_1internal}{i}} + \mbox{\hyperlink{cov_8cc_a980be673db832663268dfa05136d2168}{builtins\_start}}) \& 7;}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140       \mbox{\hyperlink{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}{shmem}}-\/>\mbox{\hyperlink{structshmem__data_ab2d5f09b290e17d696ee2c7bfc047ff4}{edges}}[byteIndex] |= (1 << bitIndex);}
+\DoxyCodeLine{141     \}}
+\DoxyCodeLine{142   \}}
+\DoxyCodeLine{143 \}}
+
+\end{DoxyCode}
+
+
+References builtins\+\_\+edge\+\_\+count, builtins\+\_\+start, shmem\+\_\+data\+::edges, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, and shmem.
+
+
+
+Referenced by v8\+::\+Shell\+::\+Main().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cov_8cc_a3be14f6f0ac6fcb3de6cd2709c0f737a_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{cov_8cc_a32f32858f0a21c5ab824acc870c00846}\label{cov_8cc_a32f32858f0a21c5ab824acc870c00846}} 
 \index{cov.cc@{cov.cc}!sanitizer\_cov\_count\_discovered\_edges@{sanitizer\_cov\_count\_discovered\_edges}}
 \index{sanitizer\_cov\_count\_discovered\_edges@{sanitizer\_cov\_count\_discovered\_edges}!cov.cc@{cov.cc}}
 \doxysubsubsection{\texorpdfstring{sanitizer\_cov\_count\_discovered\_edges()}{sanitizer\_cov\_count\_discovered\_edges()}}
 {\footnotesize\ttfamily uint32\+\_\+t sanitizer\+\_\+cov\+\_\+count\+\_\+discovered\+\_\+edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 88 of file cov.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{88                                                 \{}
+\DoxyCodeLine{89   uint32\_t on\_edges\_counter = 0;}
+\DoxyCodeLine{90   \textcolor{keywordflow}{for} (uint32\_t \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 1; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{cov_8cc_a980be673db832663268dfa05136d2168}{builtins\_start}}; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{91     \textcolor{keyword}{const} uint32\_t byteIndex = \mbox{\hyperlink{namespacev8_1_1internal}{i}} >> 3;  \textcolor{comment}{// Divide by 8 using a shift operation}}
+\DoxyCodeLine{92     \textcolor{keyword}{const} uint32\_t bitIndex = \mbox{\hyperlink{namespacev8_1_1internal}{i}} \& 7;  \textcolor{comment}{// Modulo 8 using a bitwise AND operation}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94     \textcolor{keywordflow}{if} (\mbox{\hyperlink{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}{shmem}}-\/>\mbox{\hyperlink{structshmem__data_ab2d5f09b290e17d696ee2c7bfc047ff4}{edges}}[byteIndex] \& (1 << bitIndex)) \{}
+\DoxyCodeLine{95       ++on\_edges\_counter;}
+\DoxyCodeLine{96     \}}
+\DoxyCodeLine{97   \}}
+\DoxyCodeLine{98   \textcolor{keywordflow}{return} on\_edges\_counter;}
+\DoxyCodeLine{99 \}}
+
+\end{DoxyCode}
+
+
+References builtins\+\_\+start, shmem\+\_\+data\+::edges, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, and shmem.
+
+
+
+Referenced by v8\+::\+Shell\+::\+Main().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cov_8cc_a32f32858f0a21c5ab824acc870c00846_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{cov_8cc_a2b1c73a9a6d945a63686fa089d885e18}\label{cov_8cc_a2b1c73a9a6d945a63686fa089d885e18}} 
 \index{cov.cc@{cov.cc}!sanitizer\_cov\_reset\_edgeguards@{sanitizer\_cov\_reset\_edgeguards}}
 \index{sanitizer\_cov\_reset\_edgeguards@{sanitizer\_cov\_reset\_edgeguards}!cov.cc@{cov.cc}}
 \doxysubsubsection{\texorpdfstring{sanitizer\_cov\_reset\_edgeguards()}{sanitizer\_cov\_reset\_edgeguards()}}
 {\footnotesize\ttfamily void sanitizer\+\_\+cov\+\_\+reset\+\_\+edgeguards (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 33 of file cov.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{33                                       \{}
+\DoxyCodeLine{34   uint32\_t \mbox{\hyperlink{namespacev8_1_1internal_a58578a07334d81a9c8cd700020ff9b78}{N}} = 0;}
+\DoxyCodeLine{35   \textcolor{keywordflow}{for} (uint32\_t* x = \mbox{\hyperlink{cov_8cc_adaa19c02e52bdfa1075c53d0001327ad}{edges\_start}}; x < \mbox{\hyperlink{cov_8cc_a5d7285f4891c66805155393ad64cd866}{edges\_stop}} \&\& \mbox{\hyperlink{namespacev8_1_1internal_a58578a07334d81a9c8cd700020ff9b78}{N}} < \mbox{\hyperlink{cov_8cc_a31a83f886935080b58e4c0c44ab19ec0}{MAX\_EDGES}}; x++)}
+\DoxyCodeLine{36     *x = ++\mbox{\hyperlink{namespacev8_1_1internal_a58578a07334d81a9c8cd700020ff9b78}{N}};}
+\DoxyCodeLine{37 \}}
+
+\end{DoxyCode}
+
+
+References edges\+\_\+start, edges\+\_\+stop, MAX\+\_\+\+EDGES, and v8\+::internal\+::N.
+
+
+
+Referenced by \+\_\+\+\_\+sanitizer\+\_\+cov\+\_\+trace\+\_\+pc\+\_\+guard\+\_\+init(), and v8\+::\+Shell\+::\+Main().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cov_8cc_a2b1c73a9a6d945a63686fa089d885e18_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Variable Documentation}
@@ -122,11 +359,27 @@ uint32\+\_\+t \mbox{\hyperlink{cov_8cc_ab5434c7f03fd4d049f18955f4ee3f0a6}{builti
 \doxysubsubsection{\texorpdfstring{builtins\_edge\_count}{builtins\_edge\_count}}
 {\footnotesize\ttfamily uint32\+\_\+t builtins\+\_\+edge\+\_\+count}
 
+
+
+Definition at line 31 of file cov.\+cc.
+
+
+
+Referenced by cov\+\_\+init\+\_\+builtins\+\_\+edges(), and cov\+\_\+update\+\_\+builtins\+\_\+basic\+\_\+block\+\_\+coverage().
+
 \mbox{\Hypertarget{cov_8cc_a980be673db832663268dfa05136d2168}\label{cov_8cc_a980be673db832663268dfa05136d2168}} 
 \index{cov.cc@{cov.cc}!builtins\_start@{builtins\_start}}
 \index{builtins\_start@{builtins\_start}!cov.cc@{cov.cc}}
 \doxysubsubsection{\texorpdfstring{builtins\_start}{builtins\_start}}
 {\footnotesize\ttfamily uint32\+\_\+t builtins\+\_\+start}
+
+
+
+Definition at line 30 of file cov.\+cc.
+
+
+
+Referenced by \+\_\+\+\_\+sanitizer\+\_\+cov\+\_\+trace\+\_\+pc\+\_\+guard\+\_\+init(), cov\+\_\+init\+\_\+builtins\+\_\+edges(), cov\+\_\+update\+\_\+builtins\+\_\+basic\+\_\+block\+\_\+coverage(), and sanitizer\+\_\+cov\+\_\+count\+\_\+discovered\+\_\+edges().
 
 \mbox{\Hypertarget{cov_8cc_adaa19c02e52bdfa1075c53d0001327ad}\label{cov_8cc_adaa19c02e52bdfa1075c53d0001327ad}} 
 \index{cov.cc@{cov.cc}!edges\_start@{edges\_start}}
@@ -134,15 +387,39 @@ uint32\+\_\+t \mbox{\hyperlink{cov_8cc_ab5434c7f03fd4d049f18955f4ee3f0a6}{builti
 \doxysubsubsection{\texorpdfstring{edges\_start}{edges\_start}}
 {\footnotesize\ttfamily uint32\+\_\+t$\ast$ edges\+\_\+start}
 
+
+
+Definition at line 29 of file cov.\+cc.
+
+
+
+Referenced by \+\_\+\+\_\+sanitizer\+\_\+cov\+\_\+trace\+\_\+pc\+\_\+guard\+\_\+init(), and sanitizer\+\_\+cov\+\_\+reset\+\_\+edgeguards().
+
 \mbox{\Hypertarget{cov_8cc_a5d7285f4891c66805155393ad64cd866}\label{cov_8cc_a5d7285f4891c66805155393ad64cd866}} 
 \index{cov.cc@{cov.cc}!edges\_stop@{edges\_stop}}
 \index{edges\_stop@{edges\_stop}!cov.cc@{cov.cc}}
 \doxysubsubsection{\texorpdfstring{edges\_stop}{edges\_stop}}
 {\footnotesize\ttfamily uint32\+\_\+t $\ast$ edges\+\_\+stop}
 
+
+
+Definition at line 29 of file cov.\+cc.
+
+
+
+Referenced by \+\_\+\+\_\+sanitizer\+\_\+cov\+\_\+trace\+\_\+pc\+\_\+guard\+\_\+init(), and sanitizer\+\_\+cov\+\_\+reset\+\_\+edgeguards().
+
 \mbox{\Hypertarget{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}\label{cov_8cc_a6c45e2c04c2a8bd1df14806cf3220312}} 
 \index{cov.cc@{cov.cc}!shmem@{shmem}}
 \index{shmem@{shmem}!cov.cc@{cov.cc}}
 \doxysubsubsection{\texorpdfstring{shmem}{shmem}}
 {\footnotesize\ttfamily struct \mbox{\hyperlink{structshmem__data}{shmem\+\_\+data}}$\ast$ shmem}
+
+
+
+Definition at line 27 of file cov.\+cc.
+
+
+
+Referenced by \+\_\+\+\_\+sanitizer\+\_\+cov\+\_\+trace\+\_\+pc\+\_\+guard(), \+\_\+\+\_\+sanitizer\+\_\+cov\+\_\+trace\+\_\+pc\+\_\+guard\+\_\+init(), cov\+\_\+init\+\_\+builtins\+\_\+edges(), cov\+\_\+update\+\_\+builtins\+\_\+basic\+\_\+block\+\_\+coverage(), and sanitizer\+\_\+cov\+\_\+count\+\_\+discovered\+\_\+edges().
 

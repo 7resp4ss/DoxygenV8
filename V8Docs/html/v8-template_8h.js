@@ -6,7 +6,7 @@ var v8_template_8h =
     [ "IndexedPropertyHandlerConfiguration", "structv8_1_1IndexedPropertyHandlerConfiguration.html", "structv8_1_1IndexedPropertyHandlerConfiguration" ],
     [ "ObjectTemplate", "classv8_1_1ObjectTemplate.html", "classv8_1_1ObjectTemplate" ],
     [ "DictionaryTemplate", "classv8_1_1DictionaryTemplate.html", "classv8_1_1DictionaryTemplate" ],
-    [ "Signature", "classv8_1_1Signature.html", null ],
+    [ "Signature", "classv8_1_1Signature.html", "classv8_1_1Signature" ],
     [ "V8_DECL_INTRINSIC", "v8-template_8h.html#ace2bd8357a6bdecf3d51f83649e389fc", null ],
     [ "V8_INTRINSICS_LIST", "v8-template_8h.html#a34cf432e29c74c8e87287e1dea62ae6c", null ],
     [ "AccessCheckCallback", "v8-template_8h.html#ae0f4f666e27b7592b684c278424392fb", null ],

@@ -27,8 +27,15 @@ Collaboration diagram for v8\+::internal\+::compiler\+::Basic\+Block\+Instrument
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{classv8_1_1internal_1_1BasicBlockProfilerData}{Basic\+Block\+Profiler\+Data}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BasicBlockInstrumentor_a441293a6de79d1309fca9a192d36df23}{Instrument}} (\mbox{\hyperlink{classv8_1_1internal_1_1OptimizedCompilationInfo}{Optimized\+Compilation\+Info}} $\ast$\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFGraph}{TFGraph}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Schedule}{Schedule}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a970e7f41771cbd0ccc6f2f1ab01faab0}{schedule}}, \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+static \mbox{\hyperlink{classv8_1_1internal_1_1BasicBlockProfilerData}{Basic\+Block\+Profiler\+Data}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BasicBlockInstrumentor_a441293a6de79d1309fca9a192d36df23}{Instrument}} (\mbox{\hyperlink{classv8_1_1internal_1_1OptimizedCompilationInfo}{Optimized\+Compilation\+Info}} $\ast$info, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFGraph}{TFGraph}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Schedule}{Schedule}} $\ast$schedule, \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 25 of file basic-\/block-\/instrumentor.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -40,7 +47,130 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1BasicBlockProfilerData}{Basic\+Bl
 
 
 
+Definition at line 58 of file basic-\/block-\/instrumentor.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60                       \{}
+\DoxyCodeLine{61   \textcolor{comment}{// Basic block profiling disables concurrent compilation, so handle deref is}}
+\DoxyCodeLine{62   \textcolor{comment}{// fine.}}
+\DoxyCodeLine{63   \mbox{\hyperlink{namespacev8_1_1internal_a7e8d89d2c8014f4ff252cf22ad28c101}{AllowHandleDereference}} allow\_handle\_dereference;}
+\DoxyCodeLine{64   \textcolor{comment}{// Skip the exit block in profiles, since the register allocator can't handle}}
+\DoxyCodeLine{65   \textcolor{comment}{// it and entry into it means falling off the end of the function anyway.}}
+\DoxyCodeLine{66   \textcolor{keywordtype}{size\_t} n\_blocks = schedule-\/>RpoBlockCount();}
+\DoxyCodeLine{67   BasicBlockProfilerData* data = \mbox{\hyperlink{classv8_1_1internal_1_1BasicBlockProfiler_a9ac07f4d19501975a58df37f6c998813}{BasicBlockProfiler::Get}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1BasicBlockProfiler_a2784e19196c858e931f8a3eb793833ab}{NewData}}(n\_blocks);}
+\DoxyCodeLine{68   \textcolor{comment}{// Set the function name.}}
+\DoxyCodeLine{69   data-\/>\mbox{\hyperlink{classv8_1_1internal_1_1BasicBlockProfilerData_a063867aec22c5de13feef51f24dbfb3a}{SetFunctionName}}(info-\/>GetDebugName());}
+\DoxyCodeLine{70   \textcolor{comment}{// Capture the schedule string before instrumentation.}}
+\DoxyCodeLine{71   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.turbo\_profiling\_verbose) \{}
+\DoxyCodeLine{72     std::ostringstream os;}
+\DoxyCodeLine{73     os << *schedule;}
+\DoxyCodeLine{74     data-\/>SetSchedule(os);}
+\DoxyCodeLine{75   \}}
+\DoxyCodeLine{76   \textcolor{comment}{// Check whether we should write counts to a JS heap object or to the}}
+\DoxyCodeLine{77   \textcolor{comment}{// BasicBlockProfilerData directly. The JS heap object is only used for}}
+\DoxyCodeLine{78   \textcolor{comment}{// builtins.}}
+\DoxyCodeLine{79   \textcolor{keywordtype}{bool} on\_heap\_counters = isolate \&\& isolate-\/>IsGeneratingEmbeddedBuiltins();}
+\DoxyCodeLine{80   \textcolor{comment}{// Add the increment instructions to the start of every block.}}
+\DoxyCodeLine{81   CommonOperatorBuilder common(\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>zone());}
+\DoxyCodeLine{82   MachineOperatorBuilder machine(\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>zone());}
+\DoxyCodeLine{83   Node* counters\_array = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{84   \textcolor{keywordflow}{if} (on\_heap\_counters) \{}
+\DoxyCodeLine{85     \textcolor{comment}{// Allocation is disallowed here, so rather than referring to an actual}}
+\DoxyCodeLine{86     \textcolor{comment}{// counters array, create a reference to a special marker object. This}}
+\DoxyCodeLine{87     \textcolor{comment}{// object will get fixed up later in the constants table (see}}
+\DoxyCodeLine{88     \textcolor{comment}{// PatchBasicBlockCountersReference). An important and subtle point: we}}
+\DoxyCodeLine{89     \textcolor{comment}{// cannot use the root handle basic\_block\_counters\_marker\_handle() and must}}
+\DoxyCodeLine{90     \textcolor{comment}{// create a new separate handle. Otherwise}}
+\DoxyCodeLine{91     \textcolor{comment}{// MacroAssemblerBase::IndirectLoadConstant would helpfully emit a}}
+\DoxyCodeLine{92     \textcolor{comment}{// root-\/relative load rather than putting this value in the constants table}}
+\DoxyCodeLine{93     \textcolor{comment}{// where we expect it to be for patching.}}
+\DoxyCodeLine{94     counters\_array = \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>NewNode(common.HeapConstant(\mbox{\hyperlink{classv8_1_1internal_1_1Handle_a7b256f04a4bb83fc9ae183d661f5368b}{Handle<HeapObject>::New}}(}
+\DoxyCodeLine{95         ReadOnlyRoots(isolate).basic\_block\_counters\_marker(), isolate)));}
+\DoxyCodeLine{96   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{97     counters\_array = \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>NewNode(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a960152fda22662931970ae1b97bafed0}{PointerConstant}}(\&common, data-\/>counts()));}
+\DoxyCodeLine{98   \}}
+\DoxyCodeLine{99   Node* \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3}{zero}} = \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>NewNode(common.Int32Constant(0));}
+\DoxyCodeLine{100   Node* \mbox{\hyperlink{base_2ieee754_8cc_a7cf126dbeb6f30c606e3b42fea65cfef}{one}} = \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>NewNode(common.Int32Constant(1));}
+\DoxyCodeLine{101   \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_af7f325435904b8f37ff61a0ba3e6ba43}{BasicBlockVector}}* blocks = schedule-\/>rpo\_order();}
+\DoxyCodeLine{102   \textcolor{keywordtype}{size\_t} block\_number = 0;}
+\DoxyCodeLine{103   \textcolor{keywordflow}{for} (\mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector_a6c4c7526dcdcfec60a1d00461eb1697e}{BasicBlockVector::iterator}} it = blocks-\/>begin(); block\_number < n\_blocks;}
+\DoxyCodeLine{104        ++it, ++block\_number) \{}
+\DoxyCodeLine{105     BasicBlock* block = (*it);}
+\DoxyCodeLine{106     \textcolor{keywordflow}{if} (block == schedule-\/>end()) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{107     \textcolor{comment}{// Iteration is already in reverse post-\/order.}}
+\DoxyCodeLine{108     \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(block-\/>rpo\_number(), block\_number);}
+\DoxyCodeLine{109     data-\/>SetBlockId(block\_number, block-\/>id().ToInt());}
+\DoxyCodeLine{110     \textcolor{comment}{// It is unnecessary to wire effect and control deps for load and store}}
+\DoxyCodeLine{111     \textcolor{comment}{// since this happens after scheduling.}}
+\DoxyCodeLine{112     \textcolor{comment}{// Construct increment operation.}}
+\DoxyCodeLine{113     \textcolor{keywordtype}{int} offset\_to\_counter\_value = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(block\_number) * \mbox{\hyperlink{namespacev8_1_1internal_a914d19dea357ee280bea7580796a62b5}{kInt32Size}};}
+\DoxyCodeLine{114     \textcolor{keywordflow}{if} (on\_heap\_counters) \{}
+\DoxyCodeLine{115       offset\_to\_counter\_value +=}
+\DoxyCodeLine{116           \mbox{\hyperlink{tagged-field_8h_a5284b5dce86d72e01944bab90ed2cbab}{OFFSET\_OF\_DATA\_START}}(ByteArray) -\/ \mbox{\hyperlink{namespacev8_1_1internal_aa2507eb9d594b9767347031fb02d0b20}{kHeapObjectTag}};}
+\DoxyCodeLine{117     \}}
+\DoxyCodeLine{118     Node* offset\_to\_counter =}
+\DoxyCodeLine{119         \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>NewNode(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a364c1534fdf1073625e22f3283e46994}{IntPtrConstant}}(\&common, offset\_to\_counter\_value));}
+\DoxyCodeLine{120     Node* load =}
+\DoxyCodeLine{121         \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>NewNode(machine.Load(\mbox{\hyperlink{classv8_1_1internal_1_1MachineType_af01d8a847890c6768320d09f3a7b0d76}{MachineType::Uint32}}()), counters\_array,}
+\DoxyCodeLine{122                        offset\_to\_counter, \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>start(), \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>start());}
+\DoxyCodeLine{123     Node* inc = \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>NewNode(machine.Int32Add(), load, \mbox{\hyperlink{base_2ieee754_8cc_a7cf126dbeb6f30c606e3b42fea65cfef}{one}});}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125     \textcolor{comment}{// Branchless saturation, because we've already run the scheduler, so}}
+\DoxyCodeLine{126     \textcolor{comment}{// introducing extra control flow here would be surprising.}}
+\DoxyCodeLine{127     Node* \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a382cfc7833f9a238ab5ffcfea5060ddd}{overflow}} = \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>NewNode(machine.Uint32LessThan(), inc, load);}
+\DoxyCodeLine{128     Node* overflow\_mask = \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>NewNode(machine.Int32Sub(), \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3}{zero}}, \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a382cfc7833f9a238ab5ffcfea5060ddd}{overflow}});}
+\DoxyCodeLine{129     Node* saturated\_inc =}
+\DoxyCodeLine{130         \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>NewNode(machine.Word32Or(), inc, overflow\_mask);}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132     Node* \mbox{\hyperlink{flag-definitions_8h_a88efda0d30f0789fdb73665260750735}{store}} =}
+\DoxyCodeLine{133         \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>NewNode(machine.Store(StoreRepresentation(}
+\DoxyCodeLine{134                            \mbox{\hyperlink{namespacev8_1_1internal_abe5419355372f787c28119c509343410af30575882aa69e9db7afa3e0a5873fc7}{MachineRepresentation::kWord32}}, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a1ee0d1fd80275438925bc568ec289797a3cb0f5f3b0a3f679f11bec177e0cdd98}{kNoWriteBarrier}})),}
+\DoxyCodeLine{135                        counters\_array, offset\_to\_counter, saturated\_inc,}
+\DoxyCodeLine{136                        \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>start(), \mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}-\/>start());}
+\DoxyCodeLine{137     \textcolor{comment}{// Insert the new nodes.}}
+\DoxyCodeLine{138     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{int} kArraySize = 10;}
+\DoxyCodeLine{139     Node* to\_insert[kArraySize] = \{}
+\DoxyCodeLine{140         counters\_array, \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a319c3c546d24f5dd8d68074cd98b15a3}{zero}}, \mbox{\hyperlink{base_2ieee754_8cc_a7cf126dbeb6f30c606e3b42fea65cfef}{one}},      offset\_to\_counter,}
+\DoxyCodeLine{141         load,           inc,  \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a382cfc7833f9a238ab5ffcfea5060ddd}{overflow}}, overflow\_mask,}
+\DoxyCodeLine{142         saturated\_inc,  \mbox{\hyperlink{flag-definitions_8h_a88efda0d30f0789fdb73665260750735}{store}}\};}
+\DoxyCodeLine{143     \textcolor{comment}{// The first three Nodes are constant across all blocks.}}
+\DoxyCodeLine{144     \textcolor{keywordtype}{int} insertion\_start = block\_number == 0 ? 0 : 3;}
+\DoxyCodeLine{145     \mbox{\hyperlink{classv8_1_1internal_1_1ZoneVector_a6c4c7526dcdcfec60a1d00461eb1697e}{NodeVector::iterator}} insertion\_point = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a10f94f91779094fefbc333b68d326549}{FindInsertionPoint}}(block);}
+\DoxyCodeLine{146     block-\/>InsertNodes(insertion\_point, \&to\_insert[insertion\_start],}
+\DoxyCodeLine{147                        \&to\_insert[kArraySize]);}
+\DoxyCodeLine{148     \textcolor{comment}{// Tell the scheduler about the new nodes.}}
+\DoxyCodeLine{149     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = insertion\_start; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < kArraySize; ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{150       schedule-\/>SetBlockForNode(block, to\_insert[\mbox{\hyperlink{namespacev8_1_1internal}{i}}]);}
+\DoxyCodeLine{151     \}}
+\DoxyCodeLine{152     \textcolor{comment}{// The exit block is not instrumented and so we must ignore that block}}
+\DoxyCodeLine{153     \textcolor{comment}{// count.}}
+\DoxyCodeLine{154     \textcolor{keywordflow}{if} (block-\/>control() == \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1BasicBlock_a7162100f0572bd1e40481cb882497a9da78183f75ecc041c3baa21a75ec428eb7}{BasicBlock::kBranch}} \&\&}
+\DoxyCodeLine{155         block-\/>successors()[0] != schedule-\/>end() \&\&}
+\DoxyCodeLine{156         block-\/>successors()[1] != schedule-\/>end()) \{}
+\DoxyCodeLine{157       data-\/>AddBranch(block-\/>successors()[0]-\/>id().ToInt(),}
+\DoxyCodeLine{158                       block-\/>successors()[1]-\/>id().ToInt());}
+\DoxyCodeLine{159     \}}
+\DoxyCodeLine{160   \}}
+\DoxyCodeLine{161   \textcolor{keywordflow}{return} data;}
+\DoxyCodeLine{162 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Basic\+Block\+Profiler\+Data\+::\+Add\+Branch(), v8\+::internal\+::\+Zone\+Vector$<$ T $>$\+::begin(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::control(), v8\+::internal\+::\+Basic\+Block\+Profiler\+Data\+::counts(), DCHECK\+\_\+\+EQ, v8\+::internal\+::compiler\+::\+Schedule\+::end(), v8\+::internal\+::compiler\+::\+Find\+Insertion\+Point(), v8\+::internal\+::\+Basic\+Block\+Profiler\+::\+Get(), v8\+::internal\+::\+Optimized\+Compilation\+Info\+::\+Get\+Debug\+Name(), graph(), v8\+::internal\+::compiler\+::\+Common\+Operator\+Builder\+::\+Heap\+Constant(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::compiler\+::\+Basic\+Block\+::id(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::\+Insert\+Nodes(), v8\+::internal\+::compiler\+::\+Machine\+Operator\+Builder\+::\+Int32\+Add(), v8\+::internal\+::compiler\+::\+Common\+Operator\+Builder\+::\+Int32\+Constant(), v8\+::internal\+::compiler\+::\+Machine\+Operator\+Builder\+::\+Int32\+Sub(), v8\+::internal\+::compiler\+::\+Int\+Ptr\+Constant(), v8\+::internal\+::\+Isolate\+::\+Is\+Generating\+Embedded\+Builtins(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::k\+Branch, v8\+::internal\+::k\+Heap\+Object\+Tag, v8\+::internal\+::k\+Int32\+Size, v8\+::internal\+::compiler\+::k\+No\+Write\+Barrier, v8\+::internal\+::k\+Word32, v8\+::internal\+::compiler\+::\+Machine\+Operator\+Builder\+::\+Load(), v8\+::internal\+::\+Basic\+Block\+Profiler\+::\+New\+Data(), OFFSET\+\_\+\+OF\+\_\+\+DATA\+\_\+\+START, one, v8\+::internal\+::overflow, v8\+::internal\+::compiler\+::\+Pointer\+Constant(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::rpo\+\_\+number(), v8\+::internal\+::compiler\+::\+Schedule\+::rpo\+\_\+order(), v8\+::internal\+::compiler\+::\+Schedule\+::\+Rpo\+Block\+Count(), v8\+::internal\+::compiler\+::\+Schedule\+::\+Set\+Block\+For\+Node(), v8\+::internal\+::\+Basic\+Block\+Profiler\+Data\+::\+Set\+Block\+Id(), v8\+::internal\+::\+Basic\+Block\+Profiler\+Data\+::\+Set\+Function\+Name(), v8\+::internal\+::\+Basic\+Block\+Profiler\+Data\+::\+Set\+Schedule(), v8\+::internal\+::compiler\+::\+Machine\+Operator\+Builder\+::\+Store(), store(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::successors(), v8\+::internal\+::compiler\+::\+Basic\+Block\+::\+Id\+::\+To\+Int(), v8\+::internal\+::\+Machine\+Type\+::\+Uint32(), v8\+::internal\+::compiler\+::\+Machine\+Operator\+Builder\+::\+Uint32\+Less\+Than(), v8\+::internal\+::v8\+\_\+flags, v8\+::internal\+::compiler\+::\+Machine\+Operator\+Builder\+::\+Word32\+Or(), and v8\+::internal\+::zero.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1compiler_1_1BasicBlockInstrumentor_a441293a6de79d1309fca9a192d36df23_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{basic-block-instrumentor_8h}{basic-\/block-\/instrumentor.\+h}}\item 
-\mbox{\hyperlink{basic-block-instrumentor_8cc}{basic-\/block-\/instrumentor.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{basic-block-instrumentor_8h}{basic-\/block-\/instrumentor.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{basic-block-instrumentor_8cc}{basic-\/block-\/instrumentor.\+cc}}\end{DoxyCompactItemize}

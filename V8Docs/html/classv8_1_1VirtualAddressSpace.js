@@ -22,5 +22,11 @@ var classv8_1_1VirtualAddressSpace =
     [ "RecommitPages", "classv8_1_1VirtualAddressSpace.html#a4902418d2e443a35f055ae094cc263e6", null ],
     [ "SetPagePermissions", "classv8_1_1VirtualAddressSpace.html#a8c1c16f99b3654cd3287242d3a4a5fb5", null ],
     [ "SetRandomSeed", "classv8_1_1VirtualAddressSpace.html#a2c87529d4f8aa2f73a41a74b50bacb61", null ],
-    [ "size", "classv8_1_1VirtualAddressSpace.html#a8f2b50e530a9ce17f2263dee40246d2b", null ]
+    [ "size", "classv8_1_1VirtualAddressSpace.html#a8f2b50e530a9ce17f2263dee40246d2b", null ],
+    [ "allocation_granularity_", "classv8_1_1VirtualAddressSpace.html#adcf7210a0fc2714e669cfeb9538f7a18", null ],
+    [ "base_", "classv8_1_1VirtualAddressSpace.html#a7c1edd7da838d600d380c02007b57096", null ],
+    [ "kNoHint", "classv8_1_1VirtualAddressSpace.html#a3a8f4984c524f2c30a8b00a6b8bff41a", null ],
+    [ "max_page_permissions_", "classv8_1_1VirtualAddressSpace.html#a24033fe6f48c27f8b7aefd2d252a148f", null ],
+    [ "page_size_", "classv8_1_1VirtualAddressSpace.html#a2778e03b2f2d941e661a8937cbe79347", null ],
+    [ "size_", "classv8_1_1VirtualAddressSpace.html#a65b8e54dd91903621a9a020802f7ff4f", null ]
 ];

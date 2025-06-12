@@ -4,5 +4,7 @@ var classv8_1_1internal_1_1OptimizingCompileOutputQueue =
     [ "empty", "classv8_1_1internal_1_1OptimizingCompileOutputQueue.html#ab93d1204589c8416895a70e9aa2c13f8", null ],
     [ "Enqueue", "classv8_1_1internal_1_1OptimizingCompileOutputQueue.html#a3ccf5abfceb6d6e6e76cdd019c1280ea", null ],
     [ "InstallGeneratedBuiltins", "classv8_1_1internal_1_1OptimizingCompileOutputQueue.html#a289c70b969e617443cb3becd51255e3d", null ],
-    [ "size", "classv8_1_1internal_1_1OptimizingCompileOutputQueue.html#a7e5983e8ae1285d9c78ac3348fc613ff", null ]
+    [ "size", "classv8_1_1internal_1_1OptimizingCompileOutputQueue.html#a7e5983e8ae1285d9c78ac3348fc613ff", null ],
+    [ "mutex_", "classv8_1_1internal_1_1OptimizingCompileOutputQueue.html#aeb02efa26eeb875598d96ffcd15c0ebd", null ],
+    [ "queue_", "classv8_1_1internal_1_1OptimizingCompileOutputQueue.html#af20b7344f49dc574152889c061959cdb", null ]
 ];

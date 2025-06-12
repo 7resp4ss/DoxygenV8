@@ -36,8 +36,20 @@ Collaboration diagram for v8\+::internal\+::Registered\+Symbol\+Table\+:
 \item 
 static \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Map}{Map}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1RegisteredSymbolTable_afdb53dad1897899e1730fd9435351bd3}{Get\+Map}} (\mbox{\hyperlink{classv8_1_1internal_1_1RootsTable}{Roots\+Table}} \&roots)
 \item 
-static \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1RegisteredSymbolTable}{Registered\+Symbol\+Table}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1RegisteredSymbolTable_a7c3abd2aa47956beaacb67818ebb2cc3}{Add}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1RegisteredSymbolTable}{Registered\+Symbol\+Table}} $>$ table, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Symbol}{Symbol}} $>$)
+static \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1RegisteredSymbolTable}{Registered\+Symbol\+Table}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1RegisteredSymbolTable_a7c3abd2aa47956beaacb67818ebb2cc3}{Add}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1RegisteredSymbolTable}{Registered\+Symbol\+Table}} $>$ table, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Symbol}{Symbol}} $>$)
 \end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1internal_1_1RegisteredSymbolTable_ad5f44d810d75d6b247dcb1d4fe9a891f}{Entry\+To\+Value\+Index}} (\mbox{\hyperlink{classv8_1_1internal_1_1InternalIndex}{Internal\+Index}} entry)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 584 of file hash-\/table.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -47,18 +59,124 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperl
 \doxysubsubsection{\texorpdfstring{Add()}{Add()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1RegisteredSymbolTable}{Registered\+Symbol\+Table}} $>$ v8\+::internal\+::\+Registered\+Symbol\+Table\+::\+Add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1RegisteredSymbolTable}{Registered\+Symbol\+Table}} $>$}]{table,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$}]{key,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Symbol}{Symbol}} $>$}]{symbol }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 5666 of file objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{5668                                                            \{}
+\DoxyCodeLine{5669   \textcolor{comment}{// Validate that the key is absent.}}
+\DoxyCodeLine{5670   \mbox{\hyperlink{checks_8h_a8c8b326bb3d6944234eb74fbd0952061}{SLOW\_DCHECK}}(table-\/>FindEntry(isolate, \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}}).is\_not\_found());}
+\DoxyCodeLine{5671 }
+\DoxyCodeLine{5672   table = EnsureCapacity(isolate, table);}
+\DoxyCodeLine{5673   uint32\_t hash = \mbox{\hyperlink{namespacev8_1_1internal_a936d6b51abee1fbe72db0ea5c8fc369f}{TodoShape::Hash}}(ReadOnlyRoots(isolate), \mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}});}
+\DoxyCodeLine{5674   InternalIndex entry = table-\/>FindInsertionEntry(isolate, hash);}
+\DoxyCodeLine{5675   table-\/>set(EntryToIndex(entry), *\mbox{\hyperlink{namespacev8_1_1internal_a67a51b6314a9bc8a8c44c5fe14149e6c}{key}});}
+\DoxyCodeLine{5676   table-\/>set(\mbox{\hyperlink{classv8_1_1internal_1_1RegisteredSymbolTable_ad5f44d810d75d6b247dcb1d4fe9a891f}{EntryToValueIndex}}(entry), *symbol);}
+\DoxyCodeLine{5677   table-\/>ElementAdded();}
+\DoxyCodeLine{5678   \textcolor{keywordflow}{return} table;}
+\DoxyCodeLine{5679 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Hash(), v8\+::internal\+::key, and SLOW\+\_\+\+DCHECK.
+
+
+
+Referenced by v8\+::internal\+::\+Isolate\+::\+Symbol\+For().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1RegisteredSymbolTable_a7c3abd2aa47956beaacb67818ebb2cc3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1RegisteredSymbolTable_a7c3abd2aa47956beaacb67818ebb2cc3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1RegisteredSymbolTable_ad5f44d810d75d6b247dcb1d4fe9a891f}\label{classv8_1_1internal_1_1RegisteredSymbolTable_ad5f44d810d75d6b247dcb1d4fe9a891f}} 
+\index{v8::internal::RegisteredSymbolTable@{v8::internal::RegisteredSymbolTable}!EntryToValueIndex@{EntryToValueIndex}}
+\index{EntryToValueIndex@{EntryToValueIndex}!v8::internal::RegisteredSymbolTable@{v8::internal::RegisteredSymbolTable}}
+\doxysubsubsection{\texorpdfstring{EntryToValueIndex()}{EntryToValueIndex()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{classint}{int}} v8\+::internal\+::\+Registered\+Symbol\+Table\+::\+Entry\+To\+Value\+Index (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1InternalIndex}{Internal\+Index}}}]{entry }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 602 of file hash-\/table.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{602                                                            \{}
+\DoxyCodeLine{603     \textcolor{keywordflow}{return} EntryToIndex(entry) + \mbox{\hyperlink{classv8_1_1internal_1_1RegisteredSymbolTableShape_ae308191096721c0f0c8499096ad6f299}{RegisteredSymbolTableShape::kEntryValueIndex}};}
+\DoxyCodeLine{604   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Registered\+Symbol\+Table\+Shape\+::k\+Entry\+Value\+Index.
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1RegisteredSymbolTable_afdb53dad1897899e1730fd9435351bd3}\label{classv8_1_1internal_1_1RegisteredSymbolTable_afdb53dad1897899e1730fd9435351bd3}} 
 \index{v8::internal::RegisteredSymbolTable@{v8::internal::RegisteredSymbolTable}!GetMap@{GetMap}}
 \index{GetMap@{GetMap}!v8::internal::RegisteredSymbolTable@{v8::internal::RegisteredSymbolTable}}
 \doxysubsubsection{\texorpdfstring{GetMap()}{GetMap()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Map}{Map}} $>$ v8\+::internal\+::\+Registered\+Symbol\+Table\+::\+Get\+Map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1RootsTable}{Roots\+Table}} \&}]{roots }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
+
+
+Definition at line 119 of file hash-\/table-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{119                                                                  \{}
+\DoxyCodeLine{120   \textcolor{keywordflow}{return} roots.registered\_symbol\_table\_map();}
+\DoxyCodeLine{121 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1RegisteredSymbolTable_acb513ea09a10f8671049eb5e5533ecd2}\label{classv8_1_1internal_1_1RegisteredSymbolTable_acb513ea09a10f8671049eb5e5533ecd2}} 
 \index{v8::internal::RegisteredSymbolTable@{v8::internal::RegisteredSymbolTable}!SlowReverseLookup@{SlowReverseLookup}}
 \index{SlowReverseLookup@{SlowReverseLookup}!v8::internal::RegisteredSymbolTable@{v8::internal::RegisteredSymbolTable}}
 \doxysubsubsection{\texorpdfstring{SlowReverseLookup()}{SlowReverseLookup()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ v8\+::internal\+::\+Registered\+Symbol\+Table\+::\+Slow\+Reverse\+Lookup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{value }\end{DoxyParamCaption})}
 
+
+
+Definition at line 10 of file symbol-\/table.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10                                                                             \{}
+\DoxyCodeLine{11   ReadOnlyRoots roots = \mbox{\hyperlink{namespacev8_1_1internal_a33f08ffb7cf692eb19ce772bc21bcfc6}{GetReadOnlyRoots}}();}
+\DoxyCodeLine{12   \textcolor{keywordflow}{for} (InternalIndex \mbox{\hyperlink{namespacev8_1_1internal}{i}} : this-\/>IterateEntries()) \{}
+\DoxyCodeLine{13     \mbox{\hyperlink{namespacev8_1_1internal_a5297fd2c72981b2220e6b9a831570fb3}{Tagged<Object>}} k;}
+\DoxyCodeLine{14     \textcolor{keywordflow}{if} (!this-\/>ToKey(roots, \mbox{\hyperlink{namespacev8_1_1internal}{i}}, \&k)) \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{15     \mbox{\hyperlink{namespacev8_1_1internal_a5297fd2c72981b2220e6b9a831570fb3}{Tagged<Object>}} e = this-\/>\mbox{\hyperlink{classv8_1_1internal_1_1RegisteredSymbolTable_a4f78c82c11f821ab106ad02612a4afd3}{ValueAt}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}});}
+\DoxyCodeLine{16     \textcolor{keywordflow}{if} (e == \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}) \textcolor{keywordflow}{return} k;}
+\DoxyCodeLine{17   \}}
+\DoxyCodeLine{18   \textcolor{keywordflow}{return} roots.undefined\_value();}
+\DoxyCodeLine{19 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Get\+Read\+Only\+Roots(), v8\+::internal\+::value, and Value\+At().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1RegisteredSymbolTable_acb513ea09a10f8671049eb5e5533ecd2_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1RegisteredSymbolTable_a4f78c82c11f821ab106ad02612a4afd3}\label{classv8_1_1internal_1_1RegisteredSymbolTable_a4f78c82c11f821ab106ad02612a4afd3}} 
 \index{v8::internal::RegisteredSymbolTable@{v8::internal::RegisteredSymbolTable}!ValueAt@{ValueAt}}
 \index{ValueAt@{ValueAt}!v8::internal::RegisteredSymbolTable@{v8::internal::RegisteredSymbolTable}}
@@ -67,9 +185,32 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperl
 
 
 
+Definition at line 6091 of file objects.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{6091                                                                  \{}
+\DoxyCodeLine{6092   \textcolor{keywordflow}{return} this-\/>get(\mbox{\hyperlink{classv8_1_1internal_1_1RegisteredSymbolTable_ad5f44d810d75d6b247dcb1d4fe9a891f}{EntryToValueIndex}}(entry));}
+\DoxyCodeLine{6093 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Slow\+Reverse\+Lookup().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1RegisteredSymbolTable_a4f78c82c11f821ab106ad02612a4afd3_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{hash-table_8h}{hash-\/table.\+h}}\item 
-\mbox{\hyperlink{hash-table-inl_8h}{hash-\/table-\/inl.\+h}}\item 
-\mbox{\hyperlink{objects_8cc}{objects.\+cc}}\item 
-\mbox{\hyperlink{symbol-table_8cc}{symbol-\/table.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{hash-table_8h}{hash-\/table.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{hash-table-inl_8h}{hash-\/table-\/inl.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{objects_8cc}{objects.\+cc}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{symbol-table_8cc}{symbol-\/table.\+cc}}\end{DoxyCompactItemize}

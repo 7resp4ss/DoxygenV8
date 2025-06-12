@@ -2,9 +2,8 @@ var classv8_1_1internal_1_1StringShape =
 [
     [ "StringShape", "classv8_1_1internal_1_1StringShape.html#a411a66454d078d307576c25e853982b7", null ],
     [ "StringShape", "classv8_1_1internal_1_1StringShape.html#a3e640f226e6d464c4b4ecbd7388c88cb", null ],
-    [ "DispatchToSpecificType", "classv8_1_1internal_1_1StringShape.html#a103473debf3b4952b305c1a81a99e2e7", null ],
-    [ "DispatchToSpecificType", "classv8_1_1internal_1_1StringShape.html#a456ad4e6e8e5c813a91edccb307aa8c6", null ],
-    [ "encoding_tag", "classv8_1_1internal_1_1StringShape.html#ad74dcfdeb9ec1acc2ecd1eca1af5be00", null ],
+    [ "DispatchToSpecificType", "classv8_1_1internal_1_1StringShape.html#a0f31f89c91ed936f7c98a2aa888c7006", null ],
+    [ "encoding_tag", "classv8_1_1internal_1_1StringShape.html#a27f1f48ac20f85b2ef52e0645ce23f9c", null ],
     [ "invalidate", "classv8_1_1internal_1_1StringShape.html#a113cbfe79a6ba7ec5e7d0f5ef4e1ea40", null ],
     [ "IsCons", "classv8_1_1internal_1_1StringShape.html#a5af117ebcc7191cc223d3625ee292401", null ],
     [ "IsDirect", "classv8_1_1internal_1_1StringShape.html#ae3ba01d606b2f677ffadbf86ffecf695", null ],
@@ -21,5 +20,8 @@ var classv8_1_1internal_1_1StringShape =
     [ "IsSliced", "classv8_1_1internal_1_1StringShape.html#a72d8e1e52fda416345beecedb460bb39", null ],
     [ "IsThin", "classv8_1_1internal_1_1StringShape.html#a28c6d13fd66b5aaf248bc39ecf0adbe8", null ],
     [ "IsTwoByte", "classv8_1_1internal_1_1StringShape.html#ae5dce8a9c370e699da9d6812a0d3e907", null ],
-    [ "IsUncachedExternal", "classv8_1_1internal_1_1StringShape.html#aef5f891fa9e99a89c5b033e6a055a696", null ]
+    [ "IsUncachedExternal", "classv8_1_1internal_1_1StringShape.html#aef5f891fa9e99a89c5b033e6a055a696", null ],
+    [ "map_or_type", "classv8_1_1internal_1_1StringShape.html#a30d47de4650efe8b43fd98f6b23fc71c", null ],
+    [ "set_valid", "classv8_1_1internal_1_1StringShape.html#a7720b925e3ed9cc8c2904e96aedf9f6c", null ],
+    [ "type_", "classv8_1_1internal_1_1StringShape.html#a1939c78e386321223a067dcd4be84d69", null ]
 ];

@@ -5,6 +5,7 @@ var classv8_1_1debug_1_1StackTraceIterator =
     [ "StackTraceIterator", "classv8_1_1debug_1_1StackTraceIterator.html#a674ec9d33062aeaab91d0ebae49f27a0", null ],
     [ "Advance", "classv8_1_1debug_1_1StackTraceIterator.html#a6442dea1358831f7026b19f97b7d03d3", null ],
     [ "CanBeRestarted", "classv8_1_1debug_1_1StackTraceIterator.html#a170c4a415b0e7486288dca8b726b4d14", null ],
+    [ "Create", "classv8_1_1debug_1_1StackTraceIterator.html#a6df2fb5c132eb909ab618a3c5ca4a46c", null ],
     [ "Done", "classv8_1_1debug_1_1StackTraceIterator.html#a62a12d12e464df11c9385eb287ae33f2", null ],
     [ "Evaluate", "classv8_1_1debug_1_1StackTraceIterator.html#a6e4eb03910347c7770ba250bc0b34d00", null ],
     [ "GetContextId", "classv8_1_1debug_1_1StackTraceIterator.html#aaeaf4af8474599537dfe9f19af6f4cd9", null ],

@@ -27,11 +27,68 @@ Collaboration diagram for v8\+::internal\+::Wasm\+Object\+:
 \doxysubsection*{Static Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1WasmObject_a2f390983b7bea418a34ef47c6d945851}{Read\+Value\+At}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ obj, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1CanonicalValueType}{wasm\+::\+Canonical\+Value\+Type}} \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}}, uint32\+\_\+t \mbox{\hyperlink{liftoff-compiler_8cc_aed7ea92f45bd273dde380a45ddced592}{offset}})
+static \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1WasmObject_a2f390983b7bea418a34ef47c6d945851}{Read\+Value\+At}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ obj, \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1CanonicalValueType}{wasm\+::\+Canonical\+Value\+Type}} type, uint32\+\_\+t offset)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Element\+Type $>$ }\\static Element\+Type \mbox{\hyperlink{classv8_1_1internal_1_1WasmObject_ac256778e421b0f8f8e23f444e4920380}{From\+Number}} (\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 1392 of file wasm-\/objects.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1WasmObject_ac256778e421b0f8f8e23f444e4920380}\label{classv8_1_1internal_1_1WasmObject_ac256778e421b0f8f8e23f444e4920380}} 
+\index{v8::internal::WasmObject@{v8::internal::WasmObject}!FromNumber@{FromNumber}}
+\index{FromNumber@{FromNumber}!v8::internal::WasmObject@{v8::internal::WasmObject}}
+\doxysubsubsection{\texorpdfstring{FromNumber()}{FromNumber()}}
+{\footnotesize\ttfamily template$<$typename Element\+Type $>$ \\
+Element\+Type v8\+::internal\+::\+Wasm\+Object\+::\+From\+Number (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{Object}} $>$}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 699 of file wasm-\/objects-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{699                                                        \{}
+\DoxyCodeLine{700   \textcolor{comment}{// The value must already be prepared for storing to numeric fields.}}
+\DoxyCodeLine{701   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{namespacev8_1_1internal_a33a2826557a82e4cd9775aadf0f5711e}{IsNumber}}(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}));}
+\DoxyCodeLine{702   \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_ac299e59759eecb4621f6bad64d5db952}{IsSmi}}(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})) \{}
+\DoxyCodeLine{703     \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}ElementType\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1Smi_a2e32de9e93a2cdfae189371f22782dad}{Smi::ToInt}}(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}));}
+\DoxyCodeLine{704 }
+\DoxyCodeLine{705   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (IsHeapNumber(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})) \{}
+\DoxyCodeLine{706     \textcolor{keywordtype}{double} double\_value = Cast<HeapNumber>(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})-\/>value();}
+\DoxyCodeLine{707     \textcolor{keywordflow}{if} (std::is\_same\_v<ElementType, double> ||}
+\DoxyCodeLine{708         std::is\_same\_v<ElementType, float>) \{}
+\DoxyCodeLine{709       \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}ElementType\textcolor{keyword}{>}(double\_value);}
+\DoxyCodeLine{710     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{711       \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(std::is\_integral\_v<ElementType>);}
+\DoxyCodeLine{712       \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}ElementType\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1internal_a9b26b3ec2dde9a3e6dfab35040d87002}{DoubleToInt32}}(double\_value));}
+\DoxyCodeLine{713     \}}
+\DoxyCodeLine{714   \}}
+\DoxyCodeLine{715   \mbox{\hyperlink{namespacev8_1_1internal_acdec713c25068019f935e35976f5b666}{UNREACHABLE}}();}
+\DoxyCodeLine{716 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Double\+To\+Int32(), v8\+::internal\+::\+Is\+Number(), v8\+::internal\+::\+Is\+Smi(), v8\+::internal\+::\+Smi\+::\+To\+Int(), v8\+::internal\+::\+UNREACHABLE(), and v8\+::internal\+::value.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1WasmObject_ac256778e421b0f8f8e23f444e4920380_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1WasmObject_a2f390983b7bea418a34ef47c6d945851}\label{classv8_1_1internal_1_1WasmObject_a2f390983b7bea418a34ef47c6d945851}} 
 \index{v8::internal::WasmObject@{v8::internal::WasmObject}!ReadValueAt@{ReadValueAt}}
 \index{ReadValueAt@{ReadValueAt}!v8::internal::WasmObject@{v8::internal::WasmObject}}
@@ -40,7 +97,74 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$
 
 
 
+Definition at line 645 of file wasm-\/objects-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{648                                                               \{}
+\DoxyCodeLine{649   \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} field\_address = obj-\/>GetFieldAddress(offset);}
+\DoxyCodeLine{650   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{namespacev8_1_1internal_1_1tracing_a96000282e12b2483531025283d63154d}{type}}.kind()) \{}
+\DoxyCodeLine{651     \textcolor{keywordflow}{case} wasm::kI8: \{}
+\DoxyCodeLine{652       int8\_t \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = base::Memory<int8\_t>(field\_address);}
+\DoxyCodeLine{653       \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(\mbox{\hyperlink{classv8_1_1internal_1_1Smi_afe7f07102d90ccce48cbe677c88a0645}{Smi::FromInt}}(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}), isolate);}
+\DoxyCodeLine{654     \}}
+\DoxyCodeLine{655     \textcolor{keywordflow}{case} wasm::kI16: \{}
+\DoxyCodeLine{656       \mbox{\hyperlink{namespaceunibrow_a511cc0636aed6a00d37d3e7cc0ec4e7c}{int16\_t}} \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = base::Memory<int16\_t>(field\_address);}
+\DoxyCodeLine{657       \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(\mbox{\hyperlink{classv8_1_1internal_1_1Smi_afe7f07102d90ccce48cbe677c88a0645}{Smi::FromInt}}(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}), isolate);}
+\DoxyCodeLine{658     \}}
+\DoxyCodeLine{659     \textcolor{keywordflow}{case} wasm::kI32: \{}
+\DoxyCodeLine{660       \mbox{\hyperlink{namespaceunibrow_ab0275d47f9778d486eafe88b18c5851d}{int32\_t}} \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = base::Memory<int32\_t>(field\_address);}
+\DoxyCodeLine{661       \textcolor{keywordflow}{return} isolate-\/>factory()-\/>NewNumberFromInt(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});}
+\DoxyCodeLine{662     \}}
+\DoxyCodeLine{663     \textcolor{keywordflow}{case} wasm::kI64: \{}
+\DoxyCodeLine{664       int64\_t \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = base::ReadUnalignedValue<int64\_t>(field\_address);}
+\DoxyCodeLine{665       \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1BigInt_a92f1266cb08a3cb5f75b768e474943a1}{BigInt::FromInt64}}(isolate, \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});}
+\DoxyCodeLine{666     \}}
+\DoxyCodeLine{667     \textcolor{keywordflow}{case} wasm::kF16: \{}
+\DoxyCodeLine{668       \mbox{\hyperlink{namespaceunibrow_a0869a94c1a582a2b47889b990444deb9}{uint16\_t}} \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = base::Memory<uint16\_t>(field\_address);}
+\DoxyCodeLine{669       \textcolor{keywordflow}{return} isolate-\/>factory()-\/>NewNumber(fp16\_ieee\_to\_fp32\_value(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}));}
+\DoxyCodeLine{670     \}}
+\DoxyCodeLine{671     \textcolor{keywordflow}{case} wasm::kF32: \{}
+\DoxyCodeLine{672       \textcolor{keywordtype}{float} \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = base::Memory<float>(field\_address);}
+\DoxyCodeLine{673       \textcolor{keywordflow}{return} isolate-\/>factory()-\/>NewNumber(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});}
+\DoxyCodeLine{674     \}}
+\DoxyCodeLine{675     \textcolor{keywordflow}{case} wasm::kF64: \{}
+\DoxyCodeLine{676       \textcolor{keywordtype}{double} \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = base::ReadUnalignedValue<double>(field\_address);}
+\DoxyCodeLine{677       \textcolor{keywordflow}{return} isolate-\/>factory()-\/>NewNumber(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});}
+\DoxyCodeLine{678     \}}
+\DoxyCodeLine{679     \textcolor{keywordflow}{case} wasm::kS128:}
+\DoxyCodeLine{680       \textcolor{comment}{// TODO(v8:11804): implement}}
+\DoxyCodeLine{681       \mbox{\hyperlink{namespacev8_1_1internal_acdec713c25068019f935e35976f5b666}{UNREACHABLE}}();}
+\DoxyCodeLine{682 }
+\DoxyCodeLine{683     \textcolor{keywordflow}{case} wasm::kRef:}
+\DoxyCodeLine{684     \textcolor{keywordflow}{case} wasm::kRefNull: \{}
+\DoxyCodeLine{685       \mbox{\hyperlink{namespacev8_1_1internal_a0bc0ebcec45817212856f7d5e021224c}{ObjectSlot}} slot(field\_address);}
+\DoxyCodeLine{686       \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(slot.load(isolate), isolate);}
+\DoxyCodeLine{687     \}}
+\DoxyCodeLine{688 }
+\DoxyCodeLine{689     \textcolor{keywordflow}{case} wasm::kVoid:}
+\DoxyCodeLine{690     \textcolor{keywordflow}{case} wasm::kTop:}
+\DoxyCodeLine{691     \textcolor{keywordflow}{case} wasm::kBottom:}
+\DoxyCodeLine{692       \mbox{\hyperlink{namespacev8_1_1internal_acdec713c25068019f935e35976f5b666}{UNREACHABLE}}();}
+\DoxyCodeLine{693   \}}
+\DoxyCodeLine{694 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::direct\+\_\+handle(), v8\+::internal\+::\+Isolate\+::factory(), v8\+::internal\+::\+Smi\+::\+From\+Int(), v8\+::internal\+::\+Big\+Int\+::\+From\+Int64(), v8\+::internal\+::\+Full\+Object\+Slot\+::load(), v8\+::internal\+::\+Factory\+Base$<$ Impl $>$\+::\+New\+Number(), v8\+::internal\+::\+Factory\+Base$<$ Impl $>$\+::\+New\+Number\+From\+Int(), v8\+::internal\+::tracing\+::type, v8\+::internal\+::\+UNREACHABLE(), and v8\+::internal\+::value.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1WasmObject_a2f390983b7bea418a34ef47c6d945851_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{wasm-objects_8h}{wasm-\/objects.\+h}}\item 
-\mbox{\hyperlink{wasm-objects-inl_8h}{wasm-\/objects-\/inl.\+h}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{wasm-objects_8h}{wasm-\/objects.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/wasm/\mbox{\hyperlink{wasm-objects-inl_8h}{wasm-\/objects-\/inl.\+h}}\end{DoxyCompactItemize}

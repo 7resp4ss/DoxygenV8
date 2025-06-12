@@ -20,6 +20,6 @@ var api_inl_8h =
     [ "FromCData", "api-inl_8h.html#ae36ae4bb0aac659bf9db8d8bb6aa17f3", null ],
     [ "ToCData", "api-inl_8h.html#a23e3554e42c1196b69ff992c5dbe12cb", null ],
     [ "ToCData", "api-inl_8h.html#a3f40a04b3289ad86cf0ef2ac34ff1125", null ],
-    [ "TryCopyAndConvertArrayToCppBuffer", "api-inl_8h.html#a4ce602eb98c049e6d38e4507ebd71c4c", null ],
-    [ "TryToCopyAndConvertArrayToCppBuffer", "api-inl_8h.html#afc6ce486179bb716cb07bfe0914018c3", null ]
+    [ "TryCopyAndConvertArrayToCppBuffer", "api-inl_8h.html#aece9625f06e39f60528fd7af52e4a2c5", null ],
+    [ "TryToCopyAndConvertArrayToCppBuffer", "api-inl_8h.html#a4fbaeb32da67d975632f920c12a9cefe", null ]
 ];

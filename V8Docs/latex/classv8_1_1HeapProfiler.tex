@@ -2,6 +2,11 @@
 \label{classv8_1_1HeapProfiler}\index{v8::HeapProfiler@{v8::HeapProfiler}}
 
 
+Interface for controlling heap profiling.  
+
+
+
+
 {\ttfamily \#include $<$v8-\/profiler.\+h$>$}
 
 
@@ -11,7 +16,7 @@ Collaboration diagram for v8\+::Heap\+Profiler\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=261pt]{classv8_1_1HeapProfiler__coll__graph}
+\includegraphics[width=314pt]{classv8_1_1HeapProfiler__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Classes}
@@ -20,7 +25,7 @@ Collaboration diagram for v8\+::Heap\+Profiler\+:
 struct \mbox{\hyperlink{structv8_1_1HeapProfiler_1_1HeapSnapshotOptions}{Heap\+Snapshot\+Options}}
 \item 
 class \mbox{\hyperlink{classv8_1_1HeapProfiler_1_1ObjectNameResolver}{Object\+Name\+Resolver}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Callback interface for retrieving user friendly names of global objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -38,85 +43,116 @@ enum class \mbox{\hyperlink{classv8_1_1HeapProfiler_aff63e274f0818e2cc593789d428
 , \mbox{\hyperlink{classv8_1_1HeapProfiler_aff63e274f0818e2cc593789d428e632ba4c6275c5c123b451cff9c10abd5372e1}{k\+Expose\+Numeric\+Values}}
  \}
 \item 
-typedef void($\ast$ \mbox{\hyperlink{classv8_1_1HeapProfiler_a29c98afa5ce0ea543eef904201bc3e40}{Build\+Embedder\+Graph\+Callback}}) (\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1EmbedderGraph}{v8\+::\+Embedder\+Graph}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}, void $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}})
-\item 
-using \mbox{\hyperlink{classv8_1_1HeapProfiler_af3fa55ebbd81e66b783f713ea5b06628}{Get\+Detachedness\+Callback}} = \mbox{\hyperlink{classv8_1_1EmbedderGraph_1_1Node_a3e98a15b4cad0a046e8f9e26cdca53ff}{Embedder\+Graph\+::\+Node\+::\+Detachedness}}($\ast$)(\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, const \mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ \&v8\+\_\+value, uint16\+\_\+t class\+\_\+id, void $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}})
-\end{DoxyCompactItemize}
+typedef void($\ast$ \mbox{\hyperlink{classv8_1_1HeapProfiler_a29c98afa5ce0ea543eef904201bc3e40}{Build\+Embedder\+Graph\+Callback}}) (\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1EmbedderGraph}{v8\+::\+Embedder\+Graph}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Callback function invoked during heap snapshot generation to retrieve the embedder object graph. \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{classv8_1_1HeapProfiler_af3fa55ebbd81e66b783f713ea5b06628}{Get\+Detachedness\+Callback}} = \mbox{\hyperlink{classv8_1_1EmbedderGraph_1_1Node_a3e98a15b4cad0a046e8f9e26cdca53ff}{Embedder\+Graph\+::\+Node\+::\+Detachedness}}($\ast$)(\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$isolate, const \mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ \&v8\+\_\+value, uint16\+\_\+t class\+\_\+id, void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Callback function invoked during heap snapshot generation to retrieve the detachedness state of a JS object referenced by a \mbox{\hyperlink{classv8_1_1TracedReference}{Traced\+Reference}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{classv8_1_1HeapProfiler_a1fc1b1e7d5b4b1cfa7d84de168991152}{Query\+Objects}} (\mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Context}{v8\+::\+Context}} $>$ \mbox{\hyperlink{js-call-reducer_8cc_a0835767fe473cead88c1afdf3175bce8}{context}}, \mbox{\hyperlink{classv8_1_1QueryObjectPredicate}{Query\+Object\+Predicate}} $\ast$predicate, std\+::vector$<$ \mbox{\hyperlink{classv8_1_1Global}{v8\+::\+Global}}$<$ \mbox{\hyperlink{classv8_1_1Object}{v8\+::\+Object}} $>$$>$ $\ast$objects)
+void \mbox{\hyperlink{classv8_1_1HeapProfiler_a1fc1b1e7d5b4b1cfa7d84de168991152}{Query\+Objects}} (\mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Context}{v8\+::\+Context}} $>$ context, \mbox{\hyperlink{classv8_1_1QueryObjectPredicate}{Query\+Object\+Predicate}} $\ast$predicate, std\+::vector$<$ \mbox{\hyperlink{classv8_1_1Global}{v8\+::\+Global}}$<$ \mbox{\hyperlink{classv8_1_1Object}{v8\+::\+Object}} $>$$>$ $\ast$objects)
 \item 
-int \mbox{\hyperlink{classv8_1_1HeapProfiler_a24830775a0ab938eb0a29ed8f3dfd265}{Get\+Snapshot\+Count}} ()
-\item 
-const \mbox{\hyperlink{classv8_1_1HeapSnapshot}{Heap\+Snapshot}} $\ast$ \mbox{\hyperlink{classv8_1_1HeapProfiler_ad76cc22ab8c91d6bd7a065d97c430aea}{Get\+Heap\+Snapshot}} (int \mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}})
-\item 
-\mbox{\hyperlink{namespacev8_a0ed23f9ece26456baef3f52b4c4b488a}{Snapshot\+Object\+Id}} \mbox{\hyperlink{classv8_1_1HeapProfiler_ab926a1f1ed95b731d4ef3133e67eef19}{Get\+Object\+Id}} (\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$ \mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
-\item 
-\mbox{\hyperlink{namespacev8_a0ed23f9ece26456baef3f52b4c4b488a}{Snapshot\+Object\+Id}} \mbox{\hyperlink{classv8_1_1HeapProfiler_ab70b786b27f81e5b50c1a271f29df779}{Get\+Object\+Id}} (\mbox{\hyperlink{namespacev8_ac414b22ecfa34701ee25c118234d49af}{Native\+Object}} \mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
-\item 
+\mbox{\hyperlink{classint}{int}} \mbox{\hyperlink{classv8_1_1HeapProfiler_a24830775a0ab938eb0a29ed8f3dfd265}{Get\+Snapshot\+Count}} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of snapshots taken. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classv8_1_1HeapSnapshot}{Heap\+Snapshot}} $\ast$ \mbox{\hyperlink{classv8_1_1HeapProfiler_ad76cc22ab8c91d6bd7a065d97c430aea}{Get\+Heap\+Snapshot}} (\mbox{\hyperlink{classint}{int}} index)
+\begin{DoxyCompactList}\small\item\em Returns a snapshot by index. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacev8_a0ed23f9ece26456baef3f52b4c4b488a}{Snapshot\+Object\+Id}} \mbox{\hyperlink{classv8_1_1HeapProfiler_ab926a1f1ed95b731d4ef3133e67eef19}{Get\+Object\+Id}} (\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$ value)
+\begin{DoxyCompactList}\small\item\em Returns Snapshot\+Object\+Id for a heap object referenced by $\vert$value$\vert$ if it has been seen by the heap profiler, k\+Unknown\+Object\+Id otherwise. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacev8_a0ed23f9ece26456baef3f52b4c4b488a}{Snapshot\+Object\+Id}} \mbox{\hyperlink{classv8_1_1HeapProfiler_ab70b786b27f81e5b50c1a271f29df779}{Get\+Object\+Id}} (\mbox{\hyperlink{namespacev8_ac414b22ecfa34701ee25c118234d49af}{Native\+Object}} value)
+\begin{DoxyCompactList}\small\item\em Returns Snapshot\+Object\+Id for a native object referenced by $\vert$value$\vert$ if it has been seen by the heap profiler, k\+Unknown\+Object\+Id otherwise. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$ \mbox{\hyperlink{classv8_1_1HeapProfiler_a34d10872fafb761bb96673cf81d1a613}{Find\+Object\+By\+Id}} (\mbox{\hyperlink{namespacev8_a0ed23f9ece26456baef3f52b4c4b488a}{Snapshot\+Object\+Id}} id)
-\item 
+\begin{DoxyCompactList}\small\item\em Returns heap object with given Snapshot\+Object\+Id if the object is alive, otherwise empty handle is returned. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classv8_1_1HeapProfiler_a8a90c630543ed1875cbf9166239ff8d3}{Clear\+Object\+Ids}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Clears internal map from Snapshot\+Object\+Id to heap object. \end{DoxyCompactList}\item 
 const \mbox{\hyperlink{classv8_1_1HeapSnapshot}{Heap\+Snapshot}} $\ast$ \mbox{\hyperlink{classv8_1_1HeapProfiler_acb51ae3b356dcc497b9a9c3ccd72f41d}{Take\+Heap\+Snapshot}} (const \mbox{\hyperlink{structv8_1_1HeapProfiler_1_1HeapSnapshotOptions}{Heap\+Snapshot\+Options}} \&options=\mbox{\hyperlink{structv8_1_1HeapProfiler_1_1HeapSnapshotOptions}{Heap\+Snapshot\+Options}}())
-\item 
+\begin{DoxyCompactList}\small\item\em Takes a heap snapshot. \end{DoxyCompactList}\item 
 const \mbox{\hyperlink{classv8_1_1HeapSnapshot}{Heap\+Snapshot}} $\ast$ \mbox{\hyperlink{classv8_1_1HeapProfiler_a90fe37731ef691678bc1ca755370f091}{Take\+Heap\+Snapshot}} (\mbox{\hyperlink{classv8_1_1ActivityControl}{Activity\+Control}} $\ast$control, \mbox{\hyperlink{classv8_1_1HeapProfiler_1_1ObjectNameResolver}{Object\+Name\+Resolver}} $\ast$global\+\_\+object\+\_\+name\+\_\+resolver=\mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}, bool hide\+\_\+internals=\mbox{\hyperlink{flag-definitions_8h_ae56df915684f69fc6f5c0f3bd3b3c80c}{true}}, bool capture\+\_\+numeric\+\_\+value=\mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}})
-\item 
+\begin{DoxyCompactList}\small\item\em Takes a heap snapshot. \end{DoxyCompactList}\item 
 std\+::vector$<$ \mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ $>$ \mbox{\hyperlink{classv8_1_1HeapProfiler_a66a26cce653864dc059d564409a3f210}{Get\+Detached\+JSWrapper\+Objects}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Obtains list of Detached JS Wrapper Objects. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classv8_1_1HeapProfiler_a02917db133b7efd468c9c73075a15171}{Start\+Tracking\+Heap\+Objects}} (bool track\+\_\+allocations=\mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}})
-\item 
+\begin{DoxyCompactList}\small\item\em Starts tracking of heap objects population statistics. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespacev8_a0ed23f9ece26456baef3f52b4c4b488a}{Snapshot\+Object\+Id}} \mbox{\hyperlink{classv8_1_1HeapProfiler_add093717acd067daeddb7ef5fc8b191a}{Get\+Heap\+Stats}} (\mbox{\hyperlink{classv8_1_1OutputStream}{Output\+Stream}} $\ast$stream, int64\+\_\+t $\ast$timestamp\+\_\+us=\mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}})
-\item 
+\begin{DoxyCompactList}\small\item\em Adds a new time interval entry to the aggregated statistics array. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classv8_1_1HeapProfiler_ae448d9474ae34781133d4a4547b08cb1}{Stop\+Tracking\+Heap\+Objects}} ()
-\item 
-bool \mbox{\hyperlink{classv8_1_1HeapProfiler_a6b9450bbf1f4e1a4909df92d4df4a174}{Start\+Sampling\+Heap\+Profiler}} (uint64\+\_\+t sample\+\_\+interval=512 $\ast$1024, int stack\+\_\+depth=16, \mbox{\hyperlink{classv8_1_1HeapProfiler_aa7826fbe67065080b08309e8f649e049}{Sampling\+Flags}} \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}}=\mbox{\hyperlink{classv8_1_1HeapProfiler_aa7826fbe67065080b08309e8f649e049a9c35f2975bc5a6374b2e3b0236201b0d}{k\+Sampling\+No\+Flags}})
-\item 
+\begin{DoxyCompactList}\small\item\em Stops tracking of heap objects population statistics, cleans up all collected data. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classv8_1_1HeapProfiler_a6b9450bbf1f4e1a4909df92d4df4a174}{Start\+Sampling\+Heap\+Profiler}} (uint64\+\_\+t sample\+\_\+interval=512 $\ast$1024, \mbox{\hyperlink{classint}{int}} stack\+\_\+depth=16, \mbox{\hyperlink{classv8_1_1HeapProfiler_aa7826fbe67065080b08309e8f649e049}{Sampling\+Flags}} \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}}=\mbox{\hyperlink{classv8_1_1HeapProfiler_aa7826fbe67065080b08309e8f649e049a9c35f2975bc5a6374b2e3b0236201b0d}{k\+Sampling\+No\+Flags}})
+\begin{DoxyCompactList}\small\item\em Starts gathering a sampling heap profile. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classv8_1_1HeapProfiler_abc43e12e6febb087be251c0629ff17bf}{Stop\+Sampling\+Heap\+Profiler}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Stops the sampling heap profile and discards the current profile. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classv8_1_1AllocationProfile}{Allocation\+Profile}} $\ast$ \mbox{\hyperlink{classv8_1_1HeapProfiler_a371a6e936782571f81542bfafce359d9}{Get\+Allocation\+Profile}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the sampled profile of allocations allocated (and still live) since Start\+Sampling\+Heap\+Profiler was called. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classv8_1_1HeapProfiler_a6a75bcc6d8350858597b6a6ce5e349a2}{Delete\+All\+Heap\+Snapshots}} ()
+\begin{DoxyCompactList}\small\item\em Deletes all snapshots taken. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classv8_1_1HeapProfiler_a4aa69e692d215f7b4599afe2c9dbfbfd}{Add\+Build\+Embedder\+Graph\+Callback}} (\mbox{\hyperlink{classv8_1_1HeapProfiler_a29c98afa5ce0ea543eef904201bc3e40}{Build\+Embedder\+Graph\+Callback}} callback, void $\ast$data)
 \item 
-void \mbox{\hyperlink{classv8_1_1HeapProfiler_a4aa69e692d215f7b4599afe2c9dbfbfd}{Add\+Build\+Embedder\+Graph\+Callback}} (\mbox{\hyperlink{classv8_1_1HeapProfiler_a29c98afa5ce0ea543eef904201bc3e40}{Build\+Embedder\+Graph\+Callback}} \mbox{\hyperlink{js-call-reducer_8cc_ad83e8682ed733ee0cf359fa4f48441b0}{callback}}, void $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}})
+void \mbox{\hyperlink{classv8_1_1HeapProfiler_a3f7289d12816af7738944f530d28495d}{Remove\+Build\+Embedder\+Graph\+Callback}} (\mbox{\hyperlink{classv8_1_1HeapProfiler_a29c98afa5ce0ea543eef904201bc3e40}{Build\+Embedder\+Graph\+Callback}} callback, void $\ast$data)
 \item 
-void \mbox{\hyperlink{classv8_1_1HeapProfiler_a3f7289d12816af7738944f530d28495d}{Remove\+Build\+Embedder\+Graph\+Callback}} (\mbox{\hyperlink{classv8_1_1HeapProfiler_a29c98afa5ce0ea543eef904201bc3e40}{Build\+Embedder\+Graph\+Callback}} \mbox{\hyperlink{js-call-reducer_8cc_ad83e8682ed733ee0cf359fa4f48441b0}{callback}}, void $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}})
-\item 
-void \mbox{\hyperlink{classv8_1_1HeapProfiler_a04e6fd2201b25ab4b8a398b37e728c67}{Set\+Get\+Detachedness\+Callback}} (\mbox{\hyperlink{classv8_1_1HeapProfiler_af3fa55ebbd81e66b783f713ea5b06628}{Get\+Detachedness\+Callback}} \mbox{\hyperlink{js-call-reducer_8cc_ad83e8682ed733ee0cf359fa4f48441b0}{callback}}, void $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}})
+void \mbox{\hyperlink{classv8_1_1HeapProfiler_a04e6fd2201b25ab4b8a398b37e728c67}{Set\+Get\+Detachedness\+Callback}} (\mbox{\hyperlink{classv8_1_1HeapProfiler_af3fa55ebbd81e66b783f713ea5b06628}{Get\+Detachedness\+Callback}} callback, void $\ast$data)
 \item 
 bool \mbox{\hyperlink{classv8_1_1HeapProfiler_a256fc136d91ea994e8673c91a22cb37e}{Is\+Taking\+Snapshot}} ()
-\item 
-const char $\ast$ \mbox{\hyperlink{classv8_1_1HeapProfiler_a7bbd16ad003fba1ec1ad459d508c6959}{Copy\+Name\+For\+Heap\+Snapshot}} (const char $\ast$\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Returns whether the heap profiler is currently taking a snapshot. \end{DoxyCompactList}\item 
+const char $\ast$ \mbox{\hyperlink{classv8_1_1HeapProfiler_a7bbd16ad003fba1ec1ad459d508c6959}{Copy\+Name\+For\+Heap\+Snapshot}} (const char $\ast$\mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}})
+\begin{DoxyCompactList}\small\item\em Allocates a copy of the provided string within the heap snapshot generator and returns a pointer to the copy. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 static const \mbox{\hyperlink{namespacev8_a0ed23f9ece26456baef3f52b4c4b488a}{Snapshot\+Object\+Id}} \mbox{\hyperlink{classv8_1_1HeapProfiler_a40f41d75716ff1b335e95521296e027d}{k\+Unknown\+Object\+Id}} = 0
-\item 
+\begin{DoxyCompactList}\small\item\em A constant for invalid Snapshot\+Object\+Id. \end{DoxyCompactList}\item 
 static const uint16\+\_\+t \mbox{\hyperlink{classv8_1_1HeapProfiler_a272c9af3ea5cd90a2737af3d22a7eb78}{k\+Persistent\+Handle\+No\+Class\+Id}} = 0
+\begin{DoxyCompactList}\small\item\em Default value of persistent handle class ID. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1HeapProfiler_a18a1718f212ec3cd841e6eccb299567a}{Heap\+Profiler}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1HeapProfiler_ae29bce04fde6def75b954b1834629f5a}{$\sim$\+Heap\+Profiler}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1HeapProfiler_abb7dd8b5c784388e6ca2266344f18056}{Heap\+Profiler}} (const \mbox{\hyperlink{classv8_1_1HeapProfiler}{Heap\+Profiler}} \&)
+\item 
+\mbox{\hyperlink{classv8_1_1HeapProfiler}{Heap\+Profiler}} \& \mbox{\hyperlink{classv8_1_1HeapProfiler_a9792e8ddde522f8e2aa97005c0e6bc8f}{operator=}} (const \mbox{\hyperlink{classv8_1_1HeapProfiler}{Heap\+Profiler}} \&)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Interface for controlling heap profiling. Instance of the profiler can be retrieved using \mbox{\hyperlink{classv8_1_1Isolate_a12f5bdacd2d2f62b1f5a22429a470ebb}{v8\+::\+Isolate\+::\+Get\+Heap\+Profiler}}. 
+Interface for controlling heap profiling. 
+
+Instance of the profiler can be retrieved using \mbox{\hyperlink{classv8_1_1Isolate_a12f5bdacd2d2f62b1f5a22429a470ebb}{v8\+::\+Isolate\+::\+Get\+Heap\+Profiler}}. 
+
+Definition at line 969 of file v8-\/profiler.\+h.
+
+
 
 \doxysubsection{Member Typedef Documentation}
 \mbox{\Hypertarget{classv8_1_1HeapProfiler_a29c98afa5ce0ea543eef904201bc3e40}\label{classv8_1_1HeapProfiler_a29c98afa5ce0ea543eef904201bc3e40}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!BuildEmbedderGraphCallback@{BuildEmbedderGraphCallback}}
 \index{BuildEmbedderGraphCallback@{BuildEmbedderGraphCallback}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{BuildEmbedderGraphCallback}{BuildEmbedderGraphCallback}}
-{\footnotesize\ttfamily typedef void($\ast$ v8\+::\+Heap\+Profiler\+::\+Build\+Embedder\+Graph\+Callback) (\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1EmbedderGraph}{v8\+::\+Embedder\+Graph}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}, void $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}})}
+{\footnotesize\ttfamily typedef void($\ast$ v8\+::\+Heap\+Profiler\+::\+Build\+Embedder\+Graph\+Callback) (\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1EmbedderGraph}{v8\+::\+Embedder\+Graph}} $\ast$\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}, void $\ast$data)}
 
-Callback function invoked during heap snapshot generation to retrieve the embedder object graph. The callback should use graph-\/$>$Add\+Edge(..) to add references between the objects. The callback must not trigger garbage collection in \mbox{\hyperlink{classv8_1_1V8}{V8}}. \mbox{\Hypertarget{classv8_1_1HeapProfiler_af3fa55ebbd81e66b783f713ea5b06628}\label{classv8_1_1HeapProfiler_af3fa55ebbd81e66b783f713ea5b06628}} 
+
+
+Callback function invoked during heap snapshot generation to retrieve the embedder object graph. 
+
+The callback should use graph-\/$>$Add\+Edge(..) to add references between the objects. The callback must not trigger garbage collection in \mbox{\hyperlink{classv8_1_1V8}{V8}}. 
+
+Definition at line 988 of file v8-\/profiler.\+h.
+
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_af3fa55ebbd81e66b783f713ea5b06628}\label{classv8_1_1HeapProfiler_af3fa55ebbd81e66b783f713ea5b06628}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!GetDetachednessCallback@{GetDetachednessCallback}}
 \index{GetDetachednessCallback@{GetDetachednessCallback}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{GetDetachednessCallback}{GetDetachednessCallback}}
-{\footnotesize\ttfamily using \mbox{\hyperlink{classv8_1_1HeapProfiler_af3fa55ebbd81e66b783f713ea5b06628}{v8\+::\+Heap\+Profiler\+::\+Get\+Detachedness\+Callback}} =  \mbox{\hyperlink{classv8_1_1EmbedderGraph_1_1Node_a3e98a15b4cad0a046e8f9e26cdca53ff}{Embedder\+Graph\+::\+Node\+::\+Detachedness}} ($\ast$)( \mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}}$\ast$ \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, const \mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$\mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}}$>$\& v8\+\_\+value, uint16\+\_\+t class\+\_\+id, void$\ast$ \mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}})}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classv8_1_1HeapProfiler_af3fa55ebbd81e66b783f713ea5b06628}{v8\+::\+Heap\+Profiler\+::\+Get\+Detachedness\+Callback}} =  \mbox{\hyperlink{classv8_1_1EmbedderGraph_1_1Node_a3e98a15b4cad0a046e8f9e26cdca53ff}{Embedder\+Graph\+::\+Node\+::\+Detachedness}} ($\ast$)( \mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}}$\ast$ isolate, const \mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$\mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}}$>$\& v8\+\_\+value, uint16\+\_\+t class\+\_\+id, void$\ast$ data)}
 
-Callback function invoked during heap snapshot generation to retrieve the detachedness state of a JS object referenced by a \mbox{\hyperlink{classv8_1_1TracedReference}{Traced\+Reference}}.
 
-The callback takes \mbox{\hyperlink{classv8_1_1Local}{Local$<$\+Value$>$}} as parameter to allow the embedder to unpack the \mbox{\hyperlink{classv8_1_1TracedReference}{Traced\+Reference}} into a \mbox{\hyperlink{classv8_1_1Local}{Local}} and reuse that \mbox{\hyperlink{classv8_1_1Local}{Local}} for different purposes. 
+
+Callback function invoked during heap snapshot generation to retrieve the detachedness state of a JS object referenced by a \mbox{\hyperlink{classv8_1_1TracedReference}{Traced\+Reference}}. 
+
+The callback takes Local$<$\+Value$>$ as parameter to allow the embedder to unpack the \mbox{\hyperlink{classv8_1_1TracedReference}{Traced\+Reference}} into a \mbox{\hyperlink{classv8_1_1Local}{Local}} and reuse that \mbox{\hyperlink{classv8_1_1Local}{Local}} for different purposes. 
+
+Definition at line 1000 of file v8-\/profiler.\+h.
+
+
 
 \doxysubsection{Member Enumeration Documentation}
 \mbox{\Hypertarget{classv8_1_1HeapProfiler_a8bc875b93c9dbb6225e4b16152e8192c}\label{classv8_1_1HeapProfiler_a8bc875b93c9dbb6225e4b16152e8192c}} 
@@ -135,6 +171,24 @@ k\+Expose\+Internals&Heap snapshot is exposing internals that may be useful for 
 \hline
 
 \end{DoxyEnumFields}
+
+
+Definition at line 1057 of file v8-\/profiler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1057                               \{\textcolor{comment}{}}
+\DoxyCodeLine{1058 \textcolor{comment}{    /**}}
+\DoxyCodeLine{1059 \textcolor{comment}{     * Heap snapshot for regular developers.}}
+\DoxyCodeLine{1060 \textcolor{comment}{     */}}
+\DoxyCodeLine{1061     \mbox{\hyperlink{namespacev8__inspector_1_1anonymous__namespace_02v8-console_8cc_03_adf875f9db530467b78e5703cb6bef044a5a9c69b905f40e54ca7cd2ca1ed9dd83}{kRegular}},\textcolor{comment}{}}
+\DoxyCodeLine{1062 \textcolor{comment}{    /**}}
+\DoxyCodeLine{1063 \textcolor{comment}{     * Heap snapshot is exposing internals that may be useful for experts.}}
+\DoxyCodeLine{1064 \textcolor{comment}{     */}}
+\DoxyCodeLine{1065     kExposeInternals,}
+\DoxyCodeLine{1066   \};}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1HeapProfiler_aff63e274f0818e2cc593789d428e632b}\label{classv8_1_1HeapProfiler_aff63e274f0818e2cc593789d428e632b}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!NumericsMode@{NumericsMode}}
 \index{NumericsMode@{NumericsMode}!v8::HeapProfiler@{v8::HeapProfiler}}
@@ -151,6 +205,25 @@ k\+Expose\+Numeric\+Values&\mbox{\hyperlink{classv8_1_1Numeric}{Numeric}} values
 \hline
 
 \end{DoxyEnumFields}
+
+
+Definition at line 1068 of file v8-\/profiler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1068                           \{\textcolor{comment}{}}
+\DoxyCodeLine{1069 \textcolor{comment}{    /**}}
+\DoxyCodeLine{1070 \textcolor{comment}{     * Numeric values are hidden as they are values of the corresponding}}
+\DoxyCodeLine{1071 \textcolor{comment}{     * objects.}}
+\DoxyCodeLine{1072 \textcolor{comment}{     */}}
+\DoxyCodeLine{1073     kHideNumericValues,\textcolor{comment}{}}
+\DoxyCodeLine{1074 \textcolor{comment}{    /**}}
+\DoxyCodeLine{1075 \textcolor{comment}{     * Numeric values are exposed in artificial fields.}}
+\DoxyCodeLine{1076 \textcolor{comment}{     */}}
+\DoxyCodeLine{1077     kExposeNumericValues}
+\DoxyCodeLine{1078   \};}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1HeapProfiler_aa7826fbe67065080b08309e8f649e049}\label{classv8_1_1HeapProfiler_aa7826fbe67065080b08309e8f649e049}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!SamplingFlags@{SamplingFlags}}
 \index{SamplingFlags@{SamplingFlags}!v8::HeapProfiler@{v8::HeapProfiler}}
@@ -177,6 +250,41 @@ k\+Sampling\+Include\+Objects\+Collected\+By\+Minor\+GC&\\
 \end{DoxyEnumFields}
 
 
+Definition at line 975 of file v8-\/profiler.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{975                      \{}
+\DoxyCodeLine{976     \mbox{\hyperlink{classv8_1_1HeapProfiler_aa7826fbe67065080b08309e8f649e049a9c35f2975bc5a6374b2e3b0236201b0d}{kSamplingNoFlags}} = 0,}
+\DoxyCodeLine{977     \mbox{\hyperlink{classv8_1_1HeapProfiler_aa7826fbe67065080b08309e8f649e049a02d19627d8f7b43485879f3d06275fd4}{kSamplingForceGC}} = 1 << 0,}
+\DoxyCodeLine{978     \mbox{\hyperlink{classv8_1_1HeapProfiler_aa7826fbe67065080b08309e8f649e049a34ffa7039012ffb153c4dfd82fc60cae}{kSamplingIncludeObjectsCollectedByMajorGC}} = 1 << 1,}
+\DoxyCodeLine{979     \mbox{\hyperlink{classv8_1_1HeapProfiler_aa7826fbe67065080b08309e8f649e049a71c158180831a667c2264cf95af66303}{kSamplingIncludeObjectsCollectedByMinorGC}} = 1 << 2,}
+\DoxyCodeLine{980   \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_a18a1718f212ec3cd841e6eccb299567a}\label{classv8_1_1HeapProfiler_a18a1718f212ec3cd841e6eccb299567a}} 
+\index{v8::HeapProfiler@{v8::HeapProfiler}!HeapProfiler@{HeapProfiler}}
+\index{HeapProfiler@{HeapProfiler}!v8::HeapProfiler@{v8::HeapProfiler}}
+\doxysubsubsection{\texorpdfstring{HeapProfiler()}{HeapProfiler()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily v8\+::\+Heap\+Profiler\+::\+Heap\+Profiler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_ae29bce04fde6def75b954b1834629f5a}\label{classv8_1_1HeapProfiler_ae29bce04fde6def75b954b1834629f5a}} 
+\index{v8::HeapProfiler@{v8::HeapProfiler}!````~HeapProfiler@{$\sim$HeapProfiler}}
+\index{````~HeapProfiler@{$\sim$HeapProfiler}!v8::HeapProfiler@{v8::HeapProfiler}}
+\doxysubsubsection{\texorpdfstring{$\sim$HeapProfiler()}{~HeapProfiler()}}
+{\footnotesize\ttfamily v8\+::\+Heap\+Profiler\+::$\sim$\+Heap\+Profiler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_abb7dd8b5c784388e6ca2266344f18056}\label{classv8_1_1HeapProfiler_abb7dd8b5c784388e6ca2266344f18056}} 
+\index{v8::HeapProfiler@{v8::HeapProfiler}!HeapProfiler@{HeapProfiler}}
+\index{HeapProfiler@{HeapProfiler}!v8::HeapProfiler@{v8::HeapProfiler}}
+\doxysubsubsection{\texorpdfstring{HeapProfiler()}{HeapProfiler()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily v8\+::\+Heap\+Profiler\+::\+Heap\+Profiler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1HeapProfiler}{Heap\+Profiler}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1HeapProfiler_a4aa69e692d215f7b4599afe2c9dbfbfd}\label{classv8_1_1HeapProfiler_a4aa69e692d215f7b4599afe2c9dbfbfd}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!AddBuildEmbedderGraphCallback@{AddBuildEmbedderGraphCallback}}
@@ -184,105 +292,487 @@ k\+Sampling\+Include\+Objects\+Collected\+By\+Minor\+GC&\\
 \doxysubsubsection{\texorpdfstring{AddBuildEmbedderGraphCallback()}{AddBuildEmbedderGraphCallback()}}
 {\footnotesize\ttfamily void v8\+::\+Heap\+Profiler\+::\+Add\+Build\+Embedder\+Graph\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1HeapProfiler_a29c98afa5ce0ea543eef904201bc3e40}{Build\+Embedder\+Graph\+Callback}}}]{callback,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
 
+
+
+Definition at line 11825 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11826                                                      \{}
+\DoxyCodeLine{11827   \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\mbox{\hyperlink{classv8_1_1HeapProfiler_a4aa69e692d215f7b4599afe2c9dbfbfd}{AddBuildEmbedderGraphCallback}}(}
+\DoxyCodeLine{11828       callback, data);}
+\DoxyCodeLine{11829 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1HeapProfiler_a8a90c630543ed1875cbf9166239ff8d3}\label{classv8_1_1HeapProfiler_a8a90c630543ed1875cbf9166239ff8d3}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!ClearObjectIds@{ClearObjectIds}}
 \index{ClearObjectIds@{ClearObjectIds}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{ClearObjectIds()}{ClearObjectIds()}}
 {\footnotesize\ttfamily void v8\+::\+Heap\+Profiler\+::\+Clear\+Object\+Ids (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Clears internal map from Snapshot\+Object\+Id to heap object. The new objects will not be added into it unless a heap snapshot is taken or heap object tracking is kicked off. \mbox{\Hypertarget{classv8_1_1HeapProfiler_a7bbd16ad003fba1ec1ad459d508c6959}\label{classv8_1_1HeapProfiler_a7bbd16ad003fba1ec1ad459d508c6959}} 
+
+
+Clears internal map from Snapshot\+Object\+Id to heap object. 
+
+The new objects will not be added into it unless a heap snapshot is taken or heap object tracking is kicked off. 
+
+Definition at line 11755 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11755                                   \{}
+\DoxyCodeLine{11756   \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>ClearHeapObjectMap();}
+\DoxyCodeLine{11757 \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+\_\+inspector\+::\+V8\+Heap\+Profiler\+Agent\+Impl\+::disable().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_a8a90c630543ed1875cbf9166239ff8d3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_a7bbd16ad003fba1ec1ad459d508c6959}\label{classv8_1_1HeapProfiler_a7bbd16ad003fba1ec1ad459d508c6959}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!CopyNameForHeapSnapshot@{CopyNameForHeapSnapshot}}
 \index{CopyNameForHeapSnapshot@{CopyNameForHeapSnapshot}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{CopyNameForHeapSnapshot()}{CopyNameForHeapSnapshot()}}
 {\footnotesize\ttfamily const char $\ast$ v8\+::\+Heap\+Profiler\+::\+Copy\+Name\+For\+Heap\+Snapshot (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
 
-Allocates a copy of the provided string within the heap snapshot generator and returns a pointer to the copy. May only be called during heap snapshot generation. \mbox{\Hypertarget{classv8_1_1HeapProfiler_a6a75bcc6d8350858597b6a6ce5e349a2}\label{classv8_1_1HeapProfiler_a6a75bcc6d8350858597b6a6ce5e349a2}} 
+
+
+Allocates a copy of the provided string within the heap snapshot generator and returns a pointer to the copy. 
+
+May only be called during heap snapshot generation. 
+
+Definition at line 11847 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11847                                                                   \{}
+\DoxyCodeLine{11848   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\mbox{\hyperlink{classv8_1_1HeapProfiler_a7bbd16ad003fba1ec1ad459d508c6959}{CopyNameForHeapSnapshot}}(}
+\DoxyCodeLine{11849       \mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{name}});}
+\DoxyCodeLine{11850 \}}
+
+\end{DoxyCode}
+
+
+References name.
+
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_a6a75bcc6d8350858597b6a6ce5e349a2}\label{classv8_1_1HeapProfiler_a6a75bcc6d8350858597b6a6ce5e349a2}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!DeleteAllHeapSnapshots@{DeleteAllHeapSnapshots}}
 \index{DeleteAllHeapSnapshots@{DeleteAllHeapSnapshots}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{DeleteAllHeapSnapshots()}{DeleteAllHeapSnapshots()}}
 {\footnotesize\ttfamily void v8\+::\+Heap\+Profiler\+::\+Delete\+All\+Heap\+Snapshots (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Deletes all snapshots taken. All previously returned pointers to snapshots and their contents become invalid after this call. \mbox{\Hypertarget{classv8_1_1HeapProfiler_a34d10872fafb761bb96673cf81d1a613}\label{classv8_1_1HeapProfiler_a34d10872fafb761bb96673cf81d1a613}} 
+
+
+Deletes all snapshots taken. 
+
+All previously returned pointers to snapshots and their contents become invalid after this call. 
+
+Definition at line 11815 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11815                                           \{}
+\DoxyCodeLine{11816   \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>DeleteAllSnapshots();}
+\DoxyCodeLine{11817 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_a34d10872fafb761bb96673cf81d1a613}\label{classv8_1_1HeapProfiler_a34d10872fafb761bb96673cf81d1a613}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!FindObjectById@{FindObjectById}}
 \index{FindObjectById@{FindObjectById}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{FindObjectById()}{FindObjectById()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$ v8\+::\+Heap\+Profiler\+::\+Find\+Object\+By\+Id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_a0ed23f9ece26456baef3f52b4c4b488a}{Snapshot\+Object\+Id}}}]{id }\end{DoxyParamCaption})}
 
-Returns heap object with given Snapshot\+Object\+Id if the object is alive, otherwise empty handle is returned. \mbox{\Hypertarget{classv8_1_1HeapProfiler_a371a6e936782571f81542bfafce359d9}\label{classv8_1_1HeapProfiler_a371a6e936782571f81542bfafce359d9}} 
+
+
+Returns heap object with given Snapshot\+Object\+Id if the object is alive, otherwise empty handle is returned. 
+
+
+
+Definition at line 11748 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11748                                                              \{}
+\DoxyCodeLine{11749   \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{i::DirectHandle<i::Object>}} obj =}
+\DoxyCodeLine{11750       \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>FindHeapObjectById(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{11751   \textcolor{keywordflow}{if} (obj.\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle_a5c266d7537e00f9125f055cfd0bac808}{is\_null}}()) \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{11752   \textcolor{keywordflow}{return} Utils::ToLocal(obj);}
+\DoxyCodeLine{11753 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Direct\+Handle$<$ T $>$\+::is\+\_\+null().
+
+
+
+Referenced by v8\+\_\+inspector\+::anonymous\+\_\+namespace\{v8-\/heap-\/profiler-\/agent-\/impl.\+cc\}\+::object\+By\+Heap\+Object\+Id().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_a34d10872fafb761bb96673cf81d1a613_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_a34d10872fafb761bb96673cf81d1a613_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_a371a6e936782571f81542bfafce359d9}\label{classv8_1_1HeapProfiler_a371a6e936782571f81542bfafce359d9}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!GetAllocationProfile@{GetAllocationProfile}}
 \index{GetAllocationProfile@{GetAllocationProfile}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{GetAllocationProfile()}{GetAllocationProfile()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1AllocationProfile}{Allocation\+Profile}} $\ast$ v8\+::\+Heap\+Profiler\+::\+Get\+Allocation\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Returns the sampled profile of allocations allocated (and still live) since Start\+Sampling\+Heap\+Profiler was called. The ownership of the pointer is transferred to the caller. Returns nullptr if sampling heap profiler is not active. \mbox{\Hypertarget{classv8_1_1HeapProfiler_a66a26cce653864dc059d564409a3f210}\label{classv8_1_1HeapProfiler_a66a26cce653864dc059d564409a3f210}} 
+
+
+Returns the sampled profile of allocations allocated (and still live) since Start\+Sampling\+Heap\+Profiler was called. 
+
+The ownership of the pointer is transferred to the caller. Returns nullptr if sampling heap profiler is not active. 
+
+Definition at line 11811 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11811                                                       \{}
+\DoxyCodeLine{11812   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\mbox{\hyperlink{classv8_1_1HeapProfiler_a371a6e936782571f81542bfafce359d9}{GetAllocationProfile}}();}
+\DoxyCodeLine{11813 \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+\_\+inspector\+::\+V8\+Heap\+Profiler\+Agent\+Impl\+::get\+Sampling\+Profile().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_a371a6e936782571f81542bfafce359d9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_a66a26cce653864dc059d564409a3f210}\label{classv8_1_1HeapProfiler_a66a26cce653864dc059d564409a3f210}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!GetDetachedJSWrapperObjects@{GetDetachedJSWrapperObjects}}
 \index{GetDetachedJSWrapperObjects@{GetDetachedJSWrapperObjects}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{GetDetachedJSWrapperObjects()}{GetDetachedJSWrapperObjects()}}
 {\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ $>$ v8\+::\+Heap\+Profiler\+::\+Get\+Detached\+JSWrapper\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Obtains list of Detached JS Wrapper Objects. This functon calls garbage collection, then iterates over traced handles in the isolate \mbox{\Hypertarget{classv8_1_1HeapProfiler_ad76cc22ab8c91d6bd7a065d97c430aea}\label{classv8_1_1HeapProfiler_ad76cc22ab8c91d6bd7a065d97c430aea}} 
+
+
+Obtains list of Detached JS Wrapper Objects. 
+
+This functon calls garbage collection, then iterates over traced handles in the isolate 
+
+Definition at line 11780 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11780                                                                       \{}
+\DoxyCodeLine{11781   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})}
+\DoxyCodeLine{11782       -\/>\mbox{\hyperlink{classv8_1_1HeapProfiler_a66a26cce653864dc059d564409a3f210}{GetDetachedJSWrapperObjects}}();}
+\DoxyCodeLine{11783 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_ad76cc22ab8c91d6bd7a065d97c430aea}\label{classv8_1_1HeapProfiler_ad76cc22ab8c91d6bd7a065d97c430aea}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!GetHeapSnapshot@{GetHeapSnapshot}}
 \index{GetHeapSnapshot@{GetHeapSnapshot}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{GetHeapSnapshot()}{GetHeapSnapshot()}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{classv8_1_1HeapSnapshot}{Heap\+Snapshot}} $\ast$ v8\+::\+Heap\+Profiler\+::\+Get\+Heap\+Snapshot (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classv8_1_1HeapSnapshot}{Heap\+Snapshot}} $\ast$ v8\+::\+Heap\+Profiler\+::\+Get\+Heap\+Snapshot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classint}{int}}}]{index }\end{DoxyParamCaption})}
 
-Returns a snapshot by index. \mbox{\Hypertarget{classv8_1_1HeapProfiler_add093717acd067daeddb7ef5fc8b191a}\label{classv8_1_1HeapProfiler_add093717acd067daeddb7ef5fc8b191a}} 
+
+
+Returns a snapshot by index. 
+
+
+
+Definition at line 11734 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11734                                                            \{}
+\DoxyCodeLine{11735   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }HeapSnapshot*\textcolor{keyword}{>}(}
+\DoxyCodeLine{11736       \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>GetSnapshot(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}));}
+\DoxyCodeLine{11737 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::index.
+
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_add093717acd067daeddb7ef5fc8b191a}\label{classv8_1_1HeapProfiler_add093717acd067daeddb7ef5fc8b191a}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!GetHeapStats@{GetHeapStats}}
 \index{GetHeapStats@{GetHeapStats}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{GetHeapStats()}{GetHeapStats()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_a0ed23f9ece26456baef3f52b4c4b488a}{Snapshot\+Object\+Id}} v8\+::\+Heap\+Profiler\+::\+Get\+Heap\+Stats (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1OutputStream}{Output\+Stream}} $\ast$}]{stream,  }\item[{int64\+\_\+t $\ast$}]{timestamp\+\_\+us = {\ttfamily \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}} }\end{DoxyParamCaption})}
 
-Adds a new time interval entry to the aggregated statistics array. The time interval entry contains information on the current heap objects population size. The method also updates aggregated statistics and reports updates for all previous time intervals via the \mbox{\hyperlink{classv8_1_1OutputStream}{Output\+Stream}} object. Updates on each time interval are provided as a stream of the \mbox{\hyperlink{structv8_1_1HeapStatsUpdate}{Heap\+Stats\+Update}} structure instances. If $\vert$timestamp\+\_\+us$\vert$ is supplied, timestamp of the new entry will be written into it. The return value of the function is the last seen heap object Id.
 
-Start\+Tracking\+Heap\+Objects must be called before the first call to this method. \mbox{\Hypertarget{classv8_1_1HeapProfiler_ab926a1f1ed95b731d4ef3133e67eef19}\label{classv8_1_1HeapProfiler_ab926a1f1ed95b731d4ef3133e67eef19}} 
+
+Adds a new time interval entry to the aggregated statistics array. 
+
+The time interval entry contains information on the current heap objects population size. The method also updates aggregated statistics and reports updates for all previous time intervals via the \mbox{\hyperlink{classv8_1_1OutputStream}{Output\+Stream}} object. Updates on each time interval are provided as a stream of the \mbox{\hyperlink{structv8_1_1HeapStatsUpdate}{Heap\+Stats\+Update}} structure instances. If $\vert$timestamp\+\_\+us$\vert$ is supplied, timestamp of the new entry will be written into it. The return value of the function is the last seen heap object Id.
+
+Start\+Tracking\+Heap\+Objects must be called before the first call to this method. 
+
+Definition at line 11794 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11795                                                                    \{}
+\DoxyCodeLine{11796   \mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}* heap\_profiler = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
+\DoxyCodeLine{11797   \textcolor{keywordflow}{return} heap\_profiler-\/>\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler_a3e8339bfde2671aacc0f9ffb6869d1f6}{PushHeapObjectsStats}}(stream, timestamp\_us);}
+\DoxyCodeLine{11798 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Heap\+Profiler\+::\+Push\+Heap\+Objects\+Stats().
+
+
+
+Referenced by v8\+\_\+inspector\+::\+V8\+Heap\+Profiler\+Agent\+Impl\+::request\+Heap\+Stats\+Update().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_add093717acd067daeddb7ef5fc8b191a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_add093717acd067daeddb7ef5fc8b191a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_ab926a1f1ed95b731d4ef3133e67eef19}\label{classv8_1_1HeapProfiler_ab926a1f1ed95b731d4ef3133e67eef19}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!GetObjectId@{GetObjectId}}
 \index{GetObjectId@{GetObjectId}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{GetObjectId()}{GetObjectId()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_a0ed23f9ece26456baef3f52b4c4b488a}{Snapshot\+Object\+Id}} v8\+::\+Heap\+Profiler\+::\+Get\+Object\+Id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$}]{value }\end{DoxyParamCaption})}
 
-Returns Snapshot\+Object\+Id for a heap object referenced by $\vert$value$\vert$ if it has been seen by the heap profiler, k\+Unknown\+Object\+Id otherwise. \mbox{\Hypertarget{classv8_1_1HeapProfiler_ab70b786b27f81e5b50c1a271f29df779}\label{classv8_1_1HeapProfiler_ab70b786b27f81e5b50c1a271f29df779}} 
+
+
+Returns Snapshot\+Object\+Id for a heap object referenced by $\vert$value$\vert$ if it has been seen by the heap profiler, k\+Unknown\+Object\+Id otherwise. 
+
+
+
+Definition at line 11739 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11739                                                              \{}
+\DoxyCodeLine{11740   \textcolor{keyword}{auto} obj = \mbox{\hyperlink{classv8_1_1Utils_a9d3ed89b4ca4e995ba472f8091ea424f}{Utils::OpenDirectHandle}}(*\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});}
+\DoxyCodeLine{11741   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>GetSnapshotObjectId(obj);}
+\DoxyCodeLine{11742 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Utils\+::\+Open\+Direct\+Handle(), and v8\+::internal\+::value.
+
+
+
+Referenced by v8\+\_\+inspector\+::\+V8\+Heap\+Profiler\+Agent\+Impl\+::get\+Heap\+Object\+Id().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_ab926a1f1ed95b731d4ef3133e67eef19_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_ab926a1f1ed95b731d4ef3133e67eef19_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_ab70b786b27f81e5b50c1a271f29df779}\label{classv8_1_1HeapProfiler_ab70b786b27f81e5b50c1a271f29df779}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!GetObjectId@{GetObjectId}}
 \index{GetObjectId@{GetObjectId}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{GetObjectId()}{GetObjectId()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_a0ed23f9ece26456baef3f52b4c4b488a}{Snapshot\+Object\+Id}} v8\+::\+Heap\+Profiler\+::\+Get\+Object\+Id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_ac414b22ecfa34701ee25c118234d49af}{Native\+Object}}}]{value }\end{DoxyParamCaption})}
 
-Returns Snapshot\+Object\+Id for a native object referenced by $\vert$value$\vert$ if it has been seen by the heap profiler, k\+Unknown\+Object\+Id otherwise. \mbox{\Hypertarget{classv8_1_1HeapProfiler_a24830775a0ab938eb0a29ed8f3dfd265}\label{classv8_1_1HeapProfiler_a24830775a0ab938eb0a29ed8f3dfd265}} 
+
+
+Returns Snapshot\+Object\+Id for a native object referenced by $\vert$value$\vert$ if it has been seen by the heap profiler, k\+Unknown\+Object\+Id otherwise. 
+
+
+
+Definition at line 11744 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11744                                                              \{}
+\DoxyCodeLine{11745   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>GetSnapshotObjectId(\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});}
+\DoxyCodeLine{11746 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::value.
+
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_a24830775a0ab938eb0a29ed8f3dfd265}\label{classv8_1_1HeapProfiler_a24830775a0ab938eb0a29ed8f3dfd265}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!GetSnapshotCount@{GetSnapshotCount}}
 \index{GetSnapshotCount@{GetSnapshotCount}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{GetSnapshotCount()}{GetSnapshotCount()}}
-{\footnotesize\ttfamily int v8\+::\+Heap\+Profiler\+::\+Get\+Snapshot\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classint}{int}} v8\+::\+Heap\+Profiler\+::\+Get\+Snapshot\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Returns the number of snapshots taken. \mbox{\Hypertarget{classv8_1_1HeapProfiler_a256fc136d91ea994e8673c91a22cb37e}\label{classv8_1_1HeapProfiler_a256fc136d91ea994e8673c91a22cb37e}} 
+
+
+Returns the number of snapshots taken. 
+
+
+
+Definition at line 11719 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11719                                    \{}
+\DoxyCodeLine{11720   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>GetSnapshotsCount();}
+\DoxyCodeLine{11721 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_a256fc136d91ea994e8673c91a22cb37e}\label{classv8_1_1HeapProfiler_a256fc136d91ea994e8673c91a22cb37e}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!IsTakingSnapshot@{IsTakingSnapshot}}
 \index{IsTakingSnapshot@{IsTakingSnapshot}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{IsTakingSnapshot()}{IsTakingSnapshot()}}
 {\footnotesize\ttfamily bool v8\+::\+Heap\+Profiler\+::\+Is\+Taking\+Snapshot (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Returns whether the heap profiler is currently taking a snapshot. \mbox{\Hypertarget{classv8_1_1HeapProfiler_a1fc1b1e7d5b4b1cfa7d84de168991152}\label{classv8_1_1HeapProfiler_a1fc1b1e7d5b4b1cfa7d84de168991152}} 
+
+
+Returns whether the heap profiler is currently taking a snapshot. 
+
+
+
+Definition at line 11843 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11843                                     \{}
+\DoxyCodeLine{11844   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\mbox{\hyperlink{classv8_1_1HeapProfiler_a256fc136d91ea994e8673c91a22cb37e}{IsTakingSnapshot}}();}
+\DoxyCodeLine{11845 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_a9792e8ddde522f8e2aa97005c0e6bc8f}\label{classv8_1_1HeapProfiler_a9792e8ddde522f8e2aa97005c0e6bc8f}} 
+\index{v8::HeapProfiler@{v8::HeapProfiler}!operator=@{operator=}}
+\index{operator=@{operator=}!v8::HeapProfiler@{v8::HeapProfiler}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1HeapProfiler}{Heap\+Profiler}}\& v8\+::\+Heap\+Profiler\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1HeapProfiler}{Heap\+Profiler}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_a1fc1b1e7d5b4b1cfa7d84de168991152}\label{classv8_1_1HeapProfiler_a1fc1b1e7d5b4b1cfa7d84de168991152}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!QueryObjects@{QueryObjects}}
 \index{QueryObjects@{QueryObjects}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{QueryObjects()}{QueryObjects()}}
 {\footnotesize\ttfamily void v8\+::\+Heap\+Profiler\+::\+Query\+Objects (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Context}{v8\+::\+Context}} $>$}]{context,  }\item[{\mbox{\hyperlink{classv8_1_1QueryObjectPredicate}{Query\+Object\+Predicate}} $\ast$}]{predicate,  }\item[{std\+::vector$<$ \mbox{\hyperlink{classv8_1_1Global}{v8\+::\+Global}}$<$ \mbox{\hyperlink{classv8_1_1Object}{v8\+::\+Object}} $>$$>$ $\ast$}]{objects }\end{DoxyParamCaption})}
 
+
+
+Definition at line 11723 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11725                                                                     \{}
+\DoxyCodeLine{11726   \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{i::Isolate}}* isolate = \mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a05a2b08b2b0f2d5aef8dc053e2ea3d9b}{i::Isolate::Current}}();}
+\DoxyCodeLine{11727   \mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}* profiler = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this});}
+\DoxyCodeLine{11728   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(isolate, profiler-\/>\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler_acc795f70a0d73747e6ebf24e9885df97}{isolate}}());}
+\DoxyCodeLine{11729   EnterV8NoScriptNoExceptionScope api\_scope(isolate);}
+\DoxyCodeLine{11730   profiler-\/>\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler_a8169775eced7fc189d6c9e9dc1227775}{QueryObjects}}(\mbox{\hyperlink{classv8_1_1Utils_a9d3ed89b4ca4e995ba472f8091ea424f}{Utils::OpenDirectHandle}}(*v8\_context), predicate,}
+\DoxyCodeLine{11731                          objects);}
+\DoxyCodeLine{11732 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::\+Current(), DCHECK\+\_\+\+EQ, v8\+::internal\+::\+Heap\+Profiler\+::isolate(), v8\+::\+Utils\+::\+Open\+Direct\+Handle(), and v8\+::internal\+::\+Heap\+Profiler\+::\+Query\+Objects().
+
+
+
+Referenced by v8\+\_\+inspector\+::\+V8\+Debugger\+::query\+Objects().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_a1fc1b1e7d5b4b1cfa7d84de168991152_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_a1fc1b1e7d5b4b1cfa7d84de168991152_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1HeapProfiler_a3f7289d12816af7738944f530d28495d}\label{classv8_1_1HeapProfiler_a3f7289d12816af7738944f530d28495d}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!RemoveBuildEmbedderGraphCallback@{RemoveBuildEmbedderGraphCallback}}
 \index{RemoveBuildEmbedderGraphCallback@{RemoveBuildEmbedderGraphCallback}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{RemoveBuildEmbedderGraphCallback()}{RemoveBuildEmbedderGraphCallback()}}
 {\footnotesize\ttfamily void v8\+::\+Heap\+Profiler\+::\+Remove\+Build\+Embedder\+Graph\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1HeapProfiler_a29c98afa5ce0ea543eef904201bc3e40}{Build\+Embedder\+Graph\+Callback}}}]{callback,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
 
+
+
+Definition at line 11831 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11832                                                      \{}
+\DoxyCodeLine{11833   \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\mbox{\hyperlink{classv8_1_1HeapProfiler_a3f7289d12816af7738944f530d28495d}{RemoveBuildEmbedderGraphCallback}}(}
+\DoxyCodeLine{11834       callback, data);}
+\DoxyCodeLine{11835 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1HeapProfiler_a04e6fd2201b25ab4b8a398b37e728c67}\label{classv8_1_1HeapProfiler_a04e6fd2201b25ab4b8a398b37e728c67}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!SetGetDetachednessCallback@{SetGetDetachednessCallback}}
 \index{SetGetDetachednessCallback@{SetGetDetachednessCallback}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{SetGetDetachednessCallback()}{SetGetDetachednessCallback()}}
 {\footnotesize\ttfamily void v8\+::\+Heap\+Profiler\+::\+Set\+Get\+Detachedness\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1HeapProfiler_af3fa55ebbd81e66b783f713ea5b06628}{Get\+Detachedness\+Callback}}}]{callback,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
 
+
+
+Definition at line 11837 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11838                                                           \{}
+\DoxyCodeLine{11839   \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\mbox{\hyperlink{classv8_1_1HeapProfiler_a04e6fd2201b25ab4b8a398b37e728c67}{SetGetDetachednessCallback}}(callback,}
+\DoxyCodeLine{11840                                                                        data);}
+\DoxyCodeLine{11841 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1HeapProfiler_a6b9450bbf1f4e1a4909df92d4df4a174}\label{classv8_1_1HeapProfiler_a6b9450bbf1f4e1a4909df92d4df4a174}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!StartSamplingHeapProfiler@{StartSamplingHeapProfiler}}
 \index{StartSamplingHeapProfiler@{StartSamplingHeapProfiler}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{StartSamplingHeapProfiler()}{StartSamplingHeapProfiler()}}
-{\footnotesize\ttfamily bool v8\+::\+Heap\+Profiler\+::\+Start\+Sampling\+Heap\+Profiler (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{sample\+\_\+interval = {\ttfamily 512~$\ast$~1024},  }\item[{int}]{stack\+\_\+depth = {\ttfamily 16},  }\item[{\mbox{\hyperlink{classv8_1_1HeapProfiler_aa7826fbe67065080b08309e8f649e049}{Sampling\+Flags}}}]{flags = {\ttfamily \mbox{\hyperlink{classv8_1_1HeapProfiler_aa7826fbe67065080b08309e8f649e049a9c35f2975bc5a6374b2e3b0236201b0d}{k\+Sampling\+No\+Flags}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool v8\+::\+Heap\+Profiler\+::\+Start\+Sampling\+Heap\+Profiler (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{sample\+\_\+interval = {\ttfamily 512~$\ast$~1024},  }\item[{\mbox{\hyperlink{classint}{int}}}]{stack\+\_\+depth = {\ttfamily 16},  }\item[{\mbox{\hyperlink{classv8_1_1HeapProfiler_aa7826fbe67065080b08309e8f649e049}{Sampling\+Flags}}}]{flags = {\ttfamily \mbox{\hyperlink{classv8_1_1HeapProfiler_aa7826fbe67065080b08309e8f649e049a9c35f2975bc5a6374b2e3b0236201b0d}{k\+Sampling\+No\+Flags}}} }\end{DoxyParamCaption})}
 
-Starts gathering a sampling heap profile. A sampling heap profile is similar to tcmalloc\textquotesingle{}s heap profiler and Go\textquotesingle{}s mprof. It samples object allocations and builds an online \textquotesingle{}sampling\textquotesingle{} heap profile. At any point in time, this profile is expected to be a representative sample of objects currently live in the system. Each sampled allocation includes the stack trace at the time of allocation, which makes this really useful for memory leak detection.
+
+
+Starts gathering a sampling heap profile. 
+
+A sampling heap profile is similar to tcmalloc\textquotesingle{}s heap profiler and Go\textquotesingle{}s mprof. It samples object allocations and builds an online \textquotesingle{}sampling\textquotesingle{} heap profile. At any point in time, this profile is expected to be a representative sample of objects currently live in the system. Each sampled allocation includes the stack trace at the time of allocation, which makes this really useful for memory leak detection.
 
 This mechanism is intended to be cheap enough that it can be used in production with minimal performance overhead.
 
@@ -292,48 +782,227 @@ NOTE\+: Support for native allocations doesn\textquotesingle{}t exist yet, but i
 
 Objects allocated before the sampling is started will not be included in the profile.
 
-Returns false if a sampling heap profiler is already running. \mbox{\Hypertarget{classv8_1_1HeapProfiler_a02917db133b7efd468c9c73075a15171}\label{classv8_1_1HeapProfiler_a02917db133b7efd468c9c73075a15171}} 
+Returns false if a sampling heap profiler is already running. 
+
+Definition at line 11800 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11802                                                                   \{}
+\DoxyCodeLine{11803   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\mbox{\hyperlink{classv8_1_1HeapProfiler_a6b9450bbf1f4e1a4909df92d4df4a174}{StartSamplingHeapProfiler}}(}
+\DoxyCodeLine{11804       sample\_interval, stack\_depth, \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}});}
+\DoxyCodeLine{11805 \}}
+
+\end{DoxyCode}
+
+
+References flags().
+
+
+
+Referenced by v8\+\_\+inspector\+::\+V8\+Heap\+Profiler\+Agent\+Impl\+::start\+Sampling().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{classv8_1_1HeapProfiler_a6b9450bbf1f4e1a4909df92d4df4a174_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_a6b9450bbf1f4e1a4909df92d4df4a174_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_a02917db133b7efd468c9c73075a15171}\label{classv8_1_1HeapProfiler_a02917db133b7efd468c9c73075a15171}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!StartTrackingHeapObjects@{StartTrackingHeapObjects}}
 \index{StartTrackingHeapObjects@{StartTrackingHeapObjects}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{StartTrackingHeapObjects()}{StartTrackingHeapObjects()}}
 {\footnotesize\ttfamily void v8\+::\+Heap\+Profiler\+::\+Start\+Tracking\+Heap\+Objects (\begin{DoxyParamCaption}\item[{bool}]{track\+\_\+allocations = {\ttfamily \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}} }\end{DoxyParamCaption})}
 
-Starts tracking of heap objects population statistics. After calling this method, all heap objects relocations done by the garbage collector are being registered.
 
-$\vert$track\+\_\+allocations$\vert$ parameter controls whether stack trace of each allocation in the heap will be recorded and reported as part of \mbox{\hyperlink{classv8_1_1HeapSnapshot}{Heap\+Snapshot}}. \mbox{\Hypertarget{classv8_1_1HeapProfiler_abc43e12e6febb087be251c0629ff17bf}\label{classv8_1_1HeapProfiler_abc43e12e6febb087be251c0629ff17bf}} 
+
+Starts tracking of heap objects population statistics. 
+
+After calling this method, all heap objects relocations done by the garbage collector are being registered.
+
+$\vert$track\+\_\+allocations$\vert$ parameter controls whether stack trace of each allocation in the heap will be recorded and reported as part of \mbox{\hyperlink{classv8_1_1HeapSnapshot}{Heap\+Snapshot}}. 
+
+Definition at line 11785 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11785                                                                   \{}
+\DoxyCodeLine{11786   \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>StartHeapObjectsTracking(}
+\DoxyCodeLine{11787       track\_allocations);}
+\DoxyCodeLine{11788 \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+\_\+inspector\+::\+V8\+Heap\+Profiler\+Agent\+Impl\+::start\+Tracking\+Heap\+Objects\+Internal().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_a02917db133b7efd468c9c73075a15171_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_abc43e12e6febb087be251c0629ff17bf}\label{classv8_1_1HeapProfiler_abc43e12e6febb087be251c0629ff17bf}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!StopSamplingHeapProfiler@{StopSamplingHeapProfiler}}
 \index{StopSamplingHeapProfiler@{StopSamplingHeapProfiler}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{StopSamplingHeapProfiler()}{StopSamplingHeapProfiler()}}
 {\footnotesize\ttfamily void v8\+::\+Heap\+Profiler\+::\+Stop\+Sampling\+Heap\+Profiler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Stops the sampling heap profile and discards the current profile. \mbox{\Hypertarget{classv8_1_1HeapProfiler_ae448d9474ae34781133d4a4547b08cb1}\label{classv8_1_1HeapProfiler_ae448d9474ae34781133d4a4547b08cb1}} 
+
+
+Stops the sampling heap profile and discards the current profile. 
+
+
+
+Definition at line 11807 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11807                                             \{}
+\DoxyCodeLine{11808   \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>\mbox{\hyperlink{classv8_1_1HeapProfiler_abc43e12e6febb087be251c0629ff17bf}{StopSamplingHeapProfiler}}();}
+\DoxyCodeLine{11809 \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+\_\+inspector\+::\+V8\+Heap\+Profiler\+Agent\+Impl\+::disable(), and v8\+\_\+inspector\+::\+V8\+Heap\+Profiler\+Agent\+Impl\+::stop\+Sampling().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_abc43e12e6febb087be251c0629ff17bf_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_ae448d9474ae34781133d4a4547b08cb1}\label{classv8_1_1HeapProfiler_ae448d9474ae34781133d4a4547b08cb1}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!StopTrackingHeapObjects@{StopTrackingHeapObjects}}
 \index{StopTrackingHeapObjects@{StopTrackingHeapObjects}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{StopTrackingHeapObjects()}{StopTrackingHeapObjects()}}
 {\footnotesize\ttfamily void v8\+::\+Heap\+Profiler\+::\+Stop\+Tracking\+Heap\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Stops tracking of heap objects population statistics, cleans up all collected data. Start\+Heap\+Objects\+Tracking must be called again prior to calling Get\+Heap\+Stats next time. \mbox{\Hypertarget{classv8_1_1HeapProfiler_a90fe37731ef691678bc1ca755370f091}\label{classv8_1_1HeapProfiler_a90fe37731ef691678bc1ca755370f091}} 
+
+
+Stops tracking of heap objects population statistics, cleans up all collected data. 
+
+Start\+Heap\+Objects\+Tracking must be called again prior to calling Get\+Heap\+Stats next time. 
+
+Definition at line 11790 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11790                                            \{}
+\DoxyCodeLine{11791   \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>StopHeapObjectsTracking();}
+\DoxyCodeLine{11792 \}}
+
+\end{DoxyCode}
+
+
+Referenced by v8\+\_\+inspector\+::\+V8\+Heap\+Profiler\+Agent\+Impl\+::stop\+Tracking\+Heap\+Objects\+Internal().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_ae448d9474ae34781133d4a4547b08cb1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_a90fe37731ef691678bc1ca755370f091}\label{classv8_1_1HeapProfiler_a90fe37731ef691678bc1ca755370f091}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!TakeHeapSnapshot@{TakeHeapSnapshot}}
 \index{TakeHeapSnapshot@{TakeHeapSnapshot}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{TakeHeapSnapshot()}{TakeHeapSnapshot()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily const \mbox{\hyperlink{classv8_1_1HeapSnapshot}{Heap\+Snapshot}} $\ast$ v8\+::\+Heap\+Profiler\+::\+Take\+Heap\+Snapshot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1ActivityControl}{Activity\+Control}} $\ast$}]{control,  }\item[{\mbox{\hyperlink{classv8_1_1HeapProfiler_1_1ObjectNameResolver}{Object\+Name\+Resolver}} $\ast$}]{global\+\_\+object\+\_\+name\+\_\+resolver = {\ttfamily \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}},  }\item[{bool}]{hide\+\_\+internals = {\ttfamily \mbox{\hyperlink{flag-definitions_8h_ae56df915684f69fc6f5c0f3bd3b3c80c}{true}}},  }\item[{bool}]{capture\+\_\+numeric\+\_\+value = {\ttfamily \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}} }\end{DoxyParamCaption})}
 
-Takes a heap snapshot. See {\ttfamily \mbox{\hyperlink{structv8_1_1HeapProfiler_1_1HeapSnapshotOptions}{Heap\+Snapshot\+Options}}} for details on the parameters.
+
+
+Takes a heap snapshot. 
+
+See {\ttfamily \mbox{\hyperlink{structv8_1_1HeapProfiler_1_1HeapSnapshotOptions}{Heap\+Snapshot\+Options}}} for details on the parameters.
 
 \begin{DoxyReturn}{Returns}
 the snapshot. 
 \end{DoxyReturn}
+
+
+Definition at line 11765 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11768                                                                                \{}
+\DoxyCodeLine{11769   HeapSnapshotOptions options;}
+\DoxyCodeLine{11770   options.control = control;}
+\DoxyCodeLine{11771   options.global\_object\_name\_resolver = resolver;}
+\DoxyCodeLine{11772   options.snapshot\_mode = hide\_internals ? \mbox{\hyperlink{classv8_1_1HeapProfiler_a8bc875b93c9dbb6225e4b16152e8192ca520ecade39431601ba732cd4f6de66fa}{HeapSnapshotMode::kRegular}}}
+\DoxyCodeLine{11773                                          : \mbox{\hyperlink{classv8_1_1HeapProfiler_a8bc875b93c9dbb6225e4b16152e8192caf35592ad873ec91b42923f1b31cca2ca}{HeapSnapshotMode::kExposeInternals}};}
+\DoxyCodeLine{11774   options.numerics\_mode = capture\_numeric\_value}
+\DoxyCodeLine{11775                               ? \mbox{\hyperlink{classv8_1_1HeapProfiler_aff63e274f0818e2cc593789d428e632ba4c6275c5c123b451cff9c10abd5372e1}{NumericsMode::kExposeNumericValues}}}
+\DoxyCodeLine{11776                               : \mbox{\hyperlink{classv8_1_1HeapProfiler_aff63e274f0818e2cc593789d428e632ba6c04af1f5d6bd0757043237d79fae0e8}{NumericsMode::kHideNumericValues}};}
+\DoxyCodeLine{11777   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1HeapProfiler_acb51ae3b356dcc497b9a9c3ccd72f41d}{TakeHeapSnapshot}}(options);}
+\DoxyCodeLine{11778 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Heap\+Profiler\+::\+Heap\+Snapshot\+Options\+::control, v8\+::\+Heap\+Profiler\+::\+Heap\+Snapshot\+Options\+::global\+\_\+object\+\_\+name\+\_\+resolver, k\+Expose\+Internals, k\+Expose\+Numeric\+Values, k\+Hide\+Numeric\+Values, k\+Regular, v8\+::\+Heap\+Profiler\+::\+Heap\+Snapshot\+Options\+::numerics\+\_\+mode, v8\+::\+Heap\+Profiler\+::\+Heap\+Snapshot\+Options\+::snapshot\+\_\+mode, and Take\+Heap\+Snapshot().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_a90fe37731ef691678bc1ca755370f091_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1HeapProfiler_acb51ae3b356dcc497b9a9c3ccd72f41d}\label{classv8_1_1HeapProfiler_acb51ae3b356dcc497b9a9c3ccd72f41d}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!TakeHeapSnapshot@{TakeHeapSnapshot}}
 \index{TakeHeapSnapshot@{TakeHeapSnapshot}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{TakeHeapSnapshot()}{TakeHeapSnapshot()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily const \mbox{\hyperlink{classv8_1_1HeapSnapshot}{Heap\+Snapshot}} $\ast$ v8\+::\+Heap\+Profiler\+::\+Take\+Heap\+Snapshot (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structv8_1_1HeapProfiler_1_1HeapSnapshotOptions}{Heap\+Snapshot\+Options}} \&}]{options = {\ttfamily \mbox{\hyperlink{structv8_1_1HeapProfiler_1_1HeapSnapshotOptions}{Heap\+Snapshot\+Options}}()} }\end{DoxyParamCaption})}
 
-Takes a heap snapshot.
+
+
+Takes a heap snapshot. 
 
 \begin{DoxyReturn}{Returns}
 the snapshot. 
 \end{DoxyReturn}
+
+
+Definition at line 11759 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11760                                         \{}
+\DoxyCodeLine{11761   \textcolor{keywordflow}{return} \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }HeapSnapshot*\textcolor{keyword}{>}(}
+\DoxyCodeLine{11762       \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1HeapProfiler}{i::HeapProfiler}}*\textcolor{keyword}{>}(\textcolor{keyword}{this})-\/>TakeSnapshot(options));}
+\DoxyCodeLine{11763 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Take\+Heap\+Snapshot(), and v8\+\_\+inspector\+::\+V8\+Heap\+Profiler\+Agent\+Impl\+::take\+Heap\+Snapshot\+Now().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1HeapProfiler_acb51ae3b356dcc497b9a9c3ccd72f41d_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Member Data Documentation}
@@ -343,15 +1012,39 @@ the snapshot.
 \doxysubsubsection{\texorpdfstring{kPersistentHandleNoClassId}{kPersistentHandleNoClassId}}
 {\footnotesize\ttfamily const uint16\+\_\+t v8\+::\+Heap\+Profiler\+::k\+Persistent\+Handle\+No\+Class\+Id = 0\hspace{0.3cm}{\ttfamily [static]}}
 
-Default value of persistent handle class ID. Must not be used to define a class. Can be used to reset a class of a persistent handle. \mbox{\Hypertarget{classv8_1_1HeapProfiler_a40f41d75716ff1b335e95521296e027d}\label{classv8_1_1HeapProfiler_a40f41d75716ff1b335e95521296e027d}} 
+
+
+Default value of persistent handle class ID. 
+
+Must not be used to define a class. Can be used to reset a class of a persistent handle. 
+
+Definition at line 1240 of file v8-\/profiler.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Node\+Base$<$ Child $>$\+::\+Check\+Node\+Is\+Free\+Node(), v8\+::internal\+::\+Node\+Base$<$ Child $>$\+::\+Clear\+Fields(), and v8\+::internal\+::\+Node\+Base$<$ Child $>$\+::has\+\_\+wrapper\+\_\+class\+\_\+id().
+
+\mbox{\Hypertarget{classv8_1_1HeapProfiler_a40f41d75716ff1b335e95521296e027d}\label{classv8_1_1HeapProfiler_a40f41d75716ff1b335e95521296e027d}} 
 \index{v8::HeapProfiler@{v8::HeapProfiler}!kUnknownObjectId@{kUnknownObjectId}}
 \index{kUnknownObjectId@{kUnknownObjectId}!v8::HeapProfiler@{v8::HeapProfiler}}
 \doxysubsubsection{\texorpdfstring{kUnknownObjectId}{kUnknownObjectId}}
 {\footnotesize\ttfamily \mbox{\hyperlink{src_2base_2compiler-specific_8h_afa507b2adbdb23fe6a10c8278fe5088c}{STATIC\+\_\+\+CONST\+\_\+\+MEMBER\+\_\+\+DEFINITION}} const \mbox{\hyperlink{namespacev8_a0ed23f9ece26456baef3f52b4c4b488a}{Snapshot\+Object\+Id}} v8\+::\+Heap\+Profiler\+::k\+Unknown\+Object\+Id = 0\hspace{0.3cm}{\ttfamily [static]}}
 
-A constant for invalid Snapshot\+Object\+Id. Get\+Snapshot\+Object\+Id will return it in case heap profiler cannot find id for the object passed as parameter. \mbox{\hyperlink{classv8_1_1HeapSnapshot_a17777c4ef00f142ef176b54f433e2d44}{Heap\+Snapshot\+::\+Get\+Node\+By\+Id}} will always return NULL for such id. 
+
+
+A constant for invalid Snapshot\+Object\+Id. 
+
+Get\+Snapshot\+Object\+Id will return it in case heap profiler cannot find id for the object passed as parameter. \mbox{\hyperlink{classv8_1_1HeapSnapshot_a17777c4ef00f142ef176b54f433e2d44}{Heap\+Snapshot\+::\+Get\+Node\+By\+Id}} will always return NULL for such id. 
+
+Definition at line 1040 of file v8-\/profiler.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Heap\+Objects\+Map\+::\+Find\+Entry(), v8\+::internal\+::\+Heap\+Objects\+Map\+::\+Find\+Merged\+Native\+Entry(), and v8\+::internal\+::\+Heap\+Profiler\+::\+Get\+Snapshot\+Object\+Id().
+
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-profiler_8h}{v8-\/profiler.\+h}}\item 
-\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/\mbox{\hyperlink{v8-profiler_8h}{v8-\/profiler.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/api/\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}

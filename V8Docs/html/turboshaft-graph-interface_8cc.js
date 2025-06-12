@@ -1,9 +1,12 @@
 var turboshaft_graph_interface_8cc =
 [
+    [ "BranchHintingStresser", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02turboshaft-graph-interface_8cc_03_1_1BranchHintingStresser.html", "classv8_1_1internal_1_1wasm_1_1anonymous__namespace_02turboshaft-graph-interface_8cc_03_1_1BranchHintingStresser" ],
     [ "TurboshaftGraphBuildingInterface", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface.html", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface" ],
     [ "Value", "structv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1Value.html", "structv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1Value" ],
     [ "Control", "structv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1Control.html", "structv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1Control" ],
     [ "BrTableAnalysis", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1BrTableAnalysis.html", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1BrTableAnalysis" ],
+    [ "InstanceCache", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache.html", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1InstanceCache" ],
+    [ "BlockPhis", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1BlockPhis.html", "classv8_1_1internal_1_1wasm_1_1TurboshaftGraphBuildingInterface_1_1BlockPhis" ],
     [ "CASE_BINOP", "turboshaft-graph-interface_8cc.html#ae4c10030868c888a705c32a7c6af82bc", null ],
     [ "CASE_LOAD", "turboshaft-graph-interface_8cc.html#a74a2c1cc8f40ebbe2e0f2d91d589587c", null ],
     [ "CASE_STORE", "turboshaft-graph-interface_8cc.html#affa90d6c1df5ea06a9f26e1214692569", null ],
@@ -26,6 +29,13 @@ var turboshaft_graph_interface_8cc =
     [ "TRAPREASON_TO_TRAPID", "turboshaft-graph-interface_8cc.html#a5c4c427f3a3193b0aff579734aef0fb3", null ],
     [ "V", "turboshaft-graph-interface_8cc.html#a681a57b69471dedb99b36abb7f2cb544", null ],
     [ "TSBlock", "turboshaft-graph-interface_8cc.html#addfd98bac28cfbceda55c307fd4fdb4c", null ],
+    [ "BranchHintingMode", "turboshaft-graph-interface_8cc.html#a5a397c0aebc212a6f14cf10ff69e7ac5", [
+      [ "kNone", "turboshaft-graph-interface_8cc.html#a5a397c0aebc212a6f14cf10ff69e7ac5a35c3ace1970663a16e5c65baa5941b13", null ],
+      [ "kModuleProvided", "turboshaft-graph-interface_8cc.html#a5a397c0aebc212a6f14cf10ff69e7ac5a785ce1fe419a1f38c601446063269090", null ],
+      [ "kStress", "turboshaft-graph-interface_8cc.html#a5a397c0aebc212a6f14cf10ff69e7ac5ad88ab9f1b5760c83fab6cb0ffcfeb138", null ]
+    ] ],
     [ "BuildTSGraph", "turboshaft-graph-interface_8cc.html#a2d69d896a1008b0ec10a8ebc0c18f390", null ],
-    [ "cursor_", "turboshaft-graph-interface_8cc.html#a6b79b5f5029759038576f82e1009e195", null ]
+    [ "GetExternalArrayType", "turboshaft-graph-interface_8cc.html#ad2fc415581f94a5a85d523bc520fe3b0", null ],
+    [ "GetTypeSize", "turboshaft-graph-interface_8cc.html#a038e8938b91a34becfa93d16c87190f2", null ],
+    [ "ReverseBytesSupported", "turboshaft-graph-interface_8cc.html#a243ae7df9665185956fcec8876c061f1", null ]
 ];

@@ -8,5 +8,6 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoadTypedElementOp =
     [ "inputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoadTypedElementOp.html#a51e31dee206ca12028c75ceb9e3d2caf", null ],
     [ "options", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoadTypedElementOp.html#aa44ca78982ff23f8ce070dd5df2a111e", null ],
     [ "outputs_rep", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoadTypedElementOp.html#af7f728ed7e6520e466f188f3c44fa7d5", null ],
-    [ "array_type", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoadTypedElementOp.html#a7ea4d0b5dea5a3af3dfd640227172c06", null ]
+    [ "array_type", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoadTypedElementOp.html#a7ea4d0b5dea5a3af3dfd640227172c06", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1LoadTypedElementOp.html#a1dcea58d9d773d215f0a1a749d27af92", null ]
 ];

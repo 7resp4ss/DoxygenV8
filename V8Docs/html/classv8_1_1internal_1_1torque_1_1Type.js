@@ -10,6 +10,8 @@ var classv8_1_1internal_1_1torque_1_1Type =
     [ "AggregateSupertype", "classv8_1_1internal_1_1torque_1_1Type.html#af7a6b348004dc5741f6c3d55150a1867", null ],
     [ "AlignmentLog2", "classv8_1_1internal_1_1torque_1_1Type.html#a485a19cf31d095890c3f5d849b4aa003", null ],
     [ "ClassSupertype", "classv8_1_1internal_1_1torque_1_1Type.html#ad95d6b39f7f36774fe7005c25513e7d7", null ],
+    [ "CommonSupertype", "classv8_1_1internal_1_1torque_1_1Type.html#add93becd7f122377e9a4fc474eb1fc62", null ],
+    [ "ComputeName", "classv8_1_1internal_1_1torque_1_1Type.html#a17749630a1f0ff0be37c3687795c7e8c", null ],
     [ "ConstexprVersion", "classv8_1_1internal_1_1torque_1_1Type.html#a3ced925b97dabfcd93a01c408d5f41b0", null ],
     [ "Depth", "classv8_1_1internal_1_1torque_1_1Type.html#a0f6752b1336cbd88609a803600943ee3", null ],
     [ "GetConstexprGeneratedTypeName", "classv8_1_1internal_1_1torque_1_1Type.html#a203050f428b9015ecb85a1b66e910228", null ],
@@ -24,6 +26,7 @@ var classv8_1_1internal_1_1torque_1_1Type =
     [ "GetTypeCheckers", "classv8_1_1internal_1_1torque_1_1Type.html#afe942b9c50c9cb830063e3bb9644acfc", null ],
     [ "HandlifiedCppTypeName", "classv8_1_1internal_1_1torque_1_1Type.html#a96126da318f48b3e16b461fa589c50da", null ],
     [ "id", "classv8_1_1internal_1_1torque_1_1Type.html#a86059f5abcbcb1cbe93d308d8c200462", null ],
+    [ "IsAbstractName", "classv8_1_1internal_1_1torque_1_1Type.html#a0794992886e5353e13e7c8f7e8ff7ddb", null ],
     [ "IsBool", "classv8_1_1internal_1_1torque_1_1Type.html#a780adf8523c6c0adc03db3c7070511f0", null ],
     [ "IsConstexpr", "classv8_1_1internal_1_1torque_1_1Type.html#af74902579cf3ecfd2a9df02063f6ca02", null ],
     [ "IsConstexprBool", "classv8_1_1internal_1_1torque_1_1Type.html#a22cf4783899a101e2a3d898ab7cb976a", null ],
@@ -34,6 +37,7 @@ var classv8_1_1internal_1_1torque_1_1Type =
     [ "IsTransient", "classv8_1_1internal_1_1torque_1_1Type.html#a27a48119b18f361f24732870800da51f", null ],
     [ "IsVoid", "classv8_1_1internal_1_1torque_1_1Type.html#a7f3df7c4ba0438edda07343afe017bde", null ],
     [ "IsVoidOrNever", "classv8_1_1internal_1_1torque_1_1Type.html#a84b61e1c3017e4e37010985a431d8b50", null ],
+    [ "MatchUnaryGeneric", "classv8_1_1internal_1_1torque_1_1Type.html#a1773be7b2394793d51afef2357ba1fcf", null ],
     [ "NonConstexprVersion", "classv8_1_1internal_1_1torque_1_1Type.html#a7ed60c9ccf2c72056d14e329b0d6690d", null ],
     [ "operator=", "classv8_1_1internal_1_1torque_1_1Type.html#a03287565af96e5b076c41af8ec30d6f1", null ],
     [ "parent", "classv8_1_1internal_1_1torque_1_1Type.html#adb3335158f976af682ea0c5bdb2611fa", null ],
@@ -44,5 +48,10 @@ var classv8_1_1internal_1_1torque_1_1Type =
     [ "StructSupertype", "classv8_1_1internal_1_1torque_1_1Type.html#ab9085af638fe102fb47514d10a08441a", null ],
     [ "TagglifiedCppTypeName", "classv8_1_1internal_1_1torque_1_1Type.html#adc6ddaa5c4d4b96c5cf608f779b5cb7f", null ],
     [ "ToExplicitString", "classv8_1_1internal_1_1torque_1_1Type.html#a6172ed269fb4b1f6fd88c26b0c09845d", null ],
-    [ "ToString", "classv8_1_1internal_1_1torque_1_1Type.html#ac42019595e0fef2def30ccb0e7d81b8f", null ]
+    [ "ToString", "classv8_1_1internal_1_1torque_1_1Type.html#ac42019595e0fef2def30ccb0e7d81b8f", null ],
+    [ "aliases_", "classv8_1_1internal_1_1torque_1_1Type.html#ada31956821b318b709b1bc2c9c7364cb", null ],
+    [ "constexpr_version_", "classv8_1_1internal_1_1torque_1_1Type.html#a714530f43a912ae4e90dc7bc1cfbfe0e", null ],
+    [ "id_", "classv8_1_1internal_1_1torque_1_1Type.html#ada362a0dc80f873416ea0b473be502e5", null ],
+    [ "parent_", "classv8_1_1internal_1_1torque_1_1Type.html#a06c02c3ab0a85d22aae629d32fd339b3", null ],
+    [ "specialized_from_", "classv8_1_1internal_1_1torque_1_1Type.html#a3c022474eac09c072338edda6b176e25", null ]
 ];

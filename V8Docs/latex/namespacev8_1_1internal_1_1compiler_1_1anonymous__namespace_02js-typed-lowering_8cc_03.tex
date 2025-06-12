@@ -1,0 +1,130 @@
+\hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-typed-lowering_8cc_03}{}\doxysection{v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{js-\/typed-\/lowering.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-typed-lowering_8cc_03}\index{v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/typed-\/lowering.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/typed-\/lowering.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-typed-lowering_8cc_03_a7e772bd0174570dd6798ce24d0cec526}{Reduce\+Builtin}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSGraph}{JSGraph}} $\ast$jsgraph, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$node, \mbox{\hyperlink{namespacev8_1_1internal_acc2e164143496f18b5ec68f8ab70af52}{Builtin}} builtin, \mbox{\hyperlink{classint}{int}} arity, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CallDescriptor_ad174bc9e7392dc57ef0b626ba48a74d4}{Call\+Descriptor\+::\+Flags}} \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-typed-lowering_8cc_03_a7e772bd0174570dd6798ce24d0cec526}\label{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-typed-lowering_8cc_03_a7e772bd0174570dd6798ce24d0cec526}} 
+\index{v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/typed-\/lowering.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/typed-\/lowering.cc\rcurly{}}!ReduceBuiltin@{ReduceBuiltin}}
+\index{ReduceBuiltin@{ReduceBuiltin}!v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/typed-\/lowering.cc\rcurly{}@{v8::internal::compiler::anonymous\_namespace\lcurly{}js-\/typed-\/lowering.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{ReduceBuiltin()}{ReduceBuiltin()}}
+{\footnotesize\ttfamily void v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{js-\/typed-\/lowering.\+cc\}\+::Reduce\+Builtin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSGraph}{JSGraph}} $\ast$}]{jsgraph,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Node}{Node}} $\ast$}]{node,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_acc2e164143496f18b5ec68f8ab70af52}{Builtin}}}]{builtin,  }\item[{\mbox{\hyperlink{classint}{int}}}]{arity,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CallDescriptor_ad174bc9e7392dc57ef0b626ba48a74d4}{Call\+Descriptor\+::\+Flags}}}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1831 of file js-\/typed-\/lowering.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1832                                               \{}
+\DoxyCodeLine{1833   \textcolor{comment}{// Patch \{node\} to a direct CEntry call.}}
+\DoxyCodeLine{1834   \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ A r g u m e n t s -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{1835   \textcolor{comment}{// -\/-\/ 0: CEntry}}
+\DoxyCodeLine{1836   \textcolor{comment}{// -\/-\/-\/ Stack args -\/-\/-\/}}
+\DoxyCodeLine{1837   \textcolor{comment}{// -\/-\/ 1: new\_target}}
+\DoxyCodeLine{1838   \textcolor{comment}{// -\/-\/ 2: target}}
+\DoxyCodeLine{1839   \textcolor{comment}{// -\/-\/ 3: argc, including the receiver and implicit args (Smi)}}
+\DoxyCodeLine{1840   \textcolor{comment}{// -\/-\/ 4: padding}}
+\DoxyCodeLine{1841   \textcolor{comment}{// -\/-\/ 5: receiver}}
+\DoxyCodeLine{1842   \textcolor{comment}{// -\/-\/ [6, 6 + n[: the n actual arguments passed to the builtin}}
+\DoxyCodeLine{1843   \textcolor{comment}{// -\/-\/-\/ Register args -\/-\/-\/}}
+\DoxyCodeLine{1844   \textcolor{comment}{// -\/-\/ 6 + n: the C entry point}}
+\DoxyCodeLine{1845   \textcolor{comment}{// -\/-\/ 6 + n + 1: argc (Int32)}}
+\DoxyCodeLine{1846   \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{1847 }
+\DoxyCodeLine{1848   \textcolor{comment}{// These SBXCHECKs are a defense-\/in-\/depth measure to ensure that we always}}
+\DoxyCodeLine{1849   \textcolor{comment}{// generate valid calls here (with matching signatures).}}
+\DoxyCodeLine{1850   \mbox{\hyperlink{check_8h_aee78f6fbdf206be23e949191f9408e4b}{SBXCHECK}}(Builtins::IsCpp(builtin));}
+\DoxyCodeLine{1851   \mbox{\hyperlink{check_8h_aec752d98ed7d655aa8ced64592c346d5}{SBXCHECK\_GE}}(arity + \mbox{\hyperlink{namespacev8_1_1internal_a659859b64f26854bf73a39399d39bed2}{kJSArgcReceiverSlots}},}
+\DoxyCodeLine{1852               Builtins::GetFormalParameterCount(builtin));}
+\DoxyCodeLine{1853 }
+\DoxyCodeLine{1854   \textcolor{comment}{// The logic contained here is mirrored in Builtins::Generate\_Adaptor.}}
+\DoxyCodeLine{1855   \textcolor{comment}{// Keep these in sync.}}
+\DoxyCodeLine{1856 }
+\DoxyCodeLine{1857   Node* target = node-\/>InputAt(JSCallOrConstructNode::TargetIndex());}
+\DoxyCodeLine{1858 }
+\DoxyCodeLine{1859   \textcolor{comment}{// Unify representations between construct and call nodes. For construct}}
+\DoxyCodeLine{1860   \textcolor{comment}{// nodes, the receiver is undefined. For call nodes, the new\_target is}}
+\DoxyCodeLine{1861   \textcolor{comment}{// undefined.}}
+\DoxyCodeLine{1862   Node* new\_target;}
+\DoxyCodeLine{1863   Zone* zone = jsgraph-\/>zone();}
+\DoxyCodeLine{1864   \textcolor{keywordflow}{if} (node-\/>opcode() == IrOpcode::kJSConstruct) \{}
+\DoxyCodeLine{1865     static\_assert(JSCallNode::ReceiverIndex() ==}
+\DoxyCodeLine{1866                   JSConstructNode::NewTargetIndex());}
+\DoxyCodeLine{1867     new\_target = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_af666487640e5721f76ce9c6684b44156}{JSConstructNode}}\{node\}.new\_target();}
+\DoxyCodeLine{1868     node-\/>ReplaceInput(JSConstructNode::NewTargetIndex(),}
+\DoxyCodeLine{1869                        jsgraph-\/>UndefinedConstant());}
+\DoxyCodeLine{1870     node-\/>RemoveInput(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_af666487640e5721f76ce9c6684b44156}{JSConstructNode}}\{node\}.FeedbackVectorIndex());}
+\DoxyCodeLine{1871   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{1872     new\_target = jsgraph-\/>UndefinedConstant();}
+\DoxyCodeLine{1873     node-\/>RemoveInput(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a0889640f605a99faf72f981fbb5f1457}{JSCallNode}}\{node\}.FeedbackVectorIndex());}
+\DoxyCodeLine{1874   \}}
+\DoxyCodeLine{1875 }
+\DoxyCodeLine{1876   \textcolor{comment}{// CPP builtins are implemented in C++, and we can inline it.}}
+\DoxyCodeLine{1877   \textcolor{comment}{// CPP builtins create a builtin exit frame.}}
+\DoxyCodeLine{1878   \textcolor{keyword}{const} \textcolor{keywordtype}{bool} has\_builtin\_exit\_frame = \textcolor{keyword}{true};}
+\DoxyCodeLine{1879 }
+\DoxyCodeLine{1880   Node* stub =}
+\DoxyCodeLine{1881       jsgraph-\/>CEntryStubConstant(1, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02gap-resolver_8cc_03_a013cf8bece83ac1bb92ff1729616a4fca87adf1994961031a65644aa7cf62c026}{ArgvMode::kStack}}, has\_builtin\_exit\_frame);}
+\DoxyCodeLine{1882   node-\/>ReplaceInput(0, stub);}
+\DoxyCodeLine{1883 }
+\DoxyCodeLine{1884   \textcolor{keyword}{const} \textcolor{keywordtype}{int} argc = arity + BuiltinArguments::kNumExtraArgsWithReceiver;}
+\DoxyCodeLine{1885   Node* argc\_node = jsgraph-\/>ConstantNoHole(argc);}
+\DoxyCodeLine{1886 }
+\DoxyCodeLine{1887   \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{int} kStub = 1;}
+\DoxyCodeLine{1888   static\_assert(BuiltinArguments::kNewTargetIndex == 0);}
+\DoxyCodeLine{1889   static\_assert(BuiltinArguments::kTargetIndex == 1);}
+\DoxyCodeLine{1890   static\_assert(BuiltinArguments::kArgcIndex == 2);}
+\DoxyCodeLine{1891   static\_assert(BuiltinArguments::kPaddingIndex == 3);}
+\DoxyCodeLine{1892   node-\/>InsertInput(zone, 1, new\_target);}
+\DoxyCodeLine{1893   node-\/>InsertInput(zone, 2, target);}
+\DoxyCodeLine{1894   node-\/>InsertInput(zone, 3, argc\_node);}
+\DoxyCodeLine{1895   node-\/>InsertInput(zone, 4, jsgraph-\/>PaddingConstant());}
+\DoxyCodeLine{1896   \textcolor{keywordtype}{int} cursor = arity + kStub + BuiltinArguments::kNumExtraArgsWithReceiver;}
+\DoxyCodeLine{1897 }
+\DoxyCodeLine{1898   \mbox{\hyperlink{namespacev8_1_1base_aed4219b45684a3840c8b930b5df90ea9}{Address}} entry = Builtins::CppEntryOf(builtin);}
+\DoxyCodeLine{1899   ExternalReference entry\_ref = ExternalReference::Create(entry);}
+\DoxyCodeLine{1900   Node* entry\_node = jsgraph-\/>ExternalConstant(entry\_ref);}
+\DoxyCodeLine{1901 }
+\DoxyCodeLine{1902   node-\/>InsertInput(zone, cursor++, entry\_node);}
+\DoxyCodeLine{1903   node-\/>InsertInput(zone, cursor++, argc\_node);}
+\DoxyCodeLine{1904 }
+\DoxyCodeLine{1905   \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{int} kReturnCount = 1;}
+\DoxyCodeLine{1906   \textcolor{keyword}{const} \textcolor{keywordtype}{char}* debug\_name = \mbox{\hyperlink{flag-definitions_8h_a3ced3697c19e78b3fb4994a89f46945e}{Builtins::name}}(builtin);}
+\DoxyCodeLine{1907   Operator::Properties properties = node-\/>op()-\/>properties();}
+\DoxyCodeLine{1908   \textcolor{keyword}{auto} call\_descriptor = Linkage::GetCEntryStubCallDescriptor(}
+\DoxyCodeLine{1909       zone, kReturnCount, argc, debug\_name, properties, \mbox{\hyperlink{flag-definitions_8h_af0832cf93cb1767d6e6e287bb7dcdf72}{flags}},}
+\DoxyCodeLine{1910       StackArgumentOrder::kJS);}
+\DoxyCodeLine{1911 }
+\DoxyCodeLine{1912   NodeProperties::ChangeOp(node, jsgraph-\/>common()-\/>Call(call\_descriptor));}
+\DoxyCodeLine{1913 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::\+Common\+Operator\+Builder\+::\+Call(), v8\+::internal\+::compiler\+::\+JSGraph\+::\+CEntry\+Stub\+Constant(), v8\+::internal\+::compiler\+::\+Node\+Properties\+::\+Change\+Op(), v8\+::internal\+::compiler\+::\+Machine\+Graph\+::common(), v8\+::internal\+::compiler\+::\+JSGraph\+::\+Constant\+No\+Hole(), v8\+::internal\+::\+Builtins\+::\+Cpp\+Entry\+Of(), v8\+::internal\+::\+External\+Reference\+::\+Create(), v8\+::internal\+::compiler\+::\+Machine\+Graph\+::\+External\+Constant(), v8\+::internal\+::flags, v8\+::internal\+::compiler\+::\+Linkage\+::\+Get\+CEntry\+Stub\+Call\+Descriptor(), v8\+::internal\+::\+Builtins\+::\+Get\+Formal\+Parameter\+Count(), v8\+::internal\+::compiler\+::\+Node\+::\+Input\+At(), v8\+::internal\+::compiler\+::\+Node\+::\+Insert\+Input(), v8\+::internal\+::\+Builtins\+::\+Is\+Cpp(), v8\+::internal\+::\+Builtin\+Arguments\+::k\+Argc\+Index, v8\+::internal\+::k\+JS, v8\+::internal\+::k\+JSArgc\+Receiver\+Slots, v8\+::internal\+::\+Builtin\+Arguments\+::k\+New\+Target\+Index, v8\+::internal\+::\+Builtin\+Arguments\+::k\+Num\+Extra\+Args\+With\+Receiver, v8\+::internal\+::\+Builtin\+Arguments\+::k\+Padding\+Index, v8\+::internal\+::k\+Stack, v8\+::internal\+::\+Builtin\+Arguments\+::k\+Target\+Index, v8\+::internal\+::\+Builtins\+::name(), v8\+::internal\+::compiler\+::\+Node\+::op(), v8\+::internal\+::compiler\+::\+Node\+::opcode(), v8\+::internal\+::compiler\+::\+JSGraph\+::\+Padding\+Constant(), v8\+::internal\+::compiler\+::\+Operator\+::properties(), v8\+::internal\+::compiler\+::\+Node\+::\+Remove\+Input(), v8\+::internal\+::compiler\+::\+Node\+::\+Replace\+Input(), SBXCHECK, SBXCHECK\+\_\+\+GE, and v8\+::internal\+::compiler\+::\+Machine\+Graph\+::zone().
+
+
+
+Referenced by v8\+::internal\+::compiler\+::\+JSTyped\+Lowering\+::\+Reduce\+JSCall().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-typed-lowering_8cc_03_a7e772bd0174570dd6798ce24d0cec526_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02js-typed-lowering_8cc_03_a7e772bd0174570dd6798ce24d0cec526_icgraph}
+\end{center}
+\end{figure}

@@ -10,8 +10,8 @@ var include_2cppgc_2platform_8h =
     [ "TaskPriority", "include_2cppgc_2platform_8h.html#a3285e0ac166437006ff97f42ce2fad4c", null ],
     [ "TaskRunner", "include_2cppgc_2platform_8h.html#a3c2b2bee060b35e6507a2d25c5e5abc7", null ],
     [ "TracingController", "include_2cppgc_2platform_8h.html#a28c3d393aadf0a5ef0847ae1657a60bb", null ],
-    [ "Fatal", "include_2cppgc_2platform_8h.html#a022a504d3acda0656253c3456c712da5", null ],
-    [ "InitializeProcess", "include_2cppgc_2platform_8h.html#a725e7d9ef736a78723538b1cf32b9484", null ],
-    [ "IsInitialized", "include_2cppgc_2platform_8h.html#ad61657fd2620a72b4c1c9c2026743ccb", null ],
-    [ "ShutdownProcess", "include_2cppgc_2platform_8h.html#a14db8b6f74334295bcdc4dc4821d0260", null ]
+    [ "Fatal", "include_2cppgc_2platform_8h.html#a53ef3643e679385c014b494e7e349221", null ],
+    [ "InitializeProcess", "include_2cppgc_2platform_8h.html#a7dc95658081246e6b9d4279d6a94bee6", null ],
+    [ "IsInitialized", "include_2cppgc_2platform_8h.html#a04d90e034fd35859abe8d2e665f4a04c", null ],
+    [ "ShutdownProcess", "include_2cppgc_2platform_8h.html#a3cb7b63d49a5b48410aa5c9757eca39f", null ]
 ];

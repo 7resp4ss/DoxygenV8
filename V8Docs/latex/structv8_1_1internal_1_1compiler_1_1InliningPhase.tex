@@ -1,10 +1,27 @@
 \hypertarget{structv8_1_1internal_1_1compiler_1_1InliningPhase}{}\doxysection{v8\+::internal\+::compiler\+::Inlining\+Phase Struct Reference}
 \label{structv8_1_1internal_1_1compiler_1_1InliningPhase}\index{v8::internal::compiler::InliningPhase@{v8::internal::compiler::InliningPhase}}
+
+
+Collaboration diagram for v8\+::internal\+::compiler\+::Inlining\+Phase\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=201pt]{structv8_1_1internal_1_1compiler_1_1InliningPhase__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1InliningPhase_a2998f711f29a2a94aded0e5d9f0d7970}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
+void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1InliningPhase_a2998f711f29a2a94aded0e5d9f0d7970}{Run}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1TFPipelineData}{TFPipeline\+Data}} $\ast$data, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$temp\+\_\+zone)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 893 of file pipeline.\+cc.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -16,6 +33,104 @@ void \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1InliningPhase_a2998f71
 
 
 
+Definition at line 896 of file pipeline.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{896                                                   \{}
+\DoxyCodeLine{897     OptimizedCompilationInfo* info = data-\/>info();}
+\DoxyCodeLine{898     GraphReducer graph\_reducer(temp\_zone, data-\/>graph(), \&info-\/>tick\_counter(),}
+\DoxyCodeLine{899                                data-\/>broker(), data-\/>jsgraph()-\/>Dead(),}
+\DoxyCodeLine{900                                data-\/>observe\_node\_manager());}
+\DoxyCodeLine{901     DeadCodeElimination dead\_code\_elimination(\&graph\_reducer, data-\/>graph(),}
+\DoxyCodeLine{902                                               data-\/>common(), temp\_zone);}
+\DoxyCodeLine{903     CheckpointElimination checkpoint\_elimination(\&graph\_reducer);}
+\DoxyCodeLine{904     CommonOperatorReducer common\_reducer(}
+\DoxyCodeLine{905         \&graph\_reducer, data-\/>graph(), data-\/>broker(), data-\/>common(),}
+\DoxyCodeLine{906         data-\/>machine(), temp\_zone, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac1e15b9d73fa3e3885616519e20c2bfbaf402aae992d64600a4d2086c1eb0c7bf}{BranchSemantics::kJS}});}
+\DoxyCodeLine{907     \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSCallReducer_a9f43e961b0a8901d98f1869dc072bef1}{JSCallReducer::Flags}} call\_reducer\_flags = \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSCallReducer_a6996f7826b08cb7b4ef61f9bd5874a9cacac246880ba4181807f4f51162c27c34}{JSCallReducer::kNoFlags}};}
+\DoxyCodeLine{908     \textcolor{keywordflow}{if} (data-\/>info()-\/>bailout\_on\_uninitialized()) \{}
+\DoxyCodeLine{909       call\_reducer\_flags |= \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSCallReducer_a6996f7826b08cb7b4ef61f9bd5874a9ca48c67a126b5ef51c566115cb03d182ff}{JSCallReducer::kBailoutOnUninitialized}};}
+\DoxyCodeLine{910     \}}
+\DoxyCodeLine{911     \textcolor{keywordflow}{if} (data-\/>info()-\/>inline\_js\_wasm\_calls() \&\& data-\/>info()-\/>inlining()) \{}
+\DoxyCodeLine{912       call\_reducer\_flags |= \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSCallReducer_a6996f7826b08cb7b4ef61f9bd5874a9caf7fa3dfcf50106a43671e9b294ebd5e1}{JSCallReducer::kInlineJSToWasmCalls}};}
+\DoxyCodeLine{913     \}}
+\DoxyCodeLine{914     JSCallReducer call\_reducer(\&graph\_reducer, data-\/>jsgraph(), data-\/>broker(),}
+\DoxyCodeLine{915                                temp\_zone, call\_reducer\_flags);}
+\DoxyCodeLine{916     JSContextSpecialization context\_specialization(}
+\DoxyCodeLine{917         \&graph\_reducer, data-\/>jsgraph(), data-\/>broker(),}
+\DoxyCodeLine{918         data-\/>specialization\_context(),}
+\DoxyCodeLine{919         data-\/>info()-\/>function\_context\_specializing()}
+\DoxyCodeLine{920             ? data-\/>info()-\/>closure()}
+\DoxyCodeLine{921             : MaybeHandle<JSFunction>());}
+\DoxyCodeLine{922     \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSNativeContextSpecialization_a8163945d5f053adb378bfe77b00ae157}{JSNativeContextSpecialization::Flags}} \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}} =}
+\DoxyCodeLine{923         \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSNativeContextSpecialization_ac5300a26368d26f68369e3cacc6d6cc8ab609f228b3195ec1dddd03f919fdb423}{JSNativeContextSpecialization::kNoFlags}};}
+\DoxyCodeLine{924     \textcolor{keywordflow}{if} (data-\/>info()-\/>bailout\_on\_uninitialized()) \{}
+\DoxyCodeLine{925       \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}} |= \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSNativeContextSpecialization_ac5300a26368d26f68369e3cacc6d6cc8a9b0c421dda328c555fa659d01d701ea4}{JSNativeContextSpecialization::kBailoutOnUninitialized}};}
+\DoxyCodeLine{926     \}}
+\DoxyCodeLine{927     \textcolor{comment}{// Passing the OptimizedCompilationInfo's shared zone here as}}
+\DoxyCodeLine{928     \textcolor{comment}{// JSNativeContextSpecialization allocates out-\/of-\/heap objects}}
+\DoxyCodeLine{929     \textcolor{comment}{// that need to live until code generation.}}
+\DoxyCodeLine{930     JSNativeContextSpecialization native\_context\_specialization(}
+\DoxyCodeLine{931         \&graph\_reducer, data-\/>jsgraph(), data-\/>broker(), \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}}, temp\_zone,}
+\DoxyCodeLine{932         info-\/>zone());}
+\DoxyCodeLine{933     JSInliningHeuristic inlining(}
+\DoxyCodeLine{934         \&graph\_reducer, temp\_zone, data-\/>info(), data-\/>jsgraph(),}
+\DoxyCodeLine{935         data-\/>broker(), data-\/>source\_positions(), data-\/>node\_origins(),}
+\DoxyCodeLine{936         \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1JSInliningHeuristic_a460dfd6f51f754658f4d9d8b155fc66ea57996ae846b50440b0c158dd2c8547aa}{JSInliningHeuristic::kJSOnly}}, \textcolor{keyword}{nullptr}, \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{937 }
+\DoxyCodeLine{938     JSIntrinsicLowering intrinsic\_lowering(\&graph\_reducer, data-\/>jsgraph(),}
+\DoxyCodeLine{939                                            data-\/>broker());}
+\DoxyCodeLine{940     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&dead\_code\_elimination);}
+\DoxyCodeLine{941     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&checkpoint\_elimination);}
+\DoxyCodeLine{942     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&common\_reducer);}
+\DoxyCodeLine{943     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&native\_context\_specialization);}
+\DoxyCodeLine{944     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&context\_specialization);}
+\DoxyCodeLine{945     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&intrinsic\_lowering);}
+\DoxyCodeLine{946     \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&call\_reducer);}
+\DoxyCodeLine{947     \textcolor{keywordflow}{if} (data-\/>info()-\/>inlining()) \{}
+\DoxyCodeLine{948       \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1anonymous__namespace_02pipeline_8cc_03_aea97682e6bc248b1b8e60a26eb8614ea}{AddReducer}}(data, \&graph\_reducer, \&inlining);}
+\DoxyCodeLine{949     \}}
+\DoxyCodeLine{950     graph\_reducer.ReduceGraph();}
+\DoxyCodeLine{951     info-\/>set\_inlined\_bytecode\_size(inlining.total\_inlined\_bytecode\_size());}
+\DoxyCodeLine{952 }
+\DoxyCodeLine{953 \textcolor{preprocessor}{\#if V8\_ENABLE\_WEBASSEMBLY}}
+\DoxyCodeLine{954     \textcolor{comment}{// Not forwarding this information to the TurboFan pipeline data here later}}
+\DoxyCodeLine{955     \textcolor{comment}{// skips `JSWasmInliningPhase` if there are no JS-\/to-\/Wasm functions calls.}}
+\DoxyCodeLine{956     \textcolor{keywordflow}{if} (call\_reducer.has\_js\_wasm\_calls()) \{}
+\DoxyCodeLine{957       \textcolor{keyword}{const} \mbox{\hyperlink{namespacev8_1_1internal_a09dbf9baefb793fd78912d6ef89f9dde}{wasm::WasmModule}}* wasm\_module =}
+\DoxyCodeLine{958           call\_reducer.wasm\_module\_for\_inlining();}
+\DoxyCodeLine{959       \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(wasm\_module);}
+\DoxyCodeLine{960       data-\/>set\_wasm\_module\_for\_inlining(wasm\_module);}
+\DoxyCodeLine{961       \textcolor{comment}{// Enable source positions if not enabled yet. While JS only uses the}}
+\DoxyCodeLine{962       \textcolor{comment}{// source position table for tracing, profiling, ..., wasm needs it at}}
+\DoxyCodeLine{963       \textcolor{comment}{// compile time for keeping track of source locations for wasm traps.}}
+\DoxyCodeLine{964       \textcolor{comment}{// Note: By not setting data-\/>info()-\/>set\_source\_positions(), even with}}
+\DoxyCodeLine{965       \textcolor{comment}{// wasm inlining, source positions shouldn't be kept alive after}}
+\DoxyCodeLine{966       \textcolor{comment}{// compilation is finished (if not for tracing, ...)}}
+\DoxyCodeLine{967       \textcolor{keywordflow}{if} (!data-\/>source\_positions()-\/>IsEnabled()) \{}
+\DoxyCodeLine{968         data-\/>source\_positions()-\/>Enable();}
+\DoxyCodeLine{969         data-\/>source\_positions()-\/>AddDecorator();}
+\DoxyCodeLine{970       \}}
+\DoxyCodeLine{971     \}}
+\DoxyCodeLine{972 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{973   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::compiler\+::anonymous\+\_\+namespace\{pipeline.\+cc\}\+::\+Add\+Reducer(), DCHECK\+\_\+\+NOT\+\_\+\+NULL, v8\+::internal\+::flags, v8\+::internal\+::compiler\+::\+Graph\+Reducer\+::graph(), v8\+::internal\+::compiler\+::\+JSCall\+Reducer\+::k\+Bailout\+On\+Uninitialized, v8\+::internal\+::compiler\+::\+JSNative\+Context\+Specialization\+::k\+Bailout\+On\+Uninitialized, v8\+::internal\+::compiler\+::\+JSCall\+Reducer\+::k\+Inline\+JSTo\+Wasm\+Calls, v8\+::internal\+::compiler\+::k\+JS, v8\+::internal\+::compiler\+::\+JSInlining\+Heuristic\+::k\+JSOnly, v8\+::internal\+::compiler\+::\+JSCall\+Reducer\+::k\+No\+Flags, v8\+::internal\+::compiler\+::\+JSNative\+Context\+Specialization\+::k\+No\+Flags, v8\+::internal\+::compiler\+::\+Graph\+Reducer\+::\+Reduce\+Graph(), v8\+::internal\+::\+Optimized\+Compilation\+Info\+::set\+\_\+inlined\+\_\+bytecode\+\_\+size(), v8\+::internal\+::\+Optimized\+Compilation\+Info\+::tick\+\_\+counter(), v8\+::internal\+::compiler\+::\+JSInlining\+Heuristic\+::total\+\_\+inlined\+\_\+bytecode\+\_\+size(), and v8\+::internal\+::\+Optimized\+Compilation\+Info\+::zone().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structv8_1_1internal_1_1compiler_1_1InliningPhase_a2998f711f29a2a94aded0e5d9f0d7970_cgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/compiler/\mbox{\hyperlink{pipeline_8cc}{pipeline.\+cc}}\end{DoxyCompactItemize}

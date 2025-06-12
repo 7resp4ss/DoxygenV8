@@ -10,5 +10,6 @@ var classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ZoneWithName =
     [ "operator Zone *", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ZoneWithName.html#ae7e06622cf0d8fa030ceec61e3aff719", null ],
     [ "operator->", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ZoneWithName.html#a29d88de6dfec04a4bdf624b4cfbedaf6", null ],
     [ "operator=", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ZoneWithName.html#ab8fa28c80332e3f7567be007acfe9459", null ],
-    [ "operator=", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ZoneWithName.html#a2f35a873a3a38c1259fc521aa2ad026c", null ]
+    [ "operator=", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ZoneWithName.html#a2f35a873a3a38c1259fc521aa2ad026c", null ],
+    [ "scope_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ZoneWithName.html#a65b73238f126755876e7b06f3ba7227a", null ]
 ];

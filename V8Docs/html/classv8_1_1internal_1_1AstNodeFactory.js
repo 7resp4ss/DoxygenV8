@@ -93,5 +93,10 @@ var classv8_1_1internal_1_1AstNodeFactory =
     [ "NewYield", "classv8_1_1internal_1_1AstNodeFactory.html#ae41dbb67cf0ff40100ea812a6d327e64", null ],
     [ "NewYieldStar", "classv8_1_1internal_1_1AstNodeFactory.html#a10a76523bd5732b4b143fc58220b5034", null ],
     [ "ThisExpression", "classv8_1_1internal_1_1AstNodeFactory.html#ac789607482ff340b26c0d204eaa32973", null ],
-    [ "zone", "classv8_1_1internal_1_1AstNodeFactory.html#a04c403103080f2aa3cf0da4049c7c877", null ]
+    [ "zone", "classv8_1_1internal_1_1AstNodeFactory.html#a04c403103080f2aa3cf0da4049c7c877", null ],
+    [ "ast_value_factory_", "classv8_1_1internal_1_1AstNodeFactory.html#a06b0ec0df115c833c949a713c8e0073f", null ],
+    [ "empty_statement_", "classv8_1_1internal_1_1AstNodeFactory.html#ad0c349c96a7398979ef0e7d94de1c657", null ],
+    [ "failure_expression_", "classv8_1_1internal_1_1AstNodeFactory.html#a3aaad0e6c93aebbcb93a2d8e71d40dc4", null ],
+    [ "this_expression_", "classv8_1_1internal_1_1AstNodeFactory.html#ae940923db97158f52fdfd7ce93ced0af", null ],
+    [ "zone_", "classv8_1_1internal_1_1AstNodeFactory.html#a12415e344ed896945c8bd99183acdbfb", null ]
 ];

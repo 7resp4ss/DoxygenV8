@@ -1,0 +1,6 @@
+var structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff_compiler_8cc_03_1_1LiftoffCompilea2eb9cb32673bbd1f754f295391ceb17 =
+[
+    [ "kind", "structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompilea2eb9cb32673bbd1f754f295391ceb17.html#a5334c5f4df15bd1b3fd12ce5feba991c", null ],
+    [ "offset", "structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompilea2eb9cb32673bbd1f754f295391ceb17.html#a66ebe5fc2270a636cc00b37e411ab71b", null ],
+    [ "reg", "structv8_1_1internal_1_1wasm_1_1anonymous__namespace_02liftoff-compiler_8cc_03_1_1LiftoffCompilea2eb9cb32673bbd1f754f295391ceb17.html#acb11ad9c3727dd08a065cca1a46be3d8", null ]
+];

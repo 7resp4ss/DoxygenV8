@@ -1,0 +1,131 @@
+\hypertarget{namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03}{}\doxysection{v8\+::bigint\+::anonymous\+\_\+namespace\{bitwise.\+cc\} Namespace Reference}
+\label{namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03}\index{v8::bigint::anonymous\_namespace\lcurly{}bitwise.cc\rcurly{}@{v8::bigint::anonymous\_namespace\lcurly{}bitwise.cc\rcurly{}}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03_ab09167d56f9d3f21fc9420f9f75aecec}{Truncate\+To\+NBits}} (\mbox{\hyperlink{classv8_1_1bigint_1_1RWDigits}{RWDigits}} Z, \mbox{\hyperlink{classv8_1_1bigint_1_1Digits}{Digits}} \mbox{\hyperlink{flag-definitions_8h_acef733af0cd52e464ef990347581e777}{X}}, \mbox{\hyperlink{classint}{int}} n)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03_a548f089b86e9d5304444f38e337b9c65}{Truncate\+And\+Sub\+From\+Power\+Of\+Two}} (\mbox{\hyperlink{classv8_1_1bigint_1_1RWDigits}{RWDigits}} Z, \mbox{\hyperlink{classv8_1_1bigint_1_1Digits}{Digits}} \mbox{\hyperlink{flag-definitions_8h_acef733af0cd52e464ef990347581e777}{X}}, \mbox{\hyperlink{classint}{int}} n)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03_a548f089b86e9d5304444f38e337b9c65}\label{namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03_a548f089b86e9d5304444f38e337b9c65}} 
+\index{v8::bigint::anonymous\_namespace\lcurly{}bitwise.cc\rcurly{}@{v8::bigint::anonymous\_namespace\lcurly{}bitwise.cc\rcurly{}}!TruncateAndSubFromPowerOfTwo@{TruncateAndSubFromPowerOfTwo}}
+\index{TruncateAndSubFromPowerOfTwo@{TruncateAndSubFromPowerOfTwo}!v8::bigint::anonymous\_namespace\lcurly{}bitwise.cc\rcurly{}@{v8::bigint::anonymous\_namespace\lcurly{}bitwise.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{TruncateAndSubFromPowerOfTwo()}{TruncateAndSubFromPowerOfTwo()}}
+{\footnotesize\ttfamily void v8\+::bigint\+::anonymous\+\_\+namespace\{bitwise.\+cc\}\+::Truncate\+And\+Sub\+From\+Power\+Of\+Two (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1bigint_1_1RWDigits}{RWDigits}}}]{Z,  }\item[{\mbox{\hyperlink{classv8_1_1bigint_1_1Digits}{Digits}}}]{X,  }\item[{\mbox{\hyperlink{classint}{int}}}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 242 of file bitwise.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{242                                                                \{}
+\DoxyCodeLine{243   \textcolor{keywordtype}{int} digits = \mbox{\hyperlink{util_8h_a9f18e36014e8bde6ef0df8bdf2198a07}{DIV\_CEIL}}(n, \mbox{\hyperlink{namespacev8_1_1bigint_a4879833909bc4b7a5117ec7d35362977}{kDigitBits}});}
+\DoxyCodeLine{244   \textcolor{keywordtype}{int} bits = n \% \mbox{\hyperlink{namespacev8_1_1bigint_a4879833909bc4b7a5117ec7d35362977}{kDigitBits}};}
+\DoxyCodeLine{245   \textcolor{comment}{// Process all digits except the MSD. Take X's digits, then simulate leading}}
+\DoxyCodeLine{246   \textcolor{comment}{// zeroes.}}
+\DoxyCodeLine{247   \textcolor{keywordtype}{int} last = digits -\/ 1;}
+\DoxyCodeLine{248   \textcolor{keywordtype}{int} have\_x = std::min(last, \mbox{\hyperlink{flag-definitions_8h_acef733af0cd52e464ef990347581e777}{X}}.len());}
+\DoxyCodeLine{249   \mbox{\hyperlink{namespacev8_1_1bigint_ace92444bdf902d27d9c7207c57867eb4}{digit\_t}} borrow = 0;}
+\DoxyCodeLine{250   \textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0;}
+\DoxyCodeLine{251   \textcolor{keywordflow}{for} (; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < have\_x; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) Z[\mbox{\hyperlink{namespacev8_1_1internal}{i}}] = \mbox{\hyperlink{namespacev8_1_1bigint_ab26da410c15593be6bbdb056f1436676}{digit\_sub2}}(0, \mbox{\hyperlink{flag-definitions_8h_acef733af0cd52e464ef990347581e777}{X}}[\mbox{\hyperlink{namespacev8_1_1internal}{i}}], borrow, \&borrow);}
+\DoxyCodeLine{252   \textcolor{keywordflow}{for} (; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < last; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) Z[\mbox{\hyperlink{namespacev8_1_1internal}{i}}] = \mbox{\hyperlink{namespacev8_1_1bigint_ac537ef12c8f3d6bfd6d60bded18d08fc}{digit\_sub}}(0, borrow, \&borrow);}
+\DoxyCodeLine{253 }
+\DoxyCodeLine{254   \textcolor{comment}{// The MSD might contain extra bits that we don't want.}}
+\DoxyCodeLine{255   \mbox{\hyperlink{namespacev8_1_1bigint_ace92444bdf902d27d9c7207c57867eb4}{digit\_t}} msd = last < \mbox{\hyperlink{flag-definitions_8h_acef733af0cd52e464ef990347581e777}{X}}.len() ? \mbox{\hyperlink{flag-definitions_8h_acef733af0cd52e464ef990347581e777}{X}}[last] : 0;}
+\DoxyCodeLine{256   \textcolor{keywordflow}{if} (bits == 0) \{}
+\DoxyCodeLine{257     Z[last] = \mbox{\hyperlink{namespacev8_1_1bigint_ab26da410c15593be6bbdb056f1436676}{digit\_sub2}}(0, msd, borrow, \&borrow);}
+\DoxyCodeLine{258   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{259     \textcolor{keywordtype}{int} drop = \mbox{\hyperlink{namespacev8_1_1bigint_a4879833909bc4b7a5117ec7d35362977}{kDigitBits}} -\/ bits;}
+\DoxyCodeLine{260     msd = (msd << drop) >> drop;}
+\DoxyCodeLine{261     \mbox{\hyperlink{namespacev8_1_1bigint_ace92444bdf902d27d9c7207c57867eb4}{digit\_t}} minuend\_msd = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{namespacev8_1_1bigint_ace92444bdf902d27d9c7207c57867eb4}{digit\_t}}\textcolor{keyword}{>}(1) << bits;}
+\DoxyCodeLine{262     \mbox{\hyperlink{namespacev8_1_1bigint_ace92444bdf902d27d9c7207c57867eb4}{digit\_t}} result\_msd = \mbox{\hyperlink{namespacev8_1_1bigint_ab26da410c15593be6bbdb056f1436676}{digit\_sub2}}(minuend\_msd, msd, borrow, \&borrow);}
+\DoxyCodeLine{263     \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(borrow == 0);  \textcolor{comment}{// result < 2\string^n.}}
+\DoxyCodeLine{264     \textcolor{comment}{// If all subtracted bits were zero, we have to get rid of the}}
+\DoxyCodeLine{265     \textcolor{comment}{// materialized minuend\_msd again.}}
+\DoxyCodeLine{266     Z[last] = result\_msd \& (minuend\_msd -\/ 1);}
+\DoxyCodeLine{267   \}}
+\DoxyCodeLine{268 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK, v8\+::bigint\+::digit\+\_\+sub(), v8\+::bigint\+::digit\+\_\+sub2(), DIV\+\_\+\+CEIL, v8\+::bigint\+::k\+Digit\+Bits, and X().
+
+
+
+Referenced by v8\+::bigint\+::\+As\+Int\+N(), and v8\+::bigint\+::\+As\+Uint\+N\+\_\+\+Neg().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03_a548f089b86e9d5304444f38e337b9c65_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03_a548f089b86e9d5304444f38e337b9c65_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03_ab09167d56f9d3f21fc9420f9f75aecec}\label{namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03_ab09167d56f9d3f21fc9420f9f75aecec}} 
+\index{v8::bigint::anonymous\_namespace\lcurly{}bitwise.cc\rcurly{}@{v8::bigint::anonymous\_namespace\lcurly{}bitwise.cc\rcurly{}}!TruncateToNBits@{TruncateToNBits}}
+\index{TruncateToNBits@{TruncateToNBits}!v8::bigint::anonymous\_namespace\lcurly{}bitwise.cc\rcurly{}@{v8::bigint::anonymous\_namespace\lcurly{}bitwise.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{TruncateToNBits()}{TruncateToNBits()}}
+{\footnotesize\ttfamily void v8\+::bigint\+::anonymous\+\_\+namespace\{bitwise.\+cc\}\+::Truncate\+To\+NBits (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1bigint_1_1RWDigits}{RWDigits}}}]{Z,  }\item[{\mbox{\hyperlink{classv8_1_1bigint_1_1Digits}{Digits}}}]{X,  }\item[{\mbox{\hyperlink{classint}{int}}}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 224 of file bitwise.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{224                                                   \{}
+\DoxyCodeLine{225   \textcolor{keywordtype}{int} digits = \mbox{\hyperlink{util_8h_a9f18e36014e8bde6ef0df8bdf2198a07}{DIV\_CEIL}}(n, \mbox{\hyperlink{namespacev8_1_1bigint_a4879833909bc4b7a5117ec7d35362977}{kDigitBits}});}
+\DoxyCodeLine{226   \textcolor{keywordtype}{int} bits = n \% \mbox{\hyperlink{namespacev8_1_1bigint_a4879833909bc4b7a5117ec7d35362977}{kDigitBits}};}
+\DoxyCodeLine{227   \textcolor{comment}{// Copy all digits except the MSD.}}
+\DoxyCodeLine{228   \textcolor{keywordtype}{int} last = digits -\/ 1;}
+\DoxyCodeLine{229   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < last; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{230     Z[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}] = \mbox{\hyperlink{flag-definitions_8h_acef733af0cd52e464ef990347581e777}{X}}[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}];}
+\DoxyCodeLine{231   \}}
+\DoxyCodeLine{232   \textcolor{comment}{// The MSD might contain extra bits that we don't want.}}
+\DoxyCodeLine{233   \mbox{\hyperlink{namespacev8_1_1bigint_ace92444bdf902d27d9c7207c57867eb4}{digit\_t}} msd = \mbox{\hyperlink{flag-definitions_8h_acef733af0cd52e464ef990347581e777}{X}}[last];}
+\DoxyCodeLine{234   \textcolor{keywordflow}{if} (bits != 0) \{}
+\DoxyCodeLine{235     \textcolor{keywordtype}{int} drop = \mbox{\hyperlink{namespacev8_1_1bigint_a4879833909bc4b7a5117ec7d35362977}{kDigitBits}} -\/ bits;}
+\DoxyCodeLine{236     msd = (msd << drop) >> drop;}
+\DoxyCodeLine{237   \}}
+\DoxyCodeLine{238   Z[last] = msd;}
+\DoxyCodeLine{239 \}}
+
+\end{DoxyCode}
+
+
+References DIV\+\_\+\+CEIL, v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::bigint\+::k\+Digit\+Bits, and X().
+
+
+
+Referenced by v8\+::bigint\+::\+As\+Int\+N(), and v8\+::bigint\+::\+As\+Uint\+N\+\_\+\+Pos().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=287pt]{namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03_ab09167d56f9d3f21fc9420f9f75aecec_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1bigint_1_1anonymous__namespace_02bitwise_8cc_03_ab09167d56f9d3f21fc9420f9f75aecec_icgraph}
+\end{center}
+\end{figure}

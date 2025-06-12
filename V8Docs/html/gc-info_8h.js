@@ -1,6 +1,6 @@
 var gc_info_8h =
 [
-    [ "EnsureGCInfoIndexTrait", "structcppgc_1_1internal_1_1EnsureGCInfoIndexTrait.html", null ],
+    [ "EnsureGCInfoIndexTrait", "structcppgc_1_1internal_1_1EnsureGCInfoIndexTrait.html", "structcppgc_1_1internal_1_1EnsureGCInfoIndexTrait" ],
     [ "GCInfoFolding", "structcppgc_1_1internal_1_1GCInfoFolding.html", "structcppgc_1_1internal_1_1GCInfoFolding" ],
     [ "DISPATCH", "gc-info_8h.html#a7d0648ba74a181d9495fc2e7a446566a", null ],
     [ "GCInfoIndex", "gc-info_8h.html#a3eedd623fc378ed16d8cb08158e929a3", null ],

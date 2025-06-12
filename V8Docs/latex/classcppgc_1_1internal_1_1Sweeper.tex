@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$sweeper.\+h$>$}
 
+
+
+Collaboration diagram for cppgc\+::internal\+::Sweeper\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1Sweeper__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -41,11 +51,30 @@ bool \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_ad46d61cb166f6b8a8ac1695
 \item 
 static constexpr bool \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_af78ffe1831bdbb1cfc3ecb7b92daf2e6}{Can\+Discard\+Memory}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_af6a9fe091226ee71ae31b64cb29f8ede}{Wait\+For\+Concurrent\+Sweeping\+For\+Testing}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}} \& \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a2ff3872376b16cf4b0ae0a8761cacae2}{heap\+\_\+}}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_1_1SweeperImpl}{Sweeper\+Impl}} $>$ \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a4856f88b618e959eced02f8e6665c769}{impl\+\_\+}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a828de52b491a6707ec33388067016e1c}{Concurrent\+Sweeper\+Test}}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 22 of file sweeper.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -55,6 +84,15 @@ class \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a828de52b491a6707ec3338
 \doxysubsubsection{\texorpdfstring{Sweeper()}{Sweeper()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily cppgc\+::internal\+::\+Sweeper\+::\+Sweeper (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}} \&}]{heap }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
+
+
+Definition at line 1656 of file sweeper.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1657     : \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a2ff3872376b16cf4b0ae0a8761cacae2}{heap\_}}(\mbox{\hyperlink{namespaceheap}{heap}}), \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a4856f88b618e959eced02f8e6665c769}{impl\_}}(std::make\_unique<SweeperImpl>(\mbox{\hyperlink{namespaceheap}{heap}})) \{\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1Sweeper_a1b602b8a83aa8eb08d21bfa457e3fbab}\label{classcppgc_1_1internal_1_1Sweeper_a1b602b8a83aa8eb08d21bfa457e3fbab}} 
 \index{cppgc::internal::Sweeper@{cppgc::internal::Sweeper}!````~Sweeper@{$\sim$Sweeper}}
 \index{````~Sweeper@{$\sim$Sweeper}!cppgc::internal::Sweeper@{cppgc::internal::Sweeper}}
@@ -76,30 +114,177 @@ class \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a828de52b491a6707ec3338
 \doxysubsubsection{\texorpdfstring{CanDiscardMemory()}{CanDiscardMemory()}}
 {\footnotesize\ttfamily static constexpr bool cppgc\+::internal\+::\+Sweeper\+::\+Can\+Discard\+Memory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}}
 
+
+
+Definition at line 36 of file sweeper.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{36                                            \{}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#if defined(V8\_OS\_WIN)}}
+\DoxyCodeLine{38     \textcolor{comment}{// Discarding memory on Windows does not decommit the memory and does not}}
+\DoxyCodeLine{39     \textcolor{comment}{// contribute to reduce the memory footprint. On the other hand, these}}
+\DoxyCodeLine{40     \textcolor{comment}{// calls become expensive the more memory is allocated in the system and}}
+\DoxyCodeLine{41     \textcolor{comment}{// can result in hangs. Thus, it is better to not discard on Windows.}}
+\DoxyCodeLine{42     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{44     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacecppgc_1_1internal_a841370d4add05228e4f2dc70369e0368}{CheckMemoryIsInaccessibleIsNoop}}();}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{46   \}}
+
+\end{DoxyCode}
+
+
+References cppgc\+::internal\+::\+Check\+Memory\+Is\+Inaccessible\+Is\+Noop().
+
+
+
+Referenced by cppgc\+::internal\+::\+Sweeper\+::\+Sweeper\+Impl\+::\+Start().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1Sweeper_af78ffe1831bdbb1cfc3ecb7b92daf2e6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1Sweeper_af78ffe1831bdbb1cfc3ecb7b92daf2e6_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1Sweeper_a6966fd3b9af81845c4492728f19fa340}\label{classcppgc_1_1internal_1_1Sweeper_a6966fd3b9af81845c4492728f19fa340}} 
 \index{cppgc::internal::Sweeper@{cppgc::internal::Sweeper}!FinishIfOutOfWork@{FinishIfOutOfWork}}
 \index{FinishIfOutOfWork@{FinishIfOutOfWork}!cppgc::internal::Sweeper@{cppgc::internal::Sweeper}}
 \doxysubsubsection{\texorpdfstring{FinishIfOutOfWork()}{FinishIfOutOfWork()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Sweeper\+::\+Finish\+If\+Out\+Of\+Work (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 1665 of file sweeper.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1665 \{ \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a4856f88b618e959eced02f8e6665c769}{impl\_}}-\/>FinishIfOutOfWork(); \}}
+
+\end{DoxyCode}
+
+
+References impl\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Cpp\+Heap\+::\+Finish\+Sweeping\+If\+Out\+Of\+Work().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1Sweeper_a6966fd3b9af81845c4492728f19fa340_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1Sweeper_af09b5d03ff99e7984c5d8272b0722e34}\label{classcppgc_1_1internal_1_1Sweeper_af09b5d03ff99e7984c5d8272b0722e34}} 
 \index{cppgc::internal::Sweeper@{cppgc::internal::Sweeper}!FinishIfRunning@{FinishIfRunning}}
 \index{FinishIfRunning@{FinishIfRunning}!cppgc::internal::Sweeper@{cppgc::internal::Sweeper}}
 \doxysubsubsection{\texorpdfstring{FinishIfRunning()}{FinishIfRunning()}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Sweeper\+::\+Finish\+If\+Running (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 1663 of file sweeper.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1663 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a4856f88b618e959eced02f8e6665c769}{impl\_}}-\/>FinishIfRunning(); \}}
+
+\end{DoxyCode}
+
+
+References impl\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Cpp\+Heap\+::\+Collect\+Garbage\+For\+Testing(), cppgc\+::internal\+::\+Heap\+Base\+::\+Collect\+Statistics(), cppgc\+::internal\+::\+Heap\+::\+Finalize\+Garbage\+Collection\+Impl(), v8\+::internal\+::\+Cpp\+Heap\+::\+Finalize\+Incremental\+Garbage\+Collection\+For\+Testing(), cppgc\+::internal\+::\+Heap\+::\+Finalize\+Incremental\+Garbage\+Collection\+For\+Testing(), v8\+::internal\+::\+Cpp\+Heap\+::\+Finish\+Sweeping\+If\+Running(), v8\+::internal\+::\+Cpp\+Heap\+::\+Start\+Detaching\+Isolate(), cppgc\+::internal\+::\+Heap\+::\+Start\+Garbage\+Collection(), cppgc\+::internal\+::\+Heap\+Base\+::\+Terminate(), cppgc\+::internal\+::anonymous\+\_\+namespace\{object-\/allocator.\+cc\}\+::\+Try\+Allocate\+Large\+Object\+Impl(), cppgc\+::internal\+::\+Object\+Allocator\+::\+Try\+Refill\+Linear\+Allocation\+Buffer(), and cppgc\+::internal\+::\+Heap\+::$\sim$\+Heap().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1Sweeper_af09b5d03ff99e7984c5d8272b0722e34_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1Sweeper_a20810eaca7b7e7220910491cdb9e586d}\label{classcppgc_1_1internal_1_1Sweeper_a20810eaca7b7e7220910491cdb9e586d}} 
 \index{cppgc::internal::Sweeper@{cppgc::internal::Sweeper}!IsSweepingInProgress@{IsSweepingInProgress}}
 \index{IsSweepingInProgress@{IsSweepingInProgress}!cppgc::internal::Sweeper@{cppgc::internal::Sweeper}}
 \doxysubsubsection{\texorpdfstring{IsSweepingInProgress()}{IsSweepingInProgress()}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Sweeper\+::\+Is\+Sweeping\+In\+Progress (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Definition at line 1680 of file sweeper.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1680                                          \{}
+\DoxyCodeLine{1681   \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a4856f88b618e959eced02f8e6665c769}{impl\_}}-\/>IsSweepingInProgress();}
+\DoxyCodeLine{1682 \}}
+
+\end{DoxyCode}
+
+
+References impl\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Cpp\+Heap\+::\+Collect\+Garbage(), v8\+::internal\+::\+Cpp\+Heap\+::\+Finish\+Atomic\+Sweeping\+If\+Running(), v8\+::internal\+::\+Cpp\+Heap\+::\+Initialize\+Marking(), cppgc\+::subtle\+::\+Heap\+State\+::\+Is\+Sweeping(), and v8\+::internal\+::anonymous\+\_\+namespace\{cpp-\/heap.\+cc\}\+::\+Collect\+Custom\+Space\+Statistics\+At\+Last\+GCTask\+::\+Run().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1Sweeper_a20810eaca7b7e7220910491cdb9e586d_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1Sweeper_a0fd0da301ca9e0e2f9eb2d7d6bfa7d0f}\label{classcppgc_1_1internal_1_1Sweeper_a0fd0da301ca9e0e2f9eb2d7d6bfa7d0f}} 
 \index{cppgc::internal::Sweeper@{cppgc::internal::Sweeper}!IsSweepingOnMutatorThread@{IsSweepingOnMutatorThread}}
 \index{IsSweepingOnMutatorThread@{IsSweepingOnMutatorThread}!cppgc::internal::Sweeper@{cppgc::internal::Sweeper}}
 \doxysubsubsection{\texorpdfstring{IsSweepingOnMutatorThread()}{IsSweepingOnMutatorThread()}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Sweeper\+::\+Is\+Sweeping\+On\+Mutator\+Thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
+
+
+Definition at line 1676 of file sweeper.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1676                                               \{}
+\DoxyCodeLine{1677   \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a4856f88b618e959eced02f8e6665c769}{impl\_}}-\/>IsSweepingOnMutatorThread();}
+\DoxyCodeLine{1678 \}}
+
+\end{DoxyCode}
+
+
+References impl\+\_\+.
+
+
+
+Referenced by cppgc\+::internal\+::\+Heap\+Base\+::\+Is\+GCAllowed(), and cppgc\+::subtle\+::\+Heap\+State\+::\+Is\+Sweeping\+On\+Owning\+Thread().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1Sweeper_a0fd0da301ca9e0e2f9eb2d7d6bfa7d0f_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1Sweeper_a7f738a859becd073ca9c70e45dc134b8}\label{classcppgc_1_1internal_1_1Sweeper_a7f738a859becd073ca9c70e45dc134b8}} 
 \index{cppgc::internal::Sweeper@{cppgc::internal::Sweeper}!operator=@{operator=}}
 \index{operator=@{operator=}!cppgc::internal::Sweeper@{cppgc::internal::Sweeper}}
@@ -112,17 +297,126 @@ class \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a828de52b491a6707ec3338
 \doxysubsubsection{\texorpdfstring{PerformSweepOnMutatorThread()}{PerformSweepOnMutatorThread()}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Sweeper\+::\+Perform\+Sweep\+On\+Mutator\+Thread (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1base_1_1TimeDelta}{v8\+::base\+::\+Time\+Delta}}}]{max\+\_\+duration,  }\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1StatsCollector_af549198afe9620b919765b20fb42a9fb}{Stats\+Collector\+::\+Scope\+Id}}}]{scope\+\_\+id }\end{DoxyParamCaption})}
 
+
+
+Definition at line 1684 of file sweeper.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1685                                                                           \{}
+\DoxyCodeLine{1686   \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a4856f88b618e959eced02f8e6665c769}{impl\_}}-\/>PerformSweepOnMutatorThread(max\_duration, scope\_id,}
+\DoxyCodeLine{1687                                             MutatorThreadSweepingMode::kAll);}
+\DoxyCodeLine{1688 \}}
+
+\end{DoxyCode}
+
+
+References impl\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::anonymous\+\_\+namespace\{cpp-\/heap.\+cc\}\+::\+Collect\+Custom\+Space\+Statistics\+At\+Last\+GCTask\+::\+Run().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1Sweeper_ad46d61cb166f6b8a8ac16954c4c85ada_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1Sweeper_abef60b3e2f8ea9058a7c9ac4e0d13729}\label{classcppgc_1_1internal_1_1Sweeper_abef60b3e2f8ea9058a7c9ac4e0d13729}} 
 \index{cppgc::internal::Sweeper@{cppgc::internal::Sweeper}!Start@{Start}}
 \index{Start@{Start}!cppgc::internal::Sweeper@{cppgc::internal::Sweeper}}
 \doxysubsubsection{\texorpdfstring{Start()}{Start()}}
 {\footnotesize\ttfamily void cppgc\+::internal\+::\+Sweeper\+::\+Start (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcppgc_1_1internal_1_1SweepingConfig}{Sweeping\+Config}}}]{config }\end{DoxyParamCaption})}
 
+
+
+Definition at line 1661 of file sweeper.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1661 \{ \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a4856f88b618e959eced02f8e6665c769}{impl\_}}-\/>Start(config); \}}
+
+\end{DoxyCode}
+
+
+References impl\+\_\+.
+
+
+
+Referenced by v8\+::internal\+::\+Cpp\+Heap\+::\+Compact\+And\+Sweep(), cppgc\+::internal\+::\+Heap\+::\+Finalize\+Garbage\+Collection\+Impl(), and cppgc\+::internal\+::\+Heap\+Base\+::\+Terminate().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1Sweeper_abef60b3e2f8ea9058a7c9ac4e0d13729_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classcppgc_1_1internal_1_1Sweeper_a1ab95c1d630cbd53cea3ed89f7df1760}\label{classcppgc_1_1internal_1_1Sweeper_a1ab95c1d630cbd53cea3ed89f7df1760}} 
 \index{cppgc::internal::Sweeper@{cppgc::internal::Sweeper}!SweepForAllocationIfRunning@{SweepForAllocationIfRunning}}
 \index{SweepForAllocationIfRunning@{SweepForAllocationIfRunning}!cppgc::internal::Sweeper@{cppgc::internal::Sweeper}}
 \doxysubsubsection{\texorpdfstring{SweepForAllocationIfRunning()}{SweepForAllocationIfRunning()}}
 {\footnotesize\ttfamily bool cppgc\+::internal\+::\+Sweeper\+::\+Sweep\+For\+Allocation\+If\+Running (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcppgc_1_1internal_1_1BaseSpace}{Base\+Space}} $\ast$}]{space,  }\item[{size\+\_\+t}]{min\+\_\+wanted\+\_\+size,  }\item[{\mbox{\hyperlink{classv8_1_1base_1_1TimeDelta}{v8\+::base\+::\+Time\+Delta}}}]{max\+\_\+duration }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1671 of file sweeper.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1672                                                                         \{}
+\DoxyCodeLine{1673   \textcolor{keywordflow}{return} \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a4856f88b618e959eced02f8e6665c769}{impl\_}}-\/>SweepForAllocationIfRunning(\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}, \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}}, max\_duration);}
+\DoxyCodeLine{1674 \}}
+
+\end{DoxyCode}
+
+
+References impl\+\_\+, size(), and space.
+
+
+
+Referenced by cppgc\+::internal\+::anonymous\+\_\+namespace\{object-\/allocator.\+cc\}\+::\+Try\+Allocate\+Large\+Object\+Impl(), and cppgc\+::internal\+::\+Object\+Allocator\+::\+Try\+Refill\+Linear\+Allocation\+Buffer().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=317pt]{classcppgc_1_1internal_1_1Sweeper_a1ab95c1d630cbd53cea3ed89f7df1760_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcppgc_1_1internal_1_1Sweeper_a1ab95c1d630cbd53cea3ed89f7df1760_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1Sweeper_af6a9fe091226ee71ae31b64cb29f8ede}\label{classcppgc_1_1internal_1_1Sweeper_af6a9fe091226ee71ae31b64cb29f8ede}} 
+\index{cppgc::internal::Sweeper@{cppgc::internal::Sweeper}!WaitForConcurrentSweepingForTesting@{WaitForConcurrentSweepingForTesting}}
+\index{WaitForConcurrentSweepingForTesting@{WaitForConcurrentSweepingForTesting}!cppgc::internal::Sweeper@{cppgc::internal::Sweeper}}
+\doxysubsubsection{\texorpdfstring{WaitForConcurrentSweepingForTesting()}{WaitForConcurrentSweepingForTesting()}}
+{\footnotesize\ttfamily void cppgc\+::internal\+::\+Sweeper\+::\+Wait\+For\+Concurrent\+Sweeping\+For\+Testing (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 1667 of file sweeper.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1667                                                   \{}
+\DoxyCodeLine{1668   \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a4856f88b618e959eced02f8e6665c769}{impl\_}}-\/>WaitForConcurrentSweepingForTesting();}
+\DoxyCodeLine{1669 \}}
+
+\end{DoxyCode}
+
+
+References impl\+\_\+.
 
 
 
@@ -135,7 +429,38 @@ class \mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_a828de52b491a6707ec3338
 
 
 
+Definition at line 84 of file sweeper.\+h.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1Sweeper_a2ff3872376b16cf4b0ae0a8761cacae2}\label{classcppgc_1_1internal_1_1Sweeper_a2ff3872376b16cf4b0ae0a8761cacae2}} 
+\index{cppgc::internal::Sweeper@{cppgc::internal::Sweeper}!heap\_@{heap\_}}
+\index{heap\_@{heap\_}!cppgc::internal::Sweeper@{cppgc::internal::Sweeper}}
+\doxysubsubsection{\texorpdfstring{heap\_}{heap\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcppgc_1_1internal_1_1HeapBase}{Heap\+Base}}\& cppgc\+::internal\+::\+Sweeper\+::heap\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 81 of file sweeper.\+h.
+
+\mbox{\Hypertarget{classcppgc_1_1internal_1_1Sweeper_a4856f88b618e959eced02f8e6665c769}\label{classcppgc_1_1internal_1_1Sweeper_a4856f88b618e959eced02f8e6665c769}} 
+\index{cppgc::internal::Sweeper@{cppgc::internal::Sweeper}!impl\_@{impl\_}}
+\index{impl\_@{impl\_}!cppgc::internal::Sweeper@{cppgc::internal::Sweeper}}
+\doxysubsubsection{\texorpdfstring{impl\_}{impl\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classcppgc_1_1internal_1_1Sweeper_1_1SweeperImpl}{Sweeper\+Impl}}$>$ cppgc\+::internal\+::\+Sweeper\+::impl\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 82 of file sweeper.\+h.
+
+
+
+Referenced by Finish\+If\+Out\+Of\+Work(), Finish\+If\+Running(), Is\+Sweeping\+In\+Progress(), Is\+Sweeping\+On\+Mutator\+Thread(), Perform\+Sweep\+On\+Mutator\+Thread(), Start(), Sweep\+For\+Allocation\+If\+Running(), cppgc\+::internal\+::\+Sweeper\+::\+Sweeping\+On\+Mutator\+Thread\+Observer\+::\+Sweeping\+On\+Mutator\+Thread\+Observer(), and Wait\+For\+Concurrent\+Sweeping\+For\+Testing().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{cppgc_2sweeper_8h}{cppgc/sweeper.\+h}}\item 
-\mbox{\hyperlink{cppgc_2sweeper_8cc}{cppgc/sweeper.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/heap/cppgc/\mbox{\hyperlink{cppgc_2sweeper_8h}{sweeper.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/heap/cppgc/\mbox{\hyperlink{cppgc_2sweeper_8cc}{sweeper.\+cc}}\end{DoxyCompactItemize}

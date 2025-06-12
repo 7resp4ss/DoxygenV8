@@ -1,0 +1,133 @@
+\hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03}{}\doxysection{v8\+::internal\+::anonymous\+\_\+namespace\{read-\/only-\/serializer.cc\} Namespace Reference}
+\label{namespacev8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03}\index{v8::internal::anonymous\_namespace\lcurly{}read-\/only-\/serializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}read-\/only-\/serializer.cc\rcurly{}}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_1_1ObjectPreProcessor}{Object\+Pre\+Processor}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_1_1ReadOnlySegmentForSerialization}{Read\+Only\+Segment\+For\+Serialization}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_1_1EncodeRelocationsVisitor}{Encode\+Relocations\+Visitor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_1_1ReadOnlyHeapImageSerializer}{Read\+Only\+Heap\+Image\+Serializer}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structv8_1_1internal_1_1ro_1_1EncodedTagged}{ro\+::\+Encoded\+Tagged}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_a33a0a6d14f8322c87afdc53d1fb932e8}{Encode}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ o)
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structv8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_1_1ReadOnlyHeapImageSerializer_1_1MemoryRegion}{Read\+Only\+Heap\+Image\+Serializer\+::\+Memory\+Region}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_a5adcea4c83174b61f15b695f5034f5f3}{Get\+Unmapped\+Regions}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_a33a0a6d14f8322c87afdc53d1fb932e8}\label{namespacev8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_a33a0a6d14f8322c87afdc53d1fb932e8}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}read-\/only-\/serializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}read-\/only-\/serializer.cc\rcurly{}}!Encode@{Encode}}
+\index{Encode@{Encode}!v8::internal::anonymous\_namespace\lcurly{}read-\/only-\/serializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}read-\/only-\/serializer.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{Encode()}{Encode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structv8_1_1internal_1_1ro_1_1EncodedTagged}{ro\+::\+Encoded\+Tagged}} v8\+::internal\+::anonymous\+\_\+namespace\{read-\/only-\/serializer.\+cc\}\+::Encode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 189 of file read-\/only-\/serializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{189                                                                \{}
+\DoxyCodeLine{190   \mbox{\hyperlink{namespacev8_1_1base_aed4219b45684a3840c8b930b5df90ea9}{Address}} o\_address = o.address();}
+\DoxyCodeLine{191   MemoryChunkMetadata* chunk = MemoryChunkMetadata::FromAddress(o\_address);}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193   ReadOnlySpace* ro\_space = isolate-\/>read\_only\_heap()-\/>read\_only\_space();}
+\DoxyCodeLine{194   \textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(ro\_space-\/>IndexOf(chunk));}
+\DoxyCodeLine{195   uint32\_t offset = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(chunk-\/>Offset(o\_address));}
+\DoxyCodeLine{196   \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(\mbox{\hyperlink{src_2base_2macros_8h_ab7a19c1f785f31f2b190afc19875368a}{IsAligned}}(offset, \mbox{\hyperlink{namespacev8_1_1internal_a12d50d7bb2c9d8a916ff0785e6eff241}{kTaggedSize}}));}
+\DoxyCodeLine{197 }
+\DoxyCodeLine{198   \textcolor{keywordflow}{return} ro::EncodedTagged(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}, offset / \mbox{\hyperlink{namespacev8_1_1internal_a12d50d7bb2c9d8a916ff0785e6eff241}{kTaggedSize}});}
+\DoxyCodeLine{199 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Tagged$<$ Heap\+Object $>$\+::address(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Memory\+Chunk\+Metadata\+::\+From\+Address(), v8\+::internal\+::index, v8\+::internal\+::\+Read\+Only\+Space\+::\+Index\+Of(), Is\+Aligned(), v8\+::internal\+::k\+Tagged\+Size, v8\+::internal\+::\+Memory\+Chunk\+Metadata\+::\+Offset(), v8\+::internal\+::\+Isolate\+::read\+\_\+only\+\_\+heap(), and v8\+::internal\+::\+Read\+Only\+Heap\+::read\+\_\+only\+\_\+space().
+
+
+
+Referenced by v8\+::internal\+::anonymous\+\_\+namespace\{read-\/only-\/serializer.\+cc\}\+::\+Read\+Only\+Heap\+Image\+Serializer\+::\+Emit\+Read\+Only\+Roots\+Table(), and v8\+::internal\+::anonymous\+\_\+namespace\{read-\/only-\/serializer.\+cc\}\+::\+Encode\+Relocations\+Visitor\+::\+Process\+Slot().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_a33a0a6d14f8322c87afdc53d1fb932e8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_a33a0a6d14f8322c87afdc53d1fb932e8_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacev8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_a5adcea4c83174b61f15b695f5034f5f3}\label{namespacev8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_a5adcea4c83174b61f15b695f5034f5f3}} 
+\index{v8::internal::anonymous\_namespace\lcurly{}read-\/only-\/serializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}read-\/only-\/serializer.cc\rcurly{}}!GetUnmappedRegions@{GetUnmappedRegions}}
+\index{GetUnmappedRegions@{GetUnmappedRegions}!v8::internal::anonymous\_namespace\lcurly{}read-\/only-\/serializer.cc\rcurly{}@{v8::internal::anonymous\_namespace\lcurly{}read-\/only-\/serializer.cc\rcurly{}}}
+\doxysubsubsection{\texorpdfstring{GetUnmappedRegions()}{GetUnmappedRegions()}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structv8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_1_1ReadOnlyHeapImageSerializer_1_1MemoryRegion}{Read\+Only\+Heap\+Image\+Serializer\+::\+Memory\+Region}}$>$ v8\+::internal\+::anonymous\+\_\+namespace\{read-\/only-\/serializer.\+cc\}\+::Get\+Unmapped\+Regions (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})}
+
+
+
+Definition at line 447 of file read-\/only-\/serializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{448                       \{}
+\DoxyCodeLine{449 \textcolor{preprocessor}{\#ifdef V8\_STATIC\_ROOTS}}
+\DoxyCodeLine{450   \textcolor{comment}{// WasmNull's payload is aligned to the OS page and consists of}}
+\DoxyCodeLine{451   \textcolor{comment}{// WasmNull::kPayloadSize bytes of unmapped memory. To avoid inflating the}}
+\DoxyCodeLine{452   \textcolor{comment}{// snapshot size and accessing uninitialized and/or unmapped memory, the}}
+\DoxyCodeLine{453   \textcolor{comment}{// serializer skips the padding bytes and the payload.}}
+\DoxyCodeLine{454   ReadOnlyRoots ro\_roots(isolate);}
+\DoxyCodeLine{455   Tagged<WasmNull> wasm\_null = ro\_roots.wasm\_null();}
+\DoxyCodeLine{456   \mbox{\hyperlink{namespacev8_1_1internal_a57f5ecf71b9a2757b0555b2be4c640b8}{Tagged<HeapObject>}} wasm\_null\_padding = ro\_roots.wasm\_null\_padding();}
+\DoxyCodeLine{457   \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(IsFreeSpace(wasm\_null\_padding));}
+\DoxyCodeLine{458   \mbox{\hyperlink{namespacev8_1_1base_aed4219b45684a3840c8b930b5df90ea9}{Address}} wasm\_null\_padding\_start =}
+\DoxyCodeLine{459       wasm\_null\_padding.address() + \textcolor{keyword}{sizeof}(FreeSpace);}
+\DoxyCodeLine{460   std::vector<ReadOnlyHeapImageSerializer::MemoryRegion> unmapped;}
+\DoxyCodeLine{461   \textcolor{keywordflow}{if} (wasm\_null.address() > wasm\_null\_padding\_start) \{}
+\DoxyCodeLine{462     unmapped.push\_back(\{wasm\_null\_padding\_start,}
+\DoxyCodeLine{463                         wasm\_null.address() -\/ wasm\_null\_padding\_start\});}
+\DoxyCodeLine{464   \}}
+\DoxyCodeLine{465   unmapped.push\_back(\{wasm\_null-\/>payload(), WasmNull::kPayloadSize\});}
+\DoxyCodeLine{466   \textcolor{keywordflow}{return} unmapped;}
+\DoxyCodeLine{467 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{468   \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{469 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_STATIC\_ROOTS}}
+\DoxyCodeLine{470 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Tagged$<$ Heap\+Object $>$\+::address(), and CHECK.
+
+
+
+Referenced by v8\+::internal\+::\+Read\+Only\+Serializer\+::\+Serialize().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_a5adcea4c83174b61f15b695f5034f5f3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacev8_1_1internal_1_1anonymous__namespace_02read-only-serializer_8cc_03_a5adcea4c83174b61f15b695f5034f5f3_icgraph}
+\end{center}
+\end{figure}

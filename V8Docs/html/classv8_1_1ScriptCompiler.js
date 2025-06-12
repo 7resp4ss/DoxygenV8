@@ -39,5 +39,21 @@ var classv8_1_1ScriptCompiler =
       [ "kNoCacheBecauseResourceWithNoCacheHandler", "classv8_1_1ScriptCompiler.html#a7f13fa15484cfc500ae51927756e0d60af459bb296ea34a9248568fa96a5a66f1", null ],
       [ "kNoCacheBecauseDeferredProduceCodeCache", "classv8_1_1ScriptCompiler.html#a7f13fa15484cfc500ae51927756e0d60ab0db2abba4aca0a9ba51afef22537d31", null ],
       [ "kNoCacheBecauseStaticCodeCache", "classv8_1_1ScriptCompiler.html#a7f13fa15484cfc500ae51927756e0d60a89fb27448bc8ab6ee1e87ac2f333e61f", null ]
-    ] ]
+    ] ],
+    [ "CachedDataVersionTag", "classv8_1_1ScriptCompiler.html#ab0728cc7751340381f2b660af8c7b35b", null ],
+    [ "Compile", "classv8_1_1ScriptCompiler.html#a3df9c0af702e46303ded03e84fc5e519", null ],
+    [ "Compile", "classv8_1_1ScriptCompiler.html#a47429c4fb199c3bc55cb5fd7f8423d8e", null ],
+    [ "CompileFunction", "classv8_1_1ScriptCompiler.html#a608704ecde155a872075cec9f968af41", null ],
+    [ "CompileFunctionInternal", "classv8_1_1ScriptCompiler.html#a24e4dd64648db1b5724fcf21f22edab9", null ],
+    [ "CompileModule", "classv8_1_1ScriptCompiler.html#a3b3aed3622a957a4af4ced80348dcb9e", null ],
+    [ "CompileModule", "classv8_1_1ScriptCompiler.html#a0cb5fd283ce3cef4c7702adb8eb410e1", null ],
+    [ "CompileOptionsIsValid", "classv8_1_1ScriptCompiler.html#a403ec88af07d8dba464aa4b5ef47a907", null ],
+    [ "CompileUnboundInternal", "classv8_1_1ScriptCompiler.html#a950283f87895c9b97dc83d468c9aacd2", null ],
+    [ "CompileUnboundScript", "classv8_1_1ScriptCompiler.html#a65f85be54b26efb1f47543c5895f7008", null ],
+    [ "CreateCodeCache", "classv8_1_1ScriptCompiler.html#a5639eedf1af1c8a9456eb5d0a07ddf8a", null ],
+    [ "CreateCodeCache", "classv8_1_1ScriptCompiler.html#a1f94625c81c0346c48b21ef1c9c73587", null ],
+    [ "CreateCodeCacheForFunction", "classv8_1_1ScriptCompiler.html#a1b6b3a5c9cfcd56c8ad359f6befd6e1a", null ],
+    [ "StartConsumingCodeCache", "classv8_1_1ScriptCompiler.html#a750ab28d85b00e80c49977e07ac3b20c", null ],
+    [ "StartConsumingCodeCacheOnBackground", "classv8_1_1ScriptCompiler.html#a90c35924d0f34b667f42f706bf8480b8", null ],
+    [ "StartStreaming", "classv8_1_1ScriptCompiler.html#af368b2b8709c56e6f21a33b9729d59eb", null ]
 ];

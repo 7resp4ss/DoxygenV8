@@ -1,5 +1,9 @@
 var runtime_debug_8cc =
 [
+    [ "AddIteratorInternalProperties", "runtime-debug_8cc.html#a7ac512b5f56756096a4c05dee29e2768", null ],
+    [ "GetJSPositionInfo", "runtime-debug_8cc.html#ab65c294dafed985e8dc9113339676d46", null ],
+    [ "GetScriptById", "runtime-debug_8cc.html#afc31d0e828d15b6bb79b1a0a9850261a", null ],
+    [ "MakeRangeObject", "runtime-debug_8cc.html#ae242e2f8be322732fad3eabefcd4dc29", null ],
     [ "RUNTIME_FUNCTION", "runtime-debug_8cc.html#a26e44a2cb75cbafd96fb968706f66dfa", null ],
     [ "RUNTIME_FUNCTION", "runtime-debug_8cc.html#aceef31d5adc25800a7defc1bb1cd5a14", null ],
     [ "RUNTIME_FUNCTION", "runtime-debug_8cc.html#a674729ce0ec25c23ff78e38a7c3d3aab", null ],
@@ -23,5 +27,9 @@ var runtime_debug_8cc =
     [ "RUNTIME_FUNCTION", "runtime-debug_8cc.html#ab874947e7f3b8f9db8a57c60e3b5c39b", null ],
     [ "RUNTIME_FUNCTION", "runtime-debug_8cc.html#af131799c04878124fb31cb08bad0f527", null ],
     [ "RUNTIME_FUNCTION", "runtime-debug_8cc.html#a94315d5677c285c48dca64e3ecd3734e", null ],
-    [ "RUNTIME_FUNCTION_RETURN_PAIR", "runtime-debug_8cc.html#a88c717d1c8e28061a10af7a2cb41c238", null ]
+    [ "RUNTIME_FUNCTION_RETURN_PAIR", "runtime-debug_8cc.html#a88c717d1c8e28061a10af7a2cb41c238", null ],
+    [ "ScriptLinePosition", "runtime-debug_8cc.html#a5606b9a7ef1eb1c5de0c4aeea9c61c83", null ],
+    [ "ScriptLinePositionWithOffset", "runtime-debug_8cc.html#ae0389d57e457cd0c0b656617ab859929", null ],
+    [ "ScriptLocationFromLine", "runtime-debug_8cc.html#ae1b6d3f0921d31a3d19151bafbd2a3f7", null ],
+    [ "SetScopeVariableValue", "runtime-debug_8cc.html#a9b38ad4b650f30f8da248f34cb15cba0", null ]
 ];

@@ -4,6 +4,7 @@ var weak_object_worklists_8h =
     [ "HeapObjectAndSlotPOD", "structv8_1_1internal_1_1detail_1_1HeapObjectAndSlotPOD.html", "structv8_1_1internal_1_1detail_1_1HeapObjectAndSlotPOD" ],
     [ "HeapObjectAndCode", "structv8_1_1internal_1_1HeapObjectAndCode.html", "structv8_1_1internal_1_1HeapObjectAndCode" ],
     [ "WeakObjects", "classv8_1_1internal_1_1WeakObjects.html", "classv8_1_1internal_1_1WeakObjects" ],
+    [ "UnusedBase", "classv8_1_1internal_1_1WeakObjects_1_1UnusedBase.html", null ],
     [ "Local", "classv8_1_1internal_1_1WeakObjects_1_1Local.html", "classv8_1_1internal_1_1WeakObjects_1_1Local" ],
     [ "DECLARE_WORKLIST", "weak-object-worklists_8h.html#a2e1839f63e2b1d7a888b9deb1bc53d9d", null ],
     [ "DECLARE_WORKLIST", "weak-object-worklists_8h.html#a2e1839f63e2b1d7a888b9deb1bc53d9d", null ],

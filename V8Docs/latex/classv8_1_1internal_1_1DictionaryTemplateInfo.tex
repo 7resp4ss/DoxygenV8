@@ -27,10 +27,17 @@ Collaboration diagram for v8\+::internal\+::Dictionary\+Template\+Info\+:
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1DictionaryTemplateInfo}{Dictionary\+Template\+Info}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1DictionaryTemplateInfo_af8f97a8bbae908917210756d5032ae66}{Create}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, const \mbox{\hyperlink{classv8_1_1MemorySpan}{v8\+::\+Memory\+Span}}$<$ const std\+::string\+\_\+view $>$ \&names)
+static \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1DictionaryTemplateInfo}{Dictionary\+Template\+Info}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1DictionaryTemplateInfo_af8f97a8bbae908917210756d5032ae66}{Create}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate, const \mbox{\hyperlink{classv8_1_1MemorySpan}{v8\+::\+Memory\+Span}}$<$ const std\+::string\+\_\+view $>$ \&names)
 \item 
-static \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSObject}{JSObject}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1DictionaryTemplateInfo_a6b806a3ba771087490a9649e941f4537}{New\+Instance}} (\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1NativeContext}{Native\+Context}} $>$ \mbox{\hyperlink{js-call-reducer_8cc_a0835767fe473cead88c1afdf3175bce8}{context}}, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1DictionaryTemplateInfo}{Dictionary\+Template\+Info}} $>$ self, const \mbox{\hyperlink{classv8_1_1MemorySpan}{Memory\+Span}}$<$ \mbox{\hyperlink{classv8_1_1MaybeLocal}{Maybe\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$$>$ \&property\+\_\+values)
+static \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1JSObject}{JSObject}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1DictionaryTemplateInfo_a6b806a3ba771087490a9649e941f4537}{New\+Instance}} (\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1NativeContext}{Native\+Context}} $>$ context, \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1DictionaryTemplateInfo}{Dictionary\+Template\+Info}} $>$ self, const \mbox{\hyperlink{classv8_1_1MemorySpan}{Memory\+Span}}$<$ \mbox{\hyperlink{classv8_1_1MaybeLocal}{Maybe\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$$>$ \&property\+\_\+values)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 332 of file templates.\+h.
+
 
 
 \doxysubsection{Member Function Documentation}
@@ -40,6 +47,54 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$
 \doxysubsubsection{\texorpdfstring{Create()}{Create()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1DictionaryTemplateInfo}{Dictionary\+Template\+Info}} $>$ v8\+::internal\+::\+Dictionary\+Template\+Info\+::\+Create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{const \mbox{\hyperlink{classv8_1_1MemorySpan}{v8\+::\+Memory\+Span}}$<$ const std\+::string\+\_\+view $>$ \&}]{names }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 201 of file templates.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{202                                                                        \{}
+\DoxyCodeLine{203   DirectHandle<FixedArray> property\_names = isolate-\/>factory()-\/>NewFixedArray(}
+\DoxyCodeLine{204       \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(names.\mbox{\hyperlink{classv8_1_1MemorySpan_ae25fe427f3be53fff34a3d1a270a8a91}{size}}()), \mbox{\hyperlink{namespacev8_1_1internal_a604d5beeb6fc8639670f737ed201e20aa0aa38c28f349d65a6819e03844b73dff}{AllocationType::kOld}});}
+\DoxyCodeLine{205   \textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = 0;}
+\DoxyCodeLine{206   uint32\_t unused\_array\_index;}
+\DoxyCodeLine{207   \textcolor{keywordflow}{for} (\textcolor{keyword}{const} std::string\_view\& \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}} : names) \{}
+\DoxyCodeLine{208     DirectHandle<String> internalized\_name =}
+\DoxyCodeLine{209         isolate-\/>factory()-\/>InternalizeString(}
+\DoxyCodeLine{210             base::Vector<const char>(\mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}}.data(), \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}}.length()));}
+\DoxyCodeLine{211     \textcolor{comment}{// Check that property name cannot be used as index.}}
+\DoxyCodeLine{212     \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(!internalized\_name-\/>AsArrayIndex(\&unused\_array\_index));}
+\DoxyCodeLine{213     property\_names-\/>set(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}, *internalized\_name);}
+\DoxyCodeLine{214     ++\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}};}
+\DoxyCodeLine{215   \}}
+\DoxyCodeLine{216   \textcolor{keywordflow}{return} isolate-\/>factory()-\/>NewDictionaryTemplateInfo(property\_names);}
+\DoxyCodeLine{217 \}}
+
+\end{DoxyCode}
+
+
+References CHECK, v8\+::internal\+::\+Isolate\+::factory(), v8\+::internal\+::index, v8\+::internal\+::\+Factory\+::\+Internalize\+String(), v8\+::internal\+::k\+Old, v8\+::internal\+::name, v8\+::internal\+::\+Factory\+::\+New\+Dictionary\+Template\+Info(), v8\+::internal\+::\+Factory\+Base$<$ Impl $>$\+::\+New\+Fixed\+Array(), and v8\+::\+Memory\+Span$<$ T $>$\+::size().
+
+
+
+Referenced by v8\+::\+Dictionary\+Template\+::\+New().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1DictionaryTemplateInfo_af8f97a8bbae908917210756d5032ae66_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1DictionaryTemplateInfo_af8f97a8bbae908917210756d5032ae66_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1DictionaryTemplateInfo_a6b806a3ba771087490a9649e941f4537}\label{classv8_1_1internal_1_1DictionaryTemplateInfo_a6b806a3ba771087490a9649e941f4537}} 
 \index{v8::internal::DictionaryTemplateInfo@{v8::internal::DictionaryTemplateInfo}!NewInstance@{NewInstance}}
 \index{NewInstance@{NewInstance}!v8::internal::DictionaryTemplateInfo@{v8::internal::DictionaryTemplateInfo}}
@@ -48,7 +103,150 @@ static \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$
 
 
 
+Definition at line 246 of file templates.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{249                                                           \{}
+\DoxyCodeLine{250   Isolate* isolate = \mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a05a2b08b2b0f2d5aef8dc053e2ea3d9b}{Isolate::Current}}();}
+\DoxyCodeLine{251   DirectHandle<FixedArray> property\_names(self-\/>property\_names(), isolate);}
+\DoxyCodeLine{252 }
+\DoxyCodeLine{253   \textcolor{keyword}{const} \textcolor{keywordtype}{int} property\_names\_len = property\_names-\/>length();}
+\DoxyCodeLine{254   \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(property\_names\_len, \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(property\_values.size()));}
+\DoxyCodeLine{255   \textcolor{keyword}{const} \textcolor{keywordtype}{int} num\_properties\_set = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1base_a8b8cd3857bec34079adc035bd61b0f3f}{std::count\_if}}(}
+\DoxyCodeLine{256       property\_values.begin(), property\_values.end(),}
+\DoxyCodeLine{257       [](\textcolor{keyword}{const} \textcolor{keyword}{auto}\& maybe\_value) \{ return !maybe\_value.IsEmpty(); \}));}
+\DoxyCodeLine{258 }
+\DoxyCodeLine{259   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(num\_properties\_set > \mbox{\hyperlink{classv8_1_1internal_1_1JSObject_a0bf606b9404224d74704d7ff09df5528}{JSObject::kMaxInObjectProperties}})) \{}
+\DoxyCodeLine{260     \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02templates_8cc_03_af94eb89d7f6af9ee8bd2aefa9ec3e7b3}{CreateSlowJSObjectWithProperties}}(}
+\DoxyCodeLine{261         isolate, property\_names, property\_values, num\_properties\_set);}
+\DoxyCodeLine{262   \}}
+\DoxyCodeLine{263 }
+\DoxyCodeLine{264   \textcolor{keyword}{const} \textcolor{keywordtype}{bool} can\_use\_map\_cache = num\_properties\_set == property\_names\_len;}
+\DoxyCodeLine{265   MaybeDirectHandle<Map> maybe\_cached\_map;}
+\DoxyCodeLine{266   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a4f489f1b838163ab33f251c9e470d938}{V8\_LIKELY}}(can\_use\_map\_cache)) \{}
+\DoxyCodeLine{267     maybe\_cached\_map = TemplateInfo::ProbeInstantiationsCache<Map>(}
+\DoxyCodeLine{268         isolate, context, \textcolor{keyword}{self}, \mbox{\hyperlink{classv8_1_1internal_1_1TemplateInfo_adabccfe291f1b2105ae43b43bad3c99facaa46651dd6eff5dbbbc0f6829c51886}{TemplateInfo::CachingMode::kUnlimited}});}
+\DoxyCodeLine{269   \}}
+\DoxyCodeLine{270   DirectHandle<Map> cached\_map;}
+\DoxyCodeLine{271   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a4f489f1b838163ab33f251c9e470d938}{V8\_LIKELY}}(can\_use\_map\_cache \&\& maybe\_cached\_map.ToHandle(\&cached\_map))) \{}
+\DoxyCodeLine{272     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!cached\_map-\/>is\_dictionary\_map());}
+\DoxyCodeLine{273     \textcolor{keywordtype}{bool} can\_use\_cached\_map = !cached\_map-\/>is\_deprecated();}
+\DoxyCodeLine{274     \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a4f489f1b838163ab33f251c9e470d938}{V8\_LIKELY}}(can\_use\_cached\_map)) \{}
+\DoxyCodeLine{275       \textcolor{comment}{// Verify that the cached map can be reused.}}
+\DoxyCodeLine{276       \textcolor{keyword}{auto} descriptors = \mbox{\hyperlink{namespacev8_1_1internal_a8c89f00da07e125218128b9fbf0a321c}{handle}}(cached\_map-\/>instance\_descriptors(), isolate);}
+\DoxyCodeLine{277       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; i < static\_cast<int>(property\_values.size()); ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{278         DirectHandle<Object> \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} =}
+\DoxyCodeLine{279             \mbox{\hyperlink{classv8_1_1Utils_a9d3ed89b4ca4e995ba472f8091ea424f}{Utils::OpenDirectHandle}}(*property\_values[\mbox{\hyperlink{namespacev8_1_1internal}{i}}].ToLocalChecked());}
+\DoxyCodeLine{280         InternalIndex descriptor\{\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}})\};}
+\DoxyCodeLine{281         \textcolor{keyword}{const} \textcolor{keyword}{auto} details = descriptors-\/>GetDetails(descriptor);}
+\DoxyCodeLine{282 }
+\DoxyCodeLine{283         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1Object_ae0314f7e0f2bbe700d3b30f8b4157640}{Object::FitsRepresentation}}(*\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, details.representation()) ||}
+\DoxyCodeLine{284             !\mbox{\hyperlink{classv8_1_1internal_1_1FieldType_a9ac0d82261f441f79f919a07c7233511}{FieldType::NowContains}}(descriptors-\/>GetFieldType(descriptor),}
+\DoxyCodeLine{285                                     \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}})) \{}
+\DoxyCodeLine{286           can\_use\_cached\_map = \textcolor{keyword}{false};}
+\DoxyCodeLine{287           \textcolor{keywordflow}{break};}
+\DoxyCodeLine{288         \}}
+\DoxyCodeLine{289         \textcolor{comment}{// Double representation means mutable heap number. In this case we need}}
+\DoxyCodeLine{290         \textcolor{comment}{// to allocate a new heap number to put in the dictionary.}}
+\DoxyCodeLine{291         \textcolor{keywordflow}{if} (details.representation().Equals(\mbox{\hyperlink{classv8_1_1internal_1_1Representation_a7807b32840f6be86e8def85c31fd5f3c}{Representation::Double}}())) \{}
+\DoxyCodeLine{292           \textcolor{comment}{// We allowed coercion in `FitsRepresentation` above which means that}}
+\DoxyCodeLine{293           \textcolor{comment}{// we may deal with a Smi here.}}
+\DoxyCodeLine{294           property\_values[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}] =}
+\DoxyCodeLine{295               ToApiHandle<v8::Object>(isolate-\/>factory()-\/>NewHeapNumber(}
+\DoxyCodeLine{296                   \mbox{\hyperlink{classv8_1_1internal_1_1Object_a8a6c6d9b71bb8f6bd6004b8f6f48c9f7}{Object::NumberValue}}(Cast<Number>(*\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}))));}
+\DoxyCodeLine{297         \}}
+\DoxyCodeLine{298       \}}
+\DoxyCodeLine{299       \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a4f489f1b838163ab33f251c9e470d938}{V8\_LIKELY}}(can\_use\_cached\_map)) \{}
+\DoxyCodeLine{300         \textcolor{comment}{// Create the object from the cached map.}}
+\DoxyCodeLine{301         \mbox{\hyperlink{src_2base_2logging_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}}(!cached\_map-\/>is\_deprecated());}
+\DoxyCodeLine{302         \mbox{\hyperlink{src_2base_2logging_8h_aca32614b4d2aea7dd9abdeb222bf02f3}{CHECK\_EQ}}(context-\/>object\_function\_prototype(), cached\_map-\/>prototype());}
+\DoxyCodeLine{303         \textcolor{keyword}{auto} \textcolor{keywordtype}{object} = isolate-\/>factory()-\/>NewJSObjectFromMap(}
+\DoxyCodeLine{304             cached\_map, \mbox{\hyperlink{namespacev8_1_1internal_a604d5beeb6fc8639670f737ed201e20aa492ef7cfa083cd677493179d45c9961e}{AllocationType::kYoung}});}
+\DoxyCodeLine{305         \mbox{\hyperlink{namespacev8_1_1internal_af2248a427f8ff8f81e68a2a87758e145}{DisallowGarbageCollection}} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_a63d8eefb47468aa3f816fbe26a59466a}{no\_gc}};}
+\DoxyCodeLine{306         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; i < static\_cast<int>(property\_values.size()); ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{307           Local<Value> property\_value = property\_values[\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}].ToLocalChecked();}
+\DoxyCodeLine{308           DirectHandle<Object> \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = \mbox{\hyperlink{classv8_1_1Utils_a9d3ed89b4ca4e995ba472f8091ea424f}{Utils::OpenDirectHandle}}(*property\_value);}
+\DoxyCodeLine{309           \textcolor{keyword}{const} FieldIndex \mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}} = \mbox{\hyperlink{classv8_1_1internal_1_1FieldIndex_a3ccda1a912a43b786e671d39cb27fb6c}{FieldIndex::ForPropertyIndex}}(}
+\DoxyCodeLine{310               *cached\_map, \mbox{\hyperlink{namespacev8_1_1internal}{i}}, \mbox{\hyperlink{classv8_1_1internal_1_1Representation_af5ac13ce30d154a376b85764d1ad2760}{Representation::Tagged}}());}
+\DoxyCodeLine{311           \textcolor{keywordtype}{object}-\/>FastPropertyAtPut(\mbox{\hyperlink{namespacev8_1_1internal_a0cfab207d565dcf62ebf50f3987e05de}{index}}, *\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}},}
+\DoxyCodeLine{312                                     \mbox{\hyperlink{namespacev8_1_1internal_a20c66a96ddfae551866ceae989a8ba13a6719428bfb5874884bca62eb8fe3de75}{WriteBarrierMode::SKIP\_WRITE\_BARRIER}});}
+\DoxyCodeLine{313         \}}
+\DoxyCodeLine{314         \textcolor{keywordflow}{return} object;}
+\DoxyCodeLine{315       \}}
+\DoxyCodeLine{316     \}}
+\DoxyCodeLine{317     \textcolor{comment}{// A cached map was either deprecated or the descriptors changed in}}
+\DoxyCodeLine{318     \textcolor{comment}{// incompatible ways. We clear the cached map and continue with the generic}}
+\DoxyCodeLine{319     \textcolor{comment}{// path.}}
+\DoxyCodeLine{320     \mbox{\hyperlink{classv8_1_1internal_1_1TemplateInfo_a585b58cd0c739ce84af136e5050ccd5b}{TemplateInfo::UncacheTemplateInstantiation}}(}
+\DoxyCodeLine{321         isolate, context, \textcolor{keyword}{self}, \mbox{\hyperlink{classv8_1_1internal_1_1TemplateInfo_adabccfe291f1b2105ae43b43bad3c99facaa46651dd6eff5dbbbc0f6829c51886}{TemplateInfo::CachingMode::kUnlimited}});}
+\DoxyCodeLine{322   \}}
+\DoxyCodeLine{323 }
+\DoxyCodeLine{324   \textcolor{comment}{// General case: We either don't have a cached map, or it is unusable for the}}
+\DoxyCodeLine{325   \textcolor{comment}{// values provided.}}
+\DoxyCodeLine{326   DirectHandle<Map> current\_map = isolate-\/>factory()-\/>ObjectLiteralMapFromCache(}
+\DoxyCodeLine{327       context, num\_properties\_set);}
+\DoxyCodeLine{328   DirectHandle<JSObject> \textcolor{keywordtype}{object} =}
+\DoxyCodeLine{329       isolate-\/>factory()-\/>NewJSObjectFromMap(current\_map);}
+\DoxyCodeLine{330   \textcolor{keywordtype}{int} current\_property\_index = 0;}
+\DoxyCodeLine{331   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; i < static\_cast<int>(property\_values.size()); ++\mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02json-stringifier_8cc_03_ad86b3cf21e19e97ce484f32b894d548c}{i}}) \{}
+\DoxyCodeLine{332     Local<Value> property\_value;}
+\DoxyCodeLine{333     \textcolor{keywordflow}{if} (!property\_values[\mbox{\hyperlink{namespacev8_1_1internal}{i}}].ToLocal(\&property\_value)) \{}
+\DoxyCodeLine{334       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{335     \}}
+\DoxyCodeLine{336     \textcolor{keyword}{auto} \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}} = Cast<String>(\mbox{\hyperlink{namespacev8_1_1internal_a8c89f00da07e125218128b9fbf0a321c}{handle}}(property\_names-\/>get(\mbox{\hyperlink{namespacev8_1_1internal}{i}}), isolate));}
+\DoxyCodeLine{337     DirectHandle<Object> \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}} = \mbox{\hyperlink{classv8_1_1Utils_a9d3ed89b4ca4e995ba472f8091ea424f}{Utils::OpenDirectHandle}}(*property\_value);}
+\DoxyCodeLine{338     constexpr \mbox{\hyperlink{namespacev8_1_1internal_a352f65439007f2f1b85c997c1ba11436}{PropertyAttributes}} attributes = \mbox{\hyperlink{namespacev8_1_1internal_a352f65439007f2f1b85c997c1ba11436a0e9b4052bcf7e2475e8bbf8f436bf370}{PropertyAttributes::NONE}};}
+\DoxyCodeLine{339     constexpr \mbox{\hyperlink{namespacev8_1_1internal_ac328869a355886739965287befcc49ac}{PropertyConstness}} constness = \mbox{\hyperlink{namespacev8_1_1internal_ac328869a355886739965287befcc49acad1efdc0f2aa096a47586b448aa73f414}{PropertyConstness::kConst}};}
+\DoxyCodeLine{340     current\_map = \mbox{\hyperlink{classv8_1_1internal_1_1Map_a403b476f61c7ae94d260cd9e6ef77e6e}{Map::TransitionToDataProperty}}(isolate, current\_map, \mbox{\hyperlink{namespacev8_1_1internal_a611f0528d5415d4591ad6e8fe9513ac4}{name}},}
+\DoxyCodeLine{341                                                 \mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}}, attributes, constness,}
+\DoxyCodeLine{342                                                 \mbox{\hyperlink{namespacev8_1_1internal_a5a9c953b927bbae6c9e0091778fc4e96a3de65b7d55d7330a42c36baee8e0333b}{StoreOrigin::kNamed}});}
+\DoxyCodeLine{343     \textcolor{keywordflow}{if} (current\_map-\/>is\_dictionary\_map()) \{}
+\DoxyCodeLine{344       \textcolor{keywordflow}{return} \mbox{\hyperlink{namespacev8_1_1internal_1_1anonymous__namespace_02templates_8cc_03_af94eb89d7f6af9ee8bd2aefa9ec3e7b3}{CreateSlowJSObjectWithProperties}}(}
+\DoxyCodeLine{345           isolate, property\_names, property\_values, num\_properties\_set);}
+\DoxyCodeLine{346     \}}
+\DoxyCodeLine{347     \mbox{\hyperlink{classv8_1_1internal_1_1JSObject_aafd61d56db0d5b50ff59e294666b3662}{JSObject::MigrateToMap}}(isolate, \textcolor{keywordtype}{object}, current\_map);}
+\DoxyCodeLine{348     PropertyDetails details = current\_map-\/>GetLastDescriptorDetails(isolate);}
+\DoxyCodeLine{349     \textcolor{keywordtype}{object}-\/>WriteToField(InternalIndex(current\_property\_index), details,}
+\DoxyCodeLine{350                          *\mbox{\hyperlink{namespacev8_1_1internal_ac1a33b5fd9af1653d346746cdb5c1ac0}{value}});}
+\DoxyCodeLine{351     current\_property\_index++;}
+\DoxyCodeLine{352   \}}
+\DoxyCodeLine{353   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a4f489f1b838163ab33f251c9e470d938}{V8\_LIKELY}}(can\_use\_map\_cache)) \{}
+\DoxyCodeLine{354     \mbox{\hyperlink{classv8_1_1internal_1_1TemplateInfo_a0a74583c25364f0e768207e2bb5ae72a}{TemplateInfo::CacheTemplateInstantiation}}(}
+\DoxyCodeLine{355         isolate, context, \textcolor{keyword}{self}, \mbox{\hyperlink{classv8_1_1internal_1_1TemplateInfo_adabccfe291f1b2105ae43b43bad3c99facaa46651dd6eff5dbbbc0f6829c51886}{TemplateInfo::CachingMode::kUnlimited}},}
+\DoxyCodeLine{356         \mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(object-\/>map(), isolate));}
+\DoxyCodeLine{357   \}}
+\DoxyCodeLine{358   \textcolor{keywordflow}{return} object;}
+\DoxyCodeLine{359 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Template\+Info\+::\+Cache\+Template\+Instantiation(), CHECK, CHECK\+\_\+\+EQ, v8\+::base\+::count\+\_\+if(), v8\+::internal\+::anonymous\+\_\+namespace\{templates.\+cc\}\+::\+Create\+Slow\+JSObject\+With\+Properties(), v8\+::internal\+::\+Isolate\+::\+Current(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::direct\+\_\+handle(), v8\+::internal\+::\+Representation\+::\+Double(), v8\+::internal\+::\+Isolate\+::factory(), v8\+::internal\+::\+Object\+::\+Fits\+Representation(), v8\+::internal\+::\+Field\+Index\+::\+For\+Property\+Index(), v8\+::internal\+::handle(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::i, v8\+::internal\+::index, v8\+::internal\+::k\+Const, v8\+::internal\+::\+JSObject\+::k\+Max\+In\+Object\+Properties, v8\+::internal\+::k\+Named, v8\+::internal\+::\+Template\+Info\+::k\+Unlimited, v8\+::internal\+::k\+Young, v8\+::internal\+::\+JSObject\+::\+Migrate\+To\+Map(), v8\+::internal\+::name, v8\+::internal\+::\+Factory\+Base$<$ Impl $>$\+::\+New\+Heap\+Number(), v8\+::internal\+::\+Factory\+::\+New\+JSObject\+From\+Map(), v8\+::internal\+::anonymous\+\_\+namespace\{json-\/stringifier.\+cc\}\+::no\+\_\+gc, v8\+::internal\+::\+NONE, v8\+::internal\+::\+Field\+Type\+::\+Now\+Contains(), v8\+::internal\+::\+Object\+::\+Number\+Value(), v8\+::internal\+::\+Factory\+::\+Object\+Literal\+Map\+From\+Cache(), v8\+::\+Utils\+::\+Open\+Direct\+Handle(), v8\+::internal\+::\+SKIP\+\_\+\+WRITE\+\_\+\+BARRIER, v8\+::internal\+::\+Representation\+::\+Tagged(), v8\+::internal\+::\+Maybe\+Direct\+Handle$<$ T $>$\+::\+To\+Handle(), v8\+::internal\+::\+Map\+::\+Transition\+To\+Data\+Property(), v8\+::internal\+::\+Template\+Info\+::\+Uncache\+Template\+Instantiation(), V8\+\_\+\+LIKELY, V8\+\_\+\+UNLIKELY, and v8\+::internal\+::value.
+
+
+
+Referenced by v8\+::\+Dictionary\+Template\+::\+New\+Instance().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1DictionaryTemplateInfo_a6b806a3ba771087490a9649e941f4537_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1DictionaryTemplateInfo_a6b806a3ba771087490a9649e941f4537_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{templates_8h}{templates.\+h}}\item 
-\mbox{\hyperlink{templates_8cc}{templates.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{templates_8h}{templates.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/objects/\mbox{\hyperlink{templates_8cc}{templates.\+cc}}\end{DoxyCompactItemize}

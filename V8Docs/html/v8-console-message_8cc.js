@@ -1,9 +1,11 @@
 var v8_console_message_8cc =
 [
-    [ "m_arrayLimit", "v8-console-message_8cc.html#adcbbc5e59c225f96897508045102cc81", null ],
-    [ "m_builder", "v8-console-message_8cc.html#a6fa5dd16795f5854633ecd3391a2413d", null ],
-    [ "m_context", "v8-console-message_8cc.html#a6c5f64d2388d79ff81bca874b01f47d7", null ],
-    [ "m_isolate", "v8-console-message_8cc.html#ac664cfc46527d6e8cdeeb5092b8121fa", null ],
-    [ "m_tryCatch", "v8-console-message_8cc.html#a0db8f1441be69bad34e58590b8682e17", null ],
-    [ "m_visitedArrays", "v8-console-message_8cc.html#a1b85ba91f563d1c0137e8cea02965f2c", null ]
+    [ "V8ValueStringBuilder", "classv8__inspector_1_1anonymous__namespace_02v8-console-message_8cc_03_1_1V8ValueStringBuilder.html", "classv8__inspector_1_1anonymous__namespace_02v8-console-message_8cc_03_1_1V8ValueStringBuilder" ],
+    [ "consoleAPITypeValue", "v8-console-message_8cc.html#a86684bb31ea851781690c6b1b044530b", null ],
+    [ "TraceV8ConsoleMessageEvent", "v8-console-message_8cc.html#a087ea4b3c347a3d8c309e09822b45b53", null ],
+    [ "kGlobalConsoleMessageHandleLabel", "v8-console-message_8cc.html#a9d71c18a16d6278d87e6862aea00beb8", null ],
+    [ "maxArrayItemsLimit", "v8-console-message_8cc.html#a9f3eddd3745a968990c567004f1e9ef2", null ],
+    [ "maxConsoleMessageCount", "v8-console-message_8cc.html#a05cfa3d0709a5e5b61d310596674f927", null ],
+    [ "maxConsoleMessageV8Size", "v8-console-message_8cc.html#a54b7a30c30a75c3daa273dc840a6823d", null ],
+    [ "maxStackDepthLimit", "v8-console-message_8cc.html#a35db3f5f1d75ee5998b90f1b7db22b6d", null ]
 ];

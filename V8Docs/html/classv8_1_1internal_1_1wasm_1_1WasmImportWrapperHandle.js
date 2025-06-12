@@ -8,5 +8,8 @@ var classv8_1_1internal_1_1wasm_1_1WasmImportWrapperHandle =
     [ "code_pointer", "classv8_1_1internal_1_1wasm_1_1WasmImportWrapperHandle.html#a27a79857fa3673cb12e358ecb0b92403", null ],
     [ "has_code", "classv8_1_1internal_1_1wasm_1_1WasmImportWrapperHandle.html#a313177c49b929f6721c9e2e7e37cd157", null ],
     [ "operator=", "classv8_1_1internal_1_1wasm_1_1WasmImportWrapperHandle.html#af7189c53f6e77af30b5e58e91e98e1c0", null ],
-    [ "WasmImportWrapperCache::ModificationScope", "classv8_1_1internal_1_1wasm_1_1WasmImportWrapperHandle.html#af24d3c1759dc47ea3de63ce323b442c7", null ]
+    [ "set_code", "classv8_1_1internal_1_1wasm_1_1WasmImportWrapperHandle.html#ab3155a63d3a1a20a41fed512f4ec6eaa", null ],
+    [ "WasmImportWrapperCache::ModificationScope", "classv8_1_1internal_1_1wasm_1_1WasmImportWrapperHandle.html#af24d3c1759dc47ea3de63ce323b442c7", null ],
+    [ "code_", "classv8_1_1internal_1_1wasm_1_1WasmImportWrapperHandle.html#a04ee5513cc783c959318b955d5098adc", null ],
+    [ "code_pointer_", "classv8_1_1internal_1_1wasm_1_1WasmImportWrapperHandle.html#a1591e18f862e61e6b3bf7ddfd50377de", null ]
 ];

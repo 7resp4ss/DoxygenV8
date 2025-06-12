@@ -10,5 +10,19 @@ var classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface =
     [ "end_found", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#a6c357999d72d81a3c815b08c0ed96b1f", null ],
     [ "ends_with_struct_new", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#aa55eb7362485858b5be6843dedfa23e4", null ],
     [ "error", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#a400568f2f15daa484b8ff28a1396c43b", null ],
-    [ "has_error", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#adea874c3b5259ac77854f9953c8ee23c", null ]
+    [ "generate_value", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#afbbb18603839bd465c0f8f3f9a763ed0", null ],
+    [ "GetRtt", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#ab64ba8d8d93fca356ca69f9294dc4e8a", null ],
+    [ "GetTrustedInstanceDataForTypeIndex", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#a7f5a2ae45dadb806115fb1f12515acc0", null ],
+    [ "has_error", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#adea874c3b5259ac77854f9953c8ee23c", null ],
+    [ "computed_value_", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#a03de36a8840d66f356779cfd78dc6aa4", null ],
+    [ "decoding_mode", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#aba22936b95e09ee309922385862691b0", null ],
+    [ "end_found_", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#aa86126af8ed74bde5bce579363641520", null ],
+    [ "ends_with_struct_new_", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#aa688ed434546cd6e2f84c68298892bed", null ],
+    [ "error_", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#a0123bba0e1db44c8c5998fa86abc1e0a", null ],
+    [ "isolate_", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#aa9a35de9702f92b34efc7df6bd58f245", null ],
+    [ "kUsesPoppedArgs", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#a3769a9d6bf19fa3bd49e92caf2f3f665", null ],
+    [ "module_", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#ac0d69cb745d57d151066f08a7ae2a491", null ],
+    [ "outer_module_", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#a6acc6b1e08477b73d081d62ebcda8fb6", null ],
+    [ "shared_trusted_instance_data_", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#a7a2a7aa87c01c7c21d0d101ec1347792", null ],
+    [ "trusted_instance_data_", "classv8_1_1internal_1_1wasm_1_1ConstantExpressionInterface.html#a14849d9b2d44b7a77c6de972a6052ceb", null ]
 ];

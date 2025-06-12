@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$bytecode-\/decoder.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::interpreter\+::Bytecode\+Decoder\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -19,6 +29,13 @@ static std\+::ostream \& \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 16 of file bytecode-\/decoder.\+h.
+
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_afd020b7e7f50a953a88dfe82dd01c694}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_afd020b7e7f50a953a88dfe82dd01c694}} 
 \index{v8::internal::interpreter::BytecodeDecoder@{v8::internal::interpreter::BytecodeDecoder}!Decode@{Decode}}
@@ -26,24 +43,305 @@ static std\+::ostream \& \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1
 \doxysubsubsection{\texorpdfstring{Decode()}{Decode()}}
 {\footnotesize\ttfamily std\+::ostream \& v8\+::internal\+::interpreter\+::\+Bytecode\+Decoder\+::\+Decode (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const uint8\+\_\+t $\ast$}]{bytecode\+\_\+start,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}}}]{with\+\_\+hex = {\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a7f5302a7c7fd292ffd4a5f9758bd3686}{true}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 95 of file bytecode-\/decoder.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{97                                                      \{}
+\DoxyCodeLine{98   \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a11bcbd6d6c1eed58e8536b777ae09e16}{Bytecode}} bytecode = \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_a22d68671271e53b89b5fcba4b9e3ac4a}{Bytecodes::FromByte}}(bytecode\_start[0]);}
+\DoxyCodeLine{99   \textcolor{keywordtype}{int} prefix\_offset = 0;}
+\DoxyCodeLine{100   \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_af4cfe621e83bc78f064aa62806795d64}{OperandScale}} operand\_scale = OperandScale::kSingle;}
+\DoxyCodeLine{101   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_aafd1e97e4412cf5567331551953ee196}{Bytecodes::IsPrefixScalingBytecode}}(bytecode)) \{}
+\DoxyCodeLine{102     prefix\_offset = 1;}
+\DoxyCodeLine{103     operand\_scale = \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_a29cdb52cd593cad434aafc4fbeba57c9}{Bytecodes::PrefixBytecodeToOperandScale}}(bytecode);}
+\DoxyCodeLine{104     bytecode = \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_a22d68671271e53b89b5fcba4b9e3ac4a}{Bytecodes::FromByte}}(bytecode\_start[1]);}
+\DoxyCodeLine{105   \}}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107   \textcolor{comment}{// Prepare to print bytecode and operands as hex digits.}}
+\DoxyCodeLine{108   \textcolor{keywordflow}{if} (with\_hex) \{}
+\DoxyCodeLine{109     std::ios saved\_format(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{110     saved\_format.copyfmt(saved\_format);}
+\DoxyCodeLine{111     os.fill(\textcolor{charliteral}{'0'});}
+\DoxyCodeLine{112     os.flags(std::ios::hex);}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114     \textcolor{keywordtype}{int} bytecode\_size = \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_aa36d92e9553de50e7137dcea9afaa212}{Bytecodes::Size}}(bytecode, operand\_scale);}
+\DoxyCodeLine{115     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < prefix\_offset + bytecode\_size; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{116       os << std::setw(2) << static\_cast<uint32\_t>(bytecode\_start[\mbox{\hyperlink{namespacev8_1_1internal}{i}}]) << \textcolor{charliteral}{' '};}
+\DoxyCodeLine{117     \}}
+\DoxyCodeLine{118     os.copyfmt(saved\_format);}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{120     \textcolor{keyword}{const} \textcolor{keywordtype}{int} kBytecodeColumnSize = 6;}
+\DoxyCodeLine{121     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = prefix\_offset + bytecode\_size; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < kBytecodeColumnSize; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{122       os << \textcolor{stringliteral}{"{}   "{}};}
+\DoxyCodeLine{123     \}}
+\DoxyCodeLine{124   \}}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126   os << \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_ae3e76b6c1aba4e2cfafd4c53594607ba}{Bytecodes::ToString}}(bytecode, operand\_scale);}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{128   \textcolor{comment}{// Operands for the debug break are from the original instruction.}}
+\DoxyCodeLine{129   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_a7c63b8f1b462a5bf34d4a542403d78c8}{Bytecodes::IsDebugBreak}}(bytecode)) \textcolor{keywordflow}{return} os;}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{131   \textcolor{keywordtype}{int} number\_of\_operands = \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_ac87569cd15f31410ddc6ab15978910f3}{Bytecodes::NumberOfOperands}}(bytecode);}
+\DoxyCodeLine{132   \textcolor{keywordflow}{if} (number\_of\_operands > 0) os << \textcolor{stringliteral}{"{} "{}};}
+\DoxyCodeLine{133   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < number\_of\_operands; \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{}
+\DoxyCodeLine{134     \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a39fea0bd5e7271ce703cd41313e7eefc}{OperandType}} op\_type = \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_a93d0bcb86bef7a9650723f904cfe027a}{Bytecodes::GetOperandType}}(bytecode, \mbox{\hyperlink{namespacev8_1_1internal}{i}});}
+\DoxyCodeLine{135     \textcolor{keywordtype}{int} operand\_offset =}
+\DoxyCodeLine{136         \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_a55be76fb5ca1d0df221d7e68ce7b02a1}{Bytecodes::GetOperandOffset}}(bytecode, \mbox{\hyperlink{namespacev8_1_1internal}{i}}, operand\_scale);}
+\DoxyCodeLine{137     \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} operand\_start = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}\textcolor{keyword}{>}(}
+\DoxyCodeLine{138         \&bytecode\_start[prefix\_offset + operand\_offset]);}
+\DoxyCodeLine{139     \textcolor{keywordflow}{switch} (op\_type) \{}
+\DoxyCodeLine{140       \textcolor{keywordflow}{case} interpreter::OperandType::kIdx:}
+\DoxyCodeLine{141       \textcolor{keywordflow}{case} interpreter::OperandType::kUImm:}
+\DoxyCodeLine{142         os << \textcolor{stringliteral}{"{}["{}}}
+\DoxyCodeLine{143            << \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae2edbb0761fd863bd54238eb7b599f5a}{DecodeUnsignedOperand}}(operand\_start, op\_type, operand\_scale)}
+\DoxyCodeLine{144            << \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{145         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{146       \textcolor{keywordflow}{case} interpreter::OperandType::kIntrinsicId: \{}
+\DoxyCodeLine{147         \textcolor{keyword}{auto} \textcolor{keywordtype}{id} = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1IntrinsicsHelper_a728b05205ff91d883ab2784d8faf41bf}{IntrinsicsHelper::IntrinsicId}}\textcolor{keyword}{>}(}
+\DoxyCodeLine{148             \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae2edbb0761fd863bd54238eb7b599f5a}{DecodeUnsignedOperand}}(operand\_start, op\_type, operand\_scale));}
+\DoxyCodeLine{149         os << \textcolor{stringliteral}{"{}["{}} << \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02bytecode-decoder_8cc_03_a0331fe6084e9ed7c28ff30ba6d7bcc99}{NameForRuntimeId}}(\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1IntrinsicsHelper_a2cb54520d323fc22fa0b563d05d7ffef}{IntrinsicsHelper::ToRuntimeId}}(\textcolor{keywordtype}{id})) << \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{150         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{151       \}}
+\DoxyCodeLine{152       \textcolor{keywordflow}{case} interpreter::OperandType::kNativeContextIndex: \{}
+\DoxyCodeLine{153         \textcolor{keyword}{auto} \textcolor{keywordtype}{id} = \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae2edbb0761fd863bd54238eb7b599f5a}{DecodeUnsignedOperand}}(operand\_start, op\_type, operand\_scale);}
+\DoxyCodeLine{154         os << \textcolor{stringliteral}{"{}["{}} << \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02bytecode-decoder_8cc_03_ace9e1908d8dc038127c5eb7b72b9bb4a}{NameForNativeContextIndex}}(\textcolor{keywordtype}{id}) << \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{155         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{156       \}}
+\DoxyCodeLine{157       \textcolor{keywordflow}{case} interpreter::OperandType::kRuntimeId:}
+\DoxyCodeLine{158         os << \textcolor{stringliteral}{"{}["{}}}
+\DoxyCodeLine{159            << \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_1_1anonymous__namespace_02bytecode-decoder_8cc_03_a0331fe6084e9ed7c28ff30ba6d7bcc99}{NameForRuntimeId}}(\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1Runtime_abc83b23b198d9aa173abb13a25a7b670}{Runtime::FunctionId}}\textcolor{keyword}{>}(}
+\DoxyCodeLine{160                   \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae2edbb0761fd863bd54238eb7b599f5a}{DecodeUnsignedOperand}}(operand\_start, op\_type, operand\_scale)))}
+\DoxyCodeLine{161            << \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{162         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{163       \textcolor{keywordflow}{case} interpreter::OperandType::kImm:}
+\DoxyCodeLine{164         os << \textcolor{stringliteral}{"{}["{}} << \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_a5ac4e9d4db2cc579313309234cd789d8}{DecodeSignedOperand}}(operand\_start, op\_type, operand\_scale)}
+\DoxyCodeLine{165            << \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{166         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{167       \textcolor{keywordflow}{case} interpreter::OperandType::kFlag8:}
+\DoxyCodeLine{168       \textcolor{keywordflow}{case} interpreter::OperandType::kFlag16:}
+\DoxyCodeLine{169         os << \textcolor{stringliteral}{"{}\#"{}}}
+\DoxyCodeLine{170            << \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae2edbb0761fd863bd54238eb7b599f5a}{DecodeUnsignedOperand}}(operand\_start, op\_type, operand\_scale);}
+\DoxyCodeLine{171         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{172       \textcolor{keywordflow}{case} interpreter::OperandType::kReg:}
+\DoxyCodeLine{173       \textcolor{keywordflow}{case} interpreter::OperandType::kRegOut:}
+\DoxyCodeLine{174       \textcolor{keywordflow}{case} interpreter::OperandType::kRegInOut: \{}
+\DoxyCodeLine{175         \mbox{\hyperlink{namespacev8_1_1internal_1_1ETWJITInterface_a6782da00e5166055555c65db3a9ec7eb}{Register}} reg =}
+\DoxyCodeLine{176             \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae6898ac65e67590041d7a368a952f167}{DecodeRegisterOperand}}(operand\_start, op\_type, operand\_scale);}
+\DoxyCodeLine{177         os << reg.ToString();}
+\DoxyCodeLine{178         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{179       \}}
+\DoxyCodeLine{180       \textcolor{keywordflow}{case} interpreter::OperandType::kRegOutTriple: \{}
+\DoxyCodeLine{181         RegisterList reg\_list =}
+\DoxyCodeLine{182             \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_a6847328e2bbccba309ab2b2ab24c4703}{DecodeRegisterListOperand}}(operand\_start, 3, op\_type, operand\_scale);}
+\DoxyCodeLine{183         os << reg\_list.first\_register().ToString() << \textcolor{stringliteral}{"{}-\/"{}}}
+\DoxyCodeLine{184            << reg\_list.last\_register().ToString();}
+\DoxyCodeLine{185         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{186       \}}
+\DoxyCodeLine{187       \textcolor{keywordflow}{case} interpreter::OperandType::kRegOutPair:}
+\DoxyCodeLine{188       \textcolor{keywordflow}{case} interpreter::OperandType::kRegPair: \{}
+\DoxyCodeLine{189         RegisterList reg\_list =}
+\DoxyCodeLine{190             \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_a6847328e2bbccba309ab2b2ab24c4703}{DecodeRegisterListOperand}}(operand\_start, 2, op\_type, operand\_scale);}
+\DoxyCodeLine{191         os << reg\_list.first\_register().ToString() << \textcolor{stringliteral}{"{}-\/"{}}}
+\DoxyCodeLine{192            << reg\_list.last\_register().ToString();}
+\DoxyCodeLine{193         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{194       \}}
+\DoxyCodeLine{195       \textcolor{keywordflow}{case} interpreter::OperandType::kRegOutList:}
+\DoxyCodeLine{196       \textcolor{keywordflow}{case} interpreter::OperandType::kRegList: \{}
+\DoxyCodeLine{197         \mbox{\hyperlink{src_2base_2logging_8h_af1a711c8d5520dff78858ddefd2ad668}{DCHECK\_LT}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}, number\_of\_operands -\/ 1);}
+\DoxyCodeLine{198         \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_a93d0bcb86bef7a9650723f904cfe027a}{Bytecodes::GetOperandType}}(bytecode, \mbox{\hyperlink{namespacev8_1_1internal}{i}} + 1),}
+\DoxyCodeLine{199                   OperandType::kRegCount);}
+\DoxyCodeLine{200         \textcolor{keywordtype}{int} reg\_count\_offset =}
+\DoxyCodeLine{201             \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_a55be76fb5ca1d0df221d7e68ce7b02a1}{Bytecodes::GetOperandOffset}}(bytecode, \mbox{\hyperlink{namespacev8_1_1internal}{i}} + 1, operand\_scale);}
+\DoxyCodeLine{202         \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} reg\_count\_operand = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}\textcolor{keyword}{>}(}
+\DoxyCodeLine{203             \&bytecode\_start[prefix\_offset + reg\_count\_offset]);}
+\DoxyCodeLine{204         uint32\_t count = \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae2edbb0761fd863bd54238eb7b599f5a}{DecodeUnsignedOperand}}(}
+\DoxyCodeLine{205             reg\_count\_operand, OperandType::kRegCount, operand\_scale);}
+\DoxyCodeLine{206         RegisterList reg\_list = \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_a6847328e2bbccba309ab2b2ab24c4703}{DecodeRegisterListOperand}}(}
+\DoxyCodeLine{207             operand\_start, count, op\_type, operand\_scale);}
+\DoxyCodeLine{208         os << reg\_list.first\_register().ToString() << \textcolor{stringliteral}{"{}-\/"{}}}
+\DoxyCodeLine{209            << reg\_list.last\_register().ToString();}
+\DoxyCodeLine{210         \mbox{\hyperlink{namespacev8_1_1internal}{i}}++;  \textcolor{comment}{// Skip kRegCount.}}
+\DoxyCodeLine{211         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{212       \}}
+\DoxyCodeLine{213       \textcolor{keywordflow}{case} interpreter::OperandType::kNone:}
+\DoxyCodeLine{214       \textcolor{keywordflow}{case} interpreter::OperandType::kRegCount:  \textcolor{comment}{// Dealt with in kRegList.}}
+\DoxyCodeLine{215         \mbox{\hyperlink{namespacev8_1_1internal_acdec713c25068019f935e35976f5b666}{UNREACHABLE}}();}
+\DoxyCodeLine{216     \}}
+\DoxyCodeLine{217     \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal}{i}} != number\_of\_operands -\/ 1) \{}
+\DoxyCodeLine{218       os << \textcolor{stringliteral}{"{}, "{}};}
+\DoxyCodeLine{219     \}}
+\DoxyCodeLine{220   \}}
+\DoxyCodeLine{221   \textcolor{keywordflow}{return} os;}
+\DoxyCodeLine{222 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK\+\_\+\+EQ, DCHECK\+\_\+\+LT, Decode\+Register\+List\+Operand(), Decode\+Register\+Operand(), Decode\+Signed\+Operand(), Decode\+Unsigned\+Operand(), v8\+::internal\+::interpreter\+::\+Register\+List\+::first\+\_\+register(), v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+From\+Byte(), v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+Get\+Operand\+Offset(), v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+Get\+Operand\+Type(), v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+Is\+Debug\+Break(), v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+Is\+Prefix\+Scaling\+Bytecode(), v8\+::internal\+::interpreter\+::\+Register\+List\+::last\+\_\+register(), v8\+::internal\+::interpreter\+::anonymous\+\_\+namespace\{bytecode-\/decoder.\+cc\}\+::\+Name\+For\+Native\+Context\+Index(), v8\+::internal\+::interpreter\+::anonymous\+\_\+namespace\{bytecode-\/decoder.\+cc\}\+::\+Name\+For\+Runtime\+Id(), v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+Number\+Of\+Operands(), v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+Prefix\+Bytecode\+To\+Operand\+Scale(), v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+Size(), v8\+::internal\+::interpreter\+::\+Intrinsics\+Helper\+::\+To\+Runtime\+Id(), v8\+::internal\+::interpreter\+::\+Register\+::\+To\+String(), v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+To\+String(), and v8\+::internal\+::\+UNREACHABLE().
+
+
+
+Referenced by v8\+::internal\+::\+Bytecode\+Array\+::\+Disassemble(), v8\+::internal\+::maglev\+::\+Maglev\+Graph\+Builder\+::\+Mark\+Bytecode\+Dead(), v8\+::internal\+::\+Bytecode\+Array\+::\+Print\+Json(), v8\+::internal\+::interpreter\+::\+Bytecode\+Array\+Iterator\+::\+Print\+To(), and v8\+::internal\+::maglev\+::\+Maglev\+Graph\+Builder\+::\+Visit\+Single\+Bytecode().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_afd020b7e7f50a953a88dfe82dd01c694_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_afd020b7e7f50a953a88dfe82dd01c694_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_a6847328e2bbccba309ab2b2ab24c4703}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_a6847328e2bbccba309ab2b2ab24c4703}} 
 \index{v8::internal::interpreter::BytecodeDecoder@{v8::internal::interpreter::BytecodeDecoder}!DecodeRegisterListOperand@{DecodeRegisterListOperand}}
 \index{DecodeRegisterListOperand@{DecodeRegisterListOperand}!v8::internal::interpreter::BytecodeDecoder@{v8::internal::interpreter::BytecodeDecoder}}
 \doxysubsubsection{\texorpdfstring{DecodeRegisterListOperand()}{DecodeRegisterListOperand()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1RegisterList}{Register\+List}} v8\+::internal\+::interpreter\+::\+Bytecode\+Decoder\+::\+Decode\+Register\+List\+Operand (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{operand\+\_\+start,  }\item[{uint32\+\_\+t}]{count,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a39fea0bd5e7271ce703cd41313e7eefc}{Operand\+Type}}}]{operand\+\_\+type,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_af4cfe621e83bc78f064aa62806795d64}{Operand\+Scale}}}]{operand\+\_\+scale }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 28 of file bytecode-\/decoder.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30                                 \{}
+\DoxyCodeLine{31   \mbox{\hyperlink{namespacev8_1_1internal_1_1ETWJITInterface_a6782da00e5166055555c65db3a9ec7eb}{Register}} first\_reg =}
+\DoxyCodeLine{32       \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae6898ac65e67590041d7a368a952f167}{DecodeRegisterOperand}}(operand\_start, operand\_type, operand\_scale);}
+\DoxyCodeLine{33   \textcolor{keywordflow}{return} RegisterList(first\_reg.index(), \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(count));}
+\DoxyCodeLine{34 \}}
+
+\end{DoxyCode}
+
+
+References Decode\+Register\+Operand(), and v8\+::internal\+::interpreter\+::\+Register\+::index().
+
+
+
+Referenced by Decode().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_a6847328e2bbccba309ab2b2ab24c4703_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_a6847328e2bbccba309ab2b2ab24c4703_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae6898ac65e67590041d7a368a952f167}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae6898ac65e67590041d7a368a952f167}} 
 \index{v8::internal::interpreter::BytecodeDecoder@{v8::internal::interpreter::BytecodeDecoder}!DecodeRegisterOperand@{DecodeRegisterOperand}}
 \index{DecodeRegisterOperand@{DecodeRegisterOperand}!v8::internal::interpreter::BytecodeDecoder@{v8::internal::interpreter::BytecodeDecoder}}
 \doxysubsubsection{\texorpdfstring{DecodeRegisterOperand()}{DecodeRegisterOperand()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}} v8\+::internal\+::interpreter\+::\+Bytecode\+Decoder\+::\+Decode\+Register\+Operand (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{operand\+\_\+start,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a39fea0bd5e7271ce703cd41313e7eefc}{Operand\+Type}}}]{operand\+\_\+type,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_af4cfe621e83bc78f064aa62806795d64}{Operand\+Scale}}}]{operand\+\_\+scale }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 18 of file bytecode-\/decoder.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{20                                                                             \{}
+\DoxyCodeLine{21   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_a7d3c91ed23038a19976d8af9da043f51}{Bytecodes::IsRegisterOperandType}}(operand\_type));}
+\DoxyCodeLine{22   \mbox{\hyperlink{namespaceunibrow_ab0275d47f9778d486eafe88b18c5851d}{int32\_t}} operand =}
+\DoxyCodeLine{23       \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_a5ac4e9d4db2cc579313309234cd789d8}{DecodeSignedOperand}}(operand\_start, operand\_type, operand\_scale);}
+\DoxyCodeLine{24   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register_a5ff3f5b55b1735bad6e84919dc4ba132}{Register::FromOperand}}(operand);}
+\DoxyCodeLine{25 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), Decode\+Signed\+Operand(), v8\+::internal\+::interpreter\+::\+Register\+::\+From\+Operand(), and v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+Is\+Register\+Operand\+Type().
+
+
+
+Referenced by Decode(), Decode\+Register\+List\+Operand(), and v8\+::internal\+::interpreter\+::\+Bytecode\+Array\+Iterator\+::\+Get\+Register\+Operand().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae6898ac65e67590041d7a368a952f167_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae6898ac65e67590041d7a368a952f167_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_a5ac4e9d4db2cc579313309234cd789d8}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_a5ac4e9d4db2cc579313309234cd789d8}} 
 \index{v8::internal::interpreter::BytecodeDecoder@{v8::internal::interpreter::BytecodeDecoder}!DecodeSignedOperand@{DecodeSignedOperand}}
 \index{DecodeSignedOperand@{DecodeSignedOperand}!v8::internal::interpreter::BytecodeDecoder@{v8::internal::interpreter::BytecodeDecoder}}
 \doxysubsubsection{\texorpdfstring{DecodeSignedOperand()}{DecodeSignedOperand()}}
 {\footnotesize\ttfamily int32\+\_\+t v8\+::internal\+::interpreter\+::\+Bytecode\+Decoder\+::\+Decode\+Signed\+Operand (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{operand\+\_\+start,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a39fea0bd5e7271ce703cd41313e7eefc}{Operand\+Type}}}]{operand\+\_\+type,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_af4cfe621e83bc78f064aa62806795d64}{Operand\+Scale}}}]{operand\+\_\+scale }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Definition at line 37 of file bytecode-\/decoder.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39                                                                          \{}
+\DoxyCodeLine{40   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_ad2a4f8ecd3f16eec011b54b97551c801}{Bytecodes::IsUnsignedOperandType}}(operand\_type));}
+\DoxyCodeLine{41   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_a7dcf04a33b5acb8f1ee4b176286ea7a5}{Bytecodes::SizeOfOperand}}(operand\_type, operand\_scale)) \{}
+\DoxyCodeLine{42     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a7ab109862bb5d9ab534b3e7a63d856fca0e6a5f48386d5e64047e2d726ec952a4}{OperandSize::kByte}}:}
+\DoxyCodeLine{43       \textcolor{keywordflow}{return} *\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }int8\_t*\textcolor{keyword}{>}(operand\_start);}
+\DoxyCodeLine{44     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a7ab109862bb5d9ab534b3e7a63d856fca22b78d480ec689e8c987dbd9367e393a}{OperandSize::kShort}}:}
+\DoxyCodeLine{45       \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{namespaceunibrow_a511cc0636aed6a00d37d3e7cc0ec4e7c}{int16\_t}}\textcolor{keyword}{>}(}
+\DoxyCodeLine{46           base::ReadUnalignedValue<uint16\_t>(operand\_start));}
+\DoxyCodeLine{47     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a7ab109862bb5d9ab534b3e7a63d856fcacf7fd46dda0070fc1ac6150450f12f67}{OperandSize::kQuad}}:}
+\DoxyCodeLine{48       \textcolor{keywordflow}{return} \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{namespaceunibrow_ab0275d47f9778d486eafe88b18c5851d}{int32\_t}}\textcolor{keyword}{>}(}
+\DoxyCodeLine{49           base::ReadUnalignedValue<uint32\_t>(operand\_start));}
+\DoxyCodeLine{50     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a7ab109862bb5d9ab534b3e7a63d856fca35c3ace1970663a16e5c65baa5941b13}{OperandSize::kNone}}:}
+\DoxyCodeLine{51       \mbox{\hyperlink{namespacev8_1_1internal_acdec713c25068019f935e35976f5b666}{UNREACHABLE}}();}
+\DoxyCodeLine{52   \}}
+\DoxyCodeLine{53   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{54 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+Is\+Unsigned\+Operand\+Type(), v8\+::internal\+::interpreter\+::k\+Byte, v8\+::internal\+::interpreter\+::k\+None, v8\+::internal\+::interpreter\+::k\+Quad, v8\+::internal\+::interpreter\+::k\+Short, v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+Size\+Of\+Operand(), and v8\+::internal\+::\+UNREACHABLE().
+
+
+
+Referenced by Decode(), Decode\+Register\+Operand(), and v8\+::internal\+::interpreter\+::\+Bytecode\+Array\+Iterator\+::\+Get\+Signed\+Operand().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_a5ac4e9d4db2cc579313309234cd789d8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_a5ac4e9d4db2cc579313309234cd789d8_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae2edbb0761fd863bd54238eb7b599f5a}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae2edbb0761fd863bd54238eb7b599f5a}} 
 \index{v8::internal::interpreter::BytecodeDecoder@{v8::internal::interpreter::BytecodeDecoder}!DecodeUnsignedOperand@{DecodeUnsignedOperand}}
 \index{DecodeUnsignedOperand@{DecodeUnsignedOperand}!v8::internal::interpreter::BytecodeDecoder@{v8::internal::interpreter::BytecodeDecoder}}
@@ -52,7 +350,53 @@ static std\+::ostream \& \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1
 
 
 
+Definition at line 57 of file bytecode-\/decoder.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{59                                                                             \{}
+\DoxyCodeLine{60   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_ad2a4f8ecd3f16eec011b54b97551c801}{Bytecodes::IsUnsignedOperandType}}(operand\_type));}
+\DoxyCodeLine{61   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Bytecodes_a7dcf04a33b5acb8f1ee4b176286ea7a5}{Bytecodes::SizeOfOperand}}(operand\_type, operand\_scale)) \{}
+\DoxyCodeLine{62     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a7ab109862bb5d9ab534b3e7a63d856fca0e6a5f48386d5e64047e2d726ec952a4}{OperandSize::kByte}}:}
+\DoxyCodeLine{63       \textcolor{keywordflow}{return} *\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }uint8\_t*\textcolor{keyword}{>}(operand\_start);}
+\DoxyCodeLine{64     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a7ab109862bb5d9ab534b3e7a63d856fca22b78d480ec689e8c987dbd9367e393a}{OperandSize::kShort}}:}
+\DoxyCodeLine{65       \textcolor{keywordflow}{return} base::ReadUnalignedValue<uint16\_t>(operand\_start);}
+\DoxyCodeLine{66     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a7ab109862bb5d9ab534b3e7a63d856fcacf7fd46dda0070fc1ac6150450f12f67}{OperandSize::kQuad}}:}
+\DoxyCodeLine{67       \textcolor{keywordflow}{return} base::ReadUnalignedValue<uint32\_t>(operand\_start);}
+\DoxyCodeLine{68     \textcolor{keywordflow}{case} \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a7ab109862bb5d9ab534b3e7a63d856fca35c3ace1970663a16e5c65baa5941b13}{OperandSize::kNone}}:}
+\DoxyCodeLine{69       \mbox{\hyperlink{namespacev8_1_1internal_acdec713c25068019f935e35976f5b666}{UNREACHABLE}}();}
+\DoxyCodeLine{70   \}}
+\DoxyCodeLine{71   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{72 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+DCHECK(), v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+Is\+Unsigned\+Operand\+Type(), v8\+::internal\+::interpreter\+::k\+Byte, v8\+::internal\+::interpreter\+::k\+None, v8\+::internal\+::interpreter\+::k\+Quad, v8\+::internal\+::interpreter\+::k\+Short, v8\+::internal\+::interpreter\+::\+Bytecodes\+::\+Size\+Of\+Operand(), and v8\+::internal\+::\+UNREACHABLE().
+
+
+
+Referenced by Decode(), and v8\+::internal\+::interpreter\+::\+Bytecode\+Array\+Iterator\+::\+Get\+Unsigned\+Operand().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae2edbb0761fd863bd54238eb7b599f5a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1interpreter_1_1BytecodeDecoder_ae2edbb0761fd863bd54238eb7b599f5a_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{bytecode-decoder_8h}{bytecode-\/decoder.\+h}}\item 
-\mbox{\hyperlink{bytecode-decoder_8cc}{bytecode-\/decoder.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/interpreter/\mbox{\hyperlink{bytecode-decoder_8h}{bytecode-\/decoder.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/interpreter/\mbox{\hyperlink{bytecode-decoder_8cc}{bytecode-\/decoder.\+cc}}\end{DoxyCompactItemize}

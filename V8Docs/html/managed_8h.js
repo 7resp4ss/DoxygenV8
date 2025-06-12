@@ -1,6 +1,6 @@
 var managed_8h =
 [
-    [ "TagForManaged", "structv8_1_1internal_1_1TagForManaged.html", null ],
+    [ "TagForManaged", "structv8_1_1internal_1_1TagForManaged.html", "structv8_1_1internal_1_1TagForManaged" ],
     [ "ManagedPtrDestructor", "structv8_1_1internal_1_1ManagedPtrDestructor.html", "structv8_1_1internal_1_1ManagedPtrDestructor" ],
     [ "Managed", "classv8_1_1internal_1_1Managed.html", "classv8_1_1internal_1_1Managed" ],
     [ "TrustedManaged", "classv8_1_1internal_1_1TrustedManaged.html", "classv8_1_1internal_1_1TrustedManaged" ],

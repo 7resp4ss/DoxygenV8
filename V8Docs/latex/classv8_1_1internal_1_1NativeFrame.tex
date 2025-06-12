@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::Native\+Frame\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=233pt]{classv8_1_1internal_1_1NativeFrame__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1NativeFrame__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::Native\+Frame\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=233pt]{classv8_1_1internal_1_1NativeFrame__coll__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1NativeFrame__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -36,12 +36,24 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1NativeFrame_a779ef2a98e6f36125e8608
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1NativeFrame_ab15b700b354dbe3a88fe0e73146838c3}{Native\+Frame}} (\mbox{\hyperlink{classv8_1_1internal_1_1StackFrameIteratorBase}{Stack\+Frame\+Iterator\+Base}} $\ast$iterator)
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1NativeFrame_aab958bdea58b8241e84a8535d4850aaf}{Compute\+Caller\+State}} (\mbox{\hyperlink{structv8_1_1internal_1_1StackFrame_1_1State}{State}} $\ast$state) const override
+\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classv8_1_1internal_1_1NativeFrame_ac7310421866976ca454bbe11c5f926c3}{Stack\+Frame\+Iterator\+Base}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 832 of file frames.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -53,7 +65,54 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1NativeFrame_ac7310421866976ca454bb
 
 
 
+Definition at line 127 of file frames-\/inl.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{128     : \mbox{\hyperlink{classv8_1_1internal_1_1TypedFrame_a45d74273d946661f9660ba151a285adc}{TypedFrame}}(iterator) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1NativeFrame_aab958bdea58b8241e84a8535d4850aaf}\label{classv8_1_1internal_1_1NativeFrame_aab958bdea58b8241e84a8535d4850aaf}} 
+\index{v8::internal::NativeFrame@{v8::internal::NativeFrame}!ComputeCallerState@{ComputeCallerState}}
+\index{ComputeCallerState@{ComputeCallerState}!v8::internal::NativeFrame@{v8::internal::NativeFrame}}
+\doxysubsubsection{\texorpdfstring{ComputeCallerState()}{ComputeCallerState()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Native\+Frame\+::\+Compute\+Caller\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structv8_1_1internal_1_1StackFrame_1_1State}{State}} $\ast$}]{state }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classv8_1_1internal_1_1CommonFrame_a3f38ab632c665607c4fda84ec3b15d17}{v8\+::internal\+::\+Common\+Frame}}.
+
+
+
+Definition at line 1080 of file frames.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1080                                                        \{}
+\DoxyCodeLine{1081   state-\/>sp = \mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_a3337ff038f20902cc8530699f266d498}{caller\_sp}}();}
+\DoxyCodeLine{1082   state-\/>fp = Memory<Address>(\mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_acd57bdd7c8b254edf7f35b769e6db458}{fp}}() + \mbox{\hyperlink{classv8_1_1internal_1_1CommonFrameConstants_aa217c3453e50c5e3c9630130a7caa198}{CommonFrameConstants::kCallerFPOffset}});}
+\DoxyCodeLine{1083   state-\/>pc\_address = \mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_aa5a56ac2eb1e045eb6c970fcd6c82398}{ResolveReturnAddressLocation}}(}
+\DoxyCodeLine{1084       \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_acd57bdd7c8b254edf7f35b769e6db458}{fp}}() + \mbox{\hyperlink{classv8_1_1internal_1_1CommonFrameConstants_aabd7a61e47b34f2c31109561b5a79fa2}{CommonFrameConstants::kCallerPCOffset}}));}
+\DoxyCodeLine{1085   state-\/>callee\_pc = \mbox{\hyperlink{namespacev8_1_1internal_acf6bafb5b8483a580f375393c413ee02}{kNullAddress}};}
+\DoxyCodeLine{1086   state-\/>constant\_pool\_address = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{1087 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Stack\+Frame\+::\+State\+::callee\+\_\+pc, v8\+::internal\+::\+Stack\+Frame\+::caller\+\_\+sp(), v8\+::internal\+::\+Stack\+Frame\+::\+State\+::constant\+\_\+pool\+\_\+address, v8\+::internal\+::\+Stack\+Frame\+::\+State\+::fp, v8\+::internal\+::\+Stack\+Frame\+::fp(), v8\+::internal\+::\+Common\+Frame\+Constants\+::k\+Caller\+FPOffset, v8\+::internal\+::\+Common\+Frame\+Constants\+::k\+Caller\+PCOffset, v8\+::internal\+::k\+Null\+Address, v8\+::internal\+::\+Stack\+Frame\+::\+State\+::pc\+\_\+address, v8\+::internal\+::\+Stack\+Frame\+::\+Resolve\+Return\+Address\+Location(), and v8\+::internal\+::\+Stack\+Frame\+::\+State\+::sp.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1NativeFrame_aab958bdea58b8241e84a8535d4850aaf_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1NativeFrame_a779ef2a98e6f36125e86085f73efe673}\label{classv8_1_1internal_1_1NativeFrame_a779ef2a98e6f36125e86085f73efe673}} 
 \index{v8::internal::NativeFrame@{v8::internal::NativeFrame}!Iterate@{Iterate}}
 \index{Iterate@{Iterate}!v8::internal::NativeFrame@{v8::internal::NativeFrame}}
@@ -64,6 +123,15 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1NativeFrame_ac7310421866976ca454bb
 
 Reimplemented from \mbox{\hyperlink{classv8_1_1internal_1_1TypedFrame_a5f4b21434a1bceaf383df4f0437a4e80}{v8\+::internal\+::\+Typed\+Frame}}.
 
+
+
+Definition at line 837 of file frames.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{837 \{\}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classv8_1_1internal_1_1NativeFrame_a61004a74a136cbf22cb0f5d5c5cfe5b2}\label{classv8_1_1internal_1_1NativeFrame_a61004a74a136cbf22cb0f5d5c5cfe5b2}} 
 \index{v8::internal::NativeFrame@{v8::internal::NativeFrame}!type@{type}}
 \index{type@{type}!v8::internal::NativeFrame@{v8::internal::NativeFrame}}
@@ -76,6 +144,15 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_a88b5e0918e5090f57
 
 
 
+Definition at line 834 of file frames.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{834 \{ \textcolor{keywordflow}{return} NATIVE; \}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Friends And Related Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1NativeFrame_ac7310421866976ca454bbe11c5f926c3}\label{classv8_1_1internal_1_1NativeFrame_ac7310421866976ca454bbe11c5f926c3}} 
 \index{v8::internal::NativeFrame@{v8::internal::NativeFrame}!StackFrameIteratorBase@{StackFrameIteratorBase}}
@@ -85,8 +162,12 @@ Implements \mbox{\hyperlink{classv8_1_1internal_1_1StackFrame_a88b5e0918e5090f57
 
 
 
+Definition at line 845 of file frames.\+h.
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{frames_8h}{frames.\+h}}\item 
-\mbox{\hyperlink{frames-inl_8h}{frames-\/inl.\+h}}\item 
-\mbox{\hyperlink{frames_8cc}{frames.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/execution/\mbox{\hyperlink{frames_8h}{frames.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/execution/\mbox{\hyperlink{frames-inl_8h}{frames-\/inl.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/execution/\mbox{\hyperlink{frames_8cc}{frames.\+cc}}\end{DoxyCompactItemize}

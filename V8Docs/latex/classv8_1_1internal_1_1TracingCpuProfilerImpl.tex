@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::Tracing\+Cpu\+Profiler\+Impl\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=211pt]{classv8_1_1internal_1_1TracingCpuProfilerImpl__inherit__graph}
+\includegraphics[width=233pt]{classv8_1_1internal_1_1TracingCpuProfilerImpl__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,7 +21,7 @@ Collaboration diagram for v8\+::internal\+::Tracing\+Cpu\+Profiler\+Impl\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=211pt]{classv8_1_1internal_1_1TracingCpuProfilerImpl__coll__graph}
+\includegraphics[width=350pt]{classv8_1_1internal_1_1TracingCpuProfilerImpl__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -39,6 +39,31 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_acfff3600859
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a9938a247f244f94a5d56ee550cc2aa4c}{On\+Trace\+Disabled}} () final
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_aa157a6315a70e2be63cf73d41468f7b9}{Start\+Profiling}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_aefabffb503c067687f7cf0cad891c51d}{Stop\+Profiling}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a026a6e18aa0f679b80c49d86435a08ae}{isolate\+\_\+}}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classv8_1_1internal_1_1CpuProfiler}{Cpu\+Profiler}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_af55e298f7818318a90a5ae737e79e493}{profiler\+\_\+}}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a6db2fe655bde3e21ac13d0dd8937495e}{profiling\+\_\+enabled\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a01fbd0c835d9e7f0ff82c8d83b70ef64}{mutex\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 22 of file tracing-\/cpu-\/profiler.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -48,12 +73,70 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a9938a247f24
 \doxysubsubsection{\texorpdfstring{TracingCpuProfilerImpl()}{TracingCpuProfilerImpl()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Tracing\+Cpu\+Profiler\+Impl\+::\+Tracing\+Cpu\+Profiler\+Impl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
 
+
+
+Definition at line 15 of file tracing-\/cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16     : \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a026a6e18aa0f679b80c49d86435a08ae}{isolate\_}}(isolate), \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a6db2fe655bde3e21ac13d0dd8937495e}{profiling\_enabled\_}}(\textcolor{keyword}{false}) \{}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#if defined(V8\_USE\_PERFETTO)}}
+\DoxyCodeLine{18   TrackEvent::AddSessionObserver(\textcolor{keyword}{this});}
+\DoxyCodeLine{19   \textcolor{comment}{// Fire the observer if tracing is already in progress.}}
+\DoxyCodeLine{20   \textcolor{keywordflow}{if} (TrackEvent::IsEnabled()) OnStart(\{\});}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{22   \mbox{\hyperlink{classv8_1_1internal_1_1V8_a5eb1d47c492fa1e85e7d7c31dd5cf2bb}{V8::GetCurrentPlatform}}()-\/>\mbox{\hyperlink{classv8_1_1Platform_aa760c7bf8c46495eb650d2be72399747}{GetTracingController}}()-\/>\mbox{\hyperlink{classv8_1_1TracingController_a7b86361ffadff46018a348fd2aa01061}{AddTraceStateObserver}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{24 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::\+Tracing\+Controller\+::\+Add\+Trace\+State\+Observer(), v8\+::internal\+::\+V8\+::\+Get\+Current\+Platform(), and v8\+::\+Platform\+::\+Get\+Tracing\+Controller().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1TracingCpuProfilerImpl_a84669ceb457c5d8a0c1050512bed3564_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1TracingCpuProfilerImpl_ac137b443b0cbb86a780e7a24e24dad67}\label{classv8_1_1internal_1_1TracingCpuProfilerImpl_ac137b443b0cbb86a780e7a24e24dad67}} 
 \index{v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}!````~TracingCpuProfilerImpl@{$\sim$TracingCpuProfilerImpl}}
 \index{````~TracingCpuProfilerImpl@{$\sim$TracingCpuProfilerImpl}!v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}}
 \doxysubsubsection{\texorpdfstring{$\sim$TracingCpuProfilerImpl()}{~TracingCpuProfilerImpl()}}
 {\footnotesize\ttfamily v8\+::internal\+::\+Tracing\+Cpu\+Profiler\+Impl\+::$\sim$\+Tracing\+Cpu\+Profiler\+Impl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
 
+
+
+Definition at line 26 of file tracing-\/cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26                                                 \{}
+\DoxyCodeLine{27   \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_aefabffb503c067687f7cf0cad891c51d}{StopProfiling}}();}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#if defined(V8\_USE\_PERFETTO)}}
+\DoxyCodeLine{29   TrackEvent::RemoveSessionObserver(\textcolor{keyword}{this});}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{31   \mbox{\hyperlink{classv8_1_1internal_1_1V8_a5eb1d47c492fa1e85e7d7c31dd5cf2bb}{V8::GetCurrentPlatform}}()-\/>\mbox{\hyperlink{classv8_1_1Platform_aa760c7bf8c46495eb650d2be72399747}{GetTracingController}}()-\/>\mbox{\hyperlink{classv8_1_1TracingController_ab8d5b3ac795188effb423fa2c0514353}{RemoveTraceStateObserver}}(}
+\DoxyCodeLine{32       \textcolor{keyword}{this});}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{34 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+V8\+::\+Get\+Current\+Platform(), v8\+::\+Platform\+::\+Get\+Tracing\+Controller(), v8\+::\+Tracing\+Controller\+::\+Remove\+Trace\+State\+Observer(), and Stop\+Profiling().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1TracingCpuProfilerImpl_ac137b443b0cbb86a780e7a24e24dad67_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1TracingCpuProfilerImpl_acff118496eba7c1fb4de0ba67b5de968}\label{classv8_1_1internal_1_1TracingCpuProfilerImpl_acff118496eba7c1fb4de0ba67b5de968}} 
 \index{v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}!TracingCpuProfilerImpl@{TracingCpuProfilerImpl}}
 \index{TracingCpuProfilerImpl@{TracingCpuProfilerImpl}!v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}}
@@ -73,6 +156,43 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a9938a247f24
 
 Implements \mbox{\hyperlink{classv8_1_1TracingController_1_1TraceStateObserver_a840a68c822844e57e4b023dc4f9e0fee}{v8\+::\+Tracing\+Controller\+::\+Trace\+State\+Observer}}.
 
+
+
+Definition at line 69 of file tracing-\/cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{69                                              \{}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{71   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} lock(\&\mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a01fbd0c835d9e7f0ff82c8d83b70ef64}{mutex\_}});}
+\DoxyCodeLine{72   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a6db2fe655bde3e21ac13d0dd8937495e}{profiling\_enabled\_}}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{73   \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a6db2fe655bde3e21ac13d0dd8937495e}{profiling\_enabled\_}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{74   \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a026a6e18aa0f679b80c49d86435a08ae}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a26b7bce2682f35560d3bd02cb4f68a3f}{RequestInterrupt}}(}
+\DoxyCodeLine{75       [](\mbox{\hyperlink{classv8_1_1Isolate}{v8::Isolate}}*, \textcolor{keywordtype}{void}* data) \{}
+\DoxyCodeLine{76         \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a84669ceb457c5d8a0c1050512bed3564}{TracingCpuProfilerImpl}}*\textcolor{keyword}{>}(data)-\/>\mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_aefabffb503c067687f7cf0cad891c51d}{StopProfiling}}();}
+\DoxyCodeLine{77       \},}
+\DoxyCodeLine{78       \textcolor{keyword}{this});}
+\DoxyCodeLine{79   \textcolor{comment}{// It could be a long time until the Isolate next runs any JS which could be}}
+\DoxyCodeLine{80   \textcolor{comment}{// interrupted, and we'd rather not leave the sampler thread running during}}
+\DoxyCodeLine{81   \textcolor{comment}{// that time, so also post a task to run any interrupts.}}
+\DoxyCodeLine{82   \mbox{\hyperlink{classv8_1_1internal_1_1V8_a5eb1d47c492fa1e85e7d7c31dd5cf2bb}{V8::GetCurrentPlatform}}()}
+\DoxyCodeLine{83       -\/>\mbox{\hyperlink{classv8_1_1Platform_a098c125aa524aa3f3cde02dd158a143e}{GetForegroundTaskRunner}}(\textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1Isolate}{v8::Isolate}}*\textcolor{keyword}{>}(\mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a026a6e18aa0f679b80c49d86435a08ae}{isolate\_}}))}
+\DoxyCodeLine{84       -\/>PostTask(std::make\_unique<RunInterruptsTask>(\mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a026a6e18aa0f679b80c49d86435a08ae}{isolate\_}}));}
+\DoxyCodeLine{85 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+V8\+::\+Get\+Current\+Platform(), v8\+::\+Platform\+::\+Get\+Foreground\+Task\+Runner(), isolate\+\_\+, mutex\+\_\+, profiling\+\_\+enabled\+\_\+, v8\+::internal\+::\+Isolate\+::\+Request\+Interrupt(), and Stop\+Profiling().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1TracingCpuProfilerImpl_a9938a247f244f94a5d56ee550cc2aa4c_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1TracingCpuProfilerImpl_acfff3600859a5a6d1cfc98b8dd196e58}\label{classv8_1_1internal_1_1TracingCpuProfilerImpl_acfff3600859a5a6d1cfc98b8dd196e58}} 
 \index{v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}!OnTraceEnabled@{OnTraceEnabled}}
 \index{OnTraceEnabled@{OnTraceEnabled}!v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}}
@@ -83,15 +203,190 @@ Implements \mbox{\hyperlink{classv8_1_1TracingController_1_1TraceStateObserver_a
 
 Implements \mbox{\hyperlink{classv8_1_1TracingController_1_1TraceStateObserver_a3853d90b9458529203fd1c4bc8caf4e3}{v8\+::\+Tracing\+Controller\+::\+Trace\+State\+Observer}}.
 
+
+
+Definition at line 40 of file tracing-\/cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40                                             \{}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{42   \textcolor{keywordtype}{bool} enabled;}
+\DoxyCodeLine{43   \mbox{\hyperlink{trace-event-no-perfetto_8h_ae899ba028860f16f52383707102c65bb}{TRACE\_EVENT\_CATEGORY\_GROUP\_ENABLED}}(}
+\DoxyCodeLine{44       \mbox{\hyperlink{trace-event-no-perfetto_8h_a97689377430b094caec680dd7dd230fe}{TRACE\_DISABLED\_BY\_DEFAULT}}(\textcolor{stringliteral}{"{}v8.cpu\_profiler"{}}), \&enabled);}
+\DoxyCodeLine{45   \textcolor{keywordflow}{if} (!enabled) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{46   \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a6db2fe655bde3e21ac13d0dd8937495e}{profiling\_enabled\_}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{47   \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a026a6e18aa0f679b80c49d86435a08ae}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a26b7bce2682f35560d3bd02cb4f68a3f}{RequestInterrupt}}(}
+\DoxyCodeLine{48       [](\mbox{\hyperlink{classv8_1_1Isolate}{v8::Isolate}}*, \textcolor{keywordtype}{void}* data) \{}
+\DoxyCodeLine{49         \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a84669ceb457c5d8a0c1050512bed3564}{TracingCpuProfilerImpl}}*\textcolor{keyword}{>}(data)-\/>\mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_aa157a6315a70e2be63cf73d41468f7b9}{StartProfiling}}();}
+\DoxyCodeLine{50       \},}
+\DoxyCodeLine{51       \textcolor{keyword}{this});}
+\DoxyCodeLine{52 \}}
+
+\end{DoxyCode}
+
+
+References isolate\+\_\+, profiling\+\_\+enabled\+\_\+, v8\+::internal\+::\+Isolate\+::\+Request\+Interrupt(), Start\+Profiling(), TRACE\+\_\+\+DISABLED\+\_\+\+BY\+\_\+\+DEFAULT, and TRACE\+\_\+\+EVENT\+\_\+\+CATEGORY\+\_\+\+GROUP\+\_\+\+ENABLED.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1TracingCpuProfilerImpl_acfff3600859a5a6d1cfc98b8dd196e58_cgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1TracingCpuProfilerImpl_aa7009ab93db6ca910f91770d871b9d13}\label{classv8_1_1internal_1_1TracingCpuProfilerImpl_aa7009ab93db6ca910f91770d871b9d13}} 
 \index{v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}!operator=@{operator=}}
 \index{operator=@{operator=}!v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}}
 \doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl}{Tracing\+Cpu\+Profiler\+Impl}}\& v8\+::internal\+::\+Tracing\+Cpu\+Profiler\+Impl\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl}{Tracing\+Cpu\+Profiler\+Impl}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
 
+\mbox{\Hypertarget{classv8_1_1internal_1_1TracingCpuProfilerImpl_aa157a6315a70e2be63cf73d41468f7b9}\label{classv8_1_1internal_1_1TracingCpuProfilerImpl_aa157a6315a70e2be63cf73d41468f7b9}} 
+\index{v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}!StartProfiling@{StartProfiling}}
+\index{StartProfiling@{StartProfiling}!v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}}
+\doxysubsubsection{\texorpdfstring{StartProfiling()}{StartProfiling()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Tracing\+Cpu\+Profiler\+Impl\+::\+Start\+Profiling (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 87 of file tracing-\/cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{87                                             \{}
+\DoxyCodeLine{88   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} lock(\&\mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a01fbd0c835d9e7f0ff82c8d83b70ef64}{mutex\_}});}
+\DoxyCodeLine{89   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a6db2fe655bde3e21ac13d0dd8937495e}{profiling\_enabled\_}} || \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_af55e298f7818318a90a5ae737e79e493}{profiler\_}}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{90   \textcolor{keywordtype}{int} sampling\_interval\_us = 100;}
+\DoxyCodeLine{91   \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_af55e298f7818318a90a5ae737e79e493}{profiler\_}}.reset(\textcolor{keyword}{new} CpuProfiler(\mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a026a6e18aa0f679b80c49d86435a08ae}{isolate\_}}, \mbox{\hyperlink{namespacev8_add7bc8f364619ed7e3dd36e08ec9094caec1774e96fe502f2cce6994c444b4d30}{kDebugNaming}}));}
+\DoxyCodeLine{92   \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_af55e298f7818318a90a5ae737e79e493}{profiler\_}}-\/>set\_sampling\_interval(}
+\DoxyCodeLine{93       \mbox{\hyperlink{classv8_1_1base_1_1TimeDelta_a1df269c42efa26b4b6defb9d83f850da}{base::TimeDelta::FromMicroseconds}}(sampling\_interval\_us));}
+\DoxyCodeLine{94   \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_af55e298f7818318a90a5ae737e79e493}{profiler\_}}-\/>StartProfiling(\textcolor{stringliteral}{"{}"{}}, \{\mbox{\hyperlink{namespacev8_a57a16107c54510306c4e53f8cc5e9848a8f626a412196afeca68082ebb0f03221}{kLeafNodeLineNumbers}}\});}
+\DoxyCodeLine{95 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::base\+::\+Time\+Delta\+::\+From\+Microseconds(), isolate\+\_\+, v8\+::k\+Debug\+Naming, v8\+::k\+Leaf\+Node\+Line\+Numbers, mutex\+\_\+, profiler\+\_\+, and profiling\+\_\+enabled\+\_\+.
+
+
+
+Referenced by On\+Trace\+Enabled().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1TracingCpuProfilerImpl_aa157a6315a70e2be63cf73d41468f7b9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1TracingCpuProfilerImpl_aa157a6315a70e2be63cf73d41468f7b9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1TracingCpuProfilerImpl_aefabffb503c067687f7cf0cad891c51d}\label{classv8_1_1internal_1_1TracingCpuProfilerImpl_aefabffb503c067687f7cf0cad891c51d}} 
+\index{v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}!StopProfiling@{StopProfiling}}
+\index{StopProfiling@{StopProfiling}!v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}}
+\doxysubsubsection{\texorpdfstring{StopProfiling()}{StopProfiling()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Tracing\+Cpu\+Profiler\+Impl\+::\+Stop\+Profiling (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 97 of file tracing-\/cpu-\/profiler.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{97                                            \{}
+\DoxyCodeLine{98   \mbox{\hyperlink{namespacev8_1_1base_a40b71b3558e4b5297d51003612578a81}{base::MutexGuard}} lock(\&\mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_a01fbd0c835d9e7f0ff82c8d83b70ef64}{mutex\_}});}
+\DoxyCodeLine{99   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_af55e298f7818318a90a5ae737e79e493}{profiler\_}}) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{100   \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_af55e298f7818318a90a5ae737e79e493}{profiler\_}}-\/>StopProfiling(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{101   \mbox{\hyperlink{classv8_1_1internal_1_1TracingCpuProfilerImpl_af55e298f7818318a90a5ae737e79e493}{profiler\_}}.reset();}
+\DoxyCodeLine{102 \}}
+
+\end{DoxyCode}
+
+
+References mutex\+\_\+, and profiler\+\_\+.
+
+
+
+Referenced by On\+Trace\+Disabled(), and $\sim$\+Tracing\+Cpu\+Profiler\+Impl().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1TracingCpuProfilerImpl_aefabffb503c067687f7cf0cad891c51d_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1TracingCpuProfilerImpl_a026a6e18aa0f679b80c49d86435a08ae}\label{classv8_1_1internal_1_1TracingCpuProfilerImpl_a026a6e18aa0f679b80c49d86435a08ae}} 
+\index{v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}!isolate\_@{isolate\_}}
+\index{isolate\_@{isolate\_}!v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}}
+\doxysubsubsection{\texorpdfstring{isolate\_}{isolate\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}}$\ast$ v8\+::internal\+::\+Tracing\+Cpu\+Profiler\+Impl\+::isolate\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 48 of file tracing-\/cpu-\/profiler.\+h.
+
+
+
+Referenced by On\+Trace\+Disabled(), On\+Trace\+Enabled(), v8\+::internal\+::anonymous\+\_\+namespace\{tracing-\/cpu-\/profiler.\+cc\}\+::\+Run\+Interrupts\+Task\+::\+Run(), and Start\+Profiling().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1TracingCpuProfilerImpl_a01fbd0c835d9e7f0ff82c8d83b70ef64}\label{classv8_1_1internal_1_1TracingCpuProfilerImpl_a01fbd0c835d9e7f0ff82c8d83b70ef64}} 
+\index{v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}!mutex\_@{mutex\_}}
+\index{mutex\_@{mutex\_}!v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}}
+\doxysubsubsection{\texorpdfstring{mutex\_}{mutex\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} v8\+::internal\+::\+Tracing\+Cpu\+Profiler\+Impl\+::mutex\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 51 of file tracing-\/cpu-\/profiler.\+h.
+
+
+
+Referenced by On\+Trace\+Disabled(), Start\+Profiling(), and Stop\+Profiling().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1TracingCpuProfilerImpl_af55e298f7818318a90a5ae737e79e493}\label{classv8_1_1internal_1_1TracingCpuProfilerImpl_af55e298f7818318a90a5ae737e79e493}} 
+\index{v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}!profiler\_@{profiler\_}}
+\index{profiler\_@{profiler\_}!v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}}
+\doxysubsubsection{\texorpdfstring{profiler\_}{profiler\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classv8_1_1internal_1_1CpuProfiler}{Cpu\+Profiler}}$>$ v8\+::internal\+::\+Tracing\+Cpu\+Profiler\+Impl\+::profiler\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 49 of file tracing-\/cpu-\/profiler.\+h.
+
+
+
+Referenced by Start\+Profiling(), and Stop\+Profiling().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1TracingCpuProfilerImpl_a6db2fe655bde3e21ac13d0dd8937495e}\label{classv8_1_1internal_1_1TracingCpuProfilerImpl_a6db2fe655bde3e21ac13d0dd8937495e}} 
+\index{v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}!profiling\_enabled\_@{profiling\_enabled\_}}
+\index{profiling\_enabled\_@{profiling\_enabled\_}!v8::internal::TracingCpuProfilerImpl@{v8::internal::TracingCpuProfilerImpl}}
+\doxysubsubsection{\texorpdfstring{profiling\_enabled\_}{profiling\_enabled\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Tracing\+Cpu\+Profiler\+Impl\+::profiling\+\_\+enabled\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 50 of file tracing-\/cpu-\/profiler.\+h.
+
+
+
+Referenced by On\+Trace\+Disabled(), On\+Trace\+Enabled(), and Start\+Profiling().
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{tracing-cpu-profiler_8h}{tracing-\/cpu-\/profiler.\+h}}\item 
-\mbox{\hyperlink{tracing-cpu-profiler_8cc}{tracing-\/cpu-\/profiler.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/profiler/\mbox{\hyperlink{tracing-cpu-profiler_8h}{tracing-\/cpu-\/profiler.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/profiler/\mbox{\hyperlink{tracing-cpu-profiler_8cc}{tracing-\/cpu-\/profiler.\+cc}}\end{DoxyCompactItemize}

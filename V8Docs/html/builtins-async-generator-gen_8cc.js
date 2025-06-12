@@ -1,5 +1,6 @@
 var builtins_async_generator_gen_8cc =
 [
+    [ "AsyncGeneratorBuiltinsAssembler", "classv8_1_1internal_1_1anonymous__namespace_02builtins-async-generator-gen_8cc_03_1_1AsyncGeneratorBuiltinsAssembler.html", "classv8_1_1internal_1_1anonymous__namespace_02builtins-async-generator-gen_8cc_03_1_1AsyncGeneratorBuiltinsAssembler" ],
     [ "TF_BUILTIN", "builtins-async-generator-gen_8cc.html#a79e507af0ba30d78b244ec7763675610", null ],
     [ "TF_BUILTIN", "builtins-async-generator-gen_8cc.html#a6fe974a2e83f7393e82d662dcd9855eb", null ],
     [ "TF_BUILTIN", "builtins-async-generator-gen_8cc.html#ad453f9048dede6344318e3c027fb0003", null ],

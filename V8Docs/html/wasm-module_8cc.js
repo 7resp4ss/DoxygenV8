@@ -19,5 +19,6 @@ var wasm_module_8cc =
     [ "NumFeedbackSlots", "wasm-module_8cc.html#af31b723a78f2635ba90e52bce073f16d", null ],
     [ "operator<<", "wasm-module_8cc.html#ad97956be173d69959a641fb8d028298f", null ],
     [ "PrintSignature", "wasm-module_8cc.html#a1a35d07dee2f9693ac3d48ea8e7c8756", null ],
-    [ "UpdateComputedInformation", "wasm-module_8cc.html#aa02730ff9efa862ab84d81fa3678b043", null ]
+    [ "ToValueTypeString", "wasm-module_8cc.html#a8b8dff87b4a21b040865f9f3bfbcf612", null ],
+    [ "UpdateComputedInformation", "wasm-module_8cc.html#ac801100fa525dd5af8d06384ccfec308", null ]
 ];

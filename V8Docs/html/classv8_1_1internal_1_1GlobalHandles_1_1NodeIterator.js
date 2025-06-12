@@ -14,5 +14,7 @@ var classv8_1_1internal_1_1GlobalHandles_1_1NodeIterator =
     [ "operator++", "classv8_1_1internal_1_1GlobalHandles_1_1NodeIterator.html#a42be8f5eb84382dd9b0cf9e42bdc2b93", null ],
     [ "operator->", "classv8_1_1internal_1_1GlobalHandles_1_1NodeIterator.html#a3075e7893af29f93e452301d0166daab", null ],
     [ "operator=", "classv8_1_1internal_1_1GlobalHandles_1_1NodeIterator.html#a48a375957ebb4449c107f6088903dfbd", null ],
-    [ "operator==", "classv8_1_1internal_1_1GlobalHandles_1_1NodeIterator.html#a7470135ed402c110de61a1ad4c8b1630", null ]
+    [ "operator==", "classv8_1_1internal_1_1GlobalHandles_1_1NodeIterator.html#a7470135ed402c110de61a1ad4c8b1630", null ],
+    [ "block_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeIterator.html#a073e9ca26758371b96d42a485ae14e41", null ],
+    [ "index_", "classv8_1_1internal_1_1GlobalHandles_1_1NodeIterator.html#a330296e9d1ce171d41b481486f0ab158", null ]
 ];

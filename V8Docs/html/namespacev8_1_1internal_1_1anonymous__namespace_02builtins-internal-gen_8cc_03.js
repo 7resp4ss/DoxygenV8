@@ -1,0 +1,4 @@
+var namespacev8_1_1internal_1_1anonymous__namespace_02builtins_internal_gen_8cc_03 =
+[
+    [ "SetOrCopyDataPropertiesAssembler", "classv8_1_1internal_1_1anonymous__namespace_02builtins-internal-gen_8cc_03_1_1SetOrCopyDataPropertiesAssembler.html", "classv8_1_1internal_1_1anonymous__namespace_02builtins-internal-gen_8cc_03_1_1SetOrCopyDataPropertiesAssembler" ]
+];

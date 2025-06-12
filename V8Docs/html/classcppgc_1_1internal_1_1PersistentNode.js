@@ -11,5 +11,6 @@ var classcppgc_1_1internal_1_1PersistentNode =
     [ "Trace", "classcppgc_1_1internal_1_1PersistentNode.html#a5ff3b4f2bd63adad75d676bc71fc10e3", null ],
     [ "UpdateOwner", "classcppgc_1_1internal_1_1PersistentNode.html#a1ca2104547bd2139cb56233c575a38f9", null ],
     [ "next_", "classcppgc_1_1internal_1_1PersistentNode.html#ac674bd3ea27e72f6f8dafa906caf0227", null ],
-    [ "owner_", "classcppgc_1_1internal_1_1PersistentNode.html#ad987c761e8e8c4afbaf1d8f22127892a", null ]
+    [ "owner_", "classcppgc_1_1internal_1_1PersistentNode.html#ad987c761e8e8c4afbaf1d8f22127892a", null ],
+    [ "trace_", "classcppgc_1_1internal_1_1PersistentNode.html#a77a5497d34e2a11a9f3ceeef1eee9e3b", null ]
 ];

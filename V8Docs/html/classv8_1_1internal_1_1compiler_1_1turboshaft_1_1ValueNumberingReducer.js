@@ -1,10 +1,32 @@
 var classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer =
 [
+    [ "Entry", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer_1_1Entry.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer_1_1Entry" ],
     [ "ValueNumberingReducer", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a899c20aafe6829cad1498d6df605b602", null ],
+    [ "AddOrFind", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#aee2f54a9d2ed5ded216ab48daea72f21", null ],
     [ "Bind", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a6cc26742387c3ce90a8bd3a41609a213", null ],
+    [ "CanBeGVNed", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#acc615e535aa19dcd98cc47cc493d38c8", null ],
+    [ "CanGVN", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a67022f6dd8d1911879e471c263d77c98", null ],
+    [ "ClearCurrentDepthEntries", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a661fc82a08fad611a741f8abb657cc5e", null ],
+    [ "ComputeHash", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#aadc1da6aea502e04cb1f175f1dfc0eb0", null ],
+    [ "Find", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a9e3d6acc71e162ab81cb19bbc3970ed5", null ],
     [ "gvn_disabled_scope", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a62eb2869ce67b4c7f39190e24f4b3c4b", null ],
+    [ "is_disabled", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#af4130cad10b2210096be8274000119d0", null ],
+    [ "NextEntry", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#ade8a29a7daf58218e39b9ff64d765e05", null ],
+    [ "NextEntryIndex", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a9bdd61e14bc3db43bd5efd1c32e59875", null ],
+    [ "PrevEntry", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a0ab7b0bd0167e31ad74859d481215801", null ],
     [ "RecordOldEpochAndSetNew", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a17c86393c7e2dfde866dc240b4eb955f", null ],
+    [ "RehashIfNeeded", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a3773524b6a715b06ac7c8d5518c86007", null ],
     [ "ResetToBlock", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a960820c837c3bd1944b8bd5f8808fe99", null ],
     [ "UpdateEpoch", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#af853ad9294af26e9baec8bce3940e92e", null ],
-    [ "WillGVNOp", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a905e12f16167173a701db9793fdc6e27", null ]
+    [ "WillGVNOp", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a905e12f16167173a701db9793fdc6e27", null ],
+    [ "block_end_epochs_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#afb591c14c33166274ee408962debdb56", null ],
+    [ "current_block_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#af4156d6ed467a372cbc16b4783e36184", null ],
+    [ "current_epoch_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a7f5bfa2bb74d367357a897b51120d499", null ],
+    [ "depths_heads_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#accb4db1b5520326547e3f1648ba73643", null ],
+    [ "disabled_scope_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a9fedd644be1057c66c2a57d33a8d6448", null ],
+    [ "dominator_path_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a95b56a9c68b57b9dc331b64491784091", null ],
+    [ "entry_count_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a47329aa312b30933d2e6be362c8d3671", null ],
+    [ "kMaxEpoch", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a7ba13493f45fe1beff531138ce283edc", null ],
+    [ "mask_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a9c10979e889a834d9ae665c9c75347a2", null ],
+    [ "table_", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1ValueNumberingReducer.html#a5f9e0e5818e0c6a66400f99a1ed5e582", null ]
 ];

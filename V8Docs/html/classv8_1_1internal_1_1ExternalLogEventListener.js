@@ -15,11 +15,15 @@ var classv8_1_1internal_1_1ExternalLogEventListener =
     [ "CodeMovingGCEvent", "classv8_1_1internal_1_1ExternalLogEventListener.html#a8dc5cb2be241310f19eec2be05af4e2e", null ],
     [ "GetterCallbackEvent", "classv8_1_1internal_1_1ExternalLogEventListener.html#aa1f4a30a6131cb90feb1f7ca12cfa5e9", null ],
     [ "is_listening_to_code_events", "classv8_1_1internal_1_1ExternalLogEventListener.html#ad3f520618243198fde4ac7c248bbaecb", null ],
+    [ "LogExistingCode", "classv8_1_1internal_1_1ExternalLogEventListener.html#afbe81a2204dfedf494ccf38d228d0e92", null ],
     [ "NativeContextMoveEvent", "classv8_1_1internal_1_1ExternalLogEventListener.html#a60e8e0747f11f4b5e11776161fbeb7df", null ],
     [ "RegExpCodeCreateEvent", "classv8_1_1internal_1_1ExternalLogEventListener.html#a13fd5aa0b8161e76927b5cd0761648d7", null ],
     [ "SetterCallbackEvent", "classv8_1_1internal_1_1ExternalLogEventListener.html#a73d8560ac691c29335555fd04e3ff074", null ],
     [ "SharedFunctionInfoMoveEvent", "classv8_1_1internal_1_1ExternalLogEventListener.html#aa85da50852f68ab5c0eda1d6903c1b08", null ],
     [ "StartListening", "classv8_1_1internal_1_1ExternalLogEventListener.html#a03d3ca65f6bcb6df6005466a177f89cd", null ],
     [ "StopListening", "classv8_1_1internal_1_1ExternalLogEventListener.html#a7b47b28d8c65408d6c1b82ed12926fa3", null ],
-    [ "WeakCodeClearEvent", "classv8_1_1internal_1_1ExternalLogEventListener.html#aac2bdbf0833725e217011709665241bb", null ]
+    [ "WeakCodeClearEvent", "classv8_1_1internal_1_1ExternalLogEventListener.html#aac2bdbf0833725e217011709665241bb", null ],
+    [ "code_event_handler_", "classv8_1_1internal_1_1ExternalLogEventListener.html#adf98b15cf833d50f3631bc32bda2dbde", null ],
+    [ "is_listening_", "classv8_1_1internal_1_1ExternalLogEventListener.html#a07f3026cbaccef6172ca520add4c24ee", null ],
+    [ "isolate_", "classv8_1_1internal_1_1ExternalLogEventListener.html#aecc30683eadd73a77094c2b98abb1f68", null ]
 ];

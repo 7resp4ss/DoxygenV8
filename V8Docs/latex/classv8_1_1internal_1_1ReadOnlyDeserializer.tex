@@ -11,7 +11,7 @@ Inheritance diagram for v8\+::internal\+::Read\+Only\+Deserializer\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=264pt]{classv8_1_1internal_1_1ReadOnlyDeserializer__inherit__graph}
+\includegraphics[height=550pt]{classv8_1_1internal_1_1ReadOnlyDeserializer__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -27,11 +27,23 @@ Collaboration diagram for v8\+::internal\+::Read\+Only\+Deserializer\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classv8_1_1internal_1_1ReadOnlyDeserializer_a09fb7ac6c180e79d9af264fe5bc12d21}{Read\+Only\+Deserializer}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}, const \mbox{\hyperlink{classv8_1_1internal_1_1SnapshotData}{Snapshot\+Data}} $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} can\+\_\+rehash)
+\mbox{\hyperlink{classv8_1_1internal_1_1ReadOnlyDeserializer_a09fb7ac6c180e79d9af264fe5bc12d21}{Read\+Only\+Deserializer}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}, const \mbox{\hyperlink{classv8_1_1internal_1_1SnapshotData}{Snapshot\+Data}} $\ast$data, \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} can\+\_\+rehash)
 \item 
 void \mbox{\hyperlink{classv8_1_1internal_1_1ReadOnlyDeserializer_a96c5845ef91637b3717a29a5e458f47b}{Deserialize\+Into\+Isolate}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1ReadOnlyDeserializer_a141769ba375f921da710581f70e83246}{Post\+Process\+New\+Objects}} ()
+\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 16 of file read-\/only-\/deserializer.\+h.
+
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -43,6 +55,16 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1ReadOnlyDeserializer_a96c5845ef9163
 
 
 
+Definition at line 151 of file read-\/only-\/deserializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{154     : \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_adb0b5891ab253b282d99b02d59e73752}{Deserializer}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}, data-\/>Payload(), data-\/>GetMagicNumber(), \textcolor{keyword}{false},}
+\DoxyCodeLine{155                    can\_rehash) \{\}}
+
+\end{DoxyCode}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ReadOnlyDeserializer_a96c5845ef91637b3717a29a5e458f47b}\label{classv8_1_1internal_1_1ReadOnlyDeserializer_a96c5845ef91637b3717a29a5e458f47b}} 
 \index{v8::internal::ReadOnlyDeserializer@{v8::internal::ReadOnlyDeserializer}!DeserializeIntoIsolate@{DeserializeIntoIsolate}}
@@ -52,7 +74,138 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1ReadOnlyDeserializer_a96c5845ef9163
 
 
 
+Definition at line 157 of file read-\/only-\/deserializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{157                                                   \{}
+\DoxyCodeLine{158   base::ElapsedTimer timer;}
+\DoxyCodeLine{159   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.profile\_deserialization)) timer.Start();}
+\DoxyCodeLine{160   NestedTimedHistogramScope histogram\_timer(}
+\DoxyCodeLine{161       \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>counters()-\/>snapshot\_deserialize\_rospace());}
+\DoxyCodeLine{162   HandleScope scope(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}());}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{164   \mbox{\hyperlink{classv8_1_1internal_1_1ReadOnlyHeapImageDeserializer_ae641d9d93c516b2410ba1df89cceb41e}{ReadOnlyHeapImageDeserializer::Deserialize}}(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}(), \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a3ac7521096ee0a9781447ca872936ffe}{source}}());}
+\DoxyCodeLine{165   ReadOnlyHeap* ro\_heap = \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a49ed1bb5d5e8d9efde0d8a77e7e61390}{read\_only\_heap}}();}
+\DoxyCodeLine{166   ro\_heap-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ReadOnlyHeap_a0cb91951b31ba02b56aa71bbdd682f95}{read\_only\_space}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ReadOnlySpace_a21a4cef6ef202bd85ca765ab60bc43a2}{RepairFreeSpacesAfterDeserialization}}();}
+\DoxyCodeLine{167   \mbox{\hyperlink{classv8_1_1internal_1_1ReadOnlyDeserializer_a141769ba375f921da710581f70e83246}{PostProcessNewObjects}}();}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{169   ReadOnlyRoots roots(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}());}
+\DoxyCodeLine{170   roots.VerifyNameForProtectorsPages();}
+\DoxyCodeLine{171 \textcolor{preprocessor}{\#ifdef DEBUG}}
+\DoxyCodeLine{172   roots.VerifyTypes();}
+\DoxyCodeLine{173   roots.VerifyNameForProtectors();}
+\DoxyCodeLine{174 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{176   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a3d107d726ed241fbde2020146bc4f19c}{should\_rehash}}()) \{}
+\DoxyCodeLine{177     \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ac74a11613906581a9989b1cb7f7b3275}{heap}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Heap_a4d0052c7065579f7b47ba3a99fe2cf33}{InitializeHashSeed}}();}
+\DoxyCodeLine{178     \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_ab0b69ae99f61286e8c56f718e4f74c8a}{Rehash}}();}
+\DoxyCodeLine{179   \}}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{181   \textcolor{keywordflow}{if} (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.profile\_deserialization)) \{}
+\DoxyCodeLine{182     \textcolor{comment}{// ATTENTION: The Memory.json benchmark greps for this exact output. Do not}}
+\DoxyCodeLine{183     \textcolor{comment}{// change it without also updating Memory.json.}}
+\DoxyCodeLine{184     \textcolor{keyword}{const} \textcolor{keywordtype}{int} bytes = \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a3ac7521096ee0a9781447ca872936ffe}{source}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1SnapshotByteSource_a56a1c697beff78a2632370397cec5705}{length}}();}
+\DoxyCodeLine{185     \textcolor{keyword}{const} \textcolor{keywordtype}{double} ms = timer.Elapsed().InMillisecondsF();}
+\DoxyCodeLine{186     \mbox{\hyperlink{namespacev8_1_1internal_a3430752cde9f29d73e97ceed1bce0856}{PrintF}}(\textcolor{stringliteral}{"{}[Deserializing read-\/only space (\%d bytes) took \%0.3f ms]\(\backslash\)n"{}}, bytes,}
+\DoxyCodeLine{187            ms);}
+\DoxyCodeLine{188   \}}
+\DoxyCodeLine{189 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Read\+Only\+Heap\+Image\+Deserializer\+::\+Deserialize(), v8\+::base\+::\+Elapsed\+Timer\+::\+Elapsed(), v8\+::internal\+::\+Isolate\+::heap(), v8\+::internal\+::\+Heap\+::\+Initialize\+Hash\+Seed(), v8\+::base\+::\+Time\+Delta\+::\+In\+Milliseconds\+F(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::isolate(), v8\+::internal\+::\+Snapshot\+Byte\+Source\+::length(), Post\+Process\+New\+Objects(), v8\+::internal\+::\+Print\+F(), v8\+::internal\+::\+Isolate\+::read\+\_\+only\+\_\+heap(), v8\+::internal\+::\+Read\+Only\+Heap\+::read\+\_\+only\+\_\+space(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::\+Rehash(), v8\+::internal\+::\+Read\+Only\+Space\+::\+Repair\+Free\+Spaces\+After\+Deserialization(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::should\+\_\+rehash(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::source(), v8\+::base\+::\+Elapsed\+Timer\+::\+Start(), v8\+::internal\+::v8\+\_\+flags, V8\+\_\+\+UNLIKELY, and v8\+::internal\+::\+Read\+Only\+Roots\+::\+Verify\+Name\+For\+Protectors\+Pages().
+
+
+
+Referenced by v8\+::internal\+::\+Read\+Only\+Heap\+::\+Deserialize\+Into\+Isolate().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ReadOnlyDeserializer_a96c5845ef91637b3717a29a5e458f47b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ReadOnlyDeserializer_a96c5845ef91637b3717a29a5e458f47b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ReadOnlyDeserializer_a141769ba375f921da710581f70e83246}\label{classv8_1_1internal_1_1ReadOnlyDeserializer_a141769ba375f921da710581f70e83246}} 
+\index{v8::internal::ReadOnlyDeserializer@{v8::internal::ReadOnlyDeserializer}!PostProcessNewObjects@{PostProcessNewObjects}}
+\index{PostProcessNewObjects@{PostProcessNewObjects}!v8::internal::ReadOnlyDeserializer@{v8::internal::ReadOnlyDeserializer}}
+\doxysubsubsection{\texorpdfstring{PostProcessNewObjects()}{PostProcessNewObjects()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Read\+Only\+Deserializer\+::\+Post\+Process\+New\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 400 of file read-\/only-\/deserializer.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{400                                                  \{}
+\DoxyCodeLine{401   \textcolor{comment}{// Since we are not deserializing individual objects we need to scan the}}
+\DoxyCodeLine{402   \textcolor{comment}{// heap and search for objects that need post-\/processing.}}
+\DoxyCodeLine{403   \textcolor{comment}{//}}
+\DoxyCodeLine{404   \textcolor{comment}{// See also Deserializer<IsolateT>::PostProcessNewObject.}}
+\DoxyCodeLine{405   PtrComprCageBase cage\_base(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}());}
+\DoxyCodeLine{406 \textcolor{preprocessor}{\#ifdef V8\_COMPRESS\_POINTERS}}
+\DoxyCodeLine{407   ExternalPointerTable::UnsealReadOnlySegmentScope unseal\_scope(}
+\DoxyCodeLine{408       \&\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>external\_pointer\_table());}
+\DoxyCodeLine{409 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// V8\_COMPRESS\_POINTERS}}
+\DoxyCodeLine{410   ObjectPostProcessor post\_processor(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}());}
+\DoxyCodeLine{411   ReadOnlyHeapObjectIterator it(\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()-\/>read\_only\_heap());}
+\DoxyCodeLine{412   \textcolor{keywordflow}{for} (\mbox{\hyperlink{namespacev8_1_1internal_a57f5ecf71b9a2757b0555b2be4c640b8}{Tagged<HeapObject>}} o = it.Next(); !o.is\_null(); o = it.Next()) \{}
+\DoxyCodeLine{413     \textcolor{keyword}{const} \mbox{\hyperlink{namespacev8_1_1internal_a9312a9fc987dba9376a530956f94e8fe}{InstanceType}} instance\_type = o-\/>map(cage\_base)-\/>instance\_type();}
+\DoxyCodeLine{414     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a3d107d726ed241fbde2020146bc4f19c}{should\_rehash}}()) \{}
+\DoxyCodeLine{415       \textcolor{keywordflow}{if} (InstanceTypeChecker::IsString(instance\_type)) \{}
+\DoxyCodeLine{416         Tagged<String> str = Cast<String>(o);}
+\DoxyCodeLine{417         str-\/>set\_raw\_hash\_field(\mbox{\hyperlink{classv8_1_1internal_1_1Name_a62d43b3e7121aeebe693f4b44ed5b150}{Name::kEmptyHashField}});}
+\DoxyCodeLine{418         \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6da9bfd2a0dd9cb0ceb4cbcfc64238f8}{PushObjectToRehash}}(\mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(str, \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()));}
+\DoxyCodeLine{419       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (o-\/>NeedsRehashing(instance\_type)) \{}
+\DoxyCodeLine{420         \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6da9bfd2a0dd9cb0ceb4cbcfc64238f8}{PushObjectToRehash}}(\mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{direct\_handle}}(o, \mbox{\hyperlink{classv8_1_1internal_1_1Deserializer_a6348165978f842cf06e5da146a603c1e}{isolate}}()));}
+\DoxyCodeLine{421       \}}
+\DoxyCodeLine{422     \}}
+\DoxyCodeLine{423 }
+\DoxyCodeLine{424     post\_processor.PostProcessIfNeeded(o, instance\_type);}
+\DoxyCodeLine{425   \}}
+\DoxyCodeLine{426   post\_processor.Finalize();}
+\DoxyCodeLine{427 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::direct\+\_\+handle(), v8\+::internal\+::\+Object\+Post\+Processor\+::\+Finalize(), v8\+::internal\+::\+Tagged$<$ Heap\+Object $>$\+::is\+\_\+null(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::isolate(), v8\+::internal\+::\+Name\+::k\+Empty\+Hash\+Field, v8\+::internal\+::\+Read\+Only\+Heap\+Object\+Iterator\+::\+Next(), v8\+::internal\+::\+Object\+Post\+Processor\+::\+Post\+Process\+If\+Needed(), v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::\+Push\+Object\+To\+Rehash(), and v8\+::internal\+::\+Deserializer$<$ Isolate $>$\+::should\+\_\+rehash().
+
+
+
+Referenced by Deserialize\+Into\+Isolate().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ReadOnlyDeserializer_a141769ba375f921da710581f70e83246_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ReadOnlyDeserializer_a141769ba375f921da710581f70e83246_icgraph}
+\end{center}
+\end{figure}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{read-only-deserializer_8h}{read-\/only-\/deserializer.\+h}}\item 
-\mbox{\hyperlink{read-only-deserializer_8cc}{read-\/only-\/deserializer.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/snapshot/\mbox{\hyperlink{read-only-deserializer_8h}{read-\/only-\/deserializer.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/snapshot/\mbox{\hyperlink{read-only-deserializer_8cc}{read-\/only-\/deserializer.\+cc}}\end{DoxyCompactItemize}

@@ -9,5 +9,9 @@ var builtins_console_8cc =
     [ "BUILTIN", "builtins-console_8cc.html#adc865773bff4e6b641101c9d2cc03f71", null ],
     [ "BUILTIN", "builtins-console_8cc.html#afc8c7aef637ef4d8976bc2939d519653", null ],
     [ "BUILTIN", "builtins-console_8cc.html#a4dd1515e736b5285cdf4667a28f78bc9", null ],
-    [ "BUILTIN", "builtins-console_8cc.html#a7bc1e5fda85602368cb541313733d0f0", null ]
+    [ "BUILTIN", "builtins-console_8cc.html#a7bc1e5fda85602368cb541313733d0f0", null ],
+    [ "ConsoleCall", "builtins-console_8cc.html#a66b1d87e985027311202dacc2eadda2f", null ],
+    [ "Formatter", "builtins-console_8cc.html#a65d3bec06acf433c994198279500c7d6", null ],
+    [ "InstallContextFunction", "builtins-console_8cc.html#a868a5ac82f1ef8c9c36e0f0cfee5a15c", null ],
+    [ "LogTimerEvent", "builtins-console_8cc.html#a06a3699d02426c557d42c9f4632c836f", null ]
 ];

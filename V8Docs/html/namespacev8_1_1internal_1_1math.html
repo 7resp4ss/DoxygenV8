@@ -90,7 +90,7 @@ $(document).ready(function(){initNavTree('namespacev8_1_1internal_1_1math.html',
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4589bc01b4fe9b6dff94ba4d5bdbb82a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacev8_1_1internal_1_1math.html#a4589bc01b4fe9b6dff94ba4d5bdbb82a">pow</a> (double <a class="el" href="liveedit-diff_8cc.html#a6150e0515f7202e2fb518f7206ed97dc">x</a>, double <a class="el" href="namespacev8_1_1internal.html#aeb5be8c54a68c0a55508c931639d71da">y</a>)</td></tr>
+<tr class="memitem:a4589bc01b4fe9b6dff94ba4d5bdbb82a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacev8_1_1internal_1_1math.html#a4589bc01b4fe9b6dff94ba4d5bdbb82a">pow</a> (double x, double <a class="el" href="namespacev8_1_1internal.html#aeb5be8c54a68c0a55508c931639d71da">y</a>)</td></tr>
 <tr class="separator:a4589bc01b4fe9b6dff94ba4d5bdbb82a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -120,6 +120,69 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="numbers_2ieee754_8cc_source.html#l00014">14</a> of file <a class="el" href="numbers_2ieee754_8cc_source.html">ieee754.cc</a>.</p>
+<div class="fragment"><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                               {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="namespacev8_1_1internal.html#aa9db791c05a0359859a321dcfec42e37">v8_flags</a>.use_std_math_pow) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">if</span> (std::isnan(<a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a>)) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;      <span class="comment">// 1. If exponent is NaN, return NaN.</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;      <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">if</span> (std::isinf(<a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a>) &amp;&amp; (x == 1 || x == -1)) {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;      <span class="comment">// 9. If exponent is +∞𝔽, then</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;      <span class="comment">//   b. If abs(ℝ(base)) = 1, return NaN.</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;      <span class="comment">// and</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;      <span class="comment">// 10. If exponent is -∞𝔽, then</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;      <span class="comment">//   b. If abs(ℝ(base)) = 1, return NaN.</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;      <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">if</span> (std::isnan(x)) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      <span class="comment">// std::pow distinguishes between quiet and signaling NaN; JS doesn&#39;t.</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      x = std::numeric_limits&lt;double&gt;::quiet_NaN();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="comment">// The following special cases just exist to match the optimizing compilers&#39;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="comment">// behavior, which avoid calls to `pow` in those cases.</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a> == 2) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      <span class="comment">// x ** 2   ==&gt;   x * x</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keywordflow">return</span> x * x;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a> == 0.5) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="comment">// x ** 0.5   ==&gt;  sqrt(x), except if x is -Infinity</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordflow">if</span> (std::isinf(x)) {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> std::numeric_limits&lt;double&gt;::infinity();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="comment">// Note the +0 so that we get +0 for -0**0.5 rather than -0.</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">return</span> std::sqrt(x + 0);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacev8_1_1internal_1_1math.html#a4589bc01b4fe9b6dff94ba4d5bdbb82a">std::pow</a>(x, <a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a>);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="namespacev8_1_1internal_1_1math.html#a4589bc01b4fe9b6dff94ba4d5bdbb82a">base::ieee754::legacy::pow</a>(x, <a class="code" href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">y</a>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="ttc" id="anamespacev8_1_1base_1_1internal_html_aba8167f197e892214b9dc1aba34983de"><div class="ttname"><a href="namespacev8_1_1base_1_1internal.html#aba8167f197e892214b9dc1aba34983de">v8::base::internal::y</a></div><div class="ttdeci">U y</div><div class="ttdef"><b>Definition:</b> <a href="clamped__math__impl_8h_source.html#l00077">clamped_math_impl.h:77</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_1_1math_html_a4589bc01b4fe9b6dff94ba4d5bdbb82a"><div class="ttname"><a href="namespacev8_1_1internal_1_1math.html#a4589bc01b4fe9b6dff94ba4d5bdbb82a">v8::internal::math::pow</a></div><div class="ttdeci">double pow(double x, double y)</div><div class="ttdef"><b>Definition:</b> <a href="numbers_2ieee754_8cc_source.html#l00014">ieee754.cc:14</a></div></div>
+<div class="ttc" id="anamespacev8_1_1internal_html_aa9db791c05a0359859a321dcfec42e37"><div class="ttname"><a href="namespacev8_1_1internal.html#aa9db791c05a0359859a321dcfec42e37">v8::internal::v8_flags</a></div><div class="ttdeci">V8_EXPORT_PRIVATE FlagValues v8_flags</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="base_2ieee754_8cc_source.html#l02646">v8::base::ieee754::legacy::pow()</a>, <a class="el" href="namespacev8_1_1internal.html#aa9db791c05a0359859a321dcfec42e37">v8::internal::v8_flags</a>, and <a class="el" href="external-reference_8cc_source.html#l01667">v8::internal::y</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="wasm-external-refs_8cc_source.html#l00362">v8::internal::wasm::float64_pow_wrapper()</a>, <a class="el" href="machine-optimization-reducer_8h_source.html#l00581">v8::internal::compiler::turboshaft::MachineOptimizationReducer&lt; Next &gt;::FloatBinop()</a>, <a class="el" href="machine-operator-reducer_8cc_source.html#l00391">v8::internal::compiler::MachineOperatorReducer::Reduce()</a>, <a class="el" href="parser_8cc_source.html#l00243">v8::internal::Parser::ShortcutLiteralBinaryExpression()</a>, and <a class="el" href="maglev-graph-builder_8cc_source.html#l02546">v8::internal::maglev::MaglevGraphBuilder::TryFoldFloat64BinaryOperationForToNumber()</a>.</p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacev8_1_1internal_1_1math_a4589bc01b4fe9b6dff94ba4d5bdbb82a_cgraph.svg" width="552" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacev8_1_1internal_1_1math_a4589bc01b4fe9b6dff94ba4d5bdbb82a_icgraph.svg" width="100%" height="580"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+
 </div>
 </div>
 </div><!-- contents -->
@@ -128,7 +191,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacev8.html">v8</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal.html">internal</a></li><li class="navelem"><a class="el" href="namespacev8_1_1internal_1_1math.html">math</a></li>
-    <li class="footer">Generated on Thu Jun 12 2025 09:48:28 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jun 12 2025 16:14:55 for V8 Project by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

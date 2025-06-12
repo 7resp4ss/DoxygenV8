@@ -1,6 +1,7 @@
 var builtin_call_descriptors_8h =
 [
     [ "BuiltinCallDescriptor", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinCallDescriptor.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinCallDescriptor" ],
+    [ "Descriptor", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinCallDescriptor_1_1Descriptor.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinCallDescriptor_1_1Descriptor" ],
     [ "CheckTurbofanType", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinCallDescriptor_1_1CheckTurbofanType.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinCallDescriptor_1_1CheckTurbofanType" ],
     [ "DetachContextCell", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinCallDescriptor_1_1DetachContextCell.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinCallDescriptor_1_1DetachContextCell" ],
     [ "ToNumber", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinCallDescriptor_1_1ToNumber.html", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1BuiltinCallDescriptor_1_1ToNumber" ],

@@ -2,6 +2,11 @@
 \label{classv8_1_1UnboundModuleScript}\index{v8::UnboundModuleScript@{v8::UnboundModuleScript}}
 
 
+A compiled Java\+Script module, not yet tied to a \mbox{\hyperlink{classv8_1_1Context}{Context}}.  
+
+
+
+
 {\ttfamily \#include $<$v8-\/script.\+h$>$}
 
 
@@ -11,7 +16,7 @@ Inheritance diagram for v8\+::Unbound\+Module\+Script\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=222pt]{classv8_1_1UnboundModuleScript__inherit__graph}
+\includegraphics[width=227pt]{classv8_1_1UnboundModuleScript__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -21,20 +26,24 @@ Collaboration diagram for v8\+::Unbound\+Module\+Script\+:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=222pt]{classv8_1_1UnboundModuleScript__coll__graph}
+\includegraphics[width=227pt]{classv8_1_1UnboundModuleScript__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$ \mbox{\hyperlink{classv8_1_1UnboundModuleScript_a3891f51bf723756129b6d6c27ae79ed8}{Get\+Source\+URL}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classv8_1_1Data}{Data}} read from magic source\+URL comments. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$ \mbox{\hyperlink{classv8_1_1UnboundModuleScript_a9c4f796120c4431c24edfced6e784cee}{Get\+Source\+Mapping\+URL}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classv8_1_1Data}{Data}} read from magic source\+Mapping\+URL comments. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 A compiled Java\+Script module, not yet tied to a \mbox{\hyperlink{classv8_1_1Context}{Context}}. 
+
+Definition at line 97 of file v8-\/script.\+h.
+
+
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1UnboundModuleScript_a9c4f796120c4431c24edfced6e784cee}\label{classv8_1_1UnboundModuleScript_a9c4f796120c4431c24edfced6e784cee}} 
@@ -43,15 +52,96 @@ A compiled Java\+Script module, not yet tied to a \mbox{\hyperlink{classv8_1_1Co
 \doxysubsubsection{\texorpdfstring{GetSourceMappingURL()}{GetSourceMappingURL()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$ v8\+::\+Unbound\+Module\+Script\+::\+Get\+Source\+Mapping\+URL (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{classv8_1_1Data}{Data}} read from magic source\+Mapping\+URL comments. \mbox{\Hypertarget{classv8_1_1UnboundModuleScript_a3891f51bf723756129b6d6c27ae79ed8}\label{classv8_1_1UnboundModuleScript_a3891f51bf723756129b6d6c27ae79ed8}} 
+
+
+\mbox{\hyperlink{classv8_1_1Data}{Data}} read from magic source\+Mapping\+URL comments. 
+
+
+
+Definition at line 1910 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1910                                                       \{}
+\DoxyCodeLine{1911   \textcolor{keyword}{auto} obj = \mbox{\hyperlink{classv8_1_1Utils_a9d3ed89b4ca4e995ba472f8091ea424f}{Utils::OpenDirectHandle}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{1912   \textcolor{keywordflow}{if} (i::IsScript(obj-\/>script())) \{}
+\DoxyCodeLine{1913     \textcolor{comment}{// TODO(jgruber): Remove this DCHECK once Function::GetUnboundScript is}}
+\DoxyCodeLine{1914     \textcolor{comment}{// gone.}}
+\DoxyCodeLine{1915     \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1HeapLayout_a91ac1680dc7f626bd8675e14ac660240}{i::HeapLayout::InReadOnlySpace}}(*obj));}
+\DoxyCodeLine{1916     \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{i::Isolate}}* i\_isolate = \mbox{\hyperlink{namespacev8_1_1internal_a3e7c556dd0b04856cb85ebea286b7597}{i::GetIsolateFromWritableObject}}(*obj);}
+\DoxyCodeLine{1917     ApiRuntimeCallStatsScope rcs\_scope(}
+\DoxyCodeLine{1918         i\_isolate, RCCId::kAPI\_UnboundModuleScript\_GetSourceMappingURL);}
+\DoxyCodeLine{1919     EnterV8NoScriptNoExceptionScope api\_scope(i\_isolate);}
+\DoxyCodeLine{1920     \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{i::Tagged<i::Object>}} url =}
+\DoxyCodeLine{1921         i::Cast<i::Script>(obj-\/>script())-\/>source\_mapping\_url();}
+\DoxyCodeLine{1922     \textcolor{keywordflow}{return} Utils::ToLocal(\mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{i::direct\_handle}}(url, i\_isolate));}
+\DoxyCodeLine{1923   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{1924     \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{1925   \}}
+\DoxyCodeLine{1926 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK, v8\+::internal\+::direct\+\_\+handle(), v8\+::internal\+::\+Get\+Isolate\+From\+Writable\+Object(), v8\+::internal\+::\+Heap\+Layout\+::\+In\+Read\+Only\+Space(), and v8\+::\+Utils\+::\+Open\+Direct\+Handle().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1UnboundModuleScript_a9c4f796120c4431c24edfced6e784cee_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1UnboundModuleScript_a3891f51bf723756129b6d6c27ae79ed8}\label{classv8_1_1UnboundModuleScript_a3891f51bf723756129b6d6c27ae79ed8}} 
 \index{v8::UnboundModuleScript@{v8::UnboundModuleScript}!GetSourceURL@{GetSourceURL}}
 \index{GetSourceURL@{GetSourceURL}!v8::UnboundModuleScript@{v8::UnboundModuleScript}}
 \doxysubsubsection{\texorpdfstring{GetSourceURL()}{GetSourceURL()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1Local}{Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{Value}} $>$ v8\+::\+Unbound\+Module\+Script\+::\+Get\+Source\+URL (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
 \mbox{\hyperlink{classv8_1_1Data}{Data}} read from magic source\+URL comments. 
+
+
+
+Definition at line 1893 of file api.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1893                                                \{}
+\DoxyCodeLine{1894   \textcolor{keyword}{auto} obj = \mbox{\hyperlink{classv8_1_1Utils_a9d3ed89b4ca4e995ba472f8091ea424f}{Utils::OpenDirectHandle}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{1895   \textcolor{keywordflow}{if} (i::IsScript(obj-\/>script())) \{}
+\DoxyCodeLine{1896     \textcolor{comment}{// TODO(jgruber): Remove this DCHECK once Function::GetUnboundScript is}}
+\DoxyCodeLine{1897     \textcolor{comment}{// gone.}}
+\DoxyCodeLine{1898     \mbox{\hyperlink{src_2base_2logging_8h_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1HeapLayout_a91ac1680dc7f626bd8675e14ac660240}{i::HeapLayout::InReadOnlySpace}}(*obj));}
+\DoxyCodeLine{1899     \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{i::Isolate}}* i\_isolate = \mbox{\hyperlink{namespacev8_1_1internal_a3e7c556dd0b04856cb85ebea286b7597}{i::GetIsolateFromWritableObject}}(*obj);}
+\DoxyCodeLine{1900     ApiRuntimeCallStatsScope rcs\_scope(}
+\DoxyCodeLine{1901         i\_isolate, RCCId::kAPI\_UnboundModuleScript\_GetSourceURL);}
+\DoxyCodeLine{1902     EnterV8NoScriptNoExceptionScope api\_scope(i\_isolate);}
+\DoxyCodeLine{1903     \mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{i::Tagged<i::Object>}} url = i::Cast<i::Script>(obj-\/>script())-\/>source\_url();}
+\DoxyCodeLine{1904     \textcolor{keywordflow}{return} Utils::ToLocal(\mbox{\hyperlink{namespacev8_1_1internal_a73502f55102d18cb764881bc29f35c05}{i::direct\_handle}}(url, i\_isolate));}
+\DoxyCodeLine{1905   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{1906     \textcolor{keywordflow}{return} \{\};}
+\DoxyCodeLine{1907   \}}
+\DoxyCodeLine{1908 \}}
+
+\end{DoxyCode}
+
+
+References DCHECK, v8\+::internal\+::direct\+\_\+handle(), v8\+::internal\+::\+Get\+Isolate\+From\+Writable\+Object(), v8\+::internal\+::\+Heap\+Layout\+::\+In\+Read\+Only\+Space(), and v8\+::\+Utils\+::\+Open\+Direct\+Handle().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1UnboundModuleScript_a3891f51bf723756129b6d6c27ae79ed8_cgraph}
+\end{center}
+\end{figure}
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8-script_8h}{v8-\/script.\+h}}\item 
-\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/include/\mbox{\hyperlink{v8-script_8h}{v8-\/script.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/api/\mbox{\hyperlink{api_8cc}{api.\+cc}}\end{DoxyCompactItemize}

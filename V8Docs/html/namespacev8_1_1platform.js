@@ -1,5 +1,14 @@
 var namespacev8_1_1platform =
 [
+    [ "anonymous_namespace{default-job.cc}", "namespacev8_1_1platform_1_1anonymous__namespace_02default-job_8cc_03.html", [
+      [ "kMaxWorkersPerJob", "namespacev8_1_1platform_1_1anonymous__namespace_02default-job_8cc_03.html#a52d8efaf907c85fd81d7d283bee06338", null ]
+    ] ],
+    [ "anonymous_namespace{default-platform.cc}", "namespacev8_1_1platform_1_1anonymous__namespace_02default-platform_8cc_03.html", [
+      [ "DefaultTimeFunction", "namespacev8_1_1platform_1_1anonymous__namespace_02default-platform_8cc_03.html#a486e22208afcb82a73dbd0849e0719dd", null ],
+      [ "GetActualThreadPoolSize", "namespacev8_1_1platform_1_1anonymous__namespace_02default-platform_8cc_03.html#a069847c379610f69c5ae60e4eb1c5c3a", null ],
+      [ "PrintStackTrace", "namespacev8_1_1platform_1_1anonymous__namespace_02default-platform_8cc_03.html#af2e0a146962a6498c68acaff96d6cfef", null ],
+      [ "kMaxThreadPoolSize", "namespacev8_1_1platform_1_1anonymous__namespace_02default-platform_8cc_03.html#aeae4bd13db9456210250f163a6921b8f", null ]
+    ] ],
     [ "tracing", "namespacev8_1_1platform_1_1tracing.html", "namespacev8_1_1platform_1_1tracing" ],
     [ "DefaultForegroundTaskRunner", "classv8_1_1platform_1_1DefaultForegroundTaskRunner.html", "classv8_1_1platform_1_1DefaultForegroundTaskRunner" ],
     [ "DefaultJobState", "classv8_1_1platform_1_1DefaultJobState.html", "classv8_1_1platform_1_1DefaultJobState" ],
@@ -27,11 +36,10 @@ var namespacev8_1_1platform =
       [ "kDontApply", "namespacev8_1_1platform.html#ab5a2e78439aa380777ece667cb230a72af84ae028f1cfaed674ee907937e152fa", null ],
       [ "kApply", "namespacev8_1_1platform.html#ab5a2e78439aa380777ece667cb230a72a3a2bb7b3d33936f92948ae759fcdfac8", null ]
     ] ],
-    [ "NewDefaultJobHandle", "namespacev8_1_1platform.html#a97fb6874eca726b839c00d5b0859860d", null ],
-    [ "NewDefaultJobHandle", "namespacev8_1_1platform.html#a64c53bd7b0af9effc1035121ab856748", null ],
-    [ "NewDefaultPlatform", "namespacev8_1_1platform.html#af9222cae064825ef1a2c5685b8bb62f8", null ],
-    [ "NewSingleThreadedDefaultPlatform", "namespacev8_1_1platform.html#a07b343e2f73ce9a8835608271b78ed35", null ],
+    [ "NewDefaultJobHandle", "namespacev8_1_1platform.html#ade3f8deb2db65fce45d1d7ecabb83f8c", null ],
+    [ "NewDefaultPlatform", "namespacev8_1_1platform.html#acfab14c1076e4c2cc8fa2f1d1c76f1ac", null ],
+    [ "NewSingleThreadedDefaultPlatform", "namespacev8_1_1platform.html#a7cf5c17f7b63c3dadfc009209c044d64", null ],
     [ "NotifyIsolateShutdown", "namespacev8_1_1platform.html#acc8f10da942f6a509ba5ba1e9cc19876", null ],
-    [ "PumpMessageLoop", "namespacev8_1_1platform.html#afc313cfd94bc4b18fe5019ac8abc4a20", null ],
+    [ "PumpMessageLoop", "namespacev8_1_1platform.html#a7e3e8b26667bf9246da1d2ca4d249f83", null ],
     [ "RunIdleTasks", "namespacev8_1_1platform.html#a7a2acc6effa6c08af7211fe815b95165", null ]
 ];

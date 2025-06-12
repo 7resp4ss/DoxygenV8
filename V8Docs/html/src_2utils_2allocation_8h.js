@@ -1,6 +1,6 @@
 var src_2utils_2allocation_8h =
 [
-    [ "Malloced", "classv8_1_1internal_1_1Malloced.html", null ],
+    [ "Malloced", "classv8_1_1internal_1_1Malloced.html", "classv8_1_1internal_1_1Malloced" ],
     [ "ArrayDeleter", "structv8_1_1internal_1_1ArrayDeleter.html", "structv8_1_1internal_1_1ArrayDeleter" ],
     [ "FreeStoreAllocationPolicy", "classv8_1_1internal_1_1FreeStoreAllocationPolicy.html", "classv8_1_1internal_1_1FreeStoreAllocationPolicy" ],
     [ "VirtualMemory", "classv8_1_1internal_1_1VirtualMemory.html", "classv8_1_1internal_1_1VirtualMemory" ],

@@ -11,5 +11,7 @@ var classv8_1_1base_1_1DiscriminatedUnion =
     [ "get", "classv8_1_1base_1_1DiscriminatedUnion.html#ac3cd334eb23b4bae4d47513f08667899", null ],
     [ "operator=", "classv8_1_1base_1_1DiscriminatedUnion.html#a5b00327fb85766af81d95830b3d7ddbf", null ],
     [ "operator=", "classv8_1_1base_1_1DiscriminatedUnion.html#a1d5b4a96e3ef8e5d908108ed13f69866", null ],
-    [ "tag", "classv8_1_1base_1_1DiscriminatedUnion.html#af690d19a8bc234a280f26845e1ce0f94", null ]
+    [ "tag", "classv8_1_1base_1_1DiscriminatedUnion.html#af690d19a8bc234a280f26845e1ce0f94", null ],
+    [ "data_", "classv8_1_1base_1_1DiscriminatedUnion.html#a7e311728f56b2e4fdc325bb6fec04edc", null ],
+    [ "tag_", "classv8_1_1base_1_1DiscriminatedUnion.html#a9a9f43b6d489828240e2f580a22692ec", null ]
 ];

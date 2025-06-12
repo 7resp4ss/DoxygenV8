@@ -4,6 +4,16 @@
 
 {\ttfamily \#include $<$v8threads.\+h$>$}
 
+
+
+Collaboration diagram for v8\+::internal\+::Thread\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -35,6 +45,36 @@ void \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a2fec67e06e5fc2f061ac
 \item 
 \mbox{\hyperlink{classv8_1_1internal_1_1ThreadState}{Thread\+State}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ae7610d3c55e69ceffd65c6b734813f0b}{Get\+Free\+Thread\+State}} ()
 \end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a7f06d84d6c2a86273915ccda9e15ee12}{Thread\+Manager}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$isolate)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aca982e6e2e596eb0b3d5e80cbd5d8239}{$\sim$\+Thread\+Manager}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a9f65f528b8d918bb62390d469200e5fc}{Delete\+Thread\+State\+List}} (\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState}{Thread\+State}} $\ast$anchor)
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac86e451a498ebd5d66704a4278ef383d}{Eagerly\+Archive\+Thread}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ab45d9e6eed8c9f6b1e2f49381b7ff69d}{ASSERT\+\_\+\+TRIVIALLY\+\_\+\+COPYABLE}} (\mbox{\hyperlink{classv8_1_1internal_1_1ThreadId}{i\+::\+Thread\+Id}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aea2d9af29a874fb2fc93d7c9a67dd265}{mutex\+\_\+}}
+\item 
+std\+::atomic$<$ \mbox{\hyperlink{classv8_1_1internal_1_1ThreadId}{Thread\+Id}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a907832ffd0117d985f96c35fed866017}{mutex\+\_\+owner\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1ThreadId}{Thread\+Id}} \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a12e8052beacdc1bb008ee6017e22f8e9}{lazily\+\_\+archived\+\_\+thread\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState}{Thread\+State}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a4ef39a6888a60ed856ab0fbab383dbcd}{lazily\+\_\+archived\+\_\+thread\+\_\+state\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState}{Thread\+State}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aabee6157e0bc720b3c83683c42365704}{free\+\_\+anchor\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState}{Thread\+State}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a67a314616958eac2054a2ecc52bce520}{in\+\_\+use\+\_\+anchor\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\+\_\+}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
@@ -44,6 +84,73 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db67
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+
+
+Definition at line 60 of file v8threads.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a7f06d84d6c2a86273915ccda9e15ee12}\label{classv8_1_1internal_1_1ThreadManager_a7f06d84d6c2a86273915ccda9e15ee12}} 
+\index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!ThreadManager@{ThreadManager}}
+\index{ThreadManager@{ThreadManager}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
+\doxysubsubsection{\texorpdfstring{ThreadManager()}{ThreadManager()}}
+{\footnotesize\ttfamily v8\+::internal\+::\+Thread\+Manager\+::\+Thread\+Manager (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [private]}}
+
+
+
+Definition at line 220 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{221     : \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a907832ffd0117d985f96c35fed866017}{mutex\_owner\_}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_ade3e1a41d03f0f9f593c7d35c4cafa6c}{ThreadId::Invalid}}()),}
+\DoxyCodeLine{222       \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a12e8052beacdc1bb008ee6017e22f8e9}{lazily\_archived\_thread\_}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_ade3e1a41d03f0f9f593c7d35c4cafa6c}{ThreadId::Invalid}}()),}
+\DoxyCodeLine{223       \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a4ef39a6888a60ed856ab0fbab383dbcd}{lazily\_archived\_thread\_state\_}}(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{224       \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aabee6157e0bc720b3c83683c42365704}{free\_anchor\_}}(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{225       \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a67a314616958eac2054a2ecc52bce520}{in\_use\_anchor\_}}(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{226       \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}(isolate) \{}
+\DoxyCodeLine{227   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aabee6157e0bc720b3c83683c42365704}{free\_anchor\_}} = \textcolor{keyword}{new} \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db675bb6d4c212a2a}{ThreadState}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{228   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a67a314616958eac2054a2ecc52bce520}{in\_use\_anchor\_}} = \textcolor{keyword}{new} \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db675bb6d4c212a2a}{ThreadState}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{229 \}}
+
+\end{DoxyCode}
+
+
+References free\+\_\+anchor\+\_\+, in\+\_\+use\+\_\+anchor\+\_\+, and Thread\+State.
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_aca982e6e2e596eb0b3d5e80cbd5d8239}\label{classv8_1_1internal_1_1ThreadManager_aca982e6e2e596eb0b3d5e80cbd5d8239}} 
+\index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!````~ThreadManager@{$\sim$ThreadManager}}
+\index{````~ThreadManager@{$\sim$ThreadManager}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
+\doxysubsubsection{\texorpdfstring{$\sim$ThreadManager()}{~ThreadManager()}}
+{\footnotesize\ttfamily v8\+::internal\+::\+Thread\+Manager\+::$\sim$\+Thread\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 231 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{231                               \{}
+\DoxyCodeLine{232   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a9f65f528b8d918bb62390d469200e5fc}{DeleteThreadStateList}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aabee6157e0bc720b3c83683c42365704}{free\_anchor\_}});}
+\DoxyCodeLine{233   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a9f65f528b8d918bb62390d469200e5fc}{DeleteThreadStateList}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a67a314616958eac2054a2ecc52bce520}{in\_use\_anchor\_}});}
+\DoxyCodeLine{234 \}}
+
+\end{DoxyCode}
+
+
+References Delete\+Thread\+State\+List(), free\+\_\+anchor\+\_\+, and in\+\_\+use\+\_\+anchor\+\_\+.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_aca982e6e2e596eb0b3d5e80cbd5d8239_cgraph}
+\end{center}
+\end{figure}
+
+
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a36506aaa6d781c749efe48996b48e2a0}\label{classv8_1_1internal_1_1ThreadManager_a36506aaa6d781c749efe48996b48e2a0}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!ArchiveThread@{ArchiveThread}}
@@ -51,53 +158,480 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db67
 \doxysubsubsection{\texorpdfstring{ArchiveThread()}{ArchiveThread()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Thread\+Manager\+::\+Archive\+Thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 246 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{246                                   \{}
+\DoxyCodeLine{247   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a12e8052beacdc1bb008ee6017e22f8e9}{lazily\_archived\_thread\_}}, \mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_ade3e1a41d03f0f9f593c7d35c4cafa6c}{ThreadId::Invalid}}());}
+\DoxyCodeLine{248   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a8a5b4eb523ed06c372852b14b5825efb}{IsArchived}}());}
+\DoxyCodeLine{249   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa010051a059cfda7e45228fc28a3ff52}{IsLockedByCurrentThread}}());}
+\DoxyCodeLine{250   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db675bb6d4c212a2a}{ThreadState}}* state = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ae7610d3c55e69ceffd65c6b734813f0b}{GetFreeThreadState}}();}
+\DoxyCodeLine{251   state-\/>Unlink();}
+\DoxyCodeLine{252   Isolate::PerIsolateThreadData* per\_thread =}
+\DoxyCodeLine{253       \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a9529aee078466211c6f7582405c9247a}{FindOrAllocatePerThreadDataForThisThread}}();}
+\DoxyCodeLine{254   per\_thread-\/>set\_thread\_state(state);}
+\DoxyCodeLine{255   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a12e8052beacdc1bb008ee6017e22f8e9}{lazily\_archived\_thread\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_a81c60d3524b03db2f154b7f682e7796f}{ThreadId::Current}}();}
+\DoxyCodeLine{256   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a4ef39a6888a60ed856ab0fbab383dbcd}{lazily\_archived\_thread\_state\_}} = state;}
+\DoxyCodeLine{257   \mbox{\hyperlink{src_2base_2logging_8h_af9c313d74155f7f201955a939e24c71f}{DCHECK\_EQ}}(state-\/>id(), \mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_ade3e1a41d03f0f9f593c7d35c4cafa6c}{ThreadId::Invalid}}());}
+\DoxyCodeLine{258   state-\/>set\_id(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a20de7ca0770f36132c2f48462ff07e08}{CurrentId}}());}
+\DoxyCodeLine{259   \mbox{\hyperlink{src_2base_2logging_8h_a986dc8f4ec6dcd0644efe205c13f8eb7}{DCHECK\_NE}}(state-\/>id(), \mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_ade3e1a41d03f0f9f593c7d35c4cafa6c}{ThreadId::Invalid}}());}
+\DoxyCodeLine{260 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Thread\+Id\+::\+Current(), Current\+Id(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+EQ, DCHECK\+\_\+\+NE, v8\+::internal\+::\+Isolate\+::\+Find\+Or\+Allocate\+Per\+Thread\+Data\+For\+This\+Thread(), Get\+Free\+Thread\+State(), v8\+::internal\+::\+Thread\+State\+::id(), v8\+::internal\+::\+Thread\+Id\+::\+Invalid(), Is\+Archived(), Is\+Locked\+By\+Current\+Thread(), isolate\+\_\+, lazily\+\_\+archived\+\_\+thread\+\_\+, lazily\+\_\+archived\+\_\+thread\+\_\+state\+\_\+, v8\+::internal\+::\+Thread\+State\+::set\+\_\+id(), and v8\+::internal\+::\+Thread\+State\+::\+Unlink().
+
+
+
+Referenced by v8\+::\+Unlocker\+::\+Initialize(), and v8\+::\+Locker\+::$\sim$\+Locker().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a36506aaa6d781c749efe48996b48e2a0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a36506aaa6d781c749efe48996b48e2a0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_ab45d9e6eed8c9f6b1e2f49381b7ff69d}\label{classv8_1_1internal_1_1ThreadManager_ab45d9e6eed8c9f6b1e2f49381b7ff69d}} 
+\index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!ASSERT\_TRIVIALLY\_COPYABLE@{ASSERT\_TRIVIALLY\_COPYABLE}}
+\index{ASSERT\_TRIVIALLY\_COPYABLE@{ASSERT\_TRIVIALLY\_COPYABLE}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
+\doxysubsubsection{\texorpdfstring{ASSERT\_TRIVIALLY\_COPYABLE()}{ASSERT\_TRIVIALLY\_COPYABLE()}}
+{\footnotesize\ttfamily v8\+::internal\+::\+Thread\+Manager\+::\+ASSERT\+\_\+\+TRIVIALLY\+\_\+\+COPYABLE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1ThreadId}{i\+::\+Thread\+Id}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a20de7ca0770f36132c2f48462ff07e08}\label{classv8_1_1internal_1_1ThreadManager_a20de7ca0770f36132c2f48462ff07e08}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!CurrentId@{CurrentId}}
 \index{CurrentId@{CurrentId}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
 \doxysubsubsection{\texorpdfstring{CurrentId()}{CurrentId()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1ThreadId}{Thread\+Id}} v8\+::internal\+::\+Thread\+Manager\+::\+Current\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 324 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{324 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_a81c60d3524b03db2f154b7f682e7796f}{ThreadId::Current}}(); \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Thread\+Id\+::\+Current().
+
+
+
+Referenced by Archive\+Thread().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a20de7ca0770f36132c2f48462ff07e08_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a20de7ca0770f36132c2f48462ff07e08_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a9f65f528b8d918bb62390d469200e5fc}\label{classv8_1_1internal_1_1ThreadManager_a9f65f528b8d918bb62390d469200e5fc}} 
+\index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!DeleteThreadStateList@{DeleteThreadStateList}}
+\index{DeleteThreadStateList@{DeleteThreadStateList}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
+\doxysubsubsection{\texorpdfstring{DeleteThreadStateList()}{DeleteThreadStateList()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Thread\+Manager\+::\+Delete\+Thread\+State\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState}{Thread\+State}} $\ast$}]{anchor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 236 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{236                                                              \{}
+\DoxyCodeLine{237   \textcolor{comment}{// The list starts and ends with the anchor.}}
+\DoxyCodeLine{238   \textcolor{keywordflow}{for} (\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db675bb6d4c212a2a}{ThreadState}}* current = anchor-\/>next\_; current != anchor;) \{}
+\DoxyCodeLine{239     \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db675bb6d4c212a2a}{ThreadState}}* next = current-\/>next\_;}
+\DoxyCodeLine{240     \textcolor{keyword}{delete} current;}
+\DoxyCodeLine{241     current = next;}
+\DoxyCodeLine{242   \}}
+\DoxyCodeLine{243   \textcolor{keyword}{delete} anchor;}
+\DoxyCodeLine{244 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Thread\+State\+::next\+\_\+.
+
+
+
+Referenced by $\sim$\+Thread\+Manager().
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a9f65f528b8d918bb62390d469200e5fc_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_ac86e451a498ebd5d66704a4278ef383d}\label{classv8_1_1internal_1_1ThreadManager_ac86e451a498ebd5d66704a4278ef383d}} 
+\index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!EagerlyArchiveThread@{EagerlyArchiveThread}}
+\index{EagerlyArchiveThread@{EagerlyArchiveThread}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
+\doxysubsubsection{\texorpdfstring{EagerlyArchiveThread()}{EagerlyArchiveThread()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Thread\+Manager\+::\+Eagerly\+Archive\+Thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 262 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{262                                          \{}
+\DoxyCodeLine{263   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa010051a059cfda7e45228fc28a3ff52}{IsLockedByCurrentThread}}());}
+\DoxyCodeLine{264   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db675bb6d4c212a2a}{ThreadState}}* state = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a4ef39a6888a60ed856ab0fbab383dbcd}{lazily\_archived\_thread\_state\_}};}
+\DoxyCodeLine{265   state-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState_a4defafb5b3668efb14f85d77374bbe3b}{LinkInto}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState_a395f566f2cfacad9de5f830d10867f8eab31ec41a6797b49d5c53a1a5c62b9313}{ThreadState::IN\_USE\_LIST}});}
+\DoxyCodeLine{266   \textcolor{keywordtype}{char}* to = state-\/>data();}
+\DoxyCodeLine{267   \textcolor{comment}{// Ensure that data containing GC roots are archived first, and handle them}}
+\DoxyCodeLine{268   \textcolor{comment}{// in ThreadManager::Iterate(RootVisitor*).}}
+\DoxyCodeLine{269   to = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ad34c27699bef2cd700a27c489a3ae072}{handle\_scope\_implementer}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1HandleScopeImplementer_a62d016202e4b0555cea27a762608b275}{ArchiveThread}}(to);}
+\DoxyCodeLine{270   to = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a89c36ecb5eb634908ff843c0c644417c}{ArchiveThread}}(to);}
+\DoxyCodeLine{271   to = \mbox{\hyperlink{classv8_1_1internal_1_1Relocatable_ae38b3064904fea9515a8bfc7e3505089}{Relocatable::ArchiveState}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}, to);}
+\DoxyCodeLine{272   to = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a39a1d363e13113d1ca51a5c032312f3e}{stack\_guard}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1StackGuard_acb831b60589eedfbe0087a9cb4260efe}{ArchiveStackGuard}}(to);}
+\DoxyCodeLine{273   to = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_add58aa2cf5e62000c95ea11411ce9ae6}{debug}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Debug_a728b6f78ff43400533ea5c0c5ac00f19}{ArchiveDebug}}(to);}
+\DoxyCodeLine{274   to = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ace270b86d233eefb61d2ff305652bf22}{regexp\_stack}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1RegExpStack_a360cf9b3de09e77f5f5b49beadd21c09}{ArchiveStack}}(to);}
+\DoxyCodeLine{275   to = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_afdec8e47c6d178bfb42aa203999cb707}{bootstrapper}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Bootstrapper_ae9807d1ed391e6bf63f822622568bdf9}{ArchiveState}}(to);}
+\DoxyCodeLine{276   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a12e8052beacdc1bb008ee6017e22f8e9}{lazily\_archived\_thread\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_ade3e1a41d03f0f9f593c7d35c4cafa6c}{ThreadId::Invalid}}();}
+\DoxyCodeLine{277   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a4ef39a6888a60ed856ab0fbab383dbcd}{lazily\_archived\_thread\_state\_}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{278 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Debug\+::\+Archive\+Debug(), v8\+::internal\+::\+Reg\+Exp\+Stack\+::\+Archive\+Stack(), v8\+::internal\+::\+Stack\+Guard\+::\+Archive\+Stack\+Guard(), v8\+::internal\+::\+Bootstrapper\+::\+Archive\+State(), v8\+::internal\+::\+Relocatable\+::\+Archive\+State(), v8\+::internal\+::\+Handle\+Scope\+Implementer\+::\+Archive\+Thread(), v8\+::internal\+::\+Isolate\+::\+Archive\+Thread(), v8\+::internal\+::\+Isolate\+::bootstrapper(), v8\+::internal\+::\+Thread\+State\+::data(), v8\+::internal\+::\+DCHECK(), v8\+::internal\+::\+Isolate\+::debug(), v8\+::internal\+::\+Isolate\+::handle\+\_\+scope\+\_\+implementer(), v8\+::internal\+::\+Thread\+State\+::\+IN\+\_\+\+USE\+\_\+\+LIST, v8\+::internal\+::\+Thread\+Id\+::\+Invalid(), Is\+Locked\+By\+Current\+Thread(), isolate\+\_\+, lazily\+\_\+archived\+\_\+thread\+\_\+, lazily\+\_\+archived\+\_\+thread\+\_\+state\+\_\+, v8\+::internal\+::\+Thread\+State\+::\+Link\+Into(), v8\+::internal\+::\+Isolate\+::regexp\+\_\+stack(), and v8\+::internal\+::\+Isolate\+::stack\+\_\+guard().
+
+
+
+Referenced by Restore\+Thread().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_ac86e451a498ebd5d66704a4278ef383d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_ac86e451a498ebd5d66704a4278ef383d_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a31381c48c7f8608f4a2ab582a2c4c729}\label{classv8_1_1internal_1_1ThreadManager_a31381c48c7f8608f4a2ab582a2c4c729}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!FirstThreadStateInUse@{FirstThreadStateInUse}}
 \index{FirstThreadStateInUse@{FirstThreadStateInUse}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
 \doxysubsubsection{\texorpdfstring{FirstThreadStateInUse()}{FirstThreadStateInUse()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1ThreadState}{Thread\+State}} $\ast$ v8\+::internal\+::\+Thread\+Manager\+::\+First\+Thread\+State\+In\+Use (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 208 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{208                                                   \{}
+\DoxyCodeLine{209   \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a67a314616958eac2054a2ecc52bce520}{in\_use\_anchor\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState_a72a0930797cee81d1c9554b85d823a85}{Next}}();}
+\DoxyCodeLine{210 \}}
+
+\end{DoxyCode}
+
+
+References in\+\_\+use\+\_\+anchor\+\_\+, and v8\+::internal\+::\+Thread\+State\+::\+Next().
+
+
+
+Referenced by Iterate(), Iterate\+Archived\+Threads(), and v8\+::internal\+::\+Startup\+Serializer\+::\+Serialize\+Strong\+References().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a31381c48c7f8608f4a2ab582a2c4c729_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a31381c48c7f8608f4a2ab582a2c4c729_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a7ff25a1bc335c55e57bae1f262f5ac0e}\label{classv8_1_1internal_1_1ThreadManager_a7ff25a1bc335c55e57bae1f262f5ac0e}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!FreeThreadResources@{FreeThreadResources}}
 \index{FreeThreadResources@{FreeThreadResources}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
 \doxysubsubsection{\texorpdfstring{FreeThreadResources()}{FreeThreadResources()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Thread\+Manager\+::\+Free\+Thread\+Resources (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 280 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{280                                         \{}
+\DoxyCodeLine{281   \textcolor{comment}{// This method might be called on a thread that's not bound to any Isolate}}
+\DoxyCodeLine{282   \textcolor{comment}{// and thus pointer compression schemes might have cage base value unset.}}
+\DoxyCodeLine{283   \textcolor{comment}{// So, allow heap access here to let the checks work.}}
+\DoxyCodeLine{284   \mbox{\hyperlink{namespacewasm_1_1anonymous__namespace_02c-api_8cc_03_ac4ee3a9b936708dc76f05302711026c6}{PtrComprCageAccessScope}} ptr\_compr\_cage\_access\_scope(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}});}
+\DoxyCodeLine{285 }
+\DoxyCodeLine{286   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(!\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_aed5dcd4c10242ef0225dfbd02b5dbdd3}{has\_exception}}());}
+\DoxyCodeLine{287   \mbox{\hyperlink{src_2base_2logging_8h_a2209830df6b59d1ec1fdf66b9352924f}{DCHECK\_NULL}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a94a97108717e97fa3c032710ca045bdf}{try\_catch\_handler}}());}
+\DoxyCodeLine{288   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ad34c27699bef2cd700a27c489a3ae072}{handle\_scope\_implementer}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1HandleScopeImplementer_a3e23aca523c7e6549024c75f7985ea34}{FreeThreadResources}}();}
+\DoxyCodeLine{289   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a858345eefd66c1d3cc41334b6df8dae9}{FreeThreadResources}}();}
+\DoxyCodeLine{290   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_add58aa2cf5e62000c95ea11411ce9ae6}{debug}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Debug_a85b2eb55cc26c9140c90a82c73f45da8}{FreeThreadResources}}();}
+\DoxyCodeLine{291   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a39a1d363e13113d1ca51a5c032312f3e}{stack\_guard}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1StackGuard_af3c0e7861b527d914570aacda023acff}{FreeThreadResources}}();}
+\DoxyCodeLine{292   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ace270b86d233eefb61d2ff305652bf22}{regexp\_stack}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1RegExpStack_a66f53e7acd3d11da2928267ccaeea024}{FreeThreadResources}}();}
+\DoxyCodeLine{293   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_afdec8e47c6d178bfb42aa203999cb707}{bootstrapper}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Bootstrapper_a7a9f0a465b7af7f35684b12bfc16c29d}{FreeThreadResources}}();}
+\DoxyCodeLine{294 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::bootstrapper(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+NULL, v8\+::internal\+::\+Isolate\+::debug(), v8\+::internal\+::\+Handle\+Scope\+Implementer\+::\+Free\+Thread\+Resources(), v8\+::internal\+::\+Debug\+::\+Free\+Thread\+Resources(), v8\+::internal\+::\+Isolate\+::\+Free\+Thread\+Resources(), v8\+::internal\+::\+Stack\+Guard\+::\+Free\+Thread\+Resources(), v8\+::internal\+::\+Bootstrapper\+::\+Free\+Thread\+Resources(), v8\+::internal\+::\+Reg\+Exp\+Stack\+::\+Free\+Thread\+Resources(), v8\+::internal\+::\+Isolate\+::handle\+\_\+scope\+\_\+implementer(), v8\+::internal\+::\+Isolate\+::has\+\_\+exception(), isolate\+\_\+, v8\+::internal\+::\+Isolate\+::regexp\+\_\+stack(), v8\+::internal\+::\+Isolate\+::stack\+\_\+guard(), and v8\+::internal\+::\+Isolate\+::try\+\_\+catch\+\_\+handler().
+
+
+
+Referenced by v8\+::\+Locker\+::$\sim$\+Locker().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a7ff25a1bc335c55e57bae1f262f5ac0e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a7ff25a1bc335c55e57bae1f262f5ac0e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_ae7610d3c55e69ceffd65c6b734813f0b}\label{classv8_1_1internal_1_1ThreadManager_ae7610d3c55e69ceffd65c6b734813f0b}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!GetFreeThreadState@{GetFreeThreadState}}
 \index{GetFreeThreadState@{GetFreeThreadState}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
 \doxysubsubsection{\texorpdfstring{GetFreeThreadState()}{GetFreeThreadState()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1ThreadState}{Thread\+State}} $\ast$ v8\+::internal\+::\+Thread\+Manager\+::\+Get\+Free\+Thread\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 197 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{197                                                \{}
+\DoxyCodeLine{198   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db675bb6d4c212a2a}{ThreadState}}* gotten = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aabee6157e0bc720b3c83683c42365704}{free\_anchor\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState_a6e3a17b374e832a7634cd892cd4e9ce0}{next\_}};}
+\DoxyCodeLine{199   \textcolor{keywordflow}{if} (gotten == \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aabee6157e0bc720b3c83683c42365704}{free\_anchor\_}}) \{}
+\DoxyCodeLine{200     \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db675bb6d4c212a2a}{ThreadState}}* new\_thread\_state = \textcolor{keyword}{new} \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db675bb6d4c212a2a}{ThreadState}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{201     new\_thread\_state-\/>AllocateSpace();}
+\DoxyCodeLine{202     \textcolor{keywordflow}{return} new\_thread\_state;}
+\DoxyCodeLine{203   \}}
+\DoxyCodeLine{204   \textcolor{keywordflow}{return} gotten;}
+\DoxyCodeLine{205 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Thread\+State\+::\+Allocate\+Space(), free\+\_\+anchor\+\_\+, v8\+::internal\+::\+Thread\+State\+::next\+\_\+, and Thread\+State.
+
+
+
+Referenced by Archive\+Thread().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_ae7610d3c55e69ceffd65c6b734813f0b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_ae7610d3c55e69ceffd65c6b734813f0b_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a82ab5fde3a1bffba6b7c03da73be99fc}\label{classv8_1_1internal_1_1ThreadManager_a82ab5fde3a1bffba6b7c03da73be99fc}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!InitThread@{InitThread}}
 \index{InitThread@{InitThread}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
 \doxysubsubsection{\texorpdfstring{InitThread()}{InitThread()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Thread\+Manager\+::\+Init\+Thread (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1ExecutionAccess}{Execution\+Access}} \&}]{lock }\end{DoxyParamCaption})}
 
+
+
+Definition at line 87 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{87                                                           \{}
+\DoxyCodeLine{88   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a55d169cdd89dee4c975249bac3edae1d}{InitializeThreadLocal}}();}
+\DoxyCodeLine{89   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a39a1d363e13113d1ca51a5c032312f3e}{stack\_guard}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1StackGuard_a3738bc365765124e5a3ee6e7fe52be7b}{InitThread}}(lock);}
+\DoxyCodeLine{90   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_add58aa2cf5e62000c95ea11411ce9ae6}{debug}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Debug_a5e3356bd0c476f0f9924578e7033c74d}{InitThread}}(lock);}
+\DoxyCodeLine{91 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::debug(), v8\+::internal\+::\+Isolate\+::\+Initialize\+Thread\+Local(), v8\+::internal\+::\+Debug\+::\+Init\+Thread(), v8\+::internal\+::\+Stack\+Guard\+::\+Init\+Thread(), isolate\+\_\+, and v8\+::internal\+::\+Isolate\+::stack\+\_\+guard().
+
+
+
+Referenced by Restore\+Thread().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a82ab5fde3a1bffba6b7c03da73be99fc_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a82ab5fde3a1bffba6b7c03da73be99fc_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a8a5b4eb523ed06c372852b14b5825efb}\label{classv8_1_1internal_1_1ThreadManager_a8a5b4eb523ed06c372852b14b5825efb}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!IsArchived@{IsArchived}}
 \index{IsArchived@{IsArchived}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
 \doxysubsubsection{\texorpdfstring{IsArchived()}{IsArchived()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Thread\+Manager\+::\+Is\+Archived (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 296 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{296                                \{}
+\DoxyCodeLine{297   Isolate::PerIsolateThreadData* data =}
+\DoxyCodeLine{298       \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a67b9b549f88af4e2e59ccd65694a9c3b}{FindPerThreadDataForThisThread}}();}
+\DoxyCodeLine{299   \textcolor{keywordflow}{return} data != \textcolor{keyword}{nullptr} \&\& data-\/>thread\_state() != \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{300 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::\+Find\+Per\+Thread\+Data\+For\+This\+Thread(), and isolate\+\_\+.
+
+
+
+Referenced by Archive\+Thread().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a8a5b4eb523ed06c372852b14b5825efb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a8a5b4eb523ed06c372852b14b5825efb_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_aa010051a059cfda7e45228fc28a3ff52}\label{classv8_1_1internal_1_1ThreadManager_aa010051a059cfda7e45228fc28a3ff52}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!IsLockedByCurrentThread@{IsLockedByCurrentThread}}
 \index{IsLockedByCurrentThread@{IsLockedByCurrentThread}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
 \doxysubsubsection{\texorpdfstring{IsLockedByCurrentThread()}{IsLockedByCurrentThread()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Thread\+Manager\+::\+Is\+Locked\+By\+Current\+Thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Definition at line 73 of file v8threads.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{73                                        \{}
+\DoxyCodeLine{74     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a907832ffd0117d985f96c35fed866017}{mutex\_owner\_}}.load(std::memory\_order\_relaxed) == \mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_a81c60d3524b03db2f154b7f682e7796f}{ThreadId::Current}}();}
+\DoxyCodeLine{75   \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Thread\+Id\+::\+Current(), and mutex\+\_\+owner\+\_\+.
+
+
+
+Referenced by Archive\+Thread(), v8\+::internal\+::\+Cpp\+Heap\+::\+Current\+Thread\+Is\+Heap\+Thread(), Eagerly\+Archive\+Thread(), v8\+::\+Handle\+Scope\+::\+Initialize(), v8\+::\+Unlocker\+::\+Initialize(), v8\+::\+Locker\+::\+Initialize(), v8\+::\+Locker\+::\+Is\+Locked(), Lock(), v8\+::\+Isolate\+::\+Memory\+Pressure\+Notification(), v8\+::\+Shell\+::\+Quit\+Once(), Restore\+Thread(), v8\+::\+Locker\+::$\sim$\+Locker(), and v8\+::\+Unlocker\+::$\sim$\+Unlocker().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_aa010051a059cfda7e45228fc28a3ff52_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_aa010051a059cfda7e45228fc28a3ff52_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_ac85b081ba9dfd8f661d626f73291c11b}\label{classv8_1_1internal_1_1ThreadManager_ac85b081ba9dfd8f661d626f73291c11b}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!IsLockedByThread@{IsLockedByThread}}
 \index{IsLockedByThread@{IsLockedByThread}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
 \doxysubsubsection{\texorpdfstring{IsLockedByThread()}{IsLockedByThread()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Thread\+Manager\+::\+Is\+Locked\+By\+Thread (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1ThreadId}{Thread\+Id}}}]{id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 76 of file v8threads.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{76                                            \{}
+\DoxyCodeLine{77     \textcolor{keywordflow}{return} \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a907832ffd0117d985f96c35fed866017}{mutex\_owner\_}}.load(std::memory\_order\_relaxed) == id;}
+\DoxyCodeLine{78   \}}
+
+\end{DoxyCode}
+
+
+References mutex\+\_\+owner\+\_\+.
 
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a041c4cd7b983c468cc33e2c8e687f60e}\label{classv8_1_1internal_1_1ThreadManager_a041c4cd7b983c468cc33e2c8e687f60e}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!Iterate@{Iterate}}
@@ -105,30 +639,274 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db67
 \doxysubsubsection{\texorpdfstring{Iterate()}{Iterate()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Thread\+Manager\+::\+Iterate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1RootVisitor}{Root\+Visitor}} $\ast$}]{v }\end{DoxyParamCaption})}
 
+
+
+Definition at line 302 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{302                                           \{}
+\DoxyCodeLine{303   \textcolor{comment}{// Expecting no threads during serialization/deserialization}}
+\DoxyCodeLine{304   \textcolor{keywordflow}{for} (\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db675bb6d4c212a2a}{ThreadState}}* state = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a31381c48c7f8608f4a2ab582a2c4c729}{FirstThreadStateInUse}}(); state != \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{305        state = state-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState_a72a0930797cee81d1c9554b85d823a85}{Next}}()) \{}
+\DoxyCodeLine{306     \textcolor{keywordtype}{char}* data = state-\/>data();}
+\DoxyCodeLine{307     data = \mbox{\hyperlink{classv8_1_1internal_1_1HandleScopeImplementer_afd6565173451dd80724cc1eb09a1fc34}{HandleScopeImplementer::Iterate}}(v, data);}
+\DoxyCodeLine{308     data = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_abd4e817c4b3f3066a84f51f8141defe1}{Iterate}}(v, data);}
+\DoxyCodeLine{309     data = \mbox{\hyperlink{classv8_1_1internal_1_1Relocatable_a6e7789852391b038743216d480da31ab}{Relocatable::Iterate}}(v, data);}
+\DoxyCodeLine{310     data = \mbox{\hyperlink{classv8_1_1internal_1_1StackGuard_aa34960a240d1a8836dd91926ac82243e}{StackGuard::Iterate}}(v, data);}
+\DoxyCodeLine{311     data = \mbox{\hyperlink{classv8_1_1internal_1_1Debug_aa41a92d1e455e650d34d620620e9b00a}{Debug::Iterate}}(v, data);}
+\DoxyCodeLine{312   \}}
+\DoxyCodeLine{313 \}}
+
+\end{DoxyCode}
+
+
+References First\+Thread\+State\+In\+Use(), isolate\+\_\+, v8\+::internal\+::\+Handle\+Scope\+Implementer\+::\+Iterate(), v8\+::internal\+::\+Relocatable\+::\+Iterate(), v8\+::internal\+::\+Debug\+::\+Iterate(), v8\+::internal\+::\+Isolate\+::\+Iterate(), v8\+::internal\+::\+Stack\+Guard\+::\+Iterate(), and v8\+::internal\+::\+Thread\+State\+::\+Next().
+
+
+
+Referenced by v8\+::internal\+::\+Heap\+::\+Iterate\+Roots().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a041c4cd7b983c468cc33e2c8e687f60e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a041c4cd7b983c468cc33e2c8e687f60e_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a2fec67e06e5fc2f061ac8f87bb2bb080}\label{classv8_1_1internal_1_1ThreadManager_a2fec67e06e5fc2f061ac8f87bb2bb080}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!IterateArchivedThreads@{IterateArchivedThreads}}
 \index{IterateArchivedThreads@{IterateArchivedThreads}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
 \doxysubsubsection{\texorpdfstring{IterateArchivedThreads()}{IterateArchivedThreads()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Thread\+Manager\+::\+Iterate\+Archived\+Threads (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1ThreadVisitor}{Thread\+Visitor}} $\ast$}]{v }\end{DoxyParamCaption})}
 
+
+
+Definition at line 315 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{315                                                            \{}
+\DoxyCodeLine{316   \textcolor{keywordflow}{for} (\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db675bb6d4c212a2a}{ThreadState}}* state = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a31381c48c7f8608f4a2ab582a2c4c729}{FirstThreadStateInUse}}(); state != \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{317        state = state-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState_a72a0930797cee81d1c9554b85d823a85}{Next}}()) \{}
+\DoxyCodeLine{318     \textcolor{keywordtype}{char}* data = state-\/>data();}
+\DoxyCodeLine{319     data += \mbox{\hyperlink{classv8_1_1internal_1_1HandleScopeImplementer_ae1a88c356c5413fc94977f71ef5915e7}{HandleScopeImplementer::ArchiveSpacePerThread}}();}
+\DoxyCodeLine{320     \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a7bad9f07a0b0ef64f863ed73426c5f3c}{IterateThread}}(v, data);}
+\DoxyCodeLine{321   \}}
+\DoxyCodeLine{322 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Handle\+Scope\+Implementer\+::\+Archive\+Space\+Per\+Thread(), First\+Thread\+State\+In\+Use(), isolate\+\_\+, v8\+::internal\+::\+Isolate\+::\+Iterate\+Thread(), and v8\+::internal\+::\+Thread\+State\+::\+Next().
+
+
+
+Referenced by v8\+::internal\+::wasm\+::anonymous\+\_\+namespace\{wasm-\/engine.\+cc\}\+::\+Check\+No\+Archived\+Threads(), v8\+::internal\+::\+Debug\+Info\+::\+Clear\+Break\+Info(), v8\+::internal\+::\+Deoptimizer\+::\+Deoptimize\+Marked\+Code(), v8\+::internal\+::\+Debug\+::\+Discard\+All\+Baseline\+Code(), v8\+::internal\+::\+Debug\+::\+Discard\+Baseline\+Code(), v8\+::internal\+::anonymous\+\_\+namespace\{liveedit.\+cc\}\+::\+Function\+Data\+Map\+::\+Fill(), v8\+::internal\+::\+Debug\+::\+Prepare\+Function\+For\+Debug\+Execution(), and v8\+::internal\+::\+Finalization\+Registry\+Cleanup\+Task\+::\+Slow\+Assert\+No\+Active\+Java\+Script().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a2fec67e06e5fc2f061ac8f87bb2bb080_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a2fec67e06e5fc2f061ac8f87bb2bb080_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a8de7abc8b0763f0e1117b61f074410da}\label{classv8_1_1internal_1_1ThreadManager_a8de7abc8b0763f0e1117b61f074410da}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!Lock@{Lock}}
 \index{Lock@{Lock}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
 \doxysubsubsection{\texorpdfstring{Lock()}{Lock()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Thread\+Manager\+::\+Lock (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 149 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{149                          \{}
+\DoxyCodeLine{150   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aea2d9af29a874fb2fc93d7c9a67dd265}{mutex\_}}.\mbox{\hyperlink{classv8_1_1base_1_1Mutex_ad2dc6441de065f9f5c964a90ecf93f71}{Lock}}();}
+\DoxyCodeLine{151   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a907832ffd0117d985f96c35fed866017}{mutex\_owner\_}}.store(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_a81c60d3524b03db2f154b7f682e7796f}{ThreadId::Current}}(), std::memory\_order\_relaxed);}
+\DoxyCodeLine{152   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa010051a059cfda7e45228fc28a3ff52}{IsLockedByCurrentThread}}());}
+\DoxyCodeLine{153 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Thread\+Id\+::\+Current(), v8\+::internal\+::\+DCHECK(), Is\+Locked\+By\+Current\+Thread(), v8\+::base\+::\+Mutex\+::\+Lock(), mutex\+\_\+, and mutex\+\_\+owner\+\_\+.
+
+
+
+Referenced by v8\+::\+Locker\+::\+Initialize(), and v8\+::\+Unlocker\+::$\sim$\+Unlocker().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a8de7abc8b0763f0e1117b61f074410da_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_a8de7abc8b0763f0e1117b61f074410da_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_ac7d4ad5d9a21d88fc2d50f5d91a62442}\label{classv8_1_1internal_1_1ThreadManager_ac7d4ad5d9a21d88fc2d50f5d91a62442}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!RestoreThread@{RestoreThread}}
 \index{RestoreThread@{RestoreThread}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
 \doxysubsubsection{\texorpdfstring{RestoreThread()}{RestoreThread()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Thread\+Manager\+::\+Restore\+Thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 93 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{93                                   \{}
+\DoxyCodeLine{94   \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa010051a059cfda7e45228fc28a3ff52}{IsLockedByCurrentThread}}());}
+\DoxyCodeLine{95   \textcolor{comment}{// First check whether the current thread has been 'lazily archived', i.e.}}
+\DoxyCodeLine{96   \textcolor{comment}{// not archived at all.  If that is the case we put the state storage we}}
+\DoxyCodeLine{97   \textcolor{comment}{// had prepared back in the free list, since we didn't need it after all.}}
+\DoxyCodeLine{98   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a12e8052beacdc1bb008ee6017e22f8e9}{lazily\_archived\_thread\_}} == \mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_a81c60d3524b03db2f154b7f682e7796f}{ThreadId::Current}}()) \{}
+\DoxyCodeLine{99     \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a12e8052beacdc1bb008ee6017e22f8e9}{lazily\_archived\_thread\_}} = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_ade3e1a41d03f0f9f593c7d35c4cafa6c}{ThreadId::Invalid}}();}
+\DoxyCodeLine{100     Isolate::PerIsolateThreadData* per\_thread =}
+\DoxyCodeLine{101         \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a67b9b549f88af4e2e59ccd65694a9c3b}{FindPerThreadDataForThisThread}}();}
+\DoxyCodeLine{102     \mbox{\hyperlink{src_2base_2logging_8h_a7b9f9517fedacc2a1a56c2bbb9d03688}{DCHECK\_NOT\_NULL}}(per\_thread);}
+\DoxyCodeLine{103     \mbox{\hyperlink{namespacev8_1_1internal_aa6b3743bd5d773c552654f2a6c3efa4a}{DCHECK}}(per\_thread-\/>thread\_state() == \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a4ef39a6888a60ed856ab0fbab383dbcd}{lazily\_archived\_thread\_state\_}});}
+\DoxyCodeLine{104     \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a4ef39a6888a60ed856ab0fbab383dbcd}{lazily\_archived\_thread\_state\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState_a29a5b54da6f9f06155d8a1c8757ad6f7}{set\_id}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_ade3e1a41d03f0f9f593c7d35c4cafa6c}{ThreadId::Invalid}}());}
+\DoxyCodeLine{105     \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a4ef39a6888a60ed856ab0fbab383dbcd}{lazily\_archived\_thread\_state\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState_a4defafb5b3668efb14f85d77374bbe3b}{LinkInto}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState_a395f566f2cfacad9de5f830d10867f8eafbd8a45ffb45f5649c5a03f9d33c538e}{ThreadState::FREE\_LIST}});}
+\DoxyCodeLine{106     \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a4ef39a6888a60ed856ab0fbab383dbcd}{lazily\_archived\_thread\_state\_}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{107     per\_thread-\/>set\_thread\_state(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{108     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{109   \}}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111   \textcolor{comment}{// Make sure that the preemption thread cannot modify the thread state while}}
+\DoxyCodeLine{112   \textcolor{comment}{// it is being archived or restored.}}
+\DoxyCodeLine{113   ExecutionAccess access(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}});}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115   \textcolor{comment}{// If there is another thread that was lazily archived then we have to really}}
+\DoxyCodeLine{116   \textcolor{comment}{// archive it now.}}
+\DoxyCodeLine{117   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a12e8052beacdc1bb008ee6017e22f8e9}{lazily\_archived\_thread\_}}.\mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_a3908689f4513008529cd118c6b846094}{IsValid}}()) \{}
+\DoxyCodeLine{118     \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac86e451a498ebd5d66704a4278ef383d}{EagerlyArchiveThread}}();}
+\DoxyCodeLine{119   \}}
+\DoxyCodeLine{120   Isolate::PerIsolateThreadData* per\_thread =}
+\DoxyCodeLine{121       \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a67b9b549f88af4e2e59ccd65694a9c3b}{FindPerThreadDataForThisThread}}();}
+\DoxyCodeLine{122   \textcolor{keywordflow}{if} (per\_thread == \textcolor{keyword}{nullptr} || per\_thread-\/>thread\_state() == \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{123     \textcolor{comment}{// This is a new thread.}}
+\DoxyCodeLine{124     \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a82ab5fde3a1bffba6b7c03da73be99fc}{InitThread}}(access);}
+\DoxyCodeLine{125     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{126   \}}
+\DoxyCodeLine{127   \textcolor{comment}{// In case multi-\/cage pointer compression mode is enabled ensure that}}
+\DoxyCodeLine{128   \textcolor{comment}{// current thread's cage base values are properly initialized.}}
+\DoxyCodeLine{129   \mbox{\hyperlink{namespacewasm_1_1anonymous__namespace_02c-api_8cc_03_ac4ee3a9b936708dc76f05302711026c6}{PtrComprCageAccessScope}} ptr\_compr\_cage\_access\_scope(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}});}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{131   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db675bb6d4c212a2a}{ThreadState}}* state = per\_thread-\/>thread\_state();}
+\DoxyCodeLine{132   \textcolor{keywordtype}{char}* from = state-\/>data();}
+\DoxyCodeLine{133   from = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ad34c27699bef2cd700a27c489a3ae072}{handle\_scope\_implementer}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1HandleScopeImplementer_aba36eab4b28babfa77c6c4e033e588c7}{RestoreThread}}(from);}
+\DoxyCodeLine{134   from = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a85401ba29d4f42d80729bb3e98537f95}{RestoreThread}}(from);}
+\DoxyCodeLine{135   from = \mbox{\hyperlink{classv8_1_1internal_1_1Relocatable_a02c1913085723950a257972a7f35c93b}{Relocatable::RestoreState}}(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}, from);}
+\DoxyCodeLine{136   \textcolor{comment}{// Stack guard should be restored before Debug, etc. since Debug etc. might}}
+\DoxyCodeLine{137   \textcolor{comment}{// depend on a correct stack guard.}}
+\DoxyCodeLine{138   from = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a39a1d363e13113d1ca51a5c032312f3e}{stack\_guard}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1StackGuard_ae5e81ec252c44746fe9049c6c76afcbb}{RestoreStackGuard}}(from);}
+\DoxyCodeLine{139   from = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_add58aa2cf5e62000c95ea11411ce9ae6}{debug}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Debug_adecb3c22088fc338ea44d910ae2158aa}{RestoreDebug}}(from);}
+\DoxyCodeLine{140   from = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_ace270b86d233eefb61d2ff305652bf22}{regexp\_stack}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1RegExpStack_a9fcb45f19c31a1675f3d31640e584ea8}{RestoreStack}}(from);}
+\DoxyCodeLine{141   from = \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}{isolate\_}}-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Isolate_afdec8e47c6d178bfb42aa203999cb707}{bootstrapper}}()-\/>\mbox{\hyperlink{classv8_1_1internal_1_1Bootstrapper_a09e5063ba2fb10e54d55780cbf8dd761}{RestoreState}}(from);}
+\DoxyCodeLine{142   per\_thread-\/>set\_thread\_state(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{143   state-\/>set\_id(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_ade3e1a41d03f0f9f593c7d35c4cafa6c}{ThreadId::Invalid}}());}
+\DoxyCodeLine{144   state-\/>Unlink();}
+\DoxyCodeLine{145   state-\/>LinkInto(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadState_a395f566f2cfacad9de5f830d10867f8eafbd8a45ffb45f5649c5a03f9d33c538e}{ThreadState::FREE\_LIST}});}
+\DoxyCodeLine{146   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{147 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Isolate\+::bootstrapper(), v8\+::internal\+::\+Thread\+Id\+::\+Current(), v8\+::internal\+::\+Thread\+State\+::data(), v8\+::internal\+::\+DCHECK(), DCHECK\+\_\+\+NOT\+\_\+\+NULL, v8\+::internal\+::\+Isolate\+::debug(), Eagerly\+Archive\+Thread(), v8\+::internal\+::\+Isolate\+::\+Find\+Per\+Thread\+Data\+For\+This\+Thread(), v8\+::internal\+::\+Thread\+State\+::\+FREE\+\_\+\+LIST, v8\+::internal\+::\+Isolate\+::handle\+\_\+scope\+\_\+implementer(), Init\+Thread(), v8\+::internal\+::\+Thread\+Id\+::\+Invalid(), Is\+Locked\+By\+Current\+Thread(), isolate\+\_\+, v8\+::internal\+::\+Thread\+Id\+::\+Is\+Valid(), lazily\+\_\+archived\+\_\+thread\+\_\+, lazily\+\_\+archived\+\_\+thread\+\_\+state\+\_\+, v8\+::internal\+::\+Thread\+State\+::\+Link\+Into(), v8\+::internal\+::\+Isolate\+::regexp\+\_\+stack(), v8\+::internal\+::\+Debug\+::\+Restore\+Debug(), v8\+::internal\+::\+Reg\+Exp\+Stack\+::\+Restore\+Stack(), v8\+::internal\+::\+Stack\+Guard\+::\+Restore\+Stack\+Guard(), v8\+::internal\+::\+Bootstrapper\+::\+Restore\+State(), v8\+::internal\+::\+Relocatable\+::\+Restore\+State(), v8\+::internal\+::\+Handle\+Scope\+Implementer\+::\+Restore\+Thread(), v8\+::internal\+::\+Isolate\+::\+Restore\+Thread(), v8\+::internal\+::\+Thread\+State\+::set\+\_\+id(), v8\+::internal\+::\+Isolate\+::stack\+\_\+guard(), and v8\+::internal\+::\+Thread\+State\+::\+Unlink().
+
+
+
+Referenced by v8\+::\+Locker\+::\+Initialize(), and v8\+::\+Unlocker\+::$\sim$\+Unlocker().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1ThreadManager_ac7d4ad5d9a21d88fc2d50f5d91a62442_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_ac7d4ad5d9a21d88fc2d50f5d91a62442_icgraph}
+\end{center}
+\end{figure}
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_ab7d0f390011373f4b036548923add1bf}\label{classv8_1_1internal_1_1ThreadManager_ab7d0f390011373f4b036548923add1bf}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!Unlock@{Unlock}}
 \index{Unlock@{Unlock}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
 \doxysubsubsection{\texorpdfstring{Unlock()}{Unlock()}}
 {\footnotesize\ttfamily void v8\+::internal\+::\+Thread\+Manager\+::\+Unlock (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 155 of file v8threads.\+cc.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{155                            \{}
+\DoxyCodeLine{156   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_a907832ffd0117d985f96c35fed866017}{mutex\_owner\_}}.store(\mbox{\hyperlink{classv8_1_1internal_1_1ThreadId_ade3e1a41d03f0f9f593c7d35c4cafa6c}{ThreadId::Invalid}}(), std::memory\_order\_relaxed);}
+\DoxyCodeLine{157   \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aea2d9af29a874fb2fc93d7c9a67dd265}{mutex\_}}.\mbox{\hyperlink{classv8_1_1base_1_1Mutex_a0289de89a03aa2eea24982385cdbc62c}{Unlock}}();}
+\DoxyCodeLine{158 \}}
+
+\end{DoxyCode}
+
+
+References v8\+::internal\+::\+Thread\+Id\+::\+Invalid(), mutex\+\_\+, mutex\+\_\+owner\+\_\+, and v8\+::base\+::\+Mutex\+::\+Unlock().
+
+
+
+Referenced by v8\+::\+Unlocker\+::\+Initialize(), v8\+::\+Shell\+::\+Quit\+Once(), and v8\+::\+Locker\+::$\sim$\+Locker().
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_ab7d0f390011373f4b036548923add1bf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classv8_1_1internal_1_1ThreadManager_ab7d0f390011373f4b036548923add1bf_icgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Friends And Related Function Documentation}
@@ -138,6 +916,10 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db67
 \doxysubsubsection{\texorpdfstring{Isolate}{Isolate}}
 {\footnotesize\ttfamily friend class \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}}\hspace{0.3cm}{\ttfamily [friend]}}
 
+
+
+Definition at line 111 of file v8threads.\+h.
+
 \mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db675bb6d4c212a2a}\label{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db675bb6d4c212a2a}} 
 \index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!ThreadState@{ThreadState}}
 \index{ThreadState@{ThreadState}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
@@ -146,7 +928,116 @@ class \mbox{\hyperlink{classv8_1_1internal_1_1ThreadManager_aa9bf73e11f97e69db67
 
 
 
+Definition at line 112 of file v8threads.\+h.
+
+
+
+Referenced by Get\+Free\+Thread\+State(), and Thread\+Manager().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_aabee6157e0bc720b3c83683c42365704}\label{classv8_1_1internal_1_1ThreadManager_aabee6157e0bc720b3c83683c42365704}} 
+\index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!free\_anchor\_@{free\_anchor\_}}
+\index{free\_anchor\_@{free\_anchor\_}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
+\doxysubsubsection{\texorpdfstring{free\_anchor\_}{free\_anchor\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1ThreadState}{Thread\+State}}$\ast$ v8\+::internal\+::\+Thread\+Manager\+::free\+\_\+anchor\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 105 of file v8threads.\+h.
+
+
+
+Referenced by Get\+Free\+Thread\+State(), v8\+::internal\+::\+Thread\+State\+::\+Link\+Into(), Thread\+Manager(), and $\sim$\+Thread\+Manager().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a67a314616958eac2054a2ecc52bce520}\label{classv8_1_1internal_1_1ThreadManager_a67a314616958eac2054a2ecc52bce520}} 
+\index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!in\_use\_anchor\_@{in\_use\_anchor\_}}
+\index{in\_use\_anchor\_@{in\_use\_anchor\_}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
+\doxysubsubsection{\texorpdfstring{in\_use\_anchor\_}{in\_use\_anchor\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1ThreadState}{Thread\+State}}$\ast$ v8\+::internal\+::\+Thread\+Manager\+::in\+\_\+use\+\_\+anchor\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 107 of file v8threads.\+h.
+
+
+
+Referenced by First\+Thread\+State\+In\+Use(), v8\+::internal\+::\+Thread\+State\+::\+Link\+Into(), v8\+::internal\+::\+Thread\+State\+::\+Next(), Thread\+Manager(), and $\sim$\+Thread\+Manager().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}\label{classv8_1_1internal_1_1ThreadManager_ac39532c111c76abb9dbd896e7122c4c1}} 
+\index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!isolate\_@{isolate\_}}
+\index{isolate\_@{isolate\_}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
+\doxysubsubsection{\texorpdfstring{isolate\_}{isolate\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}}$\ast$ v8\+::internal\+::\+Thread\+Manager\+::isolate\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 109 of file v8threads.\+h.
+
+
+
+Referenced by Archive\+Thread(), Eagerly\+Archive\+Thread(), Free\+Thread\+Resources(), Init\+Thread(), Is\+Archived(), Iterate(), Iterate\+Archived\+Threads(), and Restore\+Thread().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a12e8052beacdc1bb008ee6017e22f8e9}\label{classv8_1_1internal_1_1ThreadManager_a12e8052beacdc1bb008ee6017e22f8e9}} 
+\index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!lazily\_archived\_thread\_@{lazily\_archived\_thread\_}}
+\index{lazily\_archived\_thread\_@{lazily\_archived\_thread\_}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
+\doxysubsubsection{\texorpdfstring{lazily\_archived\_thread\_}{lazily\_archived\_thread\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1ThreadId}{Thread\+Id}} v8\+::internal\+::\+Thread\+Manager\+::lazily\+\_\+archived\+\_\+thread\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 98 of file v8threads.\+h.
+
+
+
+Referenced by Archive\+Thread(), Eagerly\+Archive\+Thread(), and Restore\+Thread().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a4ef39a6888a60ed856ab0fbab383dbcd}\label{classv8_1_1internal_1_1ThreadManager_a4ef39a6888a60ed856ab0fbab383dbcd}} 
+\index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!lazily\_archived\_thread\_state\_@{lazily\_archived\_thread\_state\_}}
+\index{lazily\_archived\_thread\_state\_@{lazily\_archived\_thread\_state\_}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
+\doxysubsubsection{\texorpdfstring{lazily\_archived\_thread\_state\_}{lazily\_archived\_thread\_state\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1ThreadState}{Thread\+State}}$\ast$ v8\+::internal\+::\+Thread\+Manager\+::lazily\+\_\+archived\+\_\+thread\+\_\+state\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 99 of file v8threads.\+h.
+
+
+
+Referenced by Archive\+Thread(), Eagerly\+Archive\+Thread(), and Restore\+Thread().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_aea2d9af29a874fb2fc93d7c9a67dd265}\label{classv8_1_1internal_1_1ThreadManager_aea2d9af29a874fb2fc93d7c9a67dd265}} 
+\index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!mutex\_@{mutex\_}}
+\index{mutex\_@{mutex\_}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
+\doxysubsubsection{\texorpdfstring{mutex\_}{mutex\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1base_1_1Mutex}{base\+::\+Mutex}} v8\+::internal\+::\+Thread\+Manager\+::mutex\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 94 of file v8threads.\+h.
+
+
+
+Referenced by Lock(), and Unlock().
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1ThreadManager_a907832ffd0117d985f96c35fed866017}\label{classv8_1_1internal_1_1ThreadManager_a907832ffd0117d985f96c35fed866017}} 
+\index{v8::internal::ThreadManager@{v8::internal::ThreadManager}!mutex\_owner\_@{mutex\_owner\_}}
+\index{mutex\_owner\_@{mutex\_owner\_}!v8::internal::ThreadManager@{v8::internal::ThreadManager}}
+\doxysubsubsection{\texorpdfstring{mutex\_owner\_}{mutex\_owner\_}}
+{\footnotesize\ttfamily std\+::atomic$<$\mbox{\hyperlink{classv8_1_1internal_1_1ThreadId}{Thread\+Id}}$>$ v8\+::internal\+::\+Thread\+Manager\+::mutex\+\_\+owner\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 97 of file v8threads.\+h.
+
+
+
+Referenced by v8\+::internal\+::\+Isolate\+::\+Discard\+Per\+Thread\+Data\+For\+This\+Thread(), Is\+Locked\+By\+Current\+Thread(), Is\+Locked\+By\+Thread(), Lock(), and Unlock().
+
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{v8threads_8h}{v8threads.\+h}}\item 
-\mbox{\hyperlink{v8threads_8cc}{v8threads.\+cc}}\end{DoxyCompactItemize}
+/mnt/\+V8\+Source\+Code/src/execution/\mbox{\hyperlink{v8threads_8h}{v8threads.\+h}}\item 
+/mnt/\+V8\+Source\+Code/src/execution/\mbox{\hyperlink{v8threads_8cc}{v8threads.\+cc}}\end{DoxyCompactItemize}

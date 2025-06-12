@@ -14,5 +14,13 @@ var structv8_1_1internal_1_1AccessorAssembler_1_1StoreICParameters =
     [ "slot", "structv8_1_1internal_1_1AccessorAssembler_1_1StoreICParameters.html#ad908577b6141b063c988ab5bebe2903f", null ],
     [ "stub_cache", "structv8_1_1internal_1_1AccessorAssembler_1_1StoreICParameters.html#a41abc80a2767c7a7c8b1bb4cf6923525", null ],
     [ "value", "structv8_1_1internal_1_1AccessorAssembler_1_1StoreICParameters.html#a2540475bd75247140d777b352ff8a45c", null ],
-    [ "vector", "structv8_1_1internal_1_1AccessorAssembler_1_1StoreICParameters.html#aa7bf40c7b1c13338b6caeb81900e940b", null ]
+    [ "vector", "structv8_1_1internal_1_1AccessorAssembler_1_1StoreICParameters.html#aa7bf40c7b1c13338b6caeb81900e940b", null ],
+    [ "context_", "structv8_1_1internal_1_1AccessorAssembler_1_1StoreICParameters.html#a7309caa8d4119ecddbe34cb51566075e", null ],
+    [ "flags_", "structv8_1_1internal_1_1AccessorAssembler_1_1StoreICParameters.html#af6f4968dd34bad8f9a899873cf7b271a", null ],
+    [ "mode_", "structv8_1_1internal_1_1AccessorAssembler_1_1StoreICParameters.html#abec9a983fdf6e48c76621f157fab0c94", null ],
+    [ "name_", "structv8_1_1internal_1_1AccessorAssembler_1_1StoreICParameters.html#a85117b5bf7d88a907b9245b33263d8ca", null ],
+    [ "receiver_", "structv8_1_1internal_1_1AccessorAssembler_1_1StoreICParameters.html#aa953c4a434631ccd856e74c9567f0f2d", null ],
+    [ "slot_", "structv8_1_1internal_1_1AccessorAssembler_1_1StoreICParameters.html#a34fa3c48b01bc77ea7b6d4a05a9b9edc", null ],
+    [ "value_", "structv8_1_1internal_1_1AccessorAssembler_1_1StoreICParameters.html#ae8f1f70bdac46b7d04911038bb5dc2ec", null ],
+    [ "vector_", "structv8_1_1internal_1_1AccessorAssembler_1_1StoreICParameters.html#a8b8fe36893a354d5400d2318f0c95f77", null ]
 ];

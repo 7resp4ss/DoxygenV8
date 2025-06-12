@@ -3,6 +3,7 @@ var classv8_1_1internal_1_1CommonFrame =
     [ "CommonFrame", "classv8_1_1internal_1_1CommonFrame.html#a012975430b13de6b116e4395bc5296a0", null ],
     [ "caller_fp", "classv8_1_1internal_1_1CommonFrame.html#a9cec98088fd27f9c99893facfeb4fde3", null ],
     [ "caller_pc", "classv8_1_1internal_1_1CommonFrame.html#ac86e05c2e9ff48f81d8674c11585e8eb", null ],
+    [ "cast", "classv8_1_1internal_1_1CommonFrame.html#a4a5e5a1ebd64324979361f152c0f8b73", null ],
     [ "ComputeCallerState", "classv8_1_1internal_1_1CommonFrame.html#a3f38ab632c665607c4fda84ec3b15d17", null ],
     [ "ComputeExpressionsCount", "classv8_1_1internal_1_1CommonFrame.html#a0e2715240096ee5be5d52c0672d2e4ec", null ],
     [ "context", "classv8_1_1internal_1_1CommonFrame.html#a17088b8b2a3614d10390d5ffcbf9b28b", null ],

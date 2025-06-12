@@ -9,5 +9,8 @@ var classv8_1_1internal_1_1EmbedderGraphImpl =
     [ "native_size", "classv8_1_1internal_1_1EmbedderGraphImpl.html#a6f31889c73d7fead9c890aebe9c2b56e", null ],
     [ "nodes", "classv8_1_1internal_1_1EmbedderGraphImpl.html#af571a48ebd332368663e187c831e222c", null ],
     [ "V8Node", "classv8_1_1internal_1_1EmbedderGraphImpl.html#a4a11435679f18e70ac7ba1ede264c53a", null ],
-    [ "V8Node", "classv8_1_1internal_1_1EmbedderGraphImpl.html#aa205df27c645b256ba9f5e8bbbb08497", null ]
+    [ "V8Node", "classv8_1_1internal_1_1EmbedderGraphImpl.html#aa205df27c645b256ba9f5e8bbbb08497", null ],
+    [ "edges_", "classv8_1_1internal_1_1EmbedderGraphImpl.html#ad5087f8126088858ec058c0d937555d2", null ],
+    [ "native_size_", "classv8_1_1internal_1_1EmbedderGraphImpl.html#adf33f48d3a06d8a47bb78d753202c529", null ],
+    [ "nodes_", "classv8_1_1internal_1_1EmbedderGraphImpl.html#a88f28fc297cd99876bf4dcf2dd260483", null ]
 ];

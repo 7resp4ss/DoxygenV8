@@ -17,5 +17,6 @@ var structv8_1_1internal_1_1compiler_1_1turboshaft_1_1Word32PairBinopOp =
     [ "PrintOptions", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1Word32PairBinopOp.html#ae43c918a4b94e53980110ad451b7daaf", null ],
     [ "right_high", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1Word32PairBinopOp.html#a8f2038367aadf1e4769034b649eb21af", null ],
     [ "right_low", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1Word32PairBinopOp.html#a3418caf9c46fba80dc56126bc2a41157", null ],
+    [ "effects", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1Word32PairBinopOp.html#a59de820c5124176bd740347449dd6d52", null ],
     [ "kind", "structv8_1_1internal_1_1compiler_1_1turboshaft_1_1Word32PairBinopOp.html#ad14b55c11ffd9d85d2963e76227aed00", null ]
 ];
