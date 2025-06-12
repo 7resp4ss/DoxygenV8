@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04  # Updated from ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
@@ -44,6 +44,6 @@ jobs:
 
           git add V8Docs/
           git commit -m "Add V8Docs for V8 version ${{ inputs.V8Version }}"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          # Use PAT for authentication
+          git push https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/7resp4ss/DoxygenV8.git HEAD:${{ github.ref_name }}
