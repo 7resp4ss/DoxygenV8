@@ -1,0 +1,803 @@
+\hypertarget{classv8_1_1internal_1_1MemoryChunk}{}\doxysection{v8\+::internal\+::Memory\+Chunk Class Reference}
+\label{classv8_1_1internal_1_1MemoryChunk}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+
+
+{\ttfamily \#include $<$memory-\/chunk.\+h$>$}
+
+
+
+Collaboration diagram for v8\+::internal\+::Memory\+Chunk\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{classv8_1_1internal_1_1MemoryChunk__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}} \+: uintptr\+\_\+t \{ \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9afff7ce1c7e70e4fe44a735b4def6d4c7}{NO\+\_\+\+FLAGS}} = 0u
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a319b3af12f37bb580c7000aece08d324}{IN\+\_\+\+WRITABLE\+\_\+\+SHARED\+\_\+\+SPACE}} = 1u $<$$<$ 0
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9af2b142e3c0d80b4f4b2cb082a3b06988}{POINTERS\+\_\+\+TO\+\_\+\+HERE\+\_\+\+ARE\+\_\+\+INTERESTING}} = 1u $<$$<$ 1
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a17af3b9a7543d3eb8051801107209d64}{POINTERS\+\_\+\+FROM\+\_\+\+HERE\+\_\+\+ARE\+\_\+\+INTERESTING}} = 1u $<$$<$ 2
+, \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a1e121aeab703fbf612470750bef84a4e}{FROM\+\_\+\+PAGE}} = 1u $<$$<$ 3
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a94f79df1c4c8cb4907268462adf9cea3}{TO\+\_\+\+PAGE}} = 1u $<$$<$ 4
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9adfd2e8892b05dd026adb270ef19925d1}{INCREMENTAL\+\_\+\+MARKING}} = 1u $<$$<$ 5
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a384284037b8cf1f00da71e273edc8f90}{READ\+\_\+\+ONLY\+\_\+\+HEAP}} = 1u $<$$<$ 6
+, \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a19233bc0b68514535a9e82c5329a2538}{IS\+\_\+\+MAJOR\+\_\+\+GC\+\_\+\+IN\+\_\+\+PROGRESS}} = 1u $<$$<$ 7
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a565eb31063bf0ce41e76e00ac3369b36}{CONTAINS\+\_\+\+ONLY\+\_\+\+OLD}} = 1u $<$$<$ 8
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a2cced78334b717b2021a1a0f8148ad48}{BLACK\+\_\+\+ALLOCATED}} = 1u $<$$<$ 9
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a51fad74cabccacca874b856b553cda2d}{LARGE\+\_\+\+PAGE}} = 1u $<$$<$ 10
+, \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9aca1f36af6a87bdc5837fec5646a83880}{EVACUATION\+\_\+\+CANDIDATE}} = 1u $<$$<$ 11
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a27d245a124c5db1e6efa65ad49c51997}{NEVER\+\_\+\+EVACUATE}} = 1u $<$$<$ 12
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a57fdc5dfe8adf74f457803f1a2c9902b}{PAGE\+\_\+\+NEW\+\_\+\+OLD\+\_\+\+PROMOTION}} = 1u $<$$<$ 13
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a9b9c83db34c98c75a25e8f82f7bc8cef}{FORCE\+\_\+\+EVACUATION\+\_\+\+CANDIDATE\+\_\+\+FOR\+\_\+\+TESTING}} = 1u $<$$<$ 14
+, \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9ac28352487d7d67f4ee7b19938e9f3156}{NEVER\+\_\+\+ALLOCATE\+\_\+\+ON\+\_\+\+PAGE}} = 1u $<$$<$ 15
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9aa96b1f4953edee20d82a9ecce9fe230a}{PRE\+\_\+\+FREED}} = 1u $<$$<$ 16
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9aa814ff590eb6370bd1b460781a510ccc}{COMPACTION\+\_\+\+WAS\+\_\+\+ABORTED}} = 1u $<$$<$ 17
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a52355ebc3f9187c7c354eab4cf842072}{NEW\+\_\+\+SPACE\+\_\+\+BELOW\+\_\+\+AGE\+\_\+\+MARK}} = 1u $<$$<$ 18
+, \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9af954c1cca10e9e0b3555e94fbb6c9e4c}{UNREGISTERED}} = 1u $<$$<$ 19
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a400f5db5164196e563fe53b6bfcdbb47}{PINNED}} = 1u $<$$<$ 20
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9adf40869b808cdb4df42933e6402fcf93}{IS\+\_\+\+EXECUTABLE}} = 1u $<$$<$ 21
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a8a4e62697e6258d1ac19282da3fcd9e9}{IS\+\_\+\+TRUSTED}} = 1u $<$$<$ 22
+, \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a0ad4434a83e99cc953d26989c7caa7d4}{IS\+\_\+\+QUARANTINED}} = 1u $<$$<$ 23
+, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a7099810f423a6ecc1cba120179227b1b}{WILL\+\_\+\+BE\+\_\+\+PROMOTED}} = 1u $<$$<$ 24
+ \}
+\item 
+using \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} = \mbox{\hyperlink{classv8_1_1base_1_1Flags}{base\+::\+Flags}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}}, uintptr\+\_\+t $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_abc1f46fee6573a3ea4a3ac81aa54d994}{Memory\+Chunk}} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}}, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunkMetadata}{Memory\+Chunk\+Metadata}} $\ast$metadata)
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a57fe9bda7525f5de6ebc2b4726d0abb4}{address}} () const
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunkMetadata}{Memory\+Chunk\+Metadata}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a646a2dccc971ad9f546e0da4a35cfbbb}{Metadata}} ()
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} const \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunkMetadata}{Memory\+Chunk\+Metadata}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a1d9e1c9ec85a068982e21306d0a7ea11}{Metadata}} () const
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a57f68506864b5c7940c2f848e3808838}{Is\+Flag\+Set}} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}} flag) const
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_ae78ca02170c58a40c9b37501337ba14c}{Is\+Marking}} () const
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a16c901edb172a72b13968b5270b0ffce}{In\+Writable\+Shared\+Space}} () const
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a9c3f0b021e3e63a2da11fa4bb4ab1cff}{In\+Young\+Generation}} () const
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a1d74a8c986cbcf403541d40e4e5333b2}{Is\+Young\+Or\+Shared\+Chunk}} () const
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8b2c01a93ef7254c13bf38f060d6c365}{Set\+Flag\+Slow}} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}} flag)
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a0398fad4cb6436a18dc1599b206c3b87}{Clear\+Flag\+Slow}} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}} flag)
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_adbe3708f89dbb12d9f117c1a39049390}{Get\+Flags}} () const
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a453b3ee3ca4885836f50f6c64edad0f0}{Set\+Flag\+Unlocked}} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}} flag)
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a71f55c4727828fa33dc2563ccbf54a63}{Clear\+Flag\+Unlocked}} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}} flag)
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_ada58bb475e28cb177bc352c3adbb6d07}{Clear\+Flags\+Unlocked}} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}})
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a742de07a90a87700806a737185130d0a}{Set\+Flags\+Unlocked}} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}}, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{machine-operator-reducer_8cc_a406af858c5259e17f9ddc64513999dac}{mask}}=\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a294b795380e0f323dac4d6fe000e98a4}{k\+All\+Flags\+Mask}})
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a42fc28f05e8d864f3b4ead87313dfe02}{Set\+Flag\+Non\+Executable}} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}} flag)
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_ab780d30242a0f296f75cb9e25dc62584}{Clear\+Flag\+Non\+Executable}} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}} flag)
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a59c873161406333090c0359f779dc666}{Set\+Flags\+Non\+Executable}} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}}, \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{machine-operator-reducer_8cc_a406af858c5259e17f9ddc64513999dac}{mask}}=\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a294b795380e0f323dac4d6fe000e98a4}{k\+All\+Flags\+Mask}})
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a978e7d9f6df8db5e1fdc32bc7be27c57}{Clear\+Flags\+Non\+Executable}} (\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{namespacev8_1_1internal_a83b0c194e63513f61999805edd71b125}{flags}})
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a426e60564a695fd7e1316522488b9304}{Set\+Major\+GCIn\+Progress}} ()
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a836285f1975768ed68b4017f53e5f341}{Reset\+Major\+GCIn\+Progress}} ()
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a32c2354a664ccf380e4a1f6f76a18d4b}{Get\+Heap}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a384c8ccf7789e451af42bee4bd7fede0}{Initialization\+Memory\+Fence}} ()
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_ac99a79cf81d068110579f35df8b72474}{In\+Read\+Only\+Space}} () const
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a9d43f8e62bb67d4caa505341f0ecea5e}{In\+Code\+Space}} () const
+\item 
+\mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a0999f2ca4cdf6f7f140367cdf5f3ec82}{In\+Trusted\+Space}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a72bc65caf0c47dc3a85f4535359b8ac1}{Never\+Evacuate}} () const
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a67bb1a9d9c61a11bc804df209743ebc0}{Mark\+Never\+Evacuate}} ()
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_ac6f69e1c360286fb6d0112508969cc39}{Can\+Allocate}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a31917793e4e1f003c57c07b8dd2422fa}{Is\+Evacuation\+Candidate}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_aab1d9e4d7cb3d99eba977b301cd1cd89}{Should\+Skip\+Evacuation\+Slot\+Recording}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a1537ade05d756212fcaac97a990b9093}{Executability}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a54ee8fbce7335c389ddaf0229e5c6858}{executable}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a21c2f9173381a161427a0c11d2a22ca5}{Is\+From\+Page}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_aebf4eb09277a5083da24d59c98974894}{Is\+To\+Page}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_af9fbfead34700f0653b0dfe65bf5d473}{Is\+Large\+Page}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_afaf7fe0fa08ae9f3b0c0d2e16b41b0a8}{In\+New\+Space}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_ac0eeb901dd2f6895ea08570cb600f562}{In\+New\+Large\+Object\+Space}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a59bec6e443b8360a946b8285aee9d887}{Is\+Pinned}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a31ae4c9bfacf2e405093066901ed743b}{Is\+Only\+Old\+Or\+Major\+Marking\+On}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_aa31db51f78d580d1ad85508aea649359}{Is\+Quarantined}} () const
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a342e6d8b8b43ce382a017f2e1c241a6a}{Set\+Old\+Generation\+Page\+Flags}} (\mbox{\hyperlink{namespacev8_1_1internal_a69e2ed67385333325e5fd6c201f7eeda}{Marking\+Mode}} marking\+\_\+mode, \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fef}{Allocation\+Space}} \mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}})
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_ae1fbf72dcc6b59b2ed56f5449ee6ee2f}{Set\+Young\+Generation\+Page\+Flags}} (\mbox{\hyperlink{namespacev8_1_1internal_a69e2ed67385333325e5fd6c201f7eeda}{Marking\+Mode}} marking\+\_\+mode)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_adf3c6667171ef8be0379e47b13b4c411}{Is\+Trusted}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a750d5345adc9f2dea8b5afdb885f3191}{Offset}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} addr) const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a4ab4e165924151bec1384a8a3000535e}{Offset\+Maybe\+Out\+Of\+Range}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} addr) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a2226c00b41dbe8e5323f8478b8d13623}{Base\+Address}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} \mbox{\hyperlink{js-call-reducer_8cc_a4665d2c07575c01062ce1cdba711d875}{a}})
+\item 
+static \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk}{Memory\+Chunk}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a326f1d44fa3a6c32d8bf089bbe095e19}{From\+Address}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} addr)
+\item 
+{\footnotesize template$<$typename Heap\+Object $>$ }\\static \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk}{Memory\+Chunk}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_ac4c2ef6adb5b5bae1b40976f080c68d9}{From\+Heap\+Object}} (\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$ object)
+\item 
+static constexpr \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a67a93da2a9c2ee9f8ef886398aa3fb8a}{Is\+Aligned}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a57fe9bda7525f5de6ebc2b4726d0abb4}{address}})
+\item 
+static \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a4c1df6c4d7670c9d8f22a6a151b4b119}{Old\+Generation\+Page\+Flags}} (\mbox{\hyperlink{namespacev8_1_1internal_a69e2ed67385333325e5fd6c201f7eeda}{Marking\+Mode}} marking\+\_\+mode, \mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fef}{Allocation\+Space}} \mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}})
+\item 
+static \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_ab8f586344a6bbf0643ab6a3cfe2a4bae}{Young\+Generation\+Page\+Flags}} (\mbox{\hyperlink{namespacev8_1_1internal_a69e2ed67385333325e5fd6c201f7eeda}{Marking\+Mode}} marking\+\_\+mode)
+\item 
+static intptr\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_af0d44b0916f6125ef0ac0c4c1dfec70e}{Get\+Alignment\+For\+Allocation}} ()
+\item 
+static constexpr intptr\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8e3dc4040e5743ae671789518ddf69c1}{Get\+Alignment\+Mask\+For\+Assembler}} ()
+\item 
+static constexpr uint32\+\_\+t \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a0a61f484dafc2ecdea485605a19bdd4e}{Address\+To\+Offset}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a57fe9bda7525f5de6ebc2b4726d0abb4}{address}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a294b795380e0f323dac4d6fe000e98a4}{k\+All\+Flags\+Mask}} = $\sim$\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9afff7ce1c7e70e4fe44a735b4def6d4c7}{NO\+\_\+\+FLAGS}})
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a2f6f940053d507c1440602d356a28930}{k\+Pointers\+To\+Here\+Are\+Interesting\+Mask}}
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a692e24a99aa7ca8fff16f1d99c74e827}{k\+Pointers\+From\+Here\+Are\+Interesting\+Mask}}
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_af6e318983fb34b1ef88bcf77b48173c6}{k\+Evacuation\+Candidate\+Mask}}
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a547e3d401d6ab47ac2d3812ec34f269f}{k\+Is\+In\+Young\+Generation\+Mask}}
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a0c954e6fec77a19d43ed19331df6fa6f}{k\+Is\+In\+Read\+Only\+Heap\+Mask}} = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a384284037b8cf1f00da71e273edc8f90}{READ\+\_\+\+ONLY\+\_\+\+HEAP}}
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_ac471efcf7c12f3bf04ff720f3d26b349}{k\+Is\+Large\+Page\+Mask}} = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a51fad74cabccacca874b856b553cda2d}{LARGE\+\_\+\+PAGE}}
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a939c71fc5ae1c6ccc8c34cd390557b0e}{k\+In\+Shared\+Heap}} = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a319b3af12f37bb580c7000aece08d324}{IN\+\_\+\+WRITABLE\+\_\+\+SHARED\+\_\+\+SPACE}}
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a34356b19fccb77d5ca3e3466a92bea61}{k\+Incremental\+Marking}} = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9adfd2e8892b05dd026adb270ef19925d1}{INCREMENTAL\+\_\+\+MARKING}}
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_ad7cf8b67542e48d44374198f4c3f32c5}{k\+Skip\+Evacuation\+Slots\+Recording\+Mask}}
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a13eb42d3fef6505fce5d9f29d9c20eb7}{k\+Is\+Only\+Old\+Or\+Major\+GCIn\+Progress\+Mask}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_ab0fdd46d6a0fd9cdf4ce8df83e1efadd}{Code\+Stub\+Assembler}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_ae605ff1d9d93250ace8a0a8b8d1dee67}{Macro\+Assembler}}
+\item 
+{\footnotesize template$<$typename Next $>$ }\\class \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a7c57fd349a058fc15566e88ad924e625}{compiler\+::turboshaft\+::\+Turboshaft\+Assembler\+Op\+Interface}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}\label{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!MainThreadFlags@{MainThreadFlags}}
+\index{MainThreadFlags@{MainThreadFlags}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{MainThreadFlags}{MainThreadFlags}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{v8\+::internal\+::\+Memory\+Chunk\+::\+Main\+Thread\+Flags}} =  \mbox{\hyperlink{classv8_1_1base_1_1Flags}{base\+::\+Flags}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}}, uintptr\+\_\+t$>$}
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!Flag@{Flag}}
+\index{Flag@{Flag}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{Flag}{Flag}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{v8\+::internal\+::\+Memory\+Chunk\+::\+Flag}} \+: uintptr\+\_\+t}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_FLAGS@{NO\_FLAGS}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!NO\_FLAGS@{NO\_FLAGS}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9afff7ce1c7e70e4fe44a735b4def6d4c7}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9afff7ce1c7e70e4fe44a735b4def6d4c7}} 
+NO\+\_\+\+FLAGS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IN\_WRITABLE\_SHARED\_SPACE@{IN\_WRITABLE\_SHARED\_SPACE}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IN\_WRITABLE\_SHARED\_SPACE@{IN\_WRITABLE\_SHARED\_SPACE}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a319b3af12f37bb580c7000aece08d324}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a319b3af12f37bb580c7000aece08d324}} 
+IN\+\_\+\+WRITABLE\+\_\+\+SHARED\+\_\+\+SPACE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{POINTERS\_TO\_HERE\_ARE\_INTERESTING@{POINTERS\_TO\_HERE\_ARE\_INTERESTING}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!POINTERS\_TO\_HERE\_ARE\_INTERESTING@{POINTERS\_TO\_HERE\_ARE\_INTERESTING}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9af2b142e3c0d80b4f4b2cb082a3b06988}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9af2b142e3c0d80b4f4b2cb082a3b06988}} 
+POINTERS\+\_\+\+TO\+\_\+\+HERE\+\_\+\+ARE\+\_\+\+INTERESTING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{POINTERS\_FROM\_HERE\_ARE\_INTERESTING@{POINTERS\_FROM\_HERE\_ARE\_INTERESTING}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!POINTERS\_FROM\_HERE\_ARE\_INTERESTING@{POINTERS\_FROM\_HERE\_ARE\_INTERESTING}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a17af3b9a7543d3eb8051801107209d64}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a17af3b9a7543d3eb8051801107209d64}} 
+POINTERS\+\_\+\+FROM\+\_\+\+HERE\+\_\+\+ARE\+\_\+\+INTERESTING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FROM\_PAGE@{FROM\_PAGE}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!FROM\_PAGE@{FROM\_PAGE}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a1e121aeab703fbf612470750bef84a4e}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a1e121aeab703fbf612470750bef84a4e}} 
+FROM\+\_\+\+PAGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TO\_PAGE@{TO\_PAGE}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!TO\_PAGE@{TO\_PAGE}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a94f79df1c4c8cb4907268462adf9cea3}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a94f79df1c4c8cb4907268462adf9cea3}} 
+TO\+\_\+\+PAGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{INCREMENTAL\_MARKING@{INCREMENTAL\_MARKING}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!INCREMENTAL\_MARKING@{INCREMENTAL\_MARKING}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9adfd2e8892b05dd026adb270ef19925d1}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9adfd2e8892b05dd026adb270ef19925d1}} 
+INCREMENTAL\+\_\+\+MARKING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{READ\_ONLY\_HEAP@{READ\_ONLY\_HEAP}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!READ\_ONLY\_HEAP@{READ\_ONLY\_HEAP}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a384284037b8cf1f00da71e273edc8f90}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a384284037b8cf1f00da71e273edc8f90}} 
+READ\+\_\+\+ONLY\+\_\+\+HEAP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IS\_MAJOR\_GC\_IN\_PROGRESS@{IS\_MAJOR\_GC\_IN\_PROGRESS}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IS\_MAJOR\_GC\_IN\_PROGRESS@{IS\_MAJOR\_GC\_IN\_PROGRESS}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a19233bc0b68514535a9e82c5329a2538}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a19233bc0b68514535a9e82c5329a2538}} 
+IS\+\_\+\+MAJOR\+\_\+\+GC\+\_\+\+IN\+\_\+\+PROGRESS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CONTAINS\_ONLY\_OLD@{CONTAINS\_ONLY\_OLD}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!CONTAINS\_ONLY\_OLD@{CONTAINS\_ONLY\_OLD}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a565eb31063bf0ce41e76e00ac3369b36}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a565eb31063bf0ce41e76e00ac3369b36}} 
+CONTAINS\+\_\+\+ONLY\+\_\+\+OLD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BLACK\_ALLOCATED@{BLACK\_ALLOCATED}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!BLACK\_ALLOCATED@{BLACK\_ALLOCATED}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a2cced78334b717b2021a1a0f8148ad48}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a2cced78334b717b2021a1a0f8148ad48}} 
+BLACK\+\_\+\+ALLOCATED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LARGE\_PAGE@{LARGE\_PAGE}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!LARGE\_PAGE@{LARGE\_PAGE}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a51fad74cabccacca874b856b553cda2d}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a51fad74cabccacca874b856b553cda2d}} 
+LARGE\+\_\+\+PAGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EVACUATION\_CANDIDATE@{EVACUATION\_CANDIDATE}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!EVACUATION\_CANDIDATE@{EVACUATION\_CANDIDATE}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9aca1f36af6a87bdc5837fec5646a83880}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9aca1f36af6a87bdc5837fec5646a83880}} 
+EVACUATION\+\_\+\+CANDIDATE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NEVER\_EVACUATE@{NEVER\_EVACUATE}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!NEVER\_EVACUATE@{NEVER\_EVACUATE}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a27d245a124c5db1e6efa65ad49c51997}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a27d245a124c5db1e6efa65ad49c51997}} 
+NEVER\+\_\+\+EVACUATE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAGE\_NEW\_OLD\_PROMOTION@{PAGE\_NEW\_OLD\_PROMOTION}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!PAGE\_NEW\_OLD\_PROMOTION@{PAGE\_NEW\_OLD\_PROMOTION}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a57fdc5dfe8adf74f457803f1a2c9902b}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a57fdc5dfe8adf74f457803f1a2c9902b}} 
+PAGE\+\_\+\+NEW\+\_\+\+OLD\+\_\+\+PROMOTION&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FORCE\_EVACUATION\_CANDIDATE\_FOR\_TESTING@{FORCE\_EVACUATION\_CANDIDATE\_FOR\_TESTING}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!FORCE\_EVACUATION\_CANDIDATE\_FOR\_TESTING@{FORCE\_EVACUATION\_CANDIDATE\_FOR\_TESTING}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a9b9c83db34c98c75a25e8f82f7bc8cef}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a9b9c83db34c98c75a25e8f82f7bc8cef}} 
+FORCE\+\_\+\+EVACUATION\+\_\+\+CANDIDATE\+\_\+\+FOR\+\_\+\+TESTING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NEVER\_ALLOCATE\_ON\_PAGE@{NEVER\_ALLOCATE\_ON\_PAGE}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!NEVER\_ALLOCATE\_ON\_PAGE@{NEVER\_ALLOCATE\_ON\_PAGE}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9ac28352487d7d67f4ee7b19938e9f3156}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9ac28352487d7d67f4ee7b19938e9f3156}} 
+NEVER\+\_\+\+ALLOCATE\+\_\+\+ON\+\_\+\+PAGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PRE\_FREED@{PRE\_FREED}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!PRE\_FREED@{PRE\_FREED}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9aa96b1f4953edee20d82a9ecce9fe230a}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9aa96b1f4953edee20d82a9ecce9fe230a}} 
+PRE\+\_\+\+FREED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{COMPACTION\_WAS\_ABORTED@{COMPACTION\_WAS\_ABORTED}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!COMPACTION\_WAS\_ABORTED@{COMPACTION\_WAS\_ABORTED}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9aa814ff590eb6370bd1b460781a510ccc}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9aa814ff590eb6370bd1b460781a510ccc}} 
+COMPACTION\+\_\+\+WAS\+\_\+\+ABORTED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NEW\_SPACE\_BELOW\_AGE\_MARK@{NEW\_SPACE\_BELOW\_AGE\_MARK}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!NEW\_SPACE\_BELOW\_AGE\_MARK@{NEW\_SPACE\_BELOW\_AGE\_MARK}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a52355ebc3f9187c7c354eab4cf842072}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a52355ebc3f9187c7c354eab4cf842072}} 
+NEW\+\_\+\+SPACE\+\_\+\+BELOW\+\_\+\+AGE\+\_\+\+MARK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UNREGISTERED@{UNREGISTERED}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!UNREGISTERED@{UNREGISTERED}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9af954c1cca10e9e0b3555e94fbb6c9e4c}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9af954c1cca10e9e0b3555e94fbb6c9e4c}} 
+UNREGISTERED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PINNED@{PINNED}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!PINNED@{PINNED}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a400f5db5164196e563fe53b6bfcdbb47}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a400f5db5164196e563fe53b6bfcdbb47}} 
+PINNED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IS\_EXECUTABLE@{IS\_EXECUTABLE}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IS\_EXECUTABLE@{IS\_EXECUTABLE}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9adf40869b808cdb4df42933e6402fcf93}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9adf40869b808cdb4df42933e6402fcf93}} 
+IS\+\_\+\+EXECUTABLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IS\_TRUSTED@{IS\_TRUSTED}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IS\_TRUSTED@{IS\_TRUSTED}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a8a4e62697e6258d1ac19282da3fcd9e9}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a8a4e62697e6258d1ac19282da3fcd9e9}} 
+IS\+\_\+\+TRUSTED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IS\_QUARANTINED@{IS\_QUARANTINED}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IS\_QUARANTINED@{IS\_QUARANTINED}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a0ad4434a83e99cc953d26989c7caa7d4}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a0ad4434a83e99cc953d26989c7caa7d4}} 
+IS\+\_\+\+QUARANTINED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WILL\_BE\_PROMOTED@{WILL\_BE\_PROMOTED}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!WILL\_BE\_PROMOTED@{WILL\_BE\_PROMOTED}}}\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a7099810f423a6ecc1cba120179227b1b}\label{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a7099810f423a6ecc1cba120179227b1b}} 
+WILL\+\_\+\+BE\+\_\+\+PROMOTED&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_abc1f46fee6573a3ea4a3ac81aa54d994}\label{classv8_1_1internal_1_1MemoryChunk_abc1f46fee6573a3ea4a3ac81aa54d994}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!MemoryChunk@{MemoryChunk}}
+\index{MemoryChunk@{MemoryChunk}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{MemoryChunk()}{MemoryChunk()}}
+{\footnotesize\ttfamily v8\+::internal\+::\+Memory\+Chunk\+::\+Memory\+Chunk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}}}]{flags,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunkMetadata}{Memory\+Chunk\+Metadata}} $\ast$}]{metadata }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a57fe9bda7525f5de6ebc2b4726d0abb4}\label{classv8_1_1internal_1_1MemoryChunk_a57fe9bda7525f5de6ebc2b4726d0abb4}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!address@{address}}
+\index{address@{address}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{address()}{address()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} v8\+::internal\+::\+Memory\+Chunk\+::address (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a0a61f484dafc2ecdea485605a19bdd4e}\label{classv8_1_1internal_1_1MemoryChunk_a0a61f484dafc2ecdea485605a19bdd4e}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!AddressToOffset@{AddressToOffset}}
+\index{AddressToOffset@{AddressToOffset}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{AddressToOffset()}{AddressToOffset()}}
+{\footnotesize\ttfamily static constexpr uint32\+\_\+t v8\+::internal\+::\+Memory\+Chunk\+::\+Address\+To\+Offset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{address }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a2226c00b41dbe8e5323f8478b8d13623}\label{classv8_1_1internal_1_1MemoryChunk_a2226c00b41dbe8e5323f8478b8d13623}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!BaseAddress@{BaseAddress}}
+\index{BaseAddress@{BaseAddress}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{BaseAddress()}{BaseAddress()}}
+{\footnotesize\ttfamily static constexpr \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}} v8\+::internal\+::\+Memory\+Chunk\+::\+Base\+Address (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_ac6f69e1c360286fb6d0112508969cc39}\label{classv8_1_1internal_1_1MemoryChunk_ac6f69e1c360286fb6d0112508969cc39}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!CanAllocate@{CanAllocate}}
+\index{CanAllocate@{CanAllocate}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{CanAllocate()}{CanAllocate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Can\+Allocate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_ab780d30242a0f296f75cb9e25dc62584}\label{classv8_1_1internal_1_1MemoryChunk_ab780d30242a0f296f75cb9e25dc62584}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!ClearFlagNonExecutable@{ClearFlagNonExecutable}}
+\index{ClearFlagNonExecutable@{ClearFlagNonExecutable}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{ClearFlagNonExecutable()}{ClearFlagNonExecutable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void v8\+::internal\+::\+Memory\+Chunk\+::\+Clear\+Flag\+Non\+Executable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}}}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a0398fad4cb6436a18dc1599b206c3b87}\label{classv8_1_1internal_1_1MemoryChunk_a0398fad4cb6436a18dc1599b206c3b87}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!ClearFlagSlow@{ClearFlagSlow}}
+\index{ClearFlagSlow@{ClearFlagSlow}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{ClearFlagSlow()}{ClearFlagSlow()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Chunk\+::\+Clear\+Flag\+Slow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}}}]{flag }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a978e7d9f6df8db5e1fdc32bc7be27c57}\label{classv8_1_1internal_1_1MemoryChunk_a978e7d9f6df8db5e1fdc32bc7be27c57}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!ClearFlagsNonExecutable@{ClearFlagsNonExecutable}}
+\index{ClearFlagsNonExecutable@{ClearFlagsNonExecutable}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{ClearFlagsNonExecutable()}{ClearFlagsNonExecutable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void v8\+::internal\+::\+Memory\+Chunk\+::\+Clear\+Flags\+Non\+Executable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}}}]{flags }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_ada58bb475e28cb177bc352c3adbb6d07}\label{classv8_1_1internal_1_1MemoryChunk_ada58bb475e28cb177bc352c3adbb6d07}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!ClearFlagsUnlocked@{ClearFlagsUnlocked}}
+\index{ClearFlagsUnlocked@{ClearFlagsUnlocked}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{ClearFlagsUnlocked()}{ClearFlagsUnlocked()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void v8\+::internal\+::\+Memory\+Chunk\+::\+Clear\+Flags\+Unlocked (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}}}]{flags }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a71f55c4727828fa33dc2563ccbf54a63}\label{classv8_1_1internal_1_1MemoryChunk_a71f55c4727828fa33dc2563ccbf54a63}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!ClearFlagUnlocked@{ClearFlagUnlocked}}
+\index{ClearFlagUnlocked@{ClearFlagUnlocked}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{ClearFlagUnlocked()}{ClearFlagUnlocked()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void v8\+::internal\+::\+Memory\+Chunk\+::\+Clear\+Flag\+Unlocked (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}}}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a54ee8fbce7335c389ddaf0229e5c6858}\label{classv8_1_1internal_1_1MemoryChunk_a54ee8fbce7335c389ddaf0229e5c6858}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!executable@{executable}}
+\index{executable@{executable}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{executable()}{executable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a1537ade05d756212fcaac97a990b9093}{Executability}} v8\+::internal\+::\+Memory\+Chunk\+::executable (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a326f1d44fa3a6c32d8bf089bbe095e19}\label{classv8_1_1internal_1_1MemoryChunk_a326f1d44fa3a6c32d8bf089bbe095e19}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!FromAddress@{FromAddress}}
+\index{FromAddress@{FromAddress}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{FromAddress()}{FromAddress()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk}{Memory\+Chunk}}$\ast$ v8\+::internal\+::\+Memory\+Chunk\+::\+From\+Address (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{addr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_ac4c2ef6adb5b5bae1b40976f080c68d9}\label{classv8_1_1internal_1_1MemoryChunk_ac4c2ef6adb5b5bae1b40976f080c68d9}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!FromHeapObject@{FromHeapObject}}
+\index{FromHeapObject@{FromHeapObject}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{FromHeapObject()}{FromHeapObject()}}
+{\footnotesize\ttfamily template$<$typename Heap\+Object $>$ \\
+static \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk}{Memory\+Chunk}}$\ast$ v8\+::internal\+::\+Memory\+Chunk\+::\+From\+Heap\+Object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Tagged}{Tagged}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1HeapObject}{Heap\+Object}} $>$}]{object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_af0d44b0916f6125ef0ac0c4c1dfec70e}\label{classv8_1_1internal_1_1MemoryChunk_af0d44b0916f6125ef0ac0c4c1dfec70e}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!GetAlignmentForAllocation@{GetAlignmentForAllocation}}
+\index{GetAlignmentForAllocation@{GetAlignmentForAllocation}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{GetAlignmentForAllocation()}{GetAlignmentForAllocation()}}
+{\footnotesize\ttfamily static intptr\+\_\+t v8\+::internal\+::\+Memory\+Chunk\+::\+Get\+Alignment\+For\+Allocation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a8e3dc4040e5743ae671789518ddf69c1}\label{classv8_1_1internal_1_1MemoryChunk_a8e3dc4040e5743ae671789518ddf69c1}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!GetAlignmentMaskForAssembler@{GetAlignmentMaskForAssembler}}
+\index{GetAlignmentMaskForAssembler@{GetAlignmentMaskForAssembler}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{GetAlignmentMaskForAssembler()}{GetAlignmentMaskForAssembler()}}
+{\footnotesize\ttfamily static constexpr intptr\+\_\+t v8\+::internal\+::\+Memory\+Chunk\+::\+Get\+Alignment\+Mask\+For\+Assembler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_adbe3708f89dbb12d9f117c1a39049390}\label{classv8_1_1internal_1_1MemoryChunk_adbe3708f89dbb12d9f117c1a39049390}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!GetFlags@{GetFlags}}
+\index{GetFlags@{GetFlags}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{GetFlags()}{GetFlags()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} v8\+::internal\+::\+Memory\+Chunk\+::\+Get\+Flags (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a32c2354a664ccf380e4a1f6f76a18d4b}\label{classv8_1_1internal_1_1MemoryChunk_a32c2354a664ccf380e4a1f6f76a18d4b}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!GetHeap@{GetHeap}}
+\index{GetHeap@{GetHeap}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{GetHeap()}{GetHeap()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Heap}{Heap}} $\ast$ v8\+::internal\+::\+Memory\+Chunk\+::\+Get\+Heap (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a9d43f8e62bb67d4caa505341f0ecea5e}\label{classv8_1_1internal_1_1MemoryChunk_a9d43f8e62bb67d4caa505341f0ecea5e}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!InCodeSpace@{InCodeSpace}}
+\index{InCodeSpace@{InCodeSpace}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{InCodeSpace()}{InCodeSpace()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+In\+Code\+Space (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a384c8ccf7789e451af42bee4bd7fede0}\label{classv8_1_1internal_1_1MemoryChunk_a384c8ccf7789e451af42bee4bd7fede0}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!InitializationMemoryFence@{InitializationMemoryFence}}
+\index{InitializationMemoryFence@{InitializationMemoryFence}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{InitializationMemoryFence()}{InitializationMemoryFence()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Chunk\+::\+Initialization\+Memory\+Fence (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_ac0eeb901dd2f6895ea08570cb600f562}\label{classv8_1_1internal_1_1MemoryChunk_ac0eeb901dd2f6895ea08570cb600f562}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!InNewLargeObjectSpace@{InNewLargeObjectSpace}}
+\index{InNewLargeObjectSpace@{InNewLargeObjectSpace}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{InNewLargeObjectSpace()}{InNewLargeObjectSpace()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+In\+New\+Large\+Object\+Space (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_afaf7fe0fa08ae9f3b0c0d2e16b41b0a8}\label{classv8_1_1internal_1_1MemoryChunk_afaf7fe0fa08ae9f3b0c0d2e16b41b0a8}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!InNewSpace@{InNewSpace}}
+\index{InNewSpace@{InNewSpace}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{InNewSpace()}{InNewSpace()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+In\+New\+Space (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_ac99a79cf81d068110579f35df8b72474}\label{classv8_1_1internal_1_1MemoryChunk_ac99a79cf81d068110579f35df8b72474}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!InReadOnlySpace@{InReadOnlySpace}}
+\index{InReadOnlySpace@{InReadOnlySpace}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{InReadOnlySpace()}{InReadOnlySpace()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+In\+Read\+Only\+Space (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a0999f2ca4cdf6f7f140367cdf5f3ec82}\label{classv8_1_1internal_1_1MemoryChunk_a0999f2ca4cdf6f7f140367cdf5f3ec82}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!InTrustedSpace@{InTrustedSpace}}
+\index{InTrustedSpace@{InTrustedSpace}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{InTrustedSpace()}{InTrustedSpace()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+In\+Trusted\+Space (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a16c901edb172a72b13968b5270b0ffce}\label{classv8_1_1internal_1_1MemoryChunk_a16c901edb172a72b13968b5270b0ffce}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!InWritableSharedSpace@{InWritableSharedSpace}}
+\index{InWritableSharedSpace@{InWritableSharedSpace}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{InWritableSharedSpace()}{InWritableSharedSpace()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+In\+Writable\+Shared\+Space (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a9c3f0b021e3e63a2da11fa4bb4ab1cff}\label{classv8_1_1internal_1_1MemoryChunk_a9c3f0b021e3e63a2da11fa4bb4ab1cff}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!InYoungGeneration@{InYoungGeneration}}
+\index{InYoungGeneration@{InYoungGeneration}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{InYoungGeneration()}{InYoungGeneration()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+In\+Young\+Generation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a67a93da2a9c2ee9f8ef886398aa3fb8a}\label{classv8_1_1internal_1_1MemoryChunk_a67a93da2a9c2ee9f8ef886398aa3fb8a}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IsAligned@{IsAligned}}
+\index{IsAligned@{IsAligned}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{IsAligned()}{IsAligned()}}
+{\footnotesize\ttfamily static constexpr \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Is\+Aligned (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{address }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a31917793e4e1f003c57c07b8dd2422fa}\label{classv8_1_1internal_1_1MemoryChunk_a31917793e4e1f003c57c07b8dd2422fa}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IsEvacuationCandidate@{IsEvacuationCandidate}}
+\index{IsEvacuationCandidate@{IsEvacuationCandidate}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{IsEvacuationCandidate()}{IsEvacuationCandidate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Is\+Evacuation\+Candidate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a57f68506864b5c7940c2f848e3808838}\label{classv8_1_1internal_1_1MemoryChunk_a57f68506864b5c7940c2f848e3808838}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IsFlagSet@{IsFlagSet}}
+\index{IsFlagSet@{IsFlagSet}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{IsFlagSet()}{IsFlagSet()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Is\+Flag\+Set (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}}}]{flag }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a21c2f9173381a161427a0c11d2a22ca5}\label{classv8_1_1internal_1_1MemoryChunk_a21c2f9173381a161427a0c11d2a22ca5}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IsFromPage@{IsFromPage}}
+\index{IsFromPage@{IsFromPage}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{IsFromPage()}{IsFromPage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Is\+From\+Page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_af9fbfead34700f0653b0dfe65bf5d473}\label{classv8_1_1internal_1_1MemoryChunk_af9fbfead34700f0653b0dfe65bf5d473}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IsLargePage@{IsLargePage}}
+\index{IsLargePage@{IsLargePage}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{IsLargePage()}{IsLargePage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Is\+Large\+Page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_ae78ca02170c58a40c9b37501337ba14c}\label{classv8_1_1internal_1_1MemoryChunk_ae78ca02170c58a40c9b37501337ba14c}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IsMarking@{IsMarking}}
+\index{IsMarking@{IsMarking}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{IsMarking()}{IsMarking()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Is\+Marking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a31ae4c9bfacf2e405093066901ed743b}\label{classv8_1_1internal_1_1MemoryChunk_a31ae4c9bfacf2e405093066901ed743b}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IsOnlyOldOrMajorMarkingOn@{IsOnlyOldOrMajorMarkingOn}}
+\index{IsOnlyOldOrMajorMarkingOn@{IsOnlyOldOrMajorMarkingOn}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{IsOnlyOldOrMajorMarkingOn()}{IsOnlyOldOrMajorMarkingOn()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Is\+Only\+Old\+Or\+Major\+Marking\+On (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a59bec6e443b8360a946b8285aee9d887}\label{classv8_1_1internal_1_1MemoryChunk_a59bec6e443b8360a946b8285aee9d887}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IsPinned@{IsPinned}}
+\index{IsPinned@{IsPinned}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{IsPinned()}{IsPinned()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Is\+Pinned (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_aa31db51f78d580d1ad85508aea649359}\label{classv8_1_1internal_1_1MemoryChunk_aa31db51f78d580d1ad85508aea649359}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IsQuarantined@{IsQuarantined}}
+\index{IsQuarantined@{IsQuarantined}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{IsQuarantined()}{IsQuarantined()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Is\+Quarantined (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_aebf4eb09277a5083da24d59c98974894}\label{classv8_1_1internal_1_1MemoryChunk_aebf4eb09277a5083da24d59c98974894}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IsToPage@{IsToPage}}
+\index{IsToPage@{IsToPage}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{IsToPage()}{IsToPage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Is\+To\+Page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_adf3c6667171ef8be0379e47b13b4c411}\label{classv8_1_1internal_1_1MemoryChunk_adf3c6667171ef8be0379e47b13b4c411}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IsTrusted@{IsTrusted}}
+\index{IsTrusted@{IsTrusted}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{IsTrusted()}{IsTrusted()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Is\+Trusted (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a1d74a8c986cbcf403541d40e4e5333b2}\label{classv8_1_1internal_1_1MemoryChunk_a1d74a8c986cbcf403541d40e4e5333b2}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!IsYoungOrSharedChunk@{IsYoungOrSharedChunk}}
+\index{IsYoungOrSharedChunk@{IsYoungOrSharedChunk}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{IsYoungOrSharedChunk()}{IsYoungOrSharedChunk()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Is\+Young\+Or\+Shared\+Chunk (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a67bb1a9d9c61a11bc804df209743ebc0}\label{classv8_1_1internal_1_1MemoryChunk_a67bb1a9d9c61a11bc804df209743ebc0}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!MarkNeverEvacuate@{MarkNeverEvacuate}}
+\index{MarkNeverEvacuate@{MarkNeverEvacuate}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{MarkNeverEvacuate()}{MarkNeverEvacuate()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Chunk\+::\+Mark\+Never\+Evacuate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a646a2dccc971ad9f546e0da4a35cfbbb}\label{classv8_1_1internal_1_1MemoryChunk_a646a2dccc971ad9f546e0da4a35cfbbb}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!Metadata@{Metadata}}
+\index{Metadata@{Metadata}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{Metadata()}{Metadata()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunkMetadata}{Memory\+Chunk\+Metadata}} $\ast$ v8\+::internal\+::\+Memory\+Chunk\+::\+Metadata (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a1d9e1c9ec85a068982e21306d0a7ea11}\label{classv8_1_1internal_1_1MemoryChunk_a1d9e1c9ec85a068982e21306d0a7ea11}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!Metadata@{Metadata}}
+\index{Metadata@{Metadata}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{Metadata()}{Metadata()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunkMetadata}{Memory\+Chunk\+Metadata}} $\ast$ v8\+::internal\+::\+Memory\+Chunk\+::\+Metadata (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a72bc65caf0c47dc3a85f4535359b8ac1}\label{classv8_1_1internal_1_1MemoryChunk_a72bc65caf0c47dc3a85f4535359b8ac1}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!NeverEvacuate@{NeverEvacuate}}
+\index{NeverEvacuate@{NeverEvacuate}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{NeverEvacuate()}{NeverEvacuate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Never\+Evacuate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a750d5345adc9f2dea8b5afdb885f3191}\label{classv8_1_1internal_1_1MemoryChunk_a750d5345adc9f2dea8b5afdb885f3191}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!Offset@{Offset}}
+\index{Offset@{Offset}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{Offset()}{Offset()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Memory\+Chunk\+::\+Offset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{addr }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a4ab4e165924151bec1384a8a3000535e}\label{classv8_1_1internal_1_1MemoryChunk_a4ab4e165924151bec1384a8a3000535e}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!OffsetMaybeOutOfRange@{OffsetMaybeOutOfRange}}
+\index{OffsetMaybeOutOfRange@{OffsetMaybeOutOfRange}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{OffsetMaybeOutOfRange()}{OffsetMaybeOutOfRange()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4725962ca3c127eb5871cb47293aee95}{size\+\_\+t}} v8\+::internal\+::\+Memory\+Chunk\+::\+Offset\+Maybe\+Out\+Of\+Range (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{Address}}}]{addr }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a4c1df6c4d7670c9d8f22a6a151b4b119}\label{classv8_1_1internal_1_1MemoryChunk_a4c1df6c4d7670c9d8f22a6a151b4b119}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!OldGenerationPageFlags@{OldGenerationPageFlags}}
+\index{OldGenerationPageFlags@{OldGenerationPageFlags}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{OldGenerationPageFlags()}{OldGenerationPageFlags()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Memory\+Chunk\+::\+Main\+Thread\+Flags}} v8\+::internal\+::\+Memory\+Chunk\+::\+Old\+Generation\+Page\+Flags (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a69e2ed67385333325e5fd6c201f7eeda}{Marking\+Mode}}}]{marking\+\_\+mode,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fef}{Allocation\+Space}}}]{space }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a836285f1975768ed68b4017f53e5f341}\label{classv8_1_1internal_1_1MemoryChunk_a836285f1975768ed68b4017f53e5f341}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!ResetMajorGCInProgress@{ResetMajorGCInProgress}}
+\index{ResetMajorGCInProgress@{ResetMajorGCInProgress}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{ResetMajorGCInProgress()}{ResetMajorGCInProgress()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void v8\+::internal\+::\+Memory\+Chunk\+::\+Reset\+Major\+GCIn\+Progress (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a42fc28f05e8d864f3b4ead87313dfe02}\label{classv8_1_1internal_1_1MemoryChunk_a42fc28f05e8d864f3b4ead87313dfe02}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!SetFlagNonExecutable@{SetFlagNonExecutable}}
+\index{SetFlagNonExecutable@{SetFlagNonExecutable}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{SetFlagNonExecutable()}{SetFlagNonExecutable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void v8\+::internal\+::\+Memory\+Chunk\+::\+Set\+Flag\+Non\+Executable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}}}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a8b2c01a93ef7254c13bf38f060d6c365}\label{classv8_1_1internal_1_1MemoryChunk_a8b2c01a93ef7254c13bf38f060d6c365}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!SetFlagSlow@{SetFlagSlow}}
+\index{SetFlagSlow@{SetFlagSlow}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{SetFlagSlow()}{SetFlagSlow()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Chunk\+::\+Set\+Flag\+Slow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}}}]{flag }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a59c873161406333090c0359f779dc666}\label{classv8_1_1internal_1_1MemoryChunk_a59c873161406333090c0359f779dc666}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!SetFlagsNonExecutable@{SetFlagsNonExecutable}}
+\index{SetFlagsNonExecutable@{SetFlagsNonExecutable}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{SetFlagsNonExecutable()}{SetFlagsNonExecutable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void v8\+::internal\+::\+Memory\+Chunk\+::\+Set\+Flags\+Non\+Executable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}}}]{flags,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}}}]{mask = {\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a294b795380e0f323dac4d6fe000e98a4}{k\+All\+Flags\+Mask}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a742de07a90a87700806a737185130d0a}\label{classv8_1_1internal_1_1MemoryChunk_a742de07a90a87700806a737185130d0a}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!SetFlagsUnlocked@{SetFlagsUnlocked}}
+\index{SetFlagsUnlocked@{SetFlagsUnlocked}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{SetFlagsUnlocked()}{SetFlagsUnlocked()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void v8\+::internal\+::\+Memory\+Chunk\+::\+Set\+Flags\+Unlocked (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}}}]{flags,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}}}]{mask = {\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a294b795380e0f323dac4d6fe000e98a4}{k\+All\+Flags\+Mask}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a453b3ee3ca4885836f50f6c64edad0f0}\label{classv8_1_1internal_1_1MemoryChunk_a453b3ee3ca4885836f50f6c64edad0f0}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!SetFlagUnlocked@{SetFlagUnlocked}}
+\index{SetFlagUnlocked@{SetFlagUnlocked}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{SetFlagUnlocked()}{SetFlagUnlocked()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void v8\+::internal\+::\+Memory\+Chunk\+::\+Set\+Flag\+Unlocked (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9}{Flag}}}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a426e60564a695fd7e1316522488b9304}\label{classv8_1_1internal_1_1MemoryChunk_a426e60564a695fd7e1316522488b9304}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!SetMajorGCInProgress@{SetMajorGCInProgress}}
+\index{SetMajorGCInProgress@{SetMajorGCInProgress}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{SetMajorGCInProgress()}{SetMajorGCInProgress()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a24a5c8b6c341efc8dc6de3e6d0d73a50}{V8\+\_\+\+INLINE}} void v8\+::internal\+::\+Memory\+Chunk\+::\+Set\+Major\+GCIn\+Progress (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a342e6d8b8b43ce382a017f2e1c241a6a}\label{classv8_1_1internal_1_1MemoryChunk_a342e6d8b8b43ce382a017f2e1c241a6a}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!SetOldGenerationPageFlags@{SetOldGenerationPageFlags}}
+\index{SetOldGenerationPageFlags@{SetOldGenerationPageFlags}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{SetOldGenerationPageFlags()}{SetOldGenerationPageFlags()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Chunk\+::\+Set\+Old\+Generation\+Page\+Flags (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a69e2ed67385333325e5fd6c201f7eeda}{Marking\+Mode}}}]{marking\+\_\+mode,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_aa131d4fd9972fd8dfbec01a9243d9fef}{Allocation\+Space}}}]{space }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_ae1fbf72dcc6b59b2ed56f5449ee6ee2f}\label{classv8_1_1internal_1_1MemoryChunk_ae1fbf72dcc6b59b2ed56f5449ee6ee2f}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!SetYoungGenerationPageFlags@{SetYoungGenerationPageFlags}}
+\index{SetYoungGenerationPageFlags@{SetYoungGenerationPageFlags}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{SetYoungGenerationPageFlags()}{SetYoungGenerationPageFlags()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Memory\+Chunk\+::\+Set\+Young\+Generation\+Page\+Flags (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a69e2ed67385333325e5fd6c201f7eeda}{Marking\+Mode}}}]{marking\+\_\+mode }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_aab1d9e4d7cb3d99eba977b301cd1cd89}\label{classv8_1_1internal_1_1MemoryChunk_aab1d9e4d7cb3d99eba977b301cd1cd89}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!ShouldSkipEvacuationSlotRecording@{ShouldSkipEvacuationSlotRecording}}
+\index{ShouldSkipEvacuationSlotRecording@{ShouldSkipEvacuationSlotRecording}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{ShouldSkipEvacuationSlotRecording()}{ShouldSkipEvacuationSlotRecording()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::\+Memory\+Chunk\+::\+Should\+Skip\+Evacuation\+Slot\+Recording (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_ab8f586344a6bbf0643ab6a3cfe2a4bae}\label{classv8_1_1internal_1_1MemoryChunk_ab8f586344a6bbf0643ab6a3cfe2a4bae}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!YoungGenerationPageFlags@{YoungGenerationPageFlags}}
+\index{YoungGenerationPageFlags@{YoungGenerationPageFlags}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{YoungGenerationPageFlags()}{YoungGenerationPageFlags()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Memory\+Chunk\+::\+Main\+Thread\+Flags}} v8\+::internal\+::\+Memory\+Chunk\+::\+Young\+Generation\+Page\+Flags (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a69e2ed67385333325e5fd6c201f7eeda}{Marking\+Mode}}}]{marking\+\_\+mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_ab0fdd46d6a0fd9cdf4ce8df83e1efadd}\label{classv8_1_1internal_1_1MemoryChunk_ab0fdd46d6a0fd9cdf4ce8df83e1efadd}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!CodeStubAssembler@{CodeStubAssembler}}
+\index{CodeStubAssembler@{CodeStubAssembler}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{CodeStubAssembler}{CodeStubAssembler}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{classv8_1_1internal_1_1CodeStubAssembler}{Code\+Stub\+Assembler}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a7c57fd349a058fc15566e88ad924e625}\label{classv8_1_1internal_1_1MemoryChunk_a7c57fd349a058fc15566e88ad924e625}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!compiler::turboshaft::TurboshaftAssemblerOpInterface@{compiler::turboshaft::TurboshaftAssemblerOpInterface}}
+\index{compiler::turboshaft::TurboshaftAssemblerOpInterface@{compiler::turboshaft::TurboshaftAssemblerOpInterface}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{compiler::turboshaft::TurboshaftAssemblerOpInterface}{compiler::turboshaft::TurboshaftAssemblerOpInterface}}
+{\footnotesize\ttfamily template$<$typename Next $>$ \\
+friend class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1TurboshaftAssemblerOpInterface}{compiler\+::turboshaft\+::\+Turboshaft\+Assembler\+Op\+Interface}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_ae605ff1d9d93250ace8a0a8b8d1dee67}\label{classv8_1_1internal_1_1MemoryChunk_ae605ff1d9d93250ace8a0a8b8d1dee67}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!MacroAssembler@{MacroAssembler}}
+\index{MacroAssembler@{MacroAssembler}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{MacroAssembler}{MacroAssembler}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{classv8_1_1internal_1_1MacroAssembler}{Macro\+Assembler}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a294b795380e0f323dac4d6fe000e98a4}\label{classv8_1_1internal_1_1MemoryChunk_a294b795380e0f323dac4d6fe000e98a4}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!kAllFlagsMask@{kAllFlagsMask}}
+\index{kAllFlagsMask@{kAllFlagsMask}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{kAllFlagsMask}{kAllFlagsMask}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Memory\+Chunk\+::\+Main\+Thread\+Flags}} v8\+::internal\+::\+Memory\+Chunk\+::k\+All\+Flags\+Mask = $\sim$\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9afff7ce1c7e70e4fe44a735b4def6d4c7}{NO\+\_\+\+FLAGS}})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_af6e318983fb34b1ef88bcf77b48173c6}\label{classv8_1_1internal_1_1MemoryChunk_af6e318983fb34b1ef88bcf77b48173c6}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!kEvacuationCandidateMask@{kEvacuationCandidateMask}}
+\index{kEvacuationCandidateMask@{kEvacuationCandidateMask}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{kEvacuationCandidateMask}{kEvacuationCandidateMask}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Memory\+Chunk\+::\+Main\+Thread\+Flags}} v8\+::internal\+::\+Memory\+Chunk\+::k\+Evacuation\+Candidate\+Mask\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9aca1f36af6a87bdc5837fec5646a83880}{EVACUATION\_CANDIDATE}}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a34356b19fccb77d5ca3e3466a92bea61}\label{classv8_1_1internal_1_1MemoryChunk_a34356b19fccb77d5ca3e3466a92bea61}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!kIncrementalMarking@{kIncrementalMarking}}
+\index{kIncrementalMarking@{kIncrementalMarking}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{kIncrementalMarking}{kIncrementalMarking}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} v8\+::internal\+::\+Memory\+Chunk\+::k\+Incremental\+Marking = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9adfd2e8892b05dd026adb270ef19925d1}{INCREMENTAL\+\_\+\+MARKING}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a939c71fc5ae1c6ccc8c34cd390557b0e}\label{classv8_1_1internal_1_1MemoryChunk_a939c71fc5ae1c6ccc8c34cd390557b0e}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!kInSharedHeap@{kInSharedHeap}}
+\index{kInSharedHeap@{kInSharedHeap}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{kInSharedHeap}{kInSharedHeap}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} v8\+::internal\+::\+Memory\+Chunk\+::k\+In\+Shared\+Heap = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a319b3af12f37bb580c7000aece08d324}{IN\+\_\+\+WRITABLE\+\_\+\+SHARED\+\_\+\+SPACE}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a0c954e6fec77a19d43ed19331df6fa6f}\label{classv8_1_1internal_1_1MemoryChunk_a0c954e6fec77a19d43ed19331df6fa6f}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!kIsInReadOnlyHeapMask@{kIsInReadOnlyHeapMask}}
+\index{kIsInReadOnlyHeapMask@{kIsInReadOnlyHeapMask}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{kIsInReadOnlyHeapMask}{kIsInReadOnlyHeapMask}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} v8\+::internal\+::\+Memory\+Chunk\+::k\+Is\+In\+Read\+Only\+Heap\+Mask = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a384284037b8cf1f00da71e273edc8f90}{READ\+\_\+\+ONLY\+\_\+\+HEAP}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a547e3d401d6ab47ac2d3812ec34f269f}\label{classv8_1_1internal_1_1MemoryChunk_a547e3d401d6ab47ac2d3812ec34f269f}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!kIsInYoungGenerationMask@{kIsInYoungGenerationMask}}
+\index{kIsInYoungGenerationMask@{kIsInYoungGenerationMask}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{kIsInYoungGenerationMask}{kIsInYoungGenerationMask}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Memory\+Chunk\+::\+Main\+Thread\+Flags}} v8\+::internal\+::\+Memory\+Chunk\+::k\+Is\+In\+Young\+Generation\+Mask\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{MainThreadFlags}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a1e121aeab703fbf612470750bef84a4e}{FROM\_PAGE}}) | \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{MainThreadFlags}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a94f79df1c4c8cb4907268462adf9cea3}{TO\_PAGE}})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_ac471efcf7c12f3bf04ff720f3d26b349}\label{classv8_1_1internal_1_1MemoryChunk_ac471efcf7c12f3bf04ff720f3d26b349}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!kIsLargePageMask@{kIsLargePageMask}}
+\index{kIsLargePageMask@{kIsLargePageMask}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{kIsLargePageMask}{kIsLargePageMask}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Memory\+Chunk\+::\+Main\+Thread\+Flags}} v8\+::internal\+::\+Memory\+Chunk\+::k\+Is\+Large\+Page\+Mask = \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a51fad74cabccacca874b856b553cda2d}{LARGE\+\_\+\+PAGE}}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a13eb42d3fef6505fce5d9f29d9c20eb7}\label{classv8_1_1internal_1_1MemoryChunk_a13eb42d3fef6505fce5d9f29d9c20eb7}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!kIsOnlyOldOrMajorGCInProgressMask@{kIsOnlyOldOrMajorGCInProgressMask}}
+\index{kIsOnlyOldOrMajorGCInProgressMask@{kIsOnlyOldOrMajorGCInProgressMask}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{kIsOnlyOldOrMajorGCInProgressMask}{kIsOnlyOldOrMajorGCInProgressMask}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Main\+Thread\+Flags}} v8\+::internal\+::\+Memory\+Chunk\+::k\+Is\+Only\+Old\+Or\+Major\+GCIn\+Progress\+Mask\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{MainThreadFlags}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a565eb31063bf0ce41e76e00ac3369b36}{CONTAINS\_ONLY\_OLD}}) |}
+\DoxyCodeLine{      \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{MainThreadFlags}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a19233bc0b68514535a9e82c5329a2538}{IS\_MAJOR\_GC\_IN\_PROGRESS}})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a692e24a99aa7ca8fff16f1d99c74e827}\label{classv8_1_1internal_1_1MemoryChunk_a692e24a99aa7ca8fff16f1d99c74e827}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!kPointersFromHereAreInterestingMask@{kPointersFromHereAreInterestingMask}}
+\index{kPointersFromHereAreInterestingMask@{kPointersFromHereAreInterestingMask}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{kPointersFromHereAreInterestingMask}{kPointersFromHereAreInterestingMask}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Memory\+Chunk\+::\+Main\+Thread\+Flags}} v8\+::internal\+::\+Memory\+Chunk\+::k\+Pointers\+From\+Here\+Are\+Interesting\+Mask\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9a17af3b9a7543d3eb8051801107209d64}{POINTERS\_FROM\_HERE\_ARE\_INTERESTING}}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_a2f6f940053d507c1440602d356a28930}\label{classv8_1_1internal_1_1MemoryChunk_a2f6f940053d507c1440602d356a28930}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!kPointersToHereAreInterestingMask@{kPointersToHereAreInterestingMask}}
+\index{kPointersToHereAreInterestingMask@{kPointersToHereAreInterestingMask}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{kPointersToHereAreInterestingMask}{kPointersToHereAreInterestingMask}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Memory\+Chunk\+::\+Main\+Thread\+Flags}} v8\+::internal\+::\+Memory\+Chunk\+::k\+Pointers\+To\+Here\+Are\+Interesting\+Mask\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a3aacf1e5a45f3a0e3728850e6698cdf9af2b142e3c0d80b4f4b2cb082a3b06988}{POINTERS\_TO\_HERE\_ARE\_INTERESTING}}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classv8_1_1internal_1_1MemoryChunk_ad7cf8b67542e48d44374198f4c3f32c5}\label{classv8_1_1internal_1_1MemoryChunk_ad7cf8b67542e48d44374198f4c3f32c5}} 
+\index{v8::internal::MemoryChunk@{v8::internal::MemoryChunk}!kSkipEvacuationSlotsRecordingMask@{kSkipEvacuationSlotsRecordingMask}}
+\index{kSkipEvacuationSlotsRecordingMask@{kSkipEvacuationSlotsRecordingMask}!v8::internal::MemoryChunk@{v8::internal::MemoryChunk}}
+\doxysubsubsection{\texorpdfstring{kSkipEvacuationSlotsRecordingMask}{kSkipEvacuationSlotsRecordingMask}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{Memory\+Chunk\+::\+Main\+Thread\+Flags}} v8\+::internal\+::\+Memory\+Chunk\+::k\+Skip\+Evacuation\+Slots\+Recording\+Mask\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{MainThreadFlags}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_af6e318983fb34b1ef88bcf77b48173c6}{kEvacuationCandidateMask}}) |}
+\DoxyCodeLine{      \mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a8d297c24f3c92e41800f5e2f5cbfd638}{MainThreadFlags}}(\mbox{\hyperlink{classv8_1_1internal_1_1MemoryChunk_a547e3d401d6ab47ac2d3812ec34f269f}{kIsInYoungGenerationMask}})}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{memory-chunk_8h}{memory-\/chunk.\+h}}\item 
+\mbox{\hyperlink{memory-chunk-inl_8h}{memory-\/chunk-\/inl.\+h}}\item 
+\mbox{\hyperlink{memory-chunk_8cc}{memory-\/chunk.\+cc}}\end{DoxyCompactItemize}

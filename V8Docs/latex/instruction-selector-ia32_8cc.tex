@@ -1,0 +1,487 @@
+\hypertarget{instruction-selector-ia32_8cc}{}\doxysection{instruction-\/selector-\/ia32.cc File Reference}
+\label{instruction-selector-ia32_8cc}\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}src/base/bits.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/iterator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/macros.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/cpu-\/features.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/ia32/assembler-\/ia32.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/ia32/register-\/ia32.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/machine-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/macro-\/assembler-\/base.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/instruction-\/codes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/instruction-\/selector-\/impl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/instruction-\/selector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/instruction.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/frame.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/linkage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/opmasks.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/write-\/barrier-\/kind.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/zone/zone-\/containers.\+h\char`\"{}}\newline
+Include dependency graph for instruction-\/selector-\/ia32.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{instruction-selector-ia32_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1IA32OperandGenerator}{v8\+::internal\+::compiler\+::\+IA32\+Operand\+Generator}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_a8873bc0eeecb2a6ffb1522e21dc76b4b}{RO\+\_\+\+OP\+\_\+\+T\+\_\+\+LIST}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_ac4b2d5b27ad8354dd4c521506e20aa42}{RO\+\_\+\+WITH\+\_\+\+TEMP\+\_\+\+OP\+\_\+\+T\+\_\+\+LIST}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})~\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}}(Change\+Uint32\+To\+Float64, k\+IA32\+Uint32\+To\+Float64)
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_a2e2bd748493c2bafd4070aafd80b5c30}{RO\+\_\+\+WITH\+\_\+\+TEMP\+\_\+\+SIMD\+\_\+\+OP\+\_\+\+T\+\_\+\+LIST}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_a605418f53ef027c986a94eeda177aae6}{RR\+\_\+\+OP\+\_\+\+T\+\_\+\+LIST}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_a88a2e9caea8ac1fcf71c9d690536fa7d}{RRO\+\_\+\+FLOAT\+\_\+\+OP\+\_\+\+T\+\_\+\+LIST}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_ab51d5b52403d60cb0953d2b653522695}{FLOAT\+\_\+\+UNOP\+\_\+\+T\+\_\+\+LIST}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_a0130c926244f2eea7c0bf572582832f5}{RO\+\_\+\+VISITOR}}(Name,  opcode)
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_a7563d16a7000a20851552b7baef2a2b2}{RO\+\_\+\+WITH\+\_\+\+TEMP\+\_\+\+VISITOR}}(Name,  opcode)
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_abed5a0eb6dcbec9aedaf520c43bf8f0c}{RO\+\_\+\+WITH\+\_\+\+TEMP\+\_\+\+SIMD\+\_\+\+VISITOR}}(Name,  opcode)
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_a76d8fc53ce294ceaac52e5bd5b91f693}{RR\+\_\+\+VISITOR}}(Name,  opcode)
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_aa1005aaf3b57342f9262ed97cb58f804}{RRO\+\_\+\+FLOAT\+\_\+\+VISITOR}}(Name,  opcode)
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_a9ac40ea8aff616d37ae37f88f27033e6}{FLOAT\+\_\+\+UNOP\+\_\+\+VISITOR}}(Name,  opcode)
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_ab1e1f919fbb5c4aba05afa70f0d3bbc8}{VISIT\+\_\+\+ATOMIC\+\_\+\+BINOP}}(op)
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_a061d45e52d770e0174accdbb6ddab0f8}{SIMD\+\_\+\+INT\+\_\+\+TYPES}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_a5c39b53f864d3c06fbd329cb55a487f2}{SIMD\+\_\+\+BINOP\+\_\+\+LIST}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_adc481834fedc6c505e0d9a435735870f}{SIMD\+\_\+\+BINOP\+\_\+\+UNIFIED\+\_\+\+SSE\+\_\+\+AVX\+\_\+\+LIST}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_a1c7d5d9f25e8a288afc805bf90c9a3d8}{SIMD\+\_\+\+BINOP\+\_\+\+RRR}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_a1528a0fe5de5116a019a1bdcca5b26fe}{SIMD\+\_\+\+UNOP\+\_\+\+LIST}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_ac68cf584a51bcf29e7046f483cfcab81}{SIMD\+\_\+\+ALLTRUE\+\_\+\+LIST}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{instruction-selector-ia32_8cc_a334418cc9c9867ff7ccd0abd654c9a3e}{SIMD\+\_\+\+SHIFT\+\_\+\+OPCODES\+\_\+\+UNIFED\+\_\+\+SSE\+\_\+\+AVX}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_aa575665b4e63a34fd7df739e893a48ec}{v8\+::internal\+::compiler\+::\+Visit\+Word32\+Pair\+Shift}} (Instruction\+Selector $\ast$selector, Instruction\+Code opcode, Op\+Index \mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}})
+\item 
+Atomic\+Memory\+Order \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a750081563be04720e3ad25f3c1175ffa}{v8\+::internal\+::compiler\+::\+Atomic\+Order}} (Instruction\+Selector $\ast$selector, Op\+Index \mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}})
+\item 
+Machine\+Type \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e761e2793ba7d8e527cd4bfbe0f2ed0}{v8\+::internal\+::compiler\+::\+Atomic\+Op\+Type}} (Instruction\+Selector $\ast$selector, Op\+Index \mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_ab51d5b52403d60cb0953d2b653522695}\label{instruction-selector-ia32_8cc_ab51d5b52403d60cb0953d2b653522695}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!FLOAT\_UNOP\_T\_LIST@{FLOAT\_UNOP\_T\_LIST}}
+\index{FLOAT\_UNOP\_T\_LIST@{FLOAT\_UNOP\_T\_LIST}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{FLOAT\_UNOP\_T\_LIST}{FLOAT\_UNOP\_T\_LIST}}
+{\footnotesize\ttfamily \#define FLOAT\+\_\+\+UNOP\+\_\+\+T\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(Float32Abs, kFloat32Abs)        \(\backslash\)}
+\DoxyCodeLine{  V(Float64Abs, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_1_1Opmask_a5b0b88303773784c2641e1dc0ccf6ae0}{kFloat64Abs}})        \(\backslash\)}
+\DoxyCodeLine{  V(Float32Neg, kFloat32Neg)        \(\backslash\)}
+\DoxyCodeLine{  V(Float64Neg, kFloat64Neg)        \(\backslash\)}
+\DoxyCodeLine{  IF\_WASM(\mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}, F32x4Abs, kFloat32Abs) \(\backslash\)}
+\DoxyCodeLine{  IF\_WASM(\mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}, F32x4Neg, kFloat32Neg) \(\backslash\)}
+\DoxyCodeLine{  IF\_WASM(\mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}, F64x2Abs, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_1_1Opmask_a5b0b88303773784c2641e1dc0ccf6ae0}{kFloat64Abs}}) \(\backslash\)}
+\DoxyCodeLine{  IF\_WASM(\mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}, F64x2Neg, kFloat64Neg)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a9ac40ea8aff616d37ae37f88f27033e6}\label{instruction-selector-ia32_8cc_a9ac40ea8aff616d37ae37f88f27033e6}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!FLOAT\_UNOP\_VISITOR@{FLOAT\_UNOP\_VISITOR}}
+\index{FLOAT\_UNOP\_VISITOR@{FLOAT\_UNOP\_VISITOR}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{FLOAT\_UNOP\_VISITOR}{FLOAT\_UNOP\_VISITOR}}
+{\footnotesize\ttfamily \#define FLOAT\+\_\+\+UNOP\+\_\+\+VISITOR(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{opcode }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} InstructionSelector::Visit\#\#Name(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}) \{     \(\backslash\)}
+\DoxyCodeLine{    DCHECK\_EQ(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a2b5e79bd829824237e784a6cde29309e}{Get}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}).\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_1_1detail_abd60a8b46c2025b9a5ad36b9d1ed9c92}{input\_count}}, 1);                    \(\backslash\)}
+\DoxyCodeLine{    VisitFloatUnop(\textcolor{keyword}{this}, \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a2b5e79bd829824237e784a6cde29309e}{Get}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}).input(0), opcode); \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a8873bc0eeecb2a6ffb1522e21dc76b4b}\label{instruction-selector-ia32_8cc_a8873bc0eeecb2a6ffb1522e21dc76b4b}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!RO\_OP\_T\_LIST@{RO\_OP\_T\_LIST}}
+\index{RO\_OP\_T\_LIST@{RO\_OP\_T\_LIST}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{RO\_OP\_T\_LIST}{RO\_OP\_T\_LIST}}
+{\footnotesize\ttfamily \#define RO\+\_\+\+OP\+\_\+\+T\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(Float32Sqrt, kIA32Float32Sqrt)                           \(\backslash\)}
+\DoxyCodeLine{  V(Float64Sqrt, kIA32Float64Sqrt)                           \(\backslash\)}
+\DoxyCodeLine{  V(ChangeInt32ToFloat64, kSSEInt32ToFloat64)                \(\backslash\)}
+\DoxyCodeLine{  V(TruncateFloat32ToInt32, kIA32Float32ToInt32)             \(\backslash\)}
+\DoxyCodeLine{  V(TruncateFloat64ToFloat32, kIA32Float64ToFloat32)         \(\backslash\)}
+\DoxyCodeLine{  V(BitcastFloat32ToInt32, kIA32BitcastFI)                   \(\backslash\)}
+\DoxyCodeLine{  V(BitcastInt32ToFloat32, kIA32BitcastIF)                   \(\backslash\)}
+\DoxyCodeLine{  V(Float64ExtractLowWord32, kIA32Float64ExtractLowWord32)   \(\backslash\)}
+\DoxyCodeLine{  V(Float64ExtractHighWord32, kIA32Float64ExtractHighWord32) \(\backslash\)}
+\DoxyCodeLine{  V(ChangeFloat64ToInt32, kIA32Float64ToInt32)               \(\backslash\)}
+\DoxyCodeLine{  V(ChangeFloat32ToFloat64, kIA32Float32ToFloat64)           \(\backslash\)}
+\DoxyCodeLine{  V(RoundInt32ToFloat32, kSSEInt32ToFloat32)                 \(\backslash\)}
+\DoxyCodeLine{  V(RoundFloat64ToInt32, kIA32Float64ToInt32)                \(\backslash\)}
+\DoxyCodeLine{  V(Word32Clz, kIA32Lzcnt)                                   \(\backslash\)}
+\DoxyCodeLine{  V(Word32Ctz, kIA32Tzcnt)                                   \(\backslash\)}
+\DoxyCodeLine{  V(Word32Popcnt, kIA32Popcnt)                               \(\backslash\)}
+\DoxyCodeLine{  V(SignExtendWord8ToInt32, kIA32Movsxbl)                    \(\backslash\)}
+\DoxyCodeLine{  V(SignExtendWord16ToInt32, kIA32Movsxwl)                   \(\backslash\)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a0130c926244f2eea7c0bf572582832f5}\label{instruction-selector-ia32_8cc_a0130c926244f2eea7c0bf572582832f5}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!RO\_VISITOR@{RO\_VISITOR}}
+\index{RO\_VISITOR@{RO\_VISITOR}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{RO\_VISITOR}{RO\_VISITOR}}
+{\footnotesize\ttfamily \#define RO\+\_\+\+VISITOR(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{opcode }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} InstructionSelector::Visit\#\#Name(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}) \{ \(\backslash\)}
+\DoxyCodeLine{    VisitRO(\textcolor{keyword}{this}, \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, opcode);                        \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_ac4b2d5b27ad8354dd4c521506e20aa42}\label{instruction-selector-ia32_8cc_ac4b2d5b27ad8354dd4c521506e20aa42}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!RO\_WITH\_TEMP\_OP\_T\_LIST@{RO\_WITH\_TEMP\_OP\_T\_LIST}}
+\index{RO\_WITH\_TEMP\_OP\_T\_LIST@{RO\_WITH\_TEMP\_OP\_T\_LIST}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{RO\_WITH\_TEMP\_OP\_T\_LIST}{RO\_WITH\_TEMP\_OP\_T\_LIST}}
+{\footnotesize\ttfamily \#define RO\+\_\+\+WITH\+\_\+\+TEMP\+\_\+\+OP\+\_\+\+T\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})~\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}}(Change\+Uint32\+To\+Float64, k\+IA32\+Uint32\+To\+Float64)}
+
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a2e2bd748493c2bafd4070aafd80b5c30}\label{instruction-selector-ia32_8cc_a2e2bd748493c2bafd4070aafd80b5c30}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!RO\_WITH\_TEMP\_SIMD\_OP\_T\_LIST@{RO\_WITH\_TEMP\_SIMD\_OP\_T\_LIST}}
+\index{RO\_WITH\_TEMP\_SIMD\_OP\_T\_LIST@{RO\_WITH\_TEMP\_SIMD\_OP\_T\_LIST}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{RO\_WITH\_TEMP\_SIMD\_OP\_T\_LIST}{RO\_WITH\_TEMP\_SIMD\_OP\_T\_LIST}}
+{\footnotesize\ttfamily \#define RO\+\_\+\+WITH\+\_\+\+TEMP\+\_\+\+SIMD\+\_\+\+OP\+\_\+\+T\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(TruncateFloat64ToUint32, kIA32Float64ToUint32) \(\backslash\)}
+\DoxyCodeLine{  V(TruncateFloat32ToUint32, kIA32Float32ToUint32) \(\backslash\)}
+\DoxyCodeLine{  V(ChangeFloat64ToUint32, kIA32Float64ToUint32)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_abed5a0eb6dcbec9aedaf520c43bf8f0c}\label{instruction-selector-ia32_8cc_abed5a0eb6dcbec9aedaf520c43bf8f0c}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!RO\_WITH\_TEMP\_SIMD\_VISITOR@{RO\_WITH\_TEMP\_SIMD\_VISITOR}}
+\index{RO\_WITH\_TEMP\_SIMD\_VISITOR@{RO\_WITH\_TEMP\_SIMD\_VISITOR}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{RO\_WITH\_TEMP\_SIMD\_VISITOR}{RO\_WITH\_TEMP\_SIMD\_VISITOR}}
+{\footnotesize\ttfamily \#define RO\+\_\+\+WITH\+\_\+\+TEMP\+\_\+\+SIMD\+\_\+\+VISITOR(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{opcode }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} InstructionSelector::Visit\#\#Name(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}) \{ \(\backslash\)}
+\DoxyCodeLine{    VisitROWithTempSimd(\textcolor{keyword}{this}, \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, opcode);            \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a7563d16a7000a20851552b7baef2a2b2}\label{instruction-selector-ia32_8cc_a7563d16a7000a20851552b7baef2a2b2}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!RO\_WITH\_TEMP\_VISITOR@{RO\_WITH\_TEMP\_VISITOR}}
+\index{RO\_WITH\_TEMP\_VISITOR@{RO\_WITH\_TEMP\_VISITOR}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{RO\_WITH\_TEMP\_VISITOR}{RO\_WITH\_TEMP\_VISITOR}}
+{\footnotesize\ttfamily \#define RO\+\_\+\+WITH\+\_\+\+TEMP\+\_\+\+VISITOR(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{opcode }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} InstructionSelector::Visit\#\#Name(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}) \{ \(\backslash\)}
+\DoxyCodeLine{    VisitROWithTemp(\textcolor{keyword}{this}, \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, opcode);                \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a605418f53ef027c986a94eeda177aae6}\label{instruction-selector-ia32_8cc_a605418f53ef027c986a94eeda177aae6}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!RR\_OP\_T\_LIST@{RR\_OP\_T\_LIST}}
+\index{RR\_OP\_T\_LIST@{RR\_OP\_T\_LIST}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{RR\_OP\_T\_LIST}{RR\_OP\_T\_LIST}}
+{\footnotesize\ttfamily \#define RR\+\_\+\+OP\+\_\+\+T\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(Float32RoundDown, kIA32Float32Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_ab30ff7d465609f7af20b295928b7acefa95c96b768ec50caf6b33c939f013f15d}{kRoundDown}}))       \(\backslash\)}
+\DoxyCodeLine{  V(Float64RoundDown, kIA32Float64Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_ab30ff7d465609f7af20b295928b7acefa95c96b768ec50caf6b33c939f013f15d}{kRoundDown}}))       \(\backslash\)}
+\DoxyCodeLine{  V(Float32RoundUp, kIA32Float32Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_ab30ff7d465609f7af20b295928b7acefafcd49716496a40cb970ac226fc4ea0c5}{kRoundUp}}))           \(\backslash\)}
+\DoxyCodeLine{  V(Float64RoundUp, kIA32Float64Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_ab30ff7d465609f7af20b295928b7acefafcd49716496a40cb970ac226fc4ea0c5}{kRoundUp}}))           \(\backslash\)}
+\DoxyCodeLine{  V(Float32RoundTruncate, kIA32Float32Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_abe61f65609d0c37a045fd07bdc0acd78}{kRoundToZero}})) \(\backslash\)}
+\DoxyCodeLine{  V(Float64RoundTruncate, kIA32Float64Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_abe61f65609d0c37a045fd07bdc0acd78}{kRoundToZero}})) \(\backslash\)}
+\DoxyCodeLine{  V(Float32RoundTiesEven,                                                      \(\backslash\)}
+\DoxyCodeLine{    kIA32Float32Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_a07a05efc65dd4e81be0232833db55d5b}{kRoundToNearest}}))                    \(\backslash\)}
+\DoxyCodeLine{  V(Float64RoundTiesEven,                                                      \(\backslash\)}
+\DoxyCodeLine{    kIA32Float64Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_a07a05efc65dd4e81be0232833db55d5b}{kRoundToNearest}}))                    \(\backslash\)}
+\DoxyCodeLine{  V(TruncateFloat64ToWord32, kArchTruncateDoubleToI)                           \(\backslash\)}
+\DoxyCodeLine{  IF\_WASM(\mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}, F32x4Ceil, kIA32F32x4Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_ab30ff7d465609f7af20b295928b7acefafcd49716496a40cb970ac226fc4ea0c5}{kRoundUp}}))         \(\backslash\)}
+\DoxyCodeLine{  IF\_WASM(\mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}, F32x4Floor, kIA32F32x4Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_ab30ff7d465609f7af20b295928b7acefa95c96b768ec50caf6b33c939f013f15d}{kRoundDown}}))      \(\backslash\)}
+\DoxyCodeLine{  IF\_WASM(\mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}, F32x4Trunc, kIA32F32x4Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_abe61f65609d0c37a045fd07bdc0acd78}{kRoundToZero}}))    \(\backslash\)}
+\DoxyCodeLine{  IF\_WASM(\mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}, F32x4NearestInt,                                                  \(\backslash\)}
+\DoxyCodeLine{          kIA32F32x4Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_a07a05efc65dd4e81be0232833db55d5b}{kRoundToNearest}}))                \(\backslash\)}
+\DoxyCodeLine{  IF\_WASM(\mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}, F64x2Ceil, kIA32F64x2Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_ab30ff7d465609f7af20b295928b7acefafcd49716496a40cb970ac226fc4ea0c5}{kRoundUp}}))         \(\backslash\)}
+\DoxyCodeLine{  IF\_WASM(\mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}, F64x2Floor, kIA32F64x2Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_ab30ff7d465609f7af20b295928b7acefa95c96b768ec50caf6b33c939f013f15d}{kRoundDown}}))      \(\backslash\)}
+\DoxyCodeLine{  IF\_WASM(\mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}, F64x2Trunc, kIA32F64x2Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_abe61f65609d0c37a045fd07bdc0acd78}{kRoundToZero}}))    \(\backslash\)}
+\DoxyCodeLine{  IF\_WASM(\mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}, F64x2NearestInt,                                                  \(\backslash\)}
+\DoxyCodeLine{          kIA32F64x2Round | MiscField::encode(\mbox{\hyperlink{namespacev8_1_1internal_a07a05efc65dd4e81be0232833db55d5b}{kRoundToNearest}}))                \(\backslash\)}
+\DoxyCodeLine{  IF\_WASM(\mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}, F64x2Sqrt, kIA32F64x2Sqrt)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a76d8fc53ce294ceaac52e5bd5b91f693}\label{instruction-selector-ia32_8cc_a76d8fc53ce294ceaac52e5bd5b91f693}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!RR\_VISITOR@{RR\_VISITOR}}
+\index{RR\_VISITOR@{RR\_VISITOR}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{RR\_VISITOR}{RR\_VISITOR}}
+{\footnotesize\ttfamily \#define RR\+\_\+\+VISITOR(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{opcode }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} InstructionSelector::Visit\#\#Name(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}) \{ \(\backslash\)}
+\DoxyCodeLine{    VisitRR(\textcolor{keyword}{this}, \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, opcode);                        \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a88a2e9caea8ac1fcf71c9d690536fa7d}\label{instruction-selector-ia32_8cc_a88a2e9caea8ac1fcf71c9d690536fa7d}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!RRO\_FLOAT\_OP\_T\_LIST@{RRO\_FLOAT\_OP\_T\_LIST}}
+\index{RRO\_FLOAT\_OP\_T\_LIST@{RRO\_FLOAT\_OP\_T\_LIST}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{RRO\_FLOAT\_OP\_T\_LIST}{RRO\_FLOAT\_OP\_T\_LIST}}
+{\footnotesize\ttfamily \#define RRO\+\_\+\+FLOAT\+\_\+\+OP\+\_\+\+T\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(Float32Add, kFloat32Add)   \(\backslash\)}
+\DoxyCodeLine{  V(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a7af6075b33de264b2bb46b5e7dd9e28c}{Float64Add}}, kFloat64Add)   \(\backslash\)}
+\DoxyCodeLine{  V(Float32Sub, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_1_1Opmask_a9fc841766cd28604a5aa910b1e05e3c4}{kFloat32Sub}})   \(\backslash\)}
+\DoxyCodeLine{  V(Float64Sub, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_1_1Opmask_a88caf89879cb4c2e74a6847dcc0d2cf0}{kFloat64Sub}})   \(\backslash\)}
+\DoxyCodeLine{  V(Float32Mul, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_1_1Opmask_affd391dfee47b71c7d8dfacbe50913b6}{kFloat32Mul}})   \(\backslash\)}
+\DoxyCodeLine{  V(Float64Mul, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_1_1Opmask_ab7d19f55ab5ae0815e96b07377977f33}{kFloat64Mul}})   \(\backslash\)}
+\DoxyCodeLine{  V(Float32Div, kFloat32Div)   \(\backslash\)}
+\DoxyCodeLine{  V(Float64Div, kFloat64Div)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_aa1005aaf3b57342f9262ed97cb58f804}\label{instruction-selector-ia32_8cc_aa1005aaf3b57342f9262ed97cb58f804}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!RRO\_FLOAT\_VISITOR@{RRO\_FLOAT\_VISITOR}}
+\index{RRO\_FLOAT\_VISITOR@{RRO\_FLOAT\_VISITOR}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{RRO\_FLOAT\_VISITOR}{RRO\_FLOAT\_VISITOR}}
+{\footnotesize\ttfamily \#define RRO\+\_\+\+FLOAT\+\_\+\+VISITOR(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{opcode }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} InstructionSelector::Visit\#\#Name(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}) \{ \(\backslash\)}
+\DoxyCodeLine{    VisitRROFloat(\textcolor{keyword}{this}, \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, opcode);                  \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_ac68cf584a51bcf29e7046f483cfcab81}\label{instruction-selector-ia32_8cc_ac68cf584a51bcf29e7046f483cfcab81}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!SIMD\_ALLTRUE\_LIST@{SIMD\_ALLTRUE\_LIST}}
+\index{SIMD\_ALLTRUE\_LIST@{SIMD\_ALLTRUE\_LIST}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{SIMD\_ALLTRUE\_LIST}{SIMD\_ALLTRUE\_LIST}}
+{\footnotesize\ttfamily \#define SIMD\+\_\+\+ALLTRUE\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(I64x2AllTrue)            \(\backslash\)}
+\DoxyCodeLine{  V(I32x4AllTrue)            \(\backslash\)}
+\DoxyCodeLine{  V(I16x8AllTrue)            \(\backslash\)}
+\DoxyCodeLine{  V(I8x16AllTrue)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a5c39b53f864d3c06fbd329cb55a487f2}\label{instruction-selector-ia32_8cc_a5c39b53f864d3c06fbd329cb55a487f2}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!SIMD\_BINOP\_LIST@{SIMD\_BINOP\_LIST}}
+\index{SIMD\_BINOP\_LIST@{SIMD\_BINOP\_LIST}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{SIMD\_BINOP\_LIST}{SIMD\_BINOP\_LIST}}
+{\footnotesize\ttfamily \#define SIMD\+\_\+\+BINOP\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(I32x4GtU)              \(\backslash\)}
+\DoxyCodeLine{  V(I32x4GeU)              \(\backslash\)}
+\DoxyCodeLine{  V(I16x8Ne)               \(\backslash\)}
+\DoxyCodeLine{  V(I16x8GeS)              \(\backslash\)}
+\DoxyCodeLine{  V(I16x8GtU)              \(\backslash\)}
+\DoxyCodeLine{  V(I16x8GeU)              \(\backslash\)}
+\DoxyCodeLine{  V(I8x16Ne)               \(\backslash\)}
+\DoxyCodeLine{  V(I8x16GeS)              \(\backslash\)}
+\DoxyCodeLine{  V(I8x16GtU)              \(\backslash\)}
+\DoxyCodeLine{  V(I8x16GeU)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a1c7d5d9f25e8a288afc805bf90c9a3d8}\label{instruction-selector-ia32_8cc_a1c7d5d9f25e8a288afc805bf90c9a3d8}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!SIMD\_BINOP\_RRR@{SIMD\_BINOP\_RRR}}
+\index{SIMD\_BINOP\_RRR@{SIMD\_BINOP\_RRR}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{SIMD\_BINOP\_RRR}{SIMD\_BINOP\_RRR}}
+{\footnotesize\ttfamily \#define SIMD\+\_\+\+BINOP\+\_\+\+RRR(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(I64x2ExtMulLowI32x4S)  \(\backslash\)}
+\DoxyCodeLine{  V(I64x2ExtMulHighI32x4S) \(\backslash\)}
+\DoxyCodeLine{  V(I64x2ExtMulLowI32x4U)  \(\backslash\)}
+\DoxyCodeLine{  V(I64x2ExtMulHighI32x4U) \(\backslash\)}
+\DoxyCodeLine{  V(I32x4ExtMulLowI16x8S)  \(\backslash\)}
+\DoxyCodeLine{  V(I32x4ExtMulHighI16x8S) \(\backslash\)}
+\DoxyCodeLine{  V(I32x4ExtMulLowI16x8U)  \(\backslash\)}
+\DoxyCodeLine{  V(I32x4ExtMulHighI16x8U) \(\backslash\)}
+\DoxyCodeLine{  V(I16x8ExtMulLowI8x16S)  \(\backslash\)}
+\DoxyCodeLine{  V(I16x8ExtMulHighI8x16S) \(\backslash\)}
+\DoxyCodeLine{  V(I16x8ExtMulLowI8x16U)  \(\backslash\)}
+\DoxyCodeLine{  V(I16x8ExtMulHighI8x16U) \(\backslash\)}
+\DoxyCodeLine{  V(I16x8Q15MulRSatS)      \(\backslash\)}
+\DoxyCodeLine{  V(I16x8RelaxedQ15MulRS)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_adc481834fedc6c505e0d9a435735870f}\label{instruction-selector-ia32_8cc_adc481834fedc6c505e0d9a435735870f}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!SIMD\_BINOP\_UNIFIED\_SSE\_AVX\_LIST@{SIMD\_BINOP\_UNIFIED\_SSE\_AVX\_LIST}}
+\index{SIMD\_BINOP\_UNIFIED\_SSE\_AVX\_LIST@{SIMD\_BINOP\_UNIFIED\_SSE\_AVX\_LIST}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{SIMD\_BINOP\_UNIFIED\_SSE\_AVX\_LIST}{SIMD\_BINOP\_UNIFIED\_SSE\_AVX\_LIST}}
+{\footnotesize\ttfamily \#define SIMD\+\_\+\+BINOP\+\_\+\+UNIFIED\+\_\+\+SSE\+\_\+\+AVX\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a061d45e52d770e0174accdbb6ddab0f8}\label{instruction-selector-ia32_8cc_a061d45e52d770e0174accdbb6ddab0f8}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!SIMD\_INT\_TYPES@{SIMD\_INT\_TYPES}}
+\index{SIMD\_INT\_TYPES@{SIMD\_INT\_TYPES}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{SIMD\_INT\_TYPES}{SIMD\_INT\_TYPES}}
+{\footnotesize\ttfamily \#define SIMD\+\_\+\+INT\+\_\+\+TYPES(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(I32x4)                \(\backslash\)}
+\DoxyCodeLine{  V(I16x8)                \(\backslash\)}
+\DoxyCodeLine{  V(I8x16)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a334418cc9c9867ff7ccd0abd654c9a3e}\label{instruction-selector-ia32_8cc_a334418cc9c9867ff7ccd0abd654c9a3e}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!SIMD\_SHIFT\_OPCODES\_UNIFED\_SSE\_AVX@{SIMD\_SHIFT\_OPCODES\_UNIFED\_SSE\_AVX}}
+\index{SIMD\_SHIFT\_OPCODES\_UNIFED\_SSE\_AVX@{SIMD\_SHIFT\_OPCODES\_UNIFED\_SSE\_AVX}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{SIMD\_SHIFT\_OPCODES\_UNIFED\_SSE\_AVX}{SIMD\_SHIFT\_OPCODES\_UNIFED\_SSE\_AVX}}
+{\footnotesize\ttfamily \#define SIMD\+\_\+\+SHIFT\+\_\+\+OPCODES\+\_\+\+UNIFED\+\_\+\+SSE\+\_\+\+AVX(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(I64x2Shl)                                \(\backslash\)}
+\DoxyCodeLine{  V(I64x2ShrU)                               \(\backslash\)}
+\DoxyCodeLine{  V(I32x4Shl)                                \(\backslash\)}
+\DoxyCodeLine{  V(I32x4ShrS)                               \(\backslash\)}
+\DoxyCodeLine{  V(I32x4ShrU)                               \(\backslash\)}
+\DoxyCodeLine{  V(I16x8Shl)                                \(\backslash\)}
+\DoxyCodeLine{  V(I16x8ShrS)                               \(\backslash\)}
+\DoxyCodeLine{  V(I16x8ShrU)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a1528a0fe5de5116a019a1bdcca5b26fe}\label{instruction-selector-ia32_8cc_a1528a0fe5de5116a019a1bdcca5b26fe}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!SIMD\_UNOP\_LIST@{SIMD\_UNOP\_LIST}}
+\index{SIMD\_UNOP\_LIST@{SIMD\_UNOP\_LIST}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{SIMD\_UNOP\_LIST}{SIMD\_UNOP\_LIST}}
+{\footnotesize\ttfamily \#define SIMD\+\_\+\+UNOP\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(F64x2ConvertLowI32x4S)  \(\backslash\)}
+\DoxyCodeLine{  V(F32x4DemoteF64x2Zero)   \(\backslash\)}
+\DoxyCodeLine{  V(F32x4Sqrt)              \(\backslash\)}
+\DoxyCodeLine{  V(F32x4SConvertI32x4)     \(\backslash\)}
+\DoxyCodeLine{  V(I64x2BitMask)           \(\backslash\)}
+\DoxyCodeLine{  V(I64x2SConvertI32x4Low)  \(\backslash\)}
+\DoxyCodeLine{  V(I64x2SConvertI32x4High) \(\backslash\)}
+\DoxyCodeLine{  V(I64x2UConvertI32x4Low)  \(\backslash\)}
+\DoxyCodeLine{  V(I64x2UConvertI32x4High) \(\backslash\)}
+\DoxyCodeLine{  V(I32x4SConvertI16x8Low)  \(\backslash\)}
+\DoxyCodeLine{  V(I32x4SConvertI16x8High) \(\backslash\)}
+\DoxyCodeLine{  V(I32x4Neg)               \(\backslash\)}
+\DoxyCodeLine{  V(I32x4UConvertI16x8Low)  \(\backslash\)}
+\DoxyCodeLine{  V(I32x4UConvertI16x8High) \(\backslash\)}
+\DoxyCodeLine{  V(I32x4Abs)               \(\backslash\)}
+\DoxyCodeLine{  V(I32x4BitMask)           \(\backslash\)}
+\DoxyCodeLine{  V(I16x8SConvertI8x16Low)  \(\backslash\)}
+\DoxyCodeLine{  V(I16x8SConvertI8x16High) \(\backslash\)}
+\DoxyCodeLine{  V(I16x8Neg)               \(\backslash\)}
+\DoxyCodeLine{  V(I16x8UConvertI8x16Low)  \(\backslash\)}
+\DoxyCodeLine{  V(I16x8UConvertI8x16High) \(\backslash\)}
+\DoxyCodeLine{  V(I16x8Abs)               \(\backslash\)}
+\DoxyCodeLine{  V(I8x16Neg)               \(\backslash\)}
+\DoxyCodeLine{  V(I8x16Abs)               \(\backslash\)}
+\DoxyCodeLine{  V(I8x16BitMask)           \(\backslash\)}
+\DoxyCodeLine{  V(S128Not)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_ab1e1f919fbb5c4aba05afa70f0d3bbc8}\label{instruction-selector-ia32_8cc_ab1e1f919fbb5c4aba05afa70f0d3bbc8}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!VISIT\_ATOMIC\_BINOP@{VISIT\_ATOMIC\_BINOP}}
+\index{VISIT\_ATOMIC\_BINOP@{VISIT\_ATOMIC\_BINOP}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{VISIT\_ATOMIC\_BINOP}{VISIT\_ATOMIC\_BINOP}}
+{\footnotesize\ttfamily \#define VISIT\+\_\+\+ATOMIC\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{op }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} InstructionSelector::VisitWord32Atomic\#\#op(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}) \{        \(\backslash\)}
+\DoxyCodeLine{    VisitWord32AtomicBinaryOperation(                                    \(\backslash\)}
+\DoxyCodeLine{        \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, kAtomic\#\#op\#\#Int8, kAtomic\#\#op\#\#Uint8, kAtomic\#\#op\#\#Int16, \(\backslash\)}
+\DoxyCodeLine{        kAtomic\#\#op\#\#Uint16, kAtomic\#\#op\#\#\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_aeccd16378a95dc9d3039f8669648c698}{Word32}});                       \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a7971003206f2f3d97ca8b90452bc2d92}\label{instruction-selector-ia32_8cc_a7971003206f2f3d97ca8b90452bc2d92}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!base@{base}}
+\index{base@{base}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{base}{base}}
+{\footnotesize\ttfamily Op\+Index base = \{\}}
+
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a241d2c58aca95f8589148d4acf97406d}\label{instruction-selector-ia32_8cc_a241d2c58aca95f8589148d4acf97406d}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!displacement@{displacement}}
+\index{displacement@{displacement}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{displacement}{displacement}}
+{\footnotesize\ttfamily int32\+\_\+t displacement = 0}
+
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_ac84e78f6f73e3887ab607f2f954230a6}\label{instruction-selector-ia32_8cc_ac84e78f6f73e3887ab607f2f954230a6}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!displacement\_mode@{displacement\_mode}}
+\index{displacement\_mode@{displacement\_mode}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{displacement\_mode}{displacement\_mode}}
+{\footnotesize\ttfamily Displacement\+Mode displacement\+\_\+mode = k\+Positive\+Displacement}
+
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}\label{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!index@{index}}
+\index{index@{index}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{index}{index}}
+{\footnotesize\ttfamily Op\+Index index = \{\}}
+
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a97bd6c077f3c7769f575b82988b9b668}\label{instruction-selector-ia32_8cc_a97bd6c077f3c7769f575b82988b9b668}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!offset@{offset}}
+\index{offset@{offset}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{offset}{offset}}
+{\footnotesize\ttfamily int32\+\_\+t offset}
+
+\mbox{\Hypertarget{instruction-selector-ia32_8cc_a418e7934b5363ecde8269070181b3cef}\label{instruction-selector-ia32_8cc_a418e7934b5363ecde8269070181b3cef}} 
+\index{instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}!scale@{scale}}
+\index{scale@{scale}!instruction-\/selector-\/ia32.cc@{instruction-\/selector-\/ia32.cc}}
+\doxysubsubsection{\texorpdfstring{scale}{scale}}
+{\footnotesize\ttfamily int scale = 0}
+

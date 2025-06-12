@@ -1,0 +1,158 @@
+\hypertarget{json-stringifier_8cc}{}\doxysection{json-\/stringifier.cc File Reference}
+\label{json-stringifier_8cc}\index{json-\/stringifier.cc@{json-\/stringifier.cc}}
+{\ttfamily \#include \char`\"{}src/json/json-\/stringifier.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$string\+\_\+view$>$}\newline
+{\ttfamily \#include \char`\"{}absl/functional/overload.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}hwy/highway.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/strings.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/assert-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/message-\/template.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/protectors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/numbers/conversions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/elements-\/kind.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/number-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/raw-\/json-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/lookup.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/oddball-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/ordered-\/hash-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/smi.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/tagged.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/string-\/builder-\/inl.\+h\char`\"{}}\newline
+Include dependency graph for json-\/stringifier.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{json-stringifier_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1JsonStringifier}{v8\+::internal\+::\+Json\+Stringifier}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1CircularStructureMessageBuilder}{v8\+::internal\+::\+Circular\+Structure\+Message\+Builder}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1OutBuffer}{v8\+::internal\+::\+Out\+Buffer$<$ Char $>$}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1ContinuationRecord}{v8\+::internal\+::\+Continuation\+Record}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1FastJsonStringifier}{v8\+::internal\+::\+Fast\+Json\+Stringifier$<$ Char $>$}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{json-stringifier_8cc_a58a4d3a723953f2294150278dac0a4fb}{CASE\+\_\+\+WITH\+\_\+\+INTERRUPT}}(\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\item 
+\#define \mbox{\hyperlink{json-stringifier_8cc_a86ceac3fecaf87e19bc1edff8cee4ec5}{CASE\+\_\+\+WITH\+\_\+\+TRANSITION}}(\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\item 
+\#define \mbox{\hyperlink{json-stringifier_8cc_a5b0acfba9f035589ba9e02699343c662}{CASE}}(\mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}})
+\item 
+\#define \mbox{\hyperlink{json-stringifier_8cc_ad6619a47d39e15575c1ae75fac11c932}{CASE}}(\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacev8_1_1internal_a37e290c8e613119e7591abaf8dbdc889}{v8\+::internal\+::\+Fast\+Json\+Stringifier\+Result}} \{ \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a37e290c8e613119e7591abaf8dbdc889aea817ca5d46eca56ff28a5cc0228e8b0}{v8\+::internal\+::\+SUCCESS}}
+, \mbox{\hyperlink{namespacev8_1_1internal_a37e290c8e613119e7591abaf8dbdc889a3ac9b32a9ea61075949a23813f49c807}{v8\+::internal\+::\+JS\+\_\+\+OBJECT}}
+, \mbox{\hyperlink{namespacev8_1_1internal_a37e290c8e613119e7591abaf8dbdc889a00fc6ff84e478fc1fd7feed4303d08ed}{v8\+::internal\+::\+JS\+\_\+\+ARRAY}}
+, \mbox{\hyperlink{namespacev8_1_1internal_a37e290c8e613119e7591abaf8dbdc889acc39f0ca8cec89619afa1ddbc0606fc1}{v8\+::internal\+::\+UNDEFINED}}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a37e290c8e613119e7591abaf8dbdc889a3d6577ffd0aba1b0ef5ba543fdd74f9e}{v8\+::internal\+::\+CHANGE\+\_\+\+ENCODING}}
+, \mbox{\hyperlink{namespacev8_1_1internal_a37e290c8e613119e7591abaf8dbdc889a375bb69e882875af78e6fa64a555a4b0}{v8\+::internal\+::\+SLOW\+\_\+\+PATH}}
+, \mbox{\hyperlink{namespacev8_1_1internal_a37e290c8e613119e7591abaf8dbdc889a5c8e735a7aa4d9efd81fa9497d5038c1}{v8\+::internal\+::\+EXCEPTION}}
+ \}
+\item 
+enum class \mbox{\hyperlink{namespacev8_1_1internal_a80792d72af8382fedaf8488885c8a2f0}{v8\+::internal\+::\+Fast\+Json\+Stringifier\+Object\+Key\+Result}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{namespacev8_1_1internal_a80792d72af8382fedaf8488885c8a2f0a8c632159fa131f09d04f94e3cbcd8782}{v8\+::internal\+::k\+Success}}
+, \mbox{\hyperlink{namespacev8_1_1internal_a80792d72af8382fedaf8488885c8a2f0accaa16346da85d0bf78e1c1c11629baf}{v8\+::internal\+::k\+Change\+Encoding}}
+, \mbox{\hyperlink{namespacev8_1_1internal_a80792d72af8382fedaf8488885c8a2f0a75805a3bb93806d0866f78b38555dd48}{v8\+::internal\+::k\+Slow}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_a47e67293988257b00ee31442223f1b93}{v8\+::internal\+::\+May\+Have\+Interesting\+Properties}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Tagged$<$ JSReceiver $>$ object)
+\item 
+{\footnotesize template$<$typename Old\+Char $>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_ae97d41ab5d8033ad2d253ecef78d8fdd}{v8\+::internal\+::requires}} (sizeof(Old\+Char)$<$ sizeof(Char)) Fast\+Json\+Stringifier\+Result Fast\+Json\+Stringifier$<$ Char $>$
+\item 
+{\footnotesize template$<$typename Src\+Char $>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_a128bb99a07fc5065c99b4d244d128793}{v8\+::internal\+::requires}} (sizeof(Src\+Char)==sizeof(uint8\+\_\+t)) bool Fast\+Json\+Stringifier$<$ Char $>$
+\item 
+Maybe\+Direct\+Handle$<$ Object $>$ \mbox{\hyperlink{namespacev8_1_1internal_ac2ffdf145d46f49985d5c2c3b98f41a7}{v8\+::internal\+::\+Json\+Stringify}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Handle$<$ JSAny $>$ object, Handle$<$ JSAny $>$ replacer, Handle$<$ Object $>$ gap)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{json-stringifier_8cc_ad6619a47d39e15575c1ae75fac11c932}\label{json-stringifier_8cc_ad6619a47d39e15575c1ae75fac11c932}} 
+\index{json-\/stringifier.cc@{json-\/stringifier.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!json-\/stringifier.cc@{json-\/stringifier.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}}:                                                                   \(\backslash\)}
+\DoxyCodeLine{    if constexpr (\mbox{\hyperlink{namespacev8_1_1internal_a2450d9b76a72bae457082c0b405c2c78}{IsHoleyElementsKind}}(\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}})) \{                                 \(\backslash\)}
+\DoxyCodeLine{      if (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(!Protectors::IsNoElementsIntact(\mbox{\hyperlink{compilation-cache-table_8cc_a68072bca3fef7bd8b0d3cbac971cbf4b}{isolate\_}}))) \{            \(\backslash\)}
+\DoxyCodeLine{        return \mbox{\hyperlink{namespacev8_1_1internal_a37e290c8e613119e7591abaf8dbdc889a375bb69e882875af78e6fa64a555a4b0}{SLOW\_PATH}};                                                      \(\backslash\)}
+\DoxyCodeLine{      \}                                                                        \(\backslash\)}
+\DoxyCodeLine{    \}                                                                          \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\_UNLIKELY}}(\mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}} > kArrayInterruptLength)) \{                         \(\backslash\)}
+\DoxyCodeLine{      return SerializeFixedArrayWithInterruptCheck<kind>(elements, 0, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}}); \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                                   \(\backslash\)}
+\DoxyCodeLine{      return SerializeFixedArray<kind>(elements, 0, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}});                   \(\backslash\)}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{json-stringifier_8cc_a5b0acfba9f035589ba9e02699343c662}\label{json-stringifier_8cc_a5b0acfba9f035589ba9e02699343c662}} 
+\index{json-\/stringifier.cc@{json-\/stringifier.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!json-\/stringifier.cc@{json-\/stringifier.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{FastIterableState::state}}:                       \(\backslash\)}
+\DoxyCodeLine{    return ResumeJSObject<FastIterableState::state>(   \(\backslash\)}
+\DoxyCodeLine{        obj, 0, nof\_descriptors, in\_object\_properties, \(\backslash\)}
+\DoxyCodeLine{        in\_object\_properties\_start, descriptors, \textcolor{keyword}{false}, no\_gc)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{json-stringifier_8cc_a58a4d3a723953f2294150278dac0a4fb}\label{json-stringifier_8cc_a58a4d3a723953f2294150278dac0a4fb}} 
+\index{json-\/stringifier.cc@{json-\/stringifier.cc}!CASE\_WITH\_INTERRUPT@{CASE\_WITH\_INTERRUPT}}
+\index{CASE\_WITH\_INTERRUPT@{CASE\_WITH\_INTERRUPT}!json-\/stringifier.cc@{json-\/stringifier.cc}}
+\doxysubsubsection{\texorpdfstring{CASE\_WITH\_INTERRUPT}{CASE\_WITH\_INTERRUPT}}
+{\footnotesize\ttfamily \#define CASE\+\_\+\+WITH\+\_\+\+INTERRUPT(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}}:                                                                \(\backslash\)}
+\DoxyCodeLine{    result = SerializeFixedArrayWithInterruptCheck<kind>(\textcolor{keywordtype}{object}, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}},    \(\backslash\)}
+\DoxyCodeLine{                                                         \&slow\_path\_index); \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{json-stringifier_8cc_a86ceac3fecaf87e19bc1edff8cee4ec5}\label{json-stringifier_8cc_a86ceac3fecaf87e19bc1edff8cee4ec5}} 
+\index{json-\/stringifier.cc@{json-\/stringifier.cc}!CASE\_WITH\_TRANSITION@{CASE\_WITH\_TRANSITION}}
+\index{CASE\_WITH\_TRANSITION@{CASE\_WITH\_TRANSITION}!json-\/stringifier.cc@{json-\/stringifier.cc}}
+\doxysubsubsection{\texorpdfstring{CASE\_WITH\_TRANSITION}{CASE\_WITH\_TRANSITION}}
+{\footnotesize\ttfamily \#define CASE\+\_\+\+WITH\+\_\+\+TRANSITION(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}}:                                                   \(\backslash\)}
+\DoxyCodeLine{    result = SerializeFixedArrayWithPossibleTransitions<kind>( \(\backslash\)}
+\DoxyCodeLine{        \textcolor{keywordtype}{object}, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}}, \&slow\_path\_index);                     \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}

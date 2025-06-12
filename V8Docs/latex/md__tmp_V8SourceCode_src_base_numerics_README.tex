@@ -1,0 +1,313 @@
+This directory contains a dependency-\/free, header-\/only library of templates providing well-\/defined semantics for safely and performantly handling a variety of numeric operations, including most common arithmetic operations and conversions.
+
+The public API is broken out into the following header files\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily checked\+\_\+math.\+h} contains the {\ttfamily Checked\+Numeric} template class and helper functions for performing arithmetic and conversion operations that detect errors and boundary conditions (e.\+g. overflow, truncation, etc.).
+\item {\ttfamily clamped\+\_\+math.\+h} contains the {\ttfamily Clamped\+Numeric} template class and helper functions for performing fast, clamped (i.\+e. \href{\#notsticky}{\texttt{ non-\/sticky}} saturating) arithmetic operations and conversions.
+\item {\ttfamily safe\+\_\+conversions.\+h} contains the {\ttfamily Strict\+Numeric} template class and a collection of custom casting templates and helper functions for safely converting between a range of numeric types.
+\item {\ttfamily safe\+\_\+math.\+h} includes all of the previously mentioned headers.
+\end{DoxyItemize}
+
+$\ast$$\ast$$\ast$ aside {\bfseries{Note\+:}} The {\ttfamily Numeric} template types implicitly convert from C numeric types and {\ttfamily Numeric} templates that are convertible to an underlying C numeric type. The conversion priority for {\ttfamily Numeric} type coercions is\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily Strict\+Numeric} coerces to {\ttfamily Clamped\+Numeric} and {\ttfamily Checked\+Numeric}
+\item {\ttfamily Clamped\+Numeric} coerces to {\ttfamily Checked\+Numeric} \DoxyHorRuler{0}
+
+\end{DoxyItemize}\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md1}{}\doxysection{Common patterns and use-\/cases}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md1}
+The following covers the preferred style for the most common uses of this library. Please don\textquotesingle{}t cargo-\/cult from anywhere else. 😉\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md2}{}\doxysubsection{Performing checked arithmetic type conversions}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md2}
+The {\ttfamily checked\+\_\+cast} template converts between arbitrary arithmetic types, and is used for cases where a conversion failure should result in program termination\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// Crash if signed\_value is out of range for buff\_size.}}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t} buff\_size = checked\_cast<size\_t>(signed\_value);}
+
+\end{DoxyCode}
+\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md3}{}\doxysubsection{Performing saturated (clamped) arithmetic type conversions}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md3}
+The {\ttfamily saturated\+\_\+cast} template converts between arbitrary arithmetic types, and is used in cases where an out-\/of-\/bounds source value should be saturated to the corresponding maximum or minimum of the destination type\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// Cast to a smaller type, saturating as needed.}}
+\DoxyCodeLine{int8\_t eight\_bit\_value = saturated\_cast<int8\_t>(int\_value);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// Convert from float with saturation to INT\_MAX, INT\_MIN, or 0 for NaN.}}
+\DoxyCodeLine{\textcolor{keywordtype}{int} int\_value = saturated\_cast<int>(floating\_point\_value);}
+
+\end{DoxyCode}
+
+
+{\ttfamily Clamp\+Ceil}, {\ttfamily Clamp\+Floor}, and {\ttfamily Clamp\+Round} provide similar functionality to the versions in {\ttfamily std\+:\+:}, but saturate and return an integral type. An optional template parameter specifies the desired destination type ({\ttfamily int} if unspecified). These should be used for most floating-\/to-\/integral conversions.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// Basically saturated\_cast<int>(std::round(floating\_point\_value)).}}
+\DoxyCodeLine{\textcolor{keywordtype}{int} int\_value = ClampRound(floating\_point\_value);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// A destination type can be explicitly specified.}}
+\DoxyCodeLine{uint8\_t byte\_value = ClampFloor<uint8\_t>(floating\_point\_value);}
+
+\end{DoxyCode}
+\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md4}{}\doxysubsection{Enforcing arithmetic type conversions at compile-\/time}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md4}
+The {\ttfamily strict\+\_\+cast} emits code that is identical to {\ttfamily static\+\_\+cast}. However, provides static checks that will cause a compilation failure if the destination type cannot represent the full range of the source type\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// Throw a compiler error if byte\_value is changed to an out-\/of-\/range-\/type.}}
+\DoxyCodeLine{\textcolor{keywordtype}{int} int\_value = strict\_cast<int>(byte\_value);}
+
+\end{DoxyCode}
+
+
+You can also enforce these compile-\/time restrictions on function parameters by using the {\ttfamily Strict\+Numeric} template\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// Throw a compiler error if the size argument cannot be represented by a}}
+\DoxyCodeLine{\textcolor{comment}{// size\_t (e.g. passing an int will fail to compile).}}
+\DoxyCodeLine{\textcolor{keywordtype}{bool} AllocateBuffer(\textcolor{keywordtype}{void}** buffer, StrictNumeric<size\_t> \mbox{\hyperlink{setup-heap-internal_8cc_a439227feff9d7f55384e8780cfc2eb82}{size}});}
+
+\end{DoxyCode}
+\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md5}{}\doxysubsection{Comparing values between arbitrary arithmetic types}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md5}
+Both the {\ttfamily Strict\+Numeric} and {\ttfamily Clamped\+Numeric} types provide well defined comparisons between arbitrary arithmetic types. This allows you to perform comparisons that are not legal or would trigger compiler warnings or errors under the normal arithmetic promotion rules\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool} foo(\textcolor{keywordtype}{unsigned} \mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}}, \textcolor{keywordtype}{int} upper\_bound) \{}
+\DoxyCodeLine{  \textcolor{comment}{// Converting to StrictNumeric allows this comparison to work correctly.}}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1base_1_1internal_a37c4734e88ec34f651efc5c3ac0d4a60}{MakeStrictNum}}(\mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}}) >= upper\_bound)}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+
+\end{DoxyCode}
+
+
+$\ast$$\ast$$\ast$ note {\bfseries{Warning\+:}} Do not perform manual conversions using the comparison operators. Instead, use the cast templates described in the previous sections, or the constexpr template functions {\ttfamily Is\+Value\+In\+Range\+For\+Numeric\+Type} and {\ttfamily Is\+Type\+In\+Range\+For\+Numeric\+Type}, as these templates properly handle the full range of corner cases and employ various optimizations. \DoxyHorRuler{0}
+\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md6}{}\doxysubsection{Calculating a buffer size (checked arithmetic)}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md6}
+When making exact calculations—such as for buffer lengths—it\textquotesingle{}s often necessary to know when those calculations trigger an overflow, undefined behavior, or other boundary conditions. The {\ttfamily Checked\+Numeric} template does this by storing a bit determining whether or not some arithmetic operation has occurred that would put the variable in an \char`\"{}invalid\char`\"{} state. Attempting to extract the value from a variable in an invalid state will trigger a check/trap condition, that by default will result in process termination.
+
+Here\textquotesingle{}s an example of a buffer calculation using a {\ttfamily Checked\+Numeric} type (note\+: the Assign\+If\+Valid method will trigger a compile error if the result is ignored).
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// Calculate the buffer size and detect if an overflow occurs.}}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t} \mbox{\hyperlink{setup-heap-internal_8cc_a439227feff9d7f55384e8780cfc2eb82}{size}};}
+\DoxyCodeLine{\textcolor{keywordflow}{if} (!CheckAdd(kHeaderSize, CheckMul(\mbox{\hyperlink{debug-coverage_8cc_a86988a65e0d3ece7990c032c159786d6}{count}}, kItemSize)).AssignIfValid(\&\mbox{\hyperlink{setup-heap-internal_8cc_a439227feff9d7f55384e8780cfc2eb82}{size}})) \{}
+\DoxyCodeLine{  \textcolor{comment}{// Handle an overflow error...}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md7}{}\doxysubsection{Calculating clamped coordinates (non-\/sticky saturating arithmetic)}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md7}
+Certain classes of calculations—such as coordinate calculations—require well-\/defined semantics that always produce a valid result on boundary conditions. The {\ttfamily Clamped\+Numeric} template addresses this by providing performant, non-\/sticky saturating arithmetic operations.
+
+Here\textquotesingle{}s an example of using a {\ttfamily Clamped\+Numeric} to calculate an operation insetting a rectangle.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// Use clamped arithmetic since inset calculations might overflow.}}
+\DoxyCodeLine{\textcolor{keywordtype}{void} Rect::Inset(\textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} top, \textcolor{keywordtype}{int} right, \textcolor{keywordtype}{int} bottom) \{}
+\DoxyCodeLine{  origin\_ += Vector2d(left, top);}
+\DoxyCodeLine{  set\_width(ClampSub(width(), ClampAdd(left, right)));}
+\DoxyCodeLine{  set\_height(ClampSub(height(), ClampAdd(top, bottom)));}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+$\ast$$\ast$$\ast$ note \label{_notsticky}%
+ The {\ttfamily Clamped\+Numeric} type is not \char`\"{}sticky\char`\"{}, which means the saturation is not retained across individual operations. As such, one arithmetic operation may result in a saturated value, while the next operation may then \char`\"{}desaturate\char`\"{} the value. Here\textquotesingle{}s an example\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ClampedNumeric<int> \mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}} = INT\_MAX;}
+\DoxyCodeLine{++\mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}};  \textcolor{comment}{// value is still INT\_MAX, due to saturation.}}
+\DoxyCodeLine{-\/-\/\mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}};  \textcolor{comment}{// value is now (INT\_MAX -\/ 1), because saturation is not sticky.}}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md8}{}\doxysection{Conversion functions and Strict\+Numeric$<$$>$ in safe\+\_\+conversions.\+h}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md8}
+This header includes a collection of helper {\ttfamily constexpr} templates for safely performing a range of conversions, assignments, and tests.\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md9}{}\doxysubsection{Safe casting templates}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md9}
+
+\begin{DoxyItemize}
+\item {\ttfamily \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a9158b5be0bb0e80e75170b5dfc5618aa}{as\+\_\+signed()}}} -\/ Returns the supplied integral value as a signed type of the same width.
+\item {\ttfamily \mbox{\hyperlink{namespacev8_1_1base_1_1internal_ac03df80e2f10b02403fef35275e5269f}{as\+\_\+unsigned()}}} -\/ Returns the supplied integral value as an unsigned type of the same width.
+\item {\ttfamily checked\+\_\+cast$<$$>$()} -\/ Analogous to {\ttfamily static\+\_\+cast$<$$>$} for numeric types, except that by default it will trigger a crash on an out-\/of-\/bounds conversion (e.\+g. overflow, underflow, NaN to integral) or a compile error if the conversion error can be detected at compile time. The crash handler can be overridden to perform a behavior other than crashing.
+\item {\ttfamily saturated\+\_\+cast$<$$>$()} -\/ Analogous to {\ttfamily static\+\_\+cast} for numeric types, except that it returns a saturated result when the specified numeric conversion would otherwise overflow or underflow. An NaN source returns 0 by default, but can be overridden to return a different result.
+\item {\ttfamily strict\+\_\+cast$<$$>$()} -\/ Analogous to {\ttfamily static\+\_\+cast} for numeric types, except this causes a compile failure if the destination type is not large enough to contain any value in the source type. It performs no runtime checking and thus introduces no runtime overhead.
+\end{DoxyItemize}\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md10}{}\doxysubsection{Other helper and conversion functions}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md10}
+
+\begin{DoxyItemize}
+\item {\ttfamily Clamp\+Ceil$<$$>$()} -\/ A convenience function that computes the ceil of its floating-\/ point arg, then saturates to the destination type (template parameter, defaults to {\ttfamily int}).
+\item {\ttfamily Clamp\+Floor$<$$>$()} -\/ A convenience function that computes the floor of its floating-\/point arg, then saturates to the destination type (template parameter, defaults to {\ttfamily int}).
+\item {\ttfamily Is\+Type\+In\+Range\+For\+Numeric\+Type$<$$>$()} -\/ A convenience function that evaluates entirely at compile-\/time and returns true if the destination type (first template parameter) can represent the full range of the source type (second template parameter).
+\item {\ttfamily Is\+Value\+In\+Range\+For\+Numeric\+Type$<$$>$()} -\/ A convenience function that returns true if the type supplied as the template parameter can represent the value passed as an argument to the function.
+\item {\ttfamily Is\+Value\+Negative()} -\/ A convenience function that will accept any arithmetic type as an argument and will return whether the value is less than zero. Unsigned types always return false.
+\item {\ttfamily Clamp\+Round$<$$>$()} -\/ A convenience function that rounds its floating-\/point arg, then saturates to the destination type (template parameter, defaults to {\ttfamily int}).
+\item {\ttfamily \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a72b52aeae4b2115ab648f6fd17a7c238}{Safe\+Unsigned\+Abs()}}} -\/ Returns the absolute value of the supplied integer parameter as an unsigned result (thus avoiding an overflow if the value is the signed, two\textquotesingle{}s complement minimum).
+\end{DoxyItemize}\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md11}{}\doxysubsection{Strict\+Numeric$<$$>$}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md11}
+{\ttfamily Strict\+Numeric$<$$>$} is a wrapper type that performs assignments and copies via the {\ttfamily strict\+\_\+cast} template, and can perform valid arithmetic comparisons across any range of arithmetic types. {\ttfamily Strict\+Numeric} is the return type for values extracted from a {\ttfamily Checked\+Numeric} class instance. The raw numeric value is extracted via {\ttfamily static\+\_\+cast} to the underlying type or any type with sufficient range to represent the underlying type.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a37c4734e88ec34f651efc5c3ac0d4a60}{Make\+Strict\+Num()}}} -\/ Creates a new {\ttfamily Strict\+Numeric} from the underlying type of the supplied arithmetic or Strict\+Numeric type.
+\item {\ttfamily SizeT} -\/ Alias for {\ttfamily Strict\+Numeric$<$size\+\_\+t$>$}.
+\end{DoxyItemize}\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md12}{}\doxysection{Checked\+Numeric$<$$>$ in checked\+\_\+math.\+h}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md12}
+{\ttfamily Checked\+Numeric$<$$>$} implements all the logic and operators for detecting integer boundary conditions such as overflow, underflow, and invalid conversions. The {\ttfamily Checked\+Numeric} type implicitly converts from floating point and integer data types, and contains overloads for basic arithmetic operations (i.\+e.\+: {\ttfamily +}, {\ttfamily -\/}, {\ttfamily $\ast$}, {\ttfamily /} for all types and {\ttfamily \%}, {\ttfamily $<$$<$}, {\ttfamily $>$$>$}, {\ttfamily \&}, {\ttfamily $\vert$}, {\ttfamily $^\wedge$} for integers). However, {\itshape the \href{\#CheckedNumeric_in-checked_math_h-Non_member-helper-functions}{\texttt{ variadic template functions}} are the preferred API,} as they remove type ambiguities and help prevent a number of common errors. The variadic functions can also be more performant, as they eliminate redundant expressions that are unavoidable with the with the operator overloads. (Ideally the compiler should optimize those away, but better to avoid them in the first place.)
+
+Type promotions are a slightly modified version of the \mbox{[}standard C/\+C++ numeric promotions \mbox{]}(\href{http://en.cppreference.com/w/cpp/language/implicit_conversion\#Numeric_promotions}{\texttt{ http\+://en.\+cppreference.\+com/w/cpp/language/implicit\+\_\+conversion\#\+Numeric\+\_\+promotions}}) with the two differences being that {\itshape there is no default promotion to int} and {\itshape bitwise logical operations always return an unsigned of the wider type.}\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md13}{}\doxysubsection{Example}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md13}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#include "{}src/base/numerics/checked\_math.h"{}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{CheckedNumeric<uint32\_t> variable = 0;}
+\DoxyCodeLine{variable++;}
+\DoxyCodeLine{variable-\/-\/;}
+\DoxyCodeLine{if (variable.ValueOrDie() == 0)}
+\DoxyCodeLine{  // Fine, |variable| still within valid range.}
+\DoxyCodeLine{}
+\DoxyCodeLine{variable-\/-\/;}
+\DoxyCodeLine{variable++;}
+\DoxyCodeLine{if (variable.ValueOrDie() == 0)  // Breakpoint or configured CheckHandler}
+\DoxyCodeLine{  // Does not happen as variable underflowed.}
+
+\end{DoxyCode}
+\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md14}{}\doxysubsection{Members}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md14}
+The unary negation, increment, and decrement operators are supported, along with the following unary arithmetic methods, which return a new {\ttfamily Checked\+Numeric} as a result of the operation\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4cf86377610a7a844281b43c30e7d8b6}{Abs()}}} -\/ Absolute value.
+\item {\ttfamily Unsigned\+Abs()} -\/ Absolute value as an equal-\/width unsigned underlying type (valid for only integral types).
+\item {\ttfamily Max()} -\/ Returns whichever is greater of the current instance or argument. The underlying return type is whichever has the greatest magnitude.
+\item {\ttfamily Min()} -\/ Returns whichever is lowest of the current instance or argument. The underlying return type is whichever has can represent the lowest number in the smallest width (e.\+g. int8\+\_\+t over unsigned, int over int8\+\_\+t, and float over int).
+\end{DoxyItemize}
+
+The following are for converting {\ttfamily Checked\+Numeric} instances\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily type} -\/ The underlying numeric type.
+\item {\ttfamily Assign\+If\+Valid()} -\/ Assigns the underlying value to the supplied destination pointer if the value is currently valid and within the range supported by the destination type. Returns true on success.
+\item {\ttfamily Cast$<$$>$()} -\/ Instance method returning a {\ttfamily Checked\+Numeric} derived from casting the current instance to a {\ttfamily Checked\+Numeric} of the supplied destination type.
+\end{DoxyItemize}
+
+$\ast$$\ast$$\ast$ aside The following member functions return a {\ttfamily Strict\+Numeric}, which is valid for comparison and assignment operations, but will trigger a compile failure on attempts to assign to a type of insufficient range. The underlying value can be extracted by an explicit {\ttfamily static\+\_\+cast} to the underlying type or any type with sufficient range to represent the underlying type. \DoxyHorRuler{0}
+
+
+
+\begin{DoxyItemize}
+\item {\ttfamily Is\+Valid()} -\/ Returns true if the underlying numeric value is valid (i.\+e. has not wrapped or saturated and is not the result of an invalid conversion).
+\item {\ttfamily Value\+Or\+Die()} -\/ Returns the underlying value. If the state is not valid this call will trigger a crash by default (but may be overridden by supplying an alternate handler to the template).
+\item {\ttfamily Value\+Or\+Default()} -\/ Returns the current value, or the supplied default if the state is not valid (but will not crash).
+\end{DoxyItemize}
+
+{\bfseries{Comparison operators are explicitly not provided}} for {\ttfamily Checked\+Numeric} types because they could result in a crash if the type is not in a valid state. Patterns like the following should be used instead\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// Either input or padding (or both) may be arbitrary sizes.}}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t} buff\_size;}
+\DoxyCodeLine{\textcolor{keywordflow}{if} (!CheckAdd(input, padding, kHeaderLength).AssignIfValid(\&buff\_size) ||}
+\DoxyCodeLine{     buff\_size >= kMaxBuffer) \{}
+\DoxyCodeLine{  \textcolor{comment}{// Handle an error...}}
+\DoxyCodeLine{\} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{  \textcolor{comment}{// Do stuff on success...}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md15}{}\doxysubsection{Non-\/member helper functions}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md15}
+The following variadic convenience functions, which accept standard arithmetic or {\ttfamily Checked\+Numeric} types, perform arithmetic operations, and return a {\ttfamily Checked\+Numeric} result. The supported functions are\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily Check\+Add()} -\/ Addition.
+\item {\ttfamily Check\+Sub()} -\/ Subtraction.
+\item {\ttfamily Check\+Mul()} -\/ Multiplication.
+\item {\ttfamily Check\+Div()} -\/ Division.
+\item {\ttfamily Check\+Mod()} -\/ Modulus (integer only).
+\item {\ttfamily Check\+Lsh()} -\/ Left integer shift (integer only).
+\item {\ttfamily Check\+Rsh()} -\/ Right integer shift (integer only).
+\item {\ttfamily Check\+And()} -\/ Bitwise AND (integer only with unsigned result).
+\item {\ttfamily Check\+Or()} -\/ Bitwise OR (integer only with unsigned result).
+\item {\ttfamily Check\+Xor()} -\/ Bitwise XOR (integer only with unsigned result).
+\item {\ttfamily Check\+Max()} -\/ Maximum of supplied arguments.
+\item {\ttfamily Check\+Min()} -\/ Minimum of supplied arguments.
+\end{DoxyItemize}
+
+The following wrapper functions can be used to avoid the template disambiguator syntax when converting a destination type.
+
+
+\begin{DoxyItemize}
+\item {\ttfamily Is\+Valid\+For\+Type$<$$>$()} in place of\+: {\ttfamily a.\+template Is\+Valid$<$$>$()}
+\item {\ttfamily Value\+Or\+Die\+For\+Type$<$$>$()} in place of\+: {\ttfamily a.\+template Value\+Or\+Die$<$$>$()}
+\item {\ttfamily Value\+Or\+Default\+For\+Type$<$$>$()} in place of\+: {\ttfamily a.\+template Value\+Or\+Default$<$$>$()}
+\end{DoxyItemize}
+
+The following general utility methods is are useful for converting from arithmetic types to {\ttfamily Checked\+Numeric} types\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \mbox{\hyperlink{namespacev8_1_1base_1_1internal_ab105dfb727e62f0757bd8afcc258f437}{Make\+Checked\+Num()}}} -\/ Creates a new {\ttfamily Checked\+Numeric} from the underlying type of the supplied arithmetic or directly convertible type.
+\end{DoxyItemize}\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md16}{}\doxysection{Clamped\+Numeric$<$$>$ in clamped\+\_\+math.\+h}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md16}
+{\ttfamily Clamped\+Numeric$<$$>$} implements all the logic and operators for clamped (non-\/sticky saturating) arithmetic operations and conversions. The {\ttfamily Clamped\+Numeric} type implicitly converts back and forth between floating point and integer data types, saturating on assignment as appropriate. It contains overloads for basic arithmetic operations (i.\+e.\+: {\ttfamily +}, {\ttfamily -\/}, {\ttfamily $\ast$}, {\ttfamily /} for all types and {\ttfamily \%}, {\ttfamily $<$$<$}, {\ttfamily $>$$>$}, {\ttfamily \&}, {\ttfamily $\vert$}, {\ttfamily $^\wedge$} for integers) along with comparison operators for arithmetic types of any size. However, {\itshape the \mbox{[}variadic template functions \mbox{]}(\#\+Clamped\+Numeric\+\_\+in-\/clamped\+\_\+math\+\_\+h-\/\+Non\+\_\+member-\/helper-\/functions) are the preferred API,} as they remove type ambiguities and help prevent a number of common errors. The variadic functions can also be more performant, as they eliminate redundant expressions that are unavoidable with the operator overloads. (Ideally the compiler should optimize those away, but better to avoid them in the first place.)
+
+Type promotions are a slightly modified version of the \mbox{[}standard C/\+C++ numeric promotions \mbox{]}(\href{http://en.cppreference.com/w/cpp/language/implicit_conversion\#Numeric_promotions}{\texttt{ http\+://en.\+cppreference.\+com/w/cpp/language/implicit\+\_\+conversion\#\+Numeric\+\_\+promotions}}) with the two differences being that {\itshape there is no default promotion to int} and {\itshape bitwise logical operations always return an unsigned of the wider type.}
+
+$\ast$$\ast$$\ast$ aside Most arithmetic operations saturate normally, to the numeric limit in the direction of the sign. The potentially unusual cases are\+:
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Division\+:}} Division by zero returns the saturated limit in the direction of sign of the dividend (first argument). The one exception is 0/0, which returns zero (although logically is NaN).
+\item {\bfseries{Modulus\+:}} Division by zero returns the dividend (first argument).
+\item {\bfseries{Left shift\+:}} Non-\/zero values saturate in the direction of the signed limit (max/min), even for shifts larger than the bit width. 0 shifted any amount results in 0.
+\item {\bfseries{Right shift\+:}} Negative values saturate to -\/1. Positive or 0 saturates to 0. (Effectively just an unbounded arithmetic-\/right-\/shift.)
+\item {\bfseries{Bitwise operations\+:}} No saturation; bit pattern is identical to non-\/saturated bitwise operations. \DoxyHorRuler{0}
+
+\end{DoxyItemize}\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md17}{}\doxysubsection{Members}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md17}
+The unary negation, increment, and decrement operators are supported, along with the following unary arithmetic methods, which return a new {\ttfamily Clamped\+Numeric} as a result of the operation\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4cf86377610a7a844281b43c30e7d8b6}{Abs()}}} -\/ Absolute value.
+\item {\ttfamily Unsigned\+Abs()} -\/ Absolute value as an equal-\/width unsigned underlying type (valid for only integral types).
+\item {\ttfamily Max()} -\/ Returns whichever is greater of the current instance or argument. The underlying return type is whichever has the greatest magnitude.
+\item {\ttfamily Min()} -\/ Returns whichever is lowest of the current instance or argument. The underlying return type is whichever has can represent the lowest number in the smallest width (e.\+g. int8\+\_\+t over unsigned, int over int8\+\_\+t, and float over int).
+\end{DoxyItemize}
+
+The following are for converting {\ttfamily Clamped\+Numeric} instances\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily type} -\/ The underlying numeric type.
+\item {\ttfamily Raw\+Value()} -\/ Returns the raw value as the underlying arithmetic type. This is useful when e.\+g. assigning to an auto type or passing as a deduced template parameter.
+\item {\ttfamily Cast$<$$>$()} -\/ Instance method returning a {\ttfamily Clamped\+Numeric} derived from casting the current instance to a {\ttfamily Clamped\+Numeric} of the supplied destination type.
+\end{DoxyItemize}\hypertarget{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md18}{}\doxysubsection{Non-\/member helper functions}\label{md__tmp_V8SourceCode_src_base_numerics_README_autotoc_md18}
+The following variadic convenience functions, which accept standard arithmetic or {\ttfamily Clamped\+Numeric} types, perform arithmetic operations, and return a {\ttfamily Clamped\+Numeric} result. The supported functions are\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily Clamp\+Add()} -\/ Addition.
+\item {\ttfamily Clamp\+Sub()} -\/ Subtraction.
+\item {\ttfamily Clamp\+Mul()} -\/ Multiplication.
+\item {\ttfamily Clamp\+Div()} -\/ Division.
+\item {\ttfamily Clamp\+Mod()} -\/ Modulus (integer only).
+\item {\ttfamily Clamp\+Lsh()} -\/ Left integer shift (integer only).
+\item {\ttfamily Clamp\+Rsh()} -\/ Right integer shift (integer only).
+\item {\ttfamily Clamp\+And()} -\/ Bitwise AND (integer only with unsigned result).
+\item {\ttfamily Clamp\+Or()} -\/ Bitwise OR (integer only with unsigned result).
+\item {\ttfamily Clamp\+Xor()} -\/ Bitwise XOR (integer only with unsigned result).
+\item {\ttfamily Clamp\+Max()} -\/ Maximum of supplied arguments.
+\item {\ttfamily Clamp\+Min()} -\/ Minimum of supplied arguments.
+\end{DoxyItemize}
+
+The following is a general utility method that is useful for converting to a {\ttfamily Clamped\+Numeric} type\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \mbox{\hyperlink{namespacev8_1_1base_1_1internal_a45f9069a9866b4bd0b9321d279c79214}{Make\+Clamped\+Num()}}} -\/ Creates a new {\ttfamily Clamped\+Numeric} from the underlying type of the supplied arithmetic or directly convertible type. 
+\end{DoxyItemize}

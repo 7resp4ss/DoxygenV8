@@ -1,0 +1,220 @@
+\hypertarget{wasm-revec-reducer_8cc}{}\doxysection{wasm-\/revec-\/reducer.cc File Reference}
+\label{wasm-revec-reducer_8cc}\index{wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}}
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/wasm-\/revec-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/opmasks.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/simd-\/shuffle.\+h\char`\"{}}\newline
+Include dependency graph for wasm-\/revec-\/reducer.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{wasm-revec-reducer_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OffsetDiff}{v8\+::internal\+::compiler\+::turboshaft\+::\+Offset\+Diff}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StoreLoadInfo}{v8\+::internal\+::compiler\+::turboshaft\+::\+Store\+Load\+Info$<$ Op, typename $>$}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1StoreInfoCompare}{v8\+::internal\+::compiler\+::turboshaft\+::\+Store\+Info\+Compare}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft}{v8\+::internal\+::compiler\+::turboshaft}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{wasm-revec-reducer_8cc_a5f6aa8edcd99914757600b5d3b259bb7}{TRACE}}(...)
+\item 
+\#define \mbox{\hyperlink{wasm-revec-reducer_8cc_af9617d1edab7ade1868eb82a089d917c}{CASE}}(operation)
+\item 
+\#define \mbox{\hyperlink{wasm-revec-reducer_8cc_ac3856191146a1bd48ec3013768e118f7}{CANONICALIZE\+\_\+\+SHUFFLE}}(\mbox{\hyperlink{mul-fft_8cc_a76f11d9a0a47b94f72c2d0e77fb32240}{n}})
+\item 
+\#define \mbox{\hyperlink{wasm-revec-reducer_8cc_a13468b47e9fd589ccb9ff4e403e0a51f}{UNARY\+\_\+\+CASE}}(op\+\_\+128,  not\+\_\+used)~case Simd128\+Unary\+Op\+::\+Kind\+::k\#\#op\+\_\+128\+:
+\item 
+\#define \mbox{\hyperlink{wasm-revec-reducer_8cc_ab6ab875122764c13a1a551d4d51d4db0}{UNARY\+\_\+\+SIGN\+\_\+\+EXTENSION\+\_\+\+CASE}}(op\+\_\+low,  not\+\_\+used1,  op\+\_\+high)
+\item 
+\#define \mbox{\hyperlink{wasm-revec-reducer_8cc_a040a77fb3a0d9ae49056ab89777d0b65}{BINOP\+\_\+\+CASE}}(op\+\_\+128,  not\+\_\+used)~case Simd128\+Binop\+Op\+::\+Kind\+::k\#\#op\+\_\+128\+:
+\item 
+\#define \mbox{\hyperlink{wasm-revec-reducer_8cc_a6335951964c5a0579a0f76cb38dd4462}{BINOP\+\_\+\+SIGN\+\_\+\+EXTENSION\+\_\+\+CASE}}(op\+\_\+low,  not\+\_\+used1,  op\+\_\+high)
+\item 
+\#define \mbox{\hyperlink{wasm-revec-reducer_8cc_a5589d1e85e34da81cebda2ab31b79e7f}{SHIFT\+\_\+\+CASE}}(op\+\_\+128,  not\+\_\+used)~case Simd128\+Shift\+Op\+::\+Kind\+::k\#\#op\+\_\+128\+:
+\item 
+\#define \mbox{\hyperlink{wasm-revec-reducer_8cc_a4f9c62cf962778ffc1a78f6008a1823d}{TERNARY\+\_\+\+CASE}}(op\+\_\+128,  not\+\_\+used)~case Simd128\+Ternary\+Op\+::\+Kind\+::k\#\#op\+\_\+128\+:
+\item 
+\#define \mbox{\hyperlink{wasm-revec-reducer_8cc_aff8e8e713ba80c8624b2f3a151d09231}{CASE}}(op\+\_\+128)~case Simd128\+Binop\+Op\+::\+Kind\+::k\#\#op\+\_\+128\+:
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_aaa9ddd3b61138c63258121e09b1e3cbb}{v8\+::internal\+::compiler\+::turboshaft\+::\+Store\+Info\+Set}} = Zone\+Set$<$ Store\+Load\+Info$<$ Store\+Op $>$, Store\+Info\+Compare $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a55de92068a5a6ebd5d6e3cd6facdadf6}{v8\+::internal\+::compiler\+::turboshaft\+::\+Is\+Same\+Op\+And\+Kind}} (const \mbox{\hyperlink{operation_8h_a06c4955b824eb9d03ace9eca764f59b4}{Operation}} \&op0, const \mbox{\hyperlink{operation_8h_a06c4955b824eb9d03ace9eca764f59b4}{Operation}} \&op1)
+\item 
+std\+::string \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0d966a97d5e07a20b7622472cb3c8df3}{v8\+::internal\+::compiler\+::turboshaft\+::\+Get\+Simd\+Opcode\+Name}} (\mbox{\hyperlink{operation_8h_a06c4955b824eb9d03ace9eca764f59b4}{Operation}} const \&op)
+\item 
+{\footnotesize template$<$class Op , class Info $>$ }\\bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_afebfcc14cdf840bc5a933e430ea067f1}{v8\+::internal\+::compiler\+::turboshaft\+::\+Load\+Stride\+Equal\+To}} (const Graph \&\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}, const Node\+Group \&node\+\_\+group, int stride)
+\item 
+{\footnotesize template$<$typename T $>$ }\\bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_acebd419daf25b443dfdb1a581c1da93b}{v8\+::internal\+::compiler\+::turboshaft\+::\+Is\+Splat}} (const \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} \&node\+\_\+group)
+\item 
+{\footnotesize template$<$typename Function\+Type $>$ }\\void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a22086587a43898a4bfa8a11aa0c05452}{v8\+::internal\+::compiler\+::turboshaft\+::\+For\+Each}} (Function\+Type \mbox{\hyperlink{js-call-reducer_8cc_ad83e8682ed733ee0cf359fa4f48441b0}{callback}}, const Zone\+Unordered\+Map$<$ Op\+Index, Pack\+Node $\ast$ $>$ \&node\+\_\+map)
+\item 
+{\footnotesize template$<$typename Function\+Type $>$ }\\void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a893b6daaae7ef01e5a7b1d87b5185d9f}{v8\+::internal\+::compiler\+::turboshaft\+::\+For\+Each}} (Function\+Type \mbox{\hyperlink{js-call-reducer_8cc_ad83e8682ed733ee0cf359fa4f48441b0}{callback}}, const Zone\+Unordered\+Map$<$ Op\+Index, Zone\+Vector$<$ Pack\+Node $\ast$ $>$$>$ \&node\+\_\+map)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a8731d0c60ce686c285cef70591a474f2}{v8\+::internal\+::compiler\+::turboshaft\+::\+Is\+Sign\+Extension\+Op}} (\mbox{\hyperlink{operation_8h_a06c4955b824eb9d03ace9eca764f59b4}{Operation}} \&op)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_aaf243cfe66a846cf773419b11a7d3011}{v8\+::internal\+::compiler\+::turboshaft\+::\+Is\+Load\+Extend}} (const Simd128\+Load\+Transform\+Op \&op)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_af3dab3a36265fd83151074689b7b9e73}{v8\+::internal\+::compiler\+::turboshaft\+::\+Is\+Load\+Splat}} (const Simd128\+Load\+Transform\+Op \&op)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{wasm-revec-reducer_8cc_a040a77fb3a0d9ae49056ab89777d0b65}\label{wasm-revec-reducer_8cc_a040a77fb3a0d9ae49056ab89777d0b65}} 
+\index{wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}!BINOP\_CASE@{BINOP\_CASE}}
+\index{BINOP\_CASE@{BINOP\_CASE}!wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}}
+\doxysubsubsection{\texorpdfstring{BINOP\_CASE}{BINOP\_CASE}}
+{\footnotesize\ttfamily \#define BINOP\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{op\+\_\+128,  }\item[{}]{not\+\_\+used }\end{DoxyParamCaption})~case Simd128\+Binop\+Op\+::\+Kind\+::k\#\#op\+\_\+128\+:}
+
+\mbox{\Hypertarget{wasm-revec-reducer_8cc_a6335951964c5a0579a0f76cb38dd4462}\label{wasm-revec-reducer_8cc_a6335951964c5a0579a0f76cb38dd4462}} 
+\index{wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}!BINOP\_SIGN\_EXTENSION\_CASE@{BINOP\_SIGN\_EXTENSION\_CASE}}
+\index{BINOP\_SIGN\_EXTENSION\_CASE@{BINOP\_SIGN\_EXTENSION\_CASE}!wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}}
+\doxysubsubsection{\texorpdfstring{BINOP\_SIGN\_EXTENSION\_CASE}{BINOP\_SIGN\_EXTENSION\_CASE}}
+{\footnotesize\ttfamily \#define BINOP\+\_\+\+SIGN\+\_\+\+EXTENSION\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{op\+\_\+low,  }\item[{}]{not\+\_\+used1,  }\item[{}]{op\+\_\+high }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Simd128BinopOp::Kind::k\#\#op\_low: \{                                     \(\backslash\)}
+\DoxyCodeLine{    if (\textcolor{keyword}{const} Simd128BinopOp* binop1 =                                        \(\backslash\)}
+\DoxyCodeLine{            op1.TryCast<Opmask::kSimd128\#\#op\_high>();                         \(\backslash\)}
+\DoxyCodeLine{        binop1 \&\& op0.Cast<Simd128BinopOp>().left() == binop1-\/>left() \&\&      \(\backslash\)}
+\DoxyCodeLine{        op0.Cast<Simd128BinopOp>().right() == binop1-\/>right()) \{              \(\backslash\)}
+\DoxyCodeLine{      return NewPackNode(node\_group);                                         \(\backslash\)}
+\DoxyCodeLine{    \}                                                                         \(\backslash\)}
+\DoxyCodeLine{    [[fallthrough]];                                                          \(\backslash\)}
+\DoxyCodeLine{  \}                                                                           \(\backslash\)}
+\DoxyCodeLine{  case Simd128BinopOp::Kind::k\#\#op\_high: \{                                    \(\backslash\)}
+\DoxyCodeLine{    if (op1.Cast<Simd128BinopOp>().kind == op0.Cast<Simd128BinopOp>().kind) \{ \(\backslash\)}
+\DoxyCodeLine{      auto force\_pack\_type =                                                  \(\backslash\)}
+\DoxyCodeLine{          node0 == node1 ? ForcePackNode::kSplat : ForcePackNode::kGeneral;   \(\backslash\)}
+\DoxyCodeLine{      return NewForcePackNode(node\_group, force\_pack\_type, graph\_);           \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                                  \(\backslash\)}
+\DoxyCodeLine{      return \textcolor{keyword}{nullptr};                                                         \(\backslash\)}
+\DoxyCodeLine{    \}                                                                         \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{wasm-revec-reducer_8cc_ac3856191146a1bd48ec3013768e118f7}\label{wasm-revec-reducer_8cc_ac3856191146a1bd48ec3013768e118f7}} 
+\index{wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}!CANONICALIZE\_SHUFFLE@{CANONICALIZE\_SHUFFLE}}
+\index{CANONICALIZE\_SHUFFLE@{CANONICALIZE\_SHUFFLE}!wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}}
+\doxysubsubsection{\texorpdfstring{CANONICALIZE\_SHUFFLE}{CANONICALIZE\_SHUFFLE}}
+{\footnotesize\ttfamily \#define CANONICALIZE\+\_\+\+SHUFFLE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{mul-fft_8cc_a76f11d9a0a47b94f72c2d0e77fb32240}{n}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  wasm::SimdShuffle::CanonicalizeShuffle(\textcolor{keyword}{false}, shuffle\_copy\#\#\mbox{\hyperlink{mul-fft_8cc_a76f11d9a0a47b94f72c2d0e77fb32240}{n}}, \&need\_swap,   \(\backslash\)}
+\DoxyCodeLine{                                         \&is\_swizzle);                         \(\backslash\)}
+\DoxyCodeLine{  if (is\_swizzle) \{                                                            \(\backslash\)}
+\DoxyCodeLine{    \textcolor{comment}{/* Here shuffle couldn't be swizzle*/}                                      \(\backslash\)}
+\DoxyCodeLine{    return \textcolor{keyword}{nullptr};                                                            \(\backslash\)}
+\DoxyCodeLine{  \}                                                                            \(\backslash\)}
+\DoxyCodeLine{  V<Simd128> shuffle\#\#\mbox{\hyperlink{mul-fft_8cc_a76f11d9a0a47b94f72c2d0e77fb32240}{n}}\#\#\_left\_idx = need\_swap ? op\#\#\mbox{\hyperlink{mul-fft_8cc_a76f11d9a0a47b94f72c2d0e77fb32240}{n}}.right() : op\#\#\mbox{\hyperlink{mul-fft_8cc_a76f11d9a0a47b94f72c2d0e77fb32240}{n}}.left(); \(\backslash\)}
+\DoxyCodeLine{  V<Simd128> shuffle\#\#\mbox{\hyperlink{mul-fft_8cc_a76f11d9a0a47b94f72c2d0e77fb32240}{n}}\#\#\_right\_idx = need\_swap ? op\#\#\mbox{\hyperlink{mul-fft_8cc_a76f11d9a0a47b94f72c2d0e77fb32240}{n}}.left() : op\#\#\mbox{\hyperlink{mul-fft_8cc_a76f11d9a0a47b94f72c2d0e77fb32240}{n}}.right();}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{wasm-revec-reducer_8cc_aff8e8e713ba80c8624b2f3a151d09231}\label{wasm-revec-reducer_8cc_aff8e8e713ba80c8624b2f3a151d09231}} 
+\index{wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{op\+\_\+128 }\end{DoxyParamCaption})~case Simd128\+Binop\+Op\+::\+Kind\+::k\#\#op\+\_\+128\+:}
+
+\mbox{\Hypertarget{wasm-revec-reducer_8cc_af9617d1edab7ade1868eb82a089d917c}\label{wasm-revec-reducer_8cc_af9617d1edab7ade1868eb82a089d917c}} 
+\index{wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{operation }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Opcode::k\#\#operation: \{                         \(\backslash\)}
+\DoxyCodeLine{    using Op = operation\#\#Op;                          \(\backslash\)}
+\DoxyCodeLine{    return op0.Cast<Op>().\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}} == op1.Cast<Op>().kind; \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{wasm-revec-reducer_8cc_a5589d1e85e34da81cebda2ab31b79e7f}\label{wasm-revec-reducer_8cc_a5589d1e85e34da81cebda2ab31b79e7f}} 
+\index{wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}!SHIFT\_CASE@{SHIFT\_CASE}}
+\index{SHIFT\_CASE@{SHIFT\_CASE}!wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}}
+\doxysubsubsection{\texorpdfstring{SHIFT\_CASE}{SHIFT\_CASE}}
+{\footnotesize\ttfamily \#define SHIFT\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{op\+\_\+128,  }\item[{}]{not\+\_\+used }\end{DoxyParamCaption})~case Simd128\+Shift\+Op\+::\+Kind\+::k\#\#op\+\_\+128\+:}
+
+\mbox{\Hypertarget{wasm-revec-reducer_8cc_a4f9c62cf962778ffc1a78f6008a1823d}\label{wasm-revec-reducer_8cc_a4f9c62cf962778ffc1a78f6008a1823d}} 
+\index{wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}!TERNARY\_CASE@{TERNARY\_CASE}}
+\index{TERNARY\_CASE@{TERNARY\_CASE}!wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}}
+\doxysubsubsection{\texorpdfstring{TERNARY\_CASE}{TERNARY\_CASE}}
+{\footnotesize\ttfamily \#define TERNARY\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{op\+\_\+128,  }\item[{}]{not\+\_\+used }\end{DoxyParamCaption})~case Simd128\+Ternary\+Op\+::\+Kind\+::k\#\#op\+\_\+128\+:}
+
+\mbox{\Hypertarget{wasm-revec-reducer_8cc_a5f6aa8edcd99914757600b5d3b259bb7}\label{wasm-revec-reducer_8cc_a5f6aa8edcd99914757600b5d3b259bb7}} 
+\index{wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}!TRACE@{TRACE}}
+\index{TRACE@{TRACE}!wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}}
+\doxysubsubsection{\texorpdfstring{TRACE}{TRACE}}
+{\footnotesize\ttfamily \#define TRACE(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                              \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_wasm\_revectorize) \{          \(\backslash\)}
+\DoxyCodeLine{      PrintF(\textcolor{stringliteral}{"{}Revec: \%s \%d: "{}}, \_\_func\_\_, \_\_LINE\_\_); \(\backslash\)}
+\DoxyCodeLine{      PrintF(\_\_VA\_ARGS\_\_);                          \(\backslash\)}
+\DoxyCodeLine{    \}                                               \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{wasm-revec-reducer_8cc_a13468b47e9fd589ccb9ff4e403e0a51f}\label{wasm-revec-reducer_8cc_a13468b47e9fd589ccb9ff4e403e0a51f}} 
+\index{wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}!UNARY\_CASE@{UNARY\_CASE}}
+\index{UNARY\_CASE@{UNARY\_CASE}!wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}}
+\doxysubsubsection{\texorpdfstring{UNARY\_CASE}{UNARY\_CASE}}
+{\footnotesize\ttfamily \#define UNARY\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{op\+\_\+128,  }\item[{}]{not\+\_\+used }\end{DoxyParamCaption})~case Simd128\+Unary\+Op\+::\+Kind\+::k\#\#op\+\_\+128\+:}
+
+\mbox{\Hypertarget{wasm-revec-reducer_8cc_ab6ab875122764c13a1a551d4d51d4db0}\label{wasm-revec-reducer_8cc_ab6ab875122764c13a1a551d4d51d4db0}} 
+\index{wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}!UNARY\_SIGN\_EXTENSION\_CASE@{UNARY\_SIGN\_EXTENSION\_CASE}}
+\index{UNARY\_SIGN\_EXTENSION\_CASE@{UNARY\_SIGN\_EXTENSION\_CASE}!wasm-\/revec-\/reducer.cc@{wasm-\/revec-\/reducer.cc}}
+\doxysubsubsection{\texorpdfstring{UNARY\_SIGN\_EXTENSION\_CASE}{UNARY\_SIGN\_EXTENSION\_CASE}}
+{\footnotesize\ttfamily \#define UNARY\+\_\+\+SIGN\+\_\+\+EXTENSION\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{op\+\_\+low,  }\item[{}]{not\+\_\+used1,  }\item[{}]{op\+\_\+high }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Simd128UnaryOp::Kind::k\#\#op\_low: \{                                     \(\backslash\)}
+\DoxyCodeLine{    if (\textcolor{keyword}{const} Simd128UnaryOp* unop1 =                                         \(\backslash\)}
+\DoxyCodeLine{            op1.TryCast<Opmask::kSimd128\#\#op\_high>();                         \(\backslash\)}
+\DoxyCodeLine{        unop1 \&\& op0.Cast<Simd128UnaryOp>().input() == unop1-\/>input()) \{      \(\backslash\)}
+\DoxyCodeLine{      return NewPackNode(node\_group);                                         \(\backslash\)}
+\DoxyCodeLine{    \}                                                                         \(\backslash\)}
+\DoxyCodeLine{    [[fallthrough]];                                                          \(\backslash\)}
+\DoxyCodeLine{  \}                                                                           \(\backslash\)}
+\DoxyCodeLine{  case Simd128UnaryOp::Kind::k\#\#op\_high: \{                                    \(\backslash\)}
+\DoxyCodeLine{    if (op1.Cast<Simd128UnaryOp>().kind == op0.Cast<Simd128UnaryOp>().kind) \{ \(\backslash\)}
+\DoxyCodeLine{      auto force\_pack\_type =                                                  \(\backslash\)}
+\DoxyCodeLine{          node0 == node1 ? ForcePackNode::kSplat : ForcePackNode::kGeneral;   \(\backslash\)}
+\DoxyCodeLine{      return NewForcePackNode(node\_group, force\_pack\_type, graph\_);           \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                                  \(\backslash\)}
+\DoxyCodeLine{      return \textcolor{keyword}{nullptr};                                                         \(\backslash\)}
+\DoxyCodeLine{    \}                                                                         \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}

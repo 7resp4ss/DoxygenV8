@@ -1,0 +1,373 @@
+\hypertarget{asm-parser_8cc}{}\doxysection{asm-\/parser.cc File Reference}
+\label{asm-parser_8cc}\index{asm-\/parser.cc@{asm-\/parser.cc}}
+{\ttfamily \#include \char`\"{}src/asmjs/asm-\/parser.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include \char`\"{}src/asmjs/asm-\/js.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/asmjs/asm-\/types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/overflowing-\/math.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/numbers/conversions-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/parsing/scanner.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/limits.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/opcodes.\+h\char`\"{}}\newline
+Include dependency graph for asm-\/parser.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{asm-parser_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1AsmJsParser}{v8\+::internal\+::wasm\+::\+Asm\+Js\+Parser}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm}{v8\+::internal\+::wasm}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a683554e9c556c0aabef0d3a098c6d5cb}{TRACE\+\_\+\+ASM\+\_\+\+PARSER}}(...)
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a11fbf81b7560cc6237eda819185e883b}{FAIL\+\_\+\+AND\+\_\+\+RETURN}}(ret,  msg)
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a292ad803e75cf5ca00676b8595513ace}{FAIL}}(msg)~\mbox{\hyperlink{asm-parser_8cc_a11fbf81b7560cc6237eda819185e883b}{FAIL\+\_\+\+AND\+\_\+\+RETURN}}(, msg)
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a7fc3e518c0e6542e860ef6ce354df4b7}{FAILn}}(msg)~\mbox{\hyperlink{asm-parser_8cc_a11fbf81b7560cc6237eda819185e883b}{FAIL\+\_\+\+AND\+\_\+\+RETURN}}(\mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}, msg)
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_aca5d870719111119b810173e8ddb0705}{EXPECT\+\_\+\+TOKEN\+\_\+\+OR\+\_\+\+RETURN}}(ret,  token)
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a7ec595e1ca4f441faacd09d680e03366}{EXPECT\+\_\+\+TOKEN}}(token)~\mbox{\hyperlink{asm-parser_8cc_aca5d870719111119b810173e8ddb0705}{EXPECT\+\_\+\+TOKEN\+\_\+\+OR\+\_\+\+RETURN}}(, token)
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a910b62e9c8b1a1a9e4e2fd622b448260}{EXPECT\+\_\+\+TOKENn}}(token)~\mbox{\hyperlink{asm-parser_8cc_aca5d870719111119b810173e8ddb0705}{EXPECT\+\_\+\+TOKEN\+\_\+\+OR\+\_\+\+RETURN}}(\mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}, token)
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a6d0285d54dc6b69c7ab805ec46a69ef4}{RECURSE\+\_\+\+OR\+\_\+\+RETURN}}(ret,  call)
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_ae0a277a5d8255c02bcad1635d9f1c308}{RECURSE}}(call)~\mbox{\hyperlink{asm-parser_8cc_a6d0285d54dc6b69c7ab805ec46a69ef4}{RECURSE\+\_\+\+OR\+\_\+\+RETURN}}(, call)
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_ae27e79132c2850af5174474f77c292ea}{RECURSEn}}(call)~\mbox{\hyperlink{asm-parser_8cc_a6d0285d54dc6b69c7ab805ec46a69ef4}{RECURSE\+\_\+\+OR\+\_\+\+RETURN}}(\mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}, call)
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a564b2a6720d94e1bf5f0ea10562692ee}{TOK}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})~Asm\+Js\+Scanner\+::k\+Token\+\_\+\#\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a23c12785d2fad97499dd582ef6b085d5}{V}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  \+\_\+junk1,  \+\_\+junk2,  \+\_\+junk3)
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_abd72005a049211629d23965ab34c56bc}{V}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  const\+\_\+value)
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a45cb5e4269eed542fccc4ef940514324}{V}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  Name,  op,  sig)
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a7089297e35be4a1908969d179231083b}{V}}(array\+\_\+type,  wasmload,  wasmstore,  \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}})
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a7089297e35be4a1908969d179231083b}{V}}(array\+\_\+type,  wasmload,  wasmstore,  \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}})
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_ae7eb7ab624fdecd084f8aef7c13bb32c}{HANDLE\+\_\+\+CASE}}(op,  opcode,  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  \mbox{\hyperlink{jump-threading_8cc_a41f8c58d2c01bf65b8ee199c3f87fc80}{result}})
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a98c457fd30b3ae6eea766da9a9751555}{HANDLE\+\_\+\+CASE}}(op,  sop,  uop,  \mbox{\hyperlink{liftoff-assembler-x64-inl_8h_a32173f41ea4c67ee8acde012c9729d83}{dop}},  fop,  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a98c457fd30b3ae6eea766da9a9751555}{HANDLE\+\_\+\+CASE}}(op,  sop,  uop,  \mbox{\hyperlink{liftoff-assembler-x64-inl_8h_a32173f41ea4c67ee8acde012c9729d83}{dop}},  fop,  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a45cb5e4269eed542fccc4ef940514324}{V}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  Name,  op,  sig)
+\item 
+\#define \mbox{\hyperlink{asm-parser_8cc_a45cb5e4269eed542fccc4ef940514324}{V}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  Name,  op,  sig)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{asm-parser_8cc_a7ec595e1ca4f441faacd09d680e03366}\label{asm-parser_8cc_a7ec595e1ca4f441faacd09d680e03366}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!EXPECT\_TOKEN@{EXPECT\_TOKEN}}
+\index{EXPECT\_TOKEN@{EXPECT\_TOKEN}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TOKEN}{EXPECT\_TOKEN}}
+{\footnotesize\ttfamily \#define EXPECT\+\_\+\+TOKEN(\begin{DoxyParamCaption}\item[{}]{token }\end{DoxyParamCaption})~\mbox{\hyperlink{asm-parser_8cc_aca5d870719111119b810173e8ddb0705}{EXPECT\+\_\+\+TOKEN\+\_\+\+OR\+\_\+\+RETURN}}(, token)}
+
+\mbox{\Hypertarget{asm-parser_8cc_aca5d870719111119b810173e8ddb0705}\label{asm-parser_8cc_aca5d870719111119b810173e8ddb0705}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!EXPECT\_TOKEN\_OR\_RETURN@{EXPECT\_TOKEN\_OR\_RETURN}}
+\index{EXPECT\_TOKEN\_OR\_RETURN@{EXPECT\_TOKEN\_OR\_RETURN}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TOKEN\_OR\_RETURN}{EXPECT\_TOKEN\_OR\_RETURN}}
+{\footnotesize\ttfamily \#define EXPECT\+\_\+\+TOKEN\+\_\+\+OR\+\_\+\+RETURN(\begin{DoxyParamCaption}\item[{}]{ret,  }\item[{}]{token }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                          \(\backslash\)}
+\DoxyCodeLine{    if (scanner\_.Token() != token) \{            \(\backslash\)}
+\DoxyCodeLine{      FAIL\_AND\_RETURN(ret, \textcolor{stringliteral}{"{}Unexpected token"{}}); \(\backslash\)}
+\DoxyCodeLine{    \}                                           \(\backslash\)}
+\DoxyCodeLine{    scanner\_.Next();                            \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{asm-parser_8cc_a910b62e9c8b1a1a9e4e2fd622b448260}\label{asm-parser_8cc_a910b62e9c8b1a1a9e4e2fd622b448260}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!EXPECT\_TOKENn@{EXPECT\_TOKENn}}
+\index{EXPECT\_TOKENn@{EXPECT\_TOKENn}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{EXPECT\_TOKENn}{EXPECT\_TOKENn}}
+{\footnotesize\ttfamily \#define EXPECT\+\_\+\+TOKENn(\begin{DoxyParamCaption}\item[{}]{token }\end{DoxyParamCaption})~\mbox{\hyperlink{asm-parser_8cc_aca5d870719111119b810173e8ddb0705}{EXPECT\+\_\+\+TOKEN\+\_\+\+OR\+\_\+\+RETURN}}(\mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}, token)}
+
+\mbox{\Hypertarget{asm-parser_8cc_a292ad803e75cf5ca00676b8595513ace}\label{asm-parser_8cc_a292ad803e75cf5ca00676b8595513ace}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!FAIL@{FAIL}}
+\index{FAIL@{FAIL}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{FAIL}{FAIL}}
+{\footnotesize\ttfamily \#define FAIL(\begin{DoxyParamCaption}\item[{}]{msg }\end{DoxyParamCaption})~\mbox{\hyperlink{asm-parser_8cc_a11fbf81b7560cc6237eda819185e883b}{FAIL\+\_\+\+AND\+\_\+\+RETURN}}(, msg)}
+
+\mbox{\Hypertarget{asm-parser_8cc_a11fbf81b7560cc6237eda819185e883b}\label{asm-parser_8cc_a11fbf81b7560cc6237eda819185e883b}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!FAIL\_AND\_RETURN@{FAIL\_AND\_RETURN}}
+\index{FAIL\_AND\_RETURN@{FAIL\_AND\_RETURN}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{FAIL\_AND\_RETURN}{FAIL\_AND\_RETURN}}
+{\footnotesize\ttfamily \#define FAIL\+\_\+\+AND\+\_\+\+RETURN(\begin{DoxyParamCaption}\item[{}]{ret,  }\item[{}]{msg }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  failed\_ = \textcolor{keyword}{true};                                                          \(\backslash\)}
+\DoxyCodeLine{  failure\_message\_ = msg;                                                  \(\backslash\)}
+\DoxyCodeLine{  failure\_location\_ = \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(scanner\_.Position());               \(\backslash\)}
+\DoxyCodeLine{  TRACE\_ASM\_PARSER(\textcolor{stringliteral}{"{}[asm.js failure: \%s, token: '\%s', see: \%s:\%d]\(\backslash\)n"{}}, msg, \(\backslash\)}
+\DoxyCodeLine{                   scanner\_.Name(scanner\_.Token()).c\_str(), \_\_FILE\_\_,      \(\backslash\)}
+\DoxyCodeLine{                   \_\_LINE\_\_);                                              \(\backslash\)}
+\DoxyCodeLine{  return ret;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{asm-parser_8cc_a7fc3e518c0e6542e860ef6ce354df4b7}\label{asm-parser_8cc_a7fc3e518c0e6542e860ef6ce354df4b7}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!FAILn@{FAILn}}
+\index{FAILn@{FAILn}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{FAILn}{FAILn}}
+{\footnotesize\ttfamily \#define FAILn(\begin{DoxyParamCaption}\item[{}]{msg }\end{DoxyParamCaption})~\mbox{\hyperlink{asm-parser_8cc_a11fbf81b7560cc6237eda819185e883b}{FAIL\+\_\+\+AND\+\_\+\+RETURN}}(\mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}, msg)}
+
+\mbox{\Hypertarget{asm-parser_8cc_ae7eb7ab624fdecd084f8aef7c13bb32c}\label{asm-parser_8cc_ae7eb7ab624fdecd084f8aef7c13bb32c}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!HANDLE\_CASE@{HANDLE\_CASE}}
+\index{HANDLE\_CASE@{HANDLE\_CASE}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{HANDLE\_CASE}{HANDLE\_CASE}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \#define HANDLE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{op,  }\item[{}]{opcode,  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{\mbox{\hyperlink{jump-threading_8cc_a41f8c58d2c01bf65b8ee199c3f87fc80}{result}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{asm-parser_8cc_a564b2a6720d94e1bf5f0ea10562692ee}{TOK}}(op): \{                                                    \(\backslash\)}
+\DoxyCodeLine{    EXPECT\_TOKENn(\mbox{\hyperlink{asm-parser_8cc_a564b2a6720d94e1bf5f0ea10562692ee}{TOK}}(op));                                          \(\backslash\)}
+\DoxyCodeLine{    heap\_access\_shift\_position\_ = kNoHeapAccessShift;                \(\backslash\)}
+\DoxyCodeLine{    AsmType* b = \textcolor{keyword}{nullptr};                                            \(\backslash\)}
+\DoxyCodeLine{    RECURSEn(b = AdditiveExpression());                              \(\backslash\)}
+\DoxyCodeLine{    if (!(\mbox{\hyperlink{js-call-reducer_8cc_a4665d2c07575c01062ce1cdba711d875}{a}}-\/>IsA(AsmType::Intish()) \&\& b-\/>IsA(AsmType::Intish()))) \{ \(\backslash\)}
+\DoxyCodeLine{      FAILn(\textcolor{stringliteral}{"{}Expected intish for operator "{}} \#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}} \textcolor{stringliteral}{"{}."{}});              \(\backslash\)}
+\DoxyCodeLine{    \}                                                                \(\backslash\)}
+\DoxyCodeLine{    current\_function\_builder\_-\/>Emit(kExpr\#\#opcode);                  \(\backslash\)}
+\DoxyCodeLine{    a = \mbox{\hyperlink{jump-threading_8cc_a41f8c58d2c01bf65b8ee199c3f87fc80}{AsmType::result}}();                                           \(\backslash\)}
+\DoxyCodeLine{    continue;                                                        \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{asm-parser_8cc_a98c457fd30b3ae6eea766da9a9751555}\label{asm-parser_8cc_a98c457fd30b3ae6eea766da9a9751555}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!HANDLE\_CASE@{HANDLE\_CASE}}
+\index{HANDLE\_CASE@{HANDLE\_CASE}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{HANDLE\_CASE}{HANDLE\_CASE}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \#define HANDLE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{op,  }\item[{}]{sop,  }\item[{}]{uop,  }\item[{}]{\mbox{\hyperlink{liftoff-assembler-x64-inl_8h_a32173f41ea4c67ee8acde012c9729d83}{dop}},  }\item[{}]{fop,  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} op: \{                                                                  \(\backslash\)}
+\DoxyCodeLine{    EXPECT\_TOKENn(op);                                                        \(\backslash\)}
+\DoxyCodeLine{    AsmType* b = \textcolor{keyword}{nullptr};                                                     \(\backslash\)}
+\DoxyCodeLine{    RECURSEn(b = ShiftExpression());                                          \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{js-call-reducer_8cc_a4665d2c07575c01062ce1cdba711d875}{a}}-\/>IsA(\mbox{\hyperlink{namespacev8_1_1base_1_1bits_ac34fbdba2249daa2374ff7964600dbea}{AsmType::Signed}}()) \&\& b-\/>IsA(\mbox{\hyperlink{namespacev8_1_1base_1_1bits_ac34fbdba2249daa2374ff7964600dbea}{AsmType::Signed}}())) \{             \(\backslash\)}
+\DoxyCodeLine{      current\_function\_builder\_-\/>Emit(kExpr\#\#sop);                            \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{js-call-reducer_8cc_a4665d2c07575c01062ce1cdba711d875}{a}}-\/>IsA(\mbox{\hyperlink{namespacev8_1_1base_1_1bits_afd2acf195063b361516d8646fd5b6932}{AsmType::Unsigned}}()) \&\& b-\/>IsA(\mbox{\hyperlink{namespacev8_1_1base_1_1bits_afd2acf195063b361516d8646fd5b6932}{AsmType::Unsigned}}())) \{  \(\backslash\)}
+\DoxyCodeLine{      current\_function\_builder\_-\/>Emit(kExpr\#\#uop);                            \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{js-call-reducer_8cc_a4665d2c07575c01062ce1cdba711d875}{a}}-\/>IsA(AsmType::Double()) \&\& b-\/>IsA(AsmType::Double())) \{      \(\backslash\)}
+\DoxyCodeLine{      current\_function\_builder\_-\/>Emit(kExpr\#\#\mbox{\hyperlink{liftoff-assembler-ia32-inl_8h_a32173f41ea4c67ee8acde012c9729d83}{dop}});                            \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{js-call-reducer_8cc_a4665d2c07575c01062ce1cdba711d875}{a}}-\/>IsA(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae9d7d26fd586a0b3b7438a4ae1fd56e9}{AsmType::Float}}()) \&\& b-\/>IsA(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae9d7d26fd586a0b3b7438a4ae1fd56e9}{AsmType::Float}}())) \{        \(\backslash\)}
+\DoxyCodeLine{      current\_function\_builder\_-\/>Emit(kExpr\#\#fop);                            \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                                  \(\backslash\)}
+\DoxyCodeLine{      FAILn(\textcolor{stringliteral}{"{}Expected signed, unsigned, double, or float for operator "{}} \#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}} \(\backslash\)}
+\DoxyCodeLine{            \textcolor{stringliteral}{"{}."{}});                                                             \(\backslash\)}
+\DoxyCodeLine{    \}                                                                         \(\backslash\)}
+\DoxyCodeLine{    a = AsmType::Int();                                                       \(\backslash\)}
+\DoxyCodeLine{    continue;                                                                 \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{asm-parser_8cc_a98c457fd30b3ae6eea766da9a9751555}\label{asm-parser_8cc_a98c457fd30b3ae6eea766da9a9751555}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!HANDLE\_CASE@{HANDLE\_CASE}}
+\index{HANDLE\_CASE@{HANDLE\_CASE}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{HANDLE\_CASE}{HANDLE\_CASE}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \#define HANDLE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{op,  }\item[{}]{sop,  }\item[{}]{uop,  }\item[{}]{\mbox{\hyperlink{liftoff-assembler-x64-inl_8h_a32173f41ea4c67ee8acde012c9729d83}{dop}},  }\item[{}]{fop,  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} op: \{                                                                  \(\backslash\)}
+\DoxyCodeLine{    EXPECT\_TOKENn(op);                                                        \(\backslash\)}
+\DoxyCodeLine{    AsmType* b = \textcolor{keyword}{nullptr};                                                     \(\backslash\)}
+\DoxyCodeLine{    RECURSEn(b = RelationalExpression());                                     \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{js-call-reducer_8cc_a4665d2c07575c01062ce1cdba711d875}{a}}-\/>IsA(\mbox{\hyperlink{namespacev8_1_1base_1_1bits_ac34fbdba2249daa2374ff7964600dbea}{AsmType::Signed}}()) \&\& b-\/>IsA(\mbox{\hyperlink{namespacev8_1_1base_1_1bits_ac34fbdba2249daa2374ff7964600dbea}{AsmType::Signed}}())) \{             \(\backslash\)}
+\DoxyCodeLine{      current\_function\_builder\_-\/>Emit(kExpr\#\#sop);                            \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{js-call-reducer_8cc_a4665d2c07575c01062ce1cdba711d875}{a}}-\/>IsA(\mbox{\hyperlink{namespacev8_1_1base_1_1bits_afd2acf195063b361516d8646fd5b6932}{AsmType::Unsigned}}()) \&\& b-\/>IsA(\mbox{\hyperlink{namespacev8_1_1base_1_1bits_afd2acf195063b361516d8646fd5b6932}{AsmType::Unsigned}}())) \{  \(\backslash\)}
+\DoxyCodeLine{      current\_function\_builder\_-\/>Emit(kExpr\#\#uop);                            \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{js-call-reducer_8cc_a4665d2c07575c01062ce1cdba711d875}{a}}-\/>IsA(AsmType::Double()) \&\& b-\/>IsA(AsmType::Double())) \{      \(\backslash\)}
+\DoxyCodeLine{      current\_function\_builder\_-\/>Emit(kExpr\#\#\mbox{\hyperlink{liftoff-assembler-ia32-inl_8h_a32173f41ea4c67ee8acde012c9729d83}{dop}});                            \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{js-call-reducer_8cc_a4665d2c07575c01062ce1cdba711d875}{a}}-\/>IsA(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae9d7d26fd586a0b3b7438a4ae1fd56e9}{AsmType::Float}}()) \&\& b-\/>IsA(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae9d7d26fd586a0b3b7438a4ae1fd56e9}{AsmType::Float}}())) \{        \(\backslash\)}
+\DoxyCodeLine{      current\_function\_builder\_-\/>Emit(kExpr\#\#fop);                            \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                                  \(\backslash\)}
+\DoxyCodeLine{      FAILn(\textcolor{stringliteral}{"{}Expected signed, unsigned, double, or float for operator "{}} \#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}} \(\backslash\)}
+\DoxyCodeLine{            \textcolor{stringliteral}{"{}."{}});                                                             \(\backslash\)}
+\DoxyCodeLine{    \}                                                                         \(\backslash\)}
+\DoxyCodeLine{    a = AsmType::Int();                                                       \(\backslash\)}
+\DoxyCodeLine{    continue;                                                                 \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{asm-parser_8cc_ae0a277a5d8255c02bcad1635d9f1c308}\label{asm-parser_8cc_ae0a277a5d8255c02bcad1635d9f1c308}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!RECURSE@{RECURSE}}
+\index{RECURSE@{RECURSE}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{RECURSE}{RECURSE}}
+{\footnotesize\ttfamily \#define RECURSE(\begin{DoxyParamCaption}\item[{}]{call }\end{DoxyParamCaption})~\mbox{\hyperlink{asm-parser_8cc_a6d0285d54dc6b69c7ab805ec46a69ef4}{RECURSE\+\_\+\+OR\+\_\+\+RETURN}}(, call)}
+
+\mbox{\Hypertarget{asm-parser_8cc_a6d0285d54dc6b69c7ab805ec46a69ef4}\label{asm-parser_8cc_a6d0285d54dc6b69c7ab805ec46a69ef4}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!RECURSE\_OR\_RETURN@{RECURSE\_OR\_RETURN}}
+\index{RECURSE\_OR\_RETURN@{RECURSE\_OR\_RETURN}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{RECURSE\_OR\_RETURN}{RECURSE\_OR\_RETURN}}
+{\footnotesize\ttfamily \#define RECURSE\+\_\+\+OR\+\_\+\+RETURN(\begin{DoxyParamCaption}\item[{}]{ret,  }\item[{}]{call }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                     \(\backslash\)}
+\DoxyCodeLine{    DCHECK(!failed\_);                                                      \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_a8002b4a0fe4f465e8a6261cff4e9b66d}{GetCurrentStackPosition}}() < stack\_limit\_) \{                        \(\backslash\)}
+\DoxyCodeLine{      FAIL\_AND\_RETURN(ret, \textcolor{stringliteral}{"{}Stack overflow while parsing asm.js module."{}}); \(\backslash\)}
+\DoxyCodeLine{    \}                                                                      \(\backslash\)}
+\DoxyCodeLine{    call;                                                                  \(\backslash\)}
+\DoxyCodeLine{    if (failed\_) \textcolor{keywordflow}{return} ret;                                               \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{asm-parser_8cc_ae27e79132c2850af5174474f77c292ea}\label{asm-parser_8cc_ae27e79132c2850af5174474f77c292ea}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!RECURSEn@{RECURSEn}}
+\index{RECURSEn@{RECURSEn}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{RECURSEn}{RECURSEn}}
+{\footnotesize\ttfamily \#define RECURSEn(\begin{DoxyParamCaption}\item[{}]{call }\end{DoxyParamCaption})~\mbox{\hyperlink{asm-parser_8cc_a6d0285d54dc6b69c7ab805ec46a69ef4}{RECURSE\+\_\+\+OR\+\_\+\+RETURN}}(\mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}, call)}
+
+\mbox{\Hypertarget{asm-parser_8cc_a564b2a6720d94e1bf5f0ea10562692ee}\label{asm-parser_8cc_a564b2a6720d94e1bf5f0ea10562692ee}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!TOK@{TOK}}
+\index{TOK@{TOK}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{TOK}{TOK}}
+{\footnotesize\ttfamily \#define TOK(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})~Asm\+Js\+Scanner\+::k\+Token\+\_\+\#\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}}
+
+\mbox{\Hypertarget{asm-parser_8cc_a683554e9c556c0aabef0d3a098c6d5cb}\label{asm-parser_8cc_a683554e9c556c0aabef0d3a098c6d5cb}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!TRACE\_ASM\_PARSER@{TRACE\_ASM\_PARSER}}
+\index{TRACE\_ASM\_PARSER@{TRACE\_ASM\_PARSER}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{TRACE\_ASM\_PARSER}{TRACE\_ASM\_PARSER}}
+{\footnotesize\ttfamily \#define TRACE\+\_\+\+ASM\+\_\+\+PARSER(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{asm-parser_8cc_a7089297e35be4a1908969d179231083b}\label{asm-parser_8cc_a7089297e35be4a1908969d179231083b}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!V@{V}}
+\index{V@{V}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{V}{V}\hspace{0.1cm}{\footnotesize\ttfamily [1/7]}}
+{\footnotesize\ttfamily \#define V(\begin{DoxyParamCaption}\item[{}]{array\+\_\+type,  }\item[{}]{wasmload,  }\item[{}]{wasmstore,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (heap\_access\_type\_-\/>IsA(AsmType::array\_type())) \{ \(\backslash\)}
+\DoxyCodeLine{    current\_function\_builder\_-\/>EmitWithPrefix(         \(\backslash\)}
+\DoxyCodeLine{        kExpr\#\#\mbox{\hyperlink{wasm-inlining-into-js_8cc_a66874a4e937e4192b2b42e57f55251e8}{type}}\#\#AsmjsLoad\#\#wasmload);             \(\backslash\)}
+\DoxyCodeLine{    return heap\_access\_type\_-\/>LoadType();              \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{asm-parser_8cc_a7089297e35be4a1908969d179231083b}\label{asm-parser_8cc_a7089297e35be4a1908969d179231083b}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!V@{V}}
+\index{V@{V}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{V}{V}\hspace{0.1cm}{\footnotesize\ttfamily [2/7]}}
+{\footnotesize\ttfamily \#define V(\begin{DoxyParamCaption}\item[{}]{array\+\_\+type,  }\item[{}]{wasmload,  }\item[{}]{wasmstore,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (heap\_type-\/>IsA(AsmType::array\_type())) \{   \(\backslash\)}
+\DoxyCodeLine{    current\_function\_builder\_-\/>EmitWithPrefix(   \(\backslash\)}
+\DoxyCodeLine{        kExpr\#\#\mbox{\hyperlink{wasm-inlining-into-js_8cc_a66874a4e937e4192b2b42e57f55251e8}{type}}\#\#AsmjsStore\#\#wasmstore);     \(\backslash\)}
+\DoxyCodeLine{    return ret;                                  \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{asm-parser_8cc_a23c12785d2fad97499dd582ef6b085d5}\label{asm-parser_8cc_a23c12785d2fad97499dd582ef6b085d5}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!V@{V}}
+\index{V@{V}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{V}{V}\hspace{0.1cm}{\footnotesize\ttfamily [3/7]}}
+{\footnotesize\ttfamily \#define V(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{\+\_\+junk1,  }\item[{}]{\+\_\+junk2,  }\item[{}]{\+\_\+junk3 }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{asm-parser_8cc_a564b2a6720d94e1bf5f0ea10562692ee}{TOK}}(\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}):                                                \(\backslash\)}
+\DoxyCodeLine{    DeclareStdlibFunc(\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}}, VarKind::kSpecial, \mbox{\hyperlink{asm-types_8cc_afcdc6dbbbbc9ef3e69689077dfdb6e13}{AsmType}}::\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}()); \(\backslash\)}
+\DoxyCodeLine{    stdlib\_uses\_.Add(StandardMember::k\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}});                   \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{asm-parser_8cc_abd72005a049211629d23965ab34c56bc}\label{asm-parser_8cc_abd72005a049211629d23965ab34c56bc}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!V@{V}}
+\index{V@{V}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{V}{V}\hspace{0.1cm}{\footnotesize\ttfamily [4/7]}}
+{\footnotesize\ttfamily \#define V(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{const\+\_\+value }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{asm-parser_8cc_a564b2a6720d94e1bf5f0ea10562692ee}{TOK}}(\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}):                                           \(\backslash\)}
+\DoxyCodeLine{    DeclareGlobal(\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}}, \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}, \mbox{\hyperlink{asm-types_8cc_afcdc6dbbbbc9ef3e69689077dfdb6e13}{AsmType}}::Double(), \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_aeb1a0dc52ceeed030ac44fa008c1e77c}{kWasmF64}}, \(\backslash\)}
+\DoxyCodeLine{                  WasmInitExpr(const\_value));               \(\backslash\)}
+\DoxyCodeLine{    stdlib\_uses\_.Add(StandardMember::kMath\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}});          \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{asm-parser_8cc_a45cb5e4269eed542fccc4ef940514324}\label{asm-parser_8cc_a45cb5e4269eed542fccc4ef940514324}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!V@{V}}
+\index{V@{V}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{V}{V}\hspace{0.1cm}{\footnotesize\ttfamily [5/7]}}
+{\footnotesize\ttfamily \#define V(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{Name,  }\item[{}]{op,  }\item[{}]{sig }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{asm-parser_8cc_a564b2a6720d94e1bf5f0ea10562692ee}{TOK}}(\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}):                                                   \(\backslash\)}
+\DoxyCodeLine{    DeclareStdlibFunc(\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}}, VarKind::kMath\#\#Name, stdlib\_\#\#\mbox{\hyperlink{namespacev8_1_1internal_a6135f0ef57de8d381e3225f6659c617a}{sig}}\#\#\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\_}}); \(\backslash\)}
+\DoxyCodeLine{    stdlib\_uses\_.Add(StandardMember::kMath\#\#Name);                  \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{asm-parser_8cc_a45cb5e4269eed542fccc4ef940514324}\label{asm-parser_8cc_a45cb5e4269eed542fccc4ef940514324}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!V@{V}}
+\index{V@{V}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{V}{V}\hspace{0.1cm}{\footnotesize\ttfamily [6/7]}}
+{\footnotesize\ttfamily \#define V(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{Name,  }\item[{}]{op,  }\item[{}]{sig }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} VarKind::kMath\#\#Name:                         \(\backslash\)}
+\DoxyCodeLine{    if ((op) <= 0xff) \{                               \(\backslash\)}
+\DoxyCodeLine{      current\_function\_builder\_-\/>Emit(op);           \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                         \(\backslash\)}
+\DoxyCodeLine{      current\_function\_builder\_-\/>EmitWithPrefix(op); \(\backslash\)}
+\DoxyCodeLine{    \}                                                \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{asm-parser_8cc_a45cb5e4269eed542fccc4ef940514324}\label{asm-parser_8cc_a45cb5e4269eed542fccc4ef940514324}} 
+\index{asm-\/parser.cc@{asm-\/parser.cc}!V@{V}}
+\index{V@{V}!asm-\/parser.cc@{asm-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{V}{V}\hspace{0.1cm}{\footnotesize\ttfamily [7/7]}}
+{\footnotesize\ttfamily \#define V(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{Name,  }\item[{}]{op,  }\item[{}]{sig }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} VarKind::kMath\#\#Name:                                      \(\backslash\)}
+\DoxyCodeLine{    if (param\_specific\_types[0]-\/>IsA(AsmType::DoubleQ())) \{       \(\backslash\)}
+\DoxyCodeLine{      current\_function\_builder\_-\/>Emit(kExprF64\#\#Name);            \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (param\_specific\_types[0]-\/>IsA(AsmType::FloatQ())) \{ \(\backslash\)}
+\DoxyCodeLine{      current\_function\_builder\_-\/>Emit(kExprF32\#\#Name);            \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                      \(\backslash\)}
+\DoxyCodeLine{      UNREACHABLE();                                              \(\backslash\)}
+\DoxyCodeLine{    \}                                                             \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}

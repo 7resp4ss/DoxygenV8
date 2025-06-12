@@ -1,0 +1,1072 @@
+\hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{}\doxysection{v8\+::internal\+::interpreter\+::Bytecode\+Generator Class Reference}
+\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+
+
+{\ttfamily \#include $<$bytecode-\/generator.\+h$>$}
+
+
+
+Inheritance diagram for v8\+::internal\+::interpreter\+::Bytecode\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for v8\+::internal\+::interpreter\+::Bytecode\+Generator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1Branch}{Branch}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1ControlScopeForBreakable}{Control\+Scope\+For\+Breakable}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1ControlScopeForDerivedConstructor}{Control\+Scope\+For\+Derived\+Constructor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1ControlScopeForIteration}{Control\+Scope\+For\+Iteration}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1ControlScopeForTopLevel}{Control\+Scope\+For\+Top\+Level}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1ControlScopeForTryCatch}{Control\+Scope\+For\+Try\+Catch}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1ControlScopeForTryFinally}{Control\+Scope\+For\+Try\+Finally}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1EffectResultScope}{Effect\+Result\+Scope}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1Entry}{Entry}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1FeedbackSlotCache}{Feedback\+Slot\+Cache}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1IteratorRecord}{Iterator\+Record}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1NaryCodeCoverageSlots}{Nary\+Code\+Coverage\+Slots}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1TopLevelDeclarationsBuilder}{Top\+Level\+Declarations\+Builder}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35d}{Kind}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35da219375319ce0e1a649b50f8e555a72c9}{k\+Effect}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35da8f3eb90501d1319ac1efbed485aba918}{k\+Value}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35da4b419433929e0acca291d6ff59f07482}{k\+Value\+As\+Property\+Key}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35dafa0740a8b73062b7d2de11bda872e642}{k\+Test}}
+ \}
+\item 
+enum \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cd}{Type\+Hint}} \+: uint8\+\_\+t \{ \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cdaeeb28879f49dd41a108c3e0a97613263}{k\+Boolean}} = 1 $<$$<$ 0
+, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cda6e6911488bd8ac6076bec5da1689930e}{k\+Internalized\+String}} = 1 $<$$<$ 1
+, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cda57aa307b3ac586eafd91fd800fbd4e25}{k\+String}} = k\+Internalized\+String $\vert$ (1 $<$$<$ 2)
+, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cda45d9b9fdaea5b5f93df740b4f44205cc}{k\+Any}} = k\+Boolean $\vert$ k\+String
+, \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cdaaba248746e6ea61638d0f13f7a560514}{k\+Unknown}} = 0x\+FFu
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a265058e27556237da98574c5e2fc5cb4}{Context\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}{generator}}, \mbox{\hyperlink{classv8_1_1internal_1_1Scope}{Scope}} $\ast$scope, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}} outer\+\_\+context\+\_\+reg=\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}}())
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a6b2d392c4e366ae33dfe3db605a4e98d}{$\sim$\+Context\+Scope}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aa7c433e90f4053b45632294c82b8512d}{Context\+Scope}} (const Context\+Scope \&)=delete
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a265058e27556237da98574c5e2fc5cb4}{Context\+Scope}} \& \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afbeed505c912ed161b0a5b6af621ad98}{operator=}} (const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a265058e27556237da98574c5e2fc5cb4}{Context\+Scope}} \&)=delete
+\item 
+int \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a0f0cd070f853c3fc3a586914fe565b4d}{Context\+Chain\+Depth}} (\mbox{\hyperlink{classv8_1_1internal_1_1Scope}{Scope}} $\ast$scope)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a265058e27556237da98574c5e2fc5cb4}{Context\+Scope}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aeb92c93af63c2dbe99ba47de689d720c}{Previous}} (int depth)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_abee84182b23963b89e1e18c6e3778d43}{reg}} () const
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2f8706adf4183281e5797c07c2fdcc60}{Control\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}{generator}})
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_abf7b998685cc1bfef0ec94a0280291b6}{$\sim$\+Control\+Scope}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a45dc41833d65051fd1d454d31ec1864f}{Control\+Scope}} (const Control\+Scope \&)=delete
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2f8706adf4183281e5797c07c2fdcc60}{Control\+Scope}} \& \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad58f3b383b265ae25008a45a4adc21bf}{operator=}} (const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2f8706adf4183281e5797c07c2fdcc60}{Control\+Scope}} \&)=delete
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af7212b1546734463953ba7bab1b4763d}{Break}} (\mbox{\hyperlink{classv8_1_1internal_1_1Statement}{Statement}} $\ast$stmt)
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a4a27baa8efe57fa301dd61754d18460f}{Continue}} (\mbox{\hyperlink{classv8_1_1internal_1_1Statement}{Statement}} $\ast$stmt)
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afa2728005fea308eb7a621bd95c0dab8}{Return\+Accumulator}} (int source\+\_\+position)
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afa7ee498081fbb3ed46866510bb9628b}{Async\+Return\+Accumulator}} (int source\+\_\+position)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a70faed39bffa1644e728c6fef883fbb8}{Deferred\+Commands}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}{generator}}, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}} token\+\_\+register, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}} result\+\_\+register, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}} message\+\_\+register)
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aefe7727d36ffa9589a4c100c98cd0a0e}{Record\+Command}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954d}{Command}} command, \mbox{\hyperlink{classv8_1_1internal_1_1Statement}{Statement}} $\ast$\mbox{\hyperlink{torque-parser_8cc_ac9e22b0965b1eadfbb105790592d4973}{statement}})
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a91fab77f56264e8e7be189934b543eaa}{Record\+Handler\+Re\+Throw\+Path}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a63098f462fb6d6727fb4bc613e621214}{Record\+Fall\+Through\+Path}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aa41668aeec1a7be4082d938cc8fba629}{Apply\+Deferred\+Command}} (const \mbox{\hyperlink{structv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1Entry}{Entry}} \&entry)
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a0f3defed43b0f2fddbad30b5bfb1f00d}{Apply\+Deferred\+Commands}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeArrayBuilder}{Bytecode\+Array\+Builder}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a5f582575a9c8e4c74aa9f24d5fca4067}{builder}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2f8706adf4183281e5797c07c2fdcc60}{Control\+Scope}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a6c1222539a40bace569bee2b869f113c}{execution\+\_\+control}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a85b881849b56fe33dd52f6bcb0f6bd90}{Register\+Allocation\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}{generator}})
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a45ef7528d6ffaa6c658ca2fd30cf885e}{$\sim$\+Register\+Allocation\+Scope}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a40665a0d328a65a67c798b5d0c6ed530}{Register\+Allocation\+Scope}} (const Register\+Allocation\+Scope \&)=delete
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a85b881849b56fe33dd52f6bcb0f6bd90}{Register\+Allocation\+Scope}} \& \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a66fef358f598a8636ef761d7bf201ef2}{operator=}} (const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a85b881849b56fe33dd52f6bcb0f6bd90}{Register\+Allocation\+Scope}} \&)=delete
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}{generator}} () const
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a12bcf193f24479b61e5b7822029725fc}{Accumulator\+Preserving\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}{generator}}, Accumulator\+Preserving\+Mode \mbox{\hyperlink{flag-definitions_8h_adaf90f045d5cd2710edd625b8685472a}{mode}})
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a76d5ae4b86b951ecd44ba79c9890bfe1}{$\sim$\+Accumulator\+Preserving\+Scope}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac2481c1c0cae41a9939222d9a7f4966c}{Accumulator\+Preserving\+Scope}} (const Accumulator\+Preserving\+Scope \&)=delete
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a12bcf193f24479b61e5b7822029725fc}{Accumulator\+Preserving\+Scope}} \& \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac9512fd1bdec46b5cbb8785522dd885a}{operator=}} (const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a12bcf193f24479b61e5b7822029725fc}{Accumulator\+Preserving\+Scope}} \&)=delete
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_add019e32892e50a7828d054cfcfab07e}{Expression\+Result\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}{generator}}, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35d}{Kind}} \mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a974bb813de68efeaf7bdce0ff2dc4714}{$\sim$\+Expression\+Result\+Scope}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a6f92f1ecfb72d5f7cc142704130d7e94}{Expression\+Result\+Scope}} (const Expression\+Result\+Scope \&)=delete
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_add019e32892e50a7828d054cfcfab07e}{Expression\+Result\+Scope}} \& \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac7689116f9b65be7110dacfa78a5d9fb}{operator=}} (const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_add019e32892e50a7828d054cfcfab07e}{Expression\+Result\+Scope}} \&)=delete
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae8a2bedd1c28463afc36cbde4478859e}{Is\+Effect}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a961256b6992fab4b2cf53ab188c13f9a}{Is\+Value}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a355e862a11a47440b29dcb028e4aaa87}{Is\+Value\+As\+Property\+Key}} () const
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a03bde4f9d2afbc99cbc854bd29d5355e}{Is\+Test}} () const
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a88c107c8a2db59e5338cef2a05c95450}{Test\+Result\+Scope}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a22f935a666b6ab0fa2ccb0f495a1ab09}{As\+Test}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af42e24c2ac6dbc8b8f9c7b97086bfd05}{Set\+Result\+Is\+Boolean}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2ec75268a542352775770253d21b8698}{Set\+Result\+Is\+String}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a16103791afb1f74bae8690c64e2cfc04}{Set\+Result\+Is\+Internalized\+String}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cd}{Type\+Hint}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a49f32c175110c8ac68c60d2e3571a0bd}{type\+\_\+hint}} () const
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a3dd0d507724acc60dde74fe4fde0ecda}{Value\+Result\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}{generator}})
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a92ab5da9b90f4ba434d59e23327e6bf5}{Value\+Result\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}{generator}}, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35d}{Kind}} \mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a88c107c8a2db59e5338cef2a05c95450}{Test\+Result\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}{generator}}, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabels}{Bytecode\+Labels}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a797bb012859351fbd20664f602c89961}{then\+\_\+labels}}, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabels}{Bytecode\+Labels}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a60f020058f8189cd2e05f84c8e9d28df}{else\+\_\+labels}}, Test\+Fallthrough \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a823607015c8782b6c474afd1e59f53ef}{fallthrough}})
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aa97d175c6f8ff67531fabb104226e550}{Test\+Result\+Scope}} (const Test\+Result\+Scope \&)=delete
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a88c107c8a2db59e5338cef2a05c95450}{Test\+Result\+Scope}} \& \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac13c994ab3816ce644d0b02dc0664256}{operator=}} (const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a88c107c8a2db59e5338cef2a05c95450}{Test\+Result\+Scope}} \&)=delete
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af86da973afaaa95751c0d2f811ce1467}{Set\+Result\+Consumed\+By\+Test}} ()
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a1af75abf0dd9976648eeae8d52a28158}{result\+\_\+consumed\+\_\+by\+\_\+test}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a490fdc1dda7dcee56ab50c5f6c9c3c50}{Invert\+Control\+Flow}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabel}{Bytecode\+Label}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a1d5a3ce99d4176beb067d34a465ace78}{New\+Then\+Label}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabel}{Bytecode\+Label}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aeb7e8b50b2a317bb871a52d5f541c4b2}{New\+Else\+Label}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabels}{Bytecode\+Labels}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a797bb012859351fbd20664f602c89961}{then\+\_\+labels}} () const
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabels}{Bytecode\+Labels}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a60f020058f8189cd2e05f84c8e9d28df}{else\+\_\+labels}} () const
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a29853192c581ecaa9e4de2e5feb4f179}{set\+\_\+then\+\_\+labels}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabels}{Bytecode\+Labels}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a797bb012859351fbd20664f602c89961}{then\+\_\+labels}})
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae38bff259b5fb8dc29e464fea3aa243a}{set\+\_\+else\+\_\+labels}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabels}{Bytecode\+Labels}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a60f020058f8189cd2e05f84c8e9d28df}{else\+\_\+labels}})
+\item 
+Test\+Fallthrough \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a823607015c8782b6c474afd1e59f53ef}{fallthrough}} () const
+\item 
+Test\+Fallthrough \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad8f6f43889d5b60f2b6e997f9a2aa477}{inverted\+\_\+fallthrough}} () const
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aaa90e1c9ac8eabbc378b146672bc79b8}{set\+\_\+fallthrough}} (Test\+Fallthrough \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a823607015c8782b6c474afd1e59f53ef}{fallthrough}})
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad2240ed8791f1c81f83b70ffe017dcf9}{Current\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}{generator}}, \mbox{\hyperlink{classv8_1_1internal_1_1Scope}{Scope}} $\ast$scope)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ab6a47063e75c7551a285b428b025203f}{$\sim$\+Current\+Scope}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad35e09fdfa7a2f50e3b4165f24779dd9}{Current\+Scope}} (const Current\+Scope \&)=delete
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad2240ed8791f1c81f83b70ffe017dcf9}{Current\+Scope}} \& \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a780cb9128207187fe5e1f9ebe53fe053}{operator=}} (const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad2240ed8791f1c81f83b70ffe017dcf9}{Current\+Scope}} \&)=delete
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae8ff73dedd8c1905b5a3a6544500e78b}{Multiple\+Entry\+Block\+Context\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}{generator}}, \mbox{\hyperlink{classv8_1_1internal_1_1Scope}{Scope}} $\ast$scope)
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a0970d87b911f7cef5b4f30d8f8afa40c}{Set\+Entered\+If}} (\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{machine-operator-reducer_8cc_a0e07aad9de22abf9b9b1b4b437beef30}{condition}})
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aa913c7616f9d627c3c0c0563d483602d}{$\sim$\+Multiple\+Entry\+Block\+Context\+Scope}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae6ff52451b17002b28d3bfa687ef4f7d}{Multiple\+Entry\+Block\+Context\+Scope}} (const Multiple\+Entry\+Block\+Context\+Scope \&)=delete
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae8ff73dedd8c1905b5a3a6544500e78b}{Multiple\+Entry\+Block\+Context\+Scope}} \& \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af3f2a5641c0a428a0a2345f83ffeab9d}{operator=}} (const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae8ff73dedd8c1905b5a3a6544500e78b}{Multiple\+Entry\+Block\+Context\+Scope}} \&)=delete
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afd09b93732a6ad5abae322fa73fcd4b4}{Hole\+Check\+Elision\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$bytecode\+\_\+generator)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a5598cdc8cdd4096aeff789cbae21bf41}{$\sim$\+Hole\+Check\+Elision\+Scope}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ab3ce4dc617812bfdf874f9f2e42ef2ff}{Hole\+Check\+Elision\+Merge\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$bytecode\+\_\+generator)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a43e4aeec4280880e44a65c038524401d}{$\sim$\+Hole\+Check\+Elision\+Merge\+Scope}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a9d70bde74a40f8181b68a861563ca501}{Merge}} ()
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afb7844d0961ab03a8afab02a270eecfd}{Merge\+If}} (\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} cond)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a6c84d88ef82ae4e10cf53e2dccc28cfc}{Optional\+Chain\+Null\+Label\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$bytecode\+\_\+generator)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aae2a52c506a334027749e99f0e9483d9}{$\sim$\+Optional\+Chain\+Null\+Label\+Scope}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabels}{Bytecode\+Labels}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af9df089f2f9e36707d08ad6eb0cd857f}{labels}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad82d8b9782d21e624764864ee6b07434}{Loop\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$bytecode\+\_\+generator, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1LoopBuilder}{Loop\+Builder}} $\ast$loop)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a5a3f99901ee4f48c38617cebc21bab09}{$\sim$\+Loop\+Scope}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad67e70b6889e1006fe36cc20a326ea49}{For\+In\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$bytecode\+\_\+generator, \mbox{\hyperlink{classv8_1_1internal_1_1ForInStatement}{For\+In\+Statement}} $\ast$stmt, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af9e8d9da01202b973cecf1108ef48fb7}{enum\+\_\+index}}, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad002b2d970de53c1ce0f3c534f2de259}{cache\+\_\+type}})
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a109329aa4b33216497a07342ed1df9cb}{$\sim$\+For\+In\+Scope}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad67e70b6889e1006fe36cc20a326ea49}{For\+In\+Scope}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a3161f329adc2e23420e869fe06c69e32}{Get\+For\+In\+Scope}} (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a360e859ecd2f20a4868a17f0a7ec8a57}{Variable}} $\ast$each)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af9e8d9da01202b973cecf1108ef48fb7}{enum\+\_\+index}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad002b2d970de53c1ce0f3c534f2de259}{cache\+\_\+type}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a92f032e664ffc01527aff02f9623c67d}{Disposables\+Stack\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$bytecode\+\_\+generator)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afe4721884ab0748cf9689194917bc3e7}{$\sim$\+Disposables\+Stack\+Scope}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aaca476c9b1f31b97d8e25c172b7e7069}{Bytecode\+Generator}} (\mbox{\hyperlink{classv8_1_1internal_1_1LocalIsolate}{Local\+Isolate}} $\ast$local\+\_\+isolate, \mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$zone, \mbox{\hyperlink{classv8_1_1internal_1_1UnoptimizedCompilationInfo}{Unoptimized\+Compilation\+Info}} $\ast$info, const \mbox{\hyperlink{classv8_1_1internal_1_1AstStringConstants}{Ast\+String\+Constants}} $\ast$ast\+\_\+string\+\_\+constants, std\+::vector$<$ \mbox{\hyperlink{classv8_1_1internal_1_1FunctionLiteral}{Function\+Literal}} $\ast$ $>$ $\ast$eager\+\_\+inner\+\_\+literals, \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Script}{Script}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_afb7e5cd394b9632dddc2e7807b11b2ab}{script}})
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a16a6e87a78b3d35ec6eb5278babad5be}{Generate\+Bytecode}} (uintptr\+\_\+t stack\+\_\+limit)
+\item 
+{\footnotesize template$<$typename IsolateT $>$ }\\\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1BytecodeArray}{Bytecode\+Array}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af0752d4fab3ef7af92ee1f1ca52d0967}{Finalize\+Bytecode}} (IsolateT $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Script}{Script}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_afb7e5cd394b9632dddc2e7807b11b2ab}{script}})
+\item 
+{\footnotesize template$<$typename IsolateT $>$ }\\\mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TrustedByteArray}{Trusted\+Byte\+Array}} $>$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2355c4f642796ad9d25339b1fa2c83b8}{Finalize\+Source\+Position\+Table}} (IsolateT $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad5913d036cc27ac5638324bd857e8d6d}{Visit\+Module\+Declarations}} (\mbox{\hyperlink{classv8_1_1internal_1_1Declaration_a68b727d4474f6f1522355b821c4702a5}{Declaration\+::\+List}} $\ast$declarations)
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a1e6c2e45c880cd80612987683859130b}{Visit\+Global\+Declarations}} (\mbox{\hyperlink{classv8_1_1internal_1_1Declaration_a68b727d4474f6f1522355b821c4702a5}{Declaration\+::\+List}} $\ast$declarations)
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ade0d28db74cc7bef573590c8b1dbcb5f}{Visit\+Declarations}} (\mbox{\hyperlink{classv8_1_1internal_1_1Declaration_a68b727d4474f6f1522355b821c4702a5}{Declaration\+::\+List}} $\ast$declarations)
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae51592ff307be527ce90d67ec9cea2ef}{Visit\+Statements}} (const \mbox{\hyperlink{namespacev8_1_1internal_adb397220013f9b79eaf22efef7797cf2}{Zone\+Ptr\+List}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Statement}{Statement}} $>$ $\ast$statments, int \mbox{\hyperlink{instance-type-generator_8cc_a37722a150250e2a5a98e5e0d11e53449}{start}}=0)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a53b501f30cb042b37315b63d823da286}{Is\+Same\+Or\+Sub\+Type\+Hint}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cd}{Type\+Hint}} hint1, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cd}{Type\+Hint}} hint2)
+\item 
+static \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af5a3f36c9538400b95bdcb4b7bfd0ffd}{Is\+String\+Type\+Hint}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cd}{Type\+Hint}} hint)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954d}{Command}} \{ \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954dab5bf5d84b3f9c9af7046b474b3fa8e37}{CMD\+\_\+\+BREAK}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954da18c05490a480a11483bc6edec8b76df0}{CMD\+\_\+\+CONTINUE}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954da64b1bd06e1cbf563d5e73440b61b4ca0}{CMD\+\_\+\+RETURN}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954da7447a0c976eecd63bae51bfbb89cd0e8}{CMD\+\_\+\+ASYNC\+\_\+\+RETURN}}
+, \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954dadf69c819e7055c7bffbd1a24d1a0e727}{CMD\+\_\+\+RETHROW}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a1f40ff53eae628a69a32ffa995193d48}{Perform\+Command}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954d}{Command}} command, \mbox{\hyperlink{classv8_1_1internal_1_1Statement}{Statement}} $\ast$\mbox{\hyperlink{torque-parser_8cc_ac9e22b0965b1eadfbb105790592d4973}{statement}}, int source\+\_\+position)
+\item 
+virtual \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af5e9169d638a7dfc250471ca92321b9c}{Execute}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954d}{Command}} command, \mbox{\hyperlink{classv8_1_1internal_1_1Statement}{Statement}} $\ast$\mbox{\hyperlink{torque-parser_8cc_ac9e22b0965b1eadfbb105790592d4973}{statement}}, int source\+\_\+position)=0
+\item 
+void \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a41a40bba91aac5c3ddb725fd317e69ab}{Pop\+Context\+To\+Expected\+Depth}} ()
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}{generator}} () const
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2f8706adf4183281e5797c07c2fdcc60}{Control\+Scope}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a08b610078cd388ed61c635fd0ba355a2}{outer}} () const
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a265058e27556237da98574c5e2fc5cb4}{Context\+Scope}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aeaed8d7bf45e8c93e0a4f1f1eda8b435}{context}} () const
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aceb9594e920cf3066ee2177a4a495b19}{Hole\+Check\+Elision\+Scope}} (\mbox{\hyperlink{classv8_1_1internal_1_1Variable_af96ee82a1713af14f55e1492f6b07f97}{Variable\+::\+Hole\+Check\+Bitmap}} $\ast$bitmap)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a37501da0741bd94932ecd8c00bfd5f74}{Command\+Uses\+Accumulator}} (\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954d}{Command}} command)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Variable_af96ee82a1713af14f55e1492f6b07f97}{Variable\+::\+Hole\+Check\+Bitmap}} $\ast$ \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac2dc47ce43ea1fc31e7748b4212aa2f3}{bitmap\+\_\+}}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1Variable_af96ee82a1713af14f55e1492f6b07f97}{Variable\+::\+Hole\+Check\+Bitmap}} \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a78cbc1b68b6d96661baab8edcad11d48}{prev\+\_\+bitmap\+\_\+value\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954d}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954d}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!Command@{Command}}
+\index{Command@{Command}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{Command}{Command}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954d}{v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Command}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMD\_BREAK@{CMD\_BREAK}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!CMD\_BREAK@{CMD\_BREAK}}}\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954dab5bf5d84b3f9c9af7046b474b3fa8e37}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954dab5bf5d84b3f9c9af7046b474b3fa8e37}} 
+CMD\+\_\+\+BREAK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMD\_CONTINUE@{CMD\_CONTINUE}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!CMD\_CONTINUE@{CMD\_CONTINUE}}}\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954da18c05490a480a11483bc6edec8b76df0}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954da18c05490a480a11483bc6edec8b76df0}} 
+CMD\+\_\+\+CONTINUE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMD\_RETURN@{CMD\_RETURN}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!CMD\_RETURN@{CMD\_RETURN}}}\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954da64b1bd06e1cbf563d5e73440b61b4ca0}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954da64b1bd06e1cbf563d5e73440b61b4ca0}} 
+CMD\+\_\+\+RETURN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMD\_ASYNC\_RETURN@{CMD\_ASYNC\_RETURN}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!CMD\_ASYNC\_RETURN@{CMD\_ASYNC\_RETURN}}}\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954da7447a0c976eecd63bae51bfbb89cd0e8}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954da7447a0c976eecd63bae51bfbb89cd0e8}} 
+CMD\+\_\+\+ASYNC\+\_\+\+RETURN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMD\_RETHROW@{CMD\_RETHROW}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!CMD\_RETHROW@{CMD\_RETHROW}}}\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954dadf69c819e7055c7bffbd1a24d1a0e727}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954dadf69c819e7055c7bffbd1a24d1a0e727}} 
+CMD\+\_\+\+RETHROW&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35d}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35d}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!Kind@{Kind}}
+\index{Kind@{Kind}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{Kind}{Kind}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35d}{v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Kind}} \+: uint8\+\_\+t}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kEffect@{kEffect}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!kEffect@{kEffect}}}\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35da219375319ce0e1a649b50f8e555a72c9}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35da219375319ce0e1a649b50f8e555a72c9}} 
+k\+Effect&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kValue@{kValue}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!kValue@{kValue}}}\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35da8f3eb90501d1319ac1efbed485aba918}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35da8f3eb90501d1319ac1efbed485aba918}} 
+k\+Value&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kValueAsPropertyKey@{kValueAsPropertyKey}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!kValueAsPropertyKey@{kValueAsPropertyKey}}}\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35da4b419433929e0acca291d6ff59f07482}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35da4b419433929e0acca291d6ff59f07482}} 
+k\+Value\+As\+Property\+Key&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kTest@{kTest}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!kTest@{kTest}}}\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35dafa0740a8b73062b7d2de11bda872e642}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35dafa0740a8b73062b7d2de11bda872e642}} 
+k\+Test&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cd}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cd}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!TypeHint@{TypeHint}}
+\index{TypeHint@{TypeHint}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{TypeHint}{TypeHint}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cd}{v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Type\+Hint}} \+: uint8\+\_\+t}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kBoolean@{kBoolean}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!kBoolean@{kBoolean}}}\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cdaeeb28879f49dd41a108c3e0a97613263}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cdaeeb28879f49dd41a108c3e0a97613263}} 
+k\+Boolean&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kInternalizedString@{kInternalizedString}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!kInternalizedString@{kInternalizedString}}}\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cda6e6911488bd8ac6076bec5da1689930e}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cda6e6911488bd8ac6076bec5da1689930e}} 
+k\+Internalized\+String&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kString@{kString}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!kString@{kString}}}\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cda57aa307b3ac586eafd91fd800fbd4e25}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cda57aa307b3ac586eafd91fd800fbd4e25}} 
+k\+String&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAny@{kAny}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!kAny@{kAny}}}\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cda45d9b9fdaea5b5f93df740b4f44205cc}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cda45d9b9fdaea5b5f93df740b4f44205cc}} 
+k\+Any&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kUnknown@{kUnknown}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!kUnknown@{kUnknown}}}\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cdaaba248746e6ea61638d0f13f7a560514}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cdaaba248746e6ea61638d0f13f7a560514}} 
+k\+Unknown&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a6b2d392c4e366ae33dfe3db605a4e98d}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a6b2d392c4e366ae33dfe3db605a4e98d}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!````~ContextScope@{$\sim$ContextScope}}
+\index{````~ContextScope@{$\sim$ContextScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$ContextScope()}{~ContextScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::$\sim$\+Context\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_abf7b998685cc1bfef0ec94a0280291b6}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_abf7b998685cc1bfef0ec94a0280291b6}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!````~ControlScope@{$\sim$ControlScope}}
+\index{````~ControlScope@{$\sim$ControlScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$ControlScope()}{~ControlScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::$\sim$\+Control\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a45ef7528d6ffaa6c658ca2fd30cf885e}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a45ef7528d6ffaa6c658ca2fd30cf885e}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!````~RegisterAllocationScope@{$\sim$RegisterAllocationScope}}
+\index{````~RegisterAllocationScope@{$\sim$RegisterAllocationScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$RegisterAllocationScope()}{~RegisterAllocationScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::$\sim$\+Register\+Allocation\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a76d5ae4b86b951ecd44ba79c9890bfe1}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a76d5ae4b86b951ecd44ba79c9890bfe1}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!````~AccumulatorPreservingScope@{$\sim$AccumulatorPreservingScope}}
+\index{````~AccumulatorPreservingScope@{$\sim$AccumulatorPreservingScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$AccumulatorPreservingScope()}{~AccumulatorPreservingScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::$\sim$\+Accumulator\+Preserving\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a974bb813de68efeaf7bdce0ff2dc4714}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a974bb813de68efeaf7bdce0ff2dc4714}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!````~ExpressionResultScope@{$\sim$ExpressionResultScope}}
+\index{````~ExpressionResultScope@{$\sim$ExpressionResultScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$ExpressionResultScope()}{~ExpressionResultScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::$\sim$\+Expression\+Result\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ab6a47063e75c7551a285b428b025203f}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ab6a47063e75c7551a285b428b025203f}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!````~CurrentScope@{$\sim$CurrentScope}}
+\index{````~CurrentScope@{$\sim$CurrentScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$CurrentScope()}{~CurrentScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::$\sim$\+Current\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aa913c7616f9d627c3c0c0563d483602d}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aa913c7616f9d627c3c0c0563d483602d}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!````~MultipleEntryBlockContextScope@{$\sim$MultipleEntryBlockContextScope}}
+\index{````~MultipleEntryBlockContextScope@{$\sim$MultipleEntryBlockContextScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$MultipleEntryBlockContextScope()}{~MultipleEntryBlockContextScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::$\sim$\+Multiple\+Entry\+Block\+Context\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a5598cdc8cdd4096aeff789cbae21bf41}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a5598cdc8cdd4096aeff789cbae21bf41}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!````~HoleCheckElisionScope@{$\sim$HoleCheckElisionScope}}
+\index{````~HoleCheckElisionScope@{$\sim$HoleCheckElisionScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$HoleCheckElisionScope()}{~HoleCheckElisionScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::$\sim$\+Hole\+Check\+Elision\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a43e4aeec4280880e44a65c038524401d}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a43e4aeec4280880e44a65c038524401d}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!````~HoleCheckElisionMergeScope@{$\sim$HoleCheckElisionMergeScope}}
+\index{````~HoleCheckElisionMergeScope@{$\sim$HoleCheckElisionMergeScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$HoleCheckElisionMergeScope()}{~HoleCheckElisionMergeScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::$\sim$\+Hole\+Check\+Elision\+Merge\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aae2a52c506a334027749e99f0e9483d9}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aae2a52c506a334027749e99f0e9483d9}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!````~OptionalChainNullLabelScope@{$\sim$OptionalChainNullLabelScope}}
+\index{````~OptionalChainNullLabelScope@{$\sim$OptionalChainNullLabelScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$OptionalChainNullLabelScope()}{~OptionalChainNullLabelScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::$\sim$\+Optional\+Chain\+Null\+Label\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a5a3f99901ee4f48c38617cebc21bab09}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a5a3f99901ee4f48c38617cebc21bab09}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!````~LoopScope@{$\sim$LoopScope}}
+\index{````~LoopScope@{$\sim$LoopScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$LoopScope()}{~LoopScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::$\sim$\+Loop\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a109329aa4b33216497a07342ed1df9cb}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a109329aa4b33216497a07342ed1df9cb}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!````~ForInScope@{$\sim$ForInScope}}
+\index{````~ForInScope@{$\sim$ForInScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$ForInScope()}{~ForInScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::$\sim$\+For\+In\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afe4721884ab0748cf9689194917bc3e7}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afe4721884ab0748cf9689194917bc3e7}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!````~DisposablesStackScope@{$\sim$DisposablesStackScope}}
+\index{````~DisposablesStackScope@{$\sim$DisposablesStackScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{$\sim$DisposablesStackScope()}{~DisposablesStackScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::$\sim$\+Disposables\+Stack\+Scope (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aaca476c9b1f31b97d8e25c172b7e7069}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aaca476c9b1f31b97d8e25c172b7e7069}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!BytecodeGenerator@{BytecodeGenerator}}
+\index{BytecodeGenerator@{BytecodeGenerator}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{BytecodeGenerator()}{BytecodeGenerator()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Bytecode\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1LocalIsolate}{Local\+Isolate}} $\ast$}]{local\+\_\+isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Zone}{Zone}} $\ast$}]{zone,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1UnoptimizedCompilationInfo}{Unoptimized\+Compilation\+Info}} $\ast$}]{info,  }\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1AstStringConstants}{Ast\+String\+Constants}} $\ast$}]{ast\+\_\+string\+\_\+constants,  }\item[{std\+::vector$<$ \mbox{\hyperlink{classv8_1_1internal_1_1FunctionLiteral}{Function\+Literal}} $\ast$ $>$ $\ast$}]{eager\+\_\+inner\+\_\+literals,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Script}{Script}} $>$}]{script }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a12bcf193f24479b61e5b7822029725fc}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a12bcf193f24479b61e5b7822029725fc}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!AccumulatorPreservingScope@{AccumulatorPreservingScope}}
+\index{AccumulatorPreservingScope@{AccumulatorPreservingScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{AccumulatorPreservingScope()}{AccumulatorPreservingScope()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Accumulator\+Preserving\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{generator,  }\item[{Accumulator\+Preserving\+Mode}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac2481c1c0cae41a9939222d9a7f4966c}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac2481c1c0cae41a9939222d9a7f4966c}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!AccumulatorPreservingScope@{AccumulatorPreservingScope}}
+\index{AccumulatorPreservingScope@{AccumulatorPreservingScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{AccumulatorPreservingScope()}{AccumulatorPreservingScope()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Accumulator\+Preserving\+Scope (\begin{DoxyParamCaption}\item[{const Accumulator\+Preserving\+Scope \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aa41668aeec1a7be4082d938cc8fba629}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aa41668aeec1a7be4082d938cc8fba629}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!ApplyDeferredCommand@{ApplyDeferredCommand}}
+\index{ApplyDeferredCommand@{ApplyDeferredCommand}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{ApplyDeferredCommand()}{ApplyDeferredCommand()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Apply\+Deferred\+Command (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_1_1Entry}{Entry}} \&}]{entry }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a0f3defed43b0f2fddbad30b5bfb1f00d}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a0f3defed43b0f2fddbad30b5bfb1f00d}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!ApplyDeferredCommands@{ApplyDeferredCommands}}
+\index{ApplyDeferredCommands@{ApplyDeferredCommands}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{ApplyDeferredCommands()}{ApplyDeferredCommands()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Apply\+Deferred\+Commands (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a22f935a666b6ab0fa2ccb0f495a1ab09}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a22f935a666b6ab0fa2ccb0f495a1ab09}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!AsTest@{AsTest}}
+\index{AsTest@{AsTest}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{AsTest()}{AsTest()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a88c107c8a2db59e5338cef2a05c95450}{Test\+Result\+Scope}}$\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+As\+Test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afa7ee498081fbb3ed46866510bb9628b}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afa7ee498081fbb3ed46866510bb9628b}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!AsyncReturnAccumulator@{AsyncReturnAccumulator}}
+\index{AsyncReturnAccumulator@{AsyncReturnAccumulator}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{AsyncReturnAccumulator()}{AsyncReturnAccumulator()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Async\+Return\+Accumulator (\begin{DoxyParamCaption}\item[{int}]{source\+\_\+position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af7212b1546734463953ba7bab1b4763d}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af7212b1546734463953ba7bab1b4763d}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!Break@{Break}}
+\index{Break@{Break}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{Break()}{Break()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Break (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Statement}{Statement}} $\ast$}]{stmt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a5f582575a9c8e4c74aa9f24d5fca4067}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a5f582575a9c8e4c74aa9f24d5fca4067}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!builder@{builder}}
+\index{builder@{builder}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{builder()}{builder()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeArrayBuilder}{Bytecode\+Array\+Builder}}$\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::builder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad002b2d970de53c1ce0f3c534f2de259}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad002b2d970de53c1ce0f3c534f2de259}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!cache\_type@{cache\_type}}
+\index{cache\_type@{cache\_type}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{cache\_type()}{cache\_type()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}} v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::cache\+\_\+type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a37501da0741bd94932ecd8c00bfd5f74}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a37501da0741bd94932ecd8c00bfd5f74}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!CommandUsesAccumulator@{CommandUsesAccumulator}}
+\index{CommandUsesAccumulator@{CommandUsesAccumulator}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{CommandUsesAccumulator()}{CommandUsesAccumulator()}}
+{\footnotesize\ttfamily static constexpr \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Command\+Uses\+Accumulator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954d}{Command}}}]{command }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aeaed8d7bf45e8c93e0a4f1f1eda8b435}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aeaed8d7bf45e8c93e0a4f1f1eda8b435}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!context@{context}}
+\index{context@{context}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{context()}{context()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a265058e27556237da98574c5e2fc5cb4}{Context\+Scope}}$\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::context (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a0f0cd070f853c3fc3a586914fe565b4d}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a0f0cd070f853c3fc3a586914fe565b4d}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!ContextChainDepth@{ContextChainDepth}}
+\index{ContextChainDepth@{ContextChainDepth}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{ContextChainDepth()}{ContextChainDepth()}}
+{\footnotesize\ttfamily int v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Context\+Chain\+Depth (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Scope}{Scope}} $\ast$}]{scope }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a265058e27556237da98574c5e2fc5cb4}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a265058e27556237da98574c5e2fc5cb4}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!ContextScope@{ContextScope}}
+\index{ContextScope@{ContextScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{ContextScope()}{ContextScope()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Context\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{generator,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Scope}{Scope}} $\ast$}]{scope,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}}}]{outer\+\_\+context\+\_\+reg = {\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}}()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aa7c433e90f4053b45632294c82b8512d}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aa7c433e90f4053b45632294c82b8512d}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!ContextScope@{ContextScope}}
+\index{ContextScope@{ContextScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{ContextScope()}{ContextScope()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Context\+Scope (\begin{DoxyParamCaption}\item[{const Context\+Scope \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a4a27baa8efe57fa301dd61754d18460f}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a4a27baa8efe57fa301dd61754d18460f}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!Continue@{Continue}}
+\index{Continue@{Continue}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{Continue()}{Continue()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Continue (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Statement}{Statement}} $\ast$}]{stmt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2f8706adf4183281e5797c07c2fdcc60}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2f8706adf4183281e5797c07c2fdcc60}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!ControlScope@{ControlScope}}
+\index{ControlScope@{ControlScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{ControlScope()}{ControlScope()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Control\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{generator }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a45dc41833d65051fd1d454d31ec1864f}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a45dc41833d65051fd1d454d31ec1864f}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!ControlScope@{ControlScope}}
+\index{ControlScope@{ControlScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{ControlScope()}{ControlScope()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Control\+Scope (\begin{DoxyParamCaption}\item[{const Control\+Scope \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad2240ed8791f1c81f83b70ffe017dcf9}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad2240ed8791f1c81f83b70ffe017dcf9}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!CurrentScope@{CurrentScope}}
+\index{CurrentScope@{CurrentScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{CurrentScope()}{CurrentScope()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Current\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{generator,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Scope}{Scope}} $\ast$}]{scope }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad35e09fdfa7a2f50e3b4165f24779dd9}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad35e09fdfa7a2f50e3b4165f24779dd9}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!CurrentScope@{CurrentScope}}
+\index{CurrentScope@{CurrentScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{CurrentScope()}{CurrentScope()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Current\+Scope (\begin{DoxyParamCaption}\item[{const Current\+Scope \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a70faed39bffa1644e728c6fef883fbb8}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a70faed39bffa1644e728c6fef883fbb8}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!DeferredCommands@{DeferredCommands}}
+\index{DeferredCommands@{DeferredCommands}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{DeferredCommands()}{DeferredCommands()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Deferred\+Commands (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{generator,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}}}]{token\+\_\+register,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}}}]{result\+\_\+register,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}}}]{message\+\_\+register }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a92f032e664ffc01527aff02f9623c67d}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a92f032e664ffc01527aff02f9623c67d}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!DisposablesStackScope@{DisposablesStackScope}}
+\index{DisposablesStackScope@{DisposablesStackScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{DisposablesStackScope()}{DisposablesStackScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Disposables\+Stack\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{bytecode\+\_\+generator }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a60f020058f8189cd2e05f84c8e9d28df}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a60f020058f8189cd2e05f84c8e9d28df}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!else\_labels@{else\_labels}}
+\index{else\_labels@{else\_labels}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{else\_labels()}{else\_labels()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabels}{Bytecode\+Labels}}$\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::else\+\_\+labels (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af9e8d9da01202b973cecf1108ef48fb7}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af9e8d9da01202b973cecf1108ef48fb7}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!enum\_index@{enum\_index}}
+\index{enum\_index@{enum\_index}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{enum\_index()}{enum\_index()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}} v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::enum\+\_\+index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af5e9169d638a7dfc250471ca92321b9c}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af5e9169d638a7dfc250471ca92321b9c}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!Execute@{Execute}}
+\index{Execute@{Execute}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{Execute()}{Execute()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Execute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954d}{Command}}}]{command,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Statement}{Statement}} $\ast$}]{statement,  }\item[{int}]{source\+\_\+position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a6c1222539a40bace569bee2b869f113c}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a6c1222539a40bace569bee2b869f113c}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!execution\_control@{execution\_control}}
+\index{execution\_control@{execution\_control}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{execution\_control()}{execution\_control()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2f8706adf4183281e5797c07c2fdcc60}{Control\+Scope}}$\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::execution\+\_\+control (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_add019e32892e50a7828d054cfcfab07e}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_add019e32892e50a7828d054cfcfab07e}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!ExpressionResultScope@{ExpressionResultScope}}
+\index{ExpressionResultScope@{ExpressionResultScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{ExpressionResultScope()}{ExpressionResultScope()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Expression\+Result\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{generator,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35d}{Kind}}}]{kind }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a6f92f1ecfb72d5f7cc142704130d7e94}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a6f92f1ecfb72d5f7cc142704130d7e94}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!ExpressionResultScope@{ExpressionResultScope}}
+\index{ExpressionResultScope@{ExpressionResultScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{ExpressionResultScope()}{ExpressionResultScope()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Expression\+Result\+Scope (\begin{DoxyParamCaption}\item[{const Expression\+Result\+Scope \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a823607015c8782b6c474afd1e59f53ef}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a823607015c8782b6c474afd1e59f53ef}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!fallthrough@{fallthrough}}
+\index{fallthrough@{fallthrough}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{fallthrough()}{fallthrough()}}
+{\footnotesize\ttfamily Test\+Fallthrough v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::fallthrough (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af0752d4fab3ef7af92ee1f1ca52d0967}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af0752d4fab3ef7af92ee1f1ca52d0967}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!FinalizeBytecode@{FinalizeBytecode}}
+\index{FinalizeBytecode@{FinalizeBytecode}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{FinalizeBytecode()}{FinalizeBytecode()}}
+{\footnotesize\ttfamily template$<$typename IsolateT $>$ \\
+template \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1BytecodeArray}{Bytecode\+Array}} $>$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Finalize\+Bytecode (\begin{DoxyParamCaption}\item[{IsolateT $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Script}{Script}} $>$}]{script }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2355c4f642796ad9d25339b1fa2c83b8}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2355c4f642796ad9d25339b1fa2c83b8}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!FinalizeSourcePositionTable@{FinalizeSourcePositionTable}}
+\index{FinalizeSourcePositionTable@{FinalizeSourcePositionTable}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{FinalizeSourcePositionTable()}{FinalizeSourcePositionTable()}}
+{\footnotesize\ttfamily template$<$typename IsolateT $>$ \\
+template \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{Direct\+Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1TrustedByteArray}{Trusted\+Byte\+Array}} $>$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Finalize\+Source\+Position\+Table (\begin{DoxyParamCaption}\item[{IsolateT $\ast$}]{isolate }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad67e70b6889e1006fe36cc20a326ea49}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad67e70b6889e1006fe36cc20a326ea49}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!ForInScope@{ForInScope}}
+\index{ForInScope@{ForInScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{ForInScope()}{ForInScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+For\+In\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{bytecode\+\_\+generator,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1ForInStatement}{For\+In\+Statement}} $\ast$}]{stmt,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}}}]{enum\+\_\+index,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}}}]{cache\+\_\+type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a16a6e87a78b3d35ec6eb5278babad5be}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a16a6e87a78b3d35ec6eb5278babad5be}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!GenerateBytecode@{GenerateBytecode}}
+\index{GenerateBytecode@{GenerateBytecode}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{GenerateBytecode()}{GenerateBytecode()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Generate\+Bytecode (\begin{DoxyParamCaption}\item[{uintptr\+\_\+t}]{stack\+\_\+limit }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!generator@{generator}}
+\index{generator@{generator}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{generator()}{generator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}}$\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::generator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a74dab0f7d0403a6a44f8722c8b6f90e8}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!generator@{generator}}
+\index{generator@{generator}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{generator()}{generator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}}$\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::generator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a3161f329adc2e23420e869fe06c69e32}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a3161f329adc2e23420e869fe06c69e32}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!GetForInScope@{GetForInScope}}
+\index{GetForInScope@{GetForInScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{GetForInScope()}{GetForInScope()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad67e70b6889e1006fe36cc20a326ea49}{For\+In\+Scope}}$\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Get\+For\+In\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a360e859ecd2f20a4868a17f0a7ec8a57}{Variable}} $\ast$}]{each }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ab3ce4dc617812bfdf874f9f2e42ef2ff}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ab3ce4dc617812bfdf874f9f2e42ef2ff}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!HoleCheckElisionMergeScope@{HoleCheckElisionMergeScope}}
+\index{HoleCheckElisionMergeScope@{HoleCheckElisionMergeScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{HoleCheckElisionMergeScope()}{HoleCheckElisionMergeScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Hole\+Check\+Elision\+Merge\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{bytecode\+\_\+generator }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afd09b93732a6ad5abae322fa73fcd4b4}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afd09b93732a6ad5abae322fa73fcd4b4}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!HoleCheckElisionScope@{HoleCheckElisionScope}}
+\index{HoleCheckElisionScope@{HoleCheckElisionScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{HoleCheckElisionScope()}{HoleCheckElisionScope()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Hole\+Check\+Elision\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{bytecode\+\_\+generator }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aceb9594e920cf3066ee2177a4a495b19}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aceb9594e920cf3066ee2177a4a495b19}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!HoleCheckElisionScope@{HoleCheckElisionScope}}
+\index{HoleCheckElisionScope@{HoleCheckElisionScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{HoleCheckElisionScope()}{HoleCheckElisionScope()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Hole\+Check\+Elision\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Variable_af96ee82a1713af14f55e1492f6b07f97}{Variable\+::\+Hole\+Check\+Bitmap}} $\ast$}]{bitmap }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a490fdc1dda7dcee56ab50c5f6c9c3c50}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a490fdc1dda7dcee56ab50c5f6c9c3c50}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!InvertControlFlow@{InvertControlFlow}}
+\index{InvertControlFlow@{InvertControlFlow}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{InvertControlFlow()}{InvertControlFlow()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Invert\+Control\+Flow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad8f6f43889d5b60f2b6e997f9a2aa477}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad8f6f43889d5b60f2b6e997f9a2aa477}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!inverted\_fallthrough@{inverted\_fallthrough}}
+\index{inverted\_fallthrough@{inverted\_fallthrough}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{inverted\_fallthrough()}{inverted\_fallthrough()}}
+{\footnotesize\ttfamily Test\+Fallthrough v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::inverted\+\_\+fallthrough (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae8a2bedd1c28463afc36cbde4478859e}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae8a2bedd1c28463afc36cbde4478859e}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!IsEffect@{IsEffect}}
+\index{IsEffect@{IsEffect}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{IsEffect()}{IsEffect()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Is\+Effect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a53b501f30cb042b37315b63d823da286}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a53b501f30cb042b37315b63d823da286}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!IsSameOrSubTypeHint@{IsSameOrSubTypeHint}}
+\index{IsSameOrSubTypeHint@{IsSameOrSubTypeHint}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{IsSameOrSubTypeHint()}{IsSameOrSubTypeHint()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Is\+Same\+Or\+Sub\+Type\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cd}{Type\+Hint}}}]{hint1,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cd}{Type\+Hint}}}]{hint2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af5a3f36c9538400b95bdcb4b7bfd0ffd}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af5a3f36c9538400b95bdcb4b7bfd0ffd}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!IsStringTypeHint@{IsStringTypeHint}}
+\index{IsStringTypeHint@{IsStringTypeHint}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{IsStringTypeHint()}{IsStringTypeHint()}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Is\+String\+Type\+Hint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cd}{Type\+Hint}}}]{hint }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a03bde4f9d2afbc99cbc854bd29d5355e}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a03bde4f9d2afbc99cbc854bd29d5355e}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!IsTest@{IsTest}}
+\index{IsTest@{IsTest}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{IsTest()}{IsTest()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Is\+Test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a961256b6992fab4b2cf53ab188c13f9a}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a961256b6992fab4b2cf53ab188c13f9a}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!IsValue@{IsValue}}
+\index{IsValue@{IsValue}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{IsValue()}{IsValue()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Is\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a355e862a11a47440b29dcb028e4aaa87}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a355e862a11a47440b29dcb028e4aaa87}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!IsValueAsPropertyKey@{IsValueAsPropertyKey}}
+\index{IsValueAsPropertyKey@{IsValueAsPropertyKey}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{IsValueAsPropertyKey()}{IsValueAsPropertyKey()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Is\+Value\+As\+Property\+Key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af9df089f2f9e36707d08ad6eb0cd857f}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af9df089f2f9e36707d08ad6eb0cd857f}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!labels@{labels}}
+\index{labels@{labels}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{labels()}{labels()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabels}{Bytecode\+Labels}}$\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::labels (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad82d8b9782d21e624764864ee6b07434}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad82d8b9782d21e624764864ee6b07434}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!LoopScope@{LoopScope}}
+\index{LoopScope@{LoopScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{LoopScope()}{LoopScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Loop\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{bytecode\+\_\+generator,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1LoopBuilder}{Loop\+Builder}} $\ast$}]{loop }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a9d70bde74a40f8181b68a861563ca501}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a9d70bde74a40f8181b68a861563ca501}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!Merge@{Merge}}
+\index{Merge@{Merge}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{Merge()}{Merge()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Merge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afb7844d0961ab03a8afab02a270eecfd}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afb7844d0961ab03a8afab02a270eecfd}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!MergeIf@{MergeIf}}
+\index{MergeIf@{MergeIf}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{MergeIf()}{MergeIf()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Merge\+If (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}}}]{cond }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae8ff73dedd8c1905b5a3a6544500e78b}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae8ff73dedd8c1905b5a3a6544500e78b}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!MultipleEntryBlockContextScope@{MultipleEntryBlockContextScope}}
+\index{MultipleEntryBlockContextScope@{MultipleEntryBlockContextScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{MultipleEntryBlockContextScope()}{MultipleEntryBlockContextScope()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Multiple\+Entry\+Block\+Context\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{generator,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Scope}{Scope}} $\ast$}]{scope }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae6ff52451b17002b28d3bfa687ef4f7d}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae6ff52451b17002b28d3bfa687ef4f7d}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!MultipleEntryBlockContextScope@{MultipleEntryBlockContextScope}}
+\index{MultipleEntryBlockContextScope@{MultipleEntryBlockContextScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{MultipleEntryBlockContextScope()}{MultipleEntryBlockContextScope()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Multiple\+Entry\+Block\+Context\+Scope (\begin{DoxyParamCaption}\item[{const Multiple\+Entry\+Block\+Context\+Scope \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aeb7e8b50b2a317bb871a52d5f541c4b2}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aeb7e8b50b2a317bb871a52d5f541c4b2}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!NewElseLabel@{NewElseLabel}}
+\index{NewElseLabel@{NewElseLabel}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{NewElseLabel()}{NewElseLabel()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabel}{Bytecode\+Label}}$\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+New\+Else\+Label (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a1d5a3ce99d4176beb067d34a465ace78}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a1d5a3ce99d4176beb067d34a465ace78}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!NewThenLabel@{NewThenLabel}}
+\index{NewThenLabel@{NewThenLabel}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{NewThenLabel()}{NewThenLabel()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabel}{Bytecode\+Label}}$\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+New\+Then\+Label (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac9512fd1bdec46b5cbb8785522dd885a}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac9512fd1bdec46b5cbb8785522dd885a}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a12bcf193f24479b61e5b7822029725fc}{Accumulator\+Preserving\+Scope}}\& v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a12bcf193f24479b61e5b7822029725fc}{Accumulator\+Preserving\+Scope}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afbeed505c912ed161b0a5b6af621ad98}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afbeed505c912ed161b0a5b6af621ad98}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a265058e27556237da98574c5e2fc5cb4}{Context\+Scope}}\& v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a265058e27556237da98574c5e2fc5cb4}{Context\+Scope}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad58f3b383b265ae25008a45a4adc21bf}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad58f3b383b265ae25008a45a4adc21bf}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2f8706adf4183281e5797c07c2fdcc60}{Control\+Scope}}\& v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2f8706adf4183281e5797c07c2fdcc60}{Control\+Scope}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a780cb9128207187fe5e1f9ebe53fe053}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a780cb9128207187fe5e1f9ebe53fe053}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad2240ed8791f1c81f83b70ffe017dcf9}{Current\+Scope}}\& v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad2240ed8791f1c81f83b70ffe017dcf9}{Current\+Scope}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac7689116f9b65be7110dacfa78a5d9fb}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac7689116f9b65be7110dacfa78a5d9fb}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_add019e32892e50a7828d054cfcfab07e}{Expression\+Result\+Scope}}\& v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_add019e32892e50a7828d054cfcfab07e}{Expression\+Result\+Scope}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af3f2a5641c0a428a0a2345f83ffeab9d}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af3f2a5641c0a428a0a2345f83ffeab9d}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae8ff73dedd8c1905b5a3a6544500e78b}{Multiple\+Entry\+Block\+Context\+Scope}}\& v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae8ff73dedd8c1905b5a3a6544500e78b}{Multiple\+Entry\+Block\+Context\+Scope}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a66fef358f598a8636ef761d7bf201ef2}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a66fef358f598a8636ef761d7bf201ef2}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a85b881849b56fe33dd52f6bcb0f6bd90}{Register\+Allocation\+Scope}}\& v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a85b881849b56fe33dd52f6bcb0f6bd90}{Register\+Allocation\+Scope}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac13c994ab3816ce644d0b02dc0664256}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac13c994ab3816ce644d0b02dc0664256}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!operator=@{operator=}}
+\index{operator=@{operator=}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a88c107c8a2db59e5338cef2a05c95450}{Test\+Result\+Scope}}\& v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a88c107c8a2db59e5338cef2a05c95450}{Test\+Result\+Scope}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a6c84d88ef82ae4e10cf53e2dccc28cfc}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a6c84d88ef82ae4e10cf53e2dccc28cfc}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!OptionalChainNullLabelScope@{OptionalChainNullLabelScope}}
+\index{OptionalChainNullLabelScope@{OptionalChainNullLabelScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{OptionalChainNullLabelScope()}{OptionalChainNullLabelScope()}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Optional\+Chain\+Null\+Label\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{bytecode\+\_\+generator }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a08b610078cd388ed61c635fd0ba355a2}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a08b610078cd388ed61c635fd0ba355a2}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!outer@{outer}}
+\index{outer@{outer}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{outer()}{outer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2f8706adf4183281e5797c07c2fdcc60}{Control\+Scope}}$\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::outer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a1f40ff53eae628a69a32ffa995193d48}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a1f40ff53eae628a69a32ffa995193d48}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!PerformCommand@{PerformCommand}}
+\index{PerformCommand@{PerformCommand}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{PerformCommand()}{PerformCommand()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Perform\+Command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954d}{Command}}}]{command,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Statement}{Statement}} $\ast$}]{statement,  }\item[{int}]{source\+\_\+position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a41a40bba91aac5c3ddb725fd317e69ab}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a41a40bba91aac5c3ddb725fd317e69ab}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!PopContextToExpectedDepth@{PopContextToExpectedDepth}}
+\index{PopContextToExpectedDepth@{PopContextToExpectedDepth}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{PopContextToExpectedDepth()}{PopContextToExpectedDepth()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Pop\+Context\+To\+Expected\+Depth (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aeb92c93af63c2dbe99ba47de689d720c}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aeb92c93af63c2dbe99ba47de689d720c}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!Previous@{Previous}}
+\index{Previous@{Previous}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{Previous()}{Previous()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a265058e27556237da98574c5e2fc5cb4}{Context\+Scope}}$\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Previous (\begin{DoxyParamCaption}\item[{int}]{depth }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aefe7727d36ffa9589a4c100c98cd0a0e}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aefe7727d36ffa9589a4c100c98cd0a0e}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!RecordCommand@{RecordCommand}}
+\index{RecordCommand@{RecordCommand}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{RecordCommand()}{RecordCommand()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Record\+Command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a720359ae9aa44e67ea7133703f87954d}{Command}}}]{command,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Statement}{Statement}} $\ast$}]{statement }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a63098f462fb6d6727fb4bc613e621214}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a63098f462fb6d6727fb4bc613e621214}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!RecordFallThroughPath@{RecordFallThroughPath}}
+\index{RecordFallThroughPath@{RecordFallThroughPath}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{RecordFallThroughPath()}{RecordFallThroughPath()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Record\+Fall\+Through\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a91fab77f56264e8e7be189934b543eaa}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a91fab77f56264e8e7be189934b543eaa}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!RecordHandlerReThrowPath@{RecordHandlerReThrowPath}}
+\index{RecordHandlerReThrowPath@{RecordHandlerReThrowPath}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{RecordHandlerReThrowPath()}{RecordHandlerReThrowPath()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Record\+Handler\+Re\+Throw\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_abee84182b23963b89e1e18c6e3778d43}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_abee84182b23963b89e1e18c6e3778d43}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!reg@{reg}}
+\index{reg@{reg}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{reg()}{reg()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1Register}{Register}} v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::reg (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a85b881849b56fe33dd52f6bcb0f6bd90}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a85b881849b56fe33dd52f6bcb0f6bd90}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!RegisterAllocationScope@{RegisterAllocationScope}}
+\index{RegisterAllocationScope@{RegisterAllocationScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{RegisterAllocationScope()}{RegisterAllocationScope()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Register\+Allocation\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{generator }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a40665a0d328a65a67c798b5d0c6ed530}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a40665a0d328a65a67c798b5d0c6ed530}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!RegisterAllocationScope@{RegisterAllocationScope}}
+\index{RegisterAllocationScope@{RegisterAllocationScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{RegisterAllocationScope()}{RegisterAllocationScope()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Register\+Allocation\+Scope (\begin{DoxyParamCaption}\item[{const Register\+Allocation\+Scope \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a1af75abf0dd9976648eeae8d52a28158}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a1af75abf0dd9976648eeae8d52a28158}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!result\_consumed\_by\_test@{result\_consumed\_by\_test}}
+\index{result\_consumed\_by\_test@{result\_consumed\_by\_test}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{result\_consumed\_by\_test()}{result\_consumed\_by\_test()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::result\+\_\+consumed\+\_\+by\+\_\+test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afa2728005fea308eb7a621bd95c0dab8}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_afa2728005fea308eb7a621bd95c0dab8}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!ReturnAccumulator@{ReturnAccumulator}}
+\index{ReturnAccumulator@{ReturnAccumulator}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{ReturnAccumulator()}{ReturnAccumulator()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Return\+Accumulator (\begin{DoxyParamCaption}\item[{int}]{source\+\_\+position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae38bff259b5fb8dc29e464fea3aa243a}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae38bff259b5fb8dc29e464fea3aa243a}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!set\_else\_labels@{set\_else\_labels}}
+\index{set\_else\_labels@{set\_else\_labels}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{set\_else\_labels()}{set\_else\_labels()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::set\+\_\+else\+\_\+labels (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabels}{Bytecode\+Labels}} $\ast$}]{else\+\_\+labels }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aaa90e1c9ac8eabbc378b146672bc79b8}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aaa90e1c9ac8eabbc378b146672bc79b8}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!set\_fallthrough@{set\_fallthrough}}
+\index{set\_fallthrough@{set\_fallthrough}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{set\_fallthrough()}{set\_fallthrough()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::set\+\_\+fallthrough (\begin{DoxyParamCaption}\item[{Test\+Fallthrough}]{fallthrough }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a29853192c581ecaa9e4de2e5feb4f179}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a29853192c581ecaa9e4de2e5feb4f179}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!set\_then\_labels@{set\_then\_labels}}
+\index{set\_then\_labels@{set\_then\_labels}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{set\_then\_labels()}{set\_then\_labels()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::set\+\_\+then\+\_\+labels (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabels}{Bytecode\+Labels}} $\ast$}]{then\+\_\+labels }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a0970d87b911f7cef5b4f30d8f8afa40c}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a0970d87b911f7cef5b4f30d8f8afa40c}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!SetEnteredIf@{SetEnteredIf}}
+\index{SetEnteredIf@{SetEnteredIf}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{SetEnteredIf()}{SetEnteredIf()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Set\+Entered\+If (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}}}]{condition }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af86da973afaaa95751c0d2f811ce1467}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af86da973afaaa95751c0d2f811ce1467}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!SetResultConsumedByTest@{SetResultConsumedByTest}}
+\index{SetResultConsumedByTest@{SetResultConsumedByTest}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{SetResultConsumedByTest()}{SetResultConsumedByTest()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Set\+Result\+Consumed\+By\+Test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af42e24c2ac6dbc8b8f9c7b97086bfd05}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_af42e24c2ac6dbc8b8f9c7b97086bfd05}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!SetResultIsBoolean@{SetResultIsBoolean}}
+\index{SetResultIsBoolean@{SetResultIsBoolean}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{SetResultIsBoolean()}{SetResultIsBoolean()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Set\+Result\+Is\+Boolean (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a16103791afb1f74bae8690c64e2cfc04}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a16103791afb1f74bae8690c64e2cfc04}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!SetResultIsInternalizedString@{SetResultIsInternalizedString}}
+\index{SetResultIsInternalizedString@{SetResultIsInternalizedString}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{SetResultIsInternalizedString()}{SetResultIsInternalizedString()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Set\+Result\+Is\+Internalized\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2ec75268a542352775770253d21b8698}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2ec75268a542352775770253d21b8698}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!SetResultIsString@{SetResultIsString}}
+\index{SetResultIsString@{SetResultIsString}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{SetResultIsString()}{SetResultIsString()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Set\+Result\+Is\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a88c107c8a2db59e5338cef2a05c95450}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a88c107c8a2db59e5338cef2a05c95450}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!TestResultScope@{TestResultScope}}
+\index{TestResultScope@{TestResultScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{TestResultScope()}{TestResultScope()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Test\+Result\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{generator,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabels}{Bytecode\+Labels}} $\ast$}]{then\+\_\+labels,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabels}{Bytecode\+Labels}} $\ast$}]{else\+\_\+labels,  }\item[{Test\+Fallthrough}]{fallthrough }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aa97d175c6f8ff67531fabb104226e550}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_aa97d175c6f8ff67531fabb104226e550}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!TestResultScope@{TestResultScope}}
+\index{TestResultScope@{TestResultScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{TestResultScope()}{TestResultScope()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Test\+Result\+Scope (\begin{DoxyParamCaption}\item[{const Test\+Result\+Scope \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a797bb012859351fbd20664f602c89961}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a797bb012859351fbd20664f602c89961}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!then\_labels@{then\_labels}}
+\index{then\_labels@{then\_labels}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{then\_labels()}{then\_labels()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeLabels}{Bytecode\+Labels}}$\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::then\+\_\+labels (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a49f32c175110c8ac68c60d2e3571a0bd}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a49f32c175110c8ac68c60d2e3571a0bd}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!type\_hint@{type\_hint}}
+\index{type\_hint@{type\_hint}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{type\_hint()}{type\_hint()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a2d5a8e929cf387e9bc2bef81b56da4cd}{Type\+Hint}} v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::type\+\_\+hint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a3dd0d507724acc60dde74fe4fde0ecda}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a3dd0d507724acc60dde74fe4fde0ecda}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!ValueResultScope@{ValueResultScope}}
+\index{ValueResultScope@{ValueResultScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{ValueResultScope()}{ValueResultScope()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Value\+Result\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{generator }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a92ab5da9b90f4ba434d59e23327e6bf5}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a92ab5da9b90f4ba434d59e23327e6bf5}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!ValueResultScope@{ValueResultScope}}
+\index{ValueResultScope@{ValueResultScope}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{ValueResultScope()}{ValueResultScope()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Value\+Result\+Scope (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator}{Bytecode\+Generator}} $\ast$}]{generator,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad349619ec2ed566ce43168587eb8a35d}{Kind}}}]{kind }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ade0d28db74cc7bef573590c8b1dbcb5f}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ade0d28db74cc7bef573590c8b1dbcb5f}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!VisitDeclarations@{VisitDeclarations}}
+\index{VisitDeclarations@{VisitDeclarations}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{VisitDeclarations()}{VisitDeclarations()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Visit\+Declarations (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Declaration_a68b727d4474f6f1522355b821c4702a5}{Declaration\+::\+List}} $\ast$}]{declarations }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a1e6c2e45c880cd80612987683859130b}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a1e6c2e45c880cd80612987683859130b}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!VisitGlobalDeclarations@{VisitGlobalDeclarations}}
+\index{VisitGlobalDeclarations@{VisitGlobalDeclarations}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{VisitGlobalDeclarations()}{VisitGlobalDeclarations()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Visit\+Global\+Declarations (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Declaration_a68b727d4474f6f1522355b821c4702a5}{Declaration\+::\+List}} $\ast$}]{declarations }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad5913d036cc27ac5638324bd857e8d6d}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ad5913d036cc27ac5638324bd857e8d6d}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!VisitModuleDeclarations@{VisitModuleDeclarations}}
+\index{VisitModuleDeclarations@{VisitModuleDeclarations}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{VisitModuleDeclarations()}{VisitModuleDeclarations()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Visit\+Module\+Declarations (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Declaration_a68b727d4474f6f1522355b821c4702a5}{Declaration\+::\+List}} $\ast$}]{declarations }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae51592ff307be527ce90d67ec9cea2ef}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ae51592ff307be527ce90d67ec9cea2ef}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!VisitStatements@{VisitStatements}}
+\index{VisitStatements@{VisitStatements}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{VisitStatements()}{VisitStatements()}}
+{\footnotesize\ttfamily void v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::\+Visit\+Statements (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacev8_1_1internal_adb397220013f9b79eaf22efef7797cf2}{Zone\+Ptr\+List}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Statement}{Statement}} $>$ $\ast$}]{statments,  }\item[{int}]{start = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac2dc47ce43ea1fc31e7748b4212aa2f3}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_ac2dc47ce43ea1fc31e7748b4212aa2f3}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!bitmap\_@{bitmap\_}}
+\index{bitmap\_@{bitmap\_}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{bitmap\_}{bitmap\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Variable_af96ee82a1713af14f55e1492f6b07f97}{Variable\+::\+Hole\+Check\+Bitmap}} $\ast$ v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::bitmap\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a78cbc1b68b6d96661baab8edcad11d48}\label{classv8_1_1internal_1_1interpreter_1_1BytecodeGenerator_a78cbc1b68b6d96661baab8edcad11d48}} 
+\index{v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}!prev\_bitmap\_value\_@{prev\_bitmap\_value\_}}
+\index{prev\_bitmap\_value\_@{prev\_bitmap\_value\_}!v8::internal::interpreter::BytecodeGenerator@{v8::internal::interpreter::BytecodeGenerator}}
+\doxysubsubsection{\texorpdfstring{prev\_bitmap\_value\_}{prev\_bitmap\_value\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1Variable_af96ee82a1713af14f55e1492f6b07f97}{Variable\+::\+Hole\+Check\+Bitmap}} v8\+::internal\+::interpreter\+::\+Bytecode\+Generator\+::prev\+\_\+bitmap\+\_\+value\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{bytecode-generator_8cc}{bytecode-\/generator.\+cc}}\item 
+\mbox{\hyperlink{bytecode-generator_8h}{bytecode-\/generator.\+h}}\end{DoxyCompactItemize}

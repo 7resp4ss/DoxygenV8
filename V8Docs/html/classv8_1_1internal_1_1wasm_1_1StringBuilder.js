@@ -1,0 +1,22 @@
+var classv8_1_1internal_1_1wasm_1_1StringBuilder =
+[
+    [ "OnGrowth", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#a9729b08f71eb8c8fa4ba0b5cad8aca9a", [
+      [ "kKeepOldChunks", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#a9729b08f71eb8c8fa4ba0b5cad8aca9aa6f84de174658bc306a9716329aaded59", null ],
+      [ "kReplacePreviousChunk", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#a9729b08f71eb8c8fa4ba0b5cad8aca9aa59fe785a32ddda5445130d0dbdd3578c", null ]
+    ] ],
+    [ "StringBuilder", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#a87d01a1a89d5e346800b58abfe138367", null ],
+    [ "StringBuilder", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#a930ebab55cf7dcd41a16d35c14fed217", null ],
+    [ "~StringBuilder", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#a1dba90ab011df563952d664e9281ca18", null ],
+    [ "StringBuilder", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#ab1b4021e1bf74daedc54447d7fbad9ff", null ],
+    [ "allocate", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#ac62f5d554ab01efe50f33c82f83ae2bf", null ],
+    [ "approximate_size_mb", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#a9b30fe07573d40194f963b6e462ff639", null ],
+    [ "backspace", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#abaa1264bc25d23f1d306939725c8526d", null ],
+    [ "cursor", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#affbbe49fb7986e63c4ab4daf8a725d98", null ],
+    [ "length", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#a767497d0eea197d877700272260b54f0", null ],
+    [ "operator=", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#a45b5acb180f1898b3dbf4afd4759375a", null ],
+    [ "rewind_to_start", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#a8f6e58608b82ac8726fdc857893b46f6", null ],
+    [ "start", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#a974d65096d4e2b21f745b4c8daf46f12", null ],
+    [ "start_here", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#ad4f66dc96eb4405db8b5ee6d291c869d", null ],
+    [ "write", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#adeccbe0bc9c0f009edfb9279eb098e32", null ],
+    [ "write", "classv8_1_1internal_1_1wasm_1_1StringBuilder.html#ab87817a217963a91d3a0f31015560397", null ]
+];

@@ -1,0 +1,36 @@
+var src_2utils_2allocation_8h =
+[
+    [ "Malloced", "classv8_1_1internal_1_1Malloced.html", null ],
+    [ "ArrayDeleter", "structv8_1_1internal_1_1ArrayDeleter.html", "structv8_1_1internal_1_1ArrayDeleter" ],
+    [ "FreeStoreAllocationPolicy", "classv8_1_1internal_1_1FreeStoreAllocationPolicy.html", "classv8_1_1internal_1_1FreeStoreAllocationPolicy" ],
+    [ "VirtualMemory", "classv8_1_1internal_1_1VirtualMemory.html", "classv8_1_1internal_1_1VirtualMemory" ],
+    [ "VirtualMemoryCage", "classv8_1_1internal_1_1VirtualMemoryCage.html", "classv8_1_1internal_1_1VirtualMemoryCage" ],
+    [ "ReservationParams", "structv8_1_1internal_1_1VirtualMemoryCage_1_1ReservationParams.html", "structv8_1_1internal_1_1VirtualMemoryCage_1_1ReservationParams" ],
+    [ "ArrayUniquePtr", "src_2utils_2allocation_8h.html#a529dc33676c3b4f79a6d8fa4ff66ff1d", null ],
+    [ "MallocFn", "src_2utils_2allocation_8h.html#af4c803272c475a64f94dfa45fc7cd2b9", null ],
+    [ "JitPermission", "src_2utils_2allocation_8h.html#aa11f9a16395df9f8a0692f7a1a802692", [
+      [ "kNoJit", "src_2utils_2allocation_8h.html#aa11f9a16395df9f8a0692f7a1a802692ad7498651ca22a5217584eecf525bc898", null ],
+      [ "kMapAsJittable", "src_2utils_2allocation_8h.html#aa11f9a16395df9f8a0692f7a1a802692a5baaaa0849f603a009269b6fedb1f289", null ]
+    ] ],
+    [ "AlignedAllocWithRetry", "src_2utils_2allocation_8h.html#a4cdb0f8d7c740d7145576c4e39be2643", null ],
+    [ "AlignedFree", "src_2utils_2allocation_8h.html#ac4c839d59cdb92d42d1ecee3662a001e", null ],
+    [ "AllocatePages", "src_2utils_2allocation_8h.html#a3ce652c7cf886797e12fd8404dca14c0", null ],
+    [ "AllocatePageSize", "src_2utils_2allocation_8h.html#a9f5507dc03f0b35f38b119fc3285586a", null ],
+    [ "AllocAtLeastWithRetry", "src_2utils_2allocation_8h.html#ac60beb6ef98ad8b5a7f667ef7c36a084", null ],
+    [ "AllocWithRetry", "src_2utils_2allocation_8h.html#aaa25f76a63d03cf5cb65368d5ff55352", null ],
+    [ "CommitPageSize", "src_2utils_2allocation_8h.html#a6a5f128ae031000011e13ca7534dfc91", null ],
+    [ "FreePages", "src_2utils_2allocation_8h.html#af33be30dc6995646ac5a541bdf0ede03", null ],
+    [ "GetArrayBufferPageAllocator", "src_2utils_2allocation_8h.html#ad2f1f50a10b1b024ff3ee1aae8927b30", null ],
+    [ "GetPlatformPageAllocator", "src_2utils_2allocation_8h.html#a1b38d6a01927e639b91b6a039899ac1a", null ],
+    [ "GetPlatformVirtualAddressSpace", "src_2utils_2allocation_8h.html#a927fdd6d2695ea1cee819f49508ace7e", null ],
+    [ "GetRandomMmapAddr", "src_2utils_2allocation_8h.html#a604a6dd52477843a9531577e32877ca5", null ],
+    [ "NewArray", "src_2utils_2allocation_8h.html#a0a416416991599915035d0cc67bf8b4a", null ],
+    [ "NewArray", "src_2utils_2allocation_8h.html#a5faced17a75a9ee69aeca7d678dcc960", null ],
+    [ "OnCriticalMemoryPressure", "src_2utils_2allocation_8h.html#a4dbd9d093eaf158525194749da22eeb4", null ],
+    [ "ReleasePages", "src_2utils_2allocation_8h.html#adc76212c46ca9debf901492543fa8865", null ],
+    [ "SetPermissions", "src_2utils_2allocation_8h.html#a062901a264dc2e65925bfcb568a9519f", null ],
+    [ "SetPermissions", "src_2utils_2allocation_8h.html#a0b20b06fc0f215d9b9eac890977a53e7", null ],
+    [ "SetPlatformPageAllocatorForTesting", "src_2utils_2allocation_8h.html#a3bf59698a1c12692ca1a78fc8d1c8eac", null ],
+    [ "StrDup", "src_2utils_2allocation_8h.html#a7cd299af39afd3e3f7efe45c2afbd6c0", null ],
+    [ "StrNDup", "src_2utils_2allocation_8h.html#a056ecd70f3bdc0d2c729608d644d5444", null ]
+];

@@ -1,0 +1,12 @@
+var classv8_1_1internal_1_1torque_1_1ResidueClass =
+[
+    [ "ResidueClass", "classv8_1_1internal_1_1torque_1_1ResidueClass.html#a374a5acb5f51c3350f4478d1591d64a8", null ],
+    [ "Alignment", "classv8_1_1internal_1_1torque_1_1ResidueClass.html#a9d8fa041069f8743f7d54ed8d87af814", null ],
+    [ "AlignmentLog2", "classv8_1_1internal_1_1torque_1_1ResidueClass.html#af499c8dd8997b079409e870331995c55", null ],
+    [ "operator*=", "classv8_1_1internal_1_1torque_1_1ResidueClass.html#ad5b4c78916e65441e3aebc730feb83c1", null ],
+    [ "operator+=", "classv8_1_1internal_1_1torque_1_1ResidueClass.html#a0e3d9cd432315cf59077f6b8cc48a369", null ],
+    [ "SingleValue", "classv8_1_1internal_1_1torque_1_1ResidueClass.html#a3246322f75dab70cd17ecfc5afa98378", null ],
+    [ "operator*", "classv8_1_1internal_1_1torque_1_1ResidueClass.html#acefe532704906ba2018485272c9d8c78", null ],
+    [ "operator+", "classv8_1_1internal_1_1torque_1_1ResidueClass.html#a0ab89f066bcffcf1546f8546e47211b8", null ],
+    [ "operator<<", "classv8_1_1internal_1_1torque_1_1ResidueClass.html#a535f0baecc9b69c6e5f4b866701a0f27", null ]
+];

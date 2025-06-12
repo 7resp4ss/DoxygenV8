@@ -1,0 +1,27 @@
+var classv8_1_1internal_1_1CodeReference =
+[
+    [ "CodeReference", "classv8_1_1internal_1_1CodeReference.html#a707ac2a8fe5f93a24feafdcbab44e82e", null ],
+    [ "CodeReference", "classv8_1_1internal_1_1CodeReference.html#a56641682eab8047655054c844d130cf5", null ],
+    [ "CodeReference", "classv8_1_1internal_1_1CodeReference.html#a1c980b698abe0279d2bff207f847d96d", null ],
+    [ "CodeReference", "classv8_1_1internal_1_1CodeReference.html#a0979cdcfd12d0b192c47fe655dde6187", null ],
+    [ "as_code", "classv8_1_1internal_1_1CodeReference.html#ac70e9fb78a4f7946f874f3500ffc9dd8", null ],
+    [ "as_wasm_code", "classv8_1_1internal_1_1CodeReference.html#a3516c7d612147badd012571570454fe0", null ],
+    [ "code_comments", "classv8_1_1internal_1_1CodeReference.html#add2991a54304042909e89a1ce7119ba1", null ],
+    [ "code_comments_size", "classv8_1_1internal_1_1CodeReference.html#a27bb89605e340c189f25f3d4d9cfeab3", null ],
+    [ "constant_pool", "classv8_1_1internal_1_1CodeReference.html#a2c32278fc2e256b107ec90f26b41eac2", null ],
+    [ "instruction_end", "classv8_1_1internal_1_1CodeReference.html#a05cd1882262b40f7a12efbd0aad89a1e", null ],
+    [ "instruction_size", "classv8_1_1internal_1_1CodeReference.html#a2a1f3d772017036c734c0d74657b3765", null ],
+    [ "instruction_start", "classv8_1_1internal_1_1CodeReference.html#afbf26f99d73d0d3c4feb59fa5052d05e", null ],
+    [ "is_code", "classv8_1_1internal_1_1CodeReference.html#a7f1e815732f4175681fbf767fd5497cb", null ],
+    [ "is_null", "classv8_1_1internal_1_1CodeReference.html#a0679f4a10e88af0e365eeda954d01e6f", null ],
+    [ "is_wasm_code", "classv8_1_1internal_1_1CodeReference.html#a2682b08fafcd80733f3775876ebd0085", null ],
+    [ "jump_table_info", "classv8_1_1internal_1_1CodeReference.html#a166120f1f8779d524564f5800f2b4123", null ],
+    [ "jump_table_info_size", "classv8_1_1internal_1_1CodeReference.html#add6b7655c8bf54ddf2f19d0654ab663f", null ],
+    [ "relocation_end", "classv8_1_1internal_1_1CodeReference.html#a09b593dd946627e21f975ea114fcf499", null ],
+    [ "relocation_size", "classv8_1_1internal_1_1CodeReference.html#aa9008552de69527eca298f67adf25ddc", null ],
+    [ "relocation_start", "classv8_1_1internal_1_1CodeReference.html#a8b5069197a54ac88abda4889dbc28ee1", null ],
+    [ "code_", "classv8_1_1internal_1_1CodeReference.html#a8e1798509517ca8d9d14ea61074af7de", null ],
+    [ "code_desc_", "classv8_1_1internal_1_1CodeReference.html#ad7752d5293404d1b58eeede7f7b4d5e6", null ],
+    [ "null_", "classv8_1_1internal_1_1CodeReference.html#a16cfb4f7a2f209fdd1ef07fc5ce8acb0", null ],
+    [ "wasm_code_", "classv8_1_1internal_1_1CodeReference.html#aea96144a8aa4f1fcd856af3c3166ea62", null ]
+];

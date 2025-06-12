@@ -1,0 +1,37 @@
+var js_heap_broker_8h =
+[
+    [ "PropertyAccessTarget", "structv8_1_1internal_1_1compiler_1_1PropertyAccessTarget.html", "structv8_1_1internal_1_1compiler_1_1PropertyAccessTarget" ],
+    [ "Hash", "structv8_1_1internal_1_1compiler_1_1PropertyAccessTarget_1_1Hash.html", "structv8_1_1internal_1_1compiler_1_1PropertyAccessTarget_1_1Hash" ],
+    [ "Equal", "structv8_1_1internal_1_1compiler_1_1PropertyAccessTarget_1_1Equal.html", "structv8_1_1internal_1_1compiler_1_1PropertyAccessTarget_1_1Equal" ],
+    [ "JSHeapBroker", "classv8_1_1internal_1_1compiler_1_1JSHeapBroker.html", "classv8_1_1internal_1_1compiler_1_1JSHeapBroker" ],
+    [ "RecursiveMutexGuardIfNeeded", "classv8_1_1internal_1_1compiler_1_1JSHeapBroker_1_1RecursiveMutexGuardIfNeeded.html", "classv8_1_1internal_1_1compiler_1_1JSHeapBroker_1_1RecursiveMutexGuardIfNeeded" ],
+    [ "MapUpdaterGuardIfNeeded", "classv8_1_1internal_1_1compiler_1_1JSHeapBroker_1_1MapUpdaterGuardIfNeeded.html", "classv8_1_1internal_1_1compiler_1_1JSHeapBroker_1_1MapUpdaterGuardIfNeeded" ],
+    [ "BoilerplateMigrationGuardIfNeeded", "classv8_1_1internal_1_1compiler_1_1JSHeapBroker_1_1BoilerplateMigrationGuardIfNeeded.html", "classv8_1_1internal_1_1compiler_1_1JSHeapBroker_1_1BoilerplateMigrationGuardIfNeeded" ],
+    [ "CurrentHeapBrokerScope", "classv8_1_1internal_1_1compiler_1_1CurrentHeapBrokerScope.html", "classv8_1_1internal_1_1compiler_1_1CurrentHeapBrokerScope" ],
+    [ "TraceScope", "classv8_1_1internal_1_1compiler_1_1TraceScope.html", "classv8_1_1internal_1_1compiler_1_1TraceScope" ],
+    [ "UnparkedScopeIfNeeded", "classv8_1_1internal_1_1compiler_1_1UnparkedScopeIfNeeded.html", "classv8_1_1internal_1_1compiler_1_1UnparkedScopeIfNeeded" ],
+    [ "JSHeapBrokerScopeForTesting", "classv8_1_1internal_1_1compiler_1_1JSHeapBrokerScopeForTesting.html", "classv8_1_1internal_1_1compiler_1_1JSHeapBrokerScopeForTesting" ],
+    [ "TRACE_BROKER", "js-heap-broker_8h.html#a88cea68a3103f2711b1b013d711d8918", null ],
+    [ "TRACE_BROKER_MISSING", "js-heap-broker_8h.html#a41ae80356afe83bab814649bd31cea99", null ],
+    [ "V", "js-heap-broker_8h.html#a7c353b4cdbc4b3280d70bc1b67f2319f", null ],
+    [ "V", "js-heap-broker_8h.html#a7c353b4cdbc4b3280d70bc1b67f2319f", null ],
+    [ "V", "js-heap-broker_8h.html#a7c353b4cdbc4b3280d70bc1b67f2319f", null ],
+    [ "V", "js-heap-broker_8h.html#a7c353b4cdbc4b3280d70bc1b67f2319f", null ],
+    [ "GetOrCreateDataFlags", "js-heap-broker_8h.html#a522fc71f574e8ef2badabd33b1b47cfd", null ],
+    [ "GetOrCreateDataFlag", "js-heap-broker_8h.html#a7fbe1850f74c347f133f020554f26dd5", [
+      [ "kCrashOnError", "js-heap-broker_8h.html#a7fbe1850f74c347f133f020554f26dd5ae121a272ea952ead9d6293012972269a", null ],
+      [ "kAssumeMemoryFence", "js-heap-broker_8h.html#a7fbe1850f74c347f133f020554f26dd5aab18cc1f1cbb0e704f2a4380204e82bc", null ]
+    ] ],
+    [ "if", "js-heap-broker_8h.html#a7e7f8ba1589e4698f8c96c2aacdc537c", null ],
+    [ "MakeRef", "js-heap-broker_8h.html#a6eafc88d0013b16614585cb371bbd9fe", null ],
+    [ "MakeRef", "js-heap-broker_8h.html#a07fc62c815cf253248770b0a3627b0e1", null ],
+    [ "MakeRefAssumeMemoryFence", "js-heap-broker_8h.html#aeba7bf898004f86169c8ea1fd906f176", null ],
+    [ "MakeRefAssumeMemoryFence", "js-heap-broker_8h.html#aadd543ca4fc16007d5d460c691e9b499", null ],
+    [ "operator<<", "js-heap-broker_8h.html#ad3ff8c8a5ecd7ce5b8dc8f81a3a6aefd", null ],
+    [ "TryMakeRef", "js-heap-broker_8h.html#ad413196106413e6422a2ed896562f846", null ],
+    [ "TryMakeRef", "js-heap-broker_8h.html#a06120be0d60f6d6ae60da7997925dda5", null ],
+    [ "TryMakeRef", "js-heap-broker_8h.html#a3a1b6dcdbd1c25b4f2d2ca75478f7b89", null ],
+    [ "TryMakeRef< T >", "js-heap-broker_8h.html#ae4a11cb63886eb6210aadded283c02ff", null ],
+    [ "Object", "js-heap-broker_8h.html#ae40ecf79ba420ba01bc347350bd6176f", null ],
+    [ "return", "js-heap-broker_8h.html#a5c66d591f1b411c798f3bef79fe15b7e", null ]
+];

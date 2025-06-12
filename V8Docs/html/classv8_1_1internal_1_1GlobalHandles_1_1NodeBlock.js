@@ -1,0 +1,20 @@
+var classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock =
+[
+    [ "BlockType", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a391d01df583901957dc8d7a64c176a5b", null ],
+    [ "NodeType", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a93a3915483843b7a53039f4f4f33d0d6", null ],
+    [ "NodeBlock", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a1b3f4378b9a60e340993570c7634fc97", null ],
+    [ "NodeBlock", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a52b9572444fd73ce62748809af5c47ee", null ],
+    [ "at", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a0a789c88a7a30f6362bbb53fb1fe86b5", null ],
+    [ "at", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a85ab09edab53148086697b7c5d86a2e3", null ],
+    [ "begin_address", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a90a16beae86858d76e26a079ea0b21aa", null ],
+    [ "DecreaseUsage", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#af017ab7397a0443206d4c4f6dbafe162", null ],
+    [ "end_address", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#ab187aae22dd2c5f62d6b1bea286d1179", null ],
+    [ "global_handles", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a0f8535509042939e23e397246a59f162", null ],
+    [ "IncreaseUsage", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#add4a996dcfd4c67cc298194bc4a11c2d", null ],
+    [ "ListAdd", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a0e6c9d2c8f9147f8b364db1b1904592c", null ],
+    [ "ListRemove", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a2378efd549940c381215f31662c78d8b", null ],
+    [ "next", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a2ea784f913b57a1bd83ed2be7ee8d8fb", null ],
+    [ "next_used", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a3b9cfbac8ab1f7f6a30459c988f5a6e7", null ],
+    [ "operator=", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a35cc47897bf322aaee32185127b48f82", null ],
+    [ "space", "classv8_1_1internal_1_1GlobalHandles_1_1NodeBlock.html#a5245e259a1801c13fea0424c1e9cc214", null ]
+];

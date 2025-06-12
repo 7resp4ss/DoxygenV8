@@ -1,0 +1,266 @@
+\hypertarget{isolate_8cc}{}\doxysection{isolate.\+cc File Reference}
+\label{isolate_8cc}\index{isolate.cc@{isolate.cc}}
+{\ttfamily \#include \char`\"{}src/execution/isolate.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$atomic$>$}\newline
+{\ttfamily \#include $<$cinttypes$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/template.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/arguments-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ast/ast-\/value-\/factory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ast/scopes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/fpu.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/hashmap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/platform/mutex.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/platform/platform.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/platform/wrappers.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/sys-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/utils/random-\/number-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/baseline/baseline-\/batch-\/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/bigint/bigint.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/builtins-\/promise.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/builtins.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/constants-\/table-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/assembler-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/compilation-\/cache.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/flush-\/instruction-\/cache.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/assert-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/ptr-\/compr-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/thread-\/local-\/storage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler-\/dispatcher/lazy-\/compile-\/dispatcher.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler-\/dispatcher/optimizing-\/compile-\/dispatcher.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/date/date.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/debug/debug-\/frames.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/debug/debug.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/deoptimizer/deoptimizer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/deoptimizer/materialized-\/object-\/store.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/diagnostics/basic-\/block-\/profiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/diagnostics/compilation-\/statistics.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/frames-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/frames.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/local-\/isolate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/messages.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/microtask-\/queue.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/protectors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/simulator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/tiering-\/manager.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/v8threads.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/vm-\/state-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/global-\/handles-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/persistent-\/handles.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/verifier.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/local-\/heap-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/parked-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/read-\/only-\/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/safepoint.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ic/stub-\/cache.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/init/bootstrapper.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/init/setup-\/isolate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/init/v8.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/array-\/iterator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecodes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/interpreter.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/libsampler/sampler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/counters.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/log.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/metrics.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/runtime-\/call-\/stats-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/numbers/hash-\/seed-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/backing-\/store.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/call-\/site-\/info-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/call-\/site-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/elements.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/feedback-\/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/hash-\/table-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/instance-\/type-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/buffer-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/atomics-\/synchronization-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/function.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/generator-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/struct-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/weak-\/refs-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/managed-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/module-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/promise-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/descriptor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/prototype.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/slots.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/smi.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/source-\/text-\/module-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/string-\/set-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/visitors.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/waiter-\/queue-\/node.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/profiler/heap-\/profiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/profiler/tracing-\/cpu-\/profiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/regexp/regexp-\/stack.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/roots/roots.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/roots/static-\/roots.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/sandbox/js-\/dispatch-\/table-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/embedded/embedded-\/data-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/embedded/embedded-\/file-\/writer-\/interface.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/read-\/only-\/deserializer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/shared-\/heap-\/deserializer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/snapshot.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/startup-\/deserializer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/string-\/builder-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/string-\/stream.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/tasks/cancelable-\/task.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/tracing/tracing-\/category-\/observer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/address-\/map.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/ostreams.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/version.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/zone/accounting-\/allocator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/zone/type-\/stats.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1TracingAccountingAllocator}{v8\+::internal\+::\+Tracing\+Accounting\+Allocator}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{isolate_8cc_abeb69f2193c2959b43d9c46c6d30ffb0}{TRACE\+\_\+\+ISOLATE}}(tag)
+\item 
+\#define \mbox{\hyperlink{isolate_8cc_a02b539607c1a8ab69dcaf4eb132cf361}{CASE}}(Name)
+\item 
+\#define \mbox{\hyperlink{isolate_8cc_affc64be89411b2ea2df4497a15cc003b}{ISOLATE\+\_\+\+INIT\+\_\+\+EXECUTE}}(\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  initial\+\_\+value)~  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}\#\#\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}} = (initial\+\_\+value);
+\item 
+\#define \mbox{\hyperlink{isolate_8cc_a5554115a4e07cd89d4642de9057a2fab}{ISOLATE\+\_\+\+INIT\+\_\+\+ARRAY\+\_\+\+EXECUTE}}(\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  \mbox{\hyperlink{random-module-generation_8cc_aebb70c2aab3407a9f05334c47131a43b}{length}})~  memset(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}\#\#\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}}, 0, sizeof(\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}}) $\ast$ \mbox{\hyperlink{random-module-generation_8cc_aebb70c2aab3407a9f05334c47131a43b}{length}});
+\item 
+\#define \mbox{\hyperlink{isolate_8cc_af88e2807a3fbc6fdf26ca96e586e4026}{ASSIGN\+\_\+\+ELEMENT}}(Camel\+Name,  hacker\+\_\+name)
+\item 
+\#define \mbox{\hyperlink{isolate_8cc_a4804fcf5d6c871fc3d3cbd3ea473be45}{FETCH\+\_\+\+COUNTER}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})~  uint32\+\_\+t \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} = static\+\_\+cast$<$uint32\+\_\+t$>$(counters()-\/$>$\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}()-\/$>$Get());
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const uint8\+\_\+t $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_a845b88957ad8b5bbd246f8a338aba5e7}{v8\+::internal\+::\+Default\+Embedded\+Blob\+Code}} ()
+\item 
+uint32\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_a769e3469933fb24285768583cd185a49}{v8\+::internal\+::\+Default\+Embedded\+Blob\+Code\+Size}} ()
+\item 
+const uint8\+\_\+t $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_ab1ef9a78f3ec2b12f2d348c4de9d407a}{v8\+::internal\+::\+Default\+Embedded\+Blob\+Data}} ()
+\item 
+uint32\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_a0718c90ed21b7e695b5224be28ed7415}{v8\+::internal\+::\+Default\+Embedded\+Blob\+Data\+Size}} ()
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_ab0c0e9237bdee75f1cf852ca7544c8e8}{v8\+::internal\+::\+Disable\+Embedded\+Blob\+Refcounting}} ()
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_a1c9ba031665dc5477df3ae55bc3cd51c}{v8\+::internal\+::\+Free\+Current\+Embedded\+Blob}} ()
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_a144877fdc5051896f2d01fcc98cdabc7}{v8\+::internal\+::\+No\+Extension}} (const \mbox{\hyperlink{classv8_1_1FunctionCallbackInfo}{v8\+::\+Function\+Callback\+Info}}$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ \&)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_a9aa8863309a8f82fdd3eb6611386a0d2}{v8\+::internal\+::\+Default\+Wasm\+Async\+Resolve\+Promise\+Callback}} (\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Context}{v8\+::\+Context}} $>$ \mbox{\hyperlink{js-call-reducer_8cc_a0835767fe473cead88c1afdf3175bce8}{context}}, \mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Promise_1_1Resolver}{v8\+::\+Promise\+::\+Resolver}} $>$ resolver, \mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ \mbox{\hyperlink{jump-threading_8cc_a41f8c58d2c01bf65b8ee199c3f87fc80}{result}}, Wasm\+Async\+Success success)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const uint8\+\_\+t \mbox{\hyperlink{isolate_8cc_ad6499efb19aa6924cc7fefbf707c73be}{v8\+\_\+\+Default\+\_\+embedded\+\_\+blob\+\_\+code\+\_\+}} \mbox{[}$\,$\mbox{]} = \{0\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{isolate_8cc_a14f7b3ca4d9abd34e84b5f47e1f4eb4c}{v8\+\_\+\+Default\+\_\+embedded\+\_\+blob\+\_\+code\+\_\+size\+\_\+}} = 0
+\item 
+const uint8\+\_\+t \mbox{\hyperlink{isolate_8cc_abd779ebf5164f6da90cf55964231e648}{v8\+\_\+\+Default\+\_\+embedded\+\_\+blob\+\_\+data\+\_\+}} \mbox{[}$\,$\mbox{]} = \{0\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{isolate_8cc_aeef751b37efdbd7cc0b474991a40aac7}{v8\+\_\+\+Default\+\_\+embedded\+\_\+blob\+\_\+data\+\_\+size\+\_\+}} = 0
+\item 
+thread\+\_\+local Isolate\+::\+Per\+Isolate\+Thread\+Data $\ast$g\+\_\+current\+\_\+per\+\_\+isolate\+\_\+thread\+\_\+data\+\_\+ \mbox{\hyperlink{namespacev8_1_1internal_a49789a3c0b6ae064c053bd61f6dacd51}{v8\+::internal\+::\+V8\+\_\+\+CONSTINIT}} = \mbox{\hyperlink{flag-definitions_8h_aca14fbede0905858c819226fce3678cc}{nullptr}}
+\item 
+base\+::\+Lazy\+Mutex \mbox{\hyperlink{namespacev8_1_1internal_a20fd9239173e30d2ef0c1d81a8470e7a}{v8\+::internal\+::read\+\_\+only\+\_\+dispatch\+\_\+entries\+\_\+mutex\+\_\+}} = \mbox{\hyperlink{mutex_8h_ab9eda31a32ad469c6c00d977fe45b37f}{LAZY\+\_\+\+MUTEX\+\_\+\+INITIALIZER}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{isolate_8cc_af88e2807a3fbc6fdf26ca96e586e4026}\label{isolate_8cc_af88e2807a3fbc6fdf26ca96e586e4026}} 
+\index{isolate.cc@{isolate.cc}!ASSIGN\_ELEMENT@{ASSIGN\_ELEMENT}}
+\index{ASSIGN\_ELEMENT@{ASSIGN\_ELEMENT}!isolate.cc@{isolate.cc}}
+\doxysubsubsection{\texorpdfstring{ASSIGN\_ELEMENT}{ASSIGN\_ELEMENT}}
+{\footnotesize\ttfamily \#define ASSIGN\+\_\+\+ELEMENT(\begin{DoxyParamCaption}\item[{}]{Camel\+Name,  }\item[{}]{hacker\+\_\+name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  isolate\_addresses\_[IsolateAddressId::k\#\#CamelName\#\#\mbox{\hyperlink{namespacev8_1_1base_aed4219b45684a3840c8b930b5df90ea9}{Address}}] = \(\backslash\)}
+\DoxyCodeLine{      reinterpret\_cast<Address>(hacker\_name\#\#\_address());}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{isolate_8cc_a02b539607c1a8ab69dcaf4eb132cf361}\label{isolate_8cc_a02b539607c1a8ab69dcaf4eb132cf361}} 
+\index{isolate.cc@{isolate.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!isolate.cc@{isolate.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Builtin::k\#\#Name: \(\backslash\)}
+\DoxyCodeLine{    return HandlerTable::PROMISE;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{isolate_8cc_a4804fcf5d6c871fc3d3cbd3ea473be45}\label{isolate_8cc_a4804fcf5d6c871fc3d3cbd3ea473be45}} 
+\index{isolate.cc@{isolate.cc}!FETCH\_COUNTER@{FETCH\_COUNTER}}
+\index{FETCH\_COUNTER@{FETCH\_COUNTER}!isolate.cc@{isolate.cc}}
+\doxysubsubsection{\texorpdfstring{FETCH\_COUNTER}{FETCH\_COUNTER}}
+{\footnotesize\ttfamily \#define FETCH\+\_\+\+COUNTER(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})~  uint32\+\_\+t \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} = static\+\_\+cast$<$uint32\+\_\+t$>$(counters()-\/$>$\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}()-\/$>$Get());}
+
+\mbox{\Hypertarget{isolate_8cc_a5554115a4e07cd89d4642de9057a2fab}\label{isolate_8cc_a5554115a4e07cd89d4642de9057a2fab}} 
+\index{isolate.cc@{isolate.cc}!ISOLATE\_INIT\_ARRAY\_EXECUTE@{ISOLATE\_INIT\_ARRAY\_EXECUTE}}
+\index{ISOLATE\_INIT\_ARRAY\_EXECUTE@{ISOLATE\_INIT\_ARRAY\_EXECUTE}!isolate.cc@{isolate.cc}}
+\doxysubsubsection{\texorpdfstring{ISOLATE\_INIT\_ARRAY\_EXECUTE}{ISOLATE\_INIT\_ARRAY\_EXECUTE}}
+{\footnotesize\ttfamily \#define ISOLATE\+\_\+\+INIT\+\_\+\+ARRAY\+\_\+\+EXECUTE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_aebb70c2aab3407a9f05334c47131a43b}{length}} }\end{DoxyParamCaption})~  memset(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}\#\#\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}}, 0, sizeof(\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}}) $\ast$ \mbox{\hyperlink{random-module-generation_8cc_aebb70c2aab3407a9f05334c47131a43b}{length}});}
+
+\mbox{\Hypertarget{isolate_8cc_affc64be89411b2ea2df4497a15cc003b}\label{isolate_8cc_affc64be89411b2ea2df4497a15cc003b}} 
+\index{isolate.cc@{isolate.cc}!ISOLATE\_INIT\_EXECUTE@{ISOLATE\_INIT\_EXECUTE}}
+\index{ISOLATE\_INIT\_EXECUTE@{ISOLATE\_INIT\_EXECUTE}!isolate.cc@{isolate.cc}}
+\doxysubsubsection{\texorpdfstring{ISOLATE\_INIT\_EXECUTE}{ISOLATE\_INIT\_EXECUTE}}
+{\footnotesize\ttfamily \#define ISOLATE\+\_\+\+INIT\+\_\+\+EXECUTE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{initial\+\_\+value }\end{DoxyParamCaption})~  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}\#\#\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}} = (initial\+\_\+value);}
+
+\mbox{\Hypertarget{isolate_8cc_abeb69f2193c2959b43d9c46c6d30ffb0}\label{isolate_8cc_abeb69f2193c2959b43d9c46c6d30ffb0}} 
+\index{isolate.cc@{isolate.cc}!TRACE\_ISOLATE@{TRACE\_ISOLATE}}
+\index{TRACE\_ISOLATE@{TRACE\_ISOLATE}!isolate.cc@{isolate.cc}}
+\doxysubsubsection{\texorpdfstring{TRACE\_ISOLATE}{TRACE\_ISOLATE}}
+{\footnotesize\ttfamily \#define TRACE\+\_\+\+ISOLATE(\begin{DoxyParamCaption}\item[{}]{tag }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{isolate_8cc_ad6499efb19aa6924cc7fefbf707c73be}\label{isolate_8cc_ad6499efb19aa6924cc7fefbf707c73be}} 
+\index{isolate.cc@{isolate.cc}!v8\_Default\_embedded\_blob\_code\_@{v8\_Default\_embedded\_blob\_code\_}}
+\index{v8\_Default\_embedded\_blob\_code\_@{v8\_Default\_embedded\_blob\_code\_}!isolate.cc@{isolate.cc}}
+\doxysubsubsection{\texorpdfstring{v8\_Default\_embedded\_blob\_code\_}{v8\_Default\_embedded\_blob\_code\_}}
+{\footnotesize\ttfamily const uint8\+\_\+t v8\+\_\+\+Default\+\_\+embedded\+\_\+blob\+\_\+code\+\_\+ = \{0\}}
+
+\mbox{\Hypertarget{isolate_8cc_a14f7b3ca4d9abd34e84b5f47e1f4eb4c}\label{isolate_8cc_a14f7b3ca4d9abd34e84b5f47e1f4eb4c}} 
+\index{isolate.cc@{isolate.cc}!v8\_Default\_embedded\_blob\_code\_size\_@{v8\_Default\_embedded\_blob\_code\_size\_}}
+\index{v8\_Default\_embedded\_blob\_code\_size\_@{v8\_Default\_embedded\_blob\_code\_size\_}!isolate.cc@{isolate.cc}}
+\doxysubsubsection{\texorpdfstring{v8\_Default\_embedded\_blob\_code\_size\_}{v8\_Default\_embedded\_blob\_code\_size\_}}
+{\footnotesize\ttfamily uint32\+\_\+t v8\+\_\+\+Default\+\_\+embedded\+\_\+blob\+\_\+code\+\_\+size\+\_\+ = 0}
+
+\mbox{\Hypertarget{isolate_8cc_abd779ebf5164f6da90cf55964231e648}\label{isolate_8cc_abd779ebf5164f6da90cf55964231e648}} 
+\index{isolate.cc@{isolate.cc}!v8\_Default\_embedded\_blob\_data\_@{v8\_Default\_embedded\_blob\_data\_}}
+\index{v8\_Default\_embedded\_blob\_data\_@{v8\_Default\_embedded\_blob\_data\_}!isolate.cc@{isolate.cc}}
+\doxysubsubsection{\texorpdfstring{v8\_Default\_embedded\_blob\_data\_}{v8\_Default\_embedded\_blob\_data\_}}
+{\footnotesize\ttfamily const uint8\+\_\+t v8\+\_\+\+Default\+\_\+embedded\+\_\+blob\+\_\+data\+\_\+ = \{0\}}
+
+\mbox{\Hypertarget{isolate_8cc_aeef751b37efdbd7cc0b474991a40aac7}\label{isolate_8cc_aeef751b37efdbd7cc0b474991a40aac7}} 
+\index{isolate.cc@{isolate.cc}!v8\_Default\_embedded\_blob\_data\_size\_@{v8\_Default\_embedded\_blob\_data\_size\_}}
+\index{v8\_Default\_embedded\_blob\_data\_size\_@{v8\_Default\_embedded\_blob\_data\_size\_}!isolate.cc@{isolate.cc}}
+\doxysubsubsection{\texorpdfstring{v8\_Default\_embedded\_blob\_data\_size\_}{v8\_Default\_embedded\_blob\_data\_size\_}}
+{\footnotesize\ttfamily uint32\+\_\+t v8\+\_\+\+Default\+\_\+embedded\+\_\+blob\+\_\+data\+\_\+size\+\_\+ = 0}
+

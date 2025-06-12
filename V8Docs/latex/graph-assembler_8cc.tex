@@ -1,0 +1,146 @@
+\hypertarget{graph-assembler_8cc}{}\doxysection{graph-\/assembler.cc File Reference}
+\label{graph-assembler_8cc}\index{graph-\/assembler.cc@{graph-\/assembler.cc}}
+{\ttfamily \#include \char`\"{}src/compiler/graph-\/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include \char`\"{}src/base/container-\/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/callable.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/machine-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/tnode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/access-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/common-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/graph-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/linkage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/type-\/cache.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/allocation-\/builder-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/deoptimizer/deoptimize-\/reason.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/elements-\/kind.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/number.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/instance-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/buffer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/oddball.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/string.\+h\char`\"{}}\newline
+Include dependency graph for graph-\/assembler.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{graph-assembler_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1GraphAssembler}{v8\+::internal\+::compiler\+::\+Graph\+Assembler}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1ArrayBufferViewAccessBuilder}{v8\+::internal\+::compiler\+::\+Array\+Buffer\+View\+Access\+Builder}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{graph-assembler_8cc_aa85982893aa878fef30ad60c8a47daa9}{SINGLETON\+\_\+\+CONST\+\_\+\+DEF}}(Name,  Type)
+\item 
+\#define \mbox{\hyperlink{graph-assembler_8cc_a53b9e6eb2b2a8bb4d4f82619e3719c1d}{SINGLETON\+\_\+\+CONST\+\_\+\+TEST\+\_\+\+DEF}}(Name, ...)
+\item 
+\#define \mbox{\hyperlink{graph-assembler_8cc_a0e1c9922ce0c6256930c6d7d02658cd0}{PURE\+\_\+\+UNOP\+\_\+\+DEF}}(Name)
+\item 
+\#define \mbox{\hyperlink{graph-assembler_8cc_a296c6be29b500eb6f556d03f12adcce2}{PURE\+\_\+\+BINOP\+\_\+\+DEF}}(Name)
+\item 
+\#define \mbox{\hyperlink{graph-assembler_8cc_a629a0f4c32c01268f651b34cc077c3a5}{PURE\+\_\+\+BINOP\+\_\+\+DEF\+\_\+\+TNODE}}(Name,  Result,  Left,  Right)
+\item 
+\#define \mbox{\hyperlink{graph-assembler_8cc_ad9210b26b4146617e6d659b2ea0b9f38}{CHECKED\+\_\+\+BINOP\+\_\+\+DEF}}(Name)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{graph-assembler_8cc_ad9210b26b4146617e6d659b2ea0b9f38}\label{graph-assembler_8cc_ad9210b26b4146617e6d659b2ea0b9f38}} 
+\index{graph-\/assembler.cc@{graph-\/assembler.cc}!CHECKED\_BINOP\_DEF@{CHECKED\_BINOP\_DEF}}
+\index{CHECKED\_BINOP\_DEF@{CHECKED\_BINOP\_DEF}!graph-\/assembler.cc@{graph-\/assembler.cc}}
+\doxysubsubsection{\texorpdfstring{CHECKED\_BINOP\_DEF}{CHECKED\_BINOP\_DEF}}
+{\footnotesize\ttfamily \#define CHECKED\+\_\+\+BINOP\+\_\+\+DEF(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  Node* GraphAssembler::Name(Node* left, Node* right) \{               \(\backslash\)}
+\DoxyCodeLine{    return AddNode(                                                   \(\backslash\)}
+\DoxyCodeLine{        \mbox{\hyperlink{add-type-assertions-reducer_8cc_a4db7d9af9cc5e165a9c50f82a9aeb8a3}{graph}}()-\/>NewNode(machine()-\/>Name(), left, right, control())); \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-assembler_8cc_a296c6be29b500eb6f556d03f12adcce2}\label{graph-assembler_8cc_a296c6be29b500eb6f556d03f12adcce2}} 
+\index{graph-\/assembler.cc@{graph-\/assembler.cc}!PURE\_BINOP\_DEF@{PURE\_BINOP\_DEF}}
+\index{PURE\_BINOP\_DEF@{PURE\_BINOP\_DEF}!graph-\/assembler.cc@{graph-\/assembler.cc}}
+\doxysubsubsection{\texorpdfstring{PURE\_BINOP\_DEF}{PURE\_BINOP\_DEF}}
+{\footnotesize\ttfamily \#define PURE\+\_\+\+BINOP\+\_\+\+DEF(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  Node* GraphAssembler::Name(Node* left, Node* right) \{               \(\backslash\)}
+\DoxyCodeLine{    return AddNode(\mbox{\hyperlink{add-type-assertions-reducer_8cc_a4db7d9af9cc5e165a9c50f82a9aeb8a3}{graph}}()-\/>NewNode(machine()-\/>Name(), left, right)); \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-assembler_8cc_a629a0f4c32c01268f651b34cc077c3a5}\label{graph-assembler_8cc_a629a0f4c32c01268f651b34cc077c3a5}} 
+\index{graph-\/assembler.cc@{graph-\/assembler.cc}!PURE\_BINOP\_DEF\_TNODE@{PURE\_BINOP\_DEF\_TNODE}}
+\index{PURE\_BINOP\_DEF\_TNODE@{PURE\_BINOP\_DEF\_TNODE}!graph-\/assembler.cc@{graph-\/assembler.cc}}
+\doxysubsubsection{\texorpdfstring{PURE\_BINOP\_DEF\_TNODE}{PURE\_BINOP\_DEF\_TNODE}}
+{\footnotesize\ttfamily \#define PURE\+\_\+\+BINOP\+\_\+\+DEF\+\_\+\+TNODE(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{Result,  }\item[{}]{Left,  }\item[{}]{Right }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  TNode<Result> GraphAssembler::Name(SloppyTNode<Left> left,                  \(\backslash\)}
+\DoxyCodeLine{                                     SloppyTNode<Right> right) \{              \(\backslash\)}
+\DoxyCodeLine{    return AddNode<Result>(\mbox{\hyperlink{add-type-assertions-reducer_8cc_a4db7d9af9cc5e165a9c50f82a9aeb8a3}{graph}}()-\/>NewNode(machine()-\/>Name(), left, right)); \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-assembler_8cc_a0e1c9922ce0c6256930c6d7d02658cd0}\label{graph-assembler_8cc_a0e1c9922ce0c6256930c6d7d02658cd0}} 
+\index{graph-\/assembler.cc@{graph-\/assembler.cc}!PURE\_UNOP\_DEF@{PURE\_UNOP\_DEF}}
+\index{PURE\_UNOP\_DEF@{PURE\_UNOP\_DEF}!graph-\/assembler.cc@{graph-\/assembler.cc}}
+\doxysubsubsection{\texorpdfstring{PURE\_UNOP\_DEF}{PURE\_UNOP\_DEF}}
+{\footnotesize\ttfamily \#define PURE\+\_\+\+UNOP\+\_\+\+DEF(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  Node* GraphAssembler::Name(Node* input) \{                     \(\backslash\)}
+\DoxyCodeLine{    return AddNode(\mbox{\hyperlink{add-type-assertions-reducer_8cc_a4db7d9af9cc5e165a9c50f82a9aeb8a3}{graph}}()-\/>NewNode(machine()-\/>Name(), input)); \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-assembler_8cc_aa85982893aa878fef30ad60c8a47daa9}\label{graph-assembler_8cc_aa85982893aa878fef30ad60c8a47daa9}} 
+\index{graph-\/assembler.cc@{graph-\/assembler.cc}!SINGLETON\_CONST\_DEF@{SINGLETON\_CONST\_DEF}}
+\index{SINGLETON\_CONST\_DEF@{SINGLETON\_CONST\_DEF}!graph-\/assembler.cc@{graph-\/assembler.cc}}
+\doxysubsubsection{\texorpdfstring{SINGLETON\_CONST\_DEF}{SINGLETON\_CONST\_DEF}}
+{\footnotesize\ttfamily \#define SINGLETON\+\_\+\+CONST\+\_\+\+DEF(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{Type }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  TNode<Type> JSGraphAssembler::Name\#\#Constant() \{   \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{namespacev8_1_1internal_a8028d478008d2b032596d88d083a280d}{TNode<Type>::UncheckedCast}}(               \(\backslash\)}
+\DoxyCodeLine{        AddClonedNode(\mbox{\hyperlink{add-type-assertions-reducer_8cc_a63b24fad76b2ce65101ba7d418f301d2}{jsgraph}}()-\/>Name\#\#Constant())); \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-assembler_8cc_a53b9e6eb2b2a8bb4d4f82619e3719c1d}\label{graph-assembler_8cc_a53b9e6eb2b2a8bb4d4f82619e3719c1d}} 
+\index{graph-\/assembler.cc@{graph-\/assembler.cc}!SINGLETON\_CONST\_TEST\_DEF@{SINGLETON\_CONST\_TEST\_DEF}}
+\index{SINGLETON\_CONST\_TEST\_DEF@{SINGLETON\_CONST\_TEST\_DEF}!graph-\/assembler.cc@{graph-\/assembler.cc}}
+\doxysubsubsection{\texorpdfstring{SINGLETON\_CONST\_TEST\_DEF}{SINGLETON\_CONST\_TEST\_DEF}}
+{\footnotesize\ttfamily \#define SINGLETON\+\_\+\+CONST\+\_\+\+TEST\+\_\+\+DEF(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  TNode<Boolean> \mbox{\hyperlink{namespacev8_1_1internal_a2d7df811163e1b32e949af92992e5c1b}{JSGraphAssembler::Is}}\#\#Name(TNode<Object> \mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}}) \{ \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{namespacev8_1_1internal_a8028d478008d2b032596d88d083a280d}{TNode<Boolean>::UncheckedCast}}(                          \(\backslash\)}
+\DoxyCodeLine{        ReferenceEqual(\mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}}, Name\#\#Constant()));                  \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}

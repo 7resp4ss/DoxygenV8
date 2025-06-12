@@ -1,0 +1,25 @@
+var handles_8h =
+[
+    [ "HandleBase", "classv8_1_1internal_1_1HandleBase.html", "classv8_1_1internal_1_1HandleBase" ],
+    [ "Handle", "classv8_1_1internal_1_1Handle.html", "classv8_1_1internal_1_1Handle" ],
+    [ "equal_to", "structv8_1_1internal_1_1Handle_1_1equal__to.html", "structv8_1_1internal_1_1Handle_1_1equal__to" ],
+    [ "hash", "structv8_1_1internal_1_1Handle_1_1hash.html", "structv8_1_1internal_1_1Handle_1_1hash" ],
+    [ "HandleScope", "classv8_1_1internal_1_1HandleScope.html", "classv8_1_1internal_1_1HandleScope" ],
+    [ "SealHandleScope", "classv8_1_1internal_1_1SealHandleScope.html", "classv8_1_1internal_1_1SealHandleScope" ],
+    [ "HandleScopeData", "structv8_1_1internal_1_1HandleScopeData.html", "structv8_1_1internal_1_1HandleScopeData" ],
+    [ "is_direct_handle", "structv8_1_1internal_1_1is__direct__handle.html", null ],
+    [ "DirectHandle", "classv8_1_1internal_1_1DirectHandle.html", "classv8_1_1internal_1_1DirectHandle" ],
+    [ "DirectHandleUnchecked", "classv8_1_1internal_1_1DirectHandleUnchecked.html", "classv8_1_1internal_1_1DirectHandleUnchecked" ],
+    [ "DirectHandleVector", "classv8_1_1internal_1_1DirectHandleVector.html", "classv8_1_1internal_1_1DirectHandleVector" ],
+    [ "DirectHandleSmallVector", "classv8_1_1internal_1_1DirectHandleSmallVector.html", "classv8_1_1internal_1_1DirectHandleSmallVector" ],
+    [ "is_direct_handle< DirectHandle< T > >", "structv8_1_1internal_1_1is__direct__handle_3_01DirectHandle_3_01T_01_4_01_4.html", null ],
+    [ "CanonicalHandlesMap", "handles_8h.html#a5265d75ff1f7e75c1d30b13a5a50f740", null ],
+    [ "indirect_handle", "handles_8h.html#abec19f689a13a5fec8c79b964d14f5df", null ],
+    [ "indirect_handle", "handles_8h.html#a2bc23b192ab59c1669d139b4c013b404", null ],
+    [ "indirect_handle", "handles_8h.html#a19bbac9657eef0637a9e3feb32387df2", null ],
+    [ "indirect_handle", "handles_8h.html#a5f6307de12a2425b377a848ae0d3a70b", null ],
+    [ "operator<<", "handles_8h.html#a5bcf64c1b9cb00cbeeba691afe65d0d0", null ],
+    [ "operator<<", "handles_8h.html#ae5aafca474f6b39b4cbb86aabe31e2e3", null ],
+    [ "requires", "handles_8h.html#a36a7038a14420f718296215cbf007ed9", null ],
+    [ "kTaggedNullAddress", "handles_8h.html#a175c065c1245d42fdbd4a853993be670", null ]
+];

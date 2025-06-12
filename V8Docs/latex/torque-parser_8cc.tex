@@ -1,0 +1,1019 @@
+\hypertarget{torque-parser_8cc}{}\doxysection{torque-\/parser.cc File Reference}
+\label{torque-parser_8cc}\index{torque-\/parser.cc@{torque-\/parser.cc}}
+{\ttfamily \#include \char`\"{}src/torque/torque-\/parser.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$cctype$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include \char`\"{}include/v8config.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/torque/ast.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/torque/constants.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/torque/declarations.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/torque/earley-\/parser.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/torque/global-\/context.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/torque/utils.\+h\char`\"{}}\newline
+Include dependency graph for torque-\/parser.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{torque-parser_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1torque_1_1ExpressionWithSource}{v8\+::internal\+::torque\+::\+Expression\+With\+Source}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1torque_1_1TypeswitchCase}{v8\+::internal\+::torque\+::\+Typeswitch\+Case}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1torque_1_1EnumEntry}{v8\+::internal\+::torque\+::\+Enum\+Entry}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1torque_1_1BuildFlags}{v8\+::internal\+::torque\+::\+Build\+Flags}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1torque}{v8\+::internal\+::torque}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_af6065eaddf2e283c7952f5f1754b549b}{v8\+::internal\+::torque\+::\+Type\+List}} = std\+::vector$<$ Type\+Expression $\ast$ $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_ac9acc53175e69fcc47af28e64b200311}{v8\+::internal\+::torque\+::\+Parse\+Torque}} (const std\+::string \&input)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{torque-parser_8cc_af2290b88b1f5d9dc169ce0effb0d425d}\label{torque-parser_8cc_af2290b88b1f5d9dc169ce0effb0d425d}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!additiveExpression@{additiveExpression}}
+\index{additiveExpression@{additiveExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{additiveExpression}{additiveExpression}}
+{\footnotesize\ttfamily Symbol$\ast$ additive\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      BinaryOperator(\mbox{\hyperlink{torque-parser_8cc_af354c69872289b4c2fadd3ea8b354f71}{multiplicativeExpression}}, OneOf(\{\textcolor{stringliteral}{"{}+"{}}, \textcolor{stringliteral}{"{}-\/"{}}\}))}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a8a1ec136c607ff54893f672c456b91e3}\label{torque-parser_8cc_a8a1ec136c607ff54893f672c456b91e3}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!annotation@{annotation}}
+\index{annotation@{annotation}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{annotation}{annotation}}
+{\footnotesize\ttfamily Symbol annotation}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{Rule(}
+\DoxyCodeLine{      \{\&\mbox{\hyperlink{torque-parser_8cc_a5aef939642b16d81b90c06e5b3441a5d}{annotationName}}, Optional<AnnotationParameter>(\&\mbox{\hyperlink{torque-parser_8cc_a44ba21d14b95fb5fca2f49363b3d3bd2}{annotationParameters}})\},}
+\DoxyCodeLine{      MakeAnnotation)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a5aef939642b16d81b90c06e5b3441a5d}\label{torque-parser_8cc_a5aef939642b16d81b90c06e5b3441a5d}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!annotationName@{annotationName}}
+\index{annotationName@{annotationName}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{annotationName}{annotationName}}
+{\footnotesize\ttfamily Symbol annotation\+Name}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Pattern(MatchAnnotation)\}, MakeIdentifierFromMatchedInput)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_ae74bd77765867c4c7f3659e61f67443e}\label{torque-parser_8cc_ae74bd77765867c4c7f3659e61f67443e}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!annotationParameter@{annotationParameter}}
+\index{annotationParameter@{annotationParameter}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{annotationParameter}{annotationParameter}}
+{\footnotesize\ttfamily Symbol annotation\+Parameter}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a1fa4d8a9b87189550e463b8da741b333}{identifier}}\}, MakeStringAnnotationParameter),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a5a2235120fdbfc30945fabcc6cbf3846}{int32Literal}}\}, MakeIntAnnotationParameter),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a6bcb7a50455ca89fd0a824d7e3999933}{externalString}}\}, MakeStringAnnotationParameter)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a44ba21d14b95fb5fca2f49363b3d3bd2}\label{torque-parser_8cc_a44ba21d14b95fb5fca2f49363b3d3bd2}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!annotationParameters@{annotationParameters}}
+\index{annotationParameters@{annotationParameters}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{annotationParameters}{annotationParameters}}
+{\footnotesize\ttfamily Symbol annotation\+Parameters}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}("{}}), \&\mbox{\hyperlink{torque-parser_8cc_ae74bd77765867c4c7f3659e61f67443e}{annotationParameter}}, Token(\textcolor{stringliteral}{"{})"{}})\})\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a27dd772db70964ff3580b39e7f5f39fa}\label{torque-parser_8cc_a27dd772db70964ff3580b39e7f5f39fa}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!annotations@{annotations}}
+\index{annotations@{annotations}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{annotations}{annotations}}
+{\footnotesize\ttfamily Symbol$\ast$ annotations = List$<$Annotation$>$(\&\mbox{\hyperlink{torque-parser_8cc_a8a1ec136c607ff54893f672c456b91e3}{annotation}})}
+
+\mbox{\Hypertarget{torque-parser_8cc_acf3aa44de2881971174898225d045d7f}\label{torque-parser_8cc_acf3aa44de2881971174898225d045d7f}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!argumentList@{argumentList}}
+\index{argumentList@{argumentList}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{argumentList}{argumentList}}
+{\footnotesize\ttfamily Symbol argument\+List}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{Rule(}
+\DoxyCodeLine{      \{Token(\textcolor{stringliteral}{"{}("{}}), List<Expression*>(\mbox{\hyperlink{torque-parser_8cc_aab701543ba0674b598521ddd0f72b961}{expression}}, Token(\textcolor{stringliteral}{"{},"{}})), Token(\textcolor{stringliteral}{"{})"{}})\})\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a4c2b74086f1d2ad53e4a54fd79c4fb3f}\label{torque-parser_8cc_a4c2b74086f1d2ad53e4a54fd79c4fb3f}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!assignmentExpression@{assignmentExpression}}
+\index{assignmentExpression@{assignmentExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{assignmentExpression}{assignmentExpression}}
+{\footnotesize\ttfamily Symbol assignment\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a31bc7bd4ce56d6fe483900cdd75ef0e9}{conditionalExpression}}\}),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a31bc7bd4ce56d6fe483900cdd75ef0e9}{conditionalExpression}}, \&\mbox{\hyperlink{torque-parser_8cc_acf78d0fcc3f8e37e1cdcf7412fded99f}{assignmentOperator}}, \&\mbox{\hyperlink{torque-parser_8cc_a4c2b74086f1d2ad53e4a54fd79c4fb3f}{assignmentExpression}}\},}
+\DoxyCodeLine{           MakeAssignmentExpression)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_acf78d0fcc3f8e37e1cdcf7412fded99f}\label{torque-parser_8cc_acf78d0fcc3f8e37e1cdcf7412fded99f}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!assignmentOperator@{assignmentOperator}}
+\index{assignmentOperator@{assignmentOperator}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{assignmentOperator}{assignmentOperator}}
+{\footnotesize\ttfamily Symbol assignment\+Operator}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}="{}})\}, YieldDefaultValue<std::optional<std::string>>),}
+\DoxyCodeLine{      Rule(\{OneOf(\{\textcolor{stringliteral}{"{}*="{}}, \textcolor{stringliteral}{"{}/="{}}, \textcolor{stringliteral}{"{}\%="{}}, \textcolor{stringliteral}{"{}+="{}}, \textcolor{stringliteral}{"{}-\/="{}}, \textcolor{stringliteral}{"{}<<="{}}, \textcolor{stringliteral}{"{}>>="{}}, \textcolor{stringliteral}{"{}>>>="{}}, \textcolor{stringliteral}{"{}\&="{}},}
+\DoxyCodeLine{                   \textcolor{stringliteral}{"{}\string^="{}}, \textcolor{stringliteral}{"{}|="{}}\})\},}
+\DoxyCodeLine{           ExtractAssignmentOperator)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a43a9956ce52872cbbf8af8839d8c3233}\label{torque-parser_8cc_a43a9956ce52872cbbf8af8839d8c3233}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!atomarStatement@{atomarStatement}}
+\index{atomarStatement@{atomarStatement}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{atomarStatement}{atomarStatement}}
+{\footnotesize\ttfamily Symbol atomar\+Statement}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\mbox{\hyperlink{torque-parser_8cc_aab701543ba0674b598521ddd0f72b961}{expression}}\}, MakeExpressionStatement),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}return"{}}), Optional<Expression*>(\mbox{\hyperlink{torque-parser_8cc_aab701543ba0674b598521ddd0f72b961}{expression}})\},}
+\DoxyCodeLine{           MakeReturnStatement),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}tail"{}}), \&\mbox{\hyperlink{torque-parser_8cc_ab43f76844bfcef9054eb4607ab6c62a1}{callExpression}}\}, MakeTailCallStatement),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}break"{}})\}, MakeBreakStatement),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}continue"{}})\}, MakeContinueStatement),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}goto"{}}), \&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},}
+\DoxyCodeLine{            TryOrDefault<std::vector<Expression*>>(\&\mbox{\hyperlink{torque-parser_8cc_acf3aa44de2881971174898225d045d7f}{argumentList}})\},}
+\DoxyCodeLine{           MakeGotoStatement),}
+\DoxyCodeLine{      Rule(\{OneOf(\{\textcolor{stringliteral}{"{}debug"{}}, \textcolor{stringliteral}{"{}unreachable"{}}\})\}, MakeDebugStatement)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_aee66eed2b328f003596c918a08599388}\label{torque-parser_8cc_aee66eed2b328f003596c918a08599388}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!bitFieldDeclaration@{bitFieldDeclaration}}
+\index{bitFieldDeclaration@{bitFieldDeclaration}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{bitFieldDeclaration}{bitFieldDeclaration}}
+{\footnotesize\ttfamily Symbol bit\+Field\+Declaration}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, Token(\textcolor{stringliteral}{"{}:"{}}), \&\mbox{\hyperlink{torque-parser_8cc_aee1f19f8c03c0fb461163e6a5b5b6eee}{type}}, Token(\textcolor{stringliteral}{"{}:"{}}),}
+\DoxyCodeLine{                                      \&\mbox{\hyperlink{torque-parser_8cc_a5a2235120fdbfc30945fabcc6cbf3846}{int32Literal}}, Token(\textcolor{stringliteral}{"{}bit"{}}), Token(\textcolor{stringliteral}{"{};"{}})\},}
+\DoxyCodeLine{                                     MakeBitFieldDeclaration)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a2dbf6172158d50c14439c247ee619555}\label{torque-parser_8cc_a2dbf6172158d50c14439c247ee619555}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!bitwiseExpression@{bitwiseExpression}}
+\index{bitwiseExpression@{bitwiseExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{bitwiseExpression}{bitwiseExpression}}
+{\footnotesize\ttfamily Symbol$\ast$ bitwise\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      BinaryOperator(\mbox{\hyperlink{torque-parser_8cc_aba5df368b013ed0a074672eec422bfd6}{equalityExpression}}, OneOf(\{\textcolor{stringliteral}{"{}\&"{}}, \textcolor{stringliteral}{"{}|"{}}\}))}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a9a2226190076c9480d5064eb9f56695e}\label{torque-parser_8cc_a9a2226190076c9480d5064eb9f56695e}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!block@{block}}
+\index{block@{block}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{block}{block}}
+{\footnotesize\ttfamily Symbol block}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{CheckIf(Token(\textcolor{stringliteral}{"{}deferred"{}})), Token(\textcolor{stringliteral}{"{}\{"{}}),}
+\DoxyCodeLine{            ListAllowIfAnnotation<Statement*>(\&\mbox{\hyperlink{torque-parser_8cc_ac9e22b0965b1eadfbb105790592d4973}{statement}}), Token(\textcolor{stringliteral}{"{}\}"{}})\},}
+\DoxyCodeLine{           MakeBlockStatement)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_ab43f76844bfcef9054eb4607ab6c62a1}\label{torque-parser_8cc_ab43f76844bfcef9054eb4607ab6c62a1}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!callExpression@{callExpression}}
+\index{callExpression@{callExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{callExpression}{callExpression}}
+{\footnotesize\ttfamily Symbol call\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{Rule(}
+\DoxyCodeLine{      \{\&\mbox{\hyperlink{torque-parser_8cc_aed00c9a6c40c55ddc6ba8a046d6e2269}{identifierExpression}}, \&\mbox{\hyperlink{torque-parser_8cc_acf3aa44de2881971174898225d045d7f}{argumentList}}, \mbox{\hyperlink{torque-parser_8cc_a14c89e5a0c17fffe081998bae5b17441}{optionalOtherwise}}\}, MakeCall)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_aef2432e1acb782f15db0e76670950c7b}\label{torque-parser_8cc_aef2432e1acb782f15db0e76670950c7b}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!callMethodExpression@{callMethodExpression}}
+\index{callMethodExpression@{callMethodExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{callMethodExpression}{callMethodExpression}}
+{\footnotesize\ttfamily Symbol call\+Method\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{Rule(}
+\DoxyCodeLine{      \{\&\mbox{\hyperlink{torque-parser_8cc_a27a0430f87201afb8747fa4b83fc73fc}{primaryExpression}}, Token(\textcolor{stringliteral}{"{}."{}}), \&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, \&\mbox{\hyperlink{torque-parser_8cc_acf3aa44de2881971174898225d045d7f}{argumentList}}, \mbox{\hyperlink{torque-parser_8cc_a14c89e5a0c17fffe081998bae5b17441}{optionalOtherwise}}\},}
+\DoxyCodeLine{      MakeMethodCall)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_abeb98b682bfd25702f682c3aa4a022cc}\label{torque-parser_8cc_abeb98b682bfd25702f682c3aa4a022cc}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!classField@{classField}}
+\index{classField@{classField}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{classField}{classField}}
+{\footnotesize\ttfamily Symbol class\+Field}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\mbox{\hyperlink{torque-parser_8cc_a27dd772db70964ff3580b39e7f5f39fa}{annotations}}, CheckIf(Token(\textcolor{stringliteral}{"{}weak"{}})), CheckIf(Token(\textcolor{stringliteral}{"{}const"{}})), \&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},}
+\DoxyCodeLine{            CheckIf(Token(\textcolor{stringliteral}{"{}?"{}})), \mbox{\hyperlink{torque-parser_8cc_a6e7e353c744bb703f86dd359f0d25bf9}{optionalArraySpecifier}}, Token(\textcolor{stringliteral}{"{}:"{}}), \&\mbox{\hyperlink{torque-parser_8cc_aee1f19f8c03c0fb461163e6a5b5b6eee}{type}},}
+\DoxyCodeLine{            Token(\textcolor{stringliteral}{"{};"{}})\},}
+\DoxyCodeLine{           MakeClassField)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a31bc7bd4ce56d6fe483900cdd75ef0e9}\label{torque-parser_8cc_a31bc7bd4ce56d6fe483900cdd75ef0e9}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!conditionalExpression@{conditionalExpression}}
+\index{conditionalExpression@{conditionalExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{conditionalExpression}{conditionalExpression}}
+{\footnotesize\ttfamily Symbol conditional\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a92e18ce844517273243ca4ed7c962954}{logicalOrExpression}}\}),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a92e18ce844517273243ca4ed7c962954}{logicalOrExpression}}, Token(\textcolor{stringliteral}{"{}?"{}}), \mbox{\hyperlink{torque-parser_8cc_aab701543ba0674b598521ddd0f72b961}{expression}}, Token(\textcolor{stringliteral}{"{}:"{}}),}
+\DoxyCodeLine{            \&\mbox{\hyperlink{torque-parser_8cc_a31bc7bd4ce56d6fe483900cdd75ef0e9}{conditionalExpression}}\},}
+\DoxyCodeLine{           MakeConditionalExpression)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a4cb2bf992c21efb23372abae6b0d1d68}\label{torque-parser_8cc_a4cb2bf992c21efb23372abae6b0d1d68}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!declaration@{declaration}}
+\index{declaration@{declaration}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{declaration}{declaration}}
+{\footnotesize\ttfamily Symbol declaration}
+
+\mbox{\Hypertarget{torque-parser_8cc_a989d36f71e371aa8f674af92545596f1}\label{torque-parser_8cc_a989d36f71e371aa8f674af92545596f1}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!declarationList@{declarationList}}
+\index{declarationList@{declarationList}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{declarationList}{declarationList}}
+{\footnotesize\ttfamily Symbol declaration\+List}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{List<std::vector<Declaration*>>(\&\mbox{\hyperlink{torque-parser_8cc_a4cb2bf992c21efb23372abae6b0d1d68}{declaration}})\}, ConcatList)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a89a0080dccea14325a73e43fd7de5486}\label{torque-parser_8cc_a89a0080dccea14325a73e43fd7de5486}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!enumEntry@{enumEntry}}
+\index{enumEntry@{enumEntry}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{enumEntry}{enumEntry}}
+{\footnotesize\ttfamily Symbol enum\+Entry}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\mbox{\hyperlink{torque-parser_8cc_a27dd772db70964ff3580b39e7f5f39fa}{annotations}}, \&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, \mbox{\hyperlink{torque-parser_8cc_a8072fe4efa9f962933f7e0be182824fe}{optionalTypeSpecifier}}\}, MakeEnumEntry)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_aba5df368b013ed0a074672eec422bfd6}\label{torque-parser_8cc_aba5df368b013ed0a074672eec422bfd6}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!equalityExpression@{equalityExpression}}
+\index{equalityExpression@{equalityExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{equalityExpression}{equalityExpression}}
+{\footnotesize\ttfamily Symbol$\ast$ equality\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      BinaryOperator(\&\mbox{\hyperlink{torque-parser_8cc_a4b0829198d253c1b1ed0b39bc6f5ff1d}{relationalExpression}}, OneOf(\{\textcolor{stringliteral}{"{}=="{}}, \textcolor{stringliteral}{"{}!="{}}\}))}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_aab701543ba0674b598521ddd0f72b961}\label{torque-parser_8cc_aab701543ba0674b598521ddd0f72b961}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!expression@{expression}}
+\index{expression@{expression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{expression}{expression}}
+{\footnotesize\ttfamily Symbol$\ast$ expression = \&\mbox{\hyperlink{torque-parser_8cc_a4c2b74086f1d2ad53e4a54fd79c4fb3f}{assignment\+Expression}}}
+
+\mbox{\Hypertarget{torque-parser_8cc_a644af40131edfb9b45976bcc1ccc8ac0}\label{torque-parser_8cc_a644af40131edfb9b45976bcc1ccc8ac0}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!expressionWithSource@{expressionWithSource}}
+\index{expressionWithSource@{expressionWithSource}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{expressionWithSource}{expressionWithSource}}
+{\footnotesize\ttfamily Symbol expression\+With\+Source = \{Rule(\{\mbox{\hyperlink{torque-parser_8cc_aab701543ba0674b598521ddd0f72b961}{expression}}\}, Make\+Expression\+With\+Source)\}}
+
+\mbox{\Hypertarget{torque-parser_8cc_a6bcb7a50455ca89fd0a824d7e3999933}\label{torque-parser_8cc_a6bcb7a50455ca89fd0a824d7e3999933}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!externalString@{externalString}}
+\index{externalString@{externalString}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{externalString}{externalString}}
+{\footnotesize\ttfamily Symbol external\+String = \{Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_adacc805051e21b38160ddfee45e3306f}{string\+Literal}}\}, String\+Literal\+Unquote\+Action)\}}
+
+\mbox{\Hypertarget{torque-parser_8cc_a9de98c7384dea171fe627c045adeae35}\label{torque-parser_8cc_a9de98c7384dea171fe627c045adeae35}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!file@{file}}
+\index{file@{file}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{file}{file}}
+{\footnotesize\ttfamily Symbol file}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a9de98c7384dea171fe627c045adeae35}{file}}, Token(\textcolor{stringliteral}{"{}import"{}}), \&\mbox{\hyperlink{torque-parser_8cc_a6bcb7a50455ca89fd0a824d7e3999933}{externalString}}\},}
+\DoxyCodeLine{                      ProcessTorqueImportDeclaration),}
+\DoxyCodeLine{                 Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a9de98c7384dea171fe627c045adeae35}{file}}, \&\mbox{\hyperlink{torque-parser_8cc_a4cb2bf992c21efb23372abae6b0d1d68}{declaration}}\}, AddGlobalDeclarations), Rule(\{\})\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a4b1bf83ee79b3588c67f65bf03083a66}\label{torque-parser_8cc_a4b1bf83ee79b3588c67f65bf03083a66}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!floatingPointLiteral@{floatingPointLiteral}}
+\index{floatingPointLiteral@{floatingPointLiteral}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{floatingPointLiteral}{floatingPointLiteral}}
+{\footnotesize\ttfamily Symbol floating\+Point\+Literal}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Pattern(MatchFloatingPointLiteral)\}, YieldDouble)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a4881cf1078648f134e0fd460dcc71caa}\label{torque-parser_8cc_a4881cf1078648f134e0fd460dcc71caa}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!genericParameter@{genericParameter}}
+\index{genericParameter@{genericParameter}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{genericParameter}{genericParameter}}
+{\footnotesize\ttfamily Symbol generic\+Parameter}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, Token(\textcolor{stringliteral}{"{}:"{}}), Token(\textcolor{stringliteral}{"{}type"{}}),}
+\DoxyCodeLine{            Optional<TypeExpression*>(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae255efda3e480d1c6a00330aad550331}{Sequence}}(\{Token(\textcolor{stringliteral}{"{}extends"{}}), \&\mbox{\hyperlink{torque-parser_8cc_aee1f19f8c03c0fb461163e6a5b5b6eee}{type}}\}))\},}
+\DoxyCodeLine{           MakeGenericParameter)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a980cc0e730f97d1b6fd73cbe0ad9bfcb}\label{torque-parser_8cc_a980cc0e730f97d1b6fd73cbe0ad9bfcb}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!genericParameters@{genericParameters}}
+\index{genericParameters@{genericParameters}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{genericParameters}{genericParameters}}
+{\footnotesize\ttfamily Symbol generic\+Parameters}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}<"{}}), List<GenericParameter>(\&\mbox{\hyperlink{torque-parser_8cc_a4881cf1078648f134e0fd460dcc71caa}{genericParameter}}, Token(\textcolor{stringliteral}{"{},"{}})),}
+\DoxyCodeLine{            Token(\textcolor{stringliteral}{"{}>"{}})\})\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a1c693c083f0cc7f0a6411f7073d723c5}\label{torque-parser_8cc_a1c693c083f0cc7f0a6411f7073d723c5}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!genericSpecializationTypeList@{genericSpecializationTypeList}}
+\index{genericSpecializationTypeList@{genericSpecializationTypeList}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{genericSpecializationTypeList}{genericSpecializationTypeList}}
+{\footnotesize\ttfamily Symbol generic\+Specialization\+Type\+List}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}<"{}}), \mbox{\hyperlink{torque-parser_8cc_ae82ecebbdfd3189efd0b1c6600910f51}{typeList}}, Token(\textcolor{stringliteral}{"{}>"{}})\})\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a1fa4d8a9b87189550e463b8da741b333}\label{torque-parser_8cc_a1fa4d8a9b87189550e463b8da741b333}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!identifier@{identifier}}
+\index{identifier@{identifier}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{identifier}{identifier}}
+{\footnotesize\ttfamily Symbol identifier}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{Rule(\{Pattern(MatchIdentifier)\}, YieldMatchedInput),}
+\DoxyCodeLine{                       Rule(\{Token(\textcolor{stringliteral}{"{}runtime"{}})\}, YieldMatchedInput)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_aed00c9a6c40c55ddc6ba8a046d6e2269}\label{torque-parser_8cc_aed00c9a6c40c55ddc6ba8a046d6e2269}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!identifierExpression@{identifierExpression}}
+\index{identifierExpression@{identifierExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{identifierExpression}{identifierExpression}}
+{\footnotesize\ttfamily Symbol identifier\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_af3e80d0c163a44ec751f92f6883ee8e3}{namespaceQualification}}, \&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},}
+\DoxyCodeLine{            TryOrDefault<TypeList>(\&\mbox{\hyperlink{torque-parser_8cc_a1c693c083f0cc7f0a6411f7073d723c5}{genericSpecializationTypeList}})\},}
+\DoxyCodeLine{           \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_af5568f360f9576e55d73fa624906a1d1}{MakeIdentifierExpression}}),}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_af060bf2f1316044a308b475c9683a3f4}\label{torque-parser_8cc_af060bf2f1316044a308b475c9683a3f4}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!implicitParameterList@{implicitParameterList}}
+\index{implicitParameterList@{implicitParameterList}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{implicitParameterList}{implicitParameterList}}
+{\footnotesize\ttfamily Symbol implicit\+Parameter\+List}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}("{}}), OneOf(\{\textcolor{stringliteral}{"{}implicit"{}}, \textcolor{stringliteral}{"{}js-\/implicit"{}}\}),}
+\DoxyCodeLine{            List<NameAndTypeExpression>(\&\mbox{\hyperlink{torque-parser_8cc_ad2d9e334f06d7751419da64aedaae913}{nameAndType}}, Token(\textcolor{stringliteral}{"{},"{}})), Token(\textcolor{stringliteral}{"{})"{}})\},}
+\DoxyCodeLine{           MakeImplicitParameterList)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_ae7ae293746f6f863a02b6cbe04bf9dec}\label{torque-parser_8cc_ae7ae293746f6f863a02b6cbe04bf9dec}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!incrementDecrementOperator@{incrementDecrementOperator}}
+\index{incrementDecrementOperator@{incrementDecrementOperator}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{incrementDecrementOperator}{incrementDecrementOperator}}
+{\footnotesize\ttfamily Symbol increment\+Decrement\+Operator}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}++"{}})\},}
+\DoxyCodeLine{           YieldIntegralConstant<\mbox{\hyperlink{namespacev8_1_1internal_1_1torque_aeb7394c33f3280a860a6da23121accb7}{IncrementDecrementOperator}},}
+\DoxyCodeLine{                                 IncrementDecrementOperator::kIncrement>),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}-\/-\/"{}})\},}
+\DoxyCodeLine{           YieldIntegralConstant<\mbox{\hyperlink{namespacev8_1_1internal_1_1torque_aeb7394c33f3280a860a6da23121accb7}{IncrementDecrementOperator}},}
+\DoxyCodeLine{                                 IncrementDecrementOperator::kDecrement>)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_ac5ffbd5162670453064620d5f839159a}\label{torque-parser_8cc_ac5ffbd5162670453064620d5f839159a}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!initializerList@{initializerList}}
+\index{initializerList@{initializerList}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{initializerList}{initializerList}}
+{\footnotesize\ttfamily Symbol initializer\+List}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}\{"{}}), List<NameAndExpression>(\&\mbox{\hyperlink{torque-parser_8cc_aba75593cd8459123a0588048fda2de66}{namedExpression}}, Token(\textcolor{stringliteral}{"{},"{}})),}
+\DoxyCodeLine{            Token(\textcolor{stringliteral}{"{}\}"{}})\})\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a5a2235120fdbfc30945fabcc6cbf3846}\label{torque-parser_8cc_a5a2235120fdbfc30945fabcc6cbf3846}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!int32Literal@{int32Literal}}
+\index{int32Literal@{int32Literal}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{int32Literal}{int32Literal}}
+{\footnotesize\ttfamily Symbol int32\+Literal}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{Rule(\{Pattern(MatchIntegerLiteral)\}, YieldInt32),}
+\DoxyCodeLine{                         Rule(\{Pattern(MatchHexLiteral)\}, YieldInt32)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_acc623071092af425a4f7ea49588bc127}\label{torque-parser_8cc_acc623071092af425a4f7ea49588bc127}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!integerLiteral@{integerLiteral}}
+\index{integerLiteral@{integerLiteral}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{integerLiteral}{integerLiteral}}
+{\footnotesize\ttfamily Symbol integer\+Literal}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Pattern(MatchIntegerLiteral)\}, YieldIntegerLiteral),}
+\DoxyCodeLine{      Rule(\{Pattern(MatchHexLiteral)\}, YieldIntegerLiteral)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_aead842af4311e7dea0a73b8ffcf8aa64}\label{torque-parser_8cc_aead842af4311e7dea0a73b8ffcf8aa64}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!intrinsicCallExpression@{intrinsicCallExpression}}
+\index{intrinsicCallExpression@{intrinsicCallExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{intrinsicCallExpression}{intrinsicCallExpression}}
+{\footnotesize\ttfamily Symbol intrinsic\+Call\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{Rule(}
+\DoxyCodeLine{      \{\&\mbox{\hyperlink{torque-parser_8cc_a5f7757b5bf40f5ab93750186443d227d}{intrinsicName}}, TryOrDefault<TypeList>(\&\mbox{\hyperlink{torque-parser_8cc_a1c693c083f0cc7f0a6411f7073d723c5}{genericSpecializationTypeList}}),}
+\DoxyCodeLine{       \&\mbox{\hyperlink{torque-parser_8cc_acf3aa44de2881971174898225d045d7f}{argumentList}}\},}
+\DoxyCodeLine{      MakeIntrinsicCallExpression)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a5f7757b5bf40f5ab93750186443d227d}\label{torque-parser_8cc_a5f7757b5bf40f5ab93750186443d227d}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!intrinsicName@{intrinsicName}}
+\index{intrinsicName@{intrinsicName}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{intrinsicName}{intrinsicName}}
+{\footnotesize\ttfamily Symbol intrinsic\+Name}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Pattern(MatchIntrinsicName)\}, MakeIdentifierFromMatchedInput)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a1c605e52441ef40ac680bc2068448bf7}\label{torque-parser_8cc_a1c605e52441ef40ac680bc2068448bf7}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!labelParameter@{labelParameter}}
+\index{labelParameter@{labelParameter}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{labelParameter}{labelParameter}}
+{\footnotesize\ttfamily Symbol label\+Parameter}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{Rule(}
+\DoxyCodeLine{      \{\&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},}
+\DoxyCodeLine{       TryOrDefault<TypeList>(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae255efda3e480d1c6a00330aad550331}{Sequence}}(\{Token(\textcolor{stringliteral}{"{}("{}}), \mbox{\hyperlink{torque-parser_8cc_ae82ecebbdfd3189efd0b1c6600910f51}{typeList}}, Token(\textcolor{stringliteral}{"{})"{}})\}))\},}
+\DoxyCodeLine{      MakeLabelAndTypes)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_aadd3e0a98d71c307ee8bac7b768a4f6a}\label{torque-parser_8cc_aadd3e0a98d71c307ee8bac7b768a4f6a}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!logicalAndExpression@{logicalAndExpression}}
+\index{logicalAndExpression@{logicalAndExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{logicalAndExpression}{logicalAndExpression}}
+{\footnotesize\ttfamily Symbol logical\+And\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\mbox{\hyperlink{torque-parser_8cc_a2dbf6172158d50c14439c247ee619555}{bitwiseExpression}}\}),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_aadd3e0a98d71c307ee8bac7b768a4f6a}{logicalAndExpression}}, Token(\textcolor{stringliteral}{"{}\&\&"{}}), \mbox{\hyperlink{torque-parser_8cc_a2dbf6172158d50c14439c247ee619555}{bitwiseExpression}}\},}
+\DoxyCodeLine{           MakeLogicalAndExpression)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a92e18ce844517273243ca4ed7c962954}\label{torque-parser_8cc_a92e18ce844517273243ca4ed7c962954}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!logicalOrExpression@{logicalOrExpression}}
+\index{logicalOrExpression@{logicalOrExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{logicalOrExpression}{logicalOrExpression}}
+{\footnotesize\ttfamily Symbol logical\+Or\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_aadd3e0a98d71c307ee8bac7b768a4f6a}{logicalAndExpression}}\}),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a92e18ce844517273243ca4ed7c962954}{logicalOrExpression}}, Token(\textcolor{stringliteral}{"{}||"{}}), \&\mbox{\hyperlink{torque-parser_8cc_aadd3e0a98d71c307ee8bac7b768a4f6a}{logicalAndExpression}}\},}
+\DoxyCodeLine{           MakeLogicalOrExpression)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_ab636e5fae4112c1d24553e6bd3258d85}\label{torque-parser_8cc_ab636e5fae4112c1d24553e6bd3258d85}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!method@{method}}
+\index{method@{method}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{method}{method}}
+{\footnotesize\ttfamily Symbol method}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{Rule(}
+\DoxyCodeLine{      \{CheckIf(Token(\textcolor{stringliteral}{"{}transitioning"{}})),}
+\DoxyCodeLine{       Optional<std::string>(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae255efda3e480d1c6a00330aad550331}{Sequence}}(\{Token(\textcolor{stringliteral}{"{}operator"{}}), \&\mbox{\hyperlink{torque-parser_8cc_a6bcb7a50455ca89fd0a824d7e3999933}{externalString}}\})),}
+\DoxyCodeLine{       Token(\textcolor{stringliteral}{"{}macro"{}}), \&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, \&\mbox{\hyperlink{torque-parser_8cc_ab37448a257f8aee6fd7ba071cf4b47a2}{parameterListNoVararg}}, \&\mbox{\hyperlink{torque-parser_8cc_ab9fc3b72b67f824e214e9c050e9c2671}{returnType}},}
+\DoxyCodeLine{       \mbox{\hyperlink{torque-parser_8cc_a2cb058400f084b74fd7a0f4d861206f1}{optionalLabelList}}, \&\mbox{\hyperlink{torque-parser_8cc_a9a2226190076c9480d5064eb9f56695e}{block}}\},}
+\DoxyCodeLine{      MakeMethodDeclaration)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_af354c69872289b4c2fadd3ea8b354f71}\label{torque-parser_8cc_af354c69872289b4c2fadd3ea8b354f71}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!multiplicativeExpression@{multiplicativeExpression}}
+\index{multiplicativeExpression@{multiplicativeExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{multiplicativeExpression}{multiplicativeExpression}}
+{\footnotesize\ttfamily Symbol$\ast$ multiplicative\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      BinaryOperator(\&\mbox{\hyperlink{torque-parser_8cc_aec5dee483185a21f31701f7b465a23e8}{unaryExpression}}, OneOf(\{\textcolor{stringliteral}{"{}*"{}}, \textcolor{stringliteral}{"{}/"{}}, \textcolor{stringliteral}{"{}\%"{}}\}))}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}\label{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!name@{name}}
+\index{name@{name}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily Symbol name = \{Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a1fa4d8a9b87189550e463b8da741b333}{identifier}}\}, Make\+Identifier)\}}
+
+\mbox{\Hypertarget{torque-parser_8cc_ad2d9e334f06d7751419da64aedaae913}\label{torque-parser_8cc_ad2d9e334f06d7751419da64aedaae913}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!nameAndType@{nameAndType}}
+\index{nameAndType@{nameAndType}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{nameAndType}{nameAndType}}
+{\footnotesize\ttfamily Symbol name\+And\+Type = \{Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, Token(\char`\"{}\+:\char`\"{}), \&\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}}\}, Make\+Name\+And\+Type)\}}
+
+\mbox{\Hypertarget{torque-parser_8cc_aba75593cd8459123a0588048fda2de66}\label{torque-parser_8cc_aba75593cd8459123a0588048fda2de66}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!namedExpression@{namedExpression}}
+\index{namedExpression@{namedExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{namedExpression}{namedExpression}}
+{\footnotesize\ttfamily Symbol named\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, Token(\textcolor{stringliteral}{"{}:"{}}), \mbox{\hyperlink{torque-parser_8cc_aab701543ba0674b598521ddd0f72b961}{expression}}\}, MakeNameAndExpression),}
+\DoxyCodeLine{      Rule(\{\mbox{\hyperlink{torque-parser_8cc_aab701543ba0674b598521ddd0f72b961}{expression}}\}, MakeNameAndExpressionFromExpression)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_af3e80d0c163a44ec751f92f6883ee8e3}\label{torque-parser_8cc_af3e80d0c163a44ec751f92f6883ee8e3}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!namespaceQualification@{namespaceQualification}}
+\index{namespaceQualification@{namespaceQualification}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{namespaceQualification}{namespaceQualification}}
+{\footnotesize\ttfamily Symbol namespace\+Qualification}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{CheckIf(Token(\textcolor{stringliteral}{"{}::"{}})),}
+\DoxyCodeLine{            List<std::string>(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae255efda3e480d1c6a00330aad550331}{Sequence}}(\{\&\mbox{\hyperlink{torque-parser_8cc_a1fa4d8a9b87189550e463b8da741b333}{identifier}}, Token(\textcolor{stringliteral}{"{}::"{}})\}))\},}
+\DoxyCodeLine{           MakeNamespaceQualification)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a956aec9e0560623b0eac9575cb558fb7}\label{torque-parser_8cc_a956aec9e0560623b0eac9575cb558fb7}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!newExpression@{newExpression}}
+\index{newExpression@{newExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{newExpression}{newExpression}}
+{\footnotesize\ttfamily Symbol new\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}new"{}}),}
+\DoxyCodeLine{            CheckIf(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae255efda3e480d1c6a00330aad550331}{Sequence}}(\{Token(\textcolor{stringliteral}{"{}("{}}), Token(\textcolor{stringliteral}{"{}Pretenured"{}}), Token(\textcolor{stringliteral}{"{})"{}})\})),}
+\DoxyCodeLine{            CheckIf(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae255efda3e480d1c6a00330aad550331}{Sequence}}(\{Token(\textcolor{stringliteral}{"{}("{}}), Token(\textcolor{stringliteral}{"{}ClearPadding"{}}), Token(\textcolor{stringliteral}{"{})"{}})\})),}
+\DoxyCodeLine{            \&\mbox{\hyperlink{torque-parser_8cc_a257fac2be8021d5711cf8b67ac448685}{simpleType}}, \&\mbox{\hyperlink{torque-parser_8cc_ac5ffbd5162670453064620d5f839159a}{initializerList}}\},}
+\DoxyCodeLine{           MakeNewExpression)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a6e7e353c744bb703f86dd359f0d25bf9}\label{torque-parser_8cc_a6e7e353c744bb703f86dd359f0d25bf9}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!optionalArraySpecifier@{optionalArraySpecifier}}
+\index{optionalArraySpecifier@{optionalArraySpecifier}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{optionalArraySpecifier}{optionalArraySpecifier}}
+{\footnotesize\ttfamily Symbol$\ast$ optional\+Array\+Specifier}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      Optional<Expression*>(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae255efda3e480d1c6a00330aad550331}{Sequence}}(\{Token(\textcolor{stringliteral}{"{}["{}}), \mbox{\hyperlink{torque-parser_8cc_aab701543ba0674b598521ddd0f72b961}{expression}}, Token(\textcolor{stringliteral}{"{}]"{}})\}))}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a0b35137d2e9251bf041c216858e218f0}\label{torque-parser_8cc_a0b35137d2e9251bf041c216858e218f0}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!optionalBody@{optionalBody}}
+\index{optionalBody@{optionalBody}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{optionalBody}{optionalBody}}
+{\footnotesize\ttfamily Symbol optional\+Body}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a9a2226190076c9480d5064eb9f56695e}{block}}\}, CastParseResult<Statement*, std::optional<Statement*>>),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{};"{}})\}, YieldDefaultValue<std::optional<Statement*>>)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_ab12f1ba6668e666f9aae7b9a11b16d4b}\label{torque-parser_8cc_ab12f1ba6668e666f9aae7b9a11b16d4b}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!optionalClassBody@{optionalClassBody}}
+\index{optionalClassBody@{optionalClassBody}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{optionalClassBody}{optionalClassBody}}
+{\footnotesize\ttfamily Symbol optional\+Class\+Body}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}\{"{}}), List<Declaration*>(\&\mbox{\hyperlink{torque-parser_8cc_ab636e5fae4112c1d24553e6bd3258d85}{method}}),}
+\DoxyCodeLine{            List<ClassFieldExpression>(\&\mbox{\hyperlink{torque-parser_8cc_abeb98b682bfd25702f682c3aa4a022cc}{classField}}), Token(\textcolor{stringliteral}{"{}\}"{}})\},}
+\DoxyCodeLine{           MakeClassBody),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{};"{}})\}, YieldDefaultValue<std::optional<ClassBody*>>)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a92fed934cd212911af937cdd140fb913}\label{torque-parser_8cc_a92fed934cd212911af937cdd140fb913}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!optionalGenericParameters@{optionalGenericParameters}}
+\index{optionalGenericParameters@{optionalGenericParameters}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{optionalGenericParameters}{optionalGenericParameters}}
+{\footnotesize\ttfamily Symbol$\ast$ optional\+Generic\+Parameters = Optional$<$Type\+List$>$(\&\mbox{\hyperlink{torque-parser_8cc_a980cc0e730f97d1b6fd73cbe0ad9bfcb}{generic\+Parameters}})}
+
+\mbox{\Hypertarget{torque-parser_8cc_a654bad18e45ac19a82a5bf7c17ecb3c5}\label{torque-parser_8cc_a654bad18e45ac19a82a5bf7c17ecb3c5}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!optionalImplicitParameterList@{optionalImplicitParameterList}}
+\index{optionalImplicitParameterList@{optionalImplicitParameterList}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{optionalImplicitParameterList}{optionalImplicitParameterList}}
+{\footnotesize\ttfamily Symbol$\ast$ optional\+Implicit\+Parameter\+List}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{      Optional<ImplicitParameters>(\&\mbox{\hyperlink{torque-parser_8cc_af060bf2f1316044a308b475c9683a3f4}{implicitParameterList}})\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a2cb058400f084b74fd7a0f4d861206f1}\label{torque-parser_8cc_a2cb058400f084b74fd7a0f4d861206f1}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!optionalLabelList@{optionalLabelList}}
+\index{optionalLabelList@{optionalLabelList}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{optionalLabelList}{optionalLabelList}}
+{\footnotesize\ttfamily Symbol$\ast$ optional\+Label\+List}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{TryOrDefault<LabelAndTypesVector>(}
+\DoxyCodeLine{      \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae255efda3e480d1c6a00330aad550331}{Sequence}}(\{Token(\textcolor{stringliteral}{"{}labels"{}}),}
+\DoxyCodeLine{                NonemptyList<LabelAndTypes>(\&\mbox{\hyperlink{torque-parser_8cc_a1c605e52441ef40ac680bc2068448bf7}{labelParameter}}, Token(\textcolor{stringliteral}{"{},"{}}))\}))\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a14c89e5a0c17fffe081998bae5b17441}\label{torque-parser_8cc_a14c89e5a0c17fffe081998bae5b17441}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!optionalOtherwise@{optionalOtherwise}}
+\index{optionalOtherwise@{optionalOtherwise}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{optionalOtherwise}{optionalOtherwise}}
+{\footnotesize\ttfamily Symbol$\ast$ optional\+Otherwise}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{TryOrDefault<std::vector<Statement*>>(}
+\DoxyCodeLine{      \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae255efda3e480d1c6a00330aad550331}{Sequence}}(\{Token(\textcolor{stringliteral}{"{}otherwise"{}}),}
+\DoxyCodeLine{                NonemptyList<Statement*>(\&\mbox{\hyperlink{torque-parser_8cc_a43a9956ce52872cbbf8af8839d8c3233}{atomarStatement}}, Token(\textcolor{stringliteral}{"{},"{}}))\}))\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a8072fe4efa9f962933f7e0be182824fe}\label{torque-parser_8cc_a8072fe4efa9f962933f7e0be182824fe}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!optionalTypeSpecifier@{optionalTypeSpecifier}}
+\index{optionalTypeSpecifier@{optionalTypeSpecifier}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{optionalTypeSpecifier}{optionalTypeSpecifier}}
+{\footnotesize\ttfamily Symbol$\ast$ optional\+Type\+Specifier}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{      Optional<TypeExpression*>(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae255efda3e480d1c6a00330aad550331}{Sequence}}(\{Token(\textcolor{stringliteral}{"{}:"{}}), \&\mbox{\hyperlink{torque-parser_8cc_aee1f19f8c03c0fb461163e6a5b5b6eee}{type}}\}))}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_af5fcb42b24d253c4ea99b9a7c222229c}\label{torque-parser_8cc_af5fcb42b24d253c4ea99b9a7c222229c}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!parameterListAllowVararg@{parameterListAllowVararg}}
+\index{parameterListAllowVararg@{parameterListAllowVararg}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{parameterListAllowVararg}{parameterListAllowVararg}}
+{\footnotesize\ttfamily Symbol parameter\+List\+Allow\+Vararg}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_ab37448a257f8aee6fd7ba071cf4b47a2}{parameterListNoVararg}}\}),}
+\DoxyCodeLine{      Rule(\{\mbox{\hyperlink{torque-parser_8cc_a654bad18e45ac19a82a5bf7c17ecb3c5}{optionalImplicitParameterList}}, Token(\textcolor{stringliteral}{"{}("{}}),}
+\DoxyCodeLine{            List<NameAndTypeExpression>(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae255efda3e480d1c6a00330aad550331}{Sequence}}(\{\&\mbox{\hyperlink{torque-parser_8cc_ad2d9e334f06d7751419da64aedaae913}{nameAndType}}, Token(\textcolor{stringliteral}{"{},"{}})\})),}
+\DoxyCodeLine{            Token(\textcolor{stringliteral}{"{}..."{}}), \&\mbox{\hyperlink{torque-parser_8cc_a1fa4d8a9b87189550e463b8da741b333}{identifier}}, Token(\textcolor{stringliteral}{"{})"{}})\},}
+\DoxyCodeLine{           MakeParameterList<true, true>)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_ab37448a257f8aee6fd7ba071cf4b47a2}\label{torque-parser_8cc_ab37448a257f8aee6fd7ba071cf4b47a2}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!parameterListNoVararg@{parameterListNoVararg}}
+\index{parameterListNoVararg@{parameterListNoVararg}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{parameterListNoVararg}{parameterListNoVararg}}
+{\footnotesize\ttfamily Symbol parameter\+List\+No\+Vararg}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\mbox{\hyperlink{torque-parser_8cc_a654bad18e45ac19a82a5bf7c17ecb3c5}{optionalImplicitParameterList}}, Token(\textcolor{stringliteral}{"{}("{}}),}
+\DoxyCodeLine{            List<NameAndTypeExpression>(\&\mbox{\hyperlink{torque-parser_8cc_ad2d9e334f06d7751419da64aedaae913}{nameAndType}}, Token(\textcolor{stringliteral}{"{},"{}})), Token(\textcolor{stringliteral}{"{})"{}})\},}
+\DoxyCodeLine{           MakeParameterList<false, true>)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a27a0430f87201afb8747fa4b83fc73fc}\label{torque-parser_8cc_a27a0430f87201afb8747fa4b83fc73fc}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!primaryExpression@{primaryExpression}}
+\index{primaryExpression@{primaryExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{primaryExpression}{primaryExpression}}
+{\footnotesize\ttfamily Symbol primary\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_ab43f76844bfcef9054eb4607ab6c62a1}{callExpression}}\}),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_aef2432e1acb782f15db0e76670950c7b}{callMethodExpression}}\}),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_aead842af4311e7dea0a73b8ffcf8aa64}{intrinsicCallExpression}}\}),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_aed00c9a6c40c55ddc6ba8a046d6e2269}{identifierExpression}}\}),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a27a0430f87201afb8747fa4b83fc73fc}{primaryExpression}}, Token(\textcolor{stringliteral}{"{}."{}}), \&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}\}, \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_a8af74fa94bfe9bdaaf4b563297c61b46}{MakeFieldAccessExpression}}),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a27a0430f87201afb8747fa4b83fc73fc}{primaryExpression}}, Token(\textcolor{stringliteral}{"{}-\/>"{}}), \&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}\},}
+\DoxyCodeLine{           MakeReferenceFieldAccessExpression),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a27a0430f87201afb8747fa4b83fc73fc}{primaryExpression}}, Token(\textcolor{stringliteral}{"{}["{}}), \mbox{\hyperlink{torque-parser_8cc_aab701543ba0674b598521ddd0f72b961}{expression}}, Token(\textcolor{stringliteral}{"{}]"{}})\},}
+\DoxyCodeLine{           MakeElementAccessExpression),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_acc623071092af425a4f7ea49588bc127}{integerLiteral}}\}, MakeIntegerLiteralExpression),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a4b1bf83ee79b3588c67f65bf03083a66}{floatingPointLiteral}}\}, MakeFloatingPointLiteralExpression),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_adacc805051e21b38160ddfee45e3306f}{stringLiteral}}\}, MakeStringLiteralExpression),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a257fac2be8021d5711cf8b67ac448685}{simpleType}}, \&\mbox{\hyperlink{torque-parser_8cc_ac5ffbd5162670453064620d5f839159a}{initializerList}}\}, \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_a941120d41c058d1be90e2acfce158811}{MakeStructExpression}}),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a956aec9e0560623b0eac9575cb558fb7}{newExpression}}\}),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}("{}}), \mbox{\hyperlink{torque-parser_8cc_aab701543ba0674b598521ddd0f72b961}{expression}}, Token(\textcolor{stringliteral}{"{})"{}})\})\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a4b0829198d253c1b1ed0b39bc6f5ff1d}\label{torque-parser_8cc_a4b0829198d253c1b1ed0b39bc6f5ff1d}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!relationalExpression@{relationalExpression}}
+\index{relationalExpression@{relationalExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{relationalExpression}{relationalExpression}}
+{\footnotesize\ttfamily Symbol relational\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\mbox{\hyperlink{torque-parser_8cc_afbef6bcf612539edc9034fd208e47e97}{shiftExpression}}\}),}
+\DoxyCodeLine{      Rule(\{\mbox{\hyperlink{torque-parser_8cc_afbef6bcf612539edc9034fd208e47e97}{shiftExpression}}, OneOf(\{\textcolor{stringliteral}{"{}<"{}}, \textcolor{stringliteral}{"{}>"{}}, \textcolor{stringliteral}{"{}<="{}}, \textcolor{stringliteral}{"{}>="{}}\}), \mbox{\hyperlink{torque-parser_8cc_afbef6bcf612539edc9034fd208e47e97}{shiftExpression}}\},}
+\DoxyCodeLine{           MakeBinaryOperator)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_ab9fc3b72b67f824e214e9c050e9c2671}\label{torque-parser_8cc_ab9fc3b72b67f824e214e9c050e9c2671}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!returnType@{returnType}}
+\index{returnType@{returnType}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{returnType}{returnType}}
+{\footnotesize\ttfamily Symbol return\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{Rule(\{Token(\textcolor{stringliteral}{"{}:"{}}), \&\mbox{\hyperlink{torque-parser_8cc_aee1f19f8c03c0fb461163e6a5b5b6eee}{type}}\}),}
+\DoxyCodeLine{                       Rule(\{\}, DeprecatedMakeVoidType)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_afbef6bcf612539edc9034fd208e47e97}\label{torque-parser_8cc_afbef6bcf612539edc9034fd208e47e97}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!shiftExpression@{shiftExpression}}
+\index{shiftExpression@{shiftExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{shiftExpression}{shiftExpression}}
+{\footnotesize\ttfamily Symbol$\ast$ shift\+Expression = Binary\+Operator(\mbox{\hyperlink{torque-parser_8cc_af2290b88b1f5d9dc169ce0effb0d425d}{additive\+Expression}}, \&\mbox{\hyperlink{torque-parser_8cc_a66aab76da5fa5d134224012032050989}{shift\+Operator}})}
+
+\mbox{\Hypertarget{torque-parser_8cc_a66aab76da5fa5d134224012032050989}\label{torque-parser_8cc_a66aab76da5fa5d134224012032050989}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!shiftOperator@{shiftOperator}}
+\index{shiftOperator@{shiftOperator}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{shiftOperator}{shiftOperator}}
+{\footnotesize\ttfamily Symbol shift\+Operator}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}<<"{}})\}, MakeIdentifierFromMatchedInput),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}>"{}}), Token(\textcolor{stringliteral}{"{}>"{}})\}, MakeRightShiftIdentifier),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}>"{}}), Token(\textcolor{stringliteral}{"{}>"{}}), Token(\textcolor{stringliteral}{"{}>"{}})\}, MakeRightShiftIdentifier)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a257fac2be8021d5711cf8b67ac448685}\label{torque-parser_8cc_a257fac2be8021d5711cf8b67ac448685}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!simpleType@{simpleType}}
+\index{simpleType@{simpleType}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{simpleType}{simpleType}}
+{\footnotesize\ttfamily Symbol simple\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}("{}}), \&\mbox{\hyperlink{torque-parser_8cc_aee1f19f8c03c0fb461163e6a5b5b6eee}{type}}, Token(\textcolor{stringliteral}{"{})"{}})\}),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_af3e80d0c163a44ec751f92f6883ee8e3}{namespaceQualification}}, CheckIf(Token(\textcolor{stringliteral}{"{}constexpr"{}})), \&\mbox{\hyperlink{torque-parser_8cc_a1fa4d8a9b87189550e463b8da741b333}{identifier}},}
+\DoxyCodeLine{            TryOrDefault<std::vector<TypeExpression*>>(}
+\DoxyCodeLine{                \&\mbox{\hyperlink{torque-parser_8cc_a1c693c083f0cc7f0a6411f7073d723c5}{genericSpecializationTypeList}})\},}
+\DoxyCodeLine{           \mbox{\hyperlink{namespacev8_1_1internal_1_1torque_a0e607818a0bc4fe38642c57d6164b182}{MakeBasicTypeExpression}}),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}builtin"{}}), Token(\textcolor{stringliteral}{"{}("{}}), \mbox{\hyperlink{torque-parser_8cc_ae82ecebbdfd3189efd0b1c6600910f51}{typeList}}, Token(\textcolor{stringliteral}{"{})"{}}), Token(\textcolor{stringliteral}{"{}=>"{}}),}
+\DoxyCodeLine{            \&\mbox{\hyperlink{torque-parser_8cc_a257fac2be8021d5711cf8b67ac448685}{simpleType}}\},}
+\DoxyCodeLine{           MakeFunctionTypeExpression),}
+\DoxyCodeLine{      Rule(\{CheckIf(Token(\textcolor{stringliteral}{"{}const"{}})), Token(\textcolor{stringliteral}{"{}\&"{}}), \&\mbox{\hyperlink{torque-parser_8cc_a257fac2be8021d5711cf8b67ac448685}{simpleType}}\},}
+\DoxyCodeLine{           MakeReferenceTypeExpression)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_ac9e22b0965b1eadfbb105790592d4973}\label{torque-parser_8cc_ac9e22b0965b1eadfbb105790592d4973}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!statement@{statement}}
+\index{statement@{statement}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{statement}{statement}}
+{\footnotesize\ttfamily Symbol statement}
+
+\mbox{\Hypertarget{torque-parser_8cc_adacc805051e21b38160ddfee45e3306f}\label{torque-parser_8cc_adacc805051e21b38160ddfee45e3306f}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!stringLiteral@{stringLiteral}}
+\index{stringLiteral@{stringLiteral}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{stringLiteral}{stringLiteral}}
+{\footnotesize\ttfamily Symbol string\+Literal}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Pattern(MatchStringLiteral)\}, YieldMatchedInput)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a6c369e2bc3341f568514185594439ffb}\label{torque-parser_8cc_a6c369e2bc3341f568514185594439ffb}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!structField@{structField}}
+\index{structField@{structField}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{structField}{structField}}
+{\footnotesize\ttfamily Symbol struct\+Field}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{CheckIf(Token(\textcolor{stringliteral}{"{}const"{}})), \&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, Token(\textcolor{stringliteral}{"{}:"{}}), \&\mbox{\hyperlink{torque-parser_8cc_aee1f19f8c03c0fb461163e6a5b5b6eee}{type}}, Token(\textcolor{stringliteral}{"{};"{}})\},}
+\DoxyCodeLine{           MakeStructField)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a95a9af3ed65a663859676ef74eb20bb7}\label{torque-parser_8cc_a95a9af3ed65a663859676ef74eb20bb7}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!tryHandler@{tryHandler}}
+\index{tryHandler@{tryHandler}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{tryHandler}{tryHandler}}
+{\footnotesize\ttfamily Symbol try\+Handler}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}label"{}}), \&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},}
+\DoxyCodeLine{            TryOrDefault<ParameterList>(\&\mbox{\hyperlink{torque-parser_8cc_ab37448a257f8aee6fd7ba071cf4b47a2}{parameterListNoVararg}}), \&\mbox{\hyperlink{torque-parser_8cc_a9a2226190076c9480d5064eb9f56695e}{block}}\},}
+\DoxyCodeLine{           MakeLabelBlock),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}catch"{}}), Token(\textcolor{stringliteral}{"{}("{}}),}
+\DoxyCodeLine{            List<std::string>(\&\mbox{\hyperlink{torque-parser_8cc_a1fa4d8a9b87189550e463b8da741b333}{identifier}}, Token(\textcolor{stringliteral}{"{},"{}})), Token(\textcolor{stringliteral}{"{})"{}}), \&\mbox{\hyperlink{torque-parser_8cc_a9a2226190076c9480d5064eb9f56695e}{block}}\},}
+\DoxyCodeLine{           MakeCatchBlock)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_aee1f19f8c03c0fb461163e6a5b5b6eee}\label{torque-parser_8cc_aee1f19f8c03c0fb461163e6a5b5b6eee}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!type@{type}}
+\index{type@{type}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily Symbol type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a257fac2be8021d5711cf8b67ac448685}{simpleType}}\}), Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_aee1f19f8c03c0fb461163e6a5b5b6eee}{type}}, Token(\textcolor{stringliteral}{"{}|"{}}), \&\mbox{\hyperlink{torque-parser_8cc_a257fac2be8021d5711cf8b67ac448685}{simpleType}}\},}
+\DoxyCodeLine{                                           MakeUnionTypeExpression)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_ae82ecebbdfd3189efd0b1c6600910f51}\label{torque-parser_8cc_ae82ecebbdfd3189efd0b1c6600910f51}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!typeList@{typeList}}
+\index{typeList@{typeList}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{typeList}{typeList}}
+{\footnotesize\ttfamily Symbol$\ast$ type\+List = List$<$Type\+Expression$\ast$$>$(\&\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}}, Token(\char`\"{},\char`\"{}))}
+
+\mbox{\Hypertarget{torque-parser_8cc_a8f1e769fb45a873c74507363bb95001c}\label{torque-parser_8cc_a8f1e769fb45a873c74507363bb95001c}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!typeListMaybeVarArgs@{typeListMaybeVarArgs}}
+\index{typeListMaybeVarArgs@{typeListMaybeVarArgs}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{typeListMaybeVarArgs}{typeListMaybeVarArgs}}
+{\footnotesize\ttfamily Symbol type\+List\+Maybe\+Var\+Args}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\mbox{\hyperlink{torque-parser_8cc_a654bad18e45ac19a82a5bf7c17ecb3c5}{optionalImplicitParameterList}}, Token(\textcolor{stringliteral}{"{}("{}}),}
+\DoxyCodeLine{            List<TypeExpression*>(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae255efda3e480d1c6a00330aad550331}{Sequence}}(\{\&\mbox{\hyperlink{torque-parser_8cc_aee1f19f8c03c0fb461163e6a5b5b6eee}{type}}, Token(\textcolor{stringliteral}{"{},"{}})\})), Token(\textcolor{stringliteral}{"{}..."{}}),}
+\DoxyCodeLine{            Token(\textcolor{stringliteral}{"{})"{}})\},}
+\DoxyCodeLine{           MakeParameterList<true, false>),}
+\DoxyCodeLine{      Rule(\{\mbox{\hyperlink{torque-parser_8cc_a654bad18e45ac19a82a5bf7c17ecb3c5}{optionalImplicitParameterList}}, Token(\textcolor{stringliteral}{"{}("{}}), \mbox{\hyperlink{torque-parser_8cc_ae82ecebbdfd3189efd0b1c6600910f51}{typeList}}, Token(\textcolor{stringliteral}{"{})"{}})\},}
+\DoxyCodeLine{           MakeParameterList<false, false>)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a954c68366f3ee8c0a5189bbc7ad2b4a0}\label{torque-parser_8cc_a954c68366f3ee8c0a5189bbc7ad2b4a0}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!typeswitchCase@{typeswitchCase}}
+\index{typeswitchCase@{typeswitchCase}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{typeswitchCase}{typeswitchCase}}
+{\footnotesize\ttfamily Symbol typeswitch\+Case}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}case"{}}), Token(\textcolor{stringliteral}{"{}("{}}),}
+\DoxyCodeLine{            Optional<Identifier*>(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_ae255efda3e480d1c6a00330aad550331}{Sequence}}(\{\&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, Token(\textcolor{stringliteral}{"{}:"{}})\})), \&\mbox{\hyperlink{torque-parser_8cc_aee1f19f8c03c0fb461163e6a5b5b6eee}{type}},}
+\DoxyCodeLine{            Token(\textcolor{stringliteral}{"{})"{}}), Token(\textcolor{stringliteral}{"{}:"{}}), \&\mbox{\hyperlink{torque-parser_8cc_a9a2226190076c9480d5064eb9f56695e}{block}}\},}
+\DoxyCodeLine{           MakeTypeswitchCase)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_aec5dee483185a21f31701f7b465a23e8}\label{torque-parser_8cc_aec5dee483185a21f31701f7b465a23e8}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!unaryExpression@{unaryExpression}}
+\index{unaryExpression@{unaryExpression}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{unaryExpression}{unaryExpression}}
+{\footnotesize\ttfamily Symbol unary\+Expression}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_a27a0430f87201afb8747fa4b83fc73fc}{primaryExpression}}\}),}
+\DoxyCodeLine{      Rule(\{OneOf(\{\textcolor{stringliteral}{"{}+"{}}, \textcolor{stringliteral}{"{}-\/"{}}, \textcolor{stringliteral}{"{}!"{}}, \textcolor{stringliteral}{"{}\string~"{}}, \textcolor{stringliteral}{"{}\&"{}}\}), \&\mbox{\hyperlink{torque-parser_8cc_aec5dee483185a21f31701f7b465a23e8}{unaryExpression}}\},}
+\DoxyCodeLine{           MakeUnaryOperator),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}*"{}}), \&\mbox{\hyperlink{torque-parser_8cc_aec5dee483185a21f31701f7b465a23e8}{unaryExpression}}\}, MakeDereferenceExpression),}
+\DoxyCodeLine{      Rule(\{Token(\textcolor{stringliteral}{"{}..."{}}), \&\mbox{\hyperlink{torque-parser_8cc_aec5dee483185a21f31701f7b465a23e8}{unaryExpression}}\}, MakeSpreadExpression),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_ae7ae293746f6f863a02b6cbe04bf9dec}{incrementDecrementOperator}}, \&\mbox{\hyperlink{torque-parser_8cc_aec5dee483185a21f31701f7b465a23e8}{unaryExpression}}\},}
+\DoxyCodeLine{           MakeIncrementDecrementExpressionPrefix),}
+\DoxyCodeLine{      Rule(\{\&\mbox{\hyperlink{torque-parser_8cc_aec5dee483185a21f31701f7b465a23e8}{unaryExpression}}, \&\mbox{\hyperlink{torque-parser_8cc_ae7ae293746f6f863a02b6cbe04bf9dec}{incrementDecrementOperator}}\},}
+\DoxyCodeLine{           MakeIncrementDecrementExpressionPostfix)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_aa8fdf7f6b3b97b91a37dfe5fd9a894a3}\label{torque-parser_8cc_aa8fdf7f6b3b97b91a37dfe5fd9a894a3}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!varDeclaration@{varDeclaration}}
+\index{varDeclaration@{varDeclaration}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{varDeclaration}{varDeclaration}}
+{\footnotesize\ttfamily Symbol var\+Declaration}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{OneOf(\{\textcolor{stringliteral}{"{}let"{}}, \textcolor{stringliteral}{"{}const"{}}\}), \&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, \mbox{\hyperlink{torque-parser_8cc_a8072fe4efa9f962933f7e0be182824fe}{optionalTypeSpecifier}}\},}
+\DoxyCodeLine{           MakeVarDeclarationStatement)\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{torque-parser_8cc_a6db856f1be8b0dfb2bc3b14518b74e5b}\label{torque-parser_8cc_a6db856f1be8b0dfb2bc3b14518b74e5b}} 
+\index{torque-\/parser.cc@{torque-\/parser.cc}!varDeclarationWithInitialization@{varDeclarationWithInitialization}}
+\index{varDeclarationWithInitialization@{varDeclarationWithInitialization}!torque-\/parser.cc@{torque-\/parser.cc}}
+\doxysubsubsection{\texorpdfstring{varDeclarationWithInitialization}{varDeclarationWithInitialization}}
+{\footnotesize\ttfamily Symbol var\+Declaration\+With\+Initialization}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{      Rule(\{OneOf(\{\textcolor{stringliteral}{"{}let"{}}, \textcolor{stringliteral}{"{}const"{}}\}), \&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, \mbox{\hyperlink{torque-parser_8cc_a8072fe4efa9f962933f7e0be182824fe}{optionalTypeSpecifier}}, Token(\textcolor{stringliteral}{"{}="{}}),}
+\DoxyCodeLine{            \mbox{\hyperlink{torque-parser_8cc_aab701543ba0674b598521ddd0f72b961}{expression}}\},}
+\DoxyCodeLine{           MakeVarDeclarationStatement)\}}
+
+\end{DoxyCode}

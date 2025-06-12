@@ -1,0 +1,405 @@
+\hypertarget{code-generator-mips64_8cc}{}\doxysection{code-\/generator-\/mips64.cc File Reference}
+\label{code-generator-mips64_8cc}\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+{\ttfamily \#include \char`\"{}src/codegen/assembler-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/callable.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/machine-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/macro-\/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/mips64/constants-\/mips64.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/optimized-\/compilation-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/code-\/generator-\/impl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/code-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/gap-\/resolver.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/matchers.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/osr.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/mutable-\/page-\/metadata.\+h\char`\"{}}\newline
+Include dependency graph for code-\/generator-\/mips64.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{code-generator-mips64_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1MipsOperandConverter}{v8\+::internal\+::compiler\+::\+Mips\+Operand\+Converter}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\+\_\+\+\_\+}}~masm()-\/$>$
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_a5f6aa8edcd99914757600b5d3b259bb7}{TRACE}}(...)~PrintF(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_aa4ab0c7287bcb5c7507f752e6a5f5749}{CREATE\+\_\+\+OOL\+\_\+\+CLASS}}(ool\+\_\+name,  tasm\+\_\+ool\+\_\+name,  \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}})
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_a38a07dc23db8ab556df14a93b99419bc}{ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+LOAD\+\_\+\+INTEGER}}(asm\+\_\+instr)
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_acdf8fa7f6dd282d387b8c7ad416e331f}{ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+STORE\+\_\+\+INTEGER}}(asm\+\_\+instr)
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_ac4f774eb5cd07878e9260fed0f9ce3da}{ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+BINOP}}(load\+\_\+linked,  store\+\_\+conditional,  bin\+\_\+instr)
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_a7541761e1ce90c8badcdbe0e0de8c050}{ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+BINOP\+\_\+\+EXT}}(load\+\_\+linked,  store\+\_\+conditional,  sign\+\_\+extend,  \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}},  bin\+\_\+instr,  representation)
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_ae262d829224fdeed147f6d56312a976f}{ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+EXCHANGE\+\_\+\+INTEGER}}(load\+\_\+linked,  store\+\_\+conditional)
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_a3623e8c2b78631c17d7ff6d89b542162}{ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+EXCHANGE\+\_\+\+INTEGER\+\_\+\+EXT}}( load\+\_\+linked,  store\+\_\+conditional,  sign\+\_\+extend,  \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}},  representation)
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_a2eb1a3e9ef17e72648b84ee1d533c572}{ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+COMPARE\+\_\+\+EXCHANGE\+\_\+\+INTEGER}}(load\+\_\+linked,  store\+\_\+conditional)
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_aab5befdca84bfb49463535bd0c4088a4}{ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+COMPARE\+\_\+\+EXCHANGE\+\_\+\+INTEGER\+\_\+\+EXT}}( load\+\_\+linked,  store\+\_\+conditional,  sign\+\_\+extend,  \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}},  representation)
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_aba3d5f58b38940cb744131b1eb1d29c3}{ASSEMBLE\+\_\+\+IEEE754\+\_\+\+BINOP}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_a4ea587b1e5207d4667d391ead19e55d1}{ASSEMBLE\+\_\+\+IEEE754\+\_\+\+UNOP}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_ac82ac052d3a25dc4fb017b8b2d9dae8b}{ASSEMBLE\+\_\+\+F64\+X2\+\_\+\+ARITHMETIC\+\_\+\+BINOP}}(op)
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_a36403f5dae06a33eb396d86337b4b03f}{ATOMIC\+\_\+\+BINOP\+\_\+\+CASE}}(op,  inst32,  inst64)
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_a7f39fa22dccc5274a592becbb43303c0}{UNSUPPORTED\+\_\+\+COND}}(opcode,  \mbox{\hyperlink{machine-operator-reducer_8cc_a0e07aad9de22abf9b9b1b4b437beef30}{condition}})
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\+\_\+\+\_\+}}~masm-\/$>$
+\item 
+\#define \mbox{\hyperlink{code-generator-mips64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\+\_\+\+\_\+}}~masm()-\/$>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a607d414510cad926115d8bd1c15546d8}{v8\+::internal\+::compiler\+::\+Assemble\+Branch\+To\+Labels}} (Code\+Generator $\ast$\mbox{\hyperlink{random-module-generation_8cc_ab92c0250d8b173c3559e38e549ada15d}{gen}}, Macro\+Assembler $\ast$masm, Instruction $\ast$\mbox{\hyperlink{jump-threading_8cc_a0a0af5b095a4cca0e42ca82256441999}{instr}}, Flags\+Condition \mbox{\hyperlink{machine-operator-reducer_8cc_a0e07aad9de22abf9b9b1b4b437beef30}{condition}}, Label $\ast$tlabel, Label $\ast$flabel, bool fallthru)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{code-generator-mips64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}\label{code-generator-mips64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!\_\_@{\_\_}}
+\index{\_\_@{\_\_}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{\_\_}{\_\_}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+~masm()-\/$>$}
+
+\mbox{\Hypertarget{code-generator-mips64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}\label{code-generator-mips64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!\_\_@{\_\_}}
+\index{\_\_@{\_\_}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{\_\_}{\_\_}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+~masm-\/$>$}
+
+\mbox{\Hypertarget{code-generator-mips64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}\label{code-generator-mips64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!\_\_@{\_\_}}
+\index{\_\_@{\_\_}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{\_\_}{\_\_}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+~masm()-\/$>$}
+
+\mbox{\Hypertarget{code-generator-mips64_8cc_ac4f774eb5cd07878e9260fed0f9ce3da}\label{code-generator-mips64_8cc_ac4f774eb5cd07878e9260fed0f9ce3da}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!ASSEMBLE\_ATOMIC\_BINOP@{ASSEMBLE\_ATOMIC\_BINOP}}
+\index{ASSEMBLE\_ATOMIC\_BINOP@{ASSEMBLE\_ATOMIC\_BINOP}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{ASSEMBLE\_ATOMIC\_BINOP}{ASSEMBLE\_ATOMIC\_BINOP}}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{load\+\_\+linked,  }\item[{}]{store\+\_\+conditional,  }\item[{}]{bin\+\_\+instr }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                         \(\backslash\)}
+\DoxyCodeLine{    Label binop;                                                               \(\backslash\)}
+\DoxyCodeLine{    \_\_ Daddu(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1));       \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                                                 \(\backslash\)}
+\DoxyCodeLine{    \_\_ bind(\&binop);                                                           \(\backslash\)}
+\DoxyCodeLine{    \_\_ load\_linked(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal_a6bbd00674642501f2e64385c71102c2c}{MemOperand}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0));     \(\backslash\)}
+\DoxyCodeLine{    \_\_ bin\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(0),                       \(\backslash\)}
+\DoxyCodeLine{                 Operand(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(2)));                                 \(\backslash\)}
+\DoxyCodeLine{    \_\_ store\_conditional(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal_a6bbd00674642501f2e64385c71102c2c}{MemOperand}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0)); \(\backslash\)}
+\DoxyCodeLine{    \_\_ BranchShort(\&binop, \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21aef89ff7bd9abfd0deb210fbcadd24123}{eq}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), Operand(zero\_reg));          \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                                                 \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{code-generator-mips64_8cc_a7541761e1ce90c8badcdbe0e0de8c050}\label{code-generator-mips64_8cc_a7541761e1ce90c8badcdbe0e0de8c050}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!ASSEMBLE\_ATOMIC\_BINOP\_EXT@{ASSEMBLE\_ATOMIC\_BINOP\_EXT}}
+\index{ASSEMBLE\_ATOMIC\_BINOP\_EXT@{ASSEMBLE\_ATOMIC\_BINOP\_EXT}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{ASSEMBLE\_ATOMIC\_BINOP\_EXT}{ASSEMBLE\_ATOMIC\_BINOP\_EXT}}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+BINOP\+\_\+\+EXT(\begin{DoxyParamCaption}\item[{}]{load\+\_\+linked,  }\item[{}]{store\+\_\+conditional,  }\item[{}]{sign\+\_\+extend,  }\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}},  }\item[{}]{bin\+\_\+instr,  }\item[{}]{representation }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                         \(\backslash\)}
+\DoxyCodeLine{    Label binop;                                                               \(\backslash\)}
+\DoxyCodeLine{    \_\_ daddu(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1));       \(\backslash\)}
+\DoxyCodeLine{    if (representation == 32) \{                                                \(\backslash\)}
+\DoxyCodeLine{      \_\_ andi(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(3), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0x3);                      \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                                   \(\backslash\)}
+\DoxyCodeLine{      DCHECK\_EQ(representation, 64);                                           \(\backslash\)}
+\DoxyCodeLine{      \_\_ andi(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(3), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0x7);                      \(\backslash\)}
+\DoxyCodeLine{    \}                                                                          \(\backslash\)}
+\DoxyCodeLine{    \_\_ Dsubu(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0),                             \(\backslash\)}
+\DoxyCodeLine{             Operand(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(3)));                                      \(\backslash\)}
+\DoxyCodeLine{    \_\_ sll(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(3), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(3), 3);                           \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                                                 \(\backslash\)}
+\DoxyCodeLine{    \_\_ bind(\&binop);                                                           \(\backslash\)}
+\DoxyCodeLine{    \_\_ load\_linked(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal_a6bbd00674642501f2e64385c71102c2c}{MemOperand}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0));       \(\backslash\)}
+\DoxyCodeLine{    \_\_ ExtractBits(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(3),  \(\backslash\)}
+\DoxyCodeLine{                   \mbox{\hyperlink{setup-heap-internal_8cc_a439227feff9d7f55384e8780cfc2eb82}{size}}, sign\_extend);                                         \(\backslash\)}
+\DoxyCodeLine{    \_\_ bin\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(0),                       \(\backslash\)}
+\DoxyCodeLine{                 Operand(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(2)));                                 \(\backslash\)}
+\DoxyCodeLine{    \_\_ InsertBits(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(3),     \(\backslash\)}
+\DoxyCodeLine{                  \mbox{\hyperlink{setup-heap-internal_8cc_a439227feff9d7f55384e8780cfc2eb82}{size}});                                                       \(\backslash\)}
+\DoxyCodeLine{    \_\_ store\_conditional(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal_a6bbd00674642501f2e64385c71102c2c}{MemOperand}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0)); \(\backslash\)}
+\DoxyCodeLine{    \_\_ BranchShort(\&binop, \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21aef89ff7bd9abfd0deb210fbcadd24123}{eq}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), Operand(zero\_reg));          \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                                                 \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{code-generator-mips64_8cc_a2eb1a3e9ef17e72648b84ee1d533c572}\label{code-generator-mips64_8cc_a2eb1a3e9ef17e72648b84ee1d533c572}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER@{ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER}}
+\index{ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER@{ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER}{ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER}}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+COMPARE\+\_\+\+EXCHANGE\+\_\+\+INTEGER(\begin{DoxyParamCaption}\item[{}]{load\+\_\+linked,  }\item[{}]{store\+\_\+conditional }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                         \(\backslash\)}
+\DoxyCodeLine{    Label compareExchange;                                                     \(\backslash\)}
+\DoxyCodeLine{    Label exit;                                                                \(\backslash\)}
+\DoxyCodeLine{    \_\_ daddu(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1));       \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                                                 \(\backslash\)}
+\DoxyCodeLine{    \_\_ bind(\&compareExchange);                                                 \(\backslash\)}
+\DoxyCodeLine{    \_\_ load\_linked(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal_a6bbd00674642501f2e64385c71102c2c}{MemOperand}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0));     \(\backslash\)}
+\DoxyCodeLine{    \_\_ BranchShort(\&exit, \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a8a814088d15799a0fa2bac29d01a1ea7}{ne}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(2),                              \(\backslash\)}
+\DoxyCodeLine{                   Operand(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(0)));                              \(\backslash\)}
+\DoxyCodeLine{    \_\_ mov(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(3));                             \(\backslash\)}
+\DoxyCodeLine{    \_\_ store\_conditional(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), \mbox{\hyperlink{namespacev8_1_1internal_a6bbd00674642501f2e64385c71102c2c}{MemOperand}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0)); \(\backslash\)}
+\DoxyCodeLine{    \_\_ BranchShort(\&compareExchange, \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21aef89ff7bd9abfd0deb210fbcadd24123}{eq}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2),                    \(\backslash\)}
+\DoxyCodeLine{                   Operand(zero\_reg));                                         \(\backslash\)}
+\DoxyCodeLine{    \_\_ bind(\&exit);                                                            \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                                                 \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{code-generator-mips64_8cc_aab5befdca84bfb49463535bd0c4088a4}\label{code-generator-mips64_8cc_aab5befdca84bfb49463535bd0c4088a4}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER\_EXT@{ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER\_EXT}}
+\index{ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER\_EXT@{ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER\_EXT}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER\_EXT}{ASSEMBLE\_ATOMIC\_COMPARE\_EXCHANGE\_INTEGER\_EXT}}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+COMPARE\+\_\+\+EXCHANGE\+\_\+\+INTEGER\+\_\+\+EXT(\begin{DoxyParamCaption}\item[{}]{load\+\_\+linked,  }\item[{}]{store\+\_\+conditional,  }\item[{}]{sign\+\_\+extend,  }\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}},  }\item[{}]{representation }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                         \(\backslash\)}
+\DoxyCodeLine{    Label compareExchange;                                                     \(\backslash\)}
+\DoxyCodeLine{    Label exit;                                                                \(\backslash\)}
+\DoxyCodeLine{    \_\_ daddu(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1));       \(\backslash\)}
+\DoxyCodeLine{    if (representation == 32) \{                                                \(\backslash\)}
+\DoxyCodeLine{      \_\_ andi(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0x3);                      \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                                   \(\backslash\)}
+\DoxyCodeLine{      DCHECK\_EQ(representation, 64);                                           \(\backslash\)}
+\DoxyCodeLine{      \_\_ andi(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0x7);                      \(\backslash\)}
+\DoxyCodeLine{    \}                                                                          \(\backslash\)}
+\DoxyCodeLine{    \_\_ Dsubu(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0),                             \(\backslash\)}
+\DoxyCodeLine{             Operand(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1)));                                      \(\backslash\)}
+\DoxyCodeLine{    \_\_ sll(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), 3);                           \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                                                 \(\backslash\)}
+\DoxyCodeLine{    \_\_ bind(\&compareExchange);                                                 \(\backslash\)}
+\DoxyCodeLine{    \_\_ load\_linked(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), \mbox{\hyperlink{namespacev8_1_1internal_a6bbd00674642501f2e64385c71102c2c}{MemOperand}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0));       \(\backslash\)}
+\DoxyCodeLine{    \_\_ ExtractBits(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1),  \(\backslash\)}
+\DoxyCodeLine{                   \mbox{\hyperlink{setup-heap-internal_8cc_a439227feff9d7f55384e8780cfc2eb82}{size}}, sign\_extend);                                         \(\backslash\)}
+\DoxyCodeLine{    \_\_ ExtractBits(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(2), zero\_reg, \mbox{\hyperlink{setup-heap-internal_8cc_a439227feff9d7f55384e8780cfc2eb82}{size}},      \(\backslash\)}
+\DoxyCodeLine{                   sign\_extend);                                               \(\backslash\)}
+\DoxyCodeLine{    \_\_ BranchShort(\&exit, \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21a8a814088d15799a0fa2bac29d01a1ea7}{ne}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2),                               \(\backslash\)}
+\DoxyCodeLine{                   Operand(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(0)));                              \(\backslash\)}
+\DoxyCodeLine{    \_\_ InsertBits(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(3), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1),    \(\backslash\)}
+\DoxyCodeLine{                  \mbox{\hyperlink{setup-heap-internal_8cc_a439227feff9d7f55384e8780cfc2eb82}{size}});                                                       \(\backslash\)}
+\DoxyCodeLine{    \_\_ store\_conditional(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), \mbox{\hyperlink{namespacev8_1_1internal_a6bbd00674642501f2e64385c71102c2c}{MemOperand}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0)); \(\backslash\)}
+\DoxyCodeLine{    \_\_ BranchShort(\&compareExchange, \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21aef89ff7bd9abfd0deb210fbcadd24123}{eq}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2),                    \(\backslash\)}
+\DoxyCodeLine{                   Operand(zero\_reg));                                         \(\backslash\)}
+\DoxyCodeLine{    \_\_ bind(\&exit);                                                            \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                                                 \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{code-generator-mips64_8cc_ae262d829224fdeed147f6d56312a976f}\label{code-generator-mips64_8cc_ae262d829224fdeed147f6d56312a976f}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER@{ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER}}
+\index{ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER@{ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER}{ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER}}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+EXCHANGE\+\_\+\+INTEGER(\begin{DoxyParamCaption}\item[{}]{load\+\_\+linked,  }\item[{}]{store\+\_\+conditional }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                         \(\backslash\)}
+\DoxyCodeLine{    Label exchange;                                                            \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                                                 \(\backslash\)}
+\DoxyCodeLine{    \_\_ bind(\&exchange);                                                        \(\backslash\)}
+\DoxyCodeLine{    \_\_ daddu(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1));       \(\backslash\)}
+\DoxyCodeLine{    \_\_ load\_linked(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal_a6bbd00674642501f2e64385c71102c2c}{MemOperand}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0));     \(\backslash\)}
+\DoxyCodeLine{    \_\_ mov(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(2));                             \(\backslash\)}
+\DoxyCodeLine{    \_\_ store\_conditional(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal_a6bbd00674642501f2e64385c71102c2c}{MemOperand}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0)); \(\backslash\)}
+\DoxyCodeLine{    \_\_ BranchShort(\&exchange, \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21aef89ff7bd9abfd0deb210fbcadd24123}{eq}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), Operand(zero\_reg));       \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                                                 \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{code-generator-mips64_8cc_a3623e8c2b78631c17d7ff6d89b542162}\label{code-generator-mips64_8cc_a3623e8c2b78631c17d7ff6d89b542162}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER\_EXT@{ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER\_EXT}}
+\index{ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER\_EXT@{ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER\_EXT}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER\_EXT}{ASSEMBLE\_ATOMIC\_EXCHANGE\_INTEGER\_EXT}}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+EXCHANGE\+\_\+\+INTEGER\+\_\+\+EXT(\begin{DoxyParamCaption}\item[{}]{load\+\_\+linked,  }\item[{}]{store\+\_\+conditional,  }\item[{}]{sign\+\_\+extend,  }\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}},  }\item[{}]{representation }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                         \(\backslash\)}
+\DoxyCodeLine{    Label exchange;                                                            \(\backslash\)}
+\DoxyCodeLine{    \_\_ daddu(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(1));       \(\backslash\)}
+\DoxyCodeLine{    if (representation == 32) \{                                                \(\backslash\)}
+\DoxyCodeLine{      \_\_ andi(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0x3);                      \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                                   \(\backslash\)}
+\DoxyCodeLine{      DCHECK\_EQ(representation, 64);                                           \(\backslash\)}
+\DoxyCodeLine{      \_\_ andi(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0x7);                      \(\backslash\)}
+\DoxyCodeLine{    \}                                                                          \(\backslash\)}
+\DoxyCodeLine{    \_\_ Dsubu(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0),                             \(\backslash\)}
+\DoxyCodeLine{             Operand(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1)));                                      \(\backslash\)}
+\DoxyCodeLine{    \_\_ sll(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1), 3);                           \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                                                 \(\backslash\)}
+\DoxyCodeLine{    \_\_ bind(\&exchange);                                                        \(\backslash\)}
+\DoxyCodeLine{    \_\_ load\_linked(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), \mbox{\hyperlink{namespacev8_1_1internal_a6bbd00674642501f2e64385c71102c2c}{MemOperand}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0));       \(\backslash\)}
+\DoxyCodeLine{    \_\_ ExtractBits(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(0), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1),  \(\backslash\)}
+\DoxyCodeLine{                   \mbox{\hyperlink{setup-heap-internal_8cc_a439227feff9d7f55384e8780cfc2eb82}{size}}, sign\_extend);                                         \(\backslash\)}
+\DoxyCodeLine{    \_\_ InsertBits(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputRegister(2), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(1),    \(\backslash\)}
+\DoxyCodeLine{                  \mbox{\hyperlink{setup-heap-internal_8cc_a439227feff9d7f55384e8780cfc2eb82}{size}});                                                       \(\backslash\)}
+\DoxyCodeLine{    \_\_ store\_conditional(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), \mbox{\hyperlink{namespacev8_1_1internal_a6bbd00674642501f2e64385c71102c2c}{MemOperand}}(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(0), 0)); \(\backslash\)}
+\DoxyCodeLine{    \_\_ BranchShort(\&exchange, \mbox{\hyperlink{namespacev8_1_1internal_a271f8ea99b7c0bbd771df015d4e4cf21aef89ff7bd9abfd0deb210fbcadd24123}{eq}}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}.TempRegister(2), Operand(zero\_reg));       \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                                                 \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{code-generator-mips64_8cc_a38a07dc23db8ab556df14a93b99419bc}\label{code-generator-mips64_8cc_a38a07dc23db8ab556df14a93b99419bc}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!ASSEMBLE\_ATOMIC\_LOAD\_INTEGER@{ASSEMBLE\_ATOMIC\_LOAD\_INTEGER}}
+\index{ASSEMBLE\_ATOMIC\_LOAD\_INTEGER@{ASSEMBLE\_ATOMIC\_LOAD\_INTEGER}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{ASSEMBLE\_ATOMIC\_LOAD\_INTEGER}{ASSEMBLE\_ATOMIC\_LOAD\_INTEGER}}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+LOAD\+\_\+\+INTEGER(\begin{DoxyParamCaption}\item[{}]{asm\+\_\+instr }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                   \(\backslash\)}
+\DoxyCodeLine{    \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputRegister(), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand()); \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                           \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{code-generator-mips64_8cc_acdf8fa7f6dd282d387b8c7ad416e331f}\label{code-generator-mips64_8cc_acdf8fa7f6dd282d387b8c7ad416e331f}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!ASSEMBLE\_ATOMIC\_STORE\_INTEGER@{ASSEMBLE\_ATOMIC\_STORE\_INTEGER}}
+\index{ASSEMBLE\_ATOMIC\_STORE\_INTEGER@{ASSEMBLE\_ATOMIC\_STORE\_INTEGER}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{ASSEMBLE\_ATOMIC\_STORE\_INTEGER}{ASSEMBLE\_ATOMIC\_STORE\_INTEGER}}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+ATOMIC\+\_\+\+STORE\+\_\+\+INTEGER(\begin{DoxyParamCaption}\item[{}]{asm\+\_\+instr }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                         \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                                 \(\backslash\)}
+\DoxyCodeLine{    \_\_ asm\_instr(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputOrZeroRegister(2), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.MemoryOperand()); \(\backslash\)}
+\DoxyCodeLine{    \_\_ sync();                                                 \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{code-generator-mips64_8cc_ac82ac052d3a25dc4fb017b8b2d9dae8b}\label{code-generator-mips64_8cc_ac82ac052d3a25dc4fb017b8b2d9dae8b}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!ASSEMBLE\_F64X2\_ARITHMETIC\_BINOP@{ASSEMBLE\_F64X2\_ARITHMETIC\_BINOP}}
+\index{ASSEMBLE\_F64X2\_ARITHMETIC\_BINOP@{ASSEMBLE\_F64X2\_ARITHMETIC\_BINOP}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{ASSEMBLE\_F64X2\_ARITHMETIC\_BINOP}{ASSEMBLE\_F64X2\_ARITHMETIC\_BINOP}}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+F64\+X2\+\_\+\+ARITHMETIC\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{op }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                          \(\backslash\)}
+\DoxyCodeLine{    \_\_ op(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputSimd128Register(), \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(0), \(\backslash\)}
+\DoxyCodeLine{          \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputSimd128Register(1));                           \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{code-generator-mips64_8cc_aba3d5f58b38940cb744131b1eb1d29c3}\label{code-generator-mips64_8cc_aba3d5f58b38940cb744131b1eb1d29c3}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!ASSEMBLE\_IEEE754\_BINOP@{ASSEMBLE\_IEEE754\_BINOP}}
+\index{ASSEMBLE\_IEEE754\_BINOP@{ASSEMBLE\_IEEE754\_BINOP}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{ASSEMBLE\_IEEE754\_BINOP}{ASSEMBLE\_IEEE754\_BINOP}}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+IEEE754\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                      \(\backslash\)}
+\DoxyCodeLine{    FrameScope scope(masm(), StackFrame::MANUAL);                           \(\backslash\)}
+\DoxyCodeLine{    \_\_ PrepareCallCFunction(0, 2, \mbox{\hyperlink{code-generator-ppc_8cc_a6cb7190c6351369972f6b37ead9ad9a4}{kScratchReg}});                             \(\backslash\)}
+\DoxyCodeLine{    \_\_ MovToFloatParameters(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(0),                       \(\backslash\)}
+\DoxyCodeLine{                            \mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(1));                      \(\backslash\)}
+\DoxyCodeLine{    \_\_ CallCFunction(ExternalReference::ieee754\_\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}\#\#\_function(), 0, 2); \(\backslash\)}
+\DoxyCodeLine{    \textcolor{comment}{/* Move the result in the double result register. */}                    \(\backslash\)}
+\DoxyCodeLine{    \_\_ MovFromFloatResult(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputDoubleRegister());                        \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{code-generator-mips64_8cc_a4ea587b1e5207d4667d391ead19e55d1}\label{code-generator-mips64_8cc_a4ea587b1e5207d4667d391ead19e55d1}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!ASSEMBLE\_IEEE754\_UNOP@{ASSEMBLE\_IEEE754\_UNOP}}
+\index{ASSEMBLE\_IEEE754\_UNOP@{ASSEMBLE\_IEEE754\_UNOP}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{ASSEMBLE\_IEEE754\_UNOP}{ASSEMBLE\_IEEE754\_UNOP}}
+{\footnotesize\ttfamily \#define ASSEMBLE\+\_\+\+IEEE754\+\_\+\+UNOP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                                      \(\backslash\)}
+\DoxyCodeLine{    FrameScope scope(masm(), StackFrame::MANUAL);                           \(\backslash\)}
+\DoxyCodeLine{    \_\_ PrepareCallCFunction(0, 1, \mbox{\hyperlink{code-generator-ppc_8cc_a6cb7190c6351369972f6b37ead9ad9a4}{kScratchReg}});                             \(\backslash\)}
+\DoxyCodeLine{    \_\_ MovToFloatParameter(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.InputDoubleRegister(0));                       \(\backslash\)}
+\DoxyCodeLine{    \_\_ CallCFunction(ExternalReference::ieee754\_\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}\#\#\_function(), 0, 1); \(\backslash\)}
+\DoxyCodeLine{    \textcolor{comment}{/* Move the result in the double result register. */}                    \(\backslash\)}
+\DoxyCodeLine{    \_\_ MovFromFloatResult(\mbox{\hyperlink{namespacev8_1_1internal}{i}}.OutputDoubleRegister());                        \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{code-generator-mips64_8cc_a36403f5dae06a33eb396d86337b4b03f}\label{code-generator-mips64_8cc_a36403f5dae06a33eb396d86337b4b03f}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!ATOMIC\_BINOP\_CASE@{ATOMIC\_BINOP\_CASE}}
+\index{ATOMIC\_BINOP\_CASE@{ATOMIC\_BINOP\_CASE}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{ATOMIC\_BINOP\_CASE}{ATOMIC\_BINOP\_CASE}}
+{\footnotesize\ttfamily \#define ATOMIC\+\_\+\+BINOP\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{op,  }\item[{}]{inst32,  }\item[{}]{inst64 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{code-generator-mips64_8cc_aa4ab0c7287bcb5c7507f752e6a5f5749}\label{code-generator-mips64_8cc_aa4ab0c7287bcb5c7507f752e6a5f5749}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!CREATE\_OOL\_CLASS@{CREATE\_OOL\_CLASS}}
+\index{CREATE\_OOL\_CLASS@{CREATE\_OOL\_CLASS}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{CREATE\_OOL\_CLASS}{CREATE\_OOL\_CLASS}}
+{\footnotesize\ttfamily \#define CREATE\+\_\+\+OOL\+\_\+\+CLASS(\begin{DoxyParamCaption}\item[{}]{ool\+\_\+name,  }\item[{}]{tasm\+\_\+ool\+\_\+name,  }\item[{}]{\mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keyword}{class }ool\_name final : \textcolor{keyword}{public} OutOfLineCode \{                      \(\backslash\)}
+\DoxyCodeLine{   public:                                                           \(\backslash\)}
+\DoxyCodeLine{    ool\_name(CodeGenerator* \mbox{\hyperlink{random-module-generation_8cc_ab92c0250d8b173c3559e38e549ada15d}{gen}}, \mbox{\hyperlink{base_2ieee754_8cc_a0acb682b8260ab1c60b918599864e2e5}{T}} dst, \mbox{\hyperlink{base_2ieee754_8cc_a0acb682b8260ab1c60b918599864e2e5}{T}} src1, \mbox{\hyperlink{base_2ieee754_8cc_a0acb682b8260ab1c60b918599864e2e5}{T}} src2)              \(\backslash\)}
+\DoxyCodeLine{        : OutOfLineCode(\mbox{\hyperlink{random-module-generation_8cc_ab92c0250d8b173c3559e38e549ada15d}{gen}}), dst\_(dst), src1\_(src1), src2\_(src2) \{\} \(\backslash\)}
+\DoxyCodeLine{                                                                     \(\backslash\)}
+\DoxyCodeLine{    void Generate() final \{ \mbox{\hyperlink{code-generator-mips64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} tasm\_ool\_name(dst\_, src1\_, src2\_); \}  \(\backslash\)}
+\DoxyCodeLine{                                                                     \(\backslash\)}
+\DoxyCodeLine{   private:                                                          \(\backslash\)}
+\DoxyCodeLine{    T \textcolor{keyword}{const} dst\_;                                                    \(\backslash\)}
+\DoxyCodeLine{    T \textcolor{keyword}{const} src1\_;                                                   \(\backslash\)}
+\DoxyCodeLine{    T \textcolor{keyword}{const} src2\_;                                                   \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{code-generator-mips64_8cc_a5f6aa8edcd99914757600b5d3b259bb7}\label{code-generator-mips64_8cc_a5f6aa8edcd99914757600b5d3b259bb7}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!TRACE@{TRACE}}
+\index{TRACE@{TRACE}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{TRACE}{TRACE}}
+{\footnotesize\ttfamily \#define TRACE(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~PrintF(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+\mbox{\Hypertarget{code-generator-mips64_8cc_a7f39fa22dccc5274a592becbb43303c0}\label{code-generator-mips64_8cc_a7f39fa22dccc5274a592becbb43303c0}} 
+\index{code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}!UNSUPPORTED\_COND@{UNSUPPORTED\_COND}}
+\index{UNSUPPORTED\_COND@{UNSUPPORTED\_COND}!code-\/generator-\/mips64.cc@{code-\/generator-\/mips64.cc}}
+\doxysubsubsection{\texorpdfstring{UNSUPPORTED\_COND}{UNSUPPORTED\_COND}}
+{\footnotesize\ttfamily \#define UNSUPPORTED\+\_\+\+COND(\begin{DoxyParamCaption}\item[{}]{opcode,  }\item[{}]{\mbox{\hyperlink{machine-operator-reducer_8cc_a0e07aad9de22abf9b9b1b4b437beef30}{condition}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  StdoutStream\{\} << \textcolor{stringliteral}{"{}Unsupported "{}} << \#opcode << \textcolor{stringliteral}{"{} condition: \(\backslash\)"{}"{}} << \mbox{\hyperlink{machine-operator-reducer_8cc_a0e07aad9de22abf9b9b1b4b437beef30}{condition}} \(\backslash\)}
+\DoxyCodeLine{                 << \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}};                                                      \(\backslash\)}
+\DoxyCodeLine{  UNIMPLEMENTED();}
+
+\end{DoxyCode}

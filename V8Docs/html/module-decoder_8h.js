@@ -1,0 +1,35 @@
+var module_decoder_8h =
+[
+    [ "AsmJsOffsetEntry", "structv8_1_1internal_1_1wasm_1_1AsmJsOffsetEntry.html", "structv8_1_1internal_1_1wasm_1_1AsmJsOffsetEntry" ],
+    [ "AsmJsOffsetFunctionEntries", "structv8_1_1internal_1_1wasm_1_1AsmJsOffsetFunctionEntries.html", "structv8_1_1internal_1_1wasm_1_1AsmJsOffsetFunctionEntries" ],
+    [ "AsmJsOffsets", "structv8_1_1internal_1_1wasm_1_1AsmJsOffsets.html", "structv8_1_1internal_1_1wasm_1_1AsmJsOffsets" ],
+    [ "DecodedNameSection", "classv8_1_1internal_1_1wasm_1_1DecodedNameSection.html", "classv8_1_1internal_1_1wasm_1_1DecodedNameSection" ],
+    [ "CustomSectionOffset", "structv8_1_1internal_1_1wasm_1_1CustomSectionOffset.html", "structv8_1_1internal_1_1wasm_1_1CustomSectionOffset" ],
+    [ "ModuleDecoder", "classv8_1_1internal_1_1wasm_1_1ModuleDecoder.html", "classv8_1_1internal_1_1wasm_1_1ModuleDecoder" ],
+    [ "AsmJsOffsetsResult", "module-decoder_8h.html#aba3ffb729a84065a499abfb5e2c5e326", null ],
+    [ "FunctionOffsets", "module-decoder_8h.html#ac79d7f0f0eaef7aa587ea3df269062e5", null ],
+    [ "FunctionOffsetsResult", "module-decoder_8h.html#ab31372298e7a28f9fd9277bff9e4dcab", null ],
+    [ "FunctionResult", "module-decoder_8h.html#a4326a90f646c4d3d4ef6463aff1bae64", null ],
+    [ "ModuleResult", "module-decoder_8h.html#a24a40a897766a19d97d04ef9c02ea315", null ],
+    [ "DecodingMethod", "module-decoder_8h.html#a690faef021ab529c2506ff4cc19f23d3", [
+      [ "kSync", "module-decoder_8h.html#a690faef021ab529c2506ff4cc19f23d3ae3bade32f12a5139b27ef40b3689b77c", null ],
+      [ "kAsync", "module-decoder_8h.html#a690faef021ab529c2506ff4cc19f23d3a9f2b960005d2a3a5f35ac32809d84db7", null ],
+      [ "kSyncStream", "module-decoder_8h.html#a690faef021ab529c2506ff4cc19f23d3a59bd7a367fe8d4c1ef7ef251a528a531", null ],
+      [ "kAsyncStream", "module-decoder_8h.html#a690faef021ab529c2506ff4cc19f23d3a73a0514d70d4a180204efcdc9016b379", null ],
+      [ "kDeserialize", "module-decoder_8h.html#a690faef021ab529c2506ff4cc19f23d3a3fa00139d3e80fd98f92ebd527d4caee", null ]
+    ] ],
+    [ "DecodeAsmJsOffsets", "module-decoder_8h.html#a74f38e276bd3433397d473a1823fc10a", null ],
+    [ "DecodeCanonicalTypeNames", "module-decoder_8h.html#a62c74c645b39aa8bd25b5404fadab909", null ],
+    [ "DecodeCustomSections", "module-decoder_8h.html#ad98529ccb7b0b41ed6596efe9915f598", null ],
+    [ "DecodeFunctionNames", "module-decoder_8h.html#a446fdfa898b134c7791b22dd1b3a1b2a", null ],
+    [ "DecodeWasmFunctionForTesting", "module-decoder_8h.html#aebab3e7d78604212bae394a624fe4521", null ],
+    [ "DecodeWasmInitExprForTesting", "module-decoder_8h.html#ae28944902766440a6d8a817cef35d19a", null ],
+    [ "DecodeWasmModule", "module-decoder_8h.html#a83ed1297167cba9f8c8971bacab69dbf", null ],
+    [ "DecodeWasmModule", "module-decoder_8h.html#ad26a505128ca0be96023bf03b73f02fd", null ],
+    [ "DecodeWasmModuleForDisassembler", "module-decoder_8h.html#a6a526999a2ae3c55f7694911769b2a9e", null ],
+    [ "DecodeWasmSignatureForTesting", "module-decoder_8h.html#aa79b3a29c1554b80efc9286614ba0c59", null ],
+    [ "GetWasmErrorWithName", "module-decoder_8h.html#afca7dc31d6cfc38c235556c27dec960b", null ],
+    [ "IsValidSectionCode", "module-decoder_8h.html#a79483eb596510f9e25c3fd92821c8f30", null ],
+    [ "SectionName", "module-decoder_8h.html#a22897eae13ac7b10f785bbf1b094d08b", null ],
+    [ "ValidateFunctions", "module-decoder_8h.html#ab14c5d1b4e1be5a5465678002c82ef10", null ]
+];

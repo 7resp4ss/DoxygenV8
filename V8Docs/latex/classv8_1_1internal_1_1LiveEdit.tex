@@ -1,0 +1,94 @@
+\hypertarget{classv8_1_1internal_1_1LiveEdit}{}\doxysection{v8\+::internal\+::Live\+Edit Class Reference}
+\label{classv8_1_1internal_1_1LiveEdit}\index{v8::internal::LiveEdit@{v8::internal::LiveEdit}}
+
+
+{\ttfamily \#include $<$liveedit.\+h$>$}
+
+
+
+Inheritance diagram for v8\+::internal\+::Live\+Edit\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{classv8_1_1internal_1_1LiveEdit__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for v8\+::internal\+::Live\+Edit\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{classv8_1_1internal_1_1LiveEdit__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classv8_1_1internal_1_1LiveEdit_ae137d77566f827ef36c1a756565c26c5}{Compare\+Strings}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$ \mbox{\hyperlink{js-call-reducer_8cc_a4665d2c07575c01062ce1cdba711d875}{a}}, \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$ b, std\+::vector$<$ \mbox{\hyperlink{structv8_1_1internal_1_1SourceChangeRange}{Source\+Change\+Range}} $>$ $\ast$diffs)
+\item 
+static int \mbox{\hyperlink{classv8_1_1internal_1_1LiveEdit_ac8240273701e02c17dac0152d6f327d9}{Translate\+Position}} (const std\+::vector$<$ \mbox{\hyperlink{structv8_1_1internal_1_1SourceChangeRange}{Source\+Change\+Range}} $>$ \&changed, int \mbox{\hyperlink{liftoff-compiler_8cc_a09e2945f2b1d62a1c4491ea766647d55}{position}})
+\item 
+static void \mbox{\hyperlink{classv8_1_1internal_1_1LiveEdit_a51d4d4ceadbcc0961829681cb99439ab}{Patch\+Script}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Script}{Script}} $>$ \mbox{\hyperlink{namespacev8_1_1internal_afb7e5cd394b9632dddc2e7807b11b2ab}{script}}, \mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$ \mbox{\hyperlink{maglev-code-generator_8cc_ada8b48e004e823cabe5fcb41baf29163}{source}}, \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} preview, \mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}} allow\+\_\+top\+\_\+frame\+\_\+live\+\_\+editing, \mbox{\hyperlink{structv8_1_1debug_1_1LiveEditResult}{debug\+::\+Live\+Edit\+Result}} $\ast$\mbox{\hyperlink{jump-threading_8cc_a41f8c58d2c01bf65b8ee199c3f87fc80}{result}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Liveedit step-\/by-\/step\+:
+\begin{DoxyEnumerate}
+\item calculate diff between old source and new source,
+\item map function literals from old source to new source,
+\item create new script for new\+\_\+source,
+\item mark literals with changed code as changed, all others as unchanged,
+\item check that for changed literals there are no\+:
+\begin{DoxyItemize}
+\item running generators in the heap,
+\item non droppable frames (e.\+g. running generator) above them on stack.
+\end{DoxyItemize}
+\item mark the bottom most frame with changed function as scheduled for restart if any,
+\item for unchanged functions\+:
+\begin{DoxyItemize}
+\item deoptimize,
+\item remove from cache,
+\item update source positions,
+\item move to new script,
+\item reset feedback information and preparsed scope information if any,
+\item replace any sfi in constant pool with changed one if any.
+\end{DoxyItemize}
+\item for changed functions\+:
+\begin{DoxyItemize}
+\item deoptimize
+\item remove from cache,
+\item reset feedback information,
+\item update all links from js functions to old shared with new one.
+\end{DoxyItemize}
+\item swap scripts. 
+\end{DoxyEnumerate}
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1LiveEdit_ae137d77566f827ef36c1a756565c26c5}\label{classv8_1_1internal_1_1LiveEdit_ae137d77566f827ef36c1a756565c26c5}} 
+\index{v8::internal::LiveEdit@{v8::internal::LiveEdit}!CompareStrings@{CompareStrings}}
+\index{CompareStrings@{CompareStrings}!v8::internal::LiveEdit@{v8::internal::LiveEdit}}
+\doxysubsubsection{\texorpdfstring{CompareStrings()}{CompareStrings()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Live\+Edit\+::\+Compare\+Strings (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$}]{a,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$}]{b,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structv8_1_1internal_1_1SourceChangeRange}{Source\+Change\+Range}} $>$ $\ast$}]{diffs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1LiveEdit_a51d4d4ceadbcc0961829681cb99439ab}\label{classv8_1_1internal_1_1LiveEdit_a51d4d4ceadbcc0961829681cb99439ab}} 
+\index{v8::internal::LiveEdit@{v8::internal::LiveEdit}!PatchScript@{PatchScript}}
+\index{PatchScript@{PatchScript}!v8::internal::LiveEdit@{v8::internal::LiveEdit}}
+\doxysubsubsection{\texorpdfstring{PatchScript()}{PatchScript()}}
+{\footnotesize\ttfamily void v8\+::internal\+::\+Live\+Edit\+::\+Patch\+Script (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{Isolate}} $\ast$}]{isolate,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Script}{Script}} $>$}]{script,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1Handle}{Handle}}$<$ \mbox{\hyperlink{classv8_1_1internal_1_1String}{String}} $>$}]{source,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}}}]{preview,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_a4e2118a7c0d730210e0cb87b511cba70}{bool}}}]{allow\+\_\+top\+\_\+frame\+\_\+live\+\_\+editing,  }\item[{\mbox{\hyperlink{structv8_1_1debug_1_1LiveEditResult}{debug\+::\+Live\+Edit\+Result}} $\ast$}]{result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1LiveEdit_ac8240273701e02c17dac0152d6f327d9}\label{classv8_1_1internal_1_1LiveEdit_ac8240273701e02c17dac0152d6f327d9}} 
+\index{v8::internal::LiveEdit@{v8::internal::LiveEdit}!TranslatePosition@{TranslatePosition}}
+\index{TranslatePosition@{TranslatePosition}!v8::internal::LiveEdit@{v8::internal::LiveEdit}}
+\doxysubsubsection{\texorpdfstring{TranslatePosition()}{TranslatePosition()}}
+{\footnotesize\ttfamily int v8\+::internal\+::\+Live\+Edit\+::\+Translate\+Position (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{structv8_1_1internal_1_1SourceChangeRange}{Source\+Change\+Range}} $>$ \&}]{changed,  }\item[{int}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{liveedit_8h}{liveedit.\+h}}\item 
+\mbox{\hyperlink{liveedit_8cc}{liveedit.\+cc}}\end{DoxyCompactItemize}

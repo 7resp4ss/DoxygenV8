@@ -1,0 +1,115 @@
+\hypertarget{classcppgc_1_1NameProvider}{}\doxysection{cppgc\+::Name\+Provider Class Reference}
+\label{classcppgc_1_1NameProvider}\index{cppgc::NameProvider@{cppgc::NameProvider}}
+
+
+{\ttfamily \#include $<$name-\/provider.\+h$>$}
+
+
+
+Inheritance diagram for cppgc\+::Name\+Provider\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{classcppgc_1_1NameProvider__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for cppgc\+::Name\+Provider\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{classcppgc_1_1NameProvider__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classcppgc_1_1NameProvider_a1e4563ce6672974c699924e4355de818}{$\sim$\+Name\+Provider}} ()=default
+\item 
+virtual const char $\ast$ \mbox{\hyperlink{classcppgc_1_1NameProvider_a1b24ff3f104c11e8f383b430264fcce9}{Get\+Human\+Readable\+Name}} () const =0
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool \mbox{\hyperlink{classcppgc_1_1NameProvider_a05d62bb2499418e910fb235afea21064}{Supports\+Cpp\+Class\+Names\+As\+Object\+Names}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr const char \mbox{\hyperlink{classcppgc_1_1NameProvider_a78cd08cc182b5905ef543efd757611f0}{k\+Hidden\+Name}} \mbox{[}$\,$\mbox{]} = \char`\"{}Internal\+Node\char`\"{}
+\item 
+static constexpr const char \mbox{\hyperlink{classcppgc_1_1NameProvider_ae641b41ac86022bef88379d2740d5d82}{k\+No\+Name\+Deducible}} \mbox{[}$\,$\mbox{]} = \char`\"{}$<$No \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}$>$\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classcppgc_1_1NameProvider}{Name\+Provider}} allows for providing a human-\/readable name for garbage-\/collected objects.
+
+There\textquotesingle{}s two cases of names to distinguish\+: a. Explicitly specified names via using \mbox{\hyperlink{classcppgc_1_1NameProvider}{Name\+Provider}}. Such names are always preserved in the system. b. Internal names that Oilpan infers from a C++ type on the class hierarchy of the object. This is not necessarily the type of the actually instantiated object.
+
+Depending on the build configuration, Oilpan may hide names, i.\+e., represent them with k\+Hidden\+Name, of case b. to avoid exposing internal details. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcppgc_1_1NameProvider_a1e4563ce6672974c699924e4355de818}\label{classcppgc_1_1NameProvider_a1e4563ce6672974c699924e4355de818}} 
+\index{cppgc::NameProvider@{cppgc::NameProvider}!````~NameProvider@{$\sim$NameProvider}}
+\index{````~NameProvider@{$\sim$NameProvider}!cppgc::NameProvider@{cppgc::NameProvider}}
+\doxysubsubsection{\texorpdfstring{$\sim$NameProvider()}{~NameProvider()}}
+{\footnotesize\ttfamily virtual cppgc\+::\+Name\+Provider\+::$\sim$\+Name\+Provider (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcppgc_1_1NameProvider_a1b24ff3f104c11e8f383b430264fcce9}\label{classcppgc_1_1NameProvider_a1b24ff3f104c11e8f383b430264fcce9}} 
+\index{cppgc::NameProvider@{cppgc::NameProvider}!GetHumanReadableName@{GetHumanReadableName}}
+\index{GetHumanReadableName@{GetHumanReadableName}!cppgc::NameProvider@{cppgc::NameProvider}}
+\doxysubsubsection{\texorpdfstring{GetHumanReadableName()}{GetHumanReadableName()}}
+{\footnotesize\ttfamily virtual const char$\ast$ cppgc\+::\+Name\+Provider\+::\+Get\+Human\+Readable\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Specifies a name for the garbage-\/collected object. Such names will never be hidden, as they are explicitly specified by the user of this API.
+
+Implementations of this function must not allocate garbage-\/collected objects or otherwise modify the cppgc heap.
+
+V8 may call this function while generating a heap snapshot or at other times. If V8 is currently generating a heap snapshot (according to Heap\+Profiler\+::\+Is\+Taking\+Snapshot), then the returned string must stay alive until the snapshot generation has completed. Otherwise, the returned string must stay alive forever. If you need a place to store a temporary string during snapshot generation, use Heap\+Profiler\+::\+Copy\+Name\+For\+Heap\+Snapshot.
+
+\begin{DoxyReturn}{Returns}
+a human readable name for the object. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classv8_1_1Object_1_1Wrappable_a4815a448c66dd35676c2663a88ae2e04}{v8\+::\+Object\+::\+Wrappable}}.
+
+\mbox{\Hypertarget{classcppgc_1_1NameProvider_a05d62bb2499418e910fb235afea21064}\label{classcppgc_1_1NameProvider_a05d62bb2499418e910fb235afea21064}} 
+\index{cppgc::NameProvider@{cppgc::NameProvider}!SupportsCppClassNamesAsObjectNames@{SupportsCppClassNamesAsObjectNames}}
+\index{SupportsCppClassNamesAsObjectNames@{SupportsCppClassNamesAsObjectNames}!cppgc::NameProvider@{cppgc::NameProvider}}
+\doxysubsubsection{\texorpdfstring{SupportsCppClassNamesAsObjectNames()}{SupportsCppClassNamesAsObjectNames()}}
+{\footnotesize\ttfamily static constexpr bool cppgc\+::\+Name\+Provider\+::\+Supports\+Cpp\+Class\+Names\+As\+Object\+Names (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+Indicating whether the build supports extracting C++ names as object names.
+
+\begin{DoxyReturn}{Returns}
+true if C++ names should be hidden and represented by k\+Hidden\+Name. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classcppgc_1_1NameProvider_a78cd08cc182b5905ef543efd757611f0}\label{classcppgc_1_1NameProvider_a78cd08cc182b5905ef543efd757611f0}} 
+\index{cppgc::NameProvider@{cppgc::NameProvider}!kHiddenName@{kHiddenName}}
+\index{kHiddenName@{kHiddenName}!cppgc::NameProvider@{cppgc::NameProvider}}
+\doxysubsubsection{\texorpdfstring{kHiddenName}{kHiddenName}}
+{\footnotesize\ttfamily constexpr const char cppgc\+::\+Name\+Provider\+::k\+Hidden\+Name = \char`\"{}Internal\+Node\char`\"{}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+Name that is used when hiding internals. \mbox{\Hypertarget{classcppgc_1_1NameProvider_ae641b41ac86022bef88379d2740d5d82}\label{classcppgc_1_1NameProvider_ae641b41ac86022bef88379d2740d5d82}} 
+\index{cppgc::NameProvider@{cppgc::NameProvider}!kNoNameDeducible@{kNoNameDeducible}}
+\index{kNoNameDeducible@{kNoNameDeducible}!cppgc::NameProvider@{cppgc::NameProvider}}
+\doxysubsubsection{\texorpdfstring{kNoNameDeducible}{kNoNameDeducible}}
+{\footnotesize\ttfamily constexpr const char cppgc\+::\+Name\+Provider\+::k\+No\+Name\+Deducible = \char`\"{}$<$No \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}$>$\char`\"{}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+Name that is used in case compiler support is missing for composing a name from C++ types. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{name-provider_8h}{name-\/provider.\+h}}\item 
+\mbox{\hyperlink{name-trait_8cc}{name-\/trait.\+cc}}\end{DoxyCompactItemize}

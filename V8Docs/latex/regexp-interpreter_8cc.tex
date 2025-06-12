@@ -1,0 +1,129 @@
+\hypertarget{regexp-interpreter_8cc}{}\doxysection{regexp-\/interpreter.cc File Reference}
+\label{regexp-interpreter_8cc}\index{regexp-\/interpreter.cc@{regexp-\/interpreter.cc}}
+{\ttfamily \#include \char`\"{}src/regexp/regexp-\/interpreter.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/small-\/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/strings.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/counters.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/regexp-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/string-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/regexp/regexp-\/bytecodes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/regexp/regexp-\/macro-\/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/regexp/regexp-\/stack.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/regexp/regexp-\/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/regexp/regexp.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/unicode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/memcopy.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/utils.\+h\char`\"{}}\newline
+Include dependency graph for regexp-\/interpreter.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{regexp-interpreter_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{regexp-interpreter_8cc_a225fa3bbf6cf3be11c09e98bcb9ccc1a}{BC\+\_\+\+LABEL}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})~case BC\+\_\+\#\#name\+:
+\item 
+\#define \mbox{\hyperlink{regexp-interpreter_8cc_aa547709a009ccf4e927e296611947433}{DECODE}}()~next\+\_\+insn = Load32\+Aligned(next\+\_\+pc)
+\item 
+\#define \mbox{\hyperlink{regexp-interpreter_8cc_a8297cddbebf50a1736914db65c5724ae}{DISPATCH}}()
+\item 
+\#define \mbox{\hyperlink{regexp-interpreter_8cc_ab3ccbbe0327a5ecf1be793ccad1bcd83}{ADVANCE}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\item 
+\#define \mbox{\hyperlink{regexp-interpreter_8cc_a165c09c6bb2f565601d88bb58cfd9cd4}{SET\+\_\+\+PC\+\_\+\+FROM\+\_\+\+OFFSET}}(\mbox{\hyperlink{liftoff-compiler_8cc_aed7ea92f45bd273dde380a45ddced592}{offset}})
+\item 
+\#define \mbox{\hyperlink{regexp-interpreter_8cc_a9995dc4082d562c492f179fadc0f901e}{SET\+\_\+\+CURRENT\+\_\+\+POSITION}}(\mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+\#define \mbox{\hyperlink{regexp-interpreter_8cc_ad4ebf9ef7340df8f413f479cb8378e08}{ADVANCE\+\_\+\+CURRENT\+\_\+\+POSITION}}(by)~\mbox{\hyperlink{regexp-interpreter_8cc_a9995dc4082d562c492f179fadc0f901e}{SET\+\_\+\+CURRENT\+\_\+\+POSITION}}(\mbox{\hyperlink{earley-parser_8cc_a69620d3d0bf3441e9802e4853271cad4}{current}} + (by))
+\item 
+\#define \mbox{\hyperlink{regexp-interpreter_8cc_a15a4c2fe574f80454b49c90cd8598b4c}{BYTECODE}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})~\mbox{\hyperlink{regexp-interpreter_8cc_a225fa3bbf6cf3be11c09e98bcb9ccc1a}{BC\+\_\+\+LABEL}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{regexp-interpreter_8cc_ab3ccbbe0327a5ecf1be793ccad1bcd83}\label{regexp-interpreter_8cc_ab3ccbbe0327a5ecf1be793ccad1bcd83}} 
+\index{regexp-\/interpreter.cc@{regexp-\/interpreter.cc}!ADVANCE@{ADVANCE}}
+\index{ADVANCE@{ADVANCE}!regexp-\/interpreter.cc@{regexp-\/interpreter.cc}}
+\doxysubsubsection{\texorpdfstring{ADVANCE}{ADVANCE}}
+{\footnotesize\ttfamily \#define ADVANCE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  next\_pc = \mbox{\hyperlink{experimental-interpreter_8cc_ac8c81e61335635fa4709d82412b31f06}{pc}} + \mbox{\hyperlink{namespacev8_1_1internal_a1a9cc420bb4b045bf0475798736db2b7}{RegExpBytecodeLength}}(BC\_\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}); \(\backslash\)}
+\DoxyCodeLine{  DECODE()}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{regexp-interpreter_8cc_ad4ebf9ef7340df8f413f479cb8378e08}\label{regexp-interpreter_8cc_ad4ebf9ef7340df8f413f479cb8378e08}} 
+\index{regexp-\/interpreter.cc@{regexp-\/interpreter.cc}!ADVANCE\_CURRENT\_POSITION@{ADVANCE\_CURRENT\_POSITION}}
+\index{ADVANCE\_CURRENT\_POSITION@{ADVANCE\_CURRENT\_POSITION}!regexp-\/interpreter.cc@{regexp-\/interpreter.cc}}
+\doxysubsubsection{\texorpdfstring{ADVANCE\_CURRENT\_POSITION}{ADVANCE\_CURRENT\_POSITION}}
+{\footnotesize\ttfamily \#define ADVANCE\+\_\+\+CURRENT\+\_\+\+POSITION(\begin{DoxyParamCaption}\item[{}]{by }\end{DoxyParamCaption})~\mbox{\hyperlink{regexp-interpreter_8cc_a9995dc4082d562c492f179fadc0f901e}{SET\+\_\+\+CURRENT\+\_\+\+POSITION}}(\mbox{\hyperlink{earley-parser_8cc_a69620d3d0bf3441e9802e4853271cad4}{current}} + (by))}
+
+\mbox{\Hypertarget{regexp-interpreter_8cc_a225fa3bbf6cf3be11c09e98bcb9ccc1a}\label{regexp-interpreter_8cc_a225fa3bbf6cf3be11c09e98bcb9ccc1a}} 
+\index{regexp-\/interpreter.cc@{regexp-\/interpreter.cc}!BC\_LABEL@{BC\_LABEL}}
+\index{BC\_LABEL@{BC\_LABEL}!regexp-\/interpreter.cc@{regexp-\/interpreter.cc}}
+\doxysubsubsection{\texorpdfstring{BC\_LABEL}{BC\_LABEL}}
+{\footnotesize\ttfamily \#define BC\+\_\+\+LABEL(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})~case BC\+\_\+\#\#name\+:}
+
+\mbox{\Hypertarget{regexp-interpreter_8cc_a15a4c2fe574f80454b49c90cd8598b4c}\label{regexp-interpreter_8cc_a15a4c2fe574f80454b49c90cd8598b4c}} 
+\index{regexp-\/interpreter.cc@{regexp-\/interpreter.cc}!BYTECODE@{BYTECODE}}
+\index{BYTECODE@{BYTECODE}!regexp-\/interpreter.cc@{regexp-\/interpreter.cc}}
+\doxysubsubsection{\texorpdfstring{BYTECODE}{BYTECODE}}
+{\footnotesize\ttfamily \#define BYTECODE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})~\mbox{\hyperlink{regexp-interpreter_8cc_a225fa3bbf6cf3be11c09e98bcb9ccc1a}{BC\+\_\+\+LABEL}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})}
+
+\mbox{\Hypertarget{regexp-interpreter_8cc_aa547709a009ccf4e927e296611947433}\label{regexp-interpreter_8cc_aa547709a009ccf4e927e296611947433}} 
+\index{regexp-\/interpreter.cc@{regexp-\/interpreter.cc}!DECODE@{DECODE}}
+\index{DECODE@{DECODE}!regexp-\/interpreter.cc@{regexp-\/interpreter.cc}}
+\doxysubsubsection{\texorpdfstring{DECODE}{DECODE}}
+{\footnotesize\ttfamily \#define DECODE(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~next\+\_\+insn = Load32\+Aligned(next\+\_\+pc)}
+
+\mbox{\Hypertarget{regexp-interpreter_8cc_a8297cddbebf50a1736914db65c5724ae}\label{regexp-interpreter_8cc_a8297cddbebf50a1736914db65c5724ae}} 
+\index{regexp-\/interpreter.cc@{regexp-\/interpreter.cc}!DISPATCH@{DISPATCH}}
+\index{DISPATCH@{DISPATCH}!regexp-\/interpreter.cc@{regexp-\/interpreter.cc}}
+\doxysubsubsection{\texorpdfstring{DISPATCH}{DISPATCH}}
+{\footnotesize\ttfamily \#define DISPATCH(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{experimental-interpreter_8cc_ac8c81e61335635fa4709d82412b31f06}{pc}} = next\_pc;     \(\backslash\)}
+\DoxyCodeLine{  insn = next\_insn; \(\backslash\)}
+\DoxyCodeLine{  goto switch\_dispatch\_continuation}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{regexp-interpreter_8cc_a9995dc4082d562c492f179fadc0f901e}\label{regexp-interpreter_8cc_a9995dc4082d562c492f179fadc0f901e}} 
+\index{regexp-\/interpreter.cc@{regexp-\/interpreter.cc}!SET\_CURRENT\_POSITION@{SET\_CURRENT\_POSITION}}
+\index{SET\_CURRENT\_POSITION@{SET\_CURRENT\_POSITION}!regexp-\/interpreter.cc@{regexp-\/interpreter.cc}}
+\doxysubsubsection{\texorpdfstring{SET\_CURRENT\_POSITION}{SET\_CURRENT\_POSITION}}
+{\footnotesize\ttfamily \#define SET\+\_\+\+CURRENT\+\_\+\+POSITION(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                     \(\backslash\)}
+\DoxyCodeLine{    current = (\mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}});                                     \(\backslash\)}
+\DoxyCodeLine{    DCHECK(base::IsInRange(\mbox{\hyperlink{earley-parser_8cc_a69620d3d0bf3441e9802e4853271cad4}{current}}, 0, subject.length())); \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{regexp-interpreter_8cc_a165c09c6bb2f565601d88bb58cfd9cd4}\label{regexp-interpreter_8cc_a165c09c6bb2f565601d88bb58cfd9cd4}} 
+\index{regexp-\/interpreter.cc@{regexp-\/interpreter.cc}!SET\_PC\_FROM\_OFFSET@{SET\_PC\_FROM\_OFFSET}}
+\index{SET\_PC\_FROM\_OFFSET@{SET\_PC\_FROM\_OFFSET}!regexp-\/interpreter.cc@{regexp-\/interpreter.cc}}
+\doxysubsubsection{\texorpdfstring{SET\_PC\_FROM\_OFFSET}{SET\_PC\_FROM\_OFFSET}}
+{\footnotesize\ttfamily \#define SET\+\_\+\+PC\+\_\+\+FROM\+\_\+\+OFFSET(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{liftoff-compiler_8cc_aed7ea92f45bd273dde380a45ddced592}{offset}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  next\_pc = code\_base + \mbox{\hyperlink{instruction-selector-ia32_8cc_a97bd6c077f3c7769f575b82988b9b668}{offset}};    \(\backslash\)}
+\DoxyCodeLine{  DECODE()}
+
+\end{DoxyCode}

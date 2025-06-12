@@ -1,0 +1,187 @@
+\hypertarget{external-reference-table_8cc}{}\doxysection{external-\/reference-\/table.cc File Reference}
+\label{external-reference-table_8cc}\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+{\ttfamily \#include \char`\"{}src/codegen/external-\/reference-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/accessors.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/external-\/reference.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ic/stub-\/cache.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/counters.\+h\char`\"{}}\newline
+Include dependency graph for external-\/reference-\/table.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{external-reference-table_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_ab1a741b5699281ba8479483334f817ac}{ADD\+\_\+\+EXT\+\_\+\+REF\+\_\+\+NAME}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  desc)~desc,
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_a5d675fdf112ddf84b2e99975d795942b}{ADD\+\_\+\+BUILTIN\+\_\+\+NAME}}(Name, ...)~\char`\"{}Builtin\+\_\+\char`\"{} \#Name,
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_a8f55290455727736bb59dd0e86220733}{ADD\+\_\+\+RUNTIME\+\_\+\+FUNCTION}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, ...)~\char`\"{}Runtime\+::\char`\"{} \#name,
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_a8de243810e5109404e3a7e78271035fe}{ADD\+\_\+\+ISOLATE\+\_\+\+ADDR}}(Name,  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})~\char`\"{}Isolate\+::\char`\"{} \#name \char`\"{}\+\_\+address\char`\"{},
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_a64561de46e9a4a95d3d23e8458a8707f}{ADD\+\_\+\+ACCESSOR\+\_\+\+INFO\+\_\+\+NAME}}(\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  \mbox{\hyperlink{interpreter-builtins-x64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\+\_\+\+\_\+}},  Accessor\+Name, ...)~  \char`\"{}Accessors\+::\char`\"{} \#Accessor\+Name \char`\"{}Getter\char`\"{},
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_a126297ba2feec62b19dbafe080a0aa83}{ADD\+\_\+\+ACCESSOR\+\_\+\+GETTER\+\_\+\+NAME}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})~\char`\"{}Accessors\+::\char`\"{} \#name,
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_af2af9173cea350b3c92115e8af3a2b16}{ADD\+\_\+\+ACCESSOR\+\_\+\+SETTER\+\_\+\+NAME}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})~\char`\"{}Accessors\+::\char`\"{} \#name,
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_a7fb520f16135341bdcc4ebc2602b9350}{ADD\+\_\+\+ACCESSOR\+\_\+\+CALLBACK\+\_\+\+NAME}}(\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, ...)~\char`\"{}Accessors\+::\char`\"{} \#name,
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_a85164b039534002e8698126631a1bfe0}{ADD\+\_\+\+STATS\+\_\+\+COUNTER\+\_\+\+NAME}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, ...)~\char`\"{}Stats\+Counter\+::\char`\"{} \#name,
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_aeed576336af5fc9c00ce909e57bdb9cd}{FORWARD\+\_\+\+DECLARE}}(Name,  Argc)~  Address Builtin\+\_\+\#\#Name(int argc, Address$\ast$ \mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}, Isolate$\ast$ \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_a114505e4a154f0bd7691eba01f0f0822}{ADD\+\_\+\+EXTERNAL\+\_\+\+REFERENCE}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  desc)
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_a114505e4a154f0bd7691eba01f0f0822}{ADD\+\_\+\+EXTERNAL\+\_\+\+REFERENCE}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  desc)~  Add(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{External\+Reference\+::name}}(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}).address(), \mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}});
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_a75ace0de9f57d8f69f01962ce1e19db9}{DEF\+\_\+\+ENTRY}}(Name, ...)~\mbox{\hyperlink{common_2globals_8h_aa5186b9fd6612bf591ba59464649200b}{FUNCTION\+\_\+\+ADDR}}(\&Builtin\+\_\+\#\#Name),
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_a0e3142766da806123b2bbff8becc7dfd}{RUNTIME\+\_\+\+ENTRY}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, ...)~Runtime\+::k\#\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_a2d0f81bd3c6654eab28ecc01b1807f03}{ACCESSOR\+\_\+\+INFO\+\_\+\+DECLARATION}}(\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  \mbox{\hyperlink{interpreter-builtins-x64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\+\_\+\+\_\+}},  Accessor\+Name, ...)~  \mbox{\hyperlink{common_2globals_8h_aa5186b9fd6612bf591ba59464649200b}{FUNCTION\+\_\+\+ADDR}}(\&Accessors\+::\+Accessor\+Name\#\#Getter),
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_ad7eb14224e3067fedbee5d535b9f5360}{ACCESSOR\+\_\+\+GETTER\+\_\+\+DECLARATION}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})~\mbox{\hyperlink{common_2globals_8h_aa5186b9fd6612bf591ba59464649200b}{FUNCTION\+\_\+\+ADDR}}(\&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{Accessors\+::name}}),
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_a85837791605731d85ad148f7249c61e9}{ACCESSOR\+\_\+\+SETTER\+\_\+\+DECLARATION}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})~\mbox{\hyperlink{common_2globals_8h_aa5186b9fd6612bf591ba59464649200b}{FUNCTION\+\_\+\+ADDR}}(\&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{Accessors\+::name}}),
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_ad67606f0c818e95b1758663175a37030}{ACCESSOR\+\_\+\+CALLBACK\+\_\+\+DECLARATION}}(\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  Accessor\+Name, ...)~  \mbox{\hyperlink{common_2globals_8h_aa5186b9fd6612bf591ba59464649200b}{FUNCTION\+\_\+\+ADDR}}(\&Accessors\+::\+Accessor\+Name),
+\item 
+\#define \mbox{\hyperlink{external-reference-table_8cc_a95ff301584be3217ff7a738f61cc3ed2}{SC}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  caption)~Add(Get\+Stats\+Counter\+Address(counters-\/$>$\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}()), \mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}});
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{external-reference-table_8cc_ad67606f0c818e95b1758663175a37030}\label{external-reference-table_8cc_ad67606f0c818e95b1758663175a37030}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ACCESSOR\_CALLBACK\_DECLARATION@{ACCESSOR\_CALLBACK\_DECLARATION}}
+\index{ACCESSOR\_CALLBACK\_DECLARATION@{ACCESSOR\_CALLBACK\_DECLARATION}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ACCESSOR\_CALLBACK\_DECLARATION}{ACCESSOR\_CALLBACK\_DECLARATION}}
+{\footnotesize\ttfamily \#define ACCESSOR\+\_\+\+CALLBACK\+\_\+\+DECLARATION(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  }\item[{}]{Accessor\+Name,  }\item[{}]{... }\end{DoxyParamCaption})~  \mbox{\hyperlink{common_2globals_8h_aa5186b9fd6612bf591ba59464649200b}{FUNCTION\+\_\+\+ADDR}}(\&Accessors\+::\+Accessor\+Name),}
+
+\mbox{\Hypertarget{external-reference-table_8cc_ad7eb14224e3067fedbee5d535b9f5360}\label{external-reference-table_8cc_ad7eb14224e3067fedbee5d535b9f5360}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ACCESSOR\_GETTER\_DECLARATION@{ACCESSOR\_GETTER\_DECLARATION}}
+\index{ACCESSOR\_GETTER\_DECLARATION@{ACCESSOR\_GETTER\_DECLARATION}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ACCESSOR\_GETTER\_DECLARATION}{ACCESSOR\_GETTER\_DECLARATION}}
+{\footnotesize\ttfamily \#define ACCESSOR\+\_\+\+GETTER\+\_\+\+DECLARATION(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})~\mbox{\hyperlink{common_2globals_8h_aa5186b9fd6612bf591ba59464649200b}{FUNCTION\+\_\+\+ADDR}}(\&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{Accessors\+::name}}),}
+
+\mbox{\Hypertarget{external-reference-table_8cc_a2d0f81bd3c6654eab28ecc01b1807f03}\label{external-reference-table_8cc_a2d0f81bd3c6654eab28ecc01b1807f03}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ACCESSOR\_INFO\_DECLARATION@{ACCESSOR\_INFO\_DECLARATION}}
+\index{ACCESSOR\_INFO\_DECLARATION@{ACCESSOR\_INFO\_DECLARATION}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ACCESSOR\_INFO\_DECLARATION}{ACCESSOR\_INFO\_DECLARATION}}
+{\footnotesize\ttfamily \#define ACCESSOR\+\_\+\+INFO\+\_\+\+DECLARATION(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  }\item[{}]{\mbox{\hyperlink{interpreter-builtins-x64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\+\_\+\+\_\+}},  }\item[{}]{Accessor\+Name,  }\item[{}]{... }\end{DoxyParamCaption})~  \mbox{\hyperlink{common_2globals_8h_aa5186b9fd6612bf591ba59464649200b}{FUNCTION\+\_\+\+ADDR}}(\&Accessors\+::\+Accessor\+Name\#\#Getter),}
+
+\mbox{\Hypertarget{external-reference-table_8cc_a85837791605731d85ad148f7249c61e9}\label{external-reference-table_8cc_a85837791605731d85ad148f7249c61e9}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ACCESSOR\_SETTER\_DECLARATION@{ACCESSOR\_SETTER\_DECLARATION}}
+\index{ACCESSOR\_SETTER\_DECLARATION@{ACCESSOR\_SETTER\_DECLARATION}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ACCESSOR\_SETTER\_DECLARATION}{ACCESSOR\_SETTER\_DECLARATION}}
+{\footnotesize\ttfamily \#define ACCESSOR\+\_\+\+SETTER\+\_\+\+DECLARATION(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})~\mbox{\hyperlink{common_2globals_8h_aa5186b9fd6612bf591ba59464649200b}{FUNCTION\+\_\+\+ADDR}}(\&\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{Accessors\+::name}}),}
+
+\mbox{\Hypertarget{external-reference-table_8cc_a7fb520f16135341bdcc4ebc2602b9350}\label{external-reference-table_8cc_a7fb520f16135341bdcc4ebc2602b9350}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ADD\_ACCESSOR\_CALLBACK\_NAME@{ADD\_ACCESSOR\_CALLBACK\_NAME}}
+\index{ADD\_ACCESSOR\_CALLBACK\_NAME@{ADD\_ACCESSOR\_CALLBACK\_NAME}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ADD\_ACCESSOR\_CALLBACK\_NAME}{ADD\_ACCESSOR\_CALLBACK\_NAME}}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+ACCESSOR\+\_\+\+CALLBACK\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{... }\end{DoxyParamCaption})~\char`\"{}Accessors\+::\char`\"{} \#name,}
+
+\mbox{\Hypertarget{external-reference-table_8cc_a126297ba2feec62b19dbafe080a0aa83}\label{external-reference-table_8cc_a126297ba2feec62b19dbafe080a0aa83}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ADD\_ACCESSOR\_GETTER\_NAME@{ADD\_ACCESSOR\_GETTER\_NAME}}
+\index{ADD\_ACCESSOR\_GETTER\_NAME@{ADD\_ACCESSOR\_GETTER\_NAME}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ADD\_ACCESSOR\_GETTER\_NAME}{ADD\_ACCESSOR\_GETTER\_NAME}}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+ACCESSOR\+\_\+\+GETTER\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})~\char`\"{}Accessors\+::\char`\"{} \#name,}
+
+\mbox{\Hypertarget{external-reference-table_8cc_a64561de46e9a4a95d3d23e8458a8707f}\label{external-reference-table_8cc_a64561de46e9a4a95d3d23e8458a8707f}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ADD\_ACCESSOR\_INFO\_NAME@{ADD\_ACCESSOR\_INFO\_NAME}}
+\index{ADD\_ACCESSOR\_INFO\_NAME@{ADD\_ACCESSOR\_INFO\_NAME}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ADD\_ACCESSOR\_INFO\_NAME}{ADD\_ACCESSOR\_INFO\_NAME}}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+ACCESSOR\+\_\+\+INFO\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  }\item[{}]{\mbox{\hyperlink{interpreter-builtins-x64_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\+\_\+\+\_\+}},  }\item[{}]{Accessor\+Name,  }\item[{}]{... }\end{DoxyParamCaption})~  \char`\"{}Accessors\+::\char`\"{} \#Accessor\+Name \char`\"{}Getter\char`\"{},}
+
+\mbox{\Hypertarget{external-reference-table_8cc_af2af9173cea350b3c92115e8af3a2b16}\label{external-reference-table_8cc_af2af9173cea350b3c92115e8af3a2b16}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ADD\_ACCESSOR\_SETTER\_NAME@{ADD\_ACCESSOR\_SETTER\_NAME}}
+\index{ADD\_ACCESSOR\_SETTER\_NAME@{ADD\_ACCESSOR\_SETTER\_NAME}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ADD\_ACCESSOR\_SETTER\_NAME}{ADD\_ACCESSOR\_SETTER\_NAME}}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+ACCESSOR\+\_\+\+SETTER\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})~\char`\"{}Accessors\+::\char`\"{} \#name,}
+
+\mbox{\Hypertarget{external-reference-table_8cc_a5d675fdf112ddf84b2e99975d795942b}\label{external-reference-table_8cc_a5d675fdf112ddf84b2e99975d795942b}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ADD\_BUILTIN\_NAME@{ADD\_BUILTIN\_NAME}}
+\index{ADD\_BUILTIN\_NAME@{ADD\_BUILTIN\_NAME}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ADD\_BUILTIN\_NAME}{ADD\_BUILTIN\_NAME}}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+BUILTIN\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})~\char`\"{}Builtin\+\_\+\char`\"{} \#Name,}
+
+\mbox{\Hypertarget{external-reference-table_8cc_ab1a741b5699281ba8479483334f817ac}\label{external-reference-table_8cc_ab1a741b5699281ba8479483334f817ac}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ADD\_EXT\_REF\_NAME@{ADD\_EXT\_REF\_NAME}}
+\index{ADD\_EXT\_REF\_NAME@{ADD\_EXT\_REF\_NAME}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ADD\_EXT\_REF\_NAME}{ADD\_EXT\_REF\_NAME}}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+EXT\+\_\+\+REF\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{desc }\end{DoxyParamCaption})~desc,}
+
+\mbox{\Hypertarget{external-reference-table_8cc_a114505e4a154f0bd7691eba01f0f0822}\label{external-reference-table_8cc_a114505e4a154f0bd7691eba01f0f0822}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ADD\_EXTERNAL\_REFERENCE@{ADD\_EXTERNAL\_REFERENCE}}
+\index{ADD\_EXTERNAL\_REFERENCE@{ADD\_EXTERNAL\_REFERENCE}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ADD\_EXTERNAL\_REFERENCE}{ADD\_EXTERNAL\_REFERENCE}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+EXTERNAL\+\_\+\+REFERENCE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{desc }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  AddIsolateIndependent(\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{ExternalReference::name}}().address(), \mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}, \(\backslash\)}
+\DoxyCodeLine{                        shared\_external\_references);}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{external-reference-table_8cc_a114505e4a154f0bd7691eba01f0f0822}\label{external-reference-table_8cc_a114505e4a154f0bd7691eba01f0f0822}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ADD\_EXTERNAL\_REFERENCE@{ADD\_EXTERNAL\_REFERENCE}}
+\index{ADD\_EXTERNAL\_REFERENCE@{ADD\_EXTERNAL\_REFERENCE}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ADD\_EXTERNAL\_REFERENCE}{ADD\_EXTERNAL\_REFERENCE}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+EXTERNAL\+\_\+\+REFERENCE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{desc }\end{DoxyParamCaption})~  Add(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{External\+Reference\+::name}}(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}).address(), \mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}});}
+
+\mbox{\Hypertarget{external-reference-table_8cc_a8de243810e5109404e3a7e78271035fe}\label{external-reference-table_8cc_a8de243810e5109404e3a7e78271035fe}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ADD\_ISOLATE\_ADDR@{ADD\_ISOLATE\_ADDR}}
+\index{ADD\_ISOLATE\_ADDR@{ADD\_ISOLATE\_ADDR}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ADD\_ISOLATE\_ADDR}{ADD\_ISOLATE\_ADDR}}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+ISOLATE\+\_\+\+ADDR(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})~\char`\"{}Isolate\+::\char`\"{} \#name \char`\"{}\+\_\+address\char`\"{},}
+
+\mbox{\Hypertarget{external-reference-table_8cc_a8f55290455727736bb59dd0e86220733}\label{external-reference-table_8cc_a8f55290455727736bb59dd0e86220733}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ADD\_RUNTIME\_FUNCTION@{ADD\_RUNTIME\_FUNCTION}}
+\index{ADD\_RUNTIME\_FUNCTION@{ADD\_RUNTIME\_FUNCTION}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ADD\_RUNTIME\_FUNCTION}{ADD\_RUNTIME\_FUNCTION}}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+RUNTIME\+\_\+\+FUNCTION(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{... }\end{DoxyParamCaption})~\char`\"{}Runtime\+::\char`\"{} \#name,}
+
+\mbox{\Hypertarget{external-reference-table_8cc_a85164b039534002e8698126631a1bfe0}\label{external-reference-table_8cc_a85164b039534002e8698126631a1bfe0}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!ADD\_STATS\_COUNTER\_NAME@{ADD\_STATS\_COUNTER\_NAME}}
+\index{ADD\_STATS\_COUNTER\_NAME@{ADD\_STATS\_COUNTER\_NAME}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{ADD\_STATS\_COUNTER\_NAME}{ADD\_STATS\_COUNTER\_NAME}}
+{\footnotesize\ttfamily \#define ADD\+\_\+\+STATS\+\_\+\+COUNTER\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{... }\end{DoxyParamCaption})~\char`\"{}Stats\+Counter\+::\char`\"{} \#name,}
+
+\mbox{\Hypertarget{external-reference-table_8cc_a75ace0de9f57d8f69f01962ce1e19db9}\label{external-reference-table_8cc_a75ace0de9f57d8f69f01962ce1e19db9}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!DEF\_ENTRY@{DEF\_ENTRY}}
+\index{DEF\_ENTRY@{DEF\_ENTRY}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{DEF\_ENTRY}{DEF\_ENTRY}}
+{\footnotesize\ttfamily \#define DEF\+\_\+\+ENTRY(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{common_2globals_8h_aa5186b9fd6612bf591ba59464649200b}{FUNCTION\+\_\+\+ADDR}}(\&Builtin\+\_\+\#\#Name),}
+
+\mbox{\Hypertarget{external-reference-table_8cc_aeed576336af5fc9c00ce909e57bdb9cd}\label{external-reference-table_8cc_aeed576336af5fc9c00ce909e57bdb9cd}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!FORWARD\_DECLARE@{FORWARD\_DECLARE}}
+\index{FORWARD\_DECLARE@{FORWARD\_DECLARE}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{FORWARD\_DECLARE}{FORWARD\_DECLARE}}
+{\footnotesize\ttfamily \#define FORWARD\+\_\+\+DECLARE(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{Argc }\end{DoxyParamCaption})~  Address Builtin\+\_\+\#\#Name(int argc, Address$\ast$ \mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}, Isolate$\ast$ \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});}
+
+\mbox{\Hypertarget{external-reference-table_8cc_a0e3142766da806123b2bbff8becc7dfd}\label{external-reference-table_8cc_a0e3142766da806123b2bbff8becc7dfd}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!RUNTIME\_ENTRY@{RUNTIME\_ENTRY}}
+\index{RUNTIME\_ENTRY@{RUNTIME\_ENTRY}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{RUNTIME\_ENTRY}{RUNTIME\_ENTRY}}
+{\footnotesize\ttfamily \#define RUNTIME\+\_\+\+ENTRY(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{... }\end{DoxyParamCaption})~Runtime\+::k\#\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},}
+
+\mbox{\Hypertarget{external-reference-table_8cc_a95ff301584be3217ff7a738f61cc3ed2}\label{external-reference-table_8cc_a95ff301584be3217ff7a738f61cc3ed2}} 
+\index{external-\/reference-\/table.cc@{external-\/reference-\/table.cc}!SC@{SC}}
+\index{SC@{SC}!external-\/reference-\/table.cc@{external-\/reference-\/table.cc}}
+\doxysubsubsection{\texorpdfstring{SC}{SC}}
+{\footnotesize\ttfamily \#define SC(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{caption }\end{DoxyParamCaption})~Add(Get\+Stats\+Counter\+Address(counters-\/$>$\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}()), \mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}});}
+

@@ -1,0 +1,4 @@
+var structv8_1_1internal_1_1compiler_1_1SimplifiedOperatorGlobalCache_1_1ChangeFloat64OrUndefinedToTaggedOperator =
+[
+    [ "ChangeFloat64OrUndefinedToTaggedOperator", "structv8_1_1internal_1_1compiler_1_1SimplifiedOperatorGlobalCache_1_1ChangeFloat64OrUndefinedToTaggedOperator.html#a8cb2d339262a2da3861564513df5f31a", null ]
+];

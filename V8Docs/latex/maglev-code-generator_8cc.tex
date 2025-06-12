@@ -1,0 +1,100 @@
+\hypertarget{maglev-code-generator_8cc}{}\doxysection{maglev-\/code-\/generator.cc File Reference}
+\label{maglev-code-generator_8cc}\index{maglev-\/code-\/generator.cc@{maglev-\/code-\/generator.cc}}
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/code-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include \char`\"{}src/base/hashmap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/code-\/desc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/interface-\/descriptors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/interface-\/descriptors.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/register.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/reglist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/safepoint-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/source-\/position.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/instruction.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/deoptimizer/deoptimize-\/reason.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/deoptimizer/deoptimizer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/deoptimizer/frame-\/translation-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/frame-\/constants.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/global-\/handles-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/register.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/assembler-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/code-\/gen-\/state-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/compilation-\/unit.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/graph-\/labeller.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/graph-\/printer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/graph-\/processor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/graph.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/ir-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/ir.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/regalloc-\/data.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/code-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/deoptimization-\/data.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/identity-\/map.\+h\char`\"{}}\newline
+Include dependency graph for maglev-\/code-\/generator.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maglev-code-generator_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev}{v8\+::internal\+::maglev}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{maglev-code-generator_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\+\_\+\+\_\+}}~masm()-\/$>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{maglev-code-generator_8cc_a0a87998f4e8cee4888f2a89df3d5639b}\label{maglev-code-generator_8cc_a0a87998f4e8cee4888f2a89df3d5639b}} 
+\index{maglev-\/code-\/generator.cc@{maglev-\/code-\/generator.cc}!\_\_@{\_\_}}
+\index{\_\_@{\_\_}!maglev-\/code-\/generator.cc@{maglev-\/code-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{\_\_}{\_\_}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+~masm()-\/$>$}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{maglev-code-generator_8cc_a15dbaeb6e79be8ce6289c78f0fe19aab}\label{maglev-code-generator_8cc_a15dbaeb6e79be8ce6289c78f0fe19aab}} 
+\index{maglev-\/code-\/generator.cc@{maglev-\/code-\/generator.cc}!needs\_decompression@{needs\_decompression}}
+\index{needs\_decompression@{needs\_decompression}!maglev-\/code-\/generator.cc@{maglev-\/code-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{needs\_decompression}{needs\_decompression}}
+{\footnotesize\ttfamily \mbox{\hyperlink{v8config_8h_a186211b188a47e98752181e615371856}{V8\+\_\+\+NO\+\_\+\+UNIQUE\+\_\+\+ADDRESS}} std\+::conditional\+\_\+t$<$Decompress\+If\+Needed, Needs\+Decompression, Dummy\+Needs\+Decompression$>$ needs\+\_\+decompression = k\+Does\+Not\+Need\+Decompression}
+
+\mbox{\Hypertarget{maglev-code-generator_8cc_ab6c2dc98768603fa8f30bd361f2c53d3}\label{maglev-code-generator_8cc_ab6c2dc98768603fa8f30bd361f2c53d3}} 
+\index{maglev-\/code-\/generator.cc@{maglev-\/code-\/generator.cc}!registers@{registers}}
+\index{registers@{registers}!maglev-\/code-\/generator.cc@{maglev-\/code-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{registers}{registers}}
+{\footnotesize\ttfamily Reg\+List\+Base$<$RegisterT$>$ registers}
+
+\mbox{\Hypertarget{maglev-code-generator_8cc_ada8b48e004e823cabe5fcb41baf29163}\label{maglev-code-generator_8cc_ada8b48e004e823cabe5fcb41baf29163}} 
+\index{maglev-\/code-\/generator.cc@{maglev-\/code-\/generator.cc}!source@{source}}
+\index{source@{source}!maglev-\/code-\/generator.cc@{maglev-\/code-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{source}{source}}
+{\footnotesize\ttfamily Value\+Node$\ast$ const source}
+
+\mbox{\Hypertarget{maglev-code-generator_8cc_ab2db56d89ae9e1f5d8022a39e2c19a84}\label{maglev-code-generator_8cc_ab2db56d89ae9e1f5d8022a39e2c19a84}} 
+\index{maglev-\/code-\/generator.cc@{maglev-\/code-\/generator.cc}!stack\_slots@{stack\_slots}}
+\index{stack\_slots@{stack\_slots}!maglev-\/code-\/generator.cc@{maglev-\/code-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{stack\_slots}{stack\_slots}}
+{\footnotesize\ttfamily base\+::\+Small\+Vector$<$int32\+\_\+t, 1$>$ stack\+\_\+slots = base\+::\+Small\+Vector$<$int32\+\_\+t, 1$>$\{\}}
+
+\mbox{\Hypertarget{maglev-code-generator_8cc_a3c635dfb06e7090635c7fed4f7504693}\label{maglev-code-generator_8cc_a3c635dfb06e7090635c7fed4f7504693}} 
+\index{maglev-\/code-\/generator.cc@{maglev-\/code-\/generator.cc}!target@{target}}
+\index{target@{target}!maglev-\/code-\/generator.cc@{maglev-\/code-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{target}{target}}
+{\footnotesize\ttfamily const Value\+Location\& target}
+

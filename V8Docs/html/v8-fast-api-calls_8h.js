@@ -1,0 +1,27 @@
+var v8_fast_api_calls_8h =
+[
+    [ "CTypeInfo", "classv8_1_1CTypeInfo.html", "classv8_1_1CTypeInfo" ],
+    [ "FastOneByteString", "structv8_1_1FastOneByteString.html", "structv8_1_1FastOneByteString" ],
+    [ "CFunctionInfo", "classv8_1_1CFunctionInfo.html", "classv8_1_1CFunctionInfo" ],
+    [ "AnyCType", "unionv8_1_1AnyCType.html", "unionv8_1_1AnyCType" ],
+    [ "CFunction", "classv8_1_1CFunction.html", "classv8_1_1CFunction" ],
+    [ "FastApiCallbackOptions", "structv8_1_1FastApiCallbackOptions.html", "structv8_1_1FastApiCallbackOptions" ],
+    [ "count", "structv8_1_1internal_1_1count.html", null ],
+    [ "count< T, T, Args... >", "structv8_1_1internal_1_1count_3_01T_00_01T_00_01Args_8_8_8_01_4.html", null ],
+    [ "count< T, U, Args... >", "structv8_1_1internal_1_1count_3_01T_00_01U_00_01Args_8_8_8_01_4.html", null ],
+    [ "CFunctionInfoImpl", "classv8_1_1internal_1_1CFunctionInfoImpl.html", "classv8_1_1internal_1_1CFunctionInfoImpl" ],
+    [ "TypeInfoHelper", "structv8_1_1internal_1_1TypeInfoHelper.html", null ],
+    [ "CTypeInfoTraits", "structv8_1_1internal_1_1CTypeInfoTraits.html", null ],
+    [ "TypeInfoHelper< FastApiCallbackOptions & >", "structv8_1_1internal_1_1TypeInfoHelper_3_01FastApiCallbackOptions_01_6_01_4.html", null ],
+    [ "TypeInfoHelper< const FastOneByteString & >", "structv8_1_1internal_1_1TypeInfoHelper_3_01const_01FastOneByteString_01_6_01_4.html", null ],
+    [ "CTypeInfoBuilder", "classv8_1_1CTypeInfoBuilder.html", "classv8_1_1CTypeInfoBuilder" ],
+    [ "CFunctionBuilderWithFunction", "classv8_1_1internal_1_1CFunctionBuilderWithFunction.html", "classv8_1_1internal_1_1CFunctionBuilderWithFunction" ],
+    [ "CFunctionBuilder", "classv8_1_1internal_1_1CFunctionBuilder.html", "classv8_1_1internal_1_1CFunctionBuilder" ],
+    [ "ALL_C_TYPES", "v8-fast-api-calls_8h.html#af3711733e1b4f90ea0f5c105e5004dfc", null ],
+    [ "DEFINE_TYPE_INFO_TRAITS", "v8-fast-api-calls_8h.html#a1b769380f394153ba359234364d75974", null ],
+    [ "PRIMITIVE_C_TYPES", "v8-fast-api-calls_8h.html#a514f55a0704bb1181282c7d2ec74791f", null ],
+    [ "SPECIALIZE_GET_TYPE_INFO_HELPER_FOR", "v8-fast-api-calls_8h.html#a9031608d0e398e046f55212e1b9f8a52", null ],
+    [ "STATIC_ASSERT_IMPLIES", "v8-fast-api-calls_8h.html#afb9be8d112a465de54a10926a762ea39", null ],
+    [ "CFunctionBuilder", "v8-fast-api-calls_8h.html#a78391790f9a8e234f8c87979de521ecd", null ],
+    [ "TryToCopyAndConvertArrayToCppBuffer", "v8-fast-api-calls_8h.html#a6887c90141a6aa1dd21ffefb82863559", null ]
+];

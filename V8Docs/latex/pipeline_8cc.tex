@@ -1,0 +1,197 @@
+\hypertarget{pipeline_8cc}{}\doxysection{pipeline.\+cc File Reference}
+\label{pipeline_8cc}\index{pipeline.cc@{pipeline.cc}}
+{\ttfamily \#include \char`\"{}src/compiler/pipeline.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include \char`\"{}src/base/macros.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/builtins.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/profile-\/data-\/reader.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/bailout-\/reason.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/interface-\/descriptors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/optimized-\/compilation-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/register-\/configuration.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/reloc-\/info-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/reloc-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/high-\/allocation-\/throughput-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/add-\/type-\/assertions-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/bitcast-\/elider.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/code-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/instruction-\/selector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/instruction.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/register-\/allocator-\/verifier.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/register-\/allocator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/basic-\/block-\/instrumentor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/branch-\/elimination.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/bytecode-\/graph-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/checkpoint-\/elimination.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/code-\/assembler-\/compilation-\/job.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/code-\/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/common-\/operator-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/common-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/compilation-\/dependencies.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/compiler-\/source-\/position-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/constant-\/folding-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/csa-\/load-\/elimination.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/dead-\/code-\/elimination.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/escape-\/analysis-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/escape-\/analysis.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/graph-\/trimmer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/call-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/context-\/specialization.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/create-\/lowering.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/generic-\/lowering.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/heap-\/broker.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/inlining-\/heuristic.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/intrinsic-\/lowering.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/native-\/context-\/specialization.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/typed-\/lowering.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/late-\/escape-\/analysis.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/linkage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/load-\/elimination.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/loop-\/analysis.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/loop-\/peeling.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/loop-\/variable-\/optimizer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/machine-\/graph-\/verifier.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/machine-\/operator-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/memory-\/optimizer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/observer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/origin-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/osr.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/pair-\/load-\/store-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/phase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/pipeline-\/data-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/pipeline-\/statistics.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/raw-\/machine-\/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/redundancy-\/elimination.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/schedule.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/scheduler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/simplified-\/lowering.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/simplified-\/operator-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/simplified-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turbofan-\/graph-\/visualizer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turbofan-\/typer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/build-\/graph-\/phase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/debug-\/feature-\/lowering-\/phase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/instruction-\/selection-\/phase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/loop-\/peeling-\/phase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/loop-\/unrolling-\/phase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/phase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/pipelines.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/simplify-\/tf-\/loops.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/tracing.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/type-\/narrowing-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/typed-\/optimization.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/value-\/numbering-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/verifier.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/zone-\/stats.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/diagnostics/code-\/tracer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/diagnostics/disassembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/handles-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/local-\/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/code-\/events.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/counters.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/runtime-\/call-\/stats-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/runtime-\/call-\/stats.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/code-\/kind.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/shared-\/function-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/string-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/tracing/trace-\/event.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/ostreams.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/utils.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineImpl}{v8\+::internal\+::compiler\+::\+Pipeline\+Impl}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1PipelineCompilationJob}{v8\+::internal\+::compiler\+::\+Pipeline\+Compilation\+Job}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1GraphBuilderPhase}{v8\+::internal\+::compiler\+::\+Graph\+Builder\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1InliningPhase}{v8\+::internal\+::compiler\+::\+Inlining\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1EarlyGraphTrimmingPhase}{v8\+::internal\+::compiler\+::\+Early\+Graph\+Trimming\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1TyperPhase}{v8\+::internal\+::compiler\+::\+Typer\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1UntyperPhase}{v8\+::internal\+::compiler\+::\+Untyper\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1HeapBrokerInitializationPhase}{v8\+::internal\+::compiler\+::\+Heap\+Broker\+Initialization\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1TypedLoweringPhase}{v8\+::internal\+::compiler\+::\+Typed\+Lowering\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1EscapeAnalysisPhase}{v8\+::internal\+::compiler\+::\+Escape\+Analysis\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1TypeAssertionsPhase}{v8\+::internal\+::compiler\+::\+Type\+Assertions\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1SimplifiedLoweringPhase}{v8\+::internal\+::compiler\+::\+Simplified\+Lowering\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1LoopPeelingPhase}{v8\+::internal\+::compiler\+::\+Loop\+Peeling\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1LoopExitEliminationPhase}{v8\+::internal\+::compiler\+::\+Loop\+Exit\+Elimination\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1GenericLoweringPhase}{v8\+::internal\+::compiler\+::\+Generic\+Lowering\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1EarlyOptimizationPhase}{v8\+::internal\+::compiler\+::\+Early\+Optimization\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1LoadEliminationPhase}{v8\+::internal\+::compiler\+::\+Load\+Elimination\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1MemoryOptimizationPhase}{v8\+::internal\+::compiler\+::\+Memory\+Optimization\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1ComputeSchedulePhase}{v8\+::internal\+::compiler\+::\+Compute\+Schedule\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1PrintGraphPhase}{v8\+::internal\+::compiler\+::\+Print\+Graph\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1VerifyGraphPhase}{v8\+::internal\+::compiler\+::\+Verify\+Graph\+Phase}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1CodeAssemblerCompilationJob_1_1TFDataAndPipeline}{v8\+::internal\+::compiler\+::\+Code\+Assembler\+Compilation\+Job\+::\+TFData\+And\+Pipeline}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1CodeAssemblerTurboshaftCompilationJob}{v8\+::internal\+::compiler\+::\+Code\+Assembler\+Turboshaft\+Compilation\+Job}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{pipeline_8cc_a1cc4cc9262f0f51a60e855679402d1a0}{RUN\+\_\+\+MAYBE\+\_\+\+ABORT}}(phase, ...)~  if (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\+\_\+\+UNLIKELY}}(!Run$<$phase$>$(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))) return \{\};
+\item 
+\#define \mbox{\hyperlink{pipeline_8cc_a155b941500676cee52917944c56099be}{PIPELINE\+\_\+\+RUN\+\_\+\+MAYBE\+\_\+\+ABORT}}(pipeline,  phase, ...)~  if (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\+\_\+\+UNLIKELY}}(!(pipeline).Run$<$phase$>$(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))) return \{\};
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ab05c182371a6b4107bfa20b1c8c3dc5c}{v8\+::internal\+::compiler\+::\+Trace\+Schedule}} (Optimized\+Compilation\+Info $\ast$\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}}, TFPipeline\+Data $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, Schedule $\ast$\mbox{\hyperlink{graph-builder_8cc_a970e7f41771cbd0ccc6f2f1ab01faab0}{schedule}}, const char $\ast$phase\+\_\+name)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a2ccd7d2125ac506417d6d848af6ba521}{v8\+::internal\+::compiler\+::\+Print\+Code}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Direct\+Handle$<$ Code $>$ \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}, Optimized\+Compilation\+Info $\ast$\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}})
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3b0b17a896dc48a4d8b81e853a198cae}{v8\+::internal\+::compiler\+::\+Check\+No\+Deprecated\+Maps}} (Direct\+Handle$<$ Code $>$ \mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}}, Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}})
+\item 
+std\+::ostream \& \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ab4b087a36eefc604007db4100e2e44c7}{v8\+::internal\+::compiler\+::operator$<$$<$}} (std\+::ostream \&out, const Instruction\+Ranges\+As\+JSON \&\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{pipeline_8cc_a155b941500676cee52917944c56099be}\label{pipeline_8cc_a155b941500676cee52917944c56099be}} 
+\index{pipeline.cc@{pipeline.cc}!PIPELINE\_RUN\_MAYBE\_ABORT@{PIPELINE\_RUN\_MAYBE\_ABORT}}
+\index{PIPELINE\_RUN\_MAYBE\_ABORT@{PIPELINE\_RUN\_MAYBE\_ABORT}!pipeline.cc@{pipeline.cc}}
+\doxysubsubsection{\texorpdfstring{PIPELINE\_RUN\_MAYBE\_ABORT}{PIPELINE\_RUN\_MAYBE\_ABORT}}
+{\footnotesize\ttfamily \#define PIPELINE\+\_\+\+RUN\+\_\+\+MAYBE\+\_\+\+ABORT(\begin{DoxyParamCaption}\item[{}]{pipeline,  }\item[{}]{phase,  }\item[{}]{... }\end{DoxyParamCaption})~  if (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\+\_\+\+UNLIKELY}}(!(pipeline).Run$<$phase$>$(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))) return \{\};}
+
+\mbox{\Hypertarget{pipeline_8cc_a1cc4cc9262f0f51a60e855679402d1a0}\label{pipeline_8cc_a1cc4cc9262f0f51a60e855679402d1a0}} 
+\index{pipeline.cc@{pipeline.cc}!RUN\_MAYBE\_ABORT@{RUN\_MAYBE\_ABORT}}
+\index{RUN\_MAYBE\_ABORT@{RUN\_MAYBE\_ABORT}!pipeline.cc@{pipeline.cc}}
+\doxysubsubsection{\texorpdfstring{RUN\_MAYBE\_ABORT}{RUN\_MAYBE\_ABORT}}
+{\footnotesize\ttfamily \#define RUN\+\_\+\+MAYBE\+\_\+\+ABORT(\begin{DoxyParamCaption}\item[{}]{phase,  }\item[{}]{... }\end{DoxyParamCaption})~  if (\mbox{\hyperlink{v8config_8h_a67bd29db07c711b0fb11ff1c324ebb60}{V8\+\_\+\+UNLIKELY}}(!Run$<$phase$>$(\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+))) return \{\};}
+

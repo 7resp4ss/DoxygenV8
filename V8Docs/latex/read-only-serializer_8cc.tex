@@ -1,0 +1,130 @@
+\hypertarget{read-only-serializer_8cc}{}\doxysection{read-\/only-\/serializer.cc File Reference}
+\label{read-only-serializer_8cc}\index{read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}}
+{\ttfamily \#include \char`\"{}src/snapshot/read-\/only-\/serializer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/read-\/only-\/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/visit-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/slots.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/read-\/only-\/serializer-\/deserializer.\+h\char`\"{}}\newline
+Include dependency graph for read-\/only-\/serializer.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{read-only-serializer_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{read-only-serializer_8cc_a93f2e5a8f2c6dd05c5033b22436b2aef}{PRE\+\_\+\+PROCESS\+\_\+\+TYPE\+\_\+\+LIST}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{read-only-serializer_8cc_a3817b0302eef526b3ae851a62eb2cbc7}{V}}(TYPE)
+\item 
+\#define \mbox{\hyperlink{read-only-serializer_8cc_a384447c27a514aaedfd3ac9a77c12f4b}{PROCESS\+\_\+\+FIELD}}(Name,  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{read-only-serializer_8cc_a93f2e5a8f2c6dd05c5033b22436b2aef}\label{read-only-serializer_8cc_a93f2e5a8f2c6dd05c5033b22436b2aef}} 
+\index{read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}!PRE\_PROCESS\_TYPE\_LIST@{PRE\_PROCESS\_TYPE\_LIST}}
+\index{PRE\_PROCESS\_TYPE\_LIST@{PRE\_PROCESS\_TYPE\_LIST}!read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{PRE\_PROCESS\_TYPE\_LIST}{PRE\_PROCESS\_TYPE\_LIST}}
+{\footnotesize\ttfamily \#define PRE\+\_\+\+PROCESS\+\_\+\+TYPE\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{read-only-serializer_8cc_a3817b0302eef526b3ae851a62eb2cbc7}{V}}(AccessorInfo)                \(\backslash\)}
+\DoxyCodeLine{  V(InterceptorInfo)             \(\backslash\)}
+\DoxyCodeLine{  V(JSExternalObject)            \(\backslash\)}
+\DoxyCodeLine{  V(FunctionTemplateInfo)        \(\backslash\)}
+\DoxyCodeLine{  V(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a9536733bcd8fbb4643211b2a1d38dd86}{Code}})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{read-only-serializer_8cc_a384447c27a514aaedfd3ac9a77c12f4b}\label{read-only-serializer_8cc_a384447c27a514aaedfd3ac9a77c12f4b}} 
+\index{read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}!PROCESS\_FIELD@{PROCESS\_FIELD}}
+\index{PROCESS\_FIELD@{PROCESS\_FIELD}!read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{PROCESS\_FIELD}{PROCESS\_FIELD}}
+{\footnotesize\ttfamily \#define PROCESS\+\_\+\+FIELD(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  EncodeExternalPointerSlot(o-\/>RawExternalPointerField( \(\backslash\)}
+\DoxyCodeLine{      InterceptorInfo::k\#\#Name\#\#\mbox{\hyperlink{namespacev8_1_1internal_a3d8bef490db0b5b71efc19be04821f36}{Offset}},                 \(\backslash\)}
+\DoxyCodeLine{      \mbox{\hyperlink{namespacev8_1_1internal_a1dc3151fe3fe99e8a03e2582db4fc849}{is\_named}} ? kApiNamedProperty\#\#Name\#\#CallbackTag   \(\backslash\)}
+\DoxyCodeLine{               : kApiIndexedProperty\#\#Name\#\#CallbackTag));}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{read-only-serializer_8cc_a3817b0302eef526b3ae851a62eb2cbc7}\label{read-only-serializer_8cc_a3817b0302eef526b3ae851a62eb2cbc7}} 
+\index{read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}!V@{V}}
+\index{V@{V}!read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{V}{V}}
+{\footnotesize\ttfamily \#define V(\begin{DoxyParamCaption}\item[{}]{TYPE }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_a2d7df811163e1b32e949af92992e5c1b}{InstanceTypeChecker::Is}}\#\#TYPE(itype)) \{ \(\backslash\)}
+\DoxyCodeLine{    return PreProcess\#\#TYPE(Cast<TYPE>(o));   \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{read-only-serializer_8cc_a96b0e48e45c87775b98ac25763616017}\label{read-only-serializer_8cc_a96b0e48e45c87775b98ac25763616017}} 
+\index{read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}!contents@{contents}}
+\index{contents@{contents}!read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{contents}{contents}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$uint8\+\_\+t\mbox{[}$\,$\mbox{]}$>$ contents}
+
+\mbox{\Hypertarget{read-only-serializer_8cc_aee99483e90800fc00cb2b52e479b25a7}\label{read-only-serializer_8cc_aee99483e90800fc00cb2b52e479b25a7}} 
+\index{read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}!page@{page}}
+\index{page@{page}!read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{page}{page}}
+{\footnotesize\ttfamily const Read\+Only\+Page\+Metadata$\ast$ const page}
+
+\mbox{\Hypertarget{read-only-serializer_8cc_ad217cb99fd7f4fdf9c14bb5b761c7198}\label{read-only-serializer_8cc_ad217cb99fd7f4fdf9c14bb5b761c7198}} 
+\index{read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}!segment\_offset@{segment\_offset}}
+\index{segment\_offset@{segment\_offset}!read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{segment\_offset}{segment\_offset}}
+{\footnotesize\ttfamily const size\+\_\+t segment\+\_\+offset}
+
+\mbox{\Hypertarget{read-only-serializer_8cc_a45f272c69ffccff6fbcda01adbadb7af}\label{read-only-serializer_8cc_a45f272c69ffccff6fbcda01adbadb7af}} 
+\index{read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}!segment\_size@{segment\_size}}
+\index{segment\_size@{segment\_size}!read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{segment\_size}{segment\_size}}
+{\footnotesize\ttfamily const size\+\_\+t segment\+\_\+size}
+
+\mbox{\Hypertarget{read-only-serializer_8cc_a48533ad349ada960c33fb3b91970d6b9}\label{read-only-serializer_8cc_a48533ad349ada960c33fb3b91970d6b9}} 
+\index{read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}!segment\_start@{segment\_start}}
+\index{segment\_start@{segment\_start}!read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{segment\_start}{segment\_start}}
+{\footnotesize\ttfamily const Address segment\+\_\+start}
+
+\mbox{\Hypertarget{read-only-serializer_8cc_a854352f53b148adc24983a58a1866d66}\label{read-only-serializer_8cc_a854352f53b148adc24983a58a1866d66}} 
+\index{read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}!size@{size}}
+\index{size@{size}!read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{size}{size}}
+{\footnotesize\ttfamily size\+\_\+t size}
+
+\mbox{\Hypertarget{read-only-serializer_8cc_a531c878f79d56e742f94c05bbbee1e77}\label{read-only-serializer_8cc_a531c878f79d56e742f94c05bbbee1e77}} 
+\index{read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}!start@{start}}
+\index{start@{start}!read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{start}{start}}
+{\footnotesize\ttfamily Address start}
+
+\mbox{\Hypertarget{read-only-serializer_8cc_a69c90eeb8bbd822438c2477c0bc1ced1}\label{read-only-serializer_8cc_a69c90eeb8bbd822438c2477c0bc1ced1}} 
+\index{read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}!tagged\_slots@{tagged\_slots}}
+\index{tagged\_slots@{tagged\_slots}!read-\/only-\/serializer.cc@{read-\/only-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{tagged\_slots}{tagged\_slots}}
+{\footnotesize\ttfamily ro\+::\+Bit\+Set tagged\+\_\+slots}
+

@@ -1,0 +1,159 @@
+\hypertarget{wasm-compiler_8cc}{}\doxysection{wasm-\/compiler.cc File Reference}
+\label{wasm-compiler_8cc}\index{wasm-\/compiler.cc@{wasm-\/compiler.cc}}
+{\ttfamily \#include \char`\"{}src/compiler/wasm-\/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include \char`\"{}src/base/small-\/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/interface-\/descriptors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/machine-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/optimized-\/compilation-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/access-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/code-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/instruction-\/selector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/common-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/compiler-\/source-\/position-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/diamond.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/fast-\/api-\/calls.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/graph-\/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/int64-\/lowering.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/linkage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/machine-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/matchers.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/origin-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/properties.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/pipeline.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turbofan-\/graph-\/visualizer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turbofan-\/graph.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/wasm-\/turboshaft-\/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/wasm-\/call-\/descriptors.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/wasm-\/compiler-\/definitions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/wasm-\/graph-\/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/wasm-\/inlining-\/into-\/js.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/write-\/barrier-\/kind.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/simulator-\/base.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/factory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/counters.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/code-\/kind.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/number.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/instance-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/name.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/string.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/roots/roots.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/tracing/trace-\/event.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/trap-\/handler/trap-\/handler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/code-\/space-\/access.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/compilation-\/environment-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/function-\/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/jump-\/table-\/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/memory-\/tracing.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/object-\/access.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/code-\/manager.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/constants.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/engine.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/limits.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/linkage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/module.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/opcodes-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/subtyping.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1WasmDecorator}{v8\+::internal\+::compiler\+::\+Wasm\+Decorator}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{wasm-compiler_8cc_ab4058e88187f0001a2c6bb1c91ca8044}{LOAD\+\_\+\+ROOT}}(Root\+Name,  factory\+\_\+name)
+\item 
+\#define \mbox{\hyperlink{wasm-compiler_8cc_a494d31903e7b0333dfa03b0778679113}{TRACE}}(\mbox{\hyperlink{liveedit-diff_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}})
+\item 
+\#define \mbox{\hyperlink{wasm-compiler_8cc_a5c4c427f3a3193b0aff579734aef0fb3}{TRAPREASON\+\_\+\+TO\+\_\+\+TRAPID}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\Signature$<$ Machine\+Representation $>$ $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a310bea397fe607e4e0ac0c446753f86a}{v8\+::internal\+::compiler\+::\+Create\+Machine\+Signature}} (Zone $\ast$zone, const Signature$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$ $\ast$sig, wasm\+::\+Call\+Origin origin)
+\item 
+template Signature$<$ Machine\+Representation $>$ $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a8bb9221415d5f1032713ac0ba33ef171}{v8\+::internal\+::compiler\+::\+Create\+Machine\+Signature}} (Zone $\ast$, const Signature$<$ wasm\+::\+Value\+Type $>$ $\ast$, wasm\+::\+Call\+Origin)
+\item 
+template Signature$<$ Machine\+Representation $>$ $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a211904a4b17ba40e32957fba56e0ebd4}{v8\+::internal\+::compiler\+::\+Create\+Machine\+Signature}} (Zone $\ast$, const Signature$<$ wasm\+::\+Canonical\+Value\+Type $>$ $\ast$, wasm\+::\+Call\+Origin)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a9b21de30261fbc278600d0d3f6833e70}{v8\+::internal\+::compiler\+::\+Build\+Inlined\+JSTo\+Wasm\+Wrapper}} (Zone $\ast$zone, Machine\+Graph $\ast$mcgraph, const wasm\+::\+Canonical\+Sig $\ast$signature, Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, compiler\+::\+Source\+Position\+Table $\ast$spt, Node $\ast$frame\+\_\+state, bool set\+\_\+in\+\_\+wasm\+\_\+flag)
+\item 
+std\+::unique\+\_\+ptr$<$ Optimized\+Compilation\+Job $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a16a2598f1862499d458ce243235f2f30}{v8\+::internal\+::compiler\+::\+New\+JSTo\+Wasm\+Compilation\+Job}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, const wasm\+::\+Canonical\+Sig $\ast$sig, bool receiver\+\_\+is\+\_\+first\+\_\+param)
+\item 
+wasm\+::\+Wasm\+Compilation\+Result \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a150b8a9ff28bf34f132764224b9ea6ef}{v8\+::internal\+::compiler\+::\+Compile\+Wasm\+Import\+Call\+Wrapper}} (wasm\+::\+Import\+Call\+Kind \mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}}, const wasm\+::\+Canonical\+Sig $\ast$sig, int expected\+\_\+arity, wasm\+::\+Suspend suspend)
+\item 
+wasm\+::\+Wasm\+Compilation\+Result \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a50bcd95a7391f11ea798d7b747922901}{v8\+::internal\+::compiler\+::\+Compile\+Wasm\+Capi\+Call\+Wrapper}} (const wasm\+::\+Canonical\+Sig $\ast$sig)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3d082ec6dc91b47b987ca21e4069fa99}{v8\+::internal\+::compiler\+::\+Is\+Fast\+Call\+Supported\+Signature}} (const \mbox{\hyperlink{classv8_1_1CFunctionInfo}{v8\+::\+CFunction\+Info}} $\ast$sig)
+\item 
+wasm\+::\+Wasm\+Compilation\+Result \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac7487375c580f916b38504dc43380233}{v8\+::internal\+::compiler\+::\+Compile\+Wasm\+JSFast\+Call\+Wrapper}} (const wasm\+::\+Canonical\+Sig $\ast$sig, Direct\+Handle$<$ JSReceiver $>$ callable)
+\item 
+Handle$<$ Code $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ac7d458d7e85f4af133e75272fc646f46}{v8\+::internal\+::compiler\+::\+Compile\+CWasm\+Entry}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, const wasm\+::\+Canonical\+Sig $\ast$sig)
+\item 
+Assembler\+Options \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a0e1fee49f1d42509685dd346e71caf90}{v8\+::internal\+::compiler\+::\+Wasm\+Assembler\+Options}} ()
+\item 
+Assembler\+Options \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a2e9650bb57b1a87639a7cf79673aed9f}{v8\+::internal\+::compiler\+::\+Wasm\+Stub\+Assembler\+Options}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{wasm-compiler_8cc_ab4058e88187f0001a2c6bb1c91ca8044}\label{wasm-compiler_8cc_ab4058e88187f0001a2c6bb1c91ca8044}} 
+\index{wasm-\/compiler.cc@{wasm-\/compiler.cc}!LOAD\_ROOT@{LOAD\_ROOT}}
+\index{LOAD\_ROOT@{LOAD\_ROOT}!wasm-\/compiler.cc@{wasm-\/compiler.cc}}
+\doxysubsubsection{\texorpdfstring{LOAD\_ROOT}{LOAD\_ROOT}}
+{\footnotesize\ttfamily \#define LOAD\+\_\+\+ROOT(\begin{DoxyParamCaption}\item[{}]{Root\+Name,  }\item[{}]{factory\+\_\+name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  (\mbox{\hyperlink{compilation-cache-table_8cc_a68072bca3fef7bd8b0d3cbac971cbf4b}{isolate\_}} ? \mbox{\hyperlink{add-type-assertions-reducer_8cc_a4db7d9af9cc5e165a9c50f82a9aeb8a3}{graph}}()-\/>NewNode(mcgraph()-\/>common()-\/>HeapConstant( \(\backslash\)}
+\DoxyCodeLine{                  \mbox{\hyperlink{compilation-cache-table_8cc_a68072bca3fef7bd8b0d3cbac971cbf4b}{isolate\_}}-\/>factory()-\/>factory\_name()))           \(\backslash\)}
+\DoxyCodeLine{            : gasm\_-\/>LoadImmutable(                               \(\backslash\)}
+\DoxyCodeLine{                  MachineType::Pointer(), BuildLoadIsolateRoot(), \(\backslash\)}
+\DoxyCodeLine{                  IsolateData::root\_slot\_offset(RootIndex::k\#\#RootName)))}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{wasm-compiler_8cc_a494d31903e7b0333dfa03b0778679113}\label{wasm-compiler_8cc_a494d31903e7b0333dfa03b0778679113}} 
+\index{wasm-\/compiler.cc@{wasm-\/compiler.cc}!TRACE@{TRACE}}
+\index{TRACE@{TRACE}!wasm-\/compiler.cc@{wasm-\/compiler.cc}}
+\doxysubsubsection{\texorpdfstring{TRACE}{TRACE}}
+{\footnotesize\ttfamily \#define TRACE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{liveedit-diff_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                   \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_turbo\_inlining) \{ \(\backslash\)}
+\DoxyCodeLine{      StdoutStream() << \mbox{\hyperlink{liveedit-diff_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}} << \textcolor{stringliteral}{"{}\(\backslash\)n"{}};       \(\backslash\)}
+\DoxyCodeLine{    \}                                    \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{wasm-compiler_8cc_a5c4c427f3a3193b0aff579734aef0fb3}\label{wasm-compiler_8cc_a5c4c427f3a3193b0aff579734aef0fb3}} 
+\index{wasm-\/compiler.cc@{wasm-\/compiler.cc}!TRAPREASON\_TO\_TRAPID@{TRAPREASON\_TO\_TRAPID}}
+\index{TRAPREASON\_TO\_TRAPID@{TRAPREASON\_TO\_TRAPID}!wasm-\/compiler.cc@{wasm-\/compiler.cc}}
+\doxysubsubsection{\texorpdfstring{TRAPREASON\_TO\_TRAPID}{TRAPREASON\_TO\_TRAPID}}
+{\footnotesize\ttfamily \#define TRAPREASON\+\_\+\+TO\+\_\+\+TRAPID(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} wasm::k\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}:                                              \(\backslash\)}
+\DoxyCodeLine{    static\_assert(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(TrapId::k\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}) ==             \(\backslash\)}
+\DoxyCodeLine{                      \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(Builtin::kThrowWasm\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}), \(\backslash\)}
+\DoxyCodeLine{                  \textcolor{stringliteral}{"{}trap id mismatch"{}});                             \(\backslash\)}
+\DoxyCodeLine{    return TrapId::k\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}};}
+
+\end{DoxyCode}

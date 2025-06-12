@@ -1,0 +1,233 @@
+\hypertarget{revectorizer_8cc}{}\doxysection{revectorizer.\+cc File Reference}
+\label{revectorizer_8cc}\index{revectorizer.cc@{revectorizer.cc}}
+{\ttfamily \#include \char`\"{}src/compiler/revectorizer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/cpu.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/all-\/nodes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/compiler-\/source-\/position-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/machine-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/observer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/opcodes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/verifier.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/simd-\/shuffle.\+h\char`\"{}}\newline
+Include dependency graph for revectorizer.\+cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{revectorizer_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{revectorizer_8cc_a5f6aa8edcd99914757600b5d3b259bb7}{TRACE}}(...)
+\item 
+\#define \mbox{\hyperlink{revectorizer_8cc_a87bc0cd7537033b3cb8d17a195ce04ea}{SIMPLE\+\_\+\+SIMD\+\_\+\+OP}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{revectorizer_8cc_a9ac37de7c5d5d7397b331c9732ed3d73}{SIMD\+\_\+\+SHIFT\+\_\+\+OP}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{revectorizer_8cc_a315abcca5109d87812d74f1e0a0d5182}{SIMD\+\_\+\+SIGN\+\_\+\+EXTENSION\+\_\+\+CONVERT\+\_\+\+OP}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{revectorizer_8cc_ade46d1f506ff4579e989605173cc8ed6}{SIMD\+\_\+\+SPLAT\+\_\+\+OP}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{revectorizer_8cc_adcc190c080748beea7e37bd5e8457ddb}{CASE}}(op\+\_\+low,  op\+\_\+high,  not\+\_\+used)
+\item 
+\#define \mbox{\hyperlink{revectorizer_8cc_ac237162fb480f77822ad94c0e20a96c7}{CHECK\+\_\+\+SIGN\+\_\+\+EXTENSION\+\_\+\+CASE}}(op\+\_\+low,  op\+\_\+high,  not\+\_\+used)
+\item 
+\#define \mbox{\hyperlink{revectorizer_8cc_aeef365a7b39c8e0860298c551aa10ba9}{CASE}}(op128,  op256)~case Ir\+Opcode\+::k\#\#op128\+:
+\item 
+\#define \mbox{\hyperlink{revectorizer_8cc_a5c9486df30cdba4e157db9656d0a8e07}{SIGN\+\_\+\+EXTENSION\+\_\+\+CASE}}(op\+\_\+low,  not\+\_\+used1,  not\+\_\+used2)~  case Ir\+Opcode\+::k\#\#op\+\_\+low\+:
+\item 
+\#define \mbox{\hyperlink{revectorizer_8cc_acc836faf3f1f442a7f1a675ef92e634c}{SIMPLE\+\_\+\+CASE}}(\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}},  \mbox{\hyperlink{liveedit-diff_8cc_ae6324a19c41601d6f20f5e95f0bcec12}{to}})
+\item 
+\#define \mbox{\hyperlink{revectorizer_8cc_a6a0c893e8315b3aa27ec427a80cd294a}{SHIFT\+\_\+\+CASE}}(\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}},  \mbox{\hyperlink{liveedit-diff_8cc_ae6324a19c41601d6f20f5e95f0bcec12}{to}})
+\item 
+\#define \mbox{\hyperlink{revectorizer_8cc_a20cbf2119828aa17637907050261a2de}{SIGN\+\_\+\+EXTENSION\+\_\+\+CONVERT\+\_\+\+CASE}}(\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}},  not\+\_\+used,  \mbox{\hyperlink{liveedit-diff_8cc_ae6324a19c41601d6f20f5e95f0bcec12}{to}})
+\item 
+\#define \mbox{\hyperlink{revectorizer_8cc_a7db703ba3d22c6e196df84090169c6f6}{SPLAT\+\_\+\+CASE}}(\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}},  \mbox{\hyperlink{liveedit-diff_8cc_ae6324a19c41601d6f20f5e95f0bcec12}{to}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{revectorizer_8cc_aeef365a7b39c8e0860298c551aa10ba9}\label{revectorizer_8cc_aeef365a7b39c8e0860298c551aa10ba9}} 
+\index{revectorizer.cc@{revectorizer.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!revectorizer.cc@{revectorizer.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{op128,  }\item[{}]{op256 }\end{DoxyParamCaption})~case Ir\+Opcode\+::k\#\#op128\+:}
+
+\mbox{\Hypertarget{revectorizer_8cc_adcc190c080748beea7e37bd5e8457ddb}\label{revectorizer_8cc_adcc190c080748beea7e37bd5e8457ddb}} 
+\index{revectorizer.cc@{revectorizer.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!revectorizer.cc@{revectorizer.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{op\+\_\+low,  }\item[{}]{op\+\_\+high,  }\item[{}]{not\+\_\+used }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#op\_low:             \(\backslash\)}
+\DoxyCodeLine{  case IrOpcode::k\#\#op\_high:}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{revectorizer_8cc_ac237162fb480f77822ad94c0e20a96c7}\label{revectorizer_8cc_ac237162fb480f77822ad94c0e20a96c7}} 
+\index{revectorizer.cc@{revectorizer.cc}!CHECK\_SIGN\_EXTENSION\_CASE@{CHECK\_SIGN\_EXTENSION\_CASE}}
+\index{CHECK\_SIGN\_EXTENSION\_CASE@{CHECK\_SIGN\_EXTENSION\_CASE}!revectorizer.cc@{revectorizer.cc}}
+\doxysubsubsection{\texorpdfstring{CHECK\_SIGN\_EXTENSION\_CASE}{CHECK\_SIGN\_EXTENSION\_CASE}}
+{\footnotesize\ttfamily \#define CHECK\+\_\+\+SIGN\+\_\+\+EXTENSION\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{op\+\_\+low,  }\item[{}]{op\+\_\+high,  }\item[{}]{not\+\_\+used }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#op\_low: \{                                     \(\backslash\)}
+\DoxyCodeLine{    if (node\_group[1]-\/>opcode() == IrOpcode::k\#\#op\_high \&\&        \(\backslash\)}
+\DoxyCodeLine{        node\_group[0]-\/>InputAt(0) == node\_group[1]-\/>InputAt(0)) \{ \(\backslash\)}
+\DoxyCodeLine{      return \textcolor{keyword}{true};                                                \(\backslash\)}
+\DoxyCodeLine{    \}                                                             \(\backslash\)}
+\DoxyCodeLine{    return \textcolor{keyword}{false};                                                 \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{revectorizer_8cc_a6a0c893e8315b3aa27ec427a80cd294a}\label{revectorizer_8cc_a6a0c893e8315b3aa27ec427a80cd294a}} 
+\index{revectorizer.cc@{revectorizer.cc}!SHIFT\_CASE@{SHIFT\_CASE}}
+\index{SHIFT\_CASE@{SHIFT\_CASE}!revectorizer.cc@{revectorizer.cc}}
+\doxysubsubsection{\texorpdfstring{SHIFT\_CASE}{SHIFT\_CASE}}
+{\footnotesize\ttfamily \#define SHIFT\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}},  }\item[{}]{\mbox{\hyperlink{liveedit-diff_8cc_ae6324a19c41601d6f20f5e95f0bcec12}{to}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}}: \{                    \(\backslash\)}
+\DoxyCodeLine{    DCHECK(ShiftBySameScalar(pnode-\/>Nodes())); \(\backslash\)}
+\DoxyCodeLine{    new\_op = mcgraph\_-\/>machine()-\/>to();        \(\backslash\)}
+\DoxyCodeLine{    inputs[1] = node0-\/>InputAt(1);             \(\backslash\)}
+\DoxyCodeLine{    break;                                     \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{revectorizer_8cc_a5c9486df30cdba4e157db9656d0a8e07}\label{revectorizer_8cc_a5c9486df30cdba4e157db9656d0a8e07}} 
+\index{revectorizer.cc@{revectorizer.cc}!SIGN\_EXTENSION\_CASE@{SIGN\_EXTENSION\_CASE}}
+\index{SIGN\_EXTENSION\_CASE@{SIGN\_EXTENSION\_CASE}!revectorizer.cc@{revectorizer.cc}}
+\doxysubsubsection{\texorpdfstring{SIGN\_EXTENSION\_CASE}{SIGN\_EXTENSION\_CASE}}
+{\footnotesize\ttfamily \#define SIGN\+\_\+\+EXTENSION\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{op\+\_\+low,  }\item[{}]{not\+\_\+used1,  }\item[{}]{not\+\_\+used2 }\end{DoxyParamCaption})~  case Ir\+Opcode\+::k\#\#op\+\_\+low\+:}
+
+\mbox{\Hypertarget{revectorizer_8cc_a20cbf2119828aa17637907050261a2de}\label{revectorizer_8cc_a20cbf2119828aa17637907050261a2de}} 
+\index{revectorizer.cc@{revectorizer.cc}!SIGN\_EXTENSION\_CONVERT\_CASE@{SIGN\_EXTENSION\_CONVERT\_CASE}}
+\index{SIGN\_EXTENSION\_CONVERT\_CASE@{SIGN\_EXTENSION\_CONVERT\_CASE}!revectorizer.cc@{revectorizer.cc}}
+\doxysubsubsection{\texorpdfstring{SIGN\_EXTENSION\_CONVERT\_CASE}{SIGN\_EXTENSION\_CONVERT\_CASE}}
+{\footnotesize\ttfamily \#define SIGN\+\_\+\+EXTENSION\+\_\+\+CONVERT\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}},  }\item[{}]{not\+\_\+used,  }\item[{}]{\mbox{\hyperlink{liveedit-diff_8cc_ae6324a19c41601d6f20f5e95f0bcec12}{to}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}}: \{                                      \(\backslash\)}
+\DoxyCodeLine{    DCHECK\_EQ(node0-\/>InputAt(0), pnode-\/>Nodes()[1]-\/>InputAt(0)); \(\backslash\)}
+\DoxyCodeLine{    new\_op = mcgraph\_-\/>machine()-\/>to();                          \(\backslash\)}
+\DoxyCodeLine{    inputs[0] = node0-\/>InputAt(0);                               \(\backslash\)}
+\DoxyCodeLine{    break;                                                       \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{revectorizer_8cc_a9ac37de7c5d5d7397b331c9732ed3d73}\label{revectorizer_8cc_a9ac37de7c5d5d7397b331c9732ed3d73}} 
+\index{revectorizer.cc@{revectorizer.cc}!SIMD\_SHIFT\_OP@{SIMD\_SHIFT\_OP}}
+\index{SIMD\_SHIFT\_OP@{SIMD\_SHIFT\_OP}!revectorizer.cc@{revectorizer.cc}}
+\doxysubsubsection{\texorpdfstring{SIMD\_SHIFT\_OP}{SIMD\_SHIFT\_OP}}
+{\footnotesize\ttfamily \#define SIMD\+\_\+\+SHIFT\+\_\+\+OP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(I64x2Shl, I64x4Shl)    \(\backslash\)}
+\DoxyCodeLine{  V(I32x4Shl, I32x8Shl)    \(\backslash\)}
+\DoxyCodeLine{  V(I16x8Shl, I16x16Shl)   \(\backslash\)}
+\DoxyCodeLine{  V(I32x4ShrS, I32x8ShrS)  \(\backslash\)}
+\DoxyCodeLine{  V(I16x8ShrS, I16x16ShrS) \(\backslash\)}
+\DoxyCodeLine{  V(I64x2ShrU, I64x4ShrU)  \(\backslash\)}
+\DoxyCodeLine{  V(I32x4ShrU, I32x8ShrU)  \(\backslash\)}
+\DoxyCodeLine{  V(I16x8ShrU, I16x16ShrU)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{revectorizer_8cc_a315abcca5109d87812d74f1e0a0d5182}\label{revectorizer_8cc_a315abcca5109d87812d74f1e0a0d5182}} 
+\index{revectorizer.cc@{revectorizer.cc}!SIMD\_SIGN\_EXTENSION\_CONVERT\_OP@{SIMD\_SIGN\_EXTENSION\_CONVERT\_OP}}
+\index{SIMD\_SIGN\_EXTENSION\_CONVERT\_OP@{SIMD\_SIGN\_EXTENSION\_CONVERT\_OP}!revectorizer.cc@{revectorizer.cc}}
+\doxysubsubsection{\texorpdfstring{SIMD\_SIGN\_EXTENSION\_CONVERT\_OP}{SIMD\_SIGN\_EXTENSION\_CONVERT\_OP}}
+{\footnotesize\ttfamily \#define SIMD\+\_\+\+SIGN\+\_\+\+EXTENSION\+\_\+\+CONVERT\+\_\+\+OP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(I64x2SConvertI32x4Low, I64x2SConvertI32x4High, I64x4SConvertI32x4)  \(\backslash\)}
+\DoxyCodeLine{  V(I64x2UConvertI32x4Low, I64x2UConvertI32x4High, I64x4UConvertI32x4)  \(\backslash\)}
+\DoxyCodeLine{  V(I32x4SConvertI16x8Low, I32x4SConvertI16x8High, I32x8SConvertI16x8)  \(\backslash\)}
+\DoxyCodeLine{  V(I32x4UConvertI16x8Low, I32x4UConvertI16x8High, I32x8UConvertI16x8)  \(\backslash\)}
+\DoxyCodeLine{  V(I16x8SConvertI8x16Low, I16x8SConvertI8x16High, I16x16SConvertI8x16) \(\backslash\)}
+\DoxyCodeLine{  V(I16x8UConvertI8x16Low, I16x8UConvertI8x16High, I16x16UConvertI8x16)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{revectorizer_8cc_ade46d1f506ff4579e989605173cc8ed6}\label{revectorizer_8cc_ade46d1f506ff4579e989605173cc8ed6}} 
+\index{revectorizer.cc@{revectorizer.cc}!SIMD\_SPLAT\_OP@{SIMD\_SPLAT\_OP}}
+\index{SIMD\_SPLAT\_OP@{SIMD\_SPLAT\_OP}!revectorizer.cc@{revectorizer.cc}}
+\doxysubsubsection{\texorpdfstring{SIMD\_SPLAT\_OP}{SIMD\_SPLAT\_OP}}
+{\footnotesize\ttfamily \#define SIMD\+\_\+\+SPLAT\+\_\+\+OP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(I8x16Splat, I8x32Splat)  \(\backslash\)}
+\DoxyCodeLine{  V(I16x8Splat, I16x16Splat) \(\backslash\)}
+\DoxyCodeLine{  V(I32x4Splat, I32x8Splat)  \(\backslash\)}
+\DoxyCodeLine{  V(I64x2Splat, I64x4Splat)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{revectorizer_8cc_acc836faf3f1f442a7f1a675ef92e634c}\label{revectorizer_8cc_acc836faf3f1f442a7f1a675ef92e634c}} 
+\index{revectorizer.cc@{revectorizer.cc}!SIMPLE\_CASE@{SIMPLE\_CASE}}
+\index{SIMPLE\_CASE@{SIMPLE\_CASE}!revectorizer.cc@{revectorizer.cc}}
+\doxysubsubsection{\texorpdfstring{SIMPLE\_CASE}{SIMPLE\_CASE}}
+{\footnotesize\ttfamily \#define SIMPLE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}},  }\item[{}]{\mbox{\hyperlink{liveedit-diff_8cc_ae6324a19c41601d6f20f5e95f0bcec12}{to}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}}:               \(\backslash\)}
+\DoxyCodeLine{    new\_op = mcgraph\_-\/>machine()-\/>to(); \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{revectorizer_8cc_a87bc0cd7537033b3cb8d17a195ce04ea}\label{revectorizer_8cc_a87bc0cd7537033b3cb8d17a195ce04ea}} 
+\index{revectorizer.cc@{revectorizer.cc}!SIMPLE\_SIMD\_OP@{SIMPLE\_SIMD\_OP}}
+\index{SIMPLE\_SIMD\_OP@{SIMPLE\_SIMD\_OP}!revectorizer.cc@{revectorizer.cc}}
+\doxysubsubsection{\texorpdfstring{SIMPLE\_SIMD\_OP}{SIMPLE\_SIMD\_OP}}
+{\footnotesize\ttfamily \#define SIMPLE\+\_\+\+SIMD\+\_\+\+OP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{revectorizer_8cc_a7db703ba3d22c6e196df84090169c6f6}\label{revectorizer_8cc_a7db703ba3d22c6e196df84090169c6f6}} 
+\index{revectorizer.cc@{revectorizer.cc}!SPLAT\_CASE@{SPLAT\_CASE}}
+\index{SPLAT\_CASE@{SPLAT\_CASE}!revectorizer.cc@{revectorizer.cc}}
+\doxysubsubsection{\texorpdfstring{SPLAT\_CASE}{SPLAT\_CASE}}
+{\footnotesize\ttfamily \#define SPLAT\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}},  }\item[{}]{\mbox{\hyperlink{liveedit-diff_8cc_ae6324a19c41601d6f20f5e95f0bcec12}{to}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}}:               \(\backslash\)}
+\DoxyCodeLine{    new\_op = mcgraph\_-\/>machine()-\/>to(); \(\backslash\)}
+\DoxyCodeLine{    inputs[0] = node0-\/>InputAt(0);      \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{revectorizer_8cc_a5f6aa8edcd99914757600b5d3b259bb7}\label{revectorizer_8cc_a5f6aa8edcd99914757600b5d3b259bb7}} 
+\index{revectorizer.cc@{revectorizer.cc}!TRACE@{TRACE}}
+\index{TRACE@{TRACE}!revectorizer.cc@{revectorizer.cc}}
+\doxysubsubsection{\texorpdfstring{TRACE}{TRACE}}
+{\footnotesize\ttfamily \#define TRACE(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                     \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_wasm\_revectorize) \{ \(\backslash\)}
+\DoxyCodeLine{      PrintF(\textcolor{stringliteral}{"{}Revec: "{}});                   \(\backslash\)}
+\DoxyCodeLine{      PrintF(\_\_VA\_ARGS\_\_);                 \(\backslash\)}
+\DoxyCodeLine{    \}                                      \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
+
+\end{DoxyCode}

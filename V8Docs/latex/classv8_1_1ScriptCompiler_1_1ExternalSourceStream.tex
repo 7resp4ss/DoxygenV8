@@ -1,0 +1,59 @@
+\hypertarget{classv8_1_1ScriptCompiler_1_1ExternalSourceStream}{}\doxysection{v8\+::Script\+Compiler\+::External\+Source\+Stream Class Reference}
+\label{classv8_1_1ScriptCompiler_1_1ExternalSourceStream}\index{v8::ScriptCompiler::ExternalSourceStream@{v8::ScriptCompiler::ExternalSourceStream}}
+
+
+{\ttfamily \#include $<$v8-\/script.\+h$>$}
+
+
+
+Inheritance diagram for v8\+::Script\+Compiler\+::External\+Source\+Stream\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{classv8_1_1ScriptCompiler_1_1ExternalSourceStream__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classv8_1_1ScriptCompiler_1_1ExternalSourceStream_aea5db01cae2b81183f9e3292421ad2df}{$\sim$\+External\+Source\+Stream}} ()=default
+\item 
+virtual size\+\_\+t \mbox{\hyperlink{classv8_1_1ScriptCompiler_1_1ExternalSourceStream_ac3a0221b5725f0b612a6342d8e83d899}{Get\+More\+Data}} (const uint8\+\_\+t $\ast$$\ast$src)=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+For streaming incomplete script data to \mbox{\hyperlink{classv8_1_1V8}{V8}}. The embedder should implement a subclass of this class. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classv8_1_1ScriptCompiler_1_1ExternalSourceStream_aea5db01cae2b81183f9e3292421ad2df}\label{classv8_1_1ScriptCompiler_1_1ExternalSourceStream_aea5db01cae2b81183f9e3292421ad2df}} 
+\index{v8::ScriptCompiler::ExternalSourceStream@{v8::ScriptCompiler::ExternalSourceStream}!````~ExternalSourceStream@{$\sim$ExternalSourceStream}}
+\index{````~ExternalSourceStream@{$\sim$ExternalSourceStream}!v8::ScriptCompiler::ExternalSourceStream@{v8::ScriptCompiler::ExternalSourceStream}}
+\doxysubsubsection{\texorpdfstring{$\sim$ExternalSourceStream()}{~ExternalSourceStream()}}
+{\footnotesize\ttfamily virtual v8\+::\+Script\+Compiler\+::\+External\+Source\+Stream\+::$\sim$\+External\+Source\+Stream (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1ScriptCompiler_1_1ExternalSourceStream_ac3a0221b5725f0b612a6342d8e83d899}\label{classv8_1_1ScriptCompiler_1_1ExternalSourceStream_ac3a0221b5725f0b612a6342d8e83d899}} 
+\index{v8::ScriptCompiler::ExternalSourceStream@{v8::ScriptCompiler::ExternalSourceStream}!GetMoreData@{GetMoreData}}
+\index{GetMoreData@{GetMoreData}!v8::ScriptCompiler::ExternalSourceStream@{v8::ScriptCompiler::ExternalSourceStream}}
+\doxysubsubsection{\texorpdfstring{GetMoreData()}{GetMoreData()}}
+{\footnotesize\ttfamily virtual size\+\_\+t v8\+::\+Script\+Compiler\+::\+External\+Source\+Stream\+::\+Get\+More\+Data (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t $\ast$$\ast$}]{src }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\hyperlink{classv8_1_1V8}{V8}} calls this to request the next chunk of data from the embedder. This function will be called on a background thread, so it\textquotesingle{}s OK to block and wait for the data, if the embedder doesn\textquotesingle{}t have data yet. Returns the length of the data returned. When the data ends, Get\+More\+Data should return 0. Caller takes ownership of the data.
+
+When streaming UTF-\/8 data, \mbox{\hyperlink{classv8_1_1V8}{V8}} handles multi-\/byte characters split between two data chunks, but doesn\textquotesingle{}t handle multi-\/byte characters split between more than two data chunks. The embedder can avoid this problem by always returning at least 2 bytes of data.
+
+When streaming UTF-\/16 data, \mbox{\hyperlink{classv8_1_1V8}{V8}} does not handle characters split between two data chunks. The embedder has to make sure that chunks have an even length.
+
+If the embedder wants to cancel the streaming, they should make the next Get\+More\+Data call return 0. \mbox{\hyperlink{classv8_1_1V8}{V8}} will interpret it as end of data (and most probably, parsing will fail). The streaming task will return as soon as \mbox{\hyperlink{classv8_1_1V8}{V8}} has parsed the data it received so far. 
+
+Implemented in \mbox{\hyperlink{classv8_1_1DummySourceStream_a0b4b9e3f0d0747d169ba75e68fe596d7}{v8\+::\+Dummy\+Source\+Stream}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{v8-script_8h}{v8-\/script.\+h}}\end{DoxyCompactItemize}

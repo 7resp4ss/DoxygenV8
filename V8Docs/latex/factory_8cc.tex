@@ -1,0 +1,153 @@
+\hypertarget{factory_8cc}{}\doxysection{factory.\+cc File Reference}
+\label{factory_8cc}\index{factory.cc@{factory.cc}}
+{\ttfamily \#include \char`\"{}src/heap/factory.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include \char`\"{}src/ast/ast-\/source-\/ranges.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/bits.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/accessors.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/constants-\/table-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/compilation-\/cache.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/assert-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/diagnostics/basic-\/block-\/profiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/protectors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/allocator-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/layout-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/incremental-\/marking.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/large-\/page-\/metadata-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/mark-\/compact-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/memory-\/chunk-\/metadata.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/mutable-\/page-\/metadata.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/read-\/only-\/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ic/handler-\/configuration-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/init/bootstrapper.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/interpreter.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/counters.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/log.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/numbers/conversions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/numbers/hash-\/seed-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/allocation-\/site-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/allocation-\/site-\/scopes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/api-\/callbacks.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/arguments-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/bigint.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/call-\/site-\/info-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/cell-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/cpp-\/heap-\/object-\/wrapper-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/debug-\/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/embedder-\/data-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/feedback-\/cell-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/feedback-\/cell.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/fixed-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/foreign-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/instance-\/type-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/instance-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/buffer-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/buffer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/atomics-\/synchronization-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/collection-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/disposable-\/stack-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/generator-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/objects.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/regexp-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/shared-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/struct-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/weak-\/refs-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/literal-\/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/managed-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/megadom-\/handler-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/microtask-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/module-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/promise-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/descriptor-\/object-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/scope-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/string-\/set-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/struct-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/synthetic-\/module-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/template-\/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/templates.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/transitions-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/roots/roots-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/roots/roots.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/sandbox/isolate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/unicode-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/local-\/factory-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/local-\/heap-\/inl.\+h\char`\"{}}\newline
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{factory_8cc_a76e266cbb98de8a6fe167b909605744f}{DCHECK\+\_\+\+NEWLY\+\_\+\+ALLOCATED\+\_\+\+OBJECT\+\_\+\+IS\+\_\+\+YOUNG}}(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}},  object)~  \mbox{\hyperlink{d8_8cc_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(Heap\+Layout\+::\+In\+Young\+Generation(object))
+\item 
+\#define \mbox{\hyperlink{factory_8cc_aa78fd616cd4ce00623c3410e87d56d6f}{INIT\+\_\+\+CALLBACK\+\_\+\+FIELD}}(Name,  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})~\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}}-\/$>$init\+\_\+named\+\_\+\#\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}();
+\item 
+\#define \mbox{\hyperlink{factory_8cc_a2a6363beda984c8ed8d9beeeb99a96f8}{DEFINE\+\_\+\+ERROR}}(\mbox{\hyperlink{wasm-features_8h_a2d0852eb438b29a423ea08b97ab45fac}{NAME}},  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\item 
+\#define \mbox{\hyperlink{factory_8cc_a572dd685ddbfe9f50630f494b10dc032}{TYPED\+\_\+\+ARRAY\+\_\+\+CASE}}(Type,  \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  TYPE,  ctype)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Seq\+String , template$<$ typename $>$ typename Handle\+Type$>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_a9053155cc444f5ed9f1739d93e12b6f2}{v8\+::internal\+::requires}} (std\+::is\+\_\+convertible\+\_\+v$<$ Handle\+Type$<$ Seq\+String $>$, Direct\+Handle$<$ Seq\+String $>$$>$) Handle$<$ String $>$ Factory
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{factory_8cc_a76e266cbb98de8a6fe167b909605744f}\label{factory_8cc_a76e266cbb98de8a6fe167b909605744f}} 
+\index{factory.cc@{factory.cc}!DCHECK\_NEWLY\_ALLOCATED\_OBJECT\_IS\_YOUNG@{DCHECK\_NEWLY\_ALLOCATED\_OBJECT\_IS\_YOUNG}}
+\index{DCHECK\_NEWLY\_ALLOCATED\_OBJECT\_IS\_YOUNG@{DCHECK\_NEWLY\_ALLOCATED\_OBJECT\_IS\_YOUNG}!factory.cc@{factory.cc}}
+\doxysubsubsection{\texorpdfstring{DCHECK\_NEWLY\_ALLOCATED\_OBJECT\_IS\_YOUNG}{DCHECK\_NEWLY\_ALLOCATED\_OBJECT\_IS\_YOUNG}}
+{\footnotesize\ttfamily \#define DCHECK\+\_\+\+NEWLY\+\_\+\+ALLOCATED\+\_\+\+OBJECT\+\_\+\+IS\+\_\+\+YOUNG(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}},  }\item[{}]{object }\end{DoxyParamCaption})~  \mbox{\hyperlink{d8_8cc_ae17f8119c108cf3070bad3449c7e0006}{DCHECK}}(Heap\+Layout\+::\+In\+Young\+Generation(object))}
+
+\mbox{\Hypertarget{factory_8cc_a2a6363beda984c8ed8d9beeeb99a96f8}\label{factory_8cc_a2a6363beda984c8ed8d9beeeb99a96f8}} 
+\index{factory.cc@{factory.cc}!DEFINE\_ERROR@{DEFINE\_ERROR}}
+\index{DEFINE\_ERROR@{DEFINE\_ERROR}!factory.cc@{factory.cc}}
+\doxysubsubsection{\texorpdfstring{DEFINE\_ERROR}{DEFINE\_ERROR}}
+{\footnotesize\ttfamily \#define DEFINE\+\_\+\+ERROR(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{wasm-features_8h_a2d0852eb438b29a423ea08b97ab45fac}{NAME}},  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  Handle<JSObject> Factory::New\#\#\mbox{\hyperlink{wasm-features_8h_a2d0852eb438b29a423ea08b97ab45fac}{NAME}}(                                   \(\backslash\)}
+\DoxyCodeLine{      \mbox{\hyperlink{namespacev8_1_1internal_a1c7888272df599e45fcab531e38f9523}{MessageTemplate}} template\_index,                                    \(\backslash\)}
+\DoxyCodeLine{      base::Vector<\textcolor{keyword}{const} DirectHandle<Object>> \mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}) \{                   \(\backslash\)}
+\DoxyCodeLine{    return NewError(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}()-\/>\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}\#\#\_function(), template\_index, \mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}); \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{factory_8cc_aa78fd616cd4ce00623c3410e87d56d6f}\label{factory_8cc_aa78fd616cd4ce00623c3410e87d56d6f}} 
+\index{factory.cc@{factory.cc}!INIT\_CALLBACK\_FIELD@{INIT\_CALLBACK\_FIELD}}
+\index{INIT\_CALLBACK\_FIELD@{INIT\_CALLBACK\_FIELD}!factory.cc@{factory.cc}}
+\doxysubsubsection{\texorpdfstring{INIT\_CALLBACK\_FIELD}{INIT\_CALLBACK\_FIELD}}
+{\footnotesize\ttfamily \#define INIT\+\_\+\+CALLBACK\+\_\+\+FIELD(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})~\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}}-\/$>$init\+\_\+named\+\_\+\#\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}();}
+
+\mbox{\Hypertarget{factory_8cc_a572dd685ddbfe9f50630f494b10dc032}\label{factory_8cc_a572dd685ddbfe9f50630f494b10dc032}} 
+\index{factory.cc@{factory.cc}!TYPED\_ARRAY\_CASE@{TYPED\_ARRAY\_CASE}}
+\index{TYPED\_ARRAY\_CASE@{TYPED\_ARRAY\_CASE}!factory.cc@{factory.cc}}
+\doxysubsubsection{\texorpdfstring{TYPED\_ARRAY\_CASE}{TYPED\_ARRAY\_CASE}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+ARRAY\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  }\item[{}]{TYPE,  }\item[{}]{ctype }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} TYPE\#\#\_ELEMENTS:                           \(\backslash\)}
+\DoxyCodeLine{    *array\_type = kExternal\#\#Type\#\#Array;         \(\backslash\)}
+\DoxyCodeLine{    *element\_size = \textcolor{keyword}{sizeof}(ctype);                \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}

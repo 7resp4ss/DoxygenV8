@@ -1,0 +1,181 @@
+\hypertarget{maglev-ir_8cc}{}\doxysection{maglev-\/ir.cc File Reference}
+\label{maglev-ir_8cc}\index{maglev-\/ir.cc@{maglev-\/ir.cc}}
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/ir.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include \char`\"{}src/base/bounds.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/builtins-\/constructor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/builtins-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/code-\/factory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/interface-\/descriptors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/interface-\/descriptors.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/macro-\/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/compilation-\/dependencies.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/fast-\/api-\/calls.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/heap-\/refs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/deoptimizer/deoptimize-\/reason.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/local-\/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/parked-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/flags-\/and-\/tokens.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/fixed-\/array.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/instance-\/type-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/instance-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/cell.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/roots/static-\/roots.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/compilation-\/unit.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/graph-\/labeller.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/graph-\/processor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/ir-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/roots/roots.\+h\char`\"{}}\newline
+Include dependency graph for maglev-\/ir.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maglev-ir_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev}{v8\+::internal\+::maglev}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{maglev-ir_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\+\_\+\+\_\+}}~masm-\/$>$
+\item 
+\#define \mbox{\hyperlink{maglev-ir_8cc_a74236a000d443dc2eec6617224ec9c43}{DEF\+\_\+\+NAME}}(Name)~\#Name,
+\item 
+\#define \mbox{\hyperlink{maglev-ir_8cc_a02b539607c1a8ab69dcaf4eb132cf361}{CASE}}(Name)
+\item 
+\#define \mbox{\hyperlink{maglev-ir_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(Name)
+\item 
+\#define \mbox{\hyperlink{maglev-ir_8cc_a4b72db4fc4b3a6387bcdf65afa699381}{CASE}}(Math\+Name,  Ext\+Name,  Enum\+Name)
+\item 
+\#define \mbox{\hyperlink{maglev-ir_8cc_a12f1ff6778bdaef6e2e45a3f34f6ab32}{CASE\+\_\+\+REPR}}(repr)
+\item 
+\#define \mbox{\hyperlink{maglev-ir_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(Name)
+\item 
+\#define \mbox{\hyperlink{maglev-ir_8cc_a4b72db4fc4b3a6387bcdf65afa699381}{CASE}}(Math\+Name,  Ext\+Name,  Enum\+Name)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_a6871f78cb8caf3155622f51a7fbf22f0}{v8\+::internal\+::maglev\+::\+Opcode\+To\+String}} (Opcode opcode)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_aa6cccfcfaf8bcd06c55d23e506fd8e52}{v8\+::internal\+::maglev\+::\+From\+Constant\+To\+Bool}} (Local\+Isolate $\ast$local\+\_\+isolate, Value\+Node $\ast$\mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}})
+\item 
+Value\+Representation \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_ac1fa16af91ef8bc16520ef9fa56df806}{v8\+::internal\+::maglev\+::\+To\+Value\+Representation}} (Machine\+Type \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_a8507e9faf537f625732b1d35cd0adb7f}{v8\+::internal\+::maglev\+::\+Check\+Value\+Input\+Is}} (const Node\+Base $\ast$\mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}}, int i, Value\+Representation expected, Maglev\+Graph\+Labeller $\ast$graph\+\_\+labeller)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_a7e4b07ffefae986037927fbde62a87c7}{v8\+::internal\+::maglev\+::\+Check\+Value\+Input\+Is}} (const Node\+Base $\ast$\mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}}, int i, Opcode expected, Maglev\+Graph\+Labeller $\ast$graph\+\_\+labeller)
+\item 
+{\footnotesize template$<$typename Derived , Value\+Representation Float\+Type$>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_a10c1bd2859db590d6e37888024ec35c1}{v8\+::internal\+::maglev\+::requires}} (Float\+Type==Value\+Representation\+::k\+Float64$\vert$$\vert$Float\+Type==Value\+Representation\+::k\+Holey\+Float64) void Checked\+Number\+Or\+Oddball\+To\+Float64\+Or\+Holey\+Float64$<$ Derived
+\item 
+std\+::ostream \& \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_a9f07b8d4fac3928d80f6311bdac3cf3d}{v8\+::internal\+::maglev\+::operator$<$$<$}} (std\+::ostream \&os, Store\+Map\+::\+Kind \mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{maglev-ir_8cc_a0a87998f4e8cee4888f2a89df3d5639b}\label{maglev-ir_8cc_a0a87998f4e8cee4888f2a89df3d5639b}} 
+\index{maglev-\/ir.cc@{maglev-\/ir.cc}!\_\_@{\_\_}}
+\index{\_\_@{\_\_}!maglev-\/ir.cc@{maglev-\/ir.cc}}
+\doxysubsubsection{\texorpdfstring{\_\_}{\_\_}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+~masm-\/$>$}
+
+\mbox{\Hypertarget{maglev-ir_8cc_a4b72db4fc4b3a6387bcdf65afa699381}\label{maglev-ir_8cc_a4b72db4fc4b3a6387bcdf65afa699381}} 
+\index{maglev-\/ir.cc@{maglev-\/ir.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!maglev-\/ir.cc@{maglev-\/ir.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{Math\+Name,  }\item[{}]{Ext\+Name,  }\item[{}]{Enum\+Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Ieee754Function::k\#\#EnumName:      \(\backslash\)}
+\DoxyCodeLine{    return ExternalReference::ieee754\_\#\#ExtName\#\#\_function();}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-ir_8cc_a4b72db4fc4b3a6387bcdf65afa699381}\label{maglev-ir_8cc_a4b72db4fc4b3a6387bcdf65afa699381}} 
+\index{maglev-\/ir.cc@{maglev-\/ir.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!maglev-\/ir.cc@{maglev-\/ir.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{Math\+Name,  }\item[{}]{Ext\+Name,  }\item[{}]{Enum\+Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Ieee754Function::k\#\#EnumName:      \(\backslash\)}
+\DoxyCodeLine{    os << \textcolor{stringliteral}{"{}("{}} << \#EnumName << \textcolor{stringliteral}{"{})"{}};        \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-ir_8cc_a02b539607c1a8ab69dcaf4eb132cf361}\label{maglev-ir_8cc_a02b539607c1a8ab69dcaf4eb132cf361}} 
+\index{maglev-\/ir.cc@{maglev-\/ir.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!maglev-\/ir.cc@{maglev-\/ir.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Opcode::k\#\#Name: \{                                \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>Cast<Name>()-\/>ToBoolean(local\_isolate); \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-ir_8cc_a12f1ff6778bdaef6e2e45a3f34f6ab32}\label{maglev-ir_8cc_a12f1ff6778bdaef6e2e45a3f34f6ab32}} 
+\index{maglev-\/ir.cc@{maglev-\/ir.cc}!CASE\_REPR@{CASE\_REPR}}
+\index{CASE\_REPR@{CASE\_REPR}!maglev-\/ir.cc@{maglev-\/ir.cc}}
+\doxysubsubsection{\texorpdfstring{CASE\_REPR}{CASE\_REPR}}
+{\footnotesize\ttfamily \#define CASE\+\_\+\+REPR(\begin{DoxyParamCaption}\item[{}]{repr }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} ValueRepresentation::k\#\#repr:                           \(\backslash\)}
+\DoxyCodeLine{    for (\textcolor{keywordtype}{int} \mbox{\hyperlink{namespacev8_1_1internal}{i}} = 0; \mbox{\hyperlink{namespacev8_1_1internal}{i}} < \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_1_1detail_abd60a8b46c2025b9a5ad36b9d1ed9c92}{input\_count}}(); \mbox{\hyperlink{namespacev8_1_1internal}{i}}++) \{                  \(\backslash\)}
+\DoxyCodeLine{      CheckValueInputIs(\textcolor{keyword}{this}, \mbox{\hyperlink{namespacev8_1_1internal}{i}}, ValueRepresentation::k\#\#repr, \(\backslash\)}
+\DoxyCodeLine{                        graph\_labeller);                       \(\backslash\)}
+\DoxyCodeLine{    \}                                                          \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-ir_8cc_a74236a000d443dc2eec6617224ec9c43}\label{maglev-ir_8cc_a74236a000d443dc2eec6617224ec9c43}} 
+\index{maglev-\/ir.cc@{maglev-\/ir.cc}!DEF\_NAME@{DEF\_NAME}}
+\index{DEF\_NAME@{DEF\_NAME}!maglev-\/ir.cc@{maglev-\/ir.cc}}
+\doxysubsubsection{\texorpdfstring{DEF\_NAME}{DEF\_NAME}}
+{\footnotesize\ttfamily \#define DEF\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})~\#Name,}
+
+\mbox{\Hypertarget{maglev-ir_8cc_a681a57b69471dedb99b36abb7f2cb544}\label{maglev-ir_8cc_a681a57b69471dedb99b36abb7f2cb544}} 
+\index{maglev-\/ir.cc@{maglev-\/ir.cc}!V@{V}}
+\index{V@{V}!maglev-\/ir.cc@{maglev-\/ir.cc}}
+\doxysubsubsection{\texorpdfstring{V}{V}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \#define V(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Opcode::k\#\#Name: \(\backslash\)}
+\DoxyCodeLine{    return PrintImpl(os, graph\_labeller, this-\/>Cast<Name>(), skip\_targets);}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-ir_8cc_a681a57b69471dedb99b36abb7f2cb544}\label{maglev-ir_8cc_a681a57b69471dedb99b36abb7f2cb544}} 
+\index{maglev-\/ir.cc@{maglev-\/ir.cc}!V@{V}}
+\index{V@{V}!maglev-\/ir.cc@{maglev-\/ir.cc}}
+\doxysubsubsection{\texorpdfstring{V}{V}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \#define V(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Opcode::k\#\#Name: \(\backslash\)}
+\DoxyCodeLine{    return this-\/>Cast<Name>()-\/>DoReify(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});}
+
+\end{DoxyCode}

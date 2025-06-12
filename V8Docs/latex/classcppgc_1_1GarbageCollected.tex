@@ -1,0 +1,127 @@
+\hypertarget{classcppgc_1_1GarbageCollected}{}\doxysection{cppgc\+::Garbage\+Collected$<$ T $>$ Class Template Reference}
+\label{classcppgc_1_1GarbageCollected}\index{cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}}
+
+
+{\ttfamily \#include $<$garbage-\/collected.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classcppgc_1_1GarbageCollected_a41d7c4bb58217f40e602ce09942647a9}{Is\+Garbage\+Collected\+Type\+Marker}} = void
+\item 
+using \mbox{\hyperlink{classcppgc_1_1GarbageCollected_ad6910c4a115a3b797fd7d281ff20af10}{Parent\+Most\+Garbage\+Collected\+Type}} = \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \mbox{\hyperlink{classcppgc_1_1GarbageCollected_a3c06a58137501cdc92efce0b99bf9f57}{operator new}} (size\+\_\+t)=delete
+\item 
+void $\ast$ \mbox{\hyperlink{classcppgc_1_1GarbageCollected_a67ee22b6a385ae8bd70a7b6cc9d361a3}{operator new\mbox{[}$\,$\mbox{]}}} (size\+\_\+t)=delete
+\item 
+void \mbox{\hyperlink{classcppgc_1_1GarbageCollected_afb79d4417a8c8a2bde3498a88557046d}{operator delete}} (void $\ast$)
+\item 
+void \mbox{\hyperlink{classcppgc_1_1GarbageCollected_aa858a4424ae442e0b4480d4cf4da2381}{operator delete\mbox{[}$\,$\mbox{]}}} (void $\ast$)=delete
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcppgc_1_1GarbageCollected_a9a0c274b4153b6e786b26d4248d07f61}{Garbage\+Collected}} ()=default
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class cppgc\+::\+Garbage\+Collected$<$ T $>$}
+
+Base class for managed objects. Only descendent types of {\ttfamily \mbox{\hyperlink{classcppgc_1_1GarbageCollected}{Garbage\+Collected}}} can be constructed using {\ttfamily \mbox{\hyperlink{namespacecppgc_a30a9dfe65b0ca9f09ed6814a3604afc1}{Make\+Garbage\+Collected()}}}. Must be inherited from as left-\/most base class.
+
+Types inheriting from \mbox{\hyperlink{classcppgc_1_1GarbageCollected}{Garbage\+Collected}} must provide a method of signature {\ttfamily void Trace(cppgc\+::\+Visitor$\ast$) const} that dispatchs all managed pointers to the visitor and delegates to garbage-\/collected base classes. The method must be virtual if the type is not directly a child of \mbox{\hyperlink{classcppgc_1_1GarbageCollected}{Garbage\+Collected}} and marked as final.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// Example using final class.}}
+\DoxyCodeLine{\textcolor{keyword}{class }FinalType final : \textcolor{keyword}{public} \mbox{\hyperlink{classcppgc_1_1GarbageCollected_a9a0c274b4153b6e786b26d4248d07f61}{GarbageCollected}}<FinalType> \{}
+\DoxyCodeLine{ \textcolor{keyword}{public}:}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} Trace(\mbox{\hyperlink{classcppgc_1_1Visitor}{cppgc::Visitor}}* visitor)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{    \textcolor{comment}{// Dispatch using visitor-\/>Trace(...);}}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{// Example using non-\/final base class.}}
+\DoxyCodeLine{\textcolor{keyword}{class }NonFinalBase : \textcolor{keyword}{public} \mbox{\hyperlink{classcppgc_1_1GarbageCollected_a9a0c274b4153b6e786b26d4248d07f61}{GarbageCollected}}<NonFinalBase> \{}
+\DoxyCodeLine{ \textcolor{keyword}{public}:}
+\DoxyCodeLine{  \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Trace(\mbox{\hyperlink{classcppgc_1_1Visitor}{cppgc::Visitor}}*)\textcolor{keyword}{ const }\{\}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{class }FinalChild final : \textcolor{keyword}{public} NonFinalBase \{}
+\DoxyCodeLine{ \textcolor{keyword}{public}:}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} Trace(\mbox{\hyperlink{classcppgc_1_1Visitor}{cppgc::Visitor}}* visitor) \textcolor{keyword}{const} \textcolor{keyword}{final} \{}
+\DoxyCodeLine{    \textcolor{comment}{// Dispatch using visitor-\/>Trace(...);}}
+\DoxyCodeLine{    NonFinalBase::Trace(visitor);}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+ 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classcppgc_1_1GarbageCollected_a41d7c4bb58217f40e602ce09942647a9}\label{classcppgc_1_1GarbageCollected_a41d7c4bb58217f40e602ce09942647a9}} 
+\index{cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}!IsGarbageCollectedTypeMarker@{IsGarbageCollectedTypeMarker}}
+\index{IsGarbageCollectedTypeMarker@{IsGarbageCollectedTypeMarker}!cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{IsGarbageCollectedTypeMarker}{IsGarbageCollectedTypeMarker}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+using \mbox{\hyperlink{classcppgc_1_1GarbageCollected}{cppgc\+::\+Garbage\+Collected}}$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$\+::\mbox{\hyperlink{classcppgc_1_1GarbageCollected_a41d7c4bb58217f40e602ce09942647a9}{Is\+Garbage\+Collected\+Type\+Marker}} =  void}
+
+\mbox{\Hypertarget{classcppgc_1_1GarbageCollected_ad6910c4a115a3b797fd7d281ff20af10}\label{classcppgc_1_1GarbageCollected_ad6910c4a115a3b797fd7d281ff20af10}} 
+\index{cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}!ParentMostGarbageCollectedType@{ParentMostGarbageCollectedType}}
+\index{ParentMostGarbageCollectedType@{ParentMostGarbageCollectedType}!cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{ParentMostGarbageCollectedType}{ParentMostGarbageCollectedType}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+using \mbox{\hyperlink{classcppgc_1_1GarbageCollected}{cppgc\+::\+Garbage\+Collected}}$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$\+::\mbox{\hyperlink{classcppgc_1_1GarbageCollected_ad6910c4a115a3b797fd7d281ff20af10}{Parent\+Most\+Garbage\+Collected\+Type}} =  \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}}}
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcppgc_1_1GarbageCollected_a9a0c274b4153b6e786b26d4248d07f61}\label{classcppgc_1_1GarbageCollected_a9a0c274b4153b6e786b26d4248d07f61}} 
+\index{cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}!GarbageCollected@{GarbageCollected}}
+\index{GarbageCollected@{GarbageCollected}!cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GarbageCollected()}{GarbageCollected()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classcppgc_1_1GarbageCollected}{cppgc\+::\+Garbage\+Collected}}$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$\+::\mbox{\hyperlink{classcppgc_1_1GarbageCollected}{Garbage\+Collected}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcppgc_1_1GarbageCollected_afb79d4417a8c8a2bde3498a88557046d}\label{classcppgc_1_1GarbageCollected_afb79d4417a8c8a2bde3498a88557046d}} 
+\index{cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}!operator delete@{operator delete}}
+\index{operator delete@{operator delete}!cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator delete()}{operator delete()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classcppgc_1_1GarbageCollected}{cppgc\+::\+Garbage\+Collected}}$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$\+::operator delete (\begin{DoxyParamCaption}\item[{void $\ast$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classcppgc_1_1GarbageCollected_aa858a4424ae442e0b4480d4cf4da2381}\label{classcppgc_1_1GarbageCollected_aa858a4424ae442e0b4480d4cf4da2381}} 
+\index{cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}!operator delete\mbox{[}\mbox{]}@{operator delete[]}}
+\index{operator delete\mbox{[}\mbox{]}@{operator delete[]}!cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator delete[]()}{operator delete[]()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classcppgc_1_1GarbageCollected}{cppgc\+::\+Garbage\+Collected}}$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$\+::operator delete\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{void $\ast$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classcppgc_1_1GarbageCollected_a3c06a58137501cdc92efce0b99bf9f57}\label{classcppgc_1_1GarbageCollected_a3c06a58137501cdc92efce0b99bf9f57}} 
+\index{cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}!operator new@{operator new}}
+\index{operator new@{operator new}!cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator new()}{operator new()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void$\ast$ \mbox{\hyperlink{classcppgc_1_1GarbageCollected}{cppgc\+::\+Garbage\+Collected}}$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$\+::operator new (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classcppgc_1_1GarbageCollected_a67ee22b6a385ae8bd70a7b6cc9d361a3}\label{classcppgc_1_1GarbageCollected_a67ee22b6a385ae8bd70a7b6cc9d361a3}} 
+\index{cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}!operator new\mbox{[}\mbox{]}@{operator new[]}}
+\index{operator new\mbox{[}\mbox{]}@{operator new[]}!cppgc::GarbageCollected$<$ T $>$@{cppgc::GarbageCollected$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator new[]()}{operator new[]()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void$\ast$ \mbox{\hyperlink{classcppgc_1_1GarbageCollected}{cppgc\+::\+Garbage\+Collected}}$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$\+::operator new\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{garbage-collected_8h}{garbage-\/collected.\+h}}\end{DoxyCompactItemize}

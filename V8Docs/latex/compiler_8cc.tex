@@ -1,0 +1,85 @@
+\hypertarget{compiler_8cc}{}\doxysection{compiler.\+cc File Reference}
+\label{compiler_8cc}\index{compiler.cc@{compiler.cc}}
+{\ttfamily \#include \char`\"{}src/codegen/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/asmjs/asm-\/js.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ast/prettyprinter.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ast/scopes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/platform/time.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/baseline/baseline.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/assembler-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/compilation-\/cache.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/optimized-\/compilation-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/pending-\/optimization-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/script-\/details.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/unoptimized-\/compilation-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/assert-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/message-\/template.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler-\/dispatcher/lazy-\/compile-\/dispatcher.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler-\/dispatcher/optimizing-\/compile-\/dispatcher.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turbofan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/debug/debug.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/debug/liveedit.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/diagnostics/code-\/tracer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/frames-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/local-\/isolate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/vm-\/state-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/global-\/handles-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/handles.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/maybe-\/handles.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/persistent-\/handles.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/local-\/factory-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/local-\/heap-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/parked-\/scope-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/visit-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/init/bootstrapper.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/interpreter.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/counters-\/scopes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/log-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/runtime-\/call-\/stats-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/feedback-\/cell-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/function-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/function.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/map.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/object-\/list-\/macros.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects-\/body-\/descriptors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/shared-\/function-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/string.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/parsing/parse-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/parsing/parser.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/parsing/parsing.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/parsing/pending-\/compilation-\/error-\/handler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/parsing/scanner-\/character-\/streams.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/code-\/serializer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/tracing/traced-\/value.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/ostreams.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/zone/zone-\/list-\/inl.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1ConstantPoolPointerForwarder}{v8\+::internal\+::\+Constant\+Pool\+Pointer\+Forwarder}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_a6f98d17959d24ee7a67fbc6a2ef94a8e}{v8\+::internal\+::\+Set\+Script\+Fields\+From\+Details}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Tagged$<$ Script $>$ script, const Script\+Details \&script\+\_\+details, Disallow\+Garbage\+Collection $\ast$no\+\_\+gc)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_a60538c02c9226eca5a98a60ff96ea9db}{v8\+::internal\+::\+Modify\+Code\+Generation\+From\+Strings}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Direct\+Handle$<$ Native\+Context $>$ \mbox{\hyperlink{js-call-reducer_8cc_a0835767fe473cead88c1afdf3175bce8}{context}}, Handle$<$ \mbox{\hyperlink{classv8_1_1internal_1_1Object}{i\+::\+Object}} $>$ $\ast$\mbox{\hyperlink{maglev-code-generator_8cc_ada8b48e004e823cabe5fcb41baf29163}{source}}, bool is\+\_\+code\+\_\+like)
+\end{DoxyCompactItemize}

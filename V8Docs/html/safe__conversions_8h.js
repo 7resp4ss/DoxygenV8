@@ -1,0 +1,26 @@
+var safe__conversions_8h =
+[
+    [ "SaturateFastAsmOp", "structv8_1_1base_1_1internal_1_1SaturateFastAsmOp.html", "structv8_1_1base_1_1internal_1_1SaturateFastAsmOp" ],
+    [ "IsValueInRangeFastOp", "structv8_1_1base_1_1internal_1_1IsValueInRangeFastOp.html", null ],
+    [ "SaturationDefaultLimits", "structv8_1_1base_1_1internal_1_1SaturationDefaultLimits.html", null ],
+    [ "SaturateFastOp", "structv8_1_1base_1_1internal_1_1SaturateFastOp.html", null ],
+    [ "StrictNumeric", "classv8_1_1base_1_1internal_1_1StrictNumeric.html", "classv8_1_1base_1_1internal_1_1StrictNumeric" ],
+    [ "BASE_HAS_OPTIMIZED_SAFE_CONVERSIONS", "safe__conversions_8h.html#a649e3dd4945f459e3e59cab74e986559", null ],
+    [ "BASE_NUMERIC_COMPARISON_OPERATORS", "safe__conversions_8h.html#af891868c29c3aeafbe96be61a0deaa38", null ],
+    [ "SizeT", "safe__conversions_8h.html#a5887c0c02ef26b8a118ed24625d61ddf", null ],
+    [ "MakeStrictNum", "safe__conversions_8h.html#a37c4734e88ec34f651efc5c3ac0d4a60", null ],
+    [ "requires", "safe__conversions_8h.html#aa875219f48ee51f3369fe5b25142324f", null ],
+    [ "requires", "safe__conversions_8h.html#a13c5ad05f0bc2031a55a66d8e6735ebe", null ],
+    [ "requires", "safe__conversions_8h.html#ab1c87c4316b1e2d48cfb3b462ca4889d", null ],
+    [ "requires", "safe__conversions_8h.html#a02ff9a6795c750bc4c698ad0169ae52d", null ],
+    [ "requires", "safe__conversions_8h.html#a6d6674d7e6b7cd9a04e7e8539368472f", null ],
+    [ "requires", "safe__conversions_8h.html#ad70250cfbe3ca3a2dec6270a47d7c14c", null ],
+    [ "requires", "safe__conversions_8h.html#a11ce77ba4583daf5c500ea09fef9226a", null ],
+    [ "requires", "safe__conversions_8h.html#af88a081daf2743eec495d144d08077a5", null ],
+    [ "requires", "safe__conversions_8h.html#ab9cd0536c9288bbfe2fe330b3ffc2811", null ],
+    [ "saturated_cast", "safe__conversions_8h.html#af97ea38fe143d710990fdcd84f4b46a0", null ],
+    [ "saturated_cast_impl", "safe__conversions_8h.html#a5d15de425c39cf3042bb31f1db45f045", null ],
+    [ "StrictNumeric", "safe__conversions_8h.html#a2d44f2124cfdf8a2ae71ffe24e4bbf8a", null ],
+    [ "kIsNumericRangeContained", "safe__conversions_8h.html#a74acf7231203137d703cc783ef5fd2dc", null ],
+    [ "Src", "safe__conversions_8h.html#a8921e87be2d8dbb6dea1b0d5e6e36d7c", null ]
+];

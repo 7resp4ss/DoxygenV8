@@ -1,0 +1,4 @@
+var structv8_1_1internal_1_1compiler_1_1SimplifiedOperatorGlobalCache_1_1CheckedFloat64ToAdditiveSafeIntegerOperator =
+[
+    [ "CheckedFloat64ToAdditiveSafeIntegerOperator", "structv8_1_1internal_1_1compiler_1_1SimplifiedOperatorGlobalCache_1_1CheckedFloat64ToAdditiveSafeIntegerOperator.html#ad4e26d77f8115fa487a6c71f35383e25", null ]
+];

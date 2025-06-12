@@ -1,0 +1,34 @@
+var classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry =
+[
+    [ "State", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#adf54a93131b487b92b48e2f82c00090f", [
+      [ "kParentOrImport", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#adf54a93131b487b92b48e2f82c00090fae5bbd807b78358f478d7cd8b395f93c0", null ],
+      [ "kExports", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#adf54a93131b487b92b48e2f82c00090facdec7cd1de7738d307ab7def1f1f617d", null ],
+      [ "kMethods", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#adf54a93131b487b92b48e2f82c00090fa80e9cff077710cede1ea6b23e8b4e776", null ],
+      [ "kConstructor", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#adf54a93131b487b92b48e2f82c00090faabd2d9fe8746b83f7e3c224be63c9251", null ],
+      [ "kStatics", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#adf54a93131b487b92b48e2f82c00090facd61e7310048ba0897ab21628f0d4ddc", null ],
+      [ "kFinished", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#adf54a93131b487b92b48e2f82c00090fa16b903606caf0e3128389431c392faf3", null ]
+    ] ],
+    [ "Entry", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#ae6e9ca289d06fc0aaee6a388f9ddd6d0", null ],
+    [ "CheckIndex", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a6baa5795b115b152428243c07fdc6cc7", null ],
+    [ "Constructor", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#ab6f9b5c168ce6a606c7fc4eb200f1633", null ],
+    [ "consume_string", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a61987cb7d5f60710147b2de653458dbd", null ],
+    [ "consume_u32v", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#afc8aed1aa97668c118934a004cc69de9", null ],
+    [ "decoder", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#afb070bd83331e80a31726a5b64267e5d", null ],
+    [ "estimated_number_of_methods", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a6087c1b47b4b101af9b984f897cf7cf2", null ],
+    [ "estimated_number_of_statics", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a33dd5c71d0644d8a801cceb0aba5c078", null ],
+    [ "has_constructor", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#acc066d4e40b1f3309e44ae32c07ecaea", null ],
+    [ "has_export", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a97bb13991c9b739dd8803ea25d1234e4", null ],
+    [ "has_method", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a3eeb90d921cf7eeef7dcd2445ec1adf1", null ],
+    [ "has_static", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a350d27a72d3ae80812902806c8e8b323", null ],
+    [ "NextExport", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#aba00098a33960f954d5eed6640c8e176", null ],
+    [ "NextMethod", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a235b1b2fa32043bb5a34f3e5de388732", null ],
+    [ "NextMethodImpl", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#ab39bb047ce011e24438ab9cc29a04859", null ],
+    [ "NextStatic", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a6fa922872a3c2a2debc2dc16943a9a55", null ],
+    [ "num_nested", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#ada7d71075190567cc7eb7132c69ecad4", null ],
+    [ "ok", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a0e12777c75c42399a23802c40320c972", null ],
+    [ "ProceedToConstructor", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a66086f658ea3bcac3bb1f2089427e89e", null ],
+    [ "ProceedToExports", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a3358665eacc5baf40c87c33d1ee7d0df", null ],
+    [ "ProceedToMethods", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a85250ff1d1601d116305aed00fc30d73", null ],
+    [ "ProceedToStatics", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#adbf66113f5f304624f82b67a8129e911", null ],
+    [ "state", "classv8_1_1internal_1_1wasm_1_1DescriptorsSectionIterator_1_1Entry.html#a460dcfaed951d87c1bcdcd029f7930e6", null ]
+];

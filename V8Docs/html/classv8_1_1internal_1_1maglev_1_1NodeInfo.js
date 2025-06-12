@@ -1,0 +1,27 @@
+var classv8_1_1internal_1_1maglev_1_1NodeInfo =
+[
+    [ "AlternativeNodes", "classv8_1_1internal_1_1maglev_1_1NodeInfo_1_1AlternativeNodes.html", "classv8_1_1internal_1_1maglev_1_1NodeInfo_1_1AlternativeNodes" ],
+    [ "ClearUnstableMapsOnCopy", "structv8_1_1internal_1_1maglev_1_1NodeInfo_1_1ClearUnstableMapsOnCopy.html", "structv8_1_1internal_1_1maglev_1_1NodeInfo_1_1ClearUnstableMapsOnCopy" ],
+    [ "NodeInfo", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#a7390c72b8f7d40625ced1565350b67e4", null ],
+    [ "NodeInfo", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#aebc40746e082a684e229df6cea9aa44c", null ],
+    [ "alternative", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#affbe308398071e6995468f009a110243", null ],
+    [ "alternative", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#ab0c54762dff2ba389353517671006dba", null ],
+    [ "any_map_is_unstable", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#a8e1cfeb263e2ae4b877a492238f7f4b4", null ],
+    [ "ClearUnstableMaps", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#ad9c4fac1082656ec1f63f2e583ff92df", null ],
+    [ "ClearUnstableMapsIfAny", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#a9874478dca37bbe7fffa156be0e44314", null ],
+    [ "IntersectType", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#a291516af68341964d416233a2f0c4a34", null ],
+    [ "is_any_heap_object", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#ad77cfa943ac4f40d305c38f4abb60eef", null ],
+    [ "is_internalized_string", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#a6daad74d3e72cb2b6b3f2e0191cb00c6", null ],
+    [ "is_smi", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#a2de90e59c33b039dc2bac2ed43d94548", null ],
+    [ "is_string", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#a6f58ea99d57b2bfcfb34f19ff0f64e7e", null ],
+    [ "is_symbol", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#aebfe983422d1d260fbacaeb8cd1d1d13", null ],
+    [ "MergeWith", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#adccfc57ade8c79f2fcd6da8d6fdaf62d", null ],
+    [ "no_info_available", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#a81e6ecfa0db1beff7e6cf33dce88b16a", null ],
+    [ "possible_maps", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#aba1a1c953e86efa7710c6f8b77b9f8f2", null ],
+    [ "possible_maps_are_known", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#aa237bafb6fb907e808700488c726b7ef", null ],
+    [ "possible_maps_are_unstable", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#a305d927d9eeaafb60715468e7f932ffa", null ],
+    [ "set_node_type_is_unstable", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#a36e648992a736b948398d4042f9ef512", null ],
+    [ "SetPossibleMaps", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#a0dc02374908556fdc19b1a91960aad33", null ],
+    [ "type", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#ac412c8cba4e4f4b4e87097a8d5abf2d2", null ],
+    [ "UnionType", "classv8_1_1internal_1_1maglev_1_1NodeInfo.html#af97ea034aa7c3d3b573cab0ccc8b3225", null ]
+];

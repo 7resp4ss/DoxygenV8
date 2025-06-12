@@ -1,0 +1,489 @@
+\hypertarget{maglev-graph-builder_8cc}{}\doxysection{maglev-\/graph-\/builder.cc File Reference}
+\label{maglev-graph-builder_8cc}\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/graph-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include \char`\"{}src/base/bounds.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/container-\/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/ieee754.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/builtins-\/constructor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/builtins.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/cpu-\/features.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/interface-\/descriptors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/assert-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/message-\/template.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/access-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/bytecode-\/liveness-\/map.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/compilation-\/dependencies.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/feedback-\/source.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/heap-\/refs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/heap-\/broker-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/heap-\/broker.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/processed-\/feedback.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/deoptimizer/deoptimize-\/reason.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/protectors.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/maybe-\/handles-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ic/handler-\/configuration-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/array-\/iterator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/flags-\/and-\/tokens.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/register.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecodes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/compilation-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/compilation-\/unit.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/graph-\/printer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/interpreter-\/frame-\/state.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/ir-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/ir.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/numbers/conversions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/numbers/ieee754.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/arguments.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/elements-\/kind.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/feedback-\/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/fixed-\/array.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/number-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/instance-\/type-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/instance-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/function.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/objects.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/literal-\/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/name-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/object-\/list-\/macros.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/cell.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/details.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/shared-\/function-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/slots-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/type-\/hints.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/roots/roots.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/zone/zone.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1maglev_1_1CallArguments}{v8\+::internal\+::maglev\+::\+Call\+Arguments}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder}{v8\+::internal\+::maglev\+::\+Maglev\+Graph\+Builder}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1MaglevSubGraphBuilder_1_1Variable}{v8\+::internal\+::maglev\+::\+Maglev\+Graph\+Builder\+::\+Maglev\+Sub\+Graph\+Builder\+::\+Variable}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1MaglevSubGraphBuilder_1_1Label}{v8\+::internal\+::maglev\+::\+Maglev\+Graph\+Builder\+::\+Maglev\+Sub\+Graph\+Builder\+::\+Label}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1MaglevSubGraphBuilder_1_1LoopLabel}{v8\+::internal\+::maglev\+::\+Maglev\+Graph\+Builder\+::\+Maglev\+Sub\+Graph\+Builder\+::\+Loop\+Label}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1maglev_1_1MaglevGraphBuilder_1_1MaglevSubGraphBuilder_1_1BorrowParentKnownNodeAspectsAndVOs}{v8\+::internal\+::maglev\+::\+Maglev\+Graph\+Builder\+::\+Maglev\+Sub\+Graph\+Builder\+::\+Borrow\+Parent\+Known\+Node\+Aspects\+And\+VOs}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev}{v8\+::internal\+::maglev}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_a5f6aa8edcd99914757600b5d3b259bb7}{TRACE}}(...)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_ac8d1eaf65528f86b445cf6e45b2d72c9}{FAIL}}(...)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_ad05a04fef258e5e6c5359524397f6c8b}{CASE}}(Name, ...)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_a814bf0249817ac83dd90da67b9546a52}{NODE\+\_\+\+FOR\+\_\+\+OPERATION\+\_\+\+HELPER}}(Name)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_a688d3f0ad5cf25631b746c15c0136f5d}{MAP\+\_\+\+BINARY\+\_\+\+OPERATION\+\_\+\+TO\+\_\+\+INT32\+\_\+\+NODE}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_a3b5604deba21d5aa02495fd201b752d3}{MAP\+\_\+\+UNARY\+\_\+\+OPERATION\+\_\+\+TO\+\_\+\+INT32\+\_\+\+NODE}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_aafa0f83287aeae914aa6c2eda518a1b6}{MAP\+\_\+\+OPERATION\+\_\+\+TO\+\_\+\+FLOAT64\+\_\+\+NODE}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_a24bdde649c82b8042c9e6a0431f60454}{CASE}}(op,  \mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  identity)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_ae15a9d9244c790859a867d6cf3f93b3c}{SPECIALIZATION}}(op,  Op\+Node, ...)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_a8cb1b288d47113edc4daa7babf1a6e7b}{SPECIALIZATION}}(op,  Op\+Node)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_a827360f279a695bc923b65c544557e6e}{SHORT\+\_\+\+STAR\+\_\+\+VISITOR}}(Name, ...)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_aee793c5ad54d7a7d7585754e312d3260}{GENERATE\+\_\+\+CASE}}(Name)~case Opcode\+::k\#\#Name\+:
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_a16db878b40237510a6fc219dfd9c0736}{BUILD\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+LOAD\+\_\+\+TYPED\+\_\+\+ARRAY}}(Type)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_a0a2797f8eb78e6ed46e0eb61f3bad9c5}{BUILD\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+LOAD\+\_\+\+CONSTANT\+\_\+\+TYPED\+\_\+\+ARRAY}}(Type)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_a1f24e7ce6e8b2622fedf6153b5dbe628}{BUILD\+\_\+\+STORE\+\_\+\+TYPED\+\_\+\+ARRAY}}(Type,  \mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_aea114ef9edd26e3cb0adc06688d2a4dd}{BUILD\+\_\+\+STORE\+\_\+\+CONSTANT\+\_\+\+TYPED\+\_\+\+ARRAY}}(Type,  \mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_ad05a04fef258e5e6c5359524397f6c8b}{CASE}}(Name, ...)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_ad05a04fef258e5e6c5359524397f6c8b}{CASE}}(Name, ...)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_a02b539607c1a8ab69dcaf4eb132cf361}{CASE}}(Name)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_afbc4ec7b42a73d54a8c2599598fc4f90}{TRACE\+\_\+\+INLINING}}(...)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_aedfb41a33f5ec05ff82b4b02693a1677}{TRACE\+\_\+\+CANNOT\+\_\+\+INLINE}}(...)~  \mbox{\hyperlink{maglev-graph-builder_8cc_afbc4ec7b42a73d54a8c2599598fc4f90}{TRACE\+\_\+\+INLINING}}(\char`\"{}  cannot inline \char`\"{} $<$$<$ shared $<$$<$ \char`\"{}\+: \char`\"{} $<$$<$ \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_af839f3015b2643ff2afe6aa16d1cc20f}{MATH\+\_\+\+UNARY\+\_\+\+IEEE\+\_\+\+BUILTIN\+\_\+\+REDUCER}}(Math\+Name,  Ext\+Name,  Enum\+Name)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_ad05a04fef258e5e6c5359524397f6c8b}{CASE}}(Name, ...)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_a1d9c0bfe4b48db782a75eeaeba7ee0c8}{CASE}}(Name,  \mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  arg\+\_\+count)
+\item 
+\#define \mbox{\hyperlink{maglev-graph-builder_8cc_afde0e2c7429846fc8e4e1649174f8943}{DEBUG\+\_\+\+BREAK}}(Name, ...)~  Reduce\+Result Maglev\+Graph\+Builder\+::\+Visit\#\#Name() \{ \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}(); \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$Operation k\+Operation, typename type $>$ }\\bool \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_a1a45ab9b221e14a9d481ab7b849b6c4d}{v8\+::internal\+::maglev\+::\+Operation\+Value}} (\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}} left, \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}} right)
+\item 
+Node\+Type \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_a95dda117ccb800077a839a641bce59ec}{v8\+::internal\+::maglev\+::\+Static\+Type\+For\+Node}} (compiler\+::\+JSHeap\+Broker $\ast$\mbox{\hyperlink{flag-definitions_8h_a1e4d6c2aea5c663dda8b8fca8b9199a5}{broker}}, Local\+Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Value\+Node $\ast$\mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_a0a2797f8eb78e6ed46e0eb61f3bad9c5}\label{maglev-graph-builder_8cc_a0a2797f8eb78e6ed46e0eb61f3bad9c5}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!BUILD\_AND\_RETURN\_LOAD\_CONSTANT\_TYPED\_ARRAY@{BUILD\_AND\_RETURN\_LOAD\_CONSTANT\_TYPED\_ARRAY}}
+\index{BUILD\_AND\_RETURN\_LOAD\_CONSTANT\_TYPED\_ARRAY@{BUILD\_AND\_RETURN\_LOAD\_CONSTANT\_TYPED\_ARRAY}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{BUILD\_AND\_RETURN\_LOAD\_CONSTANT\_TYPED\_ARRAY}{BUILD\_AND\_RETURN\_LOAD\_CONSTANT\_TYPED\_ARRAY}}
+{\footnotesize\ttfamily \#define BUILD\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+LOAD\+\_\+\+CONSTANT\+\_\+\+TYPED\+\_\+\+ARRAY(\begin{DoxyParamCaption}\item[{}]{Type }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{return} AddNewNode<Load\#\#Type\#\#ConstantTypedArrayElement>( \(\backslash\)}
+\DoxyCodeLine{      \{\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}\}, typed\_array, elements\_kind);}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_a16db878b40237510a6fc219dfd9c0736}\label{maglev-graph-builder_8cc_a16db878b40237510a6fc219dfd9c0736}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!BUILD\_AND\_RETURN\_LOAD\_TYPED\_ARRAY@{BUILD\_AND\_RETURN\_LOAD\_TYPED\_ARRAY}}
+\index{BUILD\_AND\_RETURN\_LOAD\_TYPED\_ARRAY@{BUILD\_AND\_RETURN\_LOAD\_TYPED\_ARRAY}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{BUILD\_AND\_RETURN\_LOAD\_TYPED\_ARRAY}{BUILD\_AND\_RETURN\_LOAD\_TYPED\_ARRAY}}
+{\footnotesize\ttfamily \#define BUILD\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+LOAD\+\_\+\+TYPED\+\_\+\+ARRAY(\begin{DoxyParamCaption}\item[{}]{Type }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{return} AddNewNode<Load\#\#Type\#\#TypedArrayElement>(\{object, \mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}\}, \(\backslash\)}
+\DoxyCodeLine{                                                   elements\_kind);}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_aea114ef9edd26e3cb0adc06688d2a4dd}\label{maglev-graph-builder_8cc_aea114ef9edd26e3cb0adc06688d2a4dd}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!BUILD\_STORE\_CONSTANT\_TYPED\_ARRAY@{BUILD\_STORE\_CONSTANT\_TYPED\_ARRAY}}
+\index{BUILD\_STORE\_CONSTANT\_TYPED\_ARRAY@{BUILD\_STORE\_CONSTANT\_TYPED\_ARRAY}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{BUILD\_STORE\_CONSTANT\_TYPED\_ARRAY}{BUILD\_STORE\_CONSTANT\_TYPED\_ARRAY}}
+{\footnotesize\ttfamily \#define BUILD\+\_\+\+STORE\+\_\+\+CONSTANT\+\_\+\+TYPED\+\_\+\+ARRAY(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{\mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  AddNewNode<Store\#\#Type\#\#ConstantTypedArrayElement>( \(\backslash\)}
+\DoxyCodeLine{      \{\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}, (\mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}})\}, typed\_array, elements\_kind);}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_a1f24e7ce6e8b2622fedf6153b5dbe628}\label{maglev-graph-builder_8cc_a1f24e7ce6e8b2622fedf6153b5dbe628}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!BUILD\_STORE\_TYPED\_ARRAY@{BUILD\_STORE\_TYPED\_ARRAY}}
+\index{BUILD\_STORE\_TYPED\_ARRAY@{BUILD\_STORE\_TYPED\_ARRAY}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{BUILD\_STORE\_TYPED\_ARRAY}{BUILD\_STORE\_TYPED\_ARRAY}}
+{\footnotesize\ttfamily \#define BUILD\+\_\+\+STORE\+\_\+\+TYPED\+\_\+\+ARRAY(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{\mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  AddNewNode<Store\#\#Type\#\#TypedArrayElement>(\{object, \mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}, (\mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}})\}, \(\backslash\)}
+\DoxyCodeLine{                                             elements\_kind);}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_a02b539607c1a8ab69dcaf4eb132cf361}\label{maglev-graph-builder_8cc_a02b539607c1a8ab69dcaf4eb132cf361}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [1/7]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Opcode::k\#\#Name: \{                                  \(\backslash\)}
+\DoxyCodeLine{    return GetBooleanConstant(                             \(\backslash\)}
+\DoxyCodeLine{        !\mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}}-\/>Cast<Name>()-\/>ToBoolean(local\_isolate())); \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_a1d9c0bfe4b48db782a75eeaeba7ee0c8}\label{maglev-graph-builder_8cc_a1d9c0bfe4b48db782a75eeaeba7ee0c8}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [2/7]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  }\item[{}]{arg\+\_\+count }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Runtime::kInline\#\#Name:                                           \(\backslash\)}
+\DoxyCodeLine{    DCHECK\_IMPLIES(arg\_count != -\/1, arg\_count == \mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}.register\_count()); \(\backslash\)}
+\DoxyCodeLine{    return VisitIntrinsic\#\#Name(\mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}});}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_ad05a04fef258e5e6c5359524397f6c8b}\label{maglev-graph-builder_8cc_ad05a04fef258e5e6c5359524397f6c8b}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [3/7]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Bytecode::k\#\#Name:                                         \(\backslash\)}
+\DoxyCodeLine{    return GetResultLocationAndSizeForBytecode<Bytecode::k\#\#Name, \(\backslash\)}
+\DoxyCodeLine{                                               \_\_VA\_ARGS\_\_>(iterator\_);}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_ad05a04fef258e5e6c5359524397f6c8b}\label{maglev-graph-builder_8cc_ad05a04fef258e5e6c5359524397f6c8b}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [4/7]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} interpreter::Bytecode::k\#\#Name:                                        \(\backslash\)}
+\DoxyCodeLine{    loaded\_property\_register =                                                \(\backslash\)}
+\DoxyCodeLine{        interpreter::Register::FromShortStar(interpreter::Bytecode::k\#\#Name); \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_ad05a04fef258e5e6c5359524397f6c8b}\label{maglev-graph-builder_8cc_ad05a04fef258e5e6c5359524397f6c8b}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [5/7]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} interpreter::Bytecode::k\#\#Name:                                 \(\backslash\)}
+\DoxyCodeLine{    if (iterator\_.GetRegisterOperand(0) == loaded\_property\_register) \{ \(\backslash\)}
+\DoxyCodeLine{      last\_continuation = iterator\_.current\_offset();                  \(\backslash\)}
+\DoxyCodeLine{      after\_continuation = iterator\_.next\_offset();                    \(\backslash\)}
+\DoxyCodeLine{    \}                                                                  \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_ad05a04fef258e5e6c5359524397f6c8b}\label{maglev-graph-builder_8cc_ad05a04fef258e5e6c5359524397f6c8b}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [6/7]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Builtin::k\#\#Name: \(\backslash\)}
+\DoxyCodeLine{    return TryReduce\#\#Name(\mbox{\hyperlink{js-call-reducer_8cc_a160b46cc89e1d0807731be8c2d2257c0}{target}}, \mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}});}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_a24bdde649c82b8042c9e6a0431f60454}\label{maglev-graph-builder_8cc_a24bdde649c82b8042c9e6a0431f60454}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}\hspace{0.1cm}{\footnotesize\ttfamily [7/7]}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{op,  }\item[{}]{\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  }\item[{}]{identity }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Operation::k\#\#op:      \(\backslash\)}
+\DoxyCodeLine{    return identity;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_afde0e2c7429846fc8e4e1649174f8943}\label{maglev-graph-builder_8cc_afde0e2c7429846fc8e4e1649174f8943}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!DEBUG\_BREAK@{DEBUG\_BREAK}}
+\index{DEBUG\_BREAK@{DEBUG\_BREAK}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_BREAK}{DEBUG\_BREAK}}
+{\footnotesize\ttfamily \#define DEBUG\+\_\+\+BREAK(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})~  Reduce\+Result Maglev\+Graph\+Builder\+::\+Visit\#\#Name() \{ \mbox{\hyperlink{src_2base_2logging_8h_a0bc63b24b654ca433be7b97a3edde132}{UNREACHABLE}}(); \}}
+
+\mbox{\Hypertarget{maglev-graph-builder_8cc_ac8d1eaf65528f86b445cf6e45b2d72c9}\label{maglev-graph-builder_8cc_ac8d1eaf65528f86b445cf6e45b2d72c9}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!FAIL@{FAIL}}
+\index{FAIL@{FAIL}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{FAIL}{FAIL}}
+{\footnotesize\ttfamily \#define FAIL(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{maglev-graph-builder_8cc_a5f6aa8edcd99914757600b5d3b259bb7}{TRACE}}(\textcolor{stringliteral}{"{}Failed "{}} << \_\_func\_\_ << \textcolor{stringliteral}{"{}:"{}} << \_\_LINE\_\_ << \textcolor{stringliteral}{"{}: "{}} << \_\_VA\_ARGS\_\_); \(\backslash\)}
+\DoxyCodeLine{  return \{\};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_aee793c5ad54d7a7d7585754e312d3260}\label{maglev-graph-builder_8cc_aee793c5ad54d7a7d7585754e312d3260}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!GENERATE\_CASE@{GENERATE\_CASE}}
+\index{GENERATE\_CASE@{GENERATE\_CASE}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{GENERATE\_CASE}{GENERATE\_CASE}}
+{\footnotesize\ttfamily \#define GENERATE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})~case Opcode\+::k\#\#Name\+:}
+
+\mbox{\Hypertarget{maglev-graph-builder_8cc_a688d3f0ad5cf25631b746c15c0136f5d}\label{maglev-graph-builder_8cc_a688d3f0ad5cf25631b746c15c0136f5d}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!MAP\_BINARY\_OPERATION\_TO\_INT32\_NODE@{MAP\_BINARY\_OPERATION\_TO\_INT32\_NODE}}
+\index{MAP\_BINARY\_OPERATION\_TO\_INT32\_NODE@{MAP\_BINARY\_OPERATION\_TO\_INT32\_NODE}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{MAP\_BINARY\_OPERATION\_TO\_INT32\_NODE}{MAP\_BINARY\_OPERATION\_TO\_INT32\_NODE}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+BINARY\+\_\+\+OPERATION\+\_\+\+TO\+\_\+\+INT32\+\_\+\+NODE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(\mbox{\hyperlink{namespacev8_1_1bigint_a6d4d2ce18897aba0f90b3208eca29a5b}{Add}}, Int32AddWithOverflow, 0)             \(\backslash\)}
+\DoxyCodeLine{  V(\mbox{\hyperlink{namespacev8_1_1bigint_a9f109e9fcf225046b84d0471f5585479}{Subtract}}, Int32SubtractWithOverflow, 0)   \(\backslash\)}
+\DoxyCodeLine{  V(Multiply, Int32MultiplyWithOverflow, 1)   \(\backslash\)}
+\DoxyCodeLine{  V(\mbox{\hyperlink{namespacev8_1_1base_ad5a29771622da6f7889b7c4b08e6bc20}{Divide}}, Int32DivideWithOverflow, 1)       \(\backslash\)}
+\DoxyCodeLine{  V(Modulus, Int32ModulusWithOverflow, \{\})    \(\backslash\)}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(BitwiseAnd, Int32BitwiseAnd, \string~0)          \(\backslash\)}
+\DoxyCodeLine{  V(BitwiseOr, Int32BitwiseOr, 0)             \(\backslash\)}
+\DoxyCodeLine{  V(BitwiseXor, Int32BitwiseXor, 0)           \(\backslash\)}
+\DoxyCodeLine{  V(ShiftLeft, Int32ShiftLeft, 0)             \(\backslash\)}
+\DoxyCodeLine{  V(ShiftRight, Int32ShiftRight, 0)           \(\backslash\)}
+\DoxyCodeLine{  V(ShiftRightLogical, Int32ShiftRightLogical, \{\})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_aafa0f83287aeae914aa6c2eda518a1b6}\label{maglev-graph-builder_8cc_aafa0f83287aeae914aa6c2eda518a1b6}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!MAP\_OPERATION\_TO\_FLOAT64\_NODE@{MAP\_OPERATION\_TO\_FLOAT64\_NODE}}
+\index{MAP\_OPERATION\_TO\_FLOAT64\_NODE@{MAP\_OPERATION\_TO\_FLOAT64\_NODE}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{MAP\_OPERATION\_TO\_FLOAT64\_NODE}{MAP\_OPERATION\_TO\_FLOAT64\_NODE}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+OPERATION\+\_\+\+TO\+\_\+\+FLOAT64\+\_\+\+NODE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(\mbox{\hyperlink{namespacev8_1_1bigint_a6d4d2ce18897aba0f90b3208eca29a5b}{Add}}, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a7af6075b33de264b2bb46b5e7dd9e28c}{Float64Add}})                     \(\backslash\)}
+\DoxyCodeLine{  V(\mbox{\hyperlink{namespacev8_1_1bigint_a9f109e9fcf225046b84d0471f5585479}{Subtract}}, Float64Subtract)           \(\backslash\)}
+\DoxyCodeLine{  V(Multiply, Float64Multiply)           \(\backslash\)}
+\DoxyCodeLine{  V(\mbox{\hyperlink{namespacev8_1_1base_ad5a29771622da6f7889b7c4b08e6bc20}{Divide}}, Float64Divide)               \(\backslash\)}
+\DoxyCodeLine{  V(Modulus, Float64Modulus)             \(\backslash\)}
+\DoxyCodeLine{  V(Exponentiate, Float64Exponentiate)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_a3b5604deba21d5aa02495fd201b752d3}\label{maglev-graph-builder_8cc_a3b5604deba21d5aa02495fd201b752d3}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!MAP\_UNARY\_OPERATION\_TO\_INT32\_NODE@{MAP\_UNARY\_OPERATION\_TO\_INT32\_NODE}}
+\index{MAP\_UNARY\_OPERATION\_TO\_INT32\_NODE@{MAP\_UNARY\_OPERATION\_TO\_INT32\_NODE}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{MAP\_UNARY\_OPERATION\_TO\_INT32\_NODE}{MAP\_UNARY\_OPERATION\_TO\_INT32\_NODE}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+UNARY\+\_\+\+OPERATION\+\_\+\+TO\+\_\+\+INT32\+\_\+\+NODE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(BitwiseNot, Int32BitwiseNot)             \(\backslash\)}
+\DoxyCodeLine{  V(Increment, Int32IncrementWithOverflow)   \(\backslash\)}
+\DoxyCodeLine{  V(Decrement, Int32DecrementWithOverflow)   \(\backslash\)}
+\DoxyCodeLine{  V(\mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a4ea1892fab852cc6c5caf9e1d7a747f9}{Negate}}, Int32NegateWithOverflow)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_af839f3015b2643ff2afe6aa16d1cc20f}\label{maglev-graph-builder_8cc_af839f3015b2643ff2afe6aa16d1cc20f}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!MATH\_UNARY\_IEEE\_BUILTIN\_REDUCER@{MATH\_UNARY\_IEEE\_BUILTIN\_REDUCER}}
+\index{MATH\_UNARY\_IEEE\_BUILTIN\_REDUCER@{MATH\_UNARY\_IEEE\_BUILTIN\_REDUCER}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{MATH\_UNARY\_IEEE\_BUILTIN\_REDUCER}{MATH\_UNARY\_IEEE\_BUILTIN\_REDUCER}}
+{\footnotesize\ttfamily \#define MATH\+\_\+\+UNARY\+\_\+\+IEEE\+\_\+\+BUILTIN\+\_\+\+REDUCER(\begin{DoxyParamCaption}\item[{}]{Math\+Name,  }\item[{}]{Ext\+Name,  }\item[{}]{Enum\+Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  MaybeReduceResult MaglevGraphBuilder::TryReduce\#\#MathName(                  \(\backslash\)}
+\DoxyCodeLine{      compiler::JSFunctionRef \mbox{\hyperlink{js-call-reducer_8cc_a160b46cc89e1d0807731be8c2d2257c0}{target}}, CallArguments\& \mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}) \{                  \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}.count() < 1) \{                                                   \(\backslash\)}
+\DoxyCodeLine{      return GetRootConstant(RootIndex::kNanValue);                           \(\backslash\)}
+\DoxyCodeLine{    \}                                                                         \(\backslash\)}
+\DoxyCodeLine{    if (!CanSpeculateCall()) \{                                                \(\backslash\)}
+\DoxyCodeLine{      ValueRepresentation rep = \mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}[0]-\/>properties().value\_representation(); \(\backslash\)}
+\DoxyCodeLine{      if (rep == ValueRepresentation::kTagged ||                              \(\backslash\)}
+\DoxyCodeLine{          rep == ValueRepresentation::kHoleyFloat64) \{                        \(\backslash\)}
+\DoxyCodeLine{        return \{\};                                                            \(\backslash\)}
+\DoxyCodeLine{      \}                                                                       \(\backslash\)}
+\DoxyCodeLine{    \}                                                                         \(\backslash\)}
+\DoxyCodeLine{    ValueNode* \mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}} =                                                        \(\backslash\)}
+\DoxyCodeLine{        GetFloat64ForToNumber(\mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}[0], NodeType::kNumber,                     \(\backslash\)}
+\DoxyCodeLine{                              TaggedToFloat64ConversionType::kOnlyNumber);    \(\backslash\)}
+\DoxyCodeLine{    return AddNewNode<Float64Ieee754Unary>(                                   \(\backslash\)}
+\DoxyCodeLine{        \{\mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}}\}, Float64Ieee754Unary::Ieee754Function::k\#\#EnumName);          \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_a814bf0249817ac83dd90da67b9546a52}\label{maglev-graph-builder_8cc_a814bf0249817ac83dd90da67b9546a52}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!NODE\_FOR\_OPERATION\_HELPER@{NODE\_FOR\_OPERATION\_HELPER}}
+\index{NODE\_FOR\_OPERATION\_HELPER@{NODE\_FOR\_OPERATION\_HELPER}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{NODE\_FOR\_OPERATION\_HELPER}{NODE\_FOR\_OPERATION\_HELPER}}
+{\footnotesize\ttfamily \#define NODE\+\_\+\+FOR\+\_\+\+OPERATION\+\_\+\+HELPER(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keyword}{template} <>                                         \(\backslash\)}
+\DoxyCodeLine{  struct NodeForOperationHelper<Operation::k\#\#Name> \{ \(\backslash\)}
+\DoxyCodeLine{    using generic\_type = Generic\#\#Name;               \(\backslash\)}
+\DoxyCodeLine{  \};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_a827360f279a695bc923b65c544557e6e}\label{maglev-graph-builder_8cc_a827360f279a695bc923b65c544557e6e}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!SHORT\_STAR\_VISITOR@{SHORT\_STAR\_VISITOR}}
+\index{SHORT\_STAR\_VISITOR@{SHORT\_STAR\_VISITOR}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{SHORT\_STAR\_VISITOR}{SHORT\_STAR\_VISITOR}}
+{\footnotesize\ttfamily \#define SHORT\+\_\+\+STAR\+\_\+\+VISITOR(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  ReduceResult MaglevGraphBuilder::Visit\#\#Name() \{                             \(\backslash\)}
+\DoxyCodeLine{    MoveNodeBetweenRegisters(                                                  \(\backslash\)}
+\DoxyCodeLine{        interpreter::Register::virtual\_accumulator(),                          \(\backslash\)}
+\DoxyCodeLine{        interpreter::Register::FromShortStar(interpreter::Bytecode::k\#\#Name)); \(\backslash\)}
+\DoxyCodeLine{    return ReduceResult::Done();                                               \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_a8cb1b288d47113edc4daa7babf1a6e7b}\label{maglev-graph-builder_8cc_a8cb1b288d47113edc4daa7babf1a6e7b}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!SPECIALIZATION@{SPECIALIZATION}}
+\index{SPECIALIZATION@{SPECIALIZATION}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{SPECIALIZATION}{SPECIALIZATION}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \#define SPECIALIZATION(\begin{DoxyParamCaption}\item[{}]{op,  }\item[{}]{Op\+Node }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keyword}{template} <>                                     \(\backslash\)}
+\DoxyCodeLine{  struct Float64NodeForHelper<Operation::k\#\#op> \{ \(\backslash\)}
+\DoxyCodeLine{    using \mbox{\hyperlink{wasm-inlining-into-js_8cc_a66874a4e937e4192b2b42e57f55251e8}{type}} = OpNode;                          \(\backslash\)}
+\DoxyCodeLine{  \};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_ae15a9d9244c790859a867d6cf3f93b3c}\label{maglev-graph-builder_8cc_ae15a9d9244c790859a867d6cf3f93b3c}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!SPECIALIZATION@{SPECIALIZATION}}
+\index{SPECIALIZATION@{SPECIALIZATION}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{SPECIALIZATION}{SPECIALIZATION}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \#define SPECIALIZATION(\begin{DoxyParamCaption}\item[{}]{op,  }\item[{}]{Op\+Node,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keyword}{template} <>                                   \(\backslash\)}
+\DoxyCodeLine{  struct Int32NodeForHelper<Operation::k\#\#op> \{ \(\backslash\)}
+\DoxyCodeLine{    using \mbox{\hyperlink{wasm-inlining-into-js_8cc_a66874a4e937e4192b2b42e57f55251e8}{type}} = OpNode;                        \(\backslash\)}
+\DoxyCodeLine{  \};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_a5f6aa8edcd99914757600b5d3b259bb7}\label{maglev-graph-builder_8cc_a5f6aa8edcd99914757600b5d3b259bb7}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!TRACE@{TRACE}}
+\index{TRACE@{TRACE}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{TRACE}{TRACE}}
+{\footnotesize\ttfamily \#define TRACE(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_maglev\_graph\_building) \{ \(\backslash\)}
+\DoxyCodeLine{    std::cout << \_\_VA\_ARGS\_\_ << std::endl;    \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-graph-builder_8cc_aedfb41a33f5ec05ff82b4b02693a1677}\label{maglev-graph-builder_8cc_aedfb41a33f5ec05ff82b4b02693a1677}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!TRACE\_CANNOT\_INLINE@{TRACE\_CANNOT\_INLINE}}
+\index{TRACE\_CANNOT\_INLINE@{TRACE\_CANNOT\_INLINE}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{TRACE\_CANNOT\_INLINE}{TRACE\_CANNOT\_INLINE}}
+{\footnotesize\ttfamily \#define TRACE\+\_\+\+CANNOT\+\_\+\+INLINE(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~  \mbox{\hyperlink{maglev-graph-builder_8cc_afbc4ec7b42a73d54a8c2599598fc4f90}{TRACE\+\_\+\+INLINING}}(\char`\"{}  cannot inline \char`\"{} $<$$<$ shared $<$$<$ \char`\"{}\+: \char`\"{} $<$$<$ \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+\mbox{\Hypertarget{maglev-graph-builder_8cc_afbc4ec7b42a73d54a8c2599598fc4f90}\label{maglev-graph-builder_8cc_afbc4ec7b42a73d54a8c2599598fc4f90}} 
+\index{maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}!TRACE\_INLINING@{TRACE\_INLINING}}
+\index{TRACE\_INLINING@{TRACE\_INLINING}!maglev-\/graph-\/builder.cc@{maglev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{TRACE\_INLINING}{TRACE\_INLINING}}
+{\footnotesize\ttfamily \#define TRACE\+\_\+\+INLINING(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                            \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_maglev\_inlining)           \(\backslash\)}
+\DoxyCodeLine{      StdoutStream\{\} << \_\_VA\_ARGS\_\_ << std::endl; \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
+
+\end{DoxyCode}

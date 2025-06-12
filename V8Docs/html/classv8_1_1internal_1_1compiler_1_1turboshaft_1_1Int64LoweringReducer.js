@@ -1,0 +1,26 @@
+var classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer =
+[
+    [ "Word32OrWord32Pair", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#aac821e0b5abbad3df7b342e3938c7b52", null ],
+    [ "Int64LoweringReducer", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#ac30994164aba6e7841714ea165c22b78", null ],
+    [ "AtomicRMW", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#adb25394dbc58c04668c5867a1c28357d", null ],
+    [ "Call", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a1f00c1729c3fc49e97e32da9fde33b6b", null ],
+    [ "Change", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a66f98b83d445adbb4f21482752781528", null ],
+    [ "Comparison", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a07bc5f4de4e75bdf2a32943756d56656", null ],
+    [ "Constant", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a87dcb235e38076bac04d86870d67f064", null ],
+    [ "FixLoopPhi", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a7346951a3be59d55591a003a511f6d63", null ],
+    [ "FrameState", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a4fe9cd973fe88c0b52bc8d3e0067d178", null ],
+    [ "IncreaseOffset", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a23280fc1baa5b41bbda324a70f4e2e6e", null ],
+    [ "Load", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a026405bf23e97d41a978297a607f57c8", null ],
+    [ "Parameter", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a3e60a445aaa4bb84053646437b8546fb", null ],
+    [ "PendingLoopPhi", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#ad1a71a6b990be8dc88169b4438a9285f", null ],
+    [ "Phi", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#ad6029c131e916fd168b4ebf69e2221b1", null ],
+    [ "Return", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a9d358d83d1719eddf55974d652c38758", null ],
+    [ "Shift", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#ab7318372bb529c8e4c5211255b309388", null ],
+    [ "Simd128ExtractLane", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#aa6b2d4fd3a2e0b38eeb897555a46cfd8", null ],
+    [ "Simd128ReplaceLane", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a9b7f191043cbd9d2b943d142436d1ec3", null ],
+    [ "Simd128Splat", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a0eae060e504777909de042f9acf7d1ee", null ],
+    [ "Store", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a0f66b0b07808c0467d4441e0c705bd16", null ],
+    [ "TailCall", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a33cf37976d446cc77ecca9f3dea8551e", null ],
+    [ "WordBinop", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a6acaaf76562e80685271bb3e4a050cf8", null ],
+    [ "WordUnary", "classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Int64LoweringReducer.html#a3a9d9ad68af9977c1e0bfa6afcf3439f", null ]
+];

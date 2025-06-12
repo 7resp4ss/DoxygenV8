@@ -1,0 +1,155 @@
+\hypertarget{mark-compact_8cc}{}\doxysection{mark-\/compact.cc File Reference}
+\label{mark-compact_8cc}\index{mark-\/compact.cc@{mark-\/compact.cc}}
+{\ttfamily \#include \char`\"{}src/heap/mark-\/compact.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$atomic$>$}\newline
+{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include \char`\"{}src/base/bits.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/platform/mutex.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/platform/platform.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/utils/random-\/number-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/compilation-\/cache.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/assert-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/deoptimizer/deoptimizer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/execution.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/frames-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate-\/utils-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/vm-\/state-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/global-\/handles.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/array-\/buffer-\/sweeper.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/base/basic-\/slot-\/set.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/concurrent-\/marking.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/ephemeron-\/remembered-\/set.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/evacuation-\/allocator-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/evacuation-\/verifier-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/gc-\/tracer-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/gc-\/tracer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/layout-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/utils-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/visitor-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/incremental-\/marking.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/index-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/large-\/spaces.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/live-\/object-\/range-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/mark-\/compact-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/mark-\/sweep-\/utilities.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/marking-\/barrier.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/marking-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/marking-\/state-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/marking-\/visitor-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/marking.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/memory-\/allocator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/memory-\/chunk-\/layout.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/memory-\/chunk-\/metadata.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/memory-\/chunk.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/memory-\/measurement-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/memory-\/measurement.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/mutable-\/page-\/metadata.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/new-\/spaces.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/object-\/stats.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/page-\/metadata-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/page-\/metadata.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/parallel-\/work-\/item.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/pretenuring-\/handler-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/pretenuring-\/handler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/read-\/only-\/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/read-\/only-\/spaces.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/remembered-\/set.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/safepoint.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/slot-\/set.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/spaces-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/sweeper.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/traced-\/handles-\/marking-\/visitor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/weak-\/object-\/worklists.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/zapping.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/init/v8.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/tracing-\/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/embedder-\/data-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/foreign.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/hash-\/table-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/object-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/instance-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/buffer-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/maybe-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/slots-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/smi.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/string-\/forwarding-\/table-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/transitions-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/visitors.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/sandbox/indirect-\/pointer-\/tag.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/shared-\/heap-\/serializer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/tasks/cancelable-\/task.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/tracing/tracing-\/category-\/observer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/utils-\/inl.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1MainMarkingVisitor}{v8\+::internal\+::\+Main\+Marking\+Visitor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactCollector_1_1CustomRootBodyMarkingVisitor}{v8\+::internal\+::\+Mark\+Compact\+Collector\+::\+Custom\+Root\+Body\+Marking\+Visitor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactCollector_1_1SharedHeapObjectVisitor}{v8\+::internal\+::\+Mark\+Compact\+Collector\+::\+Shared\+Heap\+Object\+Visitor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1InternalizedStringTableCleaner}{v8\+::internal\+::\+Internalized\+String\+Table\+Cleaner}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactWeakObjectRetainer}{v8\+::internal\+::\+Mark\+Compact\+Weak\+Object\+Retainer}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1RecordMigratedSlotVisitor}{v8\+::internal\+::\+Record\+Migrated\+Slot\+Visitor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1MigrationObserver}{v8\+::internal\+::\+Migration\+Observer}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1ProfilingMigrationObserver}{v8\+::internal\+::\+Profiling\+Migration\+Observer}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1HeapObjectVisitor}{v8\+::internal\+::\+Heap\+Object\+Visitor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1EvacuateVisitorBase}{v8\+::internal\+::\+Evacuate\+Visitor\+Base}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1EvacuateNewSpaceVisitor}{v8\+::internal\+::\+Evacuate\+New\+Space\+Visitor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1EvacuateNewToOldSpacePageVisitor}{v8\+::internal\+::\+Evacuate\+New\+To\+Old\+Space\+Page\+Visitor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1EvacuateOldSpaceVisitor}{v8\+::internal\+::\+Evacuate\+Old\+Space\+Visitor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1EvacuateRecordOnlyVisitor}{v8\+::internal\+::\+Evacuate\+Record\+Only\+Visitor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1FullStringForwardingTableCleaner}{v8\+::internal\+::\+Full\+String\+Forwarding\+Table\+Cleaner}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactCollector_1_1ClearTrivialWeakRefJobItem}{v8\+::internal\+::\+Mark\+Compact\+Collector\+::\+Clear\+Trivial\+Weak\+Ref\+Job\+Item}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1MarkCompactCollector_1_1FilterNonTrivialWeakRefJobItem}{v8\+::internal\+::\+Mark\+Compact\+Collector\+::\+Filter\+Non\+Trivial\+Weak\+Ref\+Job\+Item}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingVisitor}{v8\+::internal\+::\+Pointers\+Updating\+Visitor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1Evacuator}{v8\+::internal\+::\+Evacuator}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1LiveObjectVisitor}{v8\+::internal\+::\+Live\+Object\+Visitor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1PageEvacuationJob}{v8\+::internal\+::\+Page\+Evacuation\+Job}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1PrecisePagePinningVisitor}{v8\+::internal\+::\+Precise\+Page\+Pinning\+Visitor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1EvacuationWeakObjectRetainer}{v8\+::internal\+::\+Evacuation\+Weak\+Object\+Retainer}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1UpdatingItem}{v8\+::internal\+::\+Updating\+Item}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1PointersUpdatingJob}{v8\+::internal\+::\+Pointers\+Updating\+Job}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1EphemeronTableUpdatingItem}{v8\+::internal\+::\+Ephemeron\+Table\+Updating\+Item}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}

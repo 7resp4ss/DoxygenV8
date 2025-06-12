@@ -1,0 +1,165 @@
+\hypertarget{simplified-lowering_8cc}{}\doxysection{simplified-\/lowering.cc File Reference}
+\label{simplified-lowering_8cc}\index{simplified-\/lowering.cc@{simplified-\/lowering.cc}}
+{\ttfamily \#include \char`\"{}src/compiler/simplified-\/lowering.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/fast-\/api-\/calls.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/platform/platform.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/small-\/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/callable.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/machine-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/tick-\/counter.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/access-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/common-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/compiler-\/source-\/position-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/diamond.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/feedback-\/source.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/heap-\/broker.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/linkage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/matchers.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/observer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/origin-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/opcodes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/operation-\/typer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/operator-\/properties.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/representation-\/change.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/simplified-\/lowering-\/verifier.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/simplified-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turbofan-\/graph-\/visualizer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/type-\/cache.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/numbers/conversions-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects.\+h\char`\"{}}\newline
+Include dependency graph for simplified-\/lowering.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{simplified-lowering_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1RepresentationSelector}{v8\+::internal\+::compiler\+::\+Representation\+Selector}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1RepresentationSelector_1_1NodeInfo}{v8\+::internal\+::compiler\+::\+Representation\+Selector\+::\+Node\+Info}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{simplified-lowering_8cc_a5f6aa8edcd99914757600b5d3b259bb7}{TRACE}}(...)
+\item 
+\#define \mbox{\hyperlink{simplified-lowering_8cc_a5f7b33ac9200a67bee802ec508b0acf0}{DECLARE\+\_\+\+CASE}}(Name)
+\item 
+\#define \mbox{\hyperlink{simplified-lowering_8cc_a5f7b33ac9200a67bee802ec508b0acf0}{DECLARE\+\_\+\+CASE}}(Name)
+\item 
+\#define \mbox{\hyperlink{simplified-lowering_8cc_a5f7b33ac9200a67bee802ec508b0acf0}{DECLARE\+\_\+\+CASE}}(Name)
+\item 
+\#define \mbox{\hyperlink{simplified-lowering_8cc_a5f7b33ac9200a67bee802ec508b0acf0}{DECLARE\+\_\+\+CASE}}(Name)
+\item 
+\#define \mbox{\hyperlink{simplified-lowering_8cc_ab7b4a3b749145c4cb8ae8ff3fc8a791c}{OPCODE\+\_\+\+CASE}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, ...)~case Ir\+Opcode\+::k\#\#name\+:
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a6c5a55837c50147a77e7a81535b4c98e}{v8\+::internal\+::compiler\+::\+Phase}} \{ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a6c5a55837c50147a77e7a81535b4c98eae92ffe31c7e6d6b977e5f59a9f85c648}{v8\+::internal\+::compiler\+::\+PROPAGATE}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a6c5a55837c50147a77e7a81535b4c98ea6329e6d5c96ee40fefcbf37145cee673}{v8\+::internal\+::compiler\+::\+RETYPE}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a6c5a55837c50147a77e7a81535b4c98ea75f6edeea6463a90e994a419b9195f85}{v8\+::internal\+::compiler\+::\+LOWER}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a01638392904df9474c52d5296848f339}{v8\+::internal\+::compiler\+::k\+Simplified\+Lowering\+Reducer\+Name}} = \char`\"{}Simplified\+Lowering\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{simplified-lowering_8cc_a5f7b33ac9200a67bee802ec508b0acf0}\label{simplified-lowering_8cc_a5f7b33ac9200a67bee802ec508b0acf0}} 
+\index{simplified-\/lowering.cc@{simplified-\/lowering.cc}!DECLARE\_CASE@{DECLARE\_CASE}}
+\index{DECLARE\_CASE@{DECLARE\_CASE}!simplified-\/lowering.cc@{simplified-\/lowering.cc}}
+\doxysubsubsection{\texorpdfstring{DECLARE\_CASE}{DECLARE\_CASE}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \#define DECLARE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#Name: \{                              \(\backslash\)}
+\DoxyCodeLine{    new\_type = op\_typer\_.Name(input0\_type, input1\_type); \(\backslash\)}
+\DoxyCodeLine{    break;                                               \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{simplified-lowering_8cc_a5f7b33ac9200a67bee802ec508b0acf0}\label{simplified-lowering_8cc_a5f7b33ac9200a67bee802ec508b0acf0}} 
+\index{simplified-\/lowering.cc@{simplified-\/lowering.cc}!DECLARE\_CASE@{DECLARE\_CASE}}
+\index{DECLARE\_CASE@{DECLARE\_CASE}!simplified-\/lowering.cc@{simplified-\/lowering.cc}}
+\doxysubsubsection{\texorpdfstring{DECLARE\_CASE}{DECLARE\_CASE}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \#define DECLARE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#Name: \{                                              \(\backslash\)}
+\DoxyCodeLine{    new\_type = Type::Intersect(op\_typer\_.Name(input0\_type, input1\_type), \(\backslash\)}
+\DoxyCodeLine{                               \mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}}-\/>restriction\_type(), \mbox{\hyperlink{graph-builder_8cc_ab554ff773f02a3fc0720fca9775dce78}{graph\_zone}}());  \(\backslash\)}
+\DoxyCodeLine{    break;                                                               \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{simplified-lowering_8cc_a5f7b33ac9200a67bee802ec508b0acf0}\label{simplified-lowering_8cc_a5f7b33ac9200a67bee802ec508b0acf0}} 
+\index{simplified-\/lowering.cc@{simplified-\/lowering.cc}!DECLARE\_CASE@{DECLARE\_CASE}}
+\index{DECLARE\_CASE@{DECLARE\_CASE}!simplified-\/lowering.cc@{simplified-\/lowering.cc}}
+\doxysubsubsection{\texorpdfstring{DECLARE\_CASE}{DECLARE\_CASE}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \#define DECLARE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#Name: \{                 \(\backslash\)}
+\DoxyCodeLine{    new\_type = op\_typer\_.Name(input0\_type); \(\backslash\)}
+\DoxyCodeLine{    break;                                  \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{simplified-lowering_8cc_a5f7b33ac9200a67bee802ec508b0acf0}\label{simplified-lowering_8cc_a5f7b33ac9200a67bee802ec508b0acf0}} 
+\index{simplified-\/lowering.cc@{simplified-\/lowering.cc}!DECLARE\_CASE@{DECLARE\_CASE}}
+\index{DECLARE\_CASE@{DECLARE\_CASE}!simplified-\/lowering.cc@{simplified-\/lowering.cc}}
+\doxysubsubsection{\texorpdfstring{DECLARE\_CASE}{DECLARE\_CASE}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \#define DECLARE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#Name: \{                                             \(\backslash\)}
+\DoxyCodeLine{    new\_type = Type::Intersect(op\_typer\_.Name(input0\_type),             \(\backslash\)}
+\DoxyCodeLine{                               \mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}}-\/>restriction\_type(), \mbox{\hyperlink{graph-builder_8cc_ab554ff773f02a3fc0720fca9775dce78}{graph\_zone}}()); \(\backslash\)}
+\DoxyCodeLine{    break;                                                              \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{simplified-lowering_8cc_ab7b4a3b749145c4cb8ae8ff3fc8a791c}\label{simplified-lowering_8cc_ab7b4a3b749145c4cb8ae8ff3fc8a791c}} 
+\index{simplified-\/lowering.cc@{simplified-\/lowering.cc}!OPCODE\_CASE@{OPCODE\_CASE}}
+\index{OPCODE\_CASE@{OPCODE\_CASE}!simplified-\/lowering.cc@{simplified-\/lowering.cc}}
+\doxysubsubsection{\texorpdfstring{OPCODE\_CASE}{OPCODE\_CASE}}
+{\footnotesize\ttfamily \#define OPCODE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{... }\end{DoxyParamCaption})~case Ir\+Opcode\+::k\#\#name\+:}
+
+\mbox{\Hypertarget{simplified-lowering_8cc_a5f6aa8edcd99914757600b5d3b259bb7}\label{simplified-lowering_8cc_a5f6aa8edcd99914757600b5d3b259bb7}} 
+\index{simplified-\/lowering.cc@{simplified-\/lowering.cc}!TRACE@{TRACE}}
+\index{TRACE@{TRACE}!simplified-\/lowering.cc@{simplified-\/lowering.cc}}
+\doxysubsubsection{\texorpdfstring{TRACE}{TRACE}}
+{\footnotesize\ttfamily \#define TRACE(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                      \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_representation) \mbox{\hyperlink{namespacev8_1_1internal_a3430752cde9f29d73e97ceed1bce0856}{PrintF}}(\_\_VA\_ARGS\_\_); \(\backslash\)}
+\DoxyCodeLine{  \} while (\mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}})}
+
+\end{DoxyCode}

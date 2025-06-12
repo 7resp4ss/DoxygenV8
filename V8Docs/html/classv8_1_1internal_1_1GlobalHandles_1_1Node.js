@@ -1,0 +1,37 @@
+var classv8_1_1internal_1_1GlobalHandles_1_1Node =
+[
+    [ "State", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#ad0e78c1f3196c693801bcac55e643acb", [
+      [ "FREE", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#ad0e78c1f3196c693801bcac55e643acba90034b191067ca8c7fbd5772164939fd", null ],
+      [ "NORMAL", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#ad0e78c1f3196c693801bcac55e643acba0fab9077ecd84ccb5ed960cea313f19e", null ],
+      [ "WEAK", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#ad0e78c1f3196c693801bcac55e643acbaa4a2a6bb62bd78500446a5a979b721ce", null ],
+      [ "NEAR_DEATH", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#ad0e78c1f3196c693801bcac55e643acbab52d0f2e8720e6dbd414fda7e6227fa0", null ]
+    ] ],
+    [ "Node", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a354bbbc3dcb2aa61cb4382ca3d581bec", null ],
+    [ "Node", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a0b6cc599b16db28517403961291f7a1c", null ],
+    [ "AnnotateStrongRetainer", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a87f1ce59d4d0a6f90fd4ab4606c511c1", null ],
+    [ "ClearWeakness", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#ad2abb4476219d95838cfb9110030a1e6", null ],
+    [ "CollectPhantomCallbackData", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#ab31272d49887983b5281064ff3baa065", null ],
+    [ "global_handles", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a9b935b6d9cee00f31a372828fc851cd6", null ],
+    [ "has_callback", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#aac2bf17c63e9533b8142fdedd95efa6c", null ],
+    [ "is_in_young_list", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a4bded8110001c75ef99db1047f01126b", null ],
+    [ "IsInUse", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a6a7086536af1e778169bd04aba80ccb8", null ],
+    [ "IsPhantomResetHandle", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a88e6723cd2cf03b8a27a5f83f043fd56", null ],
+    [ "IsStrongRetainer", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#ad6d1b80086df3662f6a5ea41712f507f", null ],
+    [ "IsWeak", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a5fc524be0e947251bbdece462c9d0ecc", null ],
+    [ "IsWeakOrStrongRetainer", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#aa72662e313db71a42e49318975533a70", null ],
+    [ "IsWeakRetainer", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a3a719aed13f0a12f660996e53c89654d", null ],
+    [ "label", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#adf0506d997b1b7851780769e739c7412", null ],
+    [ "MakeWeak", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a3f9696743e4d505e9682fff6e28b7e77", null ],
+    [ "MakeWeak", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a60e6a1e4751374ef030ac0ccea784c19", null ],
+    [ "MarkAsFree", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#aaf69b3d3807a939537098de688b49f91", null ],
+    [ "MarkAsUsed", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#ab070c78704e5b0b2735187cd8889c3c6", null ],
+    [ "next_free", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a3c316b1fc6a3d0520e03dd1c81606cbc", null ],
+    [ "operator=", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#ad020126e0cb01d934f4992010b7f2380", null ],
+    [ "ResetPhantomHandle", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a383acd5930c36e0c4ec3bc549e56a928", null ],
+    [ "set_in_young_list", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a68c1bf7960456f1745ee3cae3a4cc88e", null ],
+    [ "set_state", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a62cc6905a2626126108d3da1523c5047", null ],
+    [ "set_weakness_type", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#abaca36fa2c23fd6b16cf86d9ab11f86b", null ],
+    [ "state", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a29e8b618119d6991289811245bbd6c38", null ],
+    [ "weakness_type", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#aeee2fc10e25af51a0df216887696e555", null ],
+    [ "NodeBase< Node >", "classv8_1_1internal_1_1GlobalHandles_1_1Node.html#a183b0d65f8bf7de47fd9c96943cbff9e", null ]
+];

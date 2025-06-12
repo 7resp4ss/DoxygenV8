@@ -1,0 +1,109 @@
+\hypertarget{js-generic-lowering_8cc}{}\doxysection{js-\/generic-\/lowering.cc File Reference}
+\label{js-generic-lowering_8cc}\index{js-\/generic-\/lowering.cc@{js-\/generic-\/lowering.cc}}
+{\ttfamily \#include \char`\"{}src/compiler/js-\/generic-\/lowering.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ast/ast.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/builtins-\/constructor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/code-\/factory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/interface-\/descriptors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/access-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/common-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/graph.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/heap-\/broker.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/machine-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/properties.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/operator-\/properties.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/processed-\/feedback.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/simplified-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/scope-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/template-\/objects-\/inl.\+h\char`\"{}}\newline
+Include dependency graph for js-\/generic-\/lowering.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{js-generic-lowering_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{js-generic-lowering_8cc_a55137b4b8a827eceb2aa1aa2fb44e072}{DECLARE\+\_\+\+CASE}}(\mbox{\hyperlink{liveedit-diff_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}}, ...)
+\item 
+\#define \mbox{\hyperlink{js-generic-lowering_8cc_a460e6ba4c12f3815b8d6fd391ff9ebc7}{REPLACE\+\_\+\+STUB\+\_\+\+CALL}}(Name)
+\item 
+\#define \mbox{\hyperlink{js-generic-lowering_8cc_a15abde6f2a5f971fec0bb359e301a3ba}{DEF\+\_\+\+UNARY\+\_\+\+LOWERING}}(Name)
+\item 
+\#define \mbox{\hyperlink{js-generic-lowering_8cc_a3148542b65edf9099ce98639320e7068}{DEF\+\_\+\+BINARY\+\_\+\+LOWERING}}(Name)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{js-generic-lowering_8cc_a55137b4b8a827eceb2aa1aa2fb44e072}\label{js-generic-lowering_8cc_a55137b4b8a827eceb2aa1aa2fb44e072}} 
+\index{js-\/generic-\/lowering.cc@{js-\/generic-\/lowering.cc}!DECLARE\_CASE@{DECLARE\_CASE}}
+\index{DECLARE\_CASE@{DECLARE\_CASE}!js-\/generic-\/lowering.cc@{js-\/generic-\/lowering.cc}}
+\doxysubsubsection{\texorpdfstring{DECLARE\_CASE}{DECLARE\_CASE}}
+{\footnotesize\ttfamily \#define DECLARE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{liveedit-diff_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}},  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#\mbox{\hyperlink{liveedit-diff_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}}:                                                        \(\backslash\)}
+\DoxyCodeLine{    if constexpr (IrOpcode::k\#\#\mbox{\hyperlink{liveedit-diff_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}} == IrOpcode::kJSStackCheck) \{                \(\backslash\)}
+\DoxyCodeLine{      \textcolor{comment}{/* We don't want to lower stack checks so early, and we don't want to   \(\backslash\)}}
+\DoxyCodeLine{\textcolor{comment}{       * return `Changed` for them, otherwise we'll loop infinitely trying to \(\backslash\)}}
+\DoxyCodeLine{\textcolor{comment}{       * lower them. */}                                                       \(\backslash\)}
+\DoxyCodeLine{      return NoChange();                                                      \(\backslash\)}
+\DoxyCodeLine{    \}                                                                         \(\backslash\)}
+\DoxyCodeLine{    Lower\#\#\mbox{\hyperlink{liveedit-diff_8cc_a6150e0515f7202e2fb518f7206ed97dc}{x}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}});                                                           \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{js-generic-lowering_8cc_a3148542b65edf9099ce98639320e7068}\label{js-generic-lowering_8cc_a3148542b65edf9099ce98639320e7068}} 
+\index{js-\/generic-\/lowering.cc@{js-\/generic-\/lowering.cc}!DEF\_BINARY\_LOWERING@{DEF\_BINARY\_LOWERING}}
+\index{DEF\_BINARY\_LOWERING@{DEF\_BINARY\_LOWERING}!js-\/generic-\/lowering.cc@{js-\/generic-\/lowering.cc}}
+\doxysubsubsection{\texorpdfstring{DEF\_BINARY\_LOWERING}{DEF\_BINARY\_LOWERING}}
+{\footnotesize\ttfamily \#define DEF\+\_\+\+BINARY\+\_\+\+LOWERING(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} JSGenericLowering::LowerJS\#\#Name(Node* \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}) \{                \(\backslash\)}
+\DoxyCodeLine{    ReplaceBinaryOpWithBuiltinCall(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, Builtin::k\#\#Name,           \(\backslash\)}
+\DoxyCodeLine{                                   Builtin::k\#\#Name\#\#\_WithFeedback); \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{js-generic-lowering_8cc_a15abde6f2a5f971fec0bb359e301a3ba}\label{js-generic-lowering_8cc_a15abde6f2a5f971fec0bb359e301a3ba}} 
+\index{js-\/generic-\/lowering.cc@{js-\/generic-\/lowering.cc}!DEF\_UNARY\_LOWERING@{DEF\_UNARY\_LOWERING}}
+\index{DEF\_UNARY\_LOWERING@{DEF\_UNARY\_LOWERING}!js-\/generic-\/lowering.cc@{js-\/generic-\/lowering.cc}}
+\doxysubsubsection{\texorpdfstring{DEF\_UNARY\_LOWERING}{DEF\_UNARY\_LOWERING}}
+{\footnotesize\ttfamily \#define DEF\+\_\+\+UNARY\+\_\+\+LOWERING(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} JSGenericLowering::LowerJS\#\#Name(Node* \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}) \{               \(\backslash\)}
+\DoxyCodeLine{    ReplaceUnaryOpWithBuiltinCall(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, Builtin::k\#\#Name,           \(\backslash\)}
+\DoxyCodeLine{                                  Builtin::k\#\#Name\#\#\_WithFeedback); \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{js-generic-lowering_8cc_a460e6ba4c12f3815b8d6fd391ff9ebc7}\label{js-generic-lowering_8cc_a460e6ba4c12f3815b8d6fd391ff9ebc7}} 
+\index{js-\/generic-\/lowering.cc@{js-\/generic-\/lowering.cc}!REPLACE\_STUB\_CALL@{REPLACE\_STUB\_CALL}}
+\index{REPLACE\_STUB\_CALL@{REPLACE\_STUB\_CALL}!js-\/generic-\/lowering.cc@{js-\/generic-\/lowering.cc}}
+\doxysubsubsection{\texorpdfstring{REPLACE\_STUB\_CALL}{REPLACE\_STUB\_CALL}}
+{\footnotesize\ttfamily \#define REPLACE\+\_\+\+STUB\+\_\+\+CALL(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} JSGenericLowering::LowerJS\#\#Name(Node* \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}) \{ \(\backslash\)}
+\DoxyCodeLine{    ReplaceWithBuiltinCall(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, Builtin::k\#\#Name);   \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}

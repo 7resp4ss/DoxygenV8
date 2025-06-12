@@ -1,0 +1,421 @@
+\hypertarget{graph-builder_8cc}{}\doxysection{graph-\/builder.cc File Reference}
+\label{graph-builder_8cc}\index{graph-\/builder.cc@{graph-\/builder.cc}}
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/graph-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$numeric$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$string\+\_\+view$>$}\newline
+{\ttfamily \#include \char`\"{}src/base/container-\/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/numerics/safe\+\_\+conversions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/small-\/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/bailout-\/reason.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/machine-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/common-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/compiler-\/source-\/position-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/fast-\/api-\/calls.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/heap-\/broker.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/machine-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/aux-\/data.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/matchers.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/origin-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/node-\/properties.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/opcodes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/schedule.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/simplified-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/state-\/values-\/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/deopt-\/data.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/explicit-\/truncation-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/graph.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/operations.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/opmasks.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/phase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/representations.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/variable-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/factory-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/objects.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/map.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/zone/zone-\/containers.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/define-\/assembler-\/macros.\+inc\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/undef-\/assembler-\/macros.\+inc\char`\"{}}\newline
+Include dependency graph for graph-\/builder.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{graph-builder_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft}{v8\+::internal\+::compiler\+::turboshaft}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{graph-builder_8cc_abf3c188a790235537dbcd84ca61b3473}{BINOP\+\_\+\+CASE}}(opcode,  assembler\+\_\+op)
+\item 
+\#define \mbox{\hyperlink{graph-builder_8cc_a523fffe7ccca9f182bb6970f0c5d6570}{UNARY\+\_\+\+CASE}}(opcode,  assembler\+\_\+op)
+\item 
+\#define \mbox{\hyperlink{graph-builder_8cc_ae25e47eba9c8c8cc347f5e85a4ffd74f}{OBJECT\+\_\+\+IS\+\_\+\+CASE}}(\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\item 
+\#define \mbox{\hyperlink{graph-builder_8cc_ab55a2457ea48ffc30bd68f34fc6a2199}{CHECK\+\_\+\+OBJECT\+\_\+\+IS\+\_\+\+CASE}}(\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}},  \mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}},  input\+\_\+assumptions,  reason,  feedback)
+\item 
+\#define \mbox{\hyperlink{graph-builder_8cc_a171e3e7c8b20ad8cde38432b28792a8c}{CONVERT\+\_\+\+PRIMITIVE\+\_\+\+TO\+\_\+\+OBJECT\+\_\+\+CASE}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  \mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}},  input\+\_\+type,  input\+\_\+interpretation)
+\item 
+\#define \mbox{\hyperlink{graph-builder_8cc_a7113af7b7ca9dfa3195817ce22b6d3b7}{CONVERT\+\_\+\+PRIMITIVE\+\_\+\+TO\+\_\+\+OBJECT\+\_\+\+OR\+\_\+\+DEOPT\+\_\+\+CASE}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  \mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}},  input\+\_\+type,  input\+\_\+interpretation)
+\item 
+\#define \mbox{\hyperlink{graph-builder_8cc_aeccf69dd03eb9f0aec086772276ac5fe}{CONVERT\+\_\+\+OBJECT\+\_\+\+TO\+\_\+\+PRIMITIVE\+\_\+\+CASE}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  \mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}},  input\+\_\+assumptions)
+\item 
+\#define \mbox{\hyperlink{graph-builder_8cc_a24dad6e6db1af283f8a8f597e48e815d}{TRUNCATE\+\_\+\+OBJECT\+\_\+\+TO\+\_\+\+PRIMITIVE\+\_\+\+CASE}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  \mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}},  input\+\_\+assumptions)
+\item 
+\#define \mbox{\hyperlink{graph-builder_8cc_a70992e04c5dfc276124356534e9ecd8b}{CHANGE\+\_\+\+OR\+\_\+\+DEOPT\+\_\+\+INT\+\_\+\+CASE}}(\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\item 
+\#define \mbox{\hyperlink{graph-builder_8cc_ae09356a4fa3db15dc735aca6a8e8364d}{CASE}}(\mbox{\hyperlink{flag-definitions_8h_adaf90f045d5cd2710edd625b8685472a}{mode}})
+\item 
+\#define \mbox{\hyperlink{graph-builder_8cc_a40d30941c2c90121d4f399bd7e38bb24}{BIGINT\+\_\+\+BINOP\+\_\+\+CASE}}(op,  \mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\item 
+\#define \mbox{\hyperlink{graph-builder_8cc_a6afdc145928eb75ef46212361e571e6c}{ELSE\+\_\+\+UNREACHABLE}}
+\item 
+\#define \mbox{\hyperlink{graph-builder_8cc_a563857580dd4abf557bc319e2b960fae}{BINOP}}(binop,  \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}})
+\item 
+\#define \mbox{\hyperlink{graph-builder_8cc_a8376596efea28514fc7bb758d0f50ee1}{ATOMIC\+\_\+\+WORD32\+\_\+\+PAIR\+\_\+\+BINOP}}(\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::optional$<$ Bailout\+Reason $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a24a60da57b59f466a1939002ec15693d}{v8\+::internal\+::compiler\+::turboshaft\+::\+Build\+Graph}} (Pipeline\+Data $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, Schedule $\ast$\mbox{\hyperlink{graph-builder_8cc_a970e7f41771cbd0ccc6f2f1ab01faab0}{schedule}}, Zone $\ast$\mbox{\hyperlink{graph-builder_8cc_a92305aa4ca35c6155a1ad3c018b28c49}{phase\+\_\+zone}}, Linkage $\ast$\mbox{\hyperlink{graph-builder_8cc_af97d4be930be06ad1e71c0c6a130dcff}{linkage}}, Js\+Wasm\+Calls\+Sidetable $\ast$\mbox{\hyperlink{graph-builder_8cc_a1a3e86f90fa766d5b3044f96772c454e}{js\+\_\+wasm\+\_\+calls\+\_\+sidetable}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{graph-builder_8cc_a8376596efea28514fc7bb758d0f50ee1}\label{graph-builder_8cc_a8376596efea28514fc7bb758d0f50ee1}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!ATOMIC\_WORD32\_PAIR\_BINOP@{ATOMIC\_WORD32\_PAIR\_BINOP}}
+\index{ATOMIC\_WORD32\_PAIR\_BINOP@{ATOMIC\_WORD32\_PAIR\_BINOP}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{ATOMIC\_WORD32\_PAIR\_BINOP}{ATOMIC\_WORD32\_PAIR\_BINOP}}
+{\footnotesize\ttfamily \#define ATOMIC\+\_\+\+WORD32\+\_\+\+PAIR\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::kWord32AtomicPair\#\#\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}}:                                    \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} AtomicWord32PairBinop(                                         \(\backslash\)}
+\DoxyCodeLine{        \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(0)), \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(1)), \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(2)), \(\backslash\)}
+\DoxyCodeLine{        \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(3)), AtomicRMWOp::BinOp::k\#\#\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}}, 0);}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-builder_8cc_a40d30941c2c90121d4f399bd7e38bb24}\label{graph-builder_8cc_a40d30941c2c90121d4f399bd7e38bb24}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!BIGINT\_BINOP\_CASE@{BIGINT\_BINOP\_CASE}}
+\index{BIGINT\_BINOP\_CASE@{BIGINT\_BINOP\_CASE}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{BIGINT\_BINOP\_CASE}{BIGINT\_BINOP\_CASE}}
+{\footnotesize\ttfamily \#define BIGINT\+\_\+\+BINOP\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{op,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::kBigInt\#\#op:                                           \(\backslash\)}
+\DoxyCodeLine{    DCHECK(dominating\_frame\_state.valid());                             \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} BigIntBinop(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(0)), \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(1)), \(\backslash\)}
+\DoxyCodeLine{                          dominating\_frame\_state,                       \(\backslash\)}
+\DoxyCodeLine{                          BigIntBinopOp::Kind::k\#\#\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}});}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-builder_8cc_a563857580dd4abf557bc319e2b960fae}\label{graph-builder_8cc_a563857580dd4abf557bc319e2b960fae}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!BINOP@{BINOP}}
+\index{BINOP@{BINOP}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{BINOP}{BINOP}}
+{\footnotesize\ttfamily \#define BINOP(\begin{DoxyParamCaption}\item[{}]{binop,  }\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::kWord\#\#\mbox{\hyperlink{setup-heap-internal_8cc_a439227feff9d7f55384e8780cfc2eb82}{size}}\#\#Atomic\#\#binop:                               \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} AtomicRMW(\mbox{\hyperlink{instruction-selector-ia32_8cc_a7971003206f2f3d97ca8b90452bc2d92}{base}}, \mbox{\hyperlink{instruction-selector-ia32_8cc_a97bd6c077f3c7769f575b82988b9b668}{offset}}, \mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}}, AtomicRMWOp::BinOp::k\#\#binop, \(\backslash\)}
+\DoxyCodeLine{                        \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a4848dd2d851e70463d6aa0f136a19218}{RegisterRepresentation::Word}}\#\#\mbox{\hyperlink{setup-heap-internal_8cc_a439227feff9d7f55384e8780cfc2eb82}{size}}(),              \(\backslash\)}
+\DoxyCodeLine{                        MemoryRepresentation::FromMachineType(p.type()),   \(\backslash\)}
+\DoxyCodeLine{                        p.kind());}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-builder_8cc_abf3c188a790235537dbcd84ca61b3473}\label{graph-builder_8cc_abf3c188a790235537dbcd84ca61b3473}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!BINOP\_CASE@{BINOP\_CASE}}
+\index{BINOP\_CASE@{BINOP\_CASE}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{BINOP\_CASE}{BINOP\_CASE}}
+{\footnotesize\ttfamily \#define BINOP\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{opcode,  }\item[{}]{assembler\+\_\+op }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#opcode:              \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} assembler\_op(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(0)), \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(1)));}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-builder_8cc_ae09356a4fa3db15dc735aca6a8e8364d}\label{graph-builder_8cc_ae09356a4fa3db15dc735aca6a8e8364d}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_adaf90f045d5cd2710edd625b8685472a}{mode}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} CheckTaggedInputMode::k\#\#\mbox{\hyperlink{flag-definitions_8h_adaf90f045d5cd2710edd625b8685472a}{mode}}:                                    \(\backslash\)}
+\DoxyCodeLine{    from\_kind =                                                          \(\backslash\)}
+\DoxyCodeLine{        ConvertJSPrimitiveToUntaggedOrDeoptOp::JSPrimitiveKind::k\#\#\mbox{\hyperlink{flag-definitions_8h_adaf90f045d5cd2710edd625b8685472a}{mode}}; \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-builder_8cc_a70992e04c5dfc276124356534e9ecd8b}\label{graph-builder_8cc_a70992e04c5dfc276124356534e9ecd8b}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!CHANGE\_OR\_DEOPT\_INT\_CASE@{CHANGE\_OR\_DEOPT\_INT\_CASE}}
+\index{CHANGE\_OR\_DEOPT\_INT\_CASE@{CHANGE\_OR\_DEOPT\_INT\_CASE}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{CHANGE\_OR\_DEOPT\_INT\_CASE}{CHANGE\_OR\_DEOPT\_INT\_CASE}}
+{\footnotesize\ttfamily \#define CHANGE\+\_\+\+OR\+\_\+\+DEOPT\+\_\+\+INT\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::kChecked\#\#\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}}: \{                                         \(\backslash\)}
+\DoxyCodeLine{    DCHECK(dominating\_frame\_state.valid());                                \(\backslash\)}
+\DoxyCodeLine{    const CheckParameters\& params = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a1a881a57a595dd7eed671edea5916d59}{CheckParametersOf}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>op());         \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} ChangeOrDeopt(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(0)), dominating\_frame\_state, \(\backslash\)}
+\DoxyCodeLine{                            ChangeOrDeoptOp::Kind::k\#\#\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}},                \(\backslash\)}
+\DoxyCodeLine{                            CheckForMinusZeroMode::kDontCheckForMinusZero, \(\backslash\)}
+\DoxyCodeLine{                            params.feedback());                            \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-builder_8cc_ab55a2457ea48ffc30bd68f34fc6a2199}\label{graph-builder_8cc_ab55a2457ea48ffc30bd68f34fc6a2199}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!CHECK\_OBJECT\_IS\_CASE@{CHECK\_OBJECT\_IS\_CASE}}
+\index{CHECK\_OBJECT\_IS\_CASE@{CHECK\_OBJECT\_IS\_CASE}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{CHECK\_OBJECT\_IS\_CASE}{CHECK\_OBJECT\_IS\_CASE}}
+{\footnotesize\ttfamily \#define CHECK\+\_\+\+OBJECT\+\_\+\+IS\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_ae0e79c88adf5166f9befeb542c2acd8f}{code}},  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}},  }\item[{}]{input\+\_\+assumptions,  }\item[{}]{reason,  }\item[{}]{feedback }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#\mbox{\hyperlink{code-reference_8cc_aeaf31c189d3b2a89ff45fedfceb87d9d}{code}}: \{                                                   \(\backslash\)}
+\DoxyCodeLine{    DCHECK(dominating\_frame\_state.valid());                                   \(\backslash\)}
+\DoxyCodeLine{    V<Object> input = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(0));                                  \(\backslash\)}
+\DoxyCodeLine{    V<Word32> check =                                                         \(\backslash\)}
+\DoxyCodeLine{        \_\_ ObjectIs(input, ObjectIsOp::Kind::k\#\#\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}},                         \(\backslash\)}
+\DoxyCodeLine{                    ObjectIsOp::InputAssumptions::k\#\#input\_assumptions);      \(\backslash\)}
+\DoxyCodeLine{    \_\_ DeoptimizeIfNot(check, dominating\_frame\_state,                         \(\backslash\)}
+\DoxyCodeLine{                       DeoptimizeReason::k\#\#reason, feedback);                \(\backslash\)}
+\DoxyCodeLine{    return input;                                                             \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-builder_8cc_aeccf69dd03eb9f0aec086772276ac5fe}\label{graph-builder_8cc_aeccf69dd03eb9f0aec086772276ac5fe}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!CONVERT\_OBJECT\_TO\_PRIMITIVE\_CASE@{CONVERT\_OBJECT\_TO\_PRIMITIVE\_CASE}}
+\index{CONVERT\_OBJECT\_TO\_PRIMITIVE\_CASE@{CONVERT\_OBJECT\_TO\_PRIMITIVE\_CASE}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{CONVERT\_OBJECT\_TO\_PRIMITIVE\_CASE}{CONVERT\_OBJECT\_TO\_PRIMITIVE\_CASE}}
+{\footnotesize\ttfamily \#define CONVERT\+\_\+\+OBJECT\+\_\+\+TO\+\_\+\+PRIMITIVE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}},  }\item[{}]{input\+\_\+assumptions }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}:                                               \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} ConvertJSPrimitiveToUntagged(                             \(\backslash\)}
+\DoxyCodeLine{        \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(0)),                                          \(\backslash\)}
+\DoxyCodeLine{        ConvertJSPrimitiveToUntaggedOp::UntaggedKind::k\#\#\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}},          \(\backslash\)}
+\DoxyCodeLine{        ConvertJSPrimitiveToUntaggedOp::InputAssumptions::              \(\backslash\)}
+\DoxyCodeLine{            k\#\#input\_assumptions);}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-builder_8cc_a171e3e7c8b20ad8cde38432b28792a8c}\label{graph-builder_8cc_a171e3e7c8b20ad8cde38432b28792a8c}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!CONVERT\_PRIMITIVE\_TO\_OBJECT\_CASE@{CONVERT\_PRIMITIVE\_TO\_OBJECT\_CASE}}
+\index{CONVERT\_PRIMITIVE\_TO\_OBJECT\_CASE@{CONVERT\_PRIMITIVE\_TO\_OBJECT\_CASE}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{CONVERT\_PRIMITIVE\_TO\_OBJECT\_CASE}{CONVERT\_PRIMITIVE\_TO\_OBJECT\_CASE}}
+{\footnotesize\ttfamily \#define CONVERT\+\_\+\+PRIMITIVE\+\_\+\+TO\+\_\+\+OBJECT\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}},  }\item[{}]{input\+\_\+type,  }\item[{}]{input\+\_\+interpretation }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}:                                         \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} ConvertUntaggedToJSPrimitive(                       \(\backslash\)}
+\DoxyCodeLine{        \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(0)),                                    \(\backslash\)}
+\DoxyCodeLine{        ConvertUntaggedToJSPrimitiveOp::JSPrimitiveKind::k\#\#\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}}, \(\backslash\)}
+\DoxyCodeLine{        V<input\_type>::rep,                                       \(\backslash\)}
+\DoxyCodeLine{        ConvertUntaggedToJSPrimitiveOp::InputInterpretation::     \(\backslash\)}
+\DoxyCodeLine{            k\#\#input\_interpretation,                              \(\backslash\)}
+\DoxyCodeLine{        CheckForMinusZeroMode::kDontCheckForMinusZero);}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-builder_8cc_a7113af7b7ca9dfa3195817ce22b6d3b7}\label{graph-builder_8cc_a7113af7b7ca9dfa3195817ce22b6d3b7}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!CONVERT\_PRIMITIVE\_TO\_OBJECT\_OR\_DEOPT\_CASE@{CONVERT\_PRIMITIVE\_TO\_OBJECT\_OR\_DEOPT\_CASE}}
+\index{CONVERT\_PRIMITIVE\_TO\_OBJECT\_OR\_DEOPT\_CASE@{CONVERT\_PRIMITIVE\_TO\_OBJECT\_OR\_DEOPT\_CASE}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{CONVERT\_PRIMITIVE\_TO\_OBJECT\_OR\_DEOPT\_CASE}{CONVERT\_PRIMITIVE\_TO\_OBJECT\_OR\_DEOPT\_CASE}}
+{\footnotesize\ttfamily \#define CONVERT\+\_\+\+PRIMITIVE\+\_\+\+TO\+\_\+\+OBJECT\+\_\+\+OR\+\_\+\+DEOPT\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}},  }\item[{}]{input\+\_\+type,  }\item[{}]{input\+\_\+interpretation }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}: \{                                               \(\backslash\)}
+\DoxyCodeLine{    DCHECK(dominating\_frame\_state.valid());                               \(\backslash\)}
+\DoxyCodeLine{    const CheckParameters\& params = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a1a881a57a595dd7eed671edea5916d59}{CheckParametersOf}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>op());        \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} ConvertUntaggedToJSPrimitiveOrDeopt(                        \(\backslash\)}
+\DoxyCodeLine{        \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(0)), dominating\_frame\_state,                    \(\backslash\)}
+\DoxyCodeLine{        ConvertUntaggedToJSPrimitiveOrDeoptOp::JSPrimitiveKind::k\#\#\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}},  \(\backslash\)}
+\DoxyCodeLine{        V<input\_type>::rep,                                               \(\backslash\)}
+\DoxyCodeLine{        ConvertUntaggedToJSPrimitiveOrDeoptOp::InputInterpretation::      \(\backslash\)}
+\DoxyCodeLine{            k\#\#input\_interpretation,                                      \(\backslash\)}
+\DoxyCodeLine{        params.feedback());                                               \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-builder_8cc_a6afdc145928eb75ef46212361e571e6c}\label{graph-builder_8cc_a6afdc145928eb75ef46212361e571e6c}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!ELSE\_UNREACHABLE@{ELSE\_UNREACHABLE}}
+\index{ELSE\_UNREACHABLE@{ELSE\_UNREACHABLE}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{ELSE\_UNREACHABLE}{ELSE\_UNREACHABLE}}
+{\footnotesize\ttfamily \#define ELSE\+\_\+\+UNREACHABLE}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  ELSE \{                                                    \(\backslash\)}
+\DoxyCodeLine{    \_\_ RuntimeAbort(AbortReason::kFastCallFallbackInvalid); \(\backslash\)}
+\DoxyCodeLine{    \_\_ Unreachable();                                       \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-builder_8cc_ae25e47eba9c8c8cc347f5e85a4ffd74f}\label{graph-builder_8cc_ae25e47eba9c8c8cc347f5e85a4ffd74f}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!OBJECT\_IS\_CASE@{OBJECT\_IS\_CASE}}
+\index{OBJECT\_IS\_CASE@{OBJECT\_IS\_CASE}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{OBJECT\_IS\_CASE}{OBJECT\_IS\_CASE}}
+{\footnotesize\ttfamily \#define OBJECT\+\_\+\+IS\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::kObjectIs\#\#\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}}: \{                                      \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} ObjectIs(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(0)), ObjectIsOp::Kind::k\#\#\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}}, \(\backslash\)}
+\DoxyCodeLine{                       ObjectIsOp::InputAssumptions::kNone);             \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-builder_8cc_a24dad6e6db1af283f8a8f597e48e815d}\label{graph-builder_8cc_a24dad6e6db1af283f8a8f597e48e815d}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!TRUNCATE\_OBJECT\_TO\_PRIMITIVE\_CASE@{TRUNCATE\_OBJECT\_TO\_PRIMITIVE\_CASE}}
+\index{TRUNCATE\_OBJECT\_TO\_PRIMITIVE\_CASE@{TRUNCATE\_OBJECT\_TO\_PRIMITIVE\_CASE}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{TRUNCATE\_OBJECT\_TO\_PRIMITIVE\_CASE}{TRUNCATE\_OBJECT\_TO\_PRIMITIVE\_CASE}}
+{\footnotesize\ttfamily \#define TRUNCATE\+\_\+\+OBJECT\+\_\+\+TO\+\_\+\+PRIMITIVE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}},  }\item[{}]{input\+\_\+assumptions }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}:                                                \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} TruncateJSPrimitiveToUntagged(                             \(\backslash\)}
+\DoxyCodeLine{        \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(0)),                                           \(\backslash\)}
+\DoxyCodeLine{        TruncateJSPrimitiveToUntaggedOp::UntaggedKind::k\#\#\mbox{\hyperlink{builtins_8cc_adc156a864d6037c4df1b276073ae7277}{kind}},          \(\backslash\)}
+\DoxyCodeLine{        TruncateJSPrimitiveToUntaggedOp::InputAssumptions::              \(\backslash\)}
+\DoxyCodeLine{            k\#\#input\_assumptions);}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{graph-builder_8cc_a523fffe7ccca9f182bb6970f0c5d6570}\label{graph-builder_8cc_a523fffe7ccca9f182bb6970f0c5d6570}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!UNARY\_CASE@{UNARY\_CASE}}
+\index{UNARY\_CASE@{UNARY\_CASE}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{UNARY\_CASE}{UNARY\_CASE}}
+{\footnotesize\ttfamily \#define UNARY\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{opcode,  }\item[{}]{assembler\+\_\+op }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} IrOpcode::k\#\#opcode:              \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} assembler\_op(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>InputAt(0)));}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{graph-builder_8cc_a9e397f4923fb16957ab72033ab7fecac}\label{graph-builder_8cc_a9e397f4923fb16957ab72033ab7fecac}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!assembler@{assembler}}
+\index{assembler@{assembler}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{assembler}{assembler}}
+{\footnotesize\ttfamily AssemblerT assembler}
+
+\mbox{\Hypertarget{graph-builder_8cc_a9a63426410caf3ad0e4c7010c6d7e2f0}\label{graph-builder_8cc_a9a63426410caf3ad0e4c7010c6d7e2f0}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!block@{block}}
+\index{block@{block}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{block}{block}}
+{\footnotesize\ttfamily Block$\ast$ block}
+
+\mbox{\Hypertarget{graph-builder_8cc_aead965c34b465373a0a11b3b9f5360af}\label{graph-builder_8cc_aead965c34b465373a0a11b3b9f5360af}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!block\_mapping@{block\_mapping}}
+\index{block\_mapping@{block\_mapping}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{block\_mapping}{block\_mapping}}
+{\footnotesize\ttfamily Zone\+Vector$<$Block\+Data$>$ block\+\_\+mapping \{schedule.\+Rpo\+Block\+Count(), \mbox{\hyperlink{graph-builder_8cc_a92305aa4ca35c6155a1ad3c018b28c49}{phase\+\_\+zone}}\}}
+
+\mbox{\Hypertarget{graph-builder_8cc_af88aca2403db6e64cd8bca9eda102a86}\label{graph-builder_8cc_af88aca2403db6e64cd8bca9eda102a86}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!broker@{broker}}
+\index{broker@{broker}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{broker}{broker}}
+{\footnotesize\ttfamily JSHeap\+Broker$\ast$ broker}
+
+\mbox{\Hypertarget{graph-builder_8cc_afa5d492e43ddcbdbd9fa0974a48b779c}\label{graph-builder_8cc_afa5d492e43ddcbdbd9fa0974a48b779c}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!final\_frame\_state@{final\_frame\_state}}
+\index{final\_frame\_state@{final\_frame\_state}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{final\_frame\_state}{final\_frame\_state}}
+{\footnotesize\ttfamily Op\+Index final\+\_\+frame\+\_\+state}
+
+\mbox{\Hypertarget{graph-builder_8cc_ab554ff773f02a3fc0720fca9775dce78}\label{graph-builder_8cc_ab554ff773f02a3fc0720fca9775dce78}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!graph\_zone@{graph\_zone}}
+\index{graph\_zone@{graph\_zone}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{graph\_zone}{graph\_zone}}
+{\footnotesize\ttfamily Zone$\ast$ graph\+\_\+zone}
+
+\mbox{\Hypertarget{graph-builder_8cc_a5db129f0b070100c7dca266d7af84e4c}\label{graph-builder_8cc_a5db129f0b070100c7dca266d7af84e4c}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!inside\_region@{inside\_region}}
+\index{inside\_region@{inside\_region}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{inside\_region}{inside\_region}}
+{\footnotesize\ttfamily bool inside\+\_\+region = \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}}}
+
+\mbox{\Hypertarget{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}\label{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!isolate@{isolate}}
+\index{isolate@{isolate}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{isolate}{isolate}}
+{\footnotesize\ttfamily Isolate$\ast$ isolate}
+
+\mbox{\Hypertarget{graph-builder_8cc_a1a3e86f90fa766d5b3044f96772c454e}\label{graph-builder_8cc_a1a3e86f90fa766d5b3044f96772c454e}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!js\_wasm\_calls\_sidetable@{js\_wasm\_calls\_sidetable}}
+\index{js\_wasm\_calls\_sidetable@{js\_wasm\_calls\_sidetable}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{js\_wasm\_calls\_sidetable}{js\_wasm\_calls\_sidetable}}
+{\footnotesize\ttfamily Js\+Wasm\+Calls\+Sidetable$\ast$ js\+\_\+wasm\+\_\+calls\+\_\+sidetable}
+
+\mbox{\Hypertarget{graph-builder_8cc_af97d4be930be06ad1e71c0c6a130dcff}\label{graph-builder_8cc_af97d4be930be06ad1e71c0c6a130dcff}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!linkage@{linkage}}
+\index{linkage@{linkage}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{linkage}{linkage}}
+{\footnotesize\ttfamily Linkage$\ast$ linkage}
+
+\mbox{\Hypertarget{graph-builder_8cc_a661315cbe11a61345205944db4baa5c5}\label{graph-builder_8cc_a661315cbe11a61345205944db4baa5c5}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!op\_mapping@{op\_mapping}}
+\index{op\_mapping@{op\_mapping}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{op\_mapping}{op\_mapping}}
+{\footnotesize\ttfamily Node\+Aux\+Data$<$Op\+Index$>$ op\+\_\+mapping \{\mbox{\hyperlink{graph-builder_8cc_a92305aa4ca35c6155a1ad3c018b28c49}{phase\+\_\+zone}}\}}
+
+\mbox{\Hypertarget{graph-builder_8cc_aca5ac118321cc0cb2a8e7d4c92c40e23}\label{graph-builder_8cc_aca5ac118321cc0cb2a8e7d4c92c40e23}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!origins@{origins}}
+\index{origins@{origins}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{origins}{origins}}
+{\footnotesize\ttfamily Node\+Origin\+Table$\ast$ origins}
+
+\mbox{\Hypertarget{graph-builder_8cc_a92305aa4ca35c6155a1ad3c018b28c49}\label{graph-builder_8cc_a92305aa4ca35c6155a1ad3c018b28c49}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!phase\_zone@{phase\_zone}}
+\index{phase\_zone@{phase\_zone}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{phase\_zone}{phase\_zone}}
+{\footnotesize\ttfamily Zone$\ast$ phase\+\_\+zone}
+
+\mbox{\Hypertarget{graph-builder_8cc_a267b2ca3908ef9ebf52fc8a075827211}\label{graph-builder_8cc_a267b2ca3908ef9ebf52fc8a075827211}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!pipeline\_kind@{pipeline\_kind}}
+\index{pipeline\_kind@{pipeline\_kind}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{pipeline\_kind}{pipeline\_kind}}
+{\footnotesize\ttfamily Turboshaft\+Pipeline\+Kind pipeline\+\_\+kind}
+
+\mbox{\Hypertarget{graph-builder_8cc_a970e7f41771cbd0ccc6f2f1ab01faab0}\label{graph-builder_8cc_a970e7f41771cbd0ccc6f2f1ab01faab0}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!schedule@{schedule}}
+\index{schedule@{schedule}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{schedule}{schedule}}
+{\footnotesize\ttfamily Schedule\& schedule}
+
+\mbox{\Hypertarget{graph-builder_8cc_acc2fa1f7c7062f53a2840f0064a43ef1}\label{graph-builder_8cc_acc2fa1f7c7062f53a2840f0064a43ef1}} 
+\index{graph-\/builder.cc@{graph-\/builder.cc}!source\_positions@{source\_positions}}
+\index{source\_positions@{source\_positions}!graph-\/builder.cc@{graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{source\_positions}{source\_positions}}
+{\footnotesize\ttfamily Source\+Position\+Table$\ast$ source\+\_\+positions}
+

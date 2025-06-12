@@ -1,0 +1,63 @@
+\hypertarget{classv8_1_1Unwinder}{}\doxysection{v8\+::Unwinder Class Reference}
+\label{classv8_1_1Unwinder}\index{v8::Unwinder@{v8::Unwinder}}
+
+
+{\ttfamily \#include $<$v8-\/unwinder.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classv8_1_1Unwinder_a6d07f048a236737ec88d327c3f85e539}{Try\+Unwind\+V8\+Frames}} (const \mbox{\hyperlink{structv8_1_1JSEntryStubs}{JSEntry\+Stubs}} \&entry\+\_\+stubs, size\+\_\+t code\+\_\+pages\+\_\+length, const \mbox{\hyperlink{structv8_1_1MemoryRange}{Memory\+Range}} $\ast$code\+\_\+pages, \mbox{\hyperlink{structv8_1_1RegisterState}{Register\+State}} $\ast$register\+\_\+state, const void $\ast$stack\+\_\+base)
+\item 
+static bool \mbox{\hyperlink{classv8_1_1Unwinder_a2e30a6786a20ad33a210e0b4dc344dff}{PCIs\+In\+V8}} (size\+\_\+t code\+\_\+pages\+\_\+length, const \mbox{\hyperlink{structv8_1_1MemoryRange}{Memory\+Range}} $\ast$code\+\_\+pages, void $\ast$\mbox{\hyperlink{experimental-interpreter_8cc_ac8c81e61335635fa4709d82412b31f06}{pc}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Various helpers for skipping over \mbox{\hyperlink{classv8_1_1V8}{V8}} frames in a given stack.
+
+The unwinder API is only supported on the x64, ARM64 and ARM32 architectures. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1Unwinder_a2e30a6786a20ad33a210e0b4dc344dff}\label{classv8_1_1Unwinder_a2e30a6786a20ad33a210e0b4dc344dff}} 
+\index{v8::Unwinder@{v8::Unwinder}!PCIsInV8@{PCIsInV8}}
+\index{PCIsInV8@{PCIsInV8}!v8::Unwinder@{v8::Unwinder}}
+\doxysubsubsection{\texorpdfstring{PCIsInV8()}{PCIsInV8()}}
+{\footnotesize\ttfamily bool v8\+::\+Unwinder\+::\+PCIs\+In\+V8 (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{code\+\_\+pages\+\_\+length,  }\item[{const \mbox{\hyperlink{structv8_1_1MemoryRange}{Memory\+Range}} $\ast$}]{code\+\_\+pages,  }\item[{void $\ast$}]{pc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Whether the PC is within the \mbox{\hyperlink{classv8_1_1V8}{V8}} code range represented by code\+\_\+pages.
+
+If this returns false, then calling Unwind\+V8\+Frames() with the same PC and unwind\+\_\+state will always fail. If it returns true, then unwinding may (but not necessarily) be successful.
+
+Available on x64, ARM64 and ARM32 \mbox{\Hypertarget{classv8_1_1Unwinder_a6d07f048a236737ec88d327c3f85e539}\label{classv8_1_1Unwinder_a6d07f048a236737ec88d327c3f85e539}} 
+\index{v8::Unwinder@{v8::Unwinder}!TryUnwindV8Frames@{TryUnwindV8Frames}}
+\index{TryUnwindV8Frames@{TryUnwindV8Frames}!v8::Unwinder@{v8::Unwinder}}
+\doxysubsubsection{\texorpdfstring{TryUnwindV8Frames()}{TryUnwindV8Frames()}}
+{\footnotesize\ttfamily bool v8\+::\+Unwinder\+::\+Try\+Unwind\+V8\+Frames (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structv8_1_1JSEntryStubs}{JSEntry\+Stubs}} \&}]{entry\+\_\+stubs,  }\item[{size\+\_\+t}]{code\+\_\+pages\+\_\+length,  }\item[{const \mbox{\hyperlink{structv8_1_1MemoryRange}{Memory\+Range}} $\ast$}]{code\+\_\+pages,  }\item[{\mbox{\hyperlink{structv8_1_1RegisterState}{Register\+State}} $\ast$}]{register\+\_\+state,  }\item[{const void $\ast$}]{stack\+\_\+base }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Attempt to unwind the stack to the most recent C++ frame. This function is signal-\/safe and does not access any \mbox{\hyperlink{classv8_1_1V8}{V8}} state and thus doesn\textquotesingle{}t require an \mbox{\hyperlink{classv8_1_1Isolate}{Isolate}}.
+
+The unwinder needs to know the location of the JS Entry Stub (a piece of code that is run when C++ code calls into generated JS code). This is used for edge cases where the current frame is being constructed or torn down when the stack sample occurs.
+
+The unwinder also needs the virtual memory range of all possible \mbox{\hyperlink{classv8_1_1V8}{V8}} code objects. There are two ranges required -\/ the heap code range and the range for code embedded in the binary.
+
+Available on x64, ARM64 and ARM32.
+
+
+\begin{DoxyParams}{Parameters}
+{\em code\+\_\+pages} & A list of all of the ranges in which \mbox{\hyperlink{classv8_1_1V8}{V8}} has allocated executable code. The caller should obtain this list by calling \mbox{\hyperlink{classv8_1_1Isolate_a47db07c61e758522e800511517b25e6b}{Isolate\+::\+Copy\+Code\+Pages()}} during the same interrupt/thread suspension that captures the stack. \\
+\hline
+{\em register\+\_\+state} & The current registers. This is an in-\/out param that will be overwritten with the register values after unwinding, on success. \\
+\hline
+{\em stack\+\_\+base} & The resulting stack pointer and frame pointer values are bounds-\/checked against the stack\+\_\+base and the original stack pointer value to ensure that they are valid locations in the given stack. If these values or any intermediate frame pointer values used during unwinding are ever out of these bounds, unwinding will fail.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True on success. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{v8-unwinder_8h}{v8-\/unwinder.\+h}}\item 
+\mbox{\hyperlink{unwinder_8cc}{unwinder.\+cc}}\end{DoxyCompactItemize}

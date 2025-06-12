@@ -1,0 +1,28 @@
+var api_8h =
+[
+    [ "ApiFunction", "classv8_1_1ApiFunction.html", "classv8_1_1ApiFunction" ],
+    [ "RegisteredExtension", "classv8_1_1RegisteredExtension.html", "classv8_1_1RegisteredExtension" ],
+    [ "Utils", "classv8_1_1Utils.html", null ],
+    [ "HandleScopeImplementer", "classv8_1_1internal_1_1HandleScopeImplementer.html", "classv8_1_1internal_1_1HandleScopeImplementer" ],
+    [ "EnteredContextRewindScope", "classv8_1_1internal_1_1HandleScopeImplementer_1_1EnteredContextRewindScope.html", "classv8_1_1internal_1_1HandleScopeImplementer_1_1EnteredContextRewindScope" ],
+    [ "DECLARE_OPEN_HANDLE", "api_8h.html#a9f5fbe0e75e467e153bc10a0050de758", null ],
+    [ "DECLARE_TO_LOCAL", "api_8h.html#a5b2590a171d96673f0341a14e4467ef8", null ],
+    [ "DECLARE_TO_LOCAL", "api_8h.html#af697b4ff3ab026edf66af0905666b0a2", null ],
+    [ "DECLARE_TO_LOCAL_TYPED_ARRAY", "api_8h.html#a480b4cba8079f42a747d893d6e26f19d", null ],
+    [ "OPEN_HANDLE_LIST", "api_8h.html#a8244b333fa08dfbcaeff005312723bf6", null ],
+    [ "TO_LOCAL_LIST", "api_8h.html#affa61bc0f784da309f12005444ad18df", null ],
+    [ "TO_LOCAL_NAME_LIST", "api_8h.html#a4d03c9ad8a458ad41655eb8388ab46a3", null ],
+    [ "ConvertDouble", "api_8h.html#a546578525ae357f7322d1e874c5c039a", null ],
+    [ "FromCData", "api_8h.html#a0331e4f12644f15c8052654721d02e98", null ],
+    [ "FromCData", "api_8h.html#ae36ae4bb0aac659bf9db8d8bb6aa17f3", null ],
+    [ "InvokeAccessorGetterCallback", "api_8h.html#ae6603313a57576cf75f3ea1ea29f6260", null ],
+    [ "InvokeFinalizationRegistryCleanupFromTask", "api_8h.html#a0d16f5dabb1061155802eb4c707c0530", null ],
+    [ "InvokeFunctionCallbackGeneric", "api_8h.html#aa1b4a00e8c40ededa4e0bfbc7b91db41", null ],
+    [ "InvokeFunctionCallbackOptimized", "api_8h.html#a4c2c1f4056bb348705ec7d29865cfad4", null ],
+    [ "ToApiHandle", "api_8h.html#a4946a8372bbfa7e674abd4e4c643c099", null ],
+    [ "ToCData", "api_8h.html#a23e3554e42c1196b69ff992c5dbe12cb", null ],
+    [ "ToCData", "api_8h.html#a3f40a04b3289ad86cf0ef2ac34ff1125", null ],
+    [ "ValidateCallbackInfo", "api_8h.html#ae0eb672922e8a77f152f411985381f0c", null ],
+    [ "ValidateCallbackInfo", "api_8h.html#a62a1155ce096bceee259e7d86afe1f13", null ],
+    [ "kHandleBlockSize", "api_8h.html#a6a4aa820a283e29c2cc4302f03313f8c", null ]
+];

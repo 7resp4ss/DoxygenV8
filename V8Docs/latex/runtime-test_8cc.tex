@@ -1,0 +1,362 @@
+\hypertarget{runtime-test_8cc}{}\doxysection{runtime-\/test.cc File Reference}
+\label{runtime-test_8cc}\index{runtime-\/test.cc@{runtime-\/test.cc}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/function.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/profiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/macros.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/numbers/double.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/pending-\/optimization-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler-\/dispatcher/lazy-\/compile-\/dispatcher.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler-\/dispatcher/optimizing-\/compile-\/dispatcher.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/debug/debug-\/evaluate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/deoptimizer/deoptimizer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/arguments-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/frames-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/frames.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/protectors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/tiering-\/manager.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/layout-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/write-\/barrier-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/pretenuring-\/handler-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ic/stub-\/cache.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/bytecode-\/array.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/collection-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/profiler/heap-\/profiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/buffer-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/atomics-\/synchronization-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/function-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/regexp-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/smi.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/profiler/heap-\/snapshot-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/regexp/regexp.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/snapshot.\+h\char`\"{}}\newline
+Include dependency graph for runtime-\/test.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{runtime-test_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{runtime-test_8cc_a2640b318a756b137ac867fd287ef29e2}{CONVERT\+\_\+\+INT32\+\_\+\+ARG\+\_\+\+FUZZ\+\_\+\+SAFE}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  \mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}})
+\item 
+\#define \mbox{\hyperlink{runtime-test_8cc_a2a9ef2f23c321ab62dfa7eb6575ebff5}{CONVERT\+\_\+\+BOOLEAN\+\_\+\+ARG\+\_\+\+FUZZ\+\_\+\+SAFE}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  \mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}})
+\item 
+\#define \mbox{\hyperlink{runtime-test_8cc_add20088f7d2770a0dff4cf90bf4af532}{ELEMENTS\+\_\+\+KIND\+\_\+\+CHECK\+\_\+\+RUNTIME\+\_\+\+FUNCTION}}(Name)
+\item 
+\#define \mbox{\hyperlink{runtime-test_8cc_ab3f0c07fba4fa6b891aa27dc0764b148}{FIXED\+\_\+\+TYPED\+\_\+\+ARRAYS\+\_\+\+CHECK\+\_\+\+RUNTIME\+\_\+\+FUNCTION}}(Type,  \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  TYPE,  ctype)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a97093df95ba34c45658dc3ab280210a9}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Clear\+Megamorphic\+Stub\+Cache)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ab9d560d09c37d7b08df5a5dfe1924116}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Construct\+Double)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a8cb7dce0c5d8e4bfa1e6c38ca95b9983}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+String\+Is\+Flat)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a51e3db0ff0cb9b9f1097e82f04310dd2}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Construct\+Cons\+String)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a07b1a8ac7f4d451c1aa4de94a617e72b}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Construct\+Sliced\+String)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ad24355e875755abca27a08c7b8ccfa4d}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Construct\+Internalized\+String)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a87872afbd065b8b9a252a6c1cd553878}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Construct\+Thin\+String)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a55cb57282d79d80f935015d76797ef42}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Deoptimize\+Function)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a3fafbb625594a33f1588fc2f78a3f78b}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Deoptimize\+Now)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ae9092680885256836cbd468648111f76}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Leak\+Hole)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a94ffe17db50006cc23e9af7b031e4cb6}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Running\+In\+Simulator)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_adaf8acb3e5c5279170e725256bad8c53}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Runtime\+Evaluate\+REPL)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a127c8386171716a62d178d56ec44c57e}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+ICs\+Are\+Enabled)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a2ebe30bcbf0ff7d2569d3aaa03b8215f}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+Concurrent\+Recompilation\+Supported)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4328a63314abc4662e0303b95d94ac66}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+Atomics\+Wait\+Allowed)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a526afe3037ee6cf2a42c29d30650ebeb}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Compile\+Baseline)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4b7aa561700d5b296a4b9635af6cd2cb}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Bench\+Maglev)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a12d5d63aff99621fd4fa1d60bb0967d5}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Bench\+Turbofan)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ad02e43cbbe45545f3c8b6c1a608636a2}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Active\+Tier\+Is\+Ignition)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a3dfd4c03d3cb77ff5caad91e043b6669}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Active\+Tier\+Is\+Sparkplug)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a7e2baab9e4b0ab5f7dad5856a20628b3}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Active\+Tier\+Is\+Maglev)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a0c31713ab2da4793a3f0ba34e1af0938}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Active\+Tier\+Is\+Turbofan)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a48a785664067b4a6bd4ea24ffbd7ef46}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+Sparkplug\+Enabled)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_aa0788db0397843df1b2c40c49c37c522}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+Maglev\+Enabled)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_aa05c6f9352816de86e3d52620fb360fd}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+Turbofan\+Enabled)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a981435cdee4cccbc588eafedc8eb2079}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Current\+Frame\+Is\+Turbofan)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ac77966b87f769603d1c8e81db69700c4}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Optimize\+Maglev\+On\+Next\+Call)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a8ed7e15561e6dacb7909b36e1fcc5411}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Optimize\+Function\+On\+Next\+Call)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ad84999dbd8f89d51f758d37d6c990830}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Ensure\+Feedback\+Vector\+For\+Function)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a381cab1b50ff96ea9da5c246cbdbcd9d}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Prepare\+Function\+For\+Optimization)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_af4ce9517173846573b48aea362177b25}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Optimize\+Osr)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a37166fcafee35035b1614fc1a8ec876d}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Baseline\+Osr)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a925a9844059eee72506532a6ac55b5ca}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Never\+Optimize\+Function)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a6d43811d21cb04c43a67b294edb913aa}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Get\+Optimization\+Status)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a9a5cbbfcaa43127c25ef20688d6baa58}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Get\+Function\+For\+Current\+Frame)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_aaaabb588a904f2ae29e1757ad9916358}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Disable\+Optimization\+Finalization)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a6c8c6ff15bc1e66420a23b18fe3d473d}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Wait\+For\+Background\+Optimization)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a99a1486ace6fffae8ff389af474f1c66}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Finalize\+Optimization)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_adcb9115d5103a09a4eb40c338d676b6c}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Force\+Flush)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ab55f395fd46da034871f006ce2998ee8}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Get\+Undetectable)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a5209bef9a56847694426f5a7a92d0edc}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Get\+Abstract\+Module\+Source)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4c367f245dff72243d6a94c658b3f207}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Get\+Callable)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a17050fbb080fd37474e90830e1ed51aa}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Clear\+Function\+Feedback)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ae537a096e0b9252bdf82e447239c82d8}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Notify\+Context\+Disposed)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_af0c5c6ebde06108d463054e606bd0d74}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Set\+Allocation\+Timeout)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_afff681e12ec5d387aa569aa7fa1cc824}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Simulate\+Newspace\+Full)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a8d89b209839c0114d9332c5e47817e6b}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Schedule\+GCIn\+Stack\+Check)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a52b3d1298f9de938ca55253ef88d476a}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Take\+Heap\+Snapshot)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a0ae4bec93f774ff567043b36c60afbdd}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Debug\+Print)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a26deef21ac31c8d43d30e3676c8374e2}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Debug\+Print\+Ptr)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a7f0d48ea68a5dbe19c894cf533306b00}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Debug\+Print\+Word)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a67ebdf78bb4b85f6277d850163af5321}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Debug\+Print\+Float)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a5e9b93fdcae2d107e4351af1703e931c}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Print\+With\+Name\+For\+Assert)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a6f054d2246609c5583e7a773660d5d5c}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Debug\+Trace)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a7a377aefc891f96b9aa4b7034f01f0f0}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Global\+Print)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_aefa9f7680e2b22cd2a18455f94d7053d}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+System\+Break)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a8378d251ccd813e3152cb9afed2f99c1}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Set\+Force\+Slow\+Path)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a14772e7cf5b50a131897f542d6d61cda}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Abort)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a87d2661c0987558bc7621591ff95bc2a}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Abort\+JS)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ad28735a98baa9252028985133b3dcc4f}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Abort\+CSADcheck)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a7de361832de7c0c019c6d23cc563dd27}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Disassemble\+Function)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_abc8ed39c326f183791ec4aea718d1252}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Trace\+Enter)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a8021c3df8a29252abfe97251765f2e19}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Trace\+Exit)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a0ac1e737da8a9f675d03c4cf3ce0da32}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Have\+Same\+Map)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a74b0a0917635223274b5a62f1e8f4ff3}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+In\+Large\+Object\+Space)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_af658a1a50aa3f3477fd437310b3d4fe5}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Has\+Elements\+In\+ALarge\+Object\+Space)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a198b2e99aef8135e1c16420ec0df0192}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Has\+Cow\+Elements)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a69c363798e03f382f7234c5fbd0ee74a}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+In\+Young\+Generation)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a387690ca92a16a03e7106ca5cc44c168}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Pretenure\+Allocation\+Site)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a72df172a33ba393aca781f4642071084}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Disallow\+Codegen\+From\+Strings)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a5cb6a3cc0e5de21d42dd3dfa8c524123}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Regexp\+Has\+Bytecode)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a1165373f6d1ee0ca504c57f819809870}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Regexp\+Has\+Native\+Code)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ab71515667444a07ee817080acfde61c8}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Regexp\+Type\+Tag)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a98168adfa65dade00d7a74e285804572}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Regexp\+Is\+Unmodified)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a833bbcfa2fe4bd87018a36035ceea134}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+Concat\+Spreadable\+Protector)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a1a1e1bd7c1b0a2d7d7456a3c1c6c6df6}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Typed\+Array\+Species\+Protector)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a257fce4de30e48187713689207d8959a}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Reg\+Exp\+Species\+Protector)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a88bf87e6cf6b9c3e3deacfabe1c69ca5}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Promise\+Species\+Protector)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a3931adec1cd21fbe20d4daf4184da55e}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Array\+Species\+Protector)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a2c32efdf7e216a4ca071d394241351e5}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Map\+Iterator\+Protector)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a5aaf134438c9a7929410f8f5f2f248b6}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Set\+Iterator\+Protector)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ae8a03c1bf060079de0dd0089b15b725e}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+String\+Iterator\+Protector)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a595d6cb80dc5180dd298527ea5c64808}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Array\+Iterator\+Protector)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a966489cb6f5b61bcc5c8ece0f87eeb92}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+No\+Elements\+Protector)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4ace3dfe5d58613a0b0550594bb9f11b}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+String\+Wrapper\+To\+Primitive\+Protector)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a0bf464558f6983e61206cdce20712404}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Serialize\+Deserialize\+Now)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a38ebe93ca5f4d455988a8b344e96a3fe}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Heap\+Object\+Verify)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a779b6b32b3cbd02dc810db514f980919}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Complete\+Inobject\+Slack\+Tracking)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ae04ffeb5ca1e6481503a6307747ca6a7}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Turbofan\+Static\+Assert)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a263cc5bd13b8f067a45a6645e5f12fba}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+Being\+Interpreted)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ad454be2ceb84525ff8c8a1302135a496}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Enable\+Code\+Logging\+For\+Testing)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a03252451cbd3e8105e1b6a0d1071e465}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+New\+Reg\+Exp\+With\+Backtrack\+Limit)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a3b51cba8b57e453682b41286804ec93e}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is64\+Bit)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a14e02607eb6ee58d2af3eb801f3554c7}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Big\+Int\+Max\+Length\+Bits)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4cc2a92f6f479d95da789de91dd60bfe}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+Same\+Heap\+Object)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ab1908a01084cf2d5b791ebd4bce88bbf}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+Shared\+String)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ab5807d40aa70ede413dde5d8b976b3be}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+In\+Writable\+Shared\+Space)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a08f51167600f369a6556c6eda7fdd68f}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Share\+Object)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_af6917474c35092e04b1b7346bf8ffc0f}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+In\+Place\+Internalizable\+String)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a304c66b08591bf8b97c54076decaa7c9}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+Internalized\+String)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ada70c99c552ccff58e2f7830dcac5995}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+String\+To\+CString)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a4acb4a0ecae31fadc47e4bfc9010cfcd}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+String\+Utf8\+Value)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_aa06e9893c782b7481f07552307b47d7e}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Shared\+GC)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a8ab3068572846b87da25a2af5fa49670}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Atomics\+Synchronization\+Primitive\+Num\+Waiters\+For\+Testing)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a82768d8b548dc43a76242a4d8e505684}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Atomics\+Sychronization\+Num\+Async\+Waiters\+In\+Isolate\+For\+Testing)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a3a9059ab973b874f98b2545d9124a7a2}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Get\+Weak\+Collection\+Size)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a47161ade514fc63427edba7c3f864285}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Set\+Priority\+Best\+Effort)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ad73f076f54afd08269e775c06b5c39cd}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Set\+Priority\+User\+Visible)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ad38cd947766a451375d98d3fb8794fc5}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Set\+Priority\+User\+Blocking)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a486214d6e197856752eee8d66c50203a}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+Efficiency\+Mode\+Enabled)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a63dea371332bf41b992dac3fd375ceab}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+Experimental\+Undefined\+Double\+Enabled)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_adc9a9d59b5467b11d8b9283c7eec26ec}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Set\+Battery\+Saver\+Mode)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_aaefc17f022d1e76107dd075d50942e57}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Is\+Wasm\+Tiering\+Predictable)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a2b12b7cc829dac9a33a81f978ff6c38f}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Get\+Feedback)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_a94e634d8bc24ecdc6f77f48965dda650}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Check\+No\+Write\+Barrier\+Needed)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_af74e1c2aa84e8862c62d74a685f95b20}{v8\+::internal\+::\+RUNTIME\+\_\+\+FUNCTION}} (Runtime\+\_\+\+Array\+Buffer\+Detach\+Force\+Wasm)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{runtime-test_8cc_a2a9ef2f23c321ab62dfa7eb6575ebff5}\label{runtime-test_8cc_a2a9ef2f23c321ab62dfa7eb6575ebff5}} 
+\index{runtime-\/test.cc@{runtime-\/test.cc}!CONVERT\_BOOLEAN\_ARG\_FUZZ\_SAFE@{CONVERT\_BOOLEAN\_ARG\_FUZZ\_SAFE}}
+\index{CONVERT\_BOOLEAN\_ARG\_FUZZ\_SAFE@{CONVERT\_BOOLEAN\_ARG\_FUZZ\_SAFE}!runtime-\/test.cc@{runtime-\/test.cc}}
+\doxysubsubsection{\texorpdfstring{CONVERT\_BOOLEAN\_ARG\_FUZZ\_SAFE}{CONVERT\_BOOLEAN\_ARG\_FUZZ\_SAFE}}
+{\footnotesize\ttfamily \#define CONVERT\+\_\+\+BOOLEAN\+\_\+\+ARG\+\_\+\+FUZZ\+\_\+\+SAFE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (!IsBoolean(\mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}[\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}])) \textcolor{keywordflow}{return} CrashUnlessFuzzing(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}); \(\backslash\)}
+\DoxyCodeLine{  bool \mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}} = IsTrue(\mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}[\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}], \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{runtime-test_8cc_a2640b318a756b137ac867fd287ef29e2}\label{runtime-test_8cc_a2640b318a756b137ac867fd287ef29e2}} 
+\index{runtime-\/test.cc@{runtime-\/test.cc}!CONVERT\_INT32\_ARG\_FUZZ\_SAFE@{CONVERT\_INT32\_ARG\_FUZZ\_SAFE}}
+\index{CONVERT\_INT32\_ARG\_FUZZ\_SAFE@{CONVERT\_INT32\_ARG\_FUZZ\_SAFE}!runtime-\/test.cc@{runtime-\/test.cc}}
+\doxysubsubsection{\texorpdfstring{CONVERT\_INT32\_ARG\_FUZZ\_SAFE}{CONVERT\_INT32\_ARG\_FUZZ\_SAFE}}
+{\footnotesize\ttfamily \#define CONVERT\+\_\+\+INT32\+\_\+\+ARG\+\_\+\+FUZZ\+\_\+\+SAFE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (!\mbox{\hyperlink{namespacev8_1_1internal_a33a2826557a82e4cd9775aadf0f5711e}{IsNumber}}(\mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}[\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}])) \textcolor{keywordflow}{return} CrashUnlessFuzzing(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}); \(\backslash\)}
+\DoxyCodeLine{  int32\_t \mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}} = 0;                                               \(\backslash\)}
+\DoxyCodeLine{  if (!Object::ToInt32(\mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}[\mbox{\hyperlink{instruction-selector-ia32_8cc_a5fcf2c74c244dbd5d76b2f702cb8cbd0}{index}}], \&\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}})) \textcolor{keywordflow}{return} CrashUnlessFuzzing(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{runtime-test_8cc_add20088f7d2770a0dff4cf90bf4af532}\label{runtime-test_8cc_add20088f7d2770a0dff4cf90bf4af532}} 
+\index{runtime-\/test.cc@{runtime-\/test.cc}!ELEMENTS\_KIND\_CHECK\_RUNTIME\_FUNCTION@{ELEMENTS\_KIND\_CHECK\_RUNTIME\_FUNCTION}}
+\index{ELEMENTS\_KIND\_CHECK\_RUNTIME\_FUNCTION@{ELEMENTS\_KIND\_CHECK\_RUNTIME\_FUNCTION}!runtime-\/test.cc@{runtime-\/test.cc}}
+\doxysubsubsection{\texorpdfstring{ELEMENTS\_KIND\_CHECK\_RUNTIME\_FUNCTION}{ELEMENTS\_KIND\_CHECK\_RUNTIME\_FUNCTION}}
+{\footnotesize\ttfamily \#define ELEMENTS\+\_\+\+KIND\+\_\+\+CHECK\+\_\+\+RUNTIME\+\_\+\+FUNCTION(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{execution_2arguments_8h_a6ecc8298355f5ad7b603cd7638f35882}{RUNTIME\_FUNCTION}}(Runtime\_\#\#Name) \{                  \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}.length() != 1 || !IsJSObject(\mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}[0])) \{ \(\backslash\)}
+\DoxyCodeLine{      return CrashUnlessFuzzing(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});             \(\backslash\)}
+\DoxyCodeLine{    \}                                                 \(\backslash\)}
+\DoxyCodeLine{    auto obj = \mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}.at<JSObject>(0);                  \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}-\/>heap()-\/>ToBoolean(obj-\/>Name());   \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{runtime-test_8cc_ab3f0c07fba4fa6b891aa27dc0764b148}\label{runtime-test_8cc_ab3f0c07fba4fa6b891aa27dc0764b148}} 
+\index{runtime-\/test.cc@{runtime-\/test.cc}!FIXED\_TYPED\_ARRAYS\_CHECK\_RUNTIME\_FUNCTION@{FIXED\_TYPED\_ARRAYS\_CHECK\_RUNTIME\_FUNCTION}}
+\index{FIXED\_TYPED\_ARRAYS\_CHECK\_RUNTIME\_FUNCTION@{FIXED\_TYPED\_ARRAYS\_CHECK\_RUNTIME\_FUNCTION}!runtime-\/test.cc@{runtime-\/test.cc}}
+\doxysubsubsection{\texorpdfstring{FIXED\_TYPED\_ARRAYS\_CHECK\_RUNTIME\_FUNCTION}{FIXED\_TYPED\_ARRAYS\_CHECK\_RUNTIME\_FUNCTION}}
+{\footnotesize\ttfamily \#define FIXED\+\_\+\+TYPED\+\_\+\+ARRAYS\+\_\+\+CHECK\+\_\+\+RUNTIME\+\_\+\+FUNCTION(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  }\item[{}]{TYPE,  }\item[{}]{ctype }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{execution_2arguments_8h_a6ecc8298355f5ad7b603cd7638f35882}{RUNTIME\_FUNCTION}}(Runtime\_HasFixed\#\#Type\#\#Elements) \{                     \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}.length() != 1 || !IsJSObject(\mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}[0])) \{                      \(\backslash\)}
+\DoxyCodeLine{      return CrashUnlessFuzzing(\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}});                                  \(\backslash\)}
+\DoxyCodeLine{    \}                                                                      \(\backslash\)}
+\DoxyCodeLine{    auto obj = Cast<JSObject>(\mbox{\hyperlink{execution_8cc_a1d8217e3925e66477879e51a11ceb4b7}{args}}[0]);                                    \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}-\/>heap()-\/>ToBoolean(obj-\/>HasFixed\#\#Type\#\#Elements());    \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}

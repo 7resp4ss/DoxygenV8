@@ -1,0 +1,4 @@
+var structstd_1_1basic__common__reference_3_01cppgc_1_1internal_1_1BasicMember_3_01T_00_01WeaknessTaab35812a9107e3b3e8fe26221717d5a1 =
+[
+    [ "type", "structstd_1_1basic__common__reference_3_01cppgc_1_1internal_1_1BasicMember_3_01T_00_01WeaknessTaab35812a9107e3b3e8fe26221717d5a1.html#a189165c0d83c40d00c965792e7455c57", null ]
+];

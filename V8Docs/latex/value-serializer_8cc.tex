@@ -1,0 +1,222 @@
+\hypertarget{value-serializer_8cc}{}\doxysection{value-\/serializer.cc File Reference}
+\label{value-serializer_8cc}\index{value-\/serializer.cc@{value-\/serializer.cc}}
+{\ttfamily \#include \char`\"{}src/objects/value-\/serializer.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/maybe.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/value-\/serializer-\/version.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/value-\/serializer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/wasm.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/platform/memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/global-\/handles-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/handles-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/maybe-\/handles-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/shared-\/object-\/conveyor-\/handles.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/factory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/numbers/conversions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/number-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/buffer-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/buffer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/collection-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/regexp-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/shared-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/struct-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/map-\/updater.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/oddball-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/ordered-\/hash-\/table-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/descriptor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/details.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/smi.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/transitions-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/regexp/regexp.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/code-\/serializer.\+h\char`\"{}}\newline
+Include dependency graph for value-\/serializer.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{value-serializer_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{value-serializer_8cc_a572dd685ddbfe9f50630f494b10dc032}{TYPED\+\_\+\+ARRAY\+\_\+\+CASE}}(Type,  \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  TYPE,  ctype)
+\item 
+\#define \mbox{\hyperlink{value-serializer_8cc_a62178cf41e1b325f4e5ecd42e82c3715}{EXIT\+\_\+\+DCHECK}}()
+\item 
+\#define \mbox{\hyperlink{value-serializer_8cc_ac9ea13a8ca1f3dcf6bbe8ffc95f8199b}{ITERATION\+\_\+\+SHIFTED}}(shift)
+\item 
+\#define \mbox{\hyperlink{value-serializer_8cc_a572dd685ddbfe9f50630f494b10dc032}{TYPED\+\_\+\+ARRAY\+\_\+\+CASE}}(Type,  \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  TYPE,  ctype)
+\item 
+\#define \mbox{\hyperlink{value-serializer_8cc_a29e255491b1ce9082ca8c748f1f6ea97}{READ\+\_\+\+NEXT\+\_\+\+ERROR\+\_\+\+TAG}}()
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1}{v8\+::internal\+::\+Serialization\+Tag}} \+: uint8\+\_\+t \{ \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a2047375d501cf789651332e8d3c985cc}{v8\+::internal\+::k\+Version}} = 0x\+FF
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a3cb795aa4472ac474bc8fb791cb24828}{v8\+::internal\+::k\+Padding}} = \textquotesingle{}\textbackslash{}0\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1ab6c102c2028918fa567027fca8e10034}{v8\+::internal\+::k\+Verify\+Object\+Count}} = \textquotesingle{}?\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1aae331734f756845aa8879f14c7537d9c}{v8\+::internal\+::k\+The\+Hole}} = \textquotesingle{}-\/\textquotesingle{}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a7934d40c7c17315d892e8d5d745b1c66}{v8\+::internal\+::k\+Undefined}} = \textquotesingle{}\+\_\+\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1af2655c2dee87cb9b0646f678a630394b}{v8\+::internal\+::k\+Null}} = \textquotesingle{}0\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a66e2fa9ba4f5420341b16f9d6365f428}{v8\+::internal\+::k\+True}} = \textquotesingle{}T\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1af564c2bfece5a7928f8860f983c50098}{v8\+::internal\+::k\+False}} = \textquotesingle{}F\textquotesingle{}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a10c09f8bff3c372f21cd8a13e01ae941}{v8\+::internal\+::k\+Int32}} = \textquotesingle{}I\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1af5fca11a36e986e3623193c5cccc4f39}{v8\+::internal\+::k\+Uint32}} = \textquotesingle{}U\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a7fb3efa35444cd88d5a31dc125ca9c28}{v8\+::internal\+::k\+Double}} = \textquotesingle{}N\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1ae3b98fe688fb02e30ca8070ac3a3cd6d}{v8\+::internal\+::k\+Big\+Int}} = \textquotesingle{}Z\textquotesingle{}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1ad641d893eb35e2063b64f6644f33eba0}{v8\+::internal\+::k\+Utf8\+String}} = \textquotesingle{}S\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a7df1edaf48fba6b65d441238fd17eded}{v8\+::internal\+::k\+One\+Byte\+String}} = \textquotesingle{}\char`\"{}\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a4ecbf99566f5078ee0c594a3556ac87e}{v8\+::internal\+::k\+Two\+Byte\+String}} = \textquotesingle{}c\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1ad70b2905923f1254893aa3cab1b5ed03}{v8\+::internal\+::k\+Object\+Reference}} = \textquotesingle{}$^\wedge$\textquotesingle{}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a90b3555e53f2d2181ee96124e21069a1}{v8\+::internal\+::k\+Begin\+JSObject}} = \textquotesingle{}o\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1aff78dbebce2d21ce7539a9cd46b138ec}{v8\+::internal\+::k\+End\+JSObject}} = \textquotesingle{}\{\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a293eccf67427be129a0fd6ad15a76152}{v8\+::internal\+::k\+Begin\+Sparse\+JSArray}} = \textquotesingle{}a\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1aa4b176976b6da17dbd8d0273463fd27b}{v8\+::internal\+::k\+End\+Sparse\+JSArray}} = \textquotesingle{}@\textquotesingle{}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a2a08fc16618498c564c8c61a599fe008}{v8\+::internal\+::k\+Begin\+Dense\+JSArray}} = \textquotesingle{}A\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a207da050f7d286873398a6e36bf89750}{v8\+::internal\+::k\+End\+Dense\+JSArray}} = \textquotesingle{}\$\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a3d1c7d2768a21424ab8f766e95e07d3e}{v8\+::internal\+::k\+Date}} = \textquotesingle{}D\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a6d5be1b4ee61961afb47f4a2ae35950d}{v8\+::internal\+::k\+True\+Object}} = \textquotesingle{}y\textquotesingle{}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1af6ca33fd9ad2767f7ec34241c40e7666}{v8\+::internal\+::k\+False\+Object}} = \textquotesingle{}x\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1ade0b0726d65a624f6fd75329d6726cff}{v8\+::internal\+::k\+Number\+Object}} = \textquotesingle{}n\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a42de89614f2098aa1b1d462f54851489}{v8\+::internal\+::k\+Big\+Int\+Object}} = \textquotesingle{}z\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1aafcc50ca5dd6741efa11c72c3569e745}{v8\+::internal\+::k\+String\+Object}} = \textquotesingle{}s\textquotesingle{}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a2255600f1a81589d2b61366d8fede403}{v8\+::internal\+::k\+Reg\+Exp}} = \textquotesingle{}R\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a886b97bb1ec8e8ba0775dbdea21a113a}{v8\+::internal\+::k\+Begin\+JSMap}} = \textquotesingle{};\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a2e90dd2d8333e2eb4d86960049410e3d}{v8\+::internal\+::k\+End\+JSMap}} = \textquotesingle{}\+:\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a961c9d5a8ee537dd3504fc016a52d73e}{v8\+::internal\+::k\+Begin\+JSSet}} = \textquotesingle{}\textbackslash{}\textquotesingle{}\textquotesingle{}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a4b48dc643909a0fa44993d05c5a2f028}{v8\+::internal\+::k\+End\+JSSet}} = \textquotesingle{},\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a5680ee83442ecc6ca243bf839adf6223}{v8\+::internal\+::k\+Array\+Buffer}} = \textquotesingle{}B\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a1daf96308f7c3bc44e0e238a1d0881b2}{v8\+::internal\+::k\+Resizable\+Array\+Buffer}} = \textquotesingle{}$\sim$\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a8f577c764625f2324f3a1eb54d25426d}{v8\+::internal\+::k\+Array\+Buffer\+Transfer}} = \textquotesingle{}t\textquotesingle{}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a0ec35f44fa7fc39ad505c413fbc327d5}{v8\+::internal\+::k\+Array\+Buffer\+View}} = \textquotesingle{}V\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1aaa30cc986ab0532a145670aef16ec027}{v8\+::internal\+::k\+Shared\+Array\+Buffer}} = \textquotesingle{}u\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a4fd46643aa67060d56fccf056d588859}{v8\+::internal\+::k\+Shared\+Object}} = \textquotesingle{}p\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a926e3bdc8a1e10d2f7517f9b2b7de094}{v8\+::internal\+::k\+Wasm\+Module\+Transfer}} = \textquotesingle{}w\textquotesingle{}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a896ee6cec1fc0d9c4a4aecbd02442aa5}{v8\+::internal\+::k\+Host\+Object}} = \textquotesingle{}\textbackslash{}\textbackslash{}\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1ae9596afa187423cca36ecfa558a41a06}{v8\+::internal\+::k\+Wasm\+Memory\+Transfer}} = \textquotesingle{}m\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1ae3587c730cc1aa530fa4ddc9c4204e97}{v8\+::internal\+::k\+Error}} = \textquotesingle{}r\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a7a583eb6b730c5b1ff3466d30a1e238c}{v8\+::internal\+::k\+Legacy\+Reserved\+Message\+Port}} = \textquotesingle{}M\textquotesingle{}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a41c75e9049ed665c256b3471dc3725a8}{v8\+::internal\+::k\+Legacy\+Reserved\+Blob}} = \textquotesingle{}b\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1aa771ced1a806ee21bd76931c7cff4e71}{v8\+::internal\+::k\+Legacy\+Reserved\+Blob\+Index}} = \textquotesingle{}i\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a84425aa0870f3af8e528e52beaa5d8de}{v8\+::internal\+::k\+Legacy\+Reserved\+File}} = \textquotesingle{}f\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a8f86741a1c8503642af8056f4b034a23}{v8\+::internal\+::k\+Legacy\+Reserved\+File\+Index}} = \textquotesingle{}e\textquotesingle{}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1abc0472d250a9d1d743f1669b6f3896aa}{v8\+::internal\+::k\+Legacy\+Reserved\+DOMFile\+System}} = \textquotesingle{}d\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1aa05b1ca1818ec4976b2a3fc6afee0dd4}{v8\+::internal\+::k\+Legacy\+Reserved\+File\+List}} = \textquotesingle{}l\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a1a4e056698605f9269eb319ae7e319e4}{v8\+::internal\+::k\+Legacy\+Reserved\+File\+List\+Index}} = \textquotesingle{}L\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a5076f8d986abeebdf19ab9bd1bc0e011}{v8\+::internal\+::k\+Legacy\+Reserved\+Image\+Data}} = \textquotesingle{}\#\textquotesingle{}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1aa0635e75144de68f251ee52c3a6ccf24}{v8\+::internal\+::k\+Legacy\+Reserved\+Image\+Bitmap}} = \textquotesingle{}g\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a88bde816d9a4c9601834fb2fcebd36ae}{v8\+::internal\+::k\+Legacy\+Reserved\+Image\+Bitmap\+Transfer}} = \textquotesingle{}G\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1ade0d70c3455c6b1dc097db69aa9797e6}{v8\+::internal\+::k\+Legacy\+Reserved\+Offscreen\+Canvas}} = \textquotesingle{}H\textquotesingle{}
+, \mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1a6a2a35799df1821504273a9c0d3a7c8d}{v8\+::internal\+::k\+Legacy\+Reserved\+Crypto\+Key}} = \textquotesingle{}K\textquotesingle{}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_a482944934a1ccec1124aff7156b0efa1ae40f5f4dfe11c279323c0d6dc30ec442}{v8\+::internal\+::k\+Legacy\+Reserved\+RTCCertificate}} = \textquotesingle{}k\textquotesingle{}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{value-serializer_8cc_a62178cf41e1b325f4e5ecd42e82c3715}\label{value-serializer_8cc_a62178cf41e1b325f4e5ecd42e82c3715}} 
+\index{value-\/serializer.cc@{value-\/serializer.cc}!EXIT\_DCHECK@{EXIT\_DCHECK}}
+\index{EXIT\_DCHECK@{EXIT\_DCHECK}!value-\/serializer.cc@{value-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{EXIT\_DCHECK}{EXIT\_DCHECK}}
+{\footnotesize\ttfamily \#define EXIT\+\_\+\+DCHECK(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{src_2base_2logging_8h_a16b382527f19b805fc8f856668f2270b}{DCHECK\_LE}}(position\_, end\_);              \(\backslash\)}
+\DoxyCodeLine{  DCHECK\_EQ(position\_, expected\_position); \(\backslash\)}
+\DoxyCodeLine{  DCHECK\_EQ(\mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}}, expected\_value)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{value-serializer_8cc_ac9ea13a8ca1f3dcf6bbe8ffc95f8199b}\label{value-serializer_8cc_ac9ea13a8ca1f3dcf6bbe8ffc95f8199b}} 
+\index{value-\/serializer.cc@{value-\/serializer.cc}!ITERATION\_SHIFTED@{ITERATION\_SHIFTED}}
+\index{ITERATION\_SHIFTED@{ITERATION\_SHIFTED}!value-\/serializer.cc@{value-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{ITERATION\_SHIFTED}{ITERATION\_SHIFTED}}
+{\footnotesize\ttfamily \#define ITERATION\+\_\+\+SHIFTED(\begin{DoxyParamCaption}\item[{}]{shift }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (shift < \textcolor{keyword}{sizeof}(\mbox{\hyperlink{base_2ieee754_8cc_a0acb682b8260ab1c60b918599864e2e5}{T}}) * 8) \{                       \(\backslash\)}
+\DoxyCodeLine{    uint8\_t \textcolor{keywordtype}{byte} = *position\_;                       \(\backslash\)}
+\DoxyCodeLine{    position\_++;                                     \(\backslash\)}
+\DoxyCodeLine{    if (\textcolor{keywordtype}{byte} < 0x80) \{                               \(\backslash\)}
+\DoxyCodeLine{      value |= \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{base_2ieee754_8cc_a0acb682b8260ab1c60b918599864e2e5}{T}}\textcolor{keyword}{>}(byte) << shift;        \(\backslash\)}
+\DoxyCodeLine{      EXIT\_DCHECK();                                 \(\backslash\)}
+\DoxyCodeLine{      return \mbox{\hyperlink{namespacev8_a41f0e280eadfba6ac9afd833fdd540cf}{Just}}(\mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{value}});                            \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                         \(\backslash\)}
+\DoxyCodeLine{      value |= \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{base_2ieee754_8cc_a0acb682b8260ab1c60b918599864e2e5}{T}}\textcolor{keyword}{>}(\textcolor{keywordtype}{byte} \& 0x7F) << shift; \(\backslash\)}
+\DoxyCodeLine{    \}                                                \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{value-serializer_8cc_a29e255491b1ce9082ca8c748f1f6ea97}\label{value-serializer_8cc_a29e255491b1ce9082ca8c748f1f6ea97}} 
+\index{value-\/serializer.cc@{value-\/serializer.cc}!READ\_NEXT\_ERROR\_TAG@{READ\_NEXT\_ERROR\_TAG}}
+\index{READ\_NEXT\_ERROR\_TAG@{READ\_NEXT\_ERROR\_TAG}!value-\/serializer.cc@{value-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{READ\_NEXT\_ERROR\_TAG}{READ\_NEXT\_ERROR\_TAG}}
+{\footnotesize\ttfamily \#define READ\+\_\+\+NEXT\+\_\+\+ERROR\+\_\+\+TAG(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                      \(\backslash\)}
+\DoxyCodeLine{    if (!ReadVarint<uint8\_t>().To(\&tag)) \{  \(\backslash\)}
+\DoxyCodeLine{      return MaybeDirectHandle<JSObject>(); \(\backslash\)}
+\DoxyCodeLine{    \}                                       \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{value-serializer_8cc_a572dd685ddbfe9f50630f494b10dc032}\label{value-serializer_8cc_a572dd685ddbfe9f50630f494b10dc032}} 
+\index{value-\/serializer.cc@{value-\/serializer.cc}!TYPED\_ARRAY\_CASE@{TYPED\_ARRAY\_CASE}}
+\index{TYPED\_ARRAY\_CASE@{TYPED\_ARRAY\_CASE}!value-\/serializer.cc@{value-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{TYPED\_ARRAY\_CASE}{TYPED\_ARRAY\_CASE}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+ARRAY\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  }\item[{}]{TYPE,  }\item[{}]{ctype }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} kExternal\#\#Type\#\#Array:                    \(\backslash\)}
+\DoxyCodeLine{    tag = ArrayBufferViewTag::k\#\#Type\#\#Array;     \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{value-serializer_8cc_a572dd685ddbfe9f50630f494b10dc032}\label{value-serializer_8cc_a572dd685ddbfe9f50630f494b10dc032}} 
+\index{value-\/serializer.cc@{value-\/serializer.cc}!TYPED\_ARRAY\_CASE@{TYPED\_ARRAY\_CASE}}
+\index{TYPED\_ARRAY\_CASE@{TYPED\_ARRAY\_CASE}!value-\/serializer.cc@{value-\/serializer.cc}}
+\doxysubsubsection{\texorpdfstring{TYPED\_ARRAY\_CASE}{TYPED\_ARRAY\_CASE}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+ARRAY\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  }\item[{}]{TYPE,  }\item[{}]{ctype }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} ArrayBufferViewTag::k\#\#Type\#\#Array:        \(\backslash\)}
+\DoxyCodeLine{    external\_array\_type = kExternal\#\#Type\#\#Array; \(\backslash\)}
+\DoxyCodeLine{    element\_size = \textcolor{keyword}{sizeof}(ctype);                 \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}

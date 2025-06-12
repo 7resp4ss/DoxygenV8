@@ -1,0 +1,21 @@
+var classv8_1_1internal_1_1ReadOnlyArtifacts =
+[
+    [ "ExternalPointerRegistryEntry", "structv8_1_1internal_1_1ReadOnlyArtifacts_1_1ExternalPointerRegistryEntry.html", "structv8_1_1internal_1_1ReadOnlyArtifacts_1_1ExternalPointerRegistryEntry" ],
+    [ "ReadOnlyArtifacts", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#ae1a89e5d4d82a24a7377ac43dda71e30", null ],
+    [ "~ReadOnlyArtifacts", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#a43856abfcd1e2a0566006b37fe299cd4", null ],
+    [ "accounting_stats", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#aa053e27354ff6c18fe3d3c09f489a00f", null ],
+    [ "external_pointer_registry", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#a70e8f855fe3f6f9ca261cc6582c3fee7", null ],
+    [ "initial_next_unique_sfi_id", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#a319d50f39969ae5a46bf760f5fc66477", null ],
+    [ "Initialize", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#ab5c7943713565bfe4d7da2d61266e43b", null ],
+    [ "InitializeChecksum", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#a60ecd9df3db12c5e0d063987990d5290", null ],
+    [ "pages", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#a7aa37066c7e40a5c3460afb383d61160", null ],
+    [ "read_only_heap", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#ae1933e5ddf732efff6c3411f678d6c8c", null ],
+    [ "ReinstallReadOnlySpace", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#a48adce6b8237d52bed892e5fbec02e38", null ],
+    [ "set_external_pointer_registry", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#aefbc2d50534557f72f44ce88272c38ff", null ],
+    [ "set_initial_next_unique_sfi_id", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#a78b947037b23924b4043a3a348fc4e80", null ],
+    [ "set_read_only_heap", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#a900dcfc85d3b59af9321d9b35c50e4b9", null ],
+    [ "shared_read_only_space", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#a4e641cee6df3266947228b7da08e6064", null ],
+    [ "VerifyChecksum", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#a67f35bbcc3a9a36cfb965cb4650caa7c", null ],
+    [ "VerifyHeapAndSpaceRelationships", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#ac667bbb7d5450d919321c3fb00b2db12", null ],
+    [ "ReadOnlyHeap", "classv8_1_1internal_1_1ReadOnlyArtifacts.html#ae169b5a93f2af0caa0214f372321e376", null ]
+];

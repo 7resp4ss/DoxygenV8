@@ -1,0 +1,4 @@
+var structv8_1_1internal_1_1compiler_1_1MachineOperatorGlobalCache_1_1TruncateFloat64ToFloat16RawBitsOperator =
+[
+    [ "TruncateFloat64ToFloat16RawBitsOperator", "structv8_1_1internal_1_1compiler_1_1MachineOperatorGlobalCache_1_1TruncateFloat64ToFloat16RawBitsOperator.html#ad1c58afe5281663005788cf96cb26316", null ]
+];

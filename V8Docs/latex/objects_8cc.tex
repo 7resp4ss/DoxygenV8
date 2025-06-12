@@ -1,0 +1,313 @@
+\hypertarget{objects_8cc}{}\doxysection{objects.\+cc File Reference}
+\label{objects_8cc}\index{objects.cc@{objects.cc}}
+{\ttfamily \#include \char`\"{}src/objects/objects.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/arguments-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/natives.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/api/api.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ast/ast.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ast/scopes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/bits.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/debug/stack\+\_\+trace.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/overflowing-\/math.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/utils/random-\/number-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/accessors.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/builtins.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/source-\/position-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/message-\/template.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/date/date.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/debug/debug.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/diagnostics/code-\/tracer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/arguments.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/execution.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/frames-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate-\/utils-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate-\/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/microtask-\/queue.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/protectors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/factory-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/local-\/factory-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/read-\/only-\/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ic/ic.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/init/bootstrapper.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/counters.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/log.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/runtime-\/call-\/stats-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/allocation-\/site-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/allocation-\/site-\/scopes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/api-\/callbacks.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/arguments-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/bigint.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/call-\/site-\/info-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/cell-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/code-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/compilation-\/cache-\/table-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/debug-\/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/dictionary.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/elements.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/embedder-\/data-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/field-\/index-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/field-\/index.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/field-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/foreign.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/free-\/space-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/function-\/kind.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/hash-\/table-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/object-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/instance-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/buffer-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/collection-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/disposable-\/stack-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/generator-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/regexp-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/regexp-\/string-\/iterator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/weak-\/refs-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/keys.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/literal-\/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/lookup-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/map-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/map-\/updater.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/map.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/megadom-\/handler-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/microtask-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/module-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects-\/body-\/descriptors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/promise-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/promise.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/descriptor-\/object-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/descriptor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/details.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/prototype.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/slots-\/atomic-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/string-\/comparator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/string-\/set-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/struct-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/template-\/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/transitions-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/parsing/preparse-\/data.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/regexp/regexp.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/roots/roots.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/deserializer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/string-\/builder-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/string-\/search.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/string-\/stream.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/unicode-\/decoder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/unicode-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/tracing/traced-\/value.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/hex-\/format.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/identity-\/map.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/ostreams.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/sha-\/256.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/utils-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/zone/zone.\+h\char`\"{}}\newline
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{objects_8cc_ab66184c8f9263fc770f5342f9ade227c}{WRITE\+\_\+\+TYPE}}(TYPE)
+\item 
+\#define \mbox{\hyperlink{objects_8cc_ad7f3f048e071754cc9e7967292daeabf}{CASE}}(Type\+Camel\+Case,  TYPE\+\_\+\+UPPER\+\_\+\+CASE)
+\item 
+\#define \mbox{\hyperlink{objects_8cc_a95f3f0bf09aa1895780dba7e128ecb04}{MAKE\+\_\+\+TORQUE\+\_\+\+SIZE\+\_\+\+FOR}}(TYPE,  Type\+Name)
+\item 
+\#define \mbox{\hyperlink{objects_8cc_addb7b6eba9960e3b3eee7527f361c526}{SYMBOL\+\_\+\+CHECK\+\_\+\+AND\+\_\+\+PRINT}}(\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})~  if (this == \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{roots.\+name}}()) return \#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}};
+\item 
+\#define \mbox{\hyperlink{objects_8cc_acd1561bb62ae82f1c2805ec97f94829e}{EXTERN\+\_\+\+DEFINE\+\_\+\+HASH\+\_\+\+TABLE}}(DERIVED,  SHAPE)
+\item 
+\#define \mbox{\hyperlink{objects_8cc_affd123d63e106a7a30d00dca0a29eed2}{EXTERN\+\_\+\+DEFINE\+\_\+\+OBJECT\+\_\+\+BASE\+\_\+\+HASH\+\_\+\+TABLE}}(DERIVED,  SHAPE)
+\item 
+\#define \mbox{\hyperlink{objects_8cc_a8cb347b6e82716ba0a4f881a8e91fd97}{EXTERN\+\_\+\+DEFINE\+\_\+\+MULTI\+\_\+\+OBJECT\+\_\+\+BASE\+\_\+\+HASH\+\_\+\+TABLE}}(DERIVED,  N)
+\item 
+\#define \mbox{\hyperlink{objects_8cc_a660d8ae8aa96c5c11134daaa696d7c4a}{EXTERN\+\_\+\+DEFINE\+\_\+\+DICTIONARY}}(DERIVED,  SHAPE)
+\item 
+\#define \mbox{\hyperlink{objects_8cc_ad9dc0e829234c8f7b146865ee9ef0a15}{EXTERN\+\_\+\+DEFINE\+\_\+\+BASE\+\_\+\+NAME\+\_\+\+DICTIONARY}}(DERIVED,  SHAPE)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Should\+Throw \mbox{\hyperlink{namespacev8_1_1internal_a830937758884582b80db9aa4d85361b6}{v8\+::internal\+::\+Get\+Should\+Throw}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Maybe$<$ Should\+Throw $>$ should\+\_\+throw)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_a26f031c8465eded12503e46703fe7904}{v8\+::internal\+::\+Comparison\+Result\+To\+Bool}} (\mbox{\hyperlink{operation_8h_a06c4955b824eb9d03ace9eca764f59b4}{Operation}} op, Comparison\+Result \mbox{\hyperlink{jump-threading_8cc_a41f8c58d2c01bf65b8ee199c3f87fc80}{result}})
+\item 
+\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} std\+::string \mbox{\hyperlink{namespacev8_1_1internal_a6bd26246c8cb198816ff791c3c423686}{v8\+::internal\+::\+To\+String}} (Instance\+Type instance\+\_\+type)
+\item 
+\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} std\+::ostream \& \mbox{\hyperlink{namespacev8_1_1internal_a586cf3b32468e70bd7267ad157f48e10}{v8\+::internal\+::operator$<$$<$}} (std\+::ostream \&os, Instance\+Type instance\+\_\+type)
+\item 
+std\+::ostream \& \mbox{\hyperlink{namespacev8_1_1internal_a2dde116498b084f61cfa6ebc2cf267ba}{v8\+::internal\+::operator$<$$<$}} (std\+::ostream \&os, Property\+Cell\+Type \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}})
+\item 
+template Handle$<$ JSAny $>$ \mbox{\hyperlink{namespacev8_1_1internal_a74146c6726e185d62cf493302ad0f59e}{v8\+::internal\+::\+Object\+::\+Wrap\+For\+Read$<$ Allocation\+Type\+::k\+Young $>$}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Handle$<$ JSAny $>$ object, Representation representation)
+\item 
+template Handle$<$ JSAny $>$ \mbox{\hyperlink{namespacev8_1_1internal_ac7770f047b02cf7f08aae22d93ae7dbe}{v8\+::internal\+::\+Object\+::\+Wrap\+For\+Read$<$ Allocation\+Type\+::k\+Old $>$}} (Local\+Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Handle$<$ JSAny $>$ object, Representation representation)
+\item 
+{\footnotesize template$<$template$<$ typename $>$ typename Handle\+Type$>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_a85217d46a04bc981f759171149c68f49}{v8\+::internal\+::requires}} (std\+::is\+\_\+convertible\+\_\+v$<$ Handle\+Type$<$ Object $>$, Direct\+Handle$<$ Object $>$$>$) typename Handle\+Type$<$ Big\+Int $>$
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_a8899d90340d811cd369173aac228774e}{v8\+::internal\+::\+Short\+Print}} (Tagged$<$ Object $>$ obj, FILE $\ast$out)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_a882c738feb5e0229adb4af88d99a290e}{v8\+::internal\+::\+Short\+Print}} (Tagged$<$ Object $>$ obj, String\+Stream $\ast$accumulator)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_a5ead39912bc37f14235d53291750843c}{v8\+::internal\+::\+Short\+Print}} (Tagged$<$ Object $>$ obj, std\+::ostream \&os)
+\item 
+std\+::ostream \& \mbox{\hyperlink{namespacev8_1_1internal_ad6f0f7b42c17db30e94b7a04afdf026d}{v8\+::internal\+::operator$<$$<$}} (std\+::ostream \&os, Tagged$<$ Object $>$ obj)
+\item 
+std\+::ostream \& \mbox{\hyperlink{namespacev8_1_1internal_a10e948040c00f4c58bf28a262b680be0}{v8\+::internal\+::operator$<$$<$}} (std\+::ostream \&os, Object\+::\+Conversion \mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\item 
+std\+::ostream \& \mbox{\hyperlink{namespacev8_1_1internal_ae4165cebecea7e058222a0ddc6abc098}{v8\+::internal\+::operator$<$$<$}} (std\+::ostream \&os, const Brief \&v)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_ab9e1158dde9429c0bc4a58858cbde5f3}{v8\+::internal\+::\+Property\+Key\+To\+Array\+Length}} (Direct\+Handle$<$ Object $>$ \mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}, uint32\+\_\+t $\ast$\mbox{\hyperlink{random-module-generation_8cc_aebb70c2aab3407a9f05334c47131a43b}{length}})
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_a2b8779b1b38f6ee34dca7e590fd32b8e}{v8\+::internal\+::\+Property\+Key\+To\+Array\+Index}} (Direct\+Handle$<$ Object $>$ index\+\_\+obj, uint32\+\_\+t $\ast$output)
+\item 
+template bool \mbox{\hyperlink{namespacev8_1_1internal_aa4b5b8e6d8bd22c5745104b5fbfc4374}{v8\+::internal\+::\+Script\+::\+Get\+Position\+Info\+Internal$<$ String\+::\+Line\+Ends\+Vector $>$}} (const String\+::\+Line\+Ends\+Vector \&ends, int \mbox{\hyperlink{liftoff-compiler_8cc_a09e2945f2b1d62a1c4491ea766647d55}{position}}, Script\+::\+Position\+Info $\ast$\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}}, const Disallow\+Garbage\+Collection \&no\+\_\+gc) const
+\item 
+{\footnotesize template$<$typename IsolateT , template$<$ typename $>$ typename Handle\+Type$>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_afb63185e2b1060f03d767036440063aa}{v8\+::internal\+::requires}} (std\+::is\+\_\+convertible\+\_\+v$<$ Handle\+Type$<$ Derived $>$, Direct\+Handle$<$ Derived $>$$>$) Handle\+Type$<$ Derived $>$ Hash\+Table$<$ Derived
+\item 
+{\footnotesize template$<$template$<$ typename $>$ typename Handle\+Type$>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_ac3e33c0ab4c58878928eed7e3da31f78}{v8\+::internal\+::requires}} (std\+::is\+\_\+convertible\+\_\+v$<$ Handle\+Type$<$ Derived $>$, Direct\+Handle$<$ Derived $>$$>$) Handle\+Type$<$ Derived $>$ Hash\+Table$<$ Derived
+\item 
+{\footnotesize template$<$typename IsolateT , template$<$ typename $>$ typename Handle\+Type, Allocation\+Type key\+\_\+allocation$>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_a7007d8f17b2e3ba231af6b188463797c}{v8\+::internal\+::requires}} (std\+::is\+\_\+convertible\+\_\+v$<$ Handle\+Type$<$ Derived $>$, Direct\+Handle$<$ Derived $>$$>$) Handle\+Type$<$ Derived $>$ Dictionary$<$ Derived
+\item 
+{\footnotesize template$<$template$<$ typename $>$ typename Handle\+Type$>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_afad8d71bc3cb0c08f73c0fb497614fe6}{v8\+::internal\+::requires}} (std\+::is\+\_\+convertible\+\_\+v$<$ Handle\+Type$<$ Number\+Dictionary $>$, Direct\+Handle$<$ Number\+Dictionary $>$$>$) Handle\+Type$<$ Number\+Dictionary $>$ Number\+Dictionary
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_aabfc50e0057c3a0026f609d760688823}{v8\+::internal\+::\+EXTERN\+\_\+\+DEFINE\+\_\+\+OBJECT\+\_\+\+BASE\+\_\+\+HASH\+\_\+\+TABLE}} (Ephemeron\+Hash\+Table, Ephemeron\+Hash\+Table\+Shape) template \mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\+\_\+\+EXPORT\+\_\+\+PRIVATE}} void Dictionary$<$ Number\+Dictionary
+\item 
+Number\+Dictionary\+Shape \mbox{\hyperlink{namespacev8_1_1internal_a816edfc58dcd47044c3c1e66e9b6d6a7}{v8\+::internal\+::::\+Unchecked\+Add$<$ Isolate, Handle, Allocation\+Type\+::k\+Shared\+Old $>$}} (Isolate $\ast$, Handle$<$ Number\+Dictionary $>$, uint32\+\_\+t, Direct\+Handle$<$ Object $>$, Property\+Details)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{objects_8cc_ad7f3f048e071754cc9e7967292daeabf}\label{objects_8cc_ad7f3f048e071754cc9e7967292daeabf}} 
+\index{objects.cc@{objects.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!objects.cc@{objects.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{Type\+Camel\+Case,  }\item[{}]{TYPE\+\_\+\+UPPER\+\_\+\+CASE }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (instance\_type == TYPE\_UPPER\_CASE\#\#\_TYPE) \{                 \(\backslash\)}
+\DoxyCodeLine{    return UncheckedCast<TypeCamelCase>(*this)-\/>AllocatedSize(); \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{objects_8cc_ad9dc0e829234c8f7b146865ee9ef0a15}\label{objects_8cc_ad9dc0e829234c8f7b146865ee9ef0a15}} 
+\index{objects.cc@{objects.cc}!EXTERN\_DEFINE\_BASE\_NAME\_DICTIONARY@{EXTERN\_DEFINE\_BASE\_NAME\_DICTIONARY}}
+\index{EXTERN\_DEFINE\_BASE\_NAME\_DICTIONARY@{EXTERN\_DEFINE\_BASE\_NAME\_DICTIONARY}!objects.cc@{objects.cc}}
+\doxysubsubsection{\texorpdfstring{EXTERN\_DEFINE\_BASE\_NAME\_DICTIONARY}{EXTERN\_DEFINE\_BASE\_NAME\_DICTIONARY}}
+{\footnotesize\ttfamily \#define EXTERN\+\_\+\+DEFINE\+\_\+\+BASE\+\_\+\+NAME\+\_\+\+DICTIONARY(\begin{DoxyParamCaption}\item[{}]{DERIVED,  }\item[{}]{SHAPE }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{objects_8cc_a660d8ae8aa96c5c11134daaa696d7c4a}\label{objects_8cc_a660d8ae8aa96c5c11134daaa696d7c4a}} 
+\index{objects.cc@{objects.cc}!EXTERN\_DEFINE\_DICTIONARY@{EXTERN\_DEFINE\_DICTIONARY}}
+\index{EXTERN\_DEFINE\_DICTIONARY@{EXTERN\_DEFINE\_DICTIONARY}!objects.cc@{objects.cc}}
+\doxysubsubsection{\texorpdfstring{EXTERN\_DEFINE\_DICTIONARY}{EXTERN\_DEFINE\_DICTIONARY}}
+{\footnotesize\ttfamily \#define EXTERN\+\_\+\+DEFINE\+\_\+\+DICTIONARY(\begin{DoxyParamCaption}\item[{}]{DERIVED,  }\item[{}]{SHAPE }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{objects_8cc_acd1561bb62ae82f1c2805ec97f94829e}\label{objects_8cc_acd1561bb62ae82f1c2805ec97f94829e}} 
+\index{objects.cc@{objects.cc}!EXTERN\_DEFINE\_HASH\_TABLE@{EXTERN\_DEFINE\_HASH\_TABLE}}
+\index{EXTERN\_DEFINE\_HASH\_TABLE@{EXTERN\_DEFINE\_HASH\_TABLE}!objects.cc@{objects.cc}}
+\doxysubsubsection{\texorpdfstring{EXTERN\_DEFINE\_HASH\_TABLE}{EXTERN\_DEFINE\_HASH\_TABLE}}
+{\footnotesize\ttfamily \#define EXTERN\+\_\+\+DEFINE\+\_\+\+HASH\+\_\+\+TABLE(\begin{DoxyParamCaption}\item[{}]{DERIVED,  }\item[{}]{SHAPE }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keyword}{template} \textcolor{keyword}{class }\mbox{\hyperlink{export-template_8h_a8687a18b601021d53d8f4417c60584c5}{EXPORT\_TEMPLATE\_DEFINE}}(\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\_EXPORT\_PRIVATE}})                   \(\backslash\)}
+\DoxyCodeLine{      HashTable<DERIVED, SHAPE>;                                             \(\backslash\)}
+\DoxyCodeLine{                                                                             \(\backslash\)}
+\DoxyCodeLine{  template \mbox{\hyperlink{export-template_8h_a8687a18b601021d53d8f4417c60584c5}{EXPORT\_TEMPLATE\_DEFINE}}(\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\_EXPORT\_PRIVATE}}) Handle<DERIVED>         \(\backslash\)}
+\DoxyCodeLine{  HashTable<DERIVED, SHAPE>::New(Isolate*, \textcolor{keywordtype}{int}, \mbox{\hyperlink{namespacev8_1_1internal_a604d5beeb6fc8639670f737ed201e20a}{AllocationType}},              \(\backslash\)}
+\DoxyCodeLine{                                 \mbox{\hyperlink{namespacev8_1_1internal_a4137891b4443fec6079352b879f44ae0}{MinimumCapacity}});                           \(\backslash\)}
+\DoxyCodeLine{  template \mbox{\hyperlink{export-template_8h_a8687a18b601021d53d8f4417c60584c5}{EXPORT\_TEMPLATE\_DEFINE}}(\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\_EXPORT\_PRIVATE}}) Handle<DERIVED>         \(\backslash\)}
+\DoxyCodeLine{  HashTable<DERIVED, SHAPE>::New(LocalIsolate*, \textcolor{keywordtype}{int}, \mbox{\hyperlink{namespacev8_1_1internal_a604d5beeb6fc8639670f737ed201e20a}{AllocationType}},         \(\backslash\)}
+\DoxyCodeLine{                                 \mbox{\hyperlink{namespacev8_1_1internal_a4137891b4443fec6079352b879f44ae0}{MinimumCapacity}});                           \(\backslash\)}
+\DoxyCodeLine{                                                                             \(\backslash\)}
+\DoxyCodeLine{  template \mbox{\hyperlink{export-template_8h_a8687a18b601021d53d8f4417c60584c5}{EXPORT\_TEMPLATE\_DEFINE}}(\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\_EXPORT\_PRIVATE}}) Handle<DERIVED>         \(\backslash\)}
+\DoxyCodeLine{  HashTable<DERIVED, SHAPE>::EnsureCapacity(Isolate*, Handle<DERIVED>, \textcolor{keywordtype}{int},  \(\backslash\)}
+\DoxyCodeLine{                                            \mbox{\hyperlink{namespacev8_1_1internal_a604d5beeb6fc8639670f737ed201e20a}{AllocationType}});                 \(\backslash\)}
+\DoxyCodeLine{  template \mbox{\hyperlink{export-template_8h_a8687a18b601021d53d8f4417c60584c5}{EXPORT\_TEMPLATE\_DEFINE}}(\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\_EXPORT\_PRIVATE}}) Handle<DERIVED>         \(\backslash\)}
+\DoxyCodeLine{  HashTable<DERIVED, SHAPE>::EnsureCapacity(LocalIsolate*, Handle<DERIVED>,  \(\backslash\)}
+\DoxyCodeLine{                                            \textcolor{keywordtype}{int}, \mbox{\hyperlink{namespacev8_1_1internal_a604d5beeb6fc8639670f737ed201e20a}{AllocationType}});            \(\backslash\)}
+\DoxyCodeLine{  template \mbox{\hyperlink{export-template_8h_a8687a18b601021d53d8f4417c60584c5}{EXPORT\_TEMPLATE\_DEFINE}}(\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\_EXPORT\_PRIVATE}}) DirectHandle<DERIVED>   \(\backslash\)}
+\DoxyCodeLine{  HashTable<DERIVED, SHAPE>::EnsureCapacity(Isolate*, DirectHandle<DERIVED>, \(\backslash\)}
+\DoxyCodeLine{                                            \textcolor{keywordtype}{int}, \mbox{\hyperlink{namespacev8_1_1internal_a604d5beeb6fc8639670f737ed201e20a}{AllocationType}});            \(\backslash\)}
+\DoxyCodeLine{  template \mbox{\hyperlink{export-template_8h_a8687a18b601021d53d8f4417c60584c5}{EXPORT\_TEMPLATE\_DEFINE}}(\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\_EXPORT\_PRIVATE}}) DirectHandle<DERIVED>   \(\backslash\)}
+\DoxyCodeLine{  HashTable<DERIVED, SHAPE>::EnsureCapacity(                                 \(\backslash\)}
+\DoxyCodeLine{      LocalIsolate*, DirectHandle<DERIVED>, \textcolor{keywordtype}{int}, \mbox{\hyperlink{namespacev8_1_1internal_a604d5beeb6fc8639670f737ed201e20a}{AllocationType}});            \(\backslash\)}
+\DoxyCodeLine{                                                                             \(\backslash\)}
+\DoxyCodeLine{  template \mbox{\hyperlink{export-template_8h_a8687a18b601021d53d8f4417c60584c5}{EXPORT\_TEMPLATE\_DEFINE}}(\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\_EXPORT\_PRIVATE}}) Handle<DERIVED>         \(\backslash\)}
+\DoxyCodeLine{  HashTable<DERIVED, SHAPE>::Shrink(Isolate*, Handle<DERIVED>, \textcolor{keywordtype}{int});         \(\backslash\)}
+\DoxyCodeLine{  template \mbox{\hyperlink{export-template_8h_a8687a18b601021d53d8f4417c60584c5}{EXPORT\_TEMPLATE\_DEFINE}}(\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\_EXPORT\_PRIVATE}}) DirectHandle<DERIVED>   \(\backslash\)}
+\DoxyCodeLine{  HashTable<DERIVED, SHAPE>::Shrink(Isolate*, DirectHandle<DERIVED>, \textcolor{keywordtype}{int});}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{objects_8cc_a8cb347b6e82716ba0a4f881a8e91fd97}\label{objects_8cc_a8cb347b6e82716ba0a4f881a8e91fd97}} 
+\index{objects.cc@{objects.cc}!EXTERN\_DEFINE\_MULTI\_OBJECT\_BASE\_HASH\_TABLE@{EXTERN\_DEFINE\_MULTI\_OBJECT\_BASE\_HASH\_TABLE}}
+\index{EXTERN\_DEFINE\_MULTI\_OBJECT\_BASE\_HASH\_TABLE@{EXTERN\_DEFINE\_MULTI\_OBJECT\_BASE\_HASH\_TABLE}!objects.cc@{objects.cc}}
+\doxysubsubsection{\texorpdfstring{EXTERN\_DEFINE\_MULTI\_OBJECT\_BASE\_HASH\_TABLE}{EXTERN\_DEFINE\_MULTI\_OBJECT\_BASE\_HASH\_TABLE}}
+{\footnotesize\ttfamily \#define EXTERN\+\_\+\+DEFINE\+\_\+\+MULTI\+\_\+\+OBJECT\+\_\+\+BASE\+\_\+\+HASH\+\_\+\+TABLE(\begin{DoxyParamCaption}\item[{}]{DERIVED,  }\item[{}]{N }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{objects_8cc_acd1561bb62ae82f1c2805ec97f94829e}{EXTERN\_DEFINE\_HASH\_TABLE}}(DERIVED, ObjectMultiHashTableShape<N>) \(\backslash\)}
+\DoxyCodeLine{  template \textcolor{keyword}{class }EXPORT\_TEMPLATE\_DEFINE(V8\_EXPORT\_PRIVATE)        \(\backslash\)}
+\DoxyCodeLine{      ObjectMultiHashTableBase<DERIVED, \mbox{\hyperlink{namespacev8_1_1internal_a58578a07334d81a9c8cd700020ff9b78}{N}}>;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{objects_8cc_affd123d63e106a7a30d00dca0a29eed2}\label{objects_8cc_affd123d63e106a7a30d00dca0a29eed2}} 
+\index{objects.cc@{objects.cc}!EXTERN\_DEFINE\_OBJECT\_BASE\_HASH\_TABLE@{EXTERN\_DEFINE\_OBJECT\_BASE\_HASH\_TABLE}}
+\index{EXTERN\_DEFINE\_OBJECT\_BASE\_HASH\_TABLE@{EXTERN\_DEFINE\_OBJECT\_BASE\_HASH\_TABLE}!objects.cc@{objects.cc}}
+\doxysubsubsection{\texorpdfstring{EXTERN\_DEFINE\_OBJECT\_BASE\_HASH\_TABLE}{EXTERN\_DEFINE\_OBJECT\_BASE\_HASH\_TABLE}}
+{\footnotesize\ttfamily \#define EXTERN\+\_\+\+DEFINE\+\_\+\+OBJECT\+\_\+\+BASE\+\_\+\+HASH\+\_\+\+TABLE(\begin{DoxyParamCaption}\item[{}]{DERIVED,  }\item[{}]{SHAPE }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{objects_8cc_acd1561bb62ae82f1c2805ec97f94829e}{EXTERN\_DEFINE\_HASH\_TABLE}}(DERIVED, SHAPE)                   \(\backslash\)}
+\DoxyCodeLine{  template \textcolor{keyword}{class }EXPORT\_TEMPLATE\_DEFINE(V8\_EXPORT\_PRIVATE)   \(\backslash\)}
+\DoxyCodeLine{      ObjectHashTableBase<DERIVED, SHAPE>;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{objects_8cc_a95f3f0bf09aa1895780dba7e128ecb04}\label{objects_8cc_a95f3f0bf09aa1895780dba7e128ecb04}} 
+\index{objects.cc@{objects.cc}!MAKE\_TORQUE\_SIZE\_FOR@{MAKE\_TORQUE\_SIZE\_FOR}}
+\index{MAKE\_TORQUE\_SIZE\_FOR@{MAKE\_TORQUE\_SIZE\_FOR}!objects.cc@{objects.cc}}
+\doxysubsubsection{\texorpdfstring{MAKE\_TORQUE\_SIZE\_FOR}{MAKE\_TORQUE\_SIZE\_FOR}}
+{\footnotesize\ttfamily \#define MAKE\+\_\+\+TORQUE\+\_\+\+SIZE\+\_\+\+FOR(\begin{DoxyParamCaption}\item[{}]{TYPE,  }\item[{}]{Type\+Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (instance\_type == TYPE) \{                              \(\backslash\)}
+\DoxyCodeLine{    return UncheckedCast<TypeName>(*this)-\/>AllocatedSize(); \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{objects_8cc_addb7b6eba9960e3b3eee7527f361c526}\label{objects_8cc_addb7b6eba9960e3b3eee7527f361c526}} 
+\index{objects.cc@{objects.cc}!SYMBOL\_CHECK\_AND\_PRINT@{SYMBOL\_CHECK\_AND\_PRINT}}
+\index{SYMBOL\_CHECK\_AND\_PRINT@{SYMBOL\_CHECK\_AND\_PRINT}!objects.cc@{objects.cc}}
+\doxysubsubsection{\texorpdfstring{SYMBOL\_CHECK\_AND\_PRINT}{SYMBOL\_CHECK\_AND\_PRINT}}
+{\footnotesize\ttfamily \#define SYMBOL\+\_\+\+CHECK\+\_\+\+AND\+\_\+\+PRINT(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})~  if (this == \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{roots.\+name}}()) return \#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}};}
+
+\mbox{\Hypertarget{objects_8cc_ab66184c8f9263fc770f5342f9ade227c}\label{objects_8cc_ab66184c8f9263fc770f5342f9ade227c}} 
+\index{objects.cc@{objects.cc}!WRITE\_TYPE@{WRITE\_TYPE}}
+\index{WRITE\_TYPE@{WRITE\_TYPE}!objects.cc@{objects.cc}}
+\doxysubsubsection{\texorpdfstring{WRITE\_TYPE}{WRITE\_TYPE}}
+{\footnotesize\ttfamily \#define WRITE\+\_\+\+TYPE(\begin{DoxyParamCaption}\item[{}]{TYPE }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} TYPE:             \(\backslash\)}
+\DoxyCodeLine{    return \#TYPE;}
+
+\end{DoxyCode}

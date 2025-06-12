@@ -1,0 +1,28 @@
+var classv8_1_1internal_1_1DirectHandle =
+[
+    [ "MaybeType", "classv8_1_1internal_1_1DirectHandle.html#a1e6e1c13d2561a75b83c6e79ee39b52e", null ],
+    [ "DirectHandle", "classv8_1_1internal_1_1DirectHandle.html#a1c75560c9caf7000f45fdc7c86ab1c4a", null ],
+    [ "DirectHandle", "classv8_1_1internal_1_1DirectHandle.html#a97c49ad3f06fc05219c20d3af288e068", null ],
+    [ "DirectHandle", "classv8_1_1internal_1_1DirectHandle.html#abcfafe2899a5a377a140480a60a8141c", null ],
+    [ "DirectHandle", "classv8_1_1internal_1_1DirectHandle.html#a22d1a1097b3ba9d2cde75dd7f3ad9822", null ],
+    [ "DirectHandle", "classv8_1_1internal_1_1DirectHandle.html#a4b12dc7df1003206c9c4d21f40472ff2", null ],
+    [ "address", "classv8_1_1internal_1_1DirectHandle.html#a1e8cb72a9d95d9af4345addacd10ff1e", null ],
+    [ "equals", "classv8_1_1internal_1_1DirectHandle.html#a31afde13f216498f0c92c845a5cc684f", null ],
+    [ "is_identical_to", "classv8_1_1internal_1_1DirectHandle.html#ab60d47234096e5ace4ab7860b0597a9d", null ],
+    [ "is_identical_to", "classv8_1_1internal_1_1DirectHandle.html#a1e15d76143f507fd5d70299609178a9e", null ],
+    [ "is_null", "classv8_1_1internal_1_1DirectHandle.html#a06eb965863d4b0adb5aa7f70aba666e3", null ],
+    [ "operator*", "classv8_1_1internal_1_1DirectHandle.html#af293a9d19dd2a58b184bdd3b502de07d", null ],
+    [ "operator->", "classv8_1_1internal_1_1DirectHandle.html#a66cf204464f516c4f711d663827d2217", null ],
+    [ "repr", "classv8_1_1internal_1_1DirectHandle.html#afe11fd3c1c17e5ed4d05101218517211", null ],
+    [ "SetValue", "classv8_1_1internal_1_1DirectHandle.html#a2f9323f53ef3ceaae843d77cc0900f35", null ],
+    [ "DirectHandle", "classv8_1_1internal_1_1DirectHandle.html#a1f782b692bf1aca5b1e6c1a3dc3f0919", null ],
+    [ "DirectHandleUnchecked< T >", "classv8_1_1internal_1_1DirectHandle.html#a5c5da1f0f3093aae5e5b826e3e7f5db6", null ],
+    [ "HandleBase", "classv8_1_1internal_1_1DirectHandle.html#ac73f233c470fe715f2085ef88f52d66f", null ],
+    [ "indirect_handle", "classv8_1_1internal_1_1DirectHandle.html#abd98bab9c26d487cdf7ea2ea98481319", null ],
+    [ "indirect_handle", "classv8_1_1internal_1_1DirectHandle.html#a39d28f5c86db432a4cb5bc1ca9fc5721", null ],
+    [ "indirect_handle", "classv8_1_1internal_1_1DirectHandle.html#a67aea5288c2b8e17a900cdc568c43ac5", null ],
+    [ "indirect_handle", "classv8_1_1internal_1_1DirectHandle.html#a843b48649467ebf088857f6aa29dba08", null ],
+    [ "MaybeDirectHandle", "classv8_1_1internal_1_1DirectHandle.html#a378be75bc8ed04ce779a8b7958294299", null ],
+    [ "UncheckedCast", "classv8_1_1internal_1_1DirectHandle.html#afe77e5540427580069357e2419566d31", null ],
+    [ "T", "classv8_1_1internal_1_1DirectHandle.html#a9051e998fc3fbb5a701108f808e72fd6", null ]
+];

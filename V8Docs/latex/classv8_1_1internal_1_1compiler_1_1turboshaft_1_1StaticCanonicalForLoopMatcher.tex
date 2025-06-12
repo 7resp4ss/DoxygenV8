@@ -1,0 +1,202 @@
+\hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher}{}\doxysection{v8\+::internal\+::compiler\+::turboshaft\+::Static\+Canonical\+For\+Loop\+Matcher Class Reference}
+\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}
+
+
+{\ttfamily \#include $<$loop-\/unrolling-\/reducer.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109}{Cmp\+Op}} \{ \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a10580bbb0df84a6b318eee68fd772d43}{k\+Equal}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109ad6ed3f12f5816b7b815b823b1d24d32b}{k\+Signed\+Less\+Than}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a0111ad1ba809f985da1c4cd4e386b511}{k\+Signed\+Less\+Than\+Or\+Equal}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a8d8ea8ee01b44dd7f11e634d9c24257e}{k\+Unsigned\+Less\+Than}}
+, \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109adfdc183f5ab30c933aacd9ad9716ccfe}{k\+Unsigned\+Less\+Than\+Or\+Equal}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109ab30a32cede5d9eef8a012f41196b03e8}{k\+Signed\+Greater\+Than}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a4df20fa77c31b275529beab1dd134c1a}{k\+Signed\+Greater\+Than\+Or\+Equal}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a0d19f4a81fd017db62d3dbad0a9a7ac3}{k\+Unsigned\+Greater\+Than}}
+, \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a7b53538afb832790083b47ce81ad4601}{k\+Unsigned\+Greater\+Than\+Or\+Equal}}
+ \}
+\item 
+enum class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738}{Bin\+Op}} \{ \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738aa9130c0c8cfb5cbb3b70c98f89d3d96c}{k\+Add}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738a622e5142de51765da329dba31d104724}{k\+Mul}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738af66ca3c8e49231635fce6e56fadbc791}{k\+Sub}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738aa321da9bb27d15a20fc429625e451004}{k\+Bitwise\+And}}
+, \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738a90486ec81d980150c4c3e685f62c277a}{k\+Bitwise\+Or}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738aa2114818a625d2bfcb2b3ea20148b004}{k\+Bitwise\+Xor}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738a811d1c723b2c153a63a0c1db51ae7e15}{k\+Overflow\+Checked\+Add}}
+, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738a4e775272992821fc38906e46dd18ade8}{k\+Overflow\+Checked\+Mul}}
+, \newline
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738ac0c4760f42e8bbfc5dc8847022b96f54}{k\+Overflow\+Checked\+Sub}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_af933fcfdeb2060166303946f61013906}{Static\+Canonical\+For\+Loop\+Matcher}} (const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OperationMatcher}{Operation\+Matcher}} \&matcher)
+\item 
+\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1IterationCount}{Iteration\+Count}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a0b3aea0f63b1798aefe26eeccf13061d}{Get\+Iter\+Count\+If\+Static\+Canonical\+For\+Loop}} (const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Block}{Block}} $\ast$header, \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpIndex}{Op\+Index}} cond\+\_\+idx, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} loop\+\_\+if\+\_\+cond\+\_\+is) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109}{Cmp\+Op}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aa96bdb060b7f40ce6e0043e72718ad26}{Comparison\+Kind\+To\+Cmp\+Op}} (\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ComparisonOp_aa4b3f9edbc3bd542b8c719cdc702cab1}{Comparison\+Op\+::\+Kind}} \mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109}{Cmp\+Op}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_abb2a1308e384b2f6d9a2ef51ee03ed0e}{Invert\+Comparison\+Op}} (\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109}{Cmp\+Op}} op)
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738}{Bin\+Op}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aff2342b6758a83796bf7048b0cd58f20}{Binop\+From\+Word\+Binop\+Kind}} (\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1WordBinopOp_a28119757fb64edaff7f4585188a8ca68}{Word\+Binop\+Op\+::\+Kind}} \mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\item 
+static constexpr \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738}{Bin\+Op}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_ae51d9fa9d519dd60b2a43ebc47ec7c1c}{Binop\+From\+Overflow\+Checked\+Binop\+Kind}} (\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1OverflowCheckedBinopOp_ad3040371bd7943f50b0b61b92083187b}{Overflow\+Checked\+Binop\+Op\+::\+Kind}} \mbox{\hyperlink{random-module-generation_8cc_a711aad1a9dc45ea13da448b73eb0d4ce}{kind}})
+\item 
+static constexpr \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1638172305a4ce2ac88078d47376030a}{Binop\+Kind\+Is\+Supported}} (\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1WordBinopOp_a28119757fb64edaff7f4585188a8ca68}{Word\+Binop\+Op\+::\+Kind}} binop\+\_\+kind)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738}} 
+\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!BinOp@{BinOp}}
+\index{BinOp@{BinOp}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}
+\doxysubsubsection{\texorpdfstring{BinOp}{BinOp}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738}{v8\+::internal\+::compiler\+::turboshaft\+::\+Static\+Canonical\+For\+Loop\+Matcher\+::\+Bin\+Op}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kAdd@{kAdd}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kAdd@{kAdd}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738aa9130c0c8cfb5cbb3b70c98f89d3d96c}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738aa9130c0c8cfb5cbb3b70c98f89d3d96c}} 
+k\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kMul@{kMul}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kMul@{kMul}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738a622e5142de51765da329dba31d104724}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738a622e5142de51765da329dba31d104724}} 
+k\+Mul&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kSub@{kSub}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kSub@{kSub}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738af66ca3c8e49231635fce6e56fadbc791}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738af66ca3c8e49231635fce6e56fadbc791}} 
+k\+Sub&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kBitwiseAnd@{kBitwiseAnd}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kBitwiseAnd@{kBitwiseAnd}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738aa321da9bb27d15a20fc429625e451004}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738aa321da9bb27d15a20fc429625e451004}} 
+k\+Bitwise\+And&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kBitwiseOr@{kBitwiseOr}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kBitwiseOr@{kBitwiseOr}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738a90486ec81d980150c4c3e685f62c277a}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738a90486ec81d980150c4c3e685f62c277a}} 
+k\+Bitwise\+Or&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kBitwiseXor@{kBitwiseXor}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kBitwiseXor@{kBitwiseXor}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738aa2114818a625d2bfcb2b3ea20148b004}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738aa2114818a625d2bfcb2b3ea20148b004}} 
+k\+Bitwise\+Xor&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kOverflowCheckedAdd@{kOverflowCheckedAdd}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kOverflowCheckedAdd@{kOverflowCheckedAdd}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738a811d1c723b2c153a63a0c1db51ae7e15}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738a811d1c723b2c153a63a0c1db51ae7e15}} 
+k\+Overflow\+Checked\+Add&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kOverflowCheckedMul@{kOverflowCheckedMul}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kOverflowCheckedMul@{kOverflowCheckedMul}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738a4e775272992821fc38906e46dd18ade8}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738a4e775272992821fc38906e46dd18ade8}} 
+k\+Overflow\+Checked\+Mul&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kOverflowCheckedSub@{kOverflowCheckedSub}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kOverflowCheckedSub@{kOverflowCheckedSub}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738ac0c4760f42e8bbfc5dc8847022b96f54}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738ac0c4760f42e8bbfc5dc8847022b96f54}} 
+k\+Overflow\+Checked\+Sub&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109}} 
+\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!CmpOp@{CmpOp}}
+\index{CmpOp@{CmpOp}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}
+\doxysubsubsection{\texorpdfstring{CmpOp}{CmpOp}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109}{v8\+::internal\+::compiler\+::turboshaft\+::\+Static\+Canonical\+For\+Loop\+Matcher\+::\+Cmp\+Op}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kEqual@{kEqual}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kEqual@{kEqual}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a10580bbb0df84a6b318eee68fd772d43}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a10580bbb0df84a6b318eee68fd772d43}} 
+k\+Equal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kSignedLessThan@{kSignedLessThan}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kSignedLessThan@{kSignedLessThan}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109ad6ed3f12f5816b7b815b823b1d24d32b}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109ad6ed3f12f5816b7b815b823b1d24d32b}} 
+k\+Signed\+Less\+Than&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kSignedLessThanOrEqual@{kSignedLessThanOrEqual}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kSignedLessThanOrEqual@{kSignedLessThanOrEqual}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a0111ad1ba809f985da1c4cd4e386b511}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a0111ad1ba809f985da1c4cd4e386b511}} 
+k\+Signed\+Less\+Than\+Or\+Equal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kUnsignedLessThan@{kUnsignedLessThan}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kUnsignedLessThan@{kUnsignedLessThan}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a8d8ea8ee01b44dd7f11e634d9c24257e}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a8d8ea8ee01b44dd7f11e634d9c24257e}} 
+k\+Unsigned\+Less\+Than&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kUnsignedLessThanOrEqual@{kUnsignedLessThanOrEqual}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kUnsignedLessThanOrEqual@{kUnsignedLessThanOrEqual}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109adfdc183f5ab30c933aacd9ad9716ccfe}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109adfdc183f5ab30c933aacd9ad9716ccfe}} 
+k\+Unsigned\+Less\+Than\+Or\+Equal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kSignedGreaterThan@{kSignedGreaterThan}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kSignedGreaterThan@{kSignedGreaterThan}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109ab30a32cede5d9eef8a012f41196b03e8}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109ab30a32cede5d9eef8a012f41196b03e8}} 
+k\+Signed\+Greater\+Than&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kSignedGreaterThanOrEqual@{kSignedGreaterThanOrEqual}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kSignedGreaterThanOrEqual@{kSignedGreaterThanOrEqual}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a4df20fa77c31b275529beab1dd134c1a}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a4df20fa77c31b275529beab1dd134c1a}} 
+k\+Signed\+Greater\+Than\+Or\+Equal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kUnsignedGreaterThan@{kUnsignedGreaterThan}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kUnsignedGreaterThan@{kUnsignedGreaterThan}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a0d19f4a81fd017db62d3dbad0a9a7ac3}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a0d19f4a81fd017db62d3dbad0a9a7ac3}} 
+k\+Unsigned\+Greater\+Than&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kUnsignedGreaterThanOrEqual@{kUnsignedGreaterThanOrEqual}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!kUnsignedGreaterThanOrEqual@{kUnsignedGreaterThanOrEqual}}}\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a7b53538afb832790083b47ce81ad4601}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109a7b53538afb832790083b47ce81ad4601}} 
+k\+Unsigned\+Greater\+Than\+Or\+Equal&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_af933fcfdeb2060166303946f61013906}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_af933fcfdeb2060166303946f61013906}} 
+\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!StaticCanonicalForLoopMatcher@{StaticCanonicalForLoopMatcher}}
+\index{StaticCanonicalForLoopMatcher@{StaticCanonicalForLoopMatcher}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}
+\doxysubsubsection{\texorpdfstring{StaticCanonicalForLoopMatcher()}{StaticCanonicalForLoopMatcher()}}
+{\footnotesize\ttfamily v8\+::internal\+::compiler\+::turboshaft\+::\+Static\+Canonical\+For\+Loop\+Matcher\+::\+Static\+Canonical\+For\+Loop\+Matcher (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OperationMatcher}{Operation\+Matcher}} \&}]{matcher }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_ae51d9fa9d519dd60b2a43ebc47ec7c1c}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_ae51d9fa9d519dd60b2a43ebc47ec7c1c}} 
+\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!BinopFromOverflowCheckedBinopKind@{BinopFromOverflowCheckedBinopKind}}
+\index{BinopFromOverflowCheckedBinopKind@{BinopFromOverflowCheckedBinopKind}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}
+\doxysubsubsection{\texorpdfstring{BinopFromOverflowCheckedBinopKind()}{BinopFromOverflowCheckedBinopKind()}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738}{Static\+Canonical\+For\+Loop\+Matcher\+::\+Bin\+Op}} v8\+::internal\+::compiler\+::turboshaft\+::\+Static\+Canonical\+For\+Loop\+Matcher\+::\+Binop\+From\+Overflow\+Checked\+Binop\+Kind (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1OverflowCheckedBinopOp_ad3040371bd7943f50b0b61b92083187b}{Overflow\+Checked\+Binop\+Op\+::\+Kind}}}]{kind }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aff2342b6758a83796bf7048b0cd58f20}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aff2342b6758a83796bf7048b0cd58f20}} 
+\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!BinopFromWordBinopKind@{BinopFromWordBinopKind}}
+\index{BinopFromWordBinopKind@{BinopFromWordBinopKind}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}
+\doxysubsubsection{\texorpdfstring{BinopFromWordBinopKind()}{BinopFromWordBinopKind()}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aea8fadbb38a445735daec7b4ab39d738}{Static\+Canonical\+For\+Loop\+Matcher\+::\+Bin\+Op}} v8\+::internal\+::compiler\+::turboshaft\+::\+Static\+Canonical\+For\+Loop\+Matcher\+::\+Binop\+From\+Word\+Binop\+Kind (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1WordBinopOp_a28119757fb64edaff7f4585188a8ca68}{Word\+Binop\+Op\+::\+Kind}}}]{kind }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1638172305a4ce2ac88078d47376030a}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1638172305a4ce2ac88078d47376030a}} 
+\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!BinopKindIsSupported@{BinopKindIsSupported}}
+\index{BinopKindIsSupported@{BinopKindIsSupported}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}
+\doxysubsubsection{\texorpdfstring{BinopKindIsSupported()}{BinopKindIsSupported()}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}} v8\+::internal\+::compiler\+::turboshaft\+::\+Static\+Canonical\+For\+Loop\+Matcher\+::\+Binop\+Kind\+Is\+Supported (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1WordBinopOp_a28119757fb64edaff7f4585188a8ca68}{Word\+Binop\+Op\+::\+Kind}}}]{binop\+\_\+kind }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aa96bdb060b7f40ce6e0043e72718ad26}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_aa96bdb060b7f40ce6e0043e72718ad26}} 
+\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!ComparisonKindToCmpOp@{ComparisonKindToCmpOp}}
+\index{ComparisonKindToCmpOp@{ComparisonKindToCmpOp}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}
+\doxysubsubsection{\texorpdfstring{ComparisonKindToCmpOp()}{ComparisonKindToCmpOp()}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109}{Static\+Canonical\+For\+Loop\+Matcher\+::\+Cmp\+Op}} v8\+::internal\+::compiler\+::turboshaft\+::\+Static\+Canonical\+For\+Loop\+Matcher\+::\+Comparison\+Kind\+To\+Cmp\+Op (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1ComparisonOp_aa4b3f9edbc3bd542b8c719cdc702cab1}{Comparison\+Op\+::\+Kind}}}]{kind }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a0b3aea0f63b1798aefe26eeccf13061d}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a0b3aea0f63b1798aefe26eeccf13061d}} 
+\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!GetIterCountIfStaticCanonicalForLoop@{GetIterCountIfStaticCanonicalForLoop}}
+\index{GetIterCountIfStaticCanonicalForLoop@{GetIterCountIfStaticCanonicalForLoop}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}
+\doxysubsubsection{\texorpdfstring{GetIterCountIfStaticCanonicalForLoop()}{GetIterCountIfStaticCanonicalForLoop()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1IterationCount}{Iteration\+Count}} v8\+::internal\+::compiler\+::turboshaft\+::\+Static\+Canonical\+For\+Loop\+Matcher\+::\+Get\+Iter\+Count\+If\+Static\+Canonical\+For\+Loop (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1Block}{Block}} $\ast$}]{header,  }\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1OpIndex}{Op\+Index}}}]{cond\+\_\+idx,  }\item[{\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a28d08f40d5dc488600051ba2ef537284}{bool}}}]{loop\+\_\+if\+\_\+cond\+\_\+is }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_abb2a1308e384b2f6d9a2ef51ee03ed0e}\label{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_abb2a1308e384b2f6d9a2ef51ee03ed0e}} 
+\index{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}!InvertComparisonOp@{InvertComparisonOp}}
+\index{InvertComparisonOp@{InvertComparisonOp}!v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher@{v8::internal::compiler::turboshaft::StaticCanonicalForLoopMatcher}}
+\doxysubsubsection{\texorpdfstring{InvertComparisonOp()}{InvertComparisonOp()}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109}{Static\+Canonical\+For\+Loop\+Matcher\+::\+Cmp\+Op}} v8\+::internal\+::compiler\+::turboshaft\+::\+Static\+Canonical\+For\+Loop\+Matcher\+::\+Invert\+Comparison\+Op (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1StaticCanonicalForLoopMatcher_a1994d1671165e08c47eb7cdb509e2109}{Cmp\+Op}}}]{op }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{loop-unrolling-reducer_8h}{loop-\/unrolling-\/reducer.\+h}}\item 
+\mbox{\hyperlink{loop-unrolling-reducer_8cc}{loop-\/unrolling-\/reducer.\+cc}}\end{DoxyCompactItemize}

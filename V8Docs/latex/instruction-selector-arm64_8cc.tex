@@ -1,0 +1,193 @@
+\hypertarget{instruction-selector-arm64_8cc}{}\doxysection{instruction-\/selector-\/arm64.cc File Reference}
+\label{instruction-selector-arm64_8cc}\index{instruction-\/selector-\/arm64.cc@{instruction-\/selector-\/arm64.cc}}
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include \char`\"{}src/base/bits.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/assembler-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/machine-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/instruction-\/codes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/instruction-\/selector-\/impl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/backend/instruction-\/selector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/machine-\/operator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/operation-\/matcher.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/operations.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/opmasks.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/representations.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+Include dependency graph for instruction-\/selector-\/arm64.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{instruction-selector-arm64_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1Arm64OperandGenerator}{v8\+::internal\+::compiler\+::\+Arm64\+Operand\+Generator}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1CompareSequence}{v8\+::internal\+::compiler\+::turboshaft\+::\+Compare\+Sequence}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1CompareChainNode}{v8\+::internal\+::compiler\+::turboshaft\+::\+Compare\+Chain\+Node}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft}{v8\+::internal\+::compiler\+::turboshaft}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{instruction-selector-arm64_8cc_a605418f53ef027c986a94eeda177aae6}{RR\+\_\+\+OP\+\_\+\+T\+\_\+\+LIST}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{instruction-selector-arm64_8cc_a7a11ca6438043677fedbc784272525b0}{RRR\+\_\+\+OP\+\_\+\+T\+\_\+\+LIST}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{instruction-selector-arm64_8cc_a76d8fc53ce294ceaac52e5bd5b91f693}{RR\+\_\+\+VISITOR}}(Name,  opcode)
+\item 
+\#define \mbox{\hyperlink{instruction-selector-arm64_8cc_a7eb20863d1bf0df7a2ea8b03421a6b9c}{RRR\+\_\+\+VISITOR}}(Name,  opcode)
+\item 
+\#define \mbox{\hyperlink{instruction-selector-arm64_8cc_ab1e1f919fbb5c4aba05afa70f0d3bbc8}{VISIT\+\_\+\+ATOMIC\+\_\+\+BINOP}}(op)
+\item 
+\#define \mbox{\hyperlink{instruction-selector-arm64_8cc_ab1e1f919fbb5c4aba05afa70f0d3bbc8}{VISIT\+\_\+\+ATOMIC\+\_\+\+BINOP}}(op)
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3d}{v8\+::internal\+::compiler\+::\+Immediate\+Mode}} \{ \newline
+\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da142a93c9b938e21136a083425191c6cb}{v8\+::internal\+::compiler\+::k\+Arithmetic\+Imm}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da7e124111842595debf90c6d585eefb2d}{v8\+::internal\+::compiler\+::k\+Shift32\+Imm}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3dae093c271fa11f9dd6bcf4c75384f60ae}{v8\+::internal\+::compiler\+::k\+Shift64\+Imm}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3dae860d053b030d118d3b9c9c142571da5}{v8\+::internal\+::compiler\+::k\+Logical32\+Imm}}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3daa6b679f2e811fee6e5132308d8963410}{v8\+::internal\+::compiler\+::k\+Logical64\+Imm}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da7362348573b96bc1351b2e1234d5a10e}{v8\+::internal\+::compiler\+::k\+Load\+Store\+Imm8}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3dae80bfa9dc6fde00e88440512c5b5a2c6}{v8\+::internal\+::compiler\+::k\+Load\+Store\+Imm16}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da7b11263706e4f000000a54f0e5832864}{v8\+::internal\+::compiler\+::k\+Load\+Store\+Imm32}}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da4067479c14d24eeb1f12ac495a315f2a}{v8\+::internal\+::compiler\+::k\+Load\+Store\+Imm64}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da655ed2808fa97fe8dad4988aa5f9b41c}{v8\+::internal\+::compiler\+::k\+Load\+Store\+Imm128}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da003fad104dab413b1602d8e3429103ff}{v8\+::internal\+::compiler\+::k\+Conditional\+Compare\+Imm}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da72ec307a0334605dc0b4fd5509a137e0}{v8\+::internal\+::compiler\+::k\+No\+Immediate}}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da8505a0e3823132afe1dbbb53204ee952}{v8\+::internal\+::compiler\+::k\+Int16\+Imm}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da6bbe3368ecb8ba6de9f282a4c1c022df}{v8\+::internal\+::compiler\+::k\+Int16\+Imm\+\_\+\+Unsigned}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da8f5fa2fc4a495b08cb846e171a337997}{v8\+::internal\+::compiler\+::k\+Int16\+Imm\+\_\+\+Negate}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da5905d02070ebb34ab957d6d76d3d69d2}{v8\+::internal\+::compiler\+::k\+Int16\+Imm\+\_\+4\+Byte\+Aligned}}
+, \newline
+\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da7e124111842595debf90c6d585eefb2d}{v8\+::internal\+::compiler\+::k\+Shift32\+Imm}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da21712da09546bc157bb0fc5853a0d2a7}{v8\+::internal\+::compiler\+::k\+Int34\+Imm}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3dae093c271fa11f9dd6bcf4c75384f60ae}{v8\+::internal\+::compiler\+::k\+Shift64\+Imm}}
+, \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3edd6b0c53386e665a7a7f22a7179d3da72ec307a0334605dc0b4fd5509a137e0}{v8\+::internal\+::compiler\+::k\+No\+Immediate}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ad7fc883cbbd50f8385bcc91f8b9356f6}{v8\+::internal\+::compiler\+::\+Emit\+Load}} (Instruction\+Selector $\ast$selector, Op\+Index \mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}}, Instruction\+Code opcode, Immediate\+Mode immediate\+\_\+mode, Memory\+Representation rep, Optional\+Op\+Index output=\{\})
+\item 
+std\+::tuple$<$ Instruction\+Code, Immediate\+Mode $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_ab88237e2cdb7cb9d176efc1be764069b}{v8\+::internal\+::compiler\+::\+Get\+Load\+Opcode\+And\+Immediate}} (Memory\+Representation loaded\+\_\+rep, Register\+Representation result\+\_\+rep)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a3f5f311f26e90ccbd7513e9a7e57ec82}{v8\+::internal\+::compiler\+::turboshaft\+::\+Combine\+Flag\+Setting\+Ops}} (Compare\+Chain\+Node $\ast$logic\+\_\+node, Instruction\+Selector $\ast$selector, Compare\+Sequence $\ast$sequence)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{instruction-selector-arm64_8cc_a605418f53ef027c986a94eeda177aae6}\label{instruction-selector-arm64_8cc_a605418f53ef027c986a94eeda177aae6}} 
+\index{instruction-\/selector-\/arm64.cc@{instruction-\/selector-\/arm64.cc}!RR\_OP\_T\_LIST@{RR\_OP\_T\_LIST}}
+\index{RR\_OP\_T\_LIST@{RR\_OP\_T\_LIST}!instruction-\/selector-\/arm64.cc@{instruction-\/selector-\/arm64.cc}}
+\doxysubsubsection{\texorpdfstring{RR\_OP\_T\_LIST}{RR\_OP\_T\_LIST}}
+{\footnotesize\ttfamily \#define RR\+\_\+\+OP\+\_\+\+T\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{instruction-selector-arm64_8cc_a76d8fc53ce294ceaac52e5bd5b91f693}\label{instruction-selector-arm64_8cc_a76d8fc53ce294ceaac52e5bd5b91f693}} 
+\index{instruction-\/selector-\/arm64.cc@{instruction-\/selector-\/arm64.cc}!RR\_VISITOR@{RR\_VISITOR}}
+\index{RR\_VISITOR@{RR\_VISITOR}!instruction-\/selector-\/arm64.cc@{instruction-\/selector-\/arm64.cc}}
+\doxysubsubsection{\texorpdfstring{RR\_VISITOR}{RR\_VISITOR}}
+{\footnotesize\ttfamily \#define RR\+\_\+\+VISITOR(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{opcode }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} InstructionSelector::Visit\#\#Name(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}) \{ \(\backslash\)}
+\DoxyCodeLine{    VisitRR(\textcolor{keyword}{this}, opcode, \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}});                        \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-arm64_8cc_a7a11ca6438043677fedbc784272525b0}\label{instruction-selector-arm64_8cc_a7a11ca6438043677fedbc784272525b0}} 
+\index{instruction-\/selector-\/arm64.cc@{instruction-\/selector-\/arm64.cc}!RRR\_OP\_T\_LIST@{RRR\_OP\_T\_LIST}}
+\index{RRR\_OP\_T\_LIST@{RRR\_OP\_T\_LIST}!instruction-\/selector-\/arm64.cc@{instruction-\/selector-\/arm64.cc}}
+\doxysubsubsection{\texorpdfstring{RRR\_OP\_T\_LIST}{RRR\_OP\_T\_LIST}}
+{\footnotesize\ttfamily \#define RRR\+\_\+\+OP\+\_\+\+T\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(Int32Div, kArm64Idiv32)       \(\backslash\)}
+\DoxyCodeLine{  V(Int64Div, kArm64Idiv)         \(\backslash\)}
+\DoxyCodeLine{  V(Uint32Div, kArm64Udiv32)      \(\backslash\)}
+\DoxyCodeLine{  V(Uint64Div, kArm64Udiv)        \(\backslash\)}
+\DoxyCodeLine{  V(Int32Mod, kArm64Imod32)       \(\backslash\)}
+\DoxyCodeLine{  V(Int64Mod, kArm64Imod)         \(\backslash\)}
+\DoxyCodeLine{  V(Uint32Mod, kArm64Umod32)      \(\backslash\)}
+\DoxyCodeLine{  V(Uint64Mod, kArm64Umod)        \(\backslash\)}
+\DoxyCodeLine{  V(Float32Add, kArm64Float32Add) \(\backslash\)}
+\DoxyCodeLine{  V(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a7af6075b33de264b2bb46b5e7dd9e28c}{Float64Add}}, kArm64Float64Add) \(\backslash\)}
+\DoxyCodeLine{  V(Float32Sub, kArm64Float32Sub) \(\backslash\)}
+\DoxyCodeLine{  V(Float64Sub, kArm64Float64Sub) \(\backslash\)}
+\DoxyCodeLine{  V(Float32Div, kArm64Float32Div) \(\backslash\)}
+\DoxyCodeLine{  V(Float64Div, kArm64Float64Div) \(\backslash\)}
+\DoxyCodeLine{  V(Float32Max, kArm64Float32Max) \(\backslash\)}
+\DoxyCodeLine{  V(Float64Max, kArm64Float64Max) \(\backslash\)}
+\DoxyCodeLine{  V(Float32Min, kArm64Float32Min) \(\backslash\)}
+\DoxyCodeLine{  V(Float64Min, kArm64Float64Min) \(\backslash\)}
+\DoxyCodeLine{  IF\_WASM(\mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}, I8x16Swizzle, kArm64I8x16Swizzle)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-arm64_8cc_a7eb20863d1bf0df7a2ea8b03421a6b9c}\label{instruction-selector-arm64_8cc_a7eb20863d1bf0df7a2ea8b03421a6b9c}} 
+\index{instruction-\/selector-\/arm64.cc@{instruction-\/selector-\/arm64.cc}!RRR\_VISITOR@{RRR\_VISITOR}}
+\index{RRR\_VISITOR@{RRR\_VISITOR}!instruction-\/selector-\/arm64.cc@{instruction-\/selector-\/arm64.cc}}
+\doxysubsubsection{\texorpdfstring{RRR\_VISITOR}{RRR\_VISITOR}}
+{\footnotesize\ttfamily \#define RRR\+\_\+\+VISITOR(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{opcode }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} InstructionSelector::Visit\#\#Name(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}) \{ \(\backslash\)}
+\DoxyCodeLine{    VisitRRR(\textcolor{keyword}{this}, opcode, \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}});                       \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-arm64_8cc_ab1e1f919fbb5c4aba05afa70f0d3bbc8}\label{instruction-selector-arm64_8cc_ab1e1f919fbb5c4aba05afa70f0d3bbc8}} 
+\index{instruction-\/selector-\/arm64.cc@{instruction-\/selector-\/arm64.cc}!VISIT\_ATOMIC\_BINOP@{VISIT\_ATOMIC\_BINOP}}
+\index{VISIT\_ATOMIC\_BINOP@{VISIT\_ATOMIC\_BINOP}!instruction-\/selector-\/arm64.cc@{instruction-\/selector-\/arm64.cc}}
+\doxysubsubsection{\texorpdfstring{VISIT\_ATOMIC\_BINOP}{VISIT\_ATOMIC\_BINOP}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \#define VISIT\+\_\+\+ATOMIC\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{op }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} InstructionSelector::VisitWord32Atomic\#\#op(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}) \{        \(\backslash\)}
+\DoxyCodeLine{    VisitWord32AtomicBinaryOperation(                                    \(\backslash\)}
+\DoxyCodeLine{        \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, kAtomic\#\#op\#\#Int8, kAtomic\#\#op\#\#Uint8, kAtomic\#\#op\#\#Int16, \(\backslash\)}
+\DoxyCodeLine{        kAtomic\#\#op\#\#Uint16, kAtomic\#\#op\#\#\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_aeccd16378a95dc9d3039f8669648c698}{Word32}});                       \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{instruction-selector-arm64_8cc_ab1e1f919fbb5c4aba05afa70f0d3bbc8}\label{instruction-selector-arm64_8cc_ab1e1f919fbb5c4aba05afa70f0d3bbc8}} 
+\index{instruction-\/selector-\/arm64.cc@{instruction-\/selector-\/arm64.cc}!VISIT\_ATOMIC\_BINOP@{VISIT\_ATOMIC\_BINOP}}
+\index{VISIT\_ATOMIC\_BINOP@{VISIT\_ATOMIC\_BINOP}!instruction-\/selector-\/arm64.cc@{instruction-\/selector-\/arm64.cc}}
+\doxysubsubsection{\texorpdfstring{VISIT\_ATOMIC\_BINOP}{VISIT\_ATOMIC\_BINOP}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \#define VISIT\+\_\+\+ATOMIC\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{op }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} InstructionSelector::VisitWord64Atomic\#\#op(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a0a87c55b6d909048c3f4b6e8ec76f3e4}{OpIndex}} \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}) \{              \(\backslash\)}
+\DoxyCodeLine{    VisitWord64AtomicBinaryOperation(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, kAtomic\#\#op\#\#Uint8,                 \(\backslash\)}
+\DoxyCodeLine{                                     kAtomic\#\#op\#\#Uint16, kAtomic\#\#op\#\#\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_aeccd16378a95dc9d3039f8669648c698}{Word32}}, \(\backslash\)}
+\DoxyCodeLine{                                     kArm64Word64Atomic\#\#op\#\#Uint64);          \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}

@@ -1,0 +1,25 @@
+var api_inl_8h =
+[
+    [ "CallDepthScope", "classv8_1_1CallDepthScope.html", "classv8_1_1CallDepthScope" ],
+    [ "InternalEscapableScope", "classv8_1_1InternalEscapableScope.html", "classv8_1_1InternalEscapableScope" ],
+    [ "EnterV8InternalScope", "classv8_1_1EnterV8InternalScope.html", "classv8_1_1EnterV8InternalScope" ],
+    [ "EnterV8Scope", "classv8_1_1EnterV8Scope.html", "classv8_1_1EnterV8Scope" ],
+    [ "EnterV8NoScriptScope", "classv8_1_1EnterV8NoScriptScope.html", "classv8_1_1EnterV8NoScriptScope" ],
+    [ "EnterV8NoScriptNoExceptionScope", "classv8_1_1EnterV8NoScriptNoExceptionScope.html", "classv8_1_1EnterV8NoScriptNoExceptionScope" ],
+    [ "EnterV8BasicScope", "classv8_1_1EnterV8BasicScope.html", "classv8_1_1EnterV8BasicScope" ],
+    [ "PrepareForExecutionScope", "classv8_1_1PrepareForExecutionScope.html", "classv8_1_1PrepareForExecutionScope" ],
+    [ "PrepareForDebugInterfaceExecutionScope", "classv8_1_1PrepareForDebugInterfaceExecutionScope.html", "classv8_1_1PrepareForDebugInterfaceExecutionScope" ],
+    [ "ApiRuntimeCallStatsScope", "classv8_1_1ApiRuntimeCallStatsScope.html", "classv8_1_1ApiRuntimeCallStatsScope" ],
+    [ "MAKE_OPEN_HANDLE", "api-inl_8h.html#abb6e6fa061abbea63839b4ec781969be", null ],
+    [ "MAKE_TO_LOCAL", "api-inl_8h.html#ae997fa1c65812f424b90f28143174454", null ],
+    [ "MAKE_TO_LOCAL_TYPED_ARRAY", "api-inl_8h.html#ac4f1a44a1f4e8e5ba5ae04924ee1dd63", null ],
+    [ "CopyAndConvertArrayToCppBuffer", "api-inl_8h.html#ae86b88c1c53a3240c06c0dc016d18ef3", null ],
+    [ "CopyDoubleElementsToTypedBuffer", "api-inl_8h.html#a33f6f48392f5c4485b373c98a5ffdb36", null ],
+    [ "CopySmiElementsToTypedBuffer", "api-inl_8h.html#ace76fa2cfb126f9bd9726bfaeae0ad86", null ],
+    [ "FromCData", "api-inl_8h.html#a0331e4f12644f15c8052654721d02e98", null ],
+    [ "FromCData", "api-inl_8h.html#ae36ae4bb0aac659bf9db8d8bb6aa17f3", null ],
+    [ "ToCData", "api-inl_8h.html#a23e3554e42c1196b69ff992c5dbe12cb", null ],
+    [ "ToCData", "api-inl_8h.html#a3f40a04b3289ad86cf0ef2ac34ff1125", null ],
+    [ "TryCopyAndConvertArrayToCppBuffer", "api-inl_8h.html#a4ce602eb98c049e6d38e4507ebd71c4c", null ],
+    [ "TryToCopyAndConvertArrayToCppBuffer", "api-inl_8h.html#afc6ce486179bb716cb07bfe0914018c3", null ]
+];

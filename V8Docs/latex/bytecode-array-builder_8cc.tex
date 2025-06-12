@@ -1,0 +1,114 @@
+\hypertarget{bytecode-array-builder_8cc}{}\doxysection{bytecode-\/array-\/builder.cc File Reference}
+\label{bytecode-array-builder_8cc}\index{bytecode-\/array-\/builder.cc@{bytecode-\/array-\/builder.cc}}
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/array-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include \char`\"{}src/ast/scopes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ast/variables.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/assert-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/array-\/writer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/jump-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/label.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/node.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/register-\/optimizer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/source-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/interpreter-\/intrinsics.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/feedback-\/vector-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/smi.\+h\char`\"{}}\newline
+Include dependency graph for bytecode-\/array-\/builder.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bytecode-array-builder_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1RegisterTransferWriter}{v8\+::internal\+::interpreter\+::\+Register\+Transfer\+Writer}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1interpreter_1_1BytecodeNodeBuilder}{v8\+::internal\+::interpreter\+::\+Bytecode\+Node\+Builder$<$ bytecode, implicit\+\_\+register\+\_\+use, operand\+\_\+types $>$}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter}{v8\+::internal\+::interpreter}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{bytecode-array-builder_8cc_a68d1dba0236f7e82d47ecd235190dea8}{DEFINE\+\_\+\+UNSIGNED\+\_\+\+OPERAND\+\_\+\+HELPER}}(Name,  Type)
+\item 
+\#define \mbox{\hyperlink{bytecode-array-builder_8cc_aec79c778fa7b73e8e73b4fc2006ce374}{DEFINE\+\_\+\+BYTECODE\+\_\+\+OUTPUT}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}, ...)
+\item 
+\#define \mbox{\hyperlink{bytecode-array-builder_8cc_a6874d2e2a3b1696668f388b0b145c6a8}{ENTRY\+\_\+\+GETTER}}(\mbox{\hyperlink{wasm-features_8h_a2d0852eb438b29a423ea08b97ab45fac}{NAME}}, ...)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a7ee9b25f2e85c2d830ef462e51e59be5}{v8\+::internal\+::interpreter\+::operator$<$$<$}} (std\+::ostream \&os, const Bytecode\+Array\+Builder\+::\+To\+Boolean\+Mode \&\mbox{\hyperlink{flag-definitions_8h_adaf90f045d5cd2710edd625b8685472a}{mode}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{bytecode-array-builder_8cc_aec79c778fa7b73e8e73b4fc2006ce374}\label{bytecode-array-builder_8cc_aec79c778fa7b73e8e73b4fc2006ce374}} 
+\index{bytecode-\/array-\/builder.cc@{bytecode-\/array-\/builder.cc}!DEFINE\_BYTECODE\_OUTPUT@{DEFINE\_BYTECODE\_OUTPUT}}
+\index{DEFINE\_BYTECODE\_OUTPUT@{DEFINE\_BYTECODE\_OUTPUT}!bytecode-\/array-\/builder.cc@{bytecode-\/array-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{DEFINE\_BYTECODE\_OUTPUT}{DEFINE\_BYTECODE\_OUTPUT}}
+{\footnotesize\ttfamily \#define DEFINE\+\_\+\+BYTECODE\+\_\+\+OUTPUT(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Operands>                                     \(\backslash\)}
+\DoxyCodeLine{  BytecodeNode BytecodeArrayBuilder::Create\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}\#\#Node(              \(\backslash\)}
+\DoxyCodeLine{      Operands... operands) \{                                         \(\backslash\)}
+\DoxyCodeLine{    return BytecodeNodeBuilder<Bytecode::k\#\#name, \_\_VA\_ARGS\_\_>::Make( \(\backslash\)}
+\DoxyCodeLine{        \textcolor{keyword}{this}, operands...);                                           \(\backslash\)}
+\DoxyCodeLine{  \}                                                                   \(\backslash\)}
+\DoxyCodeLine{                                                                      \(\backslash\)}
+\DoxyCodeLine{  template <\textcolor{keyword}{typename}... Operands>                                     \(\backslash\)}
+\DoxyCodeLine{  void BytecodeArrayBuilder::Output\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}(Operands... operands) \{     \(\backslash\)}
+\DoxyCodeLine{    BytecodeNode \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}(Create\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}\#\#Node(operands...));               \(\backslash\)}
+\DoxyCodeLine{    Write(\&\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}});                                                     \(\backslash\)}
+\DoxyCodeLine{  \}                                                                   \(\backslash\)}
+\DoxyCodeLine{                                                                      \(\backslash\)}
+\DoxyCodeLine{  template <\textcolor{keyword}{typename}... Operands>                                     \(\backslash\)}
+\DoxyCodeLine{  void BytecodeArrayBuilder::Output\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}(BytecodeLabel* \mbox{\hyperlink{experimental-compiler_8cc_a092c9ed2d1a6372cb90bb48d778891c7}{label}},       \(\backslash\)}
+\DoxyCodeLine{                                          Operands... operands) \{     \(\backslash\)}
+\DoxyCodeLine{    DCHECK(Bytecodes::IsForwardJump(Bytecode::k\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}));              \(\backslash\)}
+\DoxyCodeLine{    BytecodeNode \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}(Create\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}\#\#Node(operands...));               \(\backslash\)}
+\DoxyCodeLine{    WriteJump(\&\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, \mbox{\hyperlink{experimental-compiler_8cc_a092c9ed2d1a6372cb90bb48d778891c7}{label}});                                          \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{bytecode-array-builder_8cc_a68d1dba0236f7e82d47ecd235190dea8}\label{bytecode-array-builder_8cc_a68d1dba0236f7e82d47ecd235190dea8}} 
+\index{bytecode-\/array-\/builder.cc@{bytecode-\/array-\/builder.cc}!DEFINE\_UNSIGNED\_OPERAND\_HELPER@{DEFINE\_UNSIGNED\_OPERAND\_HELPER}}
+\index{DEFINE\_UNSIGNED\_OPERAND\_HELPER@{DEFINE\_UNSIGNED\_OPERAND\_HELPER}!bytecode-\/array-\/builder.cc@{bytecode-\/array-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{DEFINE\_UNSIGNED\_OPERAND\_HELPER}{DEFINE\_UNSIGNED\_OPERAND\_HELPER}}
+{\footnotesize\ttfamily \#define DEFINE\+\_\+\+UNSIGNED\+\_\+\+OPERAND\+\_\+\+HELPER(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{Type }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keyword}{template} <>                                      \(\backslash\)}
+\DoxyCodeLine{  class OperandHelper<OperandType::k\#\#Name>        \(\backslash\)}
+\DoxyCodeLine{      : \textcolor{keyword}{public} UnsignedOperandHelper<Type> \{\};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{bytecode-array-builder_8cc_a6874d2e2a3b1696668f388b0b145c6a8}\label{bytecode-array-builder_8cc_a6874d2e2a3b1696668f388b0b145c6a8}} 
+\index{bytecode-\/array-\/builder.cc@{bytecode-\/array-\/builder.cc}!ENTRY\_GETTER@{ENTRY\_GETTER}}
+\index{ENTRY\_GETTER@{ENTRY\_GETTER}!bytecode-\/array-\/builder.cc@{bytecode-\/array-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{ENTRY\_GETTER}{ENTRY\_GETTER}}
+{\footnotesize\ttfamily \#define ENTRY\+\_\+\+GETTER(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{wasm-features_8h_a2d0852eb438b29a423ea08b97ab45fac}{NAME}},  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{wasm-features_8h_a2d0852eb438b29a423ea08b97ab45fac}{BytecodeArrayBuilder::NAME}}\#\#ConstantPoolEntry() \{ \(\backslash\)}
+\DoxyCodeLine{    return constant\_array\_builder()-\/>Insert\#\#\mbox{\hyperlink{wasm-features_8h_a2d0852eb438b29a423ea08b97ab45fac}{NAME}}();       \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}

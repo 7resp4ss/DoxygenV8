@@ -1,0 +1,173 @@
+\hypertarget{interpreter-generator_8cc}{}\doxysection{interpreter-\/generator.cc File Reference}
+\label{interpreter-generator_8cc}\index{interpreter-\/generator.cc@{interpreter-\/generator.cc}}
+{\ttfamily \#include \char`\"{}src/interpreter/interpreter-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include \char`\"{}src/builtins/builtins-\/constructor-\/gen.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/profile-\/data-\/reader.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/interface-\/descriptors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/linkage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/pipeline.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/builtin-\/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ic/accessor-\/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ic/binary-\/op-\/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ic/ic.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/ic/unary-\/op-\/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/flags-\/and-\/tokens.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecodes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/interpreter-\/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/interpreter-\/generator-\/tsa.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/interpreter-\/intrinsics-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/cell.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/oddball.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/shared-\/function-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/source-\/text-\/module.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/ostreams.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}torque-\/generated/exported-\/macros-\/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/define-\/code-\/stub-\/assembler-\/macros.\+inc\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/undef-\/code-\/stub-\/assembler-\/macros.\+inc\char`\"{}}\newline
+Include dependency graph for interpreter-\/generator.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{interpreter-generator_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter}{v8\+::internal\+::interpreter}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{interpreter-generator_8cc_abd3fa798fe7cfe644628f341a65c4602}{IGNITION\+\_\+\+HANDLER}}(Name,  Base\+Assembler)
+\item 
+\#define \mbox{\hyperlink{interpreter-generator_8cc_ae15f47eedc0dd2720a6b3261b2087abc}{MAKE\+\_\+\+LABEL}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  lower\+\_\+case)~Label if\+\_\+\#\#lower\+\_\+case(this);
+\item 
+\#define \mbox{\hyperlink{interpreter-generator_8cc_a08f132b1bc208dd6e58b011d571f5766}{LABEL\+\_\+\+POINTER}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  lower\+\_\+case)~\&if\+\_\+\#\#lower\+\_\+case,
+\item 
+\#define \mbox{\hyperlink{interpreter-generator_8cc_a205691a24f4d503222a08c894eb3e702}{CASE}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  lower\+\_\+case)~  static\+\_\+cast$<$int32\+\_\+t$>$(Test\+Type\+Of\+Flags\+::\+Literal\+Flag\+::k\#\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}),
+\item 
+\#define \mbox{\hyperlink{interpreter-generator_8cc_afde0e2c7429846fc8e4e1649174f8943}{DEBUG\+\_\+\+BREAK}}(Name, ...)
+\item 
+\#define \mbox{\hyperlink{interpreter-generator_8cc_a0accb7a6c02071099f979fc032d414af}{CALL\+\_\+\+GENERATOR}}(Name, ...)
+\item 
+\#define \mbox{\hyperlink{interpreter-generator_8cc_a05a45cd7786487e6adb440ab7db64279}{CALL\+\_\+\+GENERATOR\+\_\+\+TS}}(Name, ...)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a59cd0c617d98914dd8979ecf7f50a4a9}{v8\+::internal\+::interpreter\+::\+Bitwise\+Not\+Assembler\+TS\+\_\+\+Generate}} (compiler\+::turboshaft\+::\+Pipeline\+Data $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, compiler\+::turboshaft\+::\+Graph \&\mbox{\hyperlink{flag-definitions_8h_a06b2b7e5d08192bb493bba69cb19a7a8}{graph}}, Zone $\ast$zone)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a0bf2b5d9dfa0f27e162486b4c6727caf}{v8\+::internal\+::interpreter\+::\+Generate\+Bytecode\+Handler}} (compiler\+::\+Code\+Assembler\+State $\ast$\mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}, Bytecode \mbox{\hyperlink{experimental_8cc_adcfc7c70462a57a18137cf25c883eae5}{bytecode}}, Operand\+Scale operand\+\_\+scale)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{interpreter-generator_8cc_a0accb7a6c02071099f979fc032d414af}\label{interpreter-generator_8cc_a0accb7a6c02071099f979fc032d414af}} 
+\index{interpreter-\/generator.cc@{interpreter-\/generator.cc}!CALL\_GENERATOR@{CALL\_GENERATOR}}
+\index{CALL\_GENERATOR@{CALL\_GENERATOR}!interpreter-\/generator.cc@{interpreter-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{CALL\_GENERATOR}{CALL\_GENERATOR}}
+{\footnotesize\ttfamily \#define CALL\+\_\+\+GENERATOR(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Bytecode::k\#\#Name:                            \(\backslash\)}
+\DoxyCodeLine{    Name\#\#Assembler::Generate(\mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}, operand\_scale); \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{interpreter-generator_8cc_a05a45cd7786487e6adb440ab7db64279}\label{interpreter-generator_8cc_a05a45cd7786487e6adb440ab7db64279}} 
+\index{interpreter-\/generator.cc@{interpreter-\/generator.cc}!CALL\_GENERATOR\_TS@{CALL\_GENERATOR\_TS}}
+\index{CALL\_GENERATOR\_TS@{CALL\_GENERATOR\_TS}!interpreter-\/generator.cc@{interpreter-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{CALL\_GENERATOR\_TS}{CALL\_GENERATOR\_TS}}
+{\footnotesize\ttfamily \#define CALL\+\_\+\+GENERATOR\+\_\+\+TS(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{comment}{/* FIXME(348031042): This doesn't compile since the                      \(\backslash\)}}
+\DoxyCodeLine{\textcolor{comment}{   * CodeAssemblerCompilationJob refactor. */}                              \(\backslash\)}
+\DoxyCodeLine{  case Bytecode::k\#\#Name:                                                  \(\backslash\)}
+\DoxyCodeLine{    code = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_af769fbcc817918f2f2199872fc94e38d}{compiler::turboshaft::BuildWithTurboshaftAssemblerImpl}}(         \(\backslash\)}
+\DoxyCodeLine{        \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{liftoff-compiler_8cc_a01d5e89f3b7e433e5b30ecde7b63c6b2}{builtin}}, \&Name\#\#AssemblerTS\_Generate, descriptor\_builder, \(\backslash\)}
+\DoxyCodeLine{        debug\_name, options, CodeKind::BYTECODE\_HANDLER,                   \(\backslash\)}
+\DoxyCodeLine{        \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a800a397256ba24336175891cf22fa04b}{BytecodeHandlerData}}(\mbox{\hyperlink{builtins_8cc_a59f2d17923fb62a98f88c328a8afe526}{bytecode}}, operand\_scale));                     \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{interpreter-generator_8cc_a205691a24f4d503222a08c894eb3e702}\label{interpreter-generator_8cc_a205691a24f4d503222a08c894eb3e702}} 
+\index{interpreter-\/generator.cc@{interpreter-\/generator.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!interpreter-\/generator.cc@{interpreter-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{lower\+\_\+case }\end{DoxyParamCaption})~  static\+\_\+cast$<$int32\+\_\+t$>$(Test\+Type\+Of\+Flags\+::\+Literal\+Flag\+::k\#\#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}),}
+
+\mbox{\Hypertarget{interpreter-generator_8cc_afde0e2c7429846fc8e4e1649174f8943}\label{interpreter-generator_8cc_afde0e2c7429846fc8e4e1649174f8943}} 
+\index{interpreter-\/generator.cc@{interpreter-\/generator.cc}!DEBUG\_BREAK@{DEBUG\_BREAK}}
+\index{DEBUG\_BREAK@{DEBUG\_BREAK}!interpreter-\/generator.cc@{interpreter-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_BREAK}{DEBUG\_BREAK}}
+{\footnotesize\ttfamily \#define DEBUG\+\_\+\+BREAK(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{interpreter-generator_8cc_abd3fa798fe7cfe644628f341a65c4602}{IGNITION\_HANDLER}}(Name, InterpreterAssembler) \{                             \(\backslash\)}
+\DoxyCodeLine{    TNode<Context> \mbox{\hyperlink{js-call-reducer_8cc_a0835767fe473cead88c1afdf3175bce8}{context}} = GetContext();                                   \(\backslash\)}
+\DoxyCodeLine{    TNode<Object> accumulator = GetAccumulator();                            \(\backslash\)}
+\DoxyCodeLine{    TNode<PairT<Object, Smi>> result\_pair = CallRuntime<PairT<Object, Smi>>( \(\backslash\)}
+\DoxyCodeLine{        Runtime::kDebugBreakOnBytecode, \mbox{\hyperlink{js-call-reducer_8cc_a0835767fe473cead88c1afdf3175bce8}{context}}, accumulator);               \(\backslash\)}
+\DoxyCodeLine{    TNode<Object> return\_value = Projection<0>(result\_pair);                 \(\backslash\)}
+\DoxyCodeLine{    TNode<IntPtrT> original\_bytecode = \mbox{\hyperlink{namespacev8_1_1internal_1_1TorqueRuntimeMacroShims_1_1CodeStubAssembler_acb96b34c2ceba4e634640be458b61f49}{SmiUntag}}(Projection<1>(result\_pair)); \(\backslash\)}
+\DoxyCodeLine{    SetAccumulator(return\_value);                                            \(\backslash\)}
+\DoxyCodeLine{    DispatchToBytecodeWithOptionalStarLookahead(original\_bytecode);          \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{interpreter-generator_8cc_abd3fa798fe7cfe644628f341a65c4602}\label{interpreter-generator_8cc_abd3fa798fe7cfe644628f341a65c4602}} 
+\index{interpreter-\/generator.cc@{interpreter-\/generator.cc}!IGNITION\_HANDLER@{IGNITION\_HANDLER}}
+\index{IGNITION\_HANDLER@{IGNITION\_HANDLER}!interpreter-\/generator.cc@{interpreter-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{IGNITION\_HANDLER}{IGNITION\_HANDLER}}
+{\footnotesize\ttfamily \#define IGNITION\+\_\+\+HANDLER(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{Base\+Assembler }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keyword}{class }Name\#\#Assembler : \textcolor{keyword}{public} BaseAssembler \{                      \(\backslash\)}
+\DoxyCodeLine{   public:                                                            \(\backslash\)}
+\DoxyCodeLine{    explicit Name\#\#Assembler(\mbox{\hyperlink{namespacev8_1_1internal_a16bf83f76dfa2e732178dd0cce339e84}{compiler::CodeAssemblerState}}* \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}},     \(\backslash\)}
+\DoxyCodeLine{                             \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_a11bcbd6d6c1eed58e8536b777ae09e16}{Bytecode}} \mbox{\hyperlink{builtins_8cc_a59f2d17923fb62a98f88c328a8afe526}{bytecode}}, \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_af4cfe621e83bc78f064aa62806795d64}{OperandScale}} \mbox{\hyperlink{builtins_8cc_ab2fa087aa122aad9dd986bff83486a1b}{scale}})   \(\backslash\)}
+\DoxyCodeLine{        : BaseAssembler(\mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}, \mbox{\hyperlink{builtins_8cc_a59f2d17923fb62a98f88c328a8afe526}{bytecode}}, \mbox{\hyperlink{builtins_8cc_ab2fa087aa122aad9dd986bff83486a1b}{scale}}) \{\}                    \(\backslash\)}
+\DoxyCodeLine{    Name\#\#Assembler(\textcolor{keyword}{const} Name\#\#Assembler\&) = \textcolor{keyword}{delete};                 \(\backslash\)}
+\DoxyCodeLine{    Name\#\#Assembler\& operator=(\textcolor{keyword}{const} Name\#\#Assembler\&) = \textcolor{keyword}{delete};      \(\backslash\)}
+\DoxyCodeLine{    static \textcolor{keywordtype}{void} Generate(\mbox{\hyperlink{namespacev8_1_1internal_a16bf83f76dfa2e732178dd0cce339e84}{compiler::CodeAssemblerState}}* \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}},         \(\backslash\)}
+\DoxyCodeLine{                         \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_af4cfe621e83bc78f064aa62806795d64}{OperandScale}} \mbox{\hyperlink{builtins_8cc_ab2fa087aa122aad9dd986bff83486a1b}{scale}});                         \(\backslash\)}
+\DoxyCodeLine{                                                                      \(\backslash\)}
+\DoxyCodeLine{   private:                                                           \(\backslash\)}
+\DoxyCodeLine{    void GenerateImpl();                                              \(\backslash\)}
+\DoxyCodeLine{  \};                                                                  \(\backslash\)}
+\DoxyCodeLine{  void Name\#\#Assembler::Generate(\mbox{\hyperlink{namespacev8_1_1internal_a16bf83f76dfa2e732178dd0cce339e84}{compiler::CodeAssemblerState}}* \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}, \(\backslash\)}
+\DoxyCodeLine{                                 \mbox{\hyperlink{namespacev8_1_1internal_1_1interpreter_af4cfe621e83bc78f064aa62806795d64}{OperandScale}} \mbox{\hyperlink{builtins_8cc_ab2fa087aa122aad9dd986bff83486a1b}{scale}}) \{                \(\backslash\)}
+\DoxyCodeLine{    Name\#\#Assembler \mbox{\hyperlink{graph-builder_8cc_a9e397f4923fb16957ab72033ab7fecac}{assembler}}(\mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}, Bytecode::k\#\#Name, \mbox{\hyperlink{builtins_8cc_ab2fa087aa122aad9dd986bff83486a1b}{scale}});       \(\backslash\)}
+\DoxyCodeLine{    state-\/>SetInitialDebugInformation(\#Name, \_\_FILE\_\_, \_\_LINE\_\_);     \(\backslash\)}
+\DoxyCodeLine{    assembler.GenerateImpl();                                         \(\backslash\)}
+\DoxyCodeLine{  \}                                                                   \(\backslash\)}
+\DoxyCodeLine{  void Name\#\#Assembler::GenerateImpl()}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{interpreter-generator_8cc_a08f132b1bc208dd6e58b011d571f5766}\label{interpreter-generator_8cc_a08f132b1bc208dd6e58b011d571f5766}} 
+\index{interpreter-\/generator.cc@{interpreter-\/generator.cc}!LABEL\_POINTER@{LABEL\_POINTER}}
+\index{LABEL\_POINTER@{LABEL\_POINTER}!interpreter-\/generator.cc@{interpreter-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{LABEL\_POINTER}{LABEL\_POINTER}}
+{\footnotesize\ttfamily \#define LABEL\+\_\+\+POINTER(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{lower\+\_\+case }\end{DoxyParamCaption})~\&if\+\_\+\#\#lower\+\_\+case,}
+
+\mbox{\Hypertarget{interpreter-generator_8cc_ae15f47eedc0dd2720a6b3261b2087abc}\label{interpreter-generator_8cc_ae15f47eedc0dd2720a6b3261b2087abc}} 
+\index{interpreter-\/generator.cc@{interpreter-\/generator.cc}!MAKE\_LABEL@{MAKE\_LABEL}}
+\index{MAKE\_LABEL@{MAKE\_LABEL}!interpreter-\/generator.cc@{interpreter-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{MAKE\_LABEL}{MAKE\_LABEL}}
+{\footnotesize\ttfamily \#define MAKE\+\_\+\+LABEL(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{lower\+\_\+case }\end{DoxyParamCaption})~Label if\+\_\+\#\#lower\+\_\+case(this);}
+

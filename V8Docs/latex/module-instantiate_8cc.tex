@@ -1,0 +1,128 @@
+\hypertarget{module-instantiate_8cc}{}\doxysection{module-\/instantiate.cc File Reference}
+\label{module-instantiate_8cc}\index{module-\/instantiate.cc@{module-\/instantiate.cc}}
+{\ttfamily \#include \char`\"{}src/wasm/module-\/instantiate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/asmjs/asm-\/js.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/atomicops.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/wasm-\/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/counters-\/scopes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/metrics.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/numbers/conversions-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/descriptor-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/descriptor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/torque-\/defined-\/classes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/sandbox/trusted-\/pointer-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/tracing/trace-\/event.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/code-\/space-\/access.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/compilation-\/environment-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/constant-\/expression-\/interface.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/module-\/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/module-\/decoder-\/impl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/pgo.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/code-\/pointer-\/table-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/constants.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/engine.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/external-\/refs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/import-\/wrapper-\/cache.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/module.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/opcodes-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/wasm/wasm-\/subtyping.\+h\char`\"{}}\newline
+Include dependency graph for module-\/instantiate.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{module-instantiate_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1JSPrototypesSetup}{v8\+::internal\+::wasm\+::\+JSPrototypes\+Setup}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1wasm_1_1InstanceBuilder}{v8\+::internal\+::wasm\+::\+Instance\+Builder}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm}{v8\+::internal\+::wasm}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{module-instantiate_8cc_a5f6aa8edcd99914757600b5d3b259bb7}{TRACE}}(...)
+\item 
+\#define \mbox{\hyperlink{module-instantiate_8cc_a4d7a6d34cc81652d5ca06faa67bcbd5c}{COMPARE\+\_\+\+MATH\+\_\+\+BUILTIN\+\_\+\+F64}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\item 
+\#define \mbox{\hyperlink{module-instantiate_8cc_a5088bf595484665f24d55502e1488721}{CASE}}(Camel\+Name,  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  \mbox{\hyperlink{random-module-generation_8cc_aebb70c2aab3407a9f05334c47131a43b}{length}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_ab82c3bde4946aa7c46eb207fd485dddc}{v8\+::internal\+::wasm\+::\+Create\+Map\+For\+Type}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, const Wasm\+Module $\ast$module, Module\+Type\+Index type\+\_\+index, Direct\+Handle$<$ Fixed\+Array $>$ maybe\+\_\+shared\+\_\+maps)
+\item 
+Maybe\+Direct\+Handle$<$ Wasm\+Instance\+Object $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a77c18a9b2eea67b5275dae58c7a9efa1}{v8\+::internal\+::wasm\+::\+Instantiate\+To\+Instance\+Object}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Error\+Thrower $\ast$thrower, Direct\+Handle$<$ Wasm\+Module\+Object $>$ module\+\_\+object, Maybe\+Direct\+Handle$<$ JSReceiver $>$ imports, Maybe\+Direct\+Handle$<$ JSArray\+Buffer $>$ memory\+\_\+buffer)
+\item 
+std\+::tuple$<$ const char $\ast$, Builtin, int $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a150bb2e650986b237415ffa265444fd4}{v8\+::internal\+::wasm\+::\+Name\+Builtin\+Length}} (Well\+Known\+Import wki)
+\item 
+Direct\+Handle$<$ JSFunction $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_ab965d861f0864392f3486cef73e42103}{v8\+::internal\+::wasm\+::\+Create\+Function\+For\+Compile\+Time\+Import}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Well\+Known\+Import wki)
+\item 
+std\+::optional$<$ Message\+Template $>$ \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a44100d6c17be0db51b00a9f4fdb9d678}{v8\+::internal\+::wasm\+::\+Initialize\+Element\+Segment}} (Zone $\ast$zone, Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Direct\+Handle$<$ Wasm\+Trusted\+Instance\+Data $>$ trusted\+\_\+instance\+\_\+data, Direct\+Handle$<$ Wasm\+Trusted\+Instance\+Data $>$ shared\+\_\+trusted\+\_\+instance\+\_\+data, uint32\+\_\+t segment\+\_\+index)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{module-instantiate_8cc_a5088bf595484665f24d55502e1488721}\label{module-instantiate_8cc_a5088bf595484665f24d55502e1488721}} 
+\index{module-\/instantiate.cc@{module-\/instantiate.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!module-\/instantiate.cc@{module-\/instantiate.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{Camel\+Name,  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_aebb70c2aab3407a9f05334c47131a43b}{length}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} WellKnownImport::kString\#\#CamelName: \(\backslash\)}
+\DoxyCodeLine{    return std::make\_tuple(\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}, Builtin::kWebAssemblyString\#\#CamelName, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{module-instantiate_8cc_a4d7a6d34cc81652d5ca06faa67bcbd5c}\label{module-instantiate_8cc_a4d7a6d34cc81652d5ca06faa67bcbd5c}} 
+\index{module-\/instantiate.cc@{module-\/instantiate.cc}!COMPARE\_MATH\_BUILTIN\_F64@{COMPARE\_MATH\_BUILTIN\_F64}}
+\index{COMPARE\_MATH\_BUILTIN\_F64@{COMPARE\_MATH\_BUILTIN\_F64}!module-\/instantiate.cc@{module-\/instantiate.cc}}
+\doxysubsubsection{\texorpdfstring{COMPARE\_MATH\_BUILTIN\_F64}{COMPARE\_MATH\_BUILTIN\_F64}}
+{\footnotesize\ttfamily \#define COMPARE\+\_\+\+MATH\+\_\+\+BUILTIN\+\_\+\+F64(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} Builtin::kMath\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}: \{                                               \(\backslash\)}
+\DoxyCodeLine{    if (!\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.wasm\_math\_intrinsics) \mbox{\hyperlink{namespacev8_1_1internal_ae748f0c2ae0d2f1c64049bd7b30abca4}{return}} kGeneric;                     \(\backslash\)}
+\DoxyCodeLine{    const \mbox{\hyperlink{namespacev8_1_1internal_1_1wasm_a1a17c60bc1e8b8ad11208d7b0d3ec5a9}{FunctionSig}}* builtin\_sig = WasmOpcodes::Signature(kExprF64\textcolor{preprocessor}{\#\#name); \(\backslash\)}}
+\DoxyCodeLine{\textcolor{preprocessor}{    if (!builtin\_sig) \{                                                      \(\backslash\)}}
+\DoxyCodeLine{\textcolor{preprocessor}{      builtin\_sig = WasmOpcodes::AsmjsSignature(kExprF64\#\#name);             \(\backslash\)}}
+\DoxyCodeLine{\textcolor{preprocessor}{    \}                                                                        \(\backslash\)}}
+\DoxyCodeLine{\textcolor{preprocessor}{    DCHECK\_NOT\_NULL(builtin\_sig);                                            \(\backslash\)}}
+\DoxyCodeLine{\textcolor{preprocessor}{    if (EquivalentNumericSig(sig, builtin\_sig)) \{                            \(\backslash\)}}
+\DoxyCodeLine{\textcolor{preprocessor}{      return WellKnownImport::kMathF64\#\#name;                                \(\backslash\)}}
+\DoxyCodeLine{\textcolor{preprocessor}{    \}                                                                        \(\backslash\)}}
+\DoxyCodeLine{\textcolor{preprocessor}{    break;                                                                   \(\backslash\)}}
+\DoxyCodeLine{\textcolor{preprocessor}{  \}}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{module-instantiate_8cc_a5f6aa8edcd99914757600b5d3b259bb7}\label{module-instantiate_8cc_a5f6aa8edcd99914757600b5d3b259bb7}} 
+\index{module-\/instantiate.cc@{module-\/instantiate.cc}!TRACE@{TRACE}}
+\index{TRACE@{TRACE}!module-\/instantiate.cc@{module-\/instantiate.cc}}
+\doxysubsubsection{\texorpdfstring{TRACE}{TRACE}}
+{\footnotesize\ttfamily \#define TRACE(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                      \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_aa9db791c05a0359859a321dcfec42e37}{v8\_flags}}.trace\_wasm\_instances) \mbox{\hyperlink{namespacev8_1_1internal_a3430752cde9f29d73e97ceed1bce0856}{PrintF}}(\_\_VA\_ARGS\_\_); \(\backslash\)}
+\DoxyCodeLine{  \} while (\mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}})}
+
+\end{DoxyCode}

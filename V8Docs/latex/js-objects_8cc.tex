@@ -1,0 +1,158 @@
+\hypertarget{js-objects_8cc}{}\doxysection{js-\/objects.cc File Reference}
+\label{js-objects_8cc}\index{js-\/objects.cc@{js-\/objects.cc}}
+{\ttfamily \#include \char`\"{}src/objects/js-\/objects.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/arguments-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/natives.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/assert-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/date/date.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/arguments.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/frames.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate-\/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/handles-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/maybe-\/handles.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/factory-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/layout-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/mutable-\/page-\/metadata.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/pretenuring-\/handler-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/init/bootstrapper.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/counters.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/log.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/allocation-\/site-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/api-\/callbacks.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/arguments-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/dictionary.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/elements.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/field-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/fixed-\/array.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/number.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/buffer-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/atomics-\/synchronization.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/collection.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/disposable-\/stack.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/generator-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/iterator-\/helpers-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/promise.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/raw-\/json-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/regexp-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/regexp-\/string-\/iterator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/shadow-\/realm.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/shared-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/struct-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/weak-\/refs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/lookup.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/map-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/map-\/updater.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/module.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects-\/body-\/descriptors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/oddball.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/cell.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/descriptor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/prototype-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/prototype.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/shared-\/function-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/swiss-\/name-\/dictionary-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/tagged.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/transitions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/string-\/builder-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/string-\/stream.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/ostreams.\+h\char`\"{}}\newline
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{js-objects_8cc_a3d04a3769745c0308bdbe18bdd47cd52}{SWITCH\+\_\+\+KIND}}(Type,  \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  TYPE,  ctype)
+\item 
+\#define \mbox{\hyperlink{js-objects_8cc_ab66184c8f9263fc770f5342f9ade227c}{WRITE\+\_\+\+TYPE}}(TYPE)
+\item 
+\#define \mbox{\hyperlink{js-objects_8cc_a16800098b009c6e5e234de0f3f0374d1}{TYPED\+\_\+\+ARRAY\+\_\+\+CONSTRUCTORS\+\_\+\+SWITCH}}(Type,  \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  TYPE,  Ctype)~  case TYPE\#\#\+\_\+\+TYPED\+\_\+\+ARRAY\+\_\+\+CONSTRUCTOR\+\_\+\+TYPE\+:
+\item 
+\#define \mbox{\hyperlink{js-objects_8cc_a16800098b009c6e5e234de0f3f0374d1}{TYPED\+\_\+\+ARRAY\+\_\+\+CONSTRUCTORS\+\_\+\+SWITCH}}(Type,  \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  TYPE,  Ctype)~  case TYPE\#\#\+\_\+\+TYPED\+\_\+\+ARRAY\+\_\+\+CONSTRUCTOR\+\_\+\+TYPE\+:
+\item 
+\#define \mbox{\hyperlink{js-objects_8cc_a572dd685ddbfe9f50630f494b10dc032}{TYPED\+\_\+\+ARRAY\+\_\+\+CASE}}(Type,  \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  TYPE,  ctype)~case TYPE\#\#\+\_\+\+ELEMENTS\+:
+\item 
+\#define \mbox{\hyperlink{js-objects_8cc_a572dd685ddbfe9f50630f494b10dc032}{TYPED\+\_\+\+ARRAY\+\_\+\+CASE}}(Type,  \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  TYPE,  ctype)~case TYPE\#\#\+\_\+\+ELEMENTS\+:
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$template$<$ typename $>$ typename Handle\+Type$>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_a441dfd910705675bb47423c644abadef}{v8\+::internal\+::requires}} (std\+::is\+\_\+convertible\+\_\+v$<$ Handle\+Type$<$ JSReceiver $>$, Direct\+Handle$<$ JSReceiver $>$$>$) typename Handle\+Type$<$ Object $>$
+\item 
+{\footnotesize template$<$template$<$ typename $>$ typename Handle\+Type$>$ }\\\mbox{\hyperlink{namespacev8_1_1internal_a85217d46a04bc981f759171149c68f49}{v8\+::internal\+::requires}} (std\+::is\+\_\+convertible\+\_\+v$<$ Handle\+Type$<$ Object $>$, Direct\+Handle$<$ Object $>$$>$) typename Handle\+Type$<$ Big\+Int $>$
+\item 
+\mbox{\hyperlink{v8config_8h_a63258e4bf5dc9fb8c78f881c8405d83b}{V8\+\_\+\+WARN\+\_\+\+UNUSED\+\_\+\+RESULT}} Maybe$<$ bool $>$ \mbox{\hyperlink{namespacev8_1_1internal_acc74309515f9a41a10d803941a736778}{v8\+::internal\+::\+Fast\+Get\+Own\+Values\+Or\+Entries}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Direct\+Handle$<$ JSReceiver $>$ \mbox{\hyperlink{execution_8cc_a18313b5eb568705d3ea987e8acdc1015}{receiver}}, bool get\+\_\+entries, Handle$<$ Fixed\+Array $>$ $\ast$\mbox{\hyperlink{jump-threading_8cc_a41f8c58d2c01bf65b8ee199c3f87fc80}{result}})
+\item 
+Maybe\+Direct\+Handle$<$ Fixed\+Array $>$ \mbox{\hyperlink{namespacev8_1_1internal_a5f7923374311ed413ce23743ef6afcc8}{v8\+::internal\+::\+Get\+Own\+Values\+Or\+Entries}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Direct\+Handle$<$ JSReceiver $>$ object, Property\+Filter filter, bool try\+\_\+fast\+\_\+path, bool get\+\_\+entries)
+\item 
+Direct\+Handle$<$ Number\+Dictionary $>$ \mbox{\hyperlink{namespacev8_1_1internal_ad451c55319b47da2d97aa0c3b4147efa}{v8\+::internal\+::\+Create\+Element\+Dictionary}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Direct\+Handle$<$ JSObject $>$ object)
+\item 
+template bool \mbox{\hyperlink{namespacev8_1_1internal_a10fffe6781315aa82b97a4fccf4ce7ce}{v8\+::internal\+::\+JSObject\+::\+Update\+Allocation\+Site$<$ Allocation\+Site\+Update\+Mode\+::k\+Check\+Only $>$}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Direct\+Handle$<$ JSObject $>$ object, Elements\+Kind to\+\_\+kind)
+\item 
+template bool \mbox{\hyperlink{namespacev8_1_1internal_a6b22c11224831eb869e477491b32e812}{v8\+::internal\+::\+JSObject\+::\+Update\+Allocation\+Site$<$ Allocation\+Site\+Update\+Mode\+::k\+Update $>$}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Direct\+Handle$<$ JSObject $>$ object, Elements\+Kind to\+\_\+kind)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{js-objects_8cc_a3d04a3769745c0308bdbe18bdd47cd52}\label{js-objects_8cc_a3d04a3769745c0308bdbe18bdd47cd52}} 
+\index{js-\/objects.cc@{js-\/objects.cc}!SWITCH\_KIND@{SWITCH\_KIND}}
+\index{SWITCH\_KIND@{SWITCH\_KIND}!js-\/objects.cc@{js-\/objects.cc}}
+\doxysubsubsection{\texorpdfstring{SWITCH\_KIND}{SWITCH\_KIND}}
+{\footnotesize\ttfamily \#define SWITCH\+\_\+\+KIND(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  }\item[{}]{TYPE,  }\item[{}]{ctype }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (\mbox{\hyperlink{js-date-time-format_8cc_a29697a8ff4746383afd187e6b05eac0b}{map}}()-\/>elements\_kind() == TYPE\#\#\_ELEMENTS) \{ \(\backslash\)}
+\DoxyCodeLine{    return roots.Type\#\#Array\_string();             \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{js-objects_8cc_a572dd685ddbfe9f50630f494b10dc032}\label{js-objects_8cc_a572dd685ddbfe9f50630f494b10dc032}} 
+\index{js-\/objects.cc@{js-\/objects.cc}!TYPED\_ARRAY\_CASE@{TYPED\_ARRAY\_CASE}}
+\index{TYPED\_ARRAY\_CASE@{TYPED\_ARRAY\_CASE}!js-\/objects.cc@{js-\/objects.cc}}
+\doxysubsubsection{\texorpdfstring{TYPED\_ARRAY\_CASE}{TYPED\_ARRAY\_CASE}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+ARRAY\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  }\item[{}]{TYPE,  }\item[{}]{ctype }\end{DoxyParamCaption})~case TYPE\#\#\+\_\+\+ELEMENTS\+:}
+
+\mbox{\Hypertarget{js-objects_8cc_a572dd685ddbfe9f50630f494b10dc032}\label{js-objects_8cc_a572dd685ddbfe9f50630f494b10dc032}} 
+\index{js-\/objects.cc@{js-\/objects.cc}!TYPED\_ARRAY\_CASE@{TYPED\_ARRAY\_CASE}}
+\index{TYPED\_ARRAY\_CASE@{TYPED\_ARRAY\_CASE}!js-\/objects.cc@{js-\/objects.cc}}
+\doxysubsubsection{\texorpdfstring{TYPED\_ARRAY\_CASE}{TYPED\_ARRAY\_CASE}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+ARRAY\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  }\item[{}]{TYPE,  }\item[{}]{ctype }\end{DoxyParamCaption})~case TYPE\#\#\+\_\+\+ELEMENTS\+:}
+
+\mbox{\Hypertarget{js-objects_8cc_a16800098b009c6e5e234de0f3f0374d1}\label{js-objects_8cc_a16800098b009c6e5e234de0f3f0374d1}} 
+\index{js-\/objects.cc@{js-\/objects.cc}!TYPED\_ARRAY\_CONSTRUCTORS\_SWITCH@{TYPED\_ARRAY\_CONSTRUCTORS\_SWITCH}}
+\index{TYPED\_ARRAY\_CONSTRUCTORS\_SWITCH@{TYPED\_ARRAY\_CONSTRUCTORS\_SWITCH}!js-\/objects.cc@{js-\/objects.cc}}
+\doxysubsubsection{\texorpdfstring{TYPED\_ARRAY\_CONSTRUCTORS\_SWITCH}{TYPED\_ARRAY\_CONSTRUCTORS\_SWITCH}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+ARRAY\+\_\+\+CONSTRUCTORS\+\_\+\+SWITCH(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  }\item[{}]{TYPE,  }\item[{}]{Ctype }\end{DoxyParamCaption})~  case TYPE\#\#\+\_\+\+TYPED\+\_\+\+ARRAY\+\_\+\+CONSTRUCTOR\+\_\+\+TYPE\+:}
+
+\mbox{\Hypertarget{js-objects_8cc_a16800098b009c6e5e234de0f3f0374d1}\label{js-objects_8cc_a16800098b009c6e5e234de0f3f0374d1}} 
+\index{js-\/objects.cc@{js-\/objects.cc}!TYPED\_ARRAY\_CONSTRUCTORS\_SWITCH@{TYPED\_ARRAY\_CONSTRUCTORS\_SWITCH}}
+\index{TYPED\_ARRAY\_CONSTRUCTORS\_SWITCH@{TYPED\_ARRAY\_CONSTRUCTORS\_SWITCH}!js-\/objects.cc@{js-\/objects.cc}}
+\doxysubsubsection{\texorpdfstring{TYPED\_ARRAY\_CONSTRUCTORS\_SWITCH}{TYPED\_ARRAY\_CONSTRUCTORS\_SWITCH}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+ARRAY\+\_\+\+CONSTRUCTORS\+\_\+\+SWITCH(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  }\item[{}]{TYPE,  }\item[{}]{Ctype }\end{DoxyParamCaption})~  case TYPE\#\#\+\_\+\+TYPED\+\_\+\+ARRAY\+\_\+\+CONSTRUCTOR\+\_\+\+TYPE\+:}
+
+\mbox{\Hypertarget{js-objects_8cc_ab66184c8f9263fc770f5342f9ade227c}\label{js-objects_8cc_ab66184c8f9263fc770f5342f9ade227c}} 
+\index{js-\/objects.cc@{js-\/objects.cc}!WRITE\_TYPE@{WRITE\_TYPE}}
+\index{WRITE\_TYPE@{WRITE\_TYPE}!js-\/objects.cc@{js-\/objects.cc}}
+\doxysubsubsection{\texorpdfstring{WRITE\_TYPE}{WRITE\_TYPE}}
+{\footnotesize\ttfamily \#define WRITE\+\_\+\+TYPE(\begin{DoxyParamCaption}\item[{}]{TYPE }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} TYPE:             \(\backslash\)}
+\DoxyCodeLine{    return \#TYPE;}
+
+\end{DoxyCode}

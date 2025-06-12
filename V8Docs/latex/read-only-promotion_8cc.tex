@@ -1,0 +1,109 @@
+\hypertarget{read-only-promotion_8cc}{}\doxysection{read-\/only-\/promotion.cc File Reference}
+\label{read-only-promotion_8cc}\index{read-\/only-\/promotion.cc@{read-\/only-\/promotion.cc}}
+{\ttfamily \#include \char`\"{}src/heap/read-\/only-\/promotion.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$unordered\+\_\+set$>$}\newline
+{\ttfamily \#include \char`\"{}src/codegen/external-\/reference-\/encoder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/assert-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/layout-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/read-\/only-\/spaces.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/visit-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/object-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/sandbox/external-\/pointer-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/ostreams.\+h\char`\"{}}\newline
+Include dependency graph for read-\/only-\/promotion.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{read-only-promotion_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{read-only-promotion_8cc_afa6852c766df35906b6be5541d8b24b7}{PROMO\+\_\+\+CANDIDATE\+\_\+\+TYPE\+\_\+\+LIST}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{read-only-promotion_8cc_a3817b0302eef526b3ae851a62eb2cbc7}{V}}(TYPE)
+\item 
+\#define \mbox{\hyperlink{read-only-promotion_8cc_a3eabb841457006c31ef744cf27c3d288}{DEF\+\_\+\+PROMO\+\_\+\+CANDIDATE}}(Type)
+\item 
+\#define \mbox{\hyperlink{read-only-promotion_8cc_aceba6c54f262745230e629f76dbb3cff}{DEF\+\_\+\+MATCH\+\_\+\+HOST\+\_\+\+CANDIDATE}}(Type)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{read-only-promotion_8cc_aceba6c54f262745230e629f76dbb3cff}\label{read-only-promotion_8cc_aceba6c54f262745230e629f76dbb3cff}} 
+\index{read-\/only-\/promotion.cc@{read-\/only-\/promotion.cc}!DEF\_MATCH\_HOST\_CANDIDATE@{DEF\_MATCH\_HOST\_CANDIDATE}}
+\index{DEF\_MATCH\_HOST\_CANDIDATE@{DEF\_MATCH\_HOST\_CANDIDATE}!read-\/only-\/promotion.cc@{read-\/only-\/promotion.cc}}
+\doxysubsubsection{\texorpdfstring{DEF\_MATCH\_HOST\_CANDIDATE}{DEF\_MATCH\_HOST\_CANDIDATE}}
+{\footnotesize\ttfamily \#define DEF\+\_\+\+MATCH\+\_\+\+HOST\+\_\+\+CANDIDATE(\begin{DoxyParamCaption}\item[{}]{Type }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keyword}{static} PromoRecommendation GetPromoRecommendation\#\#Type(      \(\backslash\)}
+\DoxyCodeLine{      Committee* committee, Isolate* \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Tagged<Type> o) \{ \(\backslash\)}
+\DoxyCodeLine{    return kMatchHost;                                          \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{read-only-promotion_8cc_a3eabb841457006c31ef744cf27c3d288}\label{read-only-promotion_8cc_a3eabb841457006c31ef744cf27c3d288}} 
+\index{read-\/only-\/promotion.cc@{read-\/only-\/promotion.cc}!DEF\_PROMO\_CANDIDATE@{DEF\_PROMO\_CANDIDATE}}
+\index{DEF\_PROMO\_CANDIDATE@{DEF\_PROMO\_CANDIDATE}!read-\/only-\/promotion.cc@{read-\/only-\/promotion.cc}}
+\doxysubsubsection{\texorpdfstring{DEF\_PROMO\_CANDIDATE}{DEF\_PROMO\_CANDIDATE}}
+{\footnotesize\ttfamily \#define DEF\+\_\+\+PROMO\+\_\+\+CANDIDATE(\begin{DoxyParamCaption}\item[{}]{Type }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keyword}{static} PromoRecommendation GetPromoRecommendation\#\#Type(      \(\backslash\)}
+\DoxyCodeLine{      Committee* committee, Isolate* \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Tagged<Type> o) \{ \(\backslash\)}
+\DoxyCodeLine{    return kPromote;                                            \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{read-only-promotion_8cc_afa6852c766df35906b6be5541d8b24b7}\label{read-only-promotion_8cc_afa6852c766df35906b6be5541d8b24b7}} 
+\index{read-\/only-\/promotion.cc@{read-\/only-\/promotion.cc}!PROMO\_CANDIDATE\_TYPE\_LIST@{PROMO\_CANDIDATE\_TYPE\_LIST}}
+\index{PROMO\_CANDIDATE\_TYPE\_LIST@{PROMO\_CANDIDATE\_TYPE\_LIST}!read-\/only-\/promotion.cc@{read-\/only-\/promotion.cc}}
+\doxysubsubsection{\texorpdfstring{PROMO\_CANDIDATE\_TYPE\_LIST}{PROMO\_CANDIDATE\_TYPE\_LIST}}
+{\footnotesize\ttfamily \#define PROMO\+\_\+\+CANDIDATE\+\_\+\+TYPE\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{read-only-promotion_8cc_a3817b0302eef526b3ae851a62eb2cbc7}{V}}(\mbox{\hyperlink{namespacev8_1_1internal_a5ef2db9cf5da555b67b6ca254db79213}{AccessCheckInfo}})                 \(\backslash\)}
+\DoxyCodeLine{  V(AccessorInfo)                    \(\backslash\)}
+\DoxyCodeLine{  V(ArrayList)                       \(\backslash\)}
+\DoxyCodeLine{  V(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a9536733bcd8fbb4643211b2a1d38dd86}{Code}})                            \(\backslash\)}
+\DoxyCodeLine{  V(CodeWrapper)                     \(\backslash\)}
+\DoxyCodeLine{  V(JSExternalObject)                \(\backslash\)}
+\DoxyCodeLine{  V(ObjectTemplateInfo)              \(\backslash\)}
+\DoxyCodeLine{  V(FunctionTemplateInfo)            \(\backslash\)}
+\DoxyCodeLine{  V(FunctionTemplateRareData)        \(\backslash\)}
+\DoxyCodeLine{  V(InterceptorInfo)                 \(\backslash\)}
+\DoxyCodeLine{  V(ScopeInfo)                       \(\backslash\)}
+\DoxyCodeLine{  V(SharedFunctionInfo)              \(\backslash\)}
+\DoxyCodeLine{  V(Symbol)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{read-only-promotion_8cc_a3817b0302eef526b3ae851a62eb2cbc7}\label{read-only-promotion_8cc_a3817b0302eef526b3ae851a62eb2cbc7}} 
+\index{read-\/only-\/promotion.cc@{read-\/only-\/promotion.cc}!V@{V}}
+\index{V@{V}!read-\/only-\/promotion.cc@{read-\/only-\/promotion.cc}}
+\doxysubsubsection{\texorpdfstring{V}{V}}
+{\footnotesize\ttfamily \#define V(\begin{DoxyParamCaption}\item[{}]{TYPE }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_a2d7df811163e1b32e949af92992e5c1b}{InstanceTypeChecker::Is}}\#\#TYPE(itype)) \{                               \(\backslash\)}
+\DoxyCodeLine{    return GetPromoRecommendation\#\#TYPE(committee, \mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Cast<TYPE>(o)); \(\backslash\)}
+\DoxyCodeLine{    \textcolor{comment}{/* NOLINTNEXTLINE(readability/braces) */}                                \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{else}}
+
+\end{DoxyCode}

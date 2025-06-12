@@ -1,0 +1,91 @@
+\hypertarget{prefinalizer_8h}{}\doxysection{prefinalizer.\+h File Reference}
+\label{prefinalizer_8h}\index{prefinalizer.h@{prefinalizer.h}}
+{\ttfamily \#include \char`\"{}cppgc/internal/compiler-\/specific.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}cppgc/liveness-\/broker.\+h\char`\"{}}\newline
+Include dependency graph for prefinalizer.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{prefinalizer_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{prefinalizer_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classcppgc_1_1internal_1_1PrefinalizerRegistration}{cppgc\+::internal\+::\+Prefinalizer\+Registration}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacecppgc}{cppgc}}
+\item 
+ \mbox{\hyperlink{namespacecppgc_1_1internal}{cppgc\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{prefinalizer_8h_a8fe2d393e69a1d54655d237b843d7598}{CPPGC\+\_\+\+USING\+\_\+\+PRE\+\_\+\+FINALIZER}}(Class,  Pre\+Finalizer)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{prefinalizer_8h_a8fe2d393e69a1d54655d237b843d7598}\label{prefinalizer_8h_a8fe2d393e69a1d54655d237b843d7598}} 
+\index{prefinalizer.h@{prefinalizer.h}!CPPGC\_USING\_PRE\_FINALIZER@{CPPGC\_USING\_PRE\_FINALIZER}}
+\index{CPPGC\_USING\_PRE\_FINALIZER@{CPPGC\_USING\_PRE\_FINALIZER}!prefinalizer.h@{prefinalizer.h}}
+\doxysubsubsection{\texorpdfstring{CPPGC\_USING\_PRE\_FINALIZER}{CPPGC\_USING\_PRE\_FINALIZER}}
+{\footnotesize\ttfamily \#define CPPGC\+\_\+\+USING\+\_\+\+PRE\+\_\+\+FINALIZER(\begin{DoxyParamCaption}\item[{}]{Class,  }\item[{}]{Pre\+Finalizer }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ \textcolor{keyword}{public}:                                                                       \(\backslash\)}
+\DoxyCodeLine{  static \textcolor{keywordtype}{bool} InvokePreFinalizer(\textcolor{keyword}{const} \mbox{\hyperlink{classcppgc_1_1LivenessBroker}{cppgc::LivenessBroker}}\& liveness\_broker, \(\backslash\)}
+\DoxyCodeLine{                                 \textcolor{keywordtype}{void}* \textcolor{keywordtype}{object}) \{                               \(\backslash\)}
+\DoxyCodeLine{    static\_assert(cppgc::IsGarbageCollectedOrMixinTypeV<Class>,                \(\backslash\)}
+\DoxyCodeLine{                  \textcolor{stringliteral}{"{}Only garbage collected objects can have prefinalizers"{}});    \(\backslash\)}
+\DoxyCodeLine{    Class* \textcolor{keyword}{self} = \textcolor{keyword}{static\_cast<}Class*\textcolor{keyword}{>}(object);                                 \(\backslash\)}
+\DoxyCodeLine{    if (liveness\_broker.\mbox{\hyperlink{classcppgc_1_1LivenessBroker_a064ad71393837112d380a15b26d4b166}{IsHeapObjectAlive}}(\textcolor{keyword}{self})) \mbox{\hyperlink{namespacev8_1_1internal_ae748f0c2ae0d2f1c64049bd7b30abca4}{return}} \mbox{\hyperlink{flag-definitions_8h_a3a9beadc89284d3f78a7d4945b1b4d8c}{false}};                 \(\backslash\)}
+\DoxyCodeLine{    self-\/>PreFinalizer();                                                      \(\backslash\)}
+\DoxyCodeLine{    \mbox{\hyperlink{namespacev8_1_1internal_ae748f0c2ae0d2f1c64049bd7b30abca4}{return}} \mbox{\hyperlink{flag-definitions_8h_ae56df915684f69fc6f5c0f3bd3b3c80c}{true}};                                                               \(\backslash\)}
+\DoxyCodeLine{  \}                                                                            \(\backslash\)}
+\DoxyCodeLine{                                                                               \(\backslash\)}
+\DoxyCodeLine{ private:                                                                      \(\backslash\)}
+\DoxyCodeLine{  \mbox{\hyperlink{include_2cppgc_2internal_2compiler-specific_8h_a6b91022773b130839988ab7ad2df6957}{CPPGC\_NO\_UNIQUE\_ADDRESS}} \mbox{\hyperlink{namespacecppgc}{cppgc}}::\mbox{\hyperlink{namespacev8_1_1internal_a5031451934208565c827c86d9eb86c5a}{internal}}::PrefinalizerRegistration            \(\backslash\)}
+\DoxyCodeLine{      prefinalizer\_dummy\_\{\textcolor{keyword}{this}, Class::InvokePreFinalizer\};                    \(\backslash\)}
+\DoxyCodeLine{  static\_assert(\textcolor{keyword}{true}, \textcolor{stringliteral}{"{}Force semicolon."{}})}
+
+\end{DoxyCode}
+Macro must be used in the private section of {\ttfamily Class} and registers a prefinalization callback {\ttfamily void Class\+::\+Pre\+Finalizer()}. The callback is invoked on garbage collection after the collector has found an object to be dead.
+
+Callback properties\+:
+\begin{DoxyItemize}
+\item The callback is invoked before a possible destructor for the corresponding object.
+\item The callback may access the whole object graph, irrespective of whether objects are considered dead or alive.
+\item The callback is invoked on the same thread as the object was created on.
+\end{DoxyItemize}
+
+Example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class }WithPrefinalizer : \textcolor{keyword}{public} GarbageCollected<WithPrefinalizer> \{}
+\DoxyCodeLine{  \mbox{\hyperlink{prefinalizer_8h_a8fe2d393e69a1d54655d237b843d7598}{CPPGC\_USING\_PRE\_FINALIZER}}(WithPrefinalizer, Dispose);}
+\DoxyCodeLine{}
+\DoxyCodeLine{ \textcolor{keyword}{public}:}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} Trace(Visitor*)\textcolor{keyword}{ const }\{\}}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} Dispose() \{ prefinalizer\_called = \textcolor{keyword}{true}; \}}
+\DoxyCodeLine{  \string~WithPrefinalizer() \{}
+\DoxyCodeLine{    \textcolor{comment}{// prefinalizer\_called == true}}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{ \textcolor{keyword}{private}:}
+\DoxyCodeLine{  \textcolor{keywordtype}{bool} prefinalizer\_called = \textcolor{keyword}{false};}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+ 

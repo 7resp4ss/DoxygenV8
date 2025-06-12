@@ -1,0 +1,84 @@
+\hypertarget{classcppgc_1_1LivenessBroker}{}\doxysection{cppgc\+::Liveness\+Broker Class Reference}
+\label{classcppgc_1_1LivenessBroker}\index{cppgc::LivenessBroker@{cppgc::LivenessBroker}}
+
+
+{\ttfamily \#include $<$liveness-\/broker.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\bool \mbox{\hyperlink{classcppgc_1_1LivenessBroker_a064ad71393837112d380a15b26d4b166}{Is\+Heap\+Object\+Alive}} (const \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $\ast$object) const
+\item 
+{\footnotesize template$<$typename T $>$ }\\bool \mbox{\hyperlink{classcppgc_1_1LivenessBroker_a6d6b9f3609e18ef58d5caf93a3f3f95f}{Is\+Heap\+Object\+Alive}} (const \mbox{\hyperlink{namespacecppgc_a3ddd7a241f51479efe00f76be3125c81}{Weak\+Member}}$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$ \&weak\+\_\+member) const
+\item 
+{\footnotesize template$<$typename T $>$ }\\bool \mbox{\hyperlink{classcppgc_1_1LivenessBroker_aee6371e43c399799c9ed0f3b84674cfa}{Is\+Heap\+Object\+Alive}} (const \mbox{\hyperlink{namespacecppgc_a6ee8e8453589f23ed3b8c84c45068d73}{Untraced\+Member}}$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$ \&untraced\+\_\+member) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classcppgc_1_1LivenessBroker_a38540d304bebe5adec503d8fff904453}{internal\+::\+Liveness\+Broker\+Factory}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The broker is passed to weak callbacks to allow (temporarily) querying the liveness state of an object. References to non-\/live objects must be cleared when {\ttfamily \mbox{\hyperlink{classcppgc_1_1LivenessBroker_a064ad71393837112d380a15b26d4b166}{Is\+Heap\+Object\+Alive()}}} returns false.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class }GCedWithCustomWeakCallback final}
+\DoxyCodeLine{  : \textcolor{keyword}{public} GarbageCollected<GCedWithCustomWeakCallback> \{}
+\DoxyCodeLine{ \textcolor{keyword}{public}:}
+\DoxyCodeLine{  UntracedMember<Bar> bar;}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} CustomWeakCallbackMethod(\textcolor{keyword}{const} LivenessBroker\& \mbox{\hyperlink{graph-builder_8cc_af88aca2403db6e64cd8bca9eda102a86}{broker}}) \{}
+\DoxyCodeLine{    \textcolor{keywordflow}{if} (!\mbox{\hyperlink{graph-builder_8cc_af88aca2403db6e64cd8bca9eda102a86}{broker}}.IsHeapObjectAlive(bar))}
+\DoxyCodeLine{      bar = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} Trace(\mbox{\hyperlink{classcppgc_1_1Visitor}{cppgc::Visitor}}* visitor)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{    visitor-\/>\mbox{\hyperlink{classcppgc_1_1Visitor_ae2d6e396bdd0a53698c904b0278d0934}{RegisterWeakCallbackMethod}}<}
+\DoxyCodeLine{        GCedWithCustomWeakCallback,}
+\DoxyCodeLine{        \&GCedWithCustomWeakCallback::CustomWeakCallbackMethod>(\textcolor{keyword}{this});}
+\DoxyCodeLine{  \}}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classcppgc_1_1LivenessBroker_a064ad71393837112d380a15b26d4b166}\label{classcppgc_1_1LivenessBroker_a064ad71393837112d380a15b26d4b166}} 
+\index{cppgc::LivenessBroker@{cppgc::LivenessBroker}!IsHeapObjectAlive@{IsHeapObjectAlive}}
+\index{IsHeapObjectAlive@{IsHeapObjectAlive}!cppgc::LivenessBroker@{cppgc::LivenessBroker}}
+\doxysubsubsection{\texorpdfstring{IsHeapObjectAlive()}{IsHeapObjectAlive()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool cppgc\+::\+Liveness\+Broker\+::\+Is\+Heap\+Object\+Alive (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $\ast$}]{object }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classcppgc_1_1LivenessBroker_aee6371e43c399799c9ed0f3b84674cfa}\label{classcppgc_1_1LivenessBroker_aee6371e43c399799c9ed0f3b84674cfa}} 
+\index{cppgc::LivenessBroker@{cppgc::LivenessBroker}!IsHeapObjectAlive@{IsHeapObjectAlive}}
+\index{IsHeapObjectAlive@{IsHeapObjectAlive}!cppgc::LivenessBroker@{cppgc::LivenessBroker}}
+\doxysubsubsection{\texorpdfstring{IsHeapObjectAlive()}{IsHeapObjectAlive()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool cppgc\+::\+Liveness\+Broker\+::\+Is\+Heap\+Object\+Alive (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacecppgc_a6ee8e8453589f23ed3b8c84c45068d73}{Untraced\+Member}}$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$ \&}]{untraced\+\_\+member }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classcppgc_1_1LivenessBroker_a6d6b9f3609e18ef58d5caf93a3f3f95f}\label{classcppgc_1_1LivenessBroker_a6d6b9f3609e18ef58d5caf93a3f3f95f}} 
+\index{cppgc::LivenessBroker@{cppgc::LivenessBroker}!IsHeapObjectAlive@{IsHeapObjectAlive}}
+\index{IsHeapObjectAlive@{IsHeapObjectAlive}!cppgc::LivenessBroker@{cppgc::LivenessBroker}}
+\doxysubsubsection{\texorpdfstring{IsHeapObjectAlive()}{IsHeapObjectAlive()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool cppgc\+::\+Liveness\+Broker\+::\+Is\+Heap\+Object\+Alive (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacecppgc_a3ddd7a241f51479efe00f76be3125c81}{Weak\+Member}}$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$ \&}]{weak\+\_\+member }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classcppgc_1_1LivenessBroker_a38540d304bebe5adec503d8fff904453}\label{classcppgc_1_1LivenessBroker_a38540d304bebe5adec503d8fff904453}} 
+\index{cppgc::LivenessBroker@{cppgc::LivenessBroker}!internal::LivenessBrokerFactory@{internal::LivenessBrokerFactory}}
+\index{internal::LivenessBrokerFactory@{internal::LivenessBrokerFactory}!cppgc::LivenessBroker@{cppgc::LivenessBroker}}
+\doxysubsubsection{\texorpdfstring{internal::LivenessBrokerFactory}{internal::LivenessBrokerFactory}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{classcppgc_1_1internal_1_1LivenessBrokerFactory}{internal\+::\+Liveness\+Broker\+Factory}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{include_2cppgc_2liveness-broker_8h}{include/cppgc/liveness-\/broker.\+h}}\item 
+\mbox{\hyperlink{liveness-broker_8cc}{liveness-\/broker.\+cc}}\end{DoxyCompactItemize}

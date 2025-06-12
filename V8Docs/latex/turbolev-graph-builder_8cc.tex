@@ -1,0 +1,311 @@
+\hypertarget{turbolev-graph-builder_8cc}{}\doxysection{turbolev-\/graph-\/builder.cc File Reference}
+\label{turbolev-graph-builder_8cc}\index{turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}}
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/turbolev-\/graph-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/small-\/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/bailout-\/reason.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/optimized-\/compilation-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/access-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/bytecode-\/analysis.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/bytecode-\/liveness-\/map.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/frame-\/states.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/js-\/heap-\/broker.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/access-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/assembler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/graph.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/index.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/machine-\/optimization-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/maglev-\/early-\/lowering-\/reducer-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/operations.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/phase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/representations.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/required-\/optimization-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/sidetable.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/value-\/numbering-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/variable-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/write-\/barrier-\/kind.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/deoptimizer/deoptimize-\/reason.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/global-\/handles-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/handles.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/bytecode-\/register.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/basic-\/block.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/compilation-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/compilation-\/unit.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/graph-\/builder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/graph-\/labeller.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/graph-\/processor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/graph-\/verifier.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/inlining.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/ir-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/ir.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/phi-\/representation-\/selector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/post-\/hoc-\/optimizations-\/processors.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/contexts.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/elements-\/kind.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/buffer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/map.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/cell.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/zone/zone-\/containers.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/define-\/assembler-\/macros.\+inc\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler/turboshaft/undef-\/assembler-\/macros.\+inc\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1BlockOriginTrackingReducer}{v8\+::internal\+::compiler\+::turboshaft\+::\+Block\+Origin\+Tracking\+Reducer$<$ Next $>$}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1GeneratorAnalyzer}{v8\+::internal\+::compiler\+::turboshaft\+::\+Generator\+Analyzer}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1GraphBuildingNodeProcessor}{v8\+::internal\+::compiler\+::turboshaft\+::\+Graph\+Building\+Node\+Processor}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1compiler_1_1turboshaft_1_1GraphBuildingNodeProcessor_1_1Deduplicator_1_1DuplicatedId}{v8\+::internal\+::compiler\+::turboshaft\+::\+Graph\+Building\+Node\+Processor\+::\+Deduplicator\+::\+Duplicated\+Id}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1compiler_1_1turboshaft_1_1NodeProcessorBase}{v8\+::internal\+::compiler\+::turboshaft\+::\+Node\+Processor\+Base}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler}{v8\+::internal\+::compiler}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft}{v8\+::internal\+::compiler\+::turboshaft}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{turbolev-graph-builder_8cc_a29039b790fc357864430c4bde0071e53}{GET\+\_\+\+FRAME\+\_\+\+STATE\+\_\+\+MAYBE\+\_\+\+ABORT}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  deopt\+\_\+info)
+\item 
+\#define \mbox{\hyperlink{turbolev-graph-builder_8cc_a5bab0b84573d9a2771259b1467ad5292}{BAILOUT\+\_\+\+IF\+\_\+\+TOO\+\_\+\+MANY\+\_\+\+ARGUMENTS\+\_\+\+FOR\+\_\+\+CALL}}(\mbox{\hyperlink{debug-coverage_8cc_a86988a65e0d3ece7990c032c159786d6}{count}})
+\item 
+\#define \mbox{\hyperlink{turbolev-graph-builder_8cc_ad9c285705d3634d4fade3d358c94b2e8}{GENERATE\+\_\+\+AND\+\_\+\+MAP\+\_\+\+BUILTIN\+\_\+\+CALL}}(\mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}},  \mbox{\hyperlink{liftoff-compiler_8cc_a01d5e89f3b7e433e5b30ecde7b63c6b2}{builtin}},  frame\+\_\+state,  arguments, ...)
+\item 
+\#define \mbox{\hyperlink{turbolev-graph-builder_8cc_ab2d4c51c6ba7026af16222c0f6c544c7}{RETURN\+\_\+\+IF\+\_\+\+UNREACHABLE}}()
+\item 
+\#define \mbox{\hyperlink{turbolev-graph-builder_8cc_a4af4ce3dfabc23709299943c0e5a77d4}{PROCESS\+\_\+\+BINOP\+\_\+\+WITH\+\_\+\+OVERFLOW}}(Maglev\+Name,  Turboshaft\+Name,  minus\+\_\+zero\+\_\+mode)
+\item 
+\#define \mbox{\hyperlink{turbolev-graph-builder_8cc_a03bec0fee811596086a8e7e97f2f047c}{PROCESS\+\_\+\+FLOAT64\+\_\+\+BINOP}}(Maglev\+Name,  Turboshaft\+Name)
+\item 
+\#define \mbox{\hyperlink{turbolev-graph-builder_8cc_adbffdf21c65f1a9d7fd4812b5e9c3599}{PROCESS\+\_\+\+INT32\+\_\+\+BITWISE\+\_\+\+BINOP}}(Name)
+\item 
+\#define \mbox{\hyperlink{turbolev-graph-builder_8cc_a508157791bf3bd497d27376502fe4e80}{PROCESS\+\_\+\+INT32\+\_\+\+SHIFT}}(Maglev\+Name,  Turboshaft\+Name)
+\item 
+\#define \mbox{\hyperlink{turbolev-graph-builder_8cc_a50aa7a7c9e20b8193a67d7d04b8e6025}{CASE}}(Math\+Name,  Exp\+Name,  Enum\+Name)
+\item 
+\#define \mbox{\hyperlink{turbolev-graph-builder_8cc_ac582dbc91dd468f46bfa1f4dac4b1135}{PROCESS\+\_\+\+GENERIC\+\_\+\+BINOP}}(Name)
+\item 
+\#define \mbox{\hyperlink{turbolev-graph-builder_8cc_ab692cc95cba10c26ba4bc175ec32519f}{PROCESS\+\_\+\+GENERIC\+\_\+\+UNOP}}(Name)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+constexpr bool \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_af560201ba2e3c226bd1ee47fe72b1d16}{v8\+::internal\+::compiler\+::turboshaft\+::\+Too\+Many\+Arguments\+For\+Call}} (size\+\_\+t arguments\+\_\+count)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_af53e4f61c6c90aa4287fd4ac2e9c6474}{v8\+::internal\+::compiler\+::turboshaft\+::\+Print\+Bytecode}} (Pipeline\+Data \&\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, maglev\+::\+Maglev\+Compilation\+Info $\ast$compilation\+\_\+info)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_af2bc443ad2c86d33dee82a492c09949f}{v8\+::internal\+::compiler\+::turboshaft\+::\+Print\+Maglev\+Graph}} (Pipeline\+Data \&\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, maglev\+::\+Maglev\+Compilation\+Info $\ast$compilation\+\_\+info, maglev\+::\+Graph $\ast$maglev\+\_\+graph, const char $\ast$msg)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a89f4a0f4aa40448e2d62ee0920f606ca}{v8\+::internal\+::compiler\+::turboshaft\+::\+Run\+Maglev\+Optimizations}} (Pipeline\+Data $\ast$\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, maglev\+::\+Maglev\+Compilation\+Info $\ast$compilation\+\_\+info, maglev\+::\+Maglev\+Graph\+Builder \&maglev\+\_\+graph\+\_\+builder, maglev\+::\+Graph $\ast$maglev\+\_\+graph)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{turbolev-graph-builder_8cc_a5bab0b84573d9a2771259b1467ad5292}\label{turbolev-graph-builder_8cc_a5bab0b84573d9a2771259b1467ad5292}} 
+\index{turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}!BAILOUT\_IF\_TOO\_MANY\_ARGUMENTS\_FOR\_CALL@{BAILOUT\_IF\_TOO\_MANY\_ARGUMENTS\_FOR\_CALL}}
+\index{BAILOUT\_IF\_TOO\_MANY\_ARGUMENTS\_FOR\_CALL@{BAILOUT\_IF\_TOO\_MANY\_ARGUMENTS\_FOR\_CALL}!turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{BAILOUT\_IF\_TOO\_MANY\_ARGUMENTS\_FOR\_CALL}{BAILOUT\_IF\_TOO\_MANY\_ARGUMENTS\_FOR\_CALL}}
+{\footnotesize\ttfamily \#define BAILOUT\+\_\+\+IF\+\_\+\+TOO\+\_\+\+MANY\+\_\+\+ARGUMENTS\+\_\+\+FOR\+\_\+\+CALL(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{debug-coverage_8cc_a86988a65e0d3ece7990c032c159786d6}{count}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \{                                                   \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_af560201ba2e3c226bd1ee47fe72b1d16}{TooManyArgumentsForCall}}(\mbox{\hyperlink{debug-coverage_8cc_a86988a65e0d3ece7990c032c159786d6}{count}})) \{             \(\backslash\)}
+\DoxyCodeLine{      *bailout\_ = BailoutReason::kTooManyArguments;   \(\backslash\)}
+\DoxyCodeLine{      return maglev::ProcessResult::kAbort;           \(\backslash\)}
+\DoxyCodeLine{    \}                                                 \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{turbolev-graph-builder_8cc_a50aa7a7c9e20b8193a67d7d04b8e6025}\label{turbolev-graph-builder_8cc_a50aa7a7c9e20b8193a67d7d04b8e6025}} 
+\index{turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}!CASE@{CASE}}
+\index{CASE@{CASE}!turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{CASE}{CASE}}
+{\footnotesize\ttfamily \#define CASE(\begin{DoxyParamCaption}\item[{}]{Math\+Name,  }\item[{}]{Exp\+Name,  }\item[{}]{Enum\+Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} maglev::Float64Ieee754Unary::Ieee754Function::k\#\#EnumName: \(\backslash\)}
+\DoxyCodeLine{    kind = FloatUnaryOp::Kind::k\#\#EnumName;                       \(\backslash\)}
+\DoxyCodeLine{    break;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{turbolev-graph-builder_8cc_ad9c285705d3634d4fade3d358c94b2e8}\label{turbolev-graph-builder_8cc_ad9c285705d3634d4fade3d358c94b2e8}} 
+\index{turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}!GENERATE\_AND\_MAP\_BUILTIN\_CALL@{GENERATE\_AND\_MAP\_BUILTIN\_CALL}}
+\index{GENERATE\_AND\_MAP\_BUILTIN\_CALL@{GENERATE\_AND\_MAP\_BUILTIN\_CALL}!turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{GENERATE\_AND\_MAP\_BUILTIN\_CALL}{GENERATE\_AND\_MAP\_BUILTIN\_CALL}}
+{\footnotesize\ttfamily \#define GENERATE\+\_\+\+AND\+\_\+\+MAP\+\_\+\+BUILTIN\+\_\+\+CALL(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{experimental-compiler_8cc_af831829c574abed464c9ae9d838f82f7}{node}},  }\item[{}]{\mbox{\hyperlink{liftoff-compiler_8cc_a01d5e89f3b7e433e5b30ecde7b63c6b2}{builtin}},  }\item[{}]{frame\+\_\+state,  }\item[{}]{arguments,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{turbolev-graph-builder_8cc_a5bab0b84573d9a2771259b1467ad5292}{BAILOUT\_IF\_TOO\_MANY\_ARGUMENTS\_FOR\_CALL}}(arguments.size());                  \(\backslash\)}
+\DoxyCodeLine{  SetMap(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, GenerateBuiltinCall(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, \mbox{\hyperlink{liftoff-compiler_8cc_a01d5e89f3b7e433e5b30ecde7b63c6b2}{builtin}}, frame\_state, arguments,    \(\backslash\)}
+\DoxyCodeLine{                                   \#\#\_\_VA\_ARGS\_\_));}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{turbolev-graph-builder_8cc_a29039b790fc357864430c4bde0071e53}\label{turbolev-graph-builder_8cc_a29039b790fc357864430c4bde0071e53}} 
+\index{turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}!GET\_FRAME\_STATE\_MAYBE\_ABORT@{GET\_FRAME\_STATE\_MAYBE\_ABORT}}
+\index{GET\_FRAME\_STATE\_MAYBE\_ABORT@{GET\_FRAME\_STATE\_MAYBE\_ABORT}!turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{GET\_FRAME\_STATE\_MAYBE\_ABORT}{GET\_FRAME\_STATE\_MAYBE\_ABORT}}
+{\footnotesize\ttfamily \#define GET\+\_\+\+FRAME\+\_\+\+STATE\+\_\+\+MAYBE\+\_\+\+ABORT(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{deopt\+\_\+info }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  V<FrameState> \mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}};                                                       \(\backslash\)}
+\DoxyCodeLine{  \{                                                                         \(\backslash\)}
+\DoxyCodeLine{    OptionalV<FrameState> \_maybe\_frame\_state = BuildFrameState(deopt\_info); \(\backslash\)}
+\DoxyCodeLine{    if (!\_maybe\_frame\_state.has\_value()) \{                                  \(\backslash\)}
+\DoxyCodeLine{      DCHECK(bailout\_-\/>has\_value());                                        \(\backslash\)}
+\DoxyCodeLine{      return maglev::ProcessResult::kAbort;                                 \(\backslash\)}
+\DoxyCodeLine{    \}                                                                       \(\backslash\)}
+\DoxyCodeLine{    name = \_maybe\_frame\_state.value();                                      \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{turbolev-graph-builder_8cc_a4af4ce3dfabc23709299943c0e5a77d4}\label{turbolev-graph-builder_8cc_a4af4ce3dfabc23709299943c0e5a77d4}} 
+\index{turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}!PROCESS\_BINOP\_WITH\_OVERFLOW@{PROCESS\_BINOP\_WITH\_OVERFLOW}}
+\index{PROCESS\_BINOP\_WITH\_OVERFLOW@{PROCESS\_BINOP\_WITH\_OVERFLOW}!turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{PROCESS\_BINOP\_WITH\_OVERFLOW}{PROCESS\_BINOP\_WITH\_OVERFLOW}}
+{\footnotesize\ttfamily \#define PROCESS\+\_\+\+BINOP\+\_\+\+WITH\+\_\+\+OVERFLOW(\begin{DoxyParamCaption}\item[{}]{Maglev\+Name,  }\item[{}]{Turboshaft\+Name,  }\item[{}]{minus\+\_\+zero\+\_\+mode }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_ac85096c0fed967b01a054a97502fe592}{maglev::ProcessResult}} Process(maglev::Int32\#\#MaglevName\#\#WithOverflow* \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, \(\backslash\)}
+\DoxyCodeLine{                                \textcolor{keyword}{const} maglev::ProcessingState\& \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}) \{        \(\backslash\)}
+\DoxyCodeLine{    GET\_FRAME\_STATE\_MAYBE\_ABORT(frame\_state, \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>eager\_deopt\_info());        \(\backslash\)}
+\DoxyCodeLine{    SetMap(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}},                                                               \(\backslash\)}
+\DoxyCodeLine{           \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_aeccd16378a95dc9d3039f8669648c698}{Word32}}\#\#TurboshaftName\#\#DeoptOnOverflow(                         \(\backslash\)}
+\DoxyCodeLine{               \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>left\_input()), \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>right\_input()), frame\_state, \(\backslash\)}
+\DoxyCodeLine{               \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>eager\_deopt\_info()-\/>feedback\_to\_update(),                 \(\backslash\)}
+\DoxyCodeLine{               CheckForMinusZeroMode::k\#\#minus\_zero\_mode));                    \(\backslash\)}
+\DoxyCodeLine{    return maglev::ProcessResult::kContinue;                                   \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{turbolev-graph-builder_8cc_a03bec0fee811596086a8e7e97f2f047c}\label{turbolev-graph-builder_8cc_a03bec0fee811596086a8e7e97f2f047c}} 
+\index{turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}!PROCESS\_FLOAT64\_BINOP@{PROCESS\_FLOAT64\_BINOP}}
+\index{PROCESS\_FLOAT64\_BINOP@{PROCESS\_FLOAT64\_BINOP}!turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{PROCESS\_FLOAT64\_BINOP}{PROCESS\_FLOAT64\_BINOP}}
+{\footnotesize\ttfamily \#define PROCESS\+\_\+\+FLOAT64\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{Maglev\+Name,  }\item[{}]{Turboshaft\+Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_ac85096c0fed967b01a054a97502fe592}{maglev::ProcessResult}} Process(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a208899e03c80ce1b3a5e7cd180efe5da}{maglev::Float64}}\#\#MaglevName* \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}},      \(\backslash\)}
+\DoxyCodeLine{                                \textcolor{keyword}{const} maglev::ProcessingState\& \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}) \{ \(\backslash\)}
+\DoxyCodeLine{    SetMap(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a208899e03c80ce1b3a5e7cd180efe5da}{Float64}}\#\#TurboshaftName(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>left\_input()),    \(\backslash\)}
+\DoxyCodeLine{                                            \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>right\_input()))); \(\backslash\)}
+\DoxyCodeLine{    return maglev::ProcessResult::kContinue;                            \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{turbolev-graph-builder_8cc_ac582dbc91dd468f46bfa1f4dac4b1135}\label{turbolev-graph-builder_8cc_ac582dbc91dd468f46bfa1f4dac4b1135}} 
+\index{turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}!PROCESS\_GENERIC\_BINOP@{PROCESS\_GENERIC\_BINOP}}
+\index{PROCESS\_GENERIC\_BINOP@{PROCESS\_GENERIC\_BINOP}!turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{PROCESS\_GENERIC\_BINOP}{PROCESS\_GENERIC\_BINOP}}
+{\footnotesize\ttfamily \#define PROCESS\+\_\+\+GENERIC\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_ac85096c0fed967b01a054a97502fe592}{maglev::ProcessResult}} Process(maglev::Generic\#\#Name* \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}},                   \(\backslash\)}
+\DoxyCodeLine{                                \textcolor{keyword}{const} maglev::ProcessingState\& \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}) \{        \(\backslash\)}
+\DoxyCodeLine{    ThrowingScope throwing\_scope(\textcolor{keyword}{this}, \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}});                                  \(\backslash\)}
+\DoxyCodeLine{    GET\_FRAME\_STATE\_MAYBE\_ABORT(frame\_state, \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>lazy\_deopt\_info());         \(\backslash\)}
+\DoxyCodeLine{    SetMap(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}},                                                               \(\backslash\)}
+\DoxyCodeLine{           \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} Generic\#\#Name(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>left\_input()), \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>right\_input()), \(\backslash\)}
+\DoxyCodeLine{                            frame\_state, \mbox{\hyperlink{namespacev8_1_1internal_afe601ad9b4b4c61d8a6a700e7db12c2a}{native\_context}}(),                     \(\backslash\)}
+\DoxyCodeLine{                            ShouldLazyDeoptOnThrow(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}})));                    \(\backslash\)}
+\DoxyCodeLine{    return maglev::ProcessResult::kContinue;                                   \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{turbolev-graph-builder_8cc_ab692cc95cba10c26ba4bc175ec32519f}\label{turbolev-graph-builder_8cc_ab692cc95cba10c26ba4bc175ec32519f}} 
+\index{turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}!PROCESS\_GENERIC\_UNOP@{PROCESS\_GENERIC\_UNOP}}
+\index{PROCESS\_GENERIC\_UNOP@{PROCESS\_GENERIC\_UNOP}!turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{PROCESS\_GENERIC\_UNOP}{PROCESS\_GENERIC\_UNOP}}
+{\footnotesize\ttfamily \#define PROCESS\+\_\+\+GENERIC\+\_\+\+UNOP(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_ac85096c0fed967b01a054a97502fe592}{maglev::ProcessResult}} Process(maglev::Generic\#\#Name* \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}},                  \(\backslash\)}
+\DoxyCodeLine{                                \textcolor{keyword}{const} maglev::ProcessingState\& \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}) \{       \(\backslash\)}
+\DoxyCodeLine{    ThrowingScope throwing\_scope(\textcolor{keyword}{this}, \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}});                                 \(\backslash\)}
+\DoxyCodeLine{    GET\_FRAME\_STATE\_MAYBE\_ABORT(frame\_state, \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>lazy\_deopt\_info());        \(\backslash\)}
+\DoxyCodeLine{    SetMap(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}},                                                              \(\backslash\)}
+\DoxyCodeLine{           \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} Generic\#\#Name(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>operand\_input()), frame\_state,          \(\backslash\)}
+\DoxyCodeLine{                            \mbox{\hyperlink{namespacev8_1_1internal_afe601ad9b4b4c61d8a6a700e7db12c2a}{native\_context}}(), ShouldLazyDeoptOnThrow(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}))); \(\backslash\)}
+\DoxyCodeLine{    return maglev::ProcessResult::kContinue;                                  \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{turbolev-graph-builder_8cc_adbffdf21c65f1a9d7fd4812b5e9c3599}\label{turbolev-graph-builder_8cc_adbffdf21c65f1a9d7fd4812b5e9c3599}} 
+\index{turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}!PROCESS\_INT32\_BITWISE\_BINOP@{PROCESS\_INT32\_BITWISE\_BINOP}}
+\index{PROCESS\_INT32\_BITWISE\_BINOP@{PROCESS\_INT32\_BITWISE\_BINOP}!turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{PROCESS\_INT32\_BITWISE\_BINOP}{PROCESS\_INT32\_BITWISE\_BINOP}}
+{\footnotesize\ttfamily \#define PROCESS\+\_\+\+INT32\+\_\+\+BITWISE\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_ac85096c0fed967b01a054a97502fe592}{maglev::ProcessResult}} Process(maglev::Int32Bitwise\#\#Name* \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}},       \(\backslash\)}
+\DoxyCodeLine{                                \textcolor{keyword}{const} maglev::ProcessingState\& \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}) \{ \(\backslash\)}
+\DoxyCodeLine{    SetMap(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} Word32Bitwise\#\#Name(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>left\_input()),        \(\backslash\)}
+\DoxyCodeLine{                                        \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>right\_input())));     \(\backslash\)}
+\DoxyCodeLine{    return maglev::ProcessResult::kContinue;                            \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{turbolev-graph-builder_8cc_a508157791bf3bd497d27376502fe4e80}\label{turbolev-graph-builder_8cc_a508157791bf3bd497d27376502fe4e80}} 
+\index{turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}!PROCESS\_INT32\_SHIFT@{PROCESS\_INT32\_SHIFT}}
+\index{PROCESS\_INT32\_SHIFT@{PROCESS\_INT32\_SHIFT}!turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{PROCESS\_INT32\_SHIFT}{PROCESS\_INT32\_SHIFT}}
+{\footnotesize\ttfamily \#define PROCESS\+\_\+\+INT32\+\_\+\+SHIFT(\begin{DoxyParamCaption}\item[{}]{Maglev\+Name,  }\item[{}]{Turboshaft\+Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev_ac85096c0fed967b01a054a97502fe592}{maglev::ProcessResult}} Process(maglev::Int32\#\#MaglevName* \mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}},               \(\backslash\)}
+\DoxyCodeLine{                                \textcolor{keyword}{const} maglev::ProcessingState\& \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}) \{        \(\backslash\)}
+\DoxyCodeLine{    V<Word32> right = \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>right\_input());                                \(\backslash\)}
+\DoxyCodeLine{    if (!SupportedOperations::word32\_shift\_is\_safe()) \{                        \(\backslash\)}
+\DoxyCodeLine{      \textcolor{comment}{/* JavaScript spec says that the right-\/hand side of a shift should be    \(\backslash\)}}
+\DoxyCodeLine{\textcolor{comment}{       * taken modulo 32. Some architectures do this automatically, some       \(\backslash\)}}
+\DoxyCodeLine{\textcolor{comment}{       * don't. For those that don't, which do this modulo 32 with a `\& 0x1f`. \(\backslash\)}}
+\DoxyCodeLine{\textcolor{comment}{       */}                                                                      \(\backslash\)}
+\DoxyCodeLine{      right = \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} Word32BitwiseAnd(right, 0x1f);                                \(\backslash\)}
+\DoxyCodeLine{    \}                                                                          \(\backslash\)}
+\DoxyCodeLine{    SetMap(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}, \mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_aeccd16378a95dc9d3039f8669648c698}{Word32}}\#\#TurboshaftName(\mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_a3e9844531586430b0ef0b32350b804dd}{Map}}(\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}-\/>left\_input()), right));   \(\backslash\)}
+\DoxyCodeLine{    return maglev::ProcessResult::kContinue;                                   \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{turbolev-graph-builder_8cc_ab2d4c51c6ba7026af16222c0f6c544c7}\label{turbolev-graph-builder_8cc_ab2d4c51c6ba7026af16222c0f6c544c7}} 
+\index{turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}!RETURN\_IF\_UNREACHABLE@{RETURN\_IF\_UNREACHABLE}}
+\index{RETURN\_IF\_UNREACHABLE@{RETURN\_IF\_UNREACHABLE}!turbolev-\/graph-\/builder.cc@{turbolev-\/graph-\/builder.cc}}
+\doxysubsubsection{\texorpdfstring{RETURN\_IF\_UNREACHABLE}{RETURN\_IF\_UNREACHABLE}}
+{\footnotesize\ttfamily \#define RETURN\+\_\+\+IF\+\_\+\+UNREACHABLE(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (\mbox{\hyperlink{baseline-assembler-arm-inl_8h_a0a87998f4e8cee4888f2a89df3d5639b}{\_\_}} generating\_unreachable\_operations()) \{ \(\backslash\)}
+\DoxyCodeLine{    return maglev::ProcessResult::kContinue;    \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}

@@ -1,0 +1,575 @@
+\hypertarget{api_8cc}{}\doxysection{api.\+cc File Reference}
+\label{api_8cc}\index{api.cc@{api.cc}}
+{\ttfamily \#include \char`\"{}src/api/api.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/array-\/buffer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/callbacks.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/cppgc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/date.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/embedder-\/state-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/extension.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/external-\/memory-\/accounter.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/fast-\/api-\/calls.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/function.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/json.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/locker.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/primitive-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/profiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/source-\/location.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/template.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/unwinder-\/state.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/util.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/wasm.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/arguments.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/natives.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/hashing.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/numerics/safe\+\_\+conversions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/platform/memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/platform/platform.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/platform/time.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/utils/random-\/number-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/accessors.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/builtins-\/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/compilation-\/cache.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/compiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/cpu-\/features.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/script-\/details.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/assert-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler-\/dispatcher/lazy-\/compile-\/dispatcher.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/date/date.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/debug/debug.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/deoptimizer/deoptimizer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/embedder-\/state.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/execution.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/frames-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/messages.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/microtask-\/queue.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/simulator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/v8threads.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/vm-\/state-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/global-\/handles.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/persistent-\/handles.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/shared-\/object-\/conveyor-\/handles.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/traced-\/handles-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/layout-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/write-\/barrier.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/safepoint.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/visit-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/init/bootstrapper.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/init/icu\+\_\+util.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/init/startup-\/data-\/util.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/init/v8.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/json/json-\/parser.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/json/json-\/stringifier.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/counters-\/scopes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/metrics.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/runtime-\/call-\/stats-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/tracing-\/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/numbers/conversions-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/api-\/callbacks.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/backing-\/store.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/contexts.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/cpp-\/heap-\/object-\/wrapper-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/embedder-\/data-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/embedder-\/data-\/slot-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/hash-\/table-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/heap-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/instance-\/type-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/instance-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/buffer-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/collection-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/objects.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/promise-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/regexp-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/weak-\/refs-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/module-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/oddball.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/ordered-\/hash-\/table-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/primitive-\/heap-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/descriptor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property-\/details.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/property.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/prototype.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/shared-\/function-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/slots.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/smi.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/string.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/synthetic-\/module-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/templates.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/value-\/serializer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/parsing/parse-\/info.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/parsing/parser.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/parsing/pending-\/compilation-\/error-\/handler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/parsing/scanner-\/character-\/streams.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/profiler/cpu-\/profiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/profiler/heap-\/profiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/profiler/heap-\/snapshot-\/generator-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/profiler/profile-\/generator-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/profiler/tick-\/sample.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/regexp/regexp-\/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/roots/static-\/roots.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/runtime/runtime.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/sandbox/external-\/pointer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/sandbox/isolate.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/sandbox/sandbox.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/code-\/serializer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/embedded/embedded-\/data.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/snapshot.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/char-\/predicates-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/string-\/hasher.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/unicode-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/tracing/trace-\/event.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/detachable-\/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/identity-\/map.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/version.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structv8_1_1ValueSerializer_1_1PrivateData}{v8\+::\+Value\+Serializer\+::\+Private\+Data}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1ValueDeserializer_1_1PrivateData}{v8\+::\+Value\+Deserializer\+::\+Private\+Data}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1v8_1_1PropertyDescriptor_1_1PrivateData}{v8\+::\+Property\+Descriptor\+::\+Private\+Data}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1OneByteMask_3_014_01_4}{v8\+::\+One\+Byte\+Mask$<$ 4 $>$}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1OneByteMask_3_018_01_4}{v8\+::\+One\+Byte\+Mask$<$ 8 $>$}}
+\item 
+class \mbox{\hyperlink{classv8_1_1ContainsOnlyOneByteHelper}{v8\+::\+Contains\+Only\+One\+Byte\+Helper}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1InvokeBootstrapper_3_01i_1_1NativeContext_01_4}{v8\+::\+Invoke\+Bootstrapper$<$ i\+::\+Native\+Context $>$}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1InvokeBootstrapper_3_01i_1_1JSGlobalProxy_01_4}{v8\+::\+Invoke\+Bootstrapper$<$ i\+::\+JSGlobal\+Proxy $>$}}
+\item 
+class \mbox{\hyperlink{classv8_1_1WasmStreaming_1_1WasmStreamingImpl}{v8\+::\+Wasm\+Streaming\+::\+Wasm\+Streaming\+Impl}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1api__internal}{v8\+::api\+\_\+internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{api_8cc_a65262cd5d60d53300cf89e59372912e5}{SET\+\_\+\+FIELD\+\_\+\+WRAPPED}}(i\+\_\+isolate,  obj,  \mbox{\hyperlink{bytecode-generator_8cc_a601701bd0c1baf808e0c9677ce65408c}{setter}},  cdata,  tag)
+\item 
+\#define \mbox{\hyperlink{api_8cc_ac77989ba29bca10a14e55d096f043350}{SET\+\_\+\+CALLBACK\+\_\+\+FIELD}}(Name,  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\item 
+\#define \mbox{\hyperlink{api_8cc_aa3672cbc881a27992152032268ce505a}{VALUE\+\_\+\+IS\+\_\+\+TYPED\+\_\+\+ARRAY}}(Type,  type\+Name,  TYPE,  ctype)
+\item 
+\#define \mbox{\hyperlink{api_8cc_a61959ec3bf55aa11e90ab0fae5130d3d}{VALUE\+\_\+\+IS\+\_\+\+SPECIFIC\+\_\+\+TYPE}}(Type,  Check)
+\item 
+\#define \mbox{\hyperlink{api_8cc_a8be9ce2ed6cd7a7aa0d148f1806a968f}{CHECK\+\_\+\+TYPED\+\_\+\+ARRAY\+\_\+\+CAST}}(Type,  type\+Name,  TYPE,  ctype)
+\item 
+\#define \mbox{\hyperlink{api_8cc_aaf477b687bd30680fc8cc52279113ab0}{NEW\+\_\+\+STRING}}(v8\+\_\+isolate,  class\+\_\+name,  function\+\_\+name,  Char,  \mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}},  \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  \mbox{\hyperlink{random-module-generation_8cc_aebb70c2aab3407a9f05334c47131a43b}{length}})
+\item 
+\#define \mbox{\hyperlink{api_8cc_a9662e5eb56be13404408a33ec4ede361}{TIME\+\_\+\+ZONE\+\_\+\+DETECTION\+\_\+\+ASSERT\+\_\+\+EQ}}(\mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+\#define \mbox{\hyperlink{api_8cc_ae8e0739c28480cf580ef4af4c54b3178}{REGEXP\+\_\+\+FLAG\+\_\+\+ASSERT\+\_\+\+EQ}}(flag)
+\item 
+\#define \mbox{\hyperlink{api_8cc_a572dd685ddbfe9f50630f494b10dc032}{TYPED\+\_\+\+ARRAY\+\_\+\+CASE}}(Type,  \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  TYPE,  ctype)~case TYPE\#\#\+\_\+\+ELEMENTS\+:
+\item 
+\#define \mbox{\hyperlink{api_8cc_added4443eb6d8f4718f2afcf4ae90676}{TYPED\+\_\+\+ARRAY\+\_\+\+NEW}}(Type,  \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  TYPE,  ctype)
+\item 
+\#define \mbox{\hyperlink{api_8cc_a7c3b5cfb66d196d4956312bc8018a9bf}{WELL\+\_\+\+KNOWN\+\_\+\+SYMBOLS}}(\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}})
+\item 
+\#define \mbox{\hyperlink{api_8cc_a67a495f04550eed5377c5b00c9142595}{SYMBOL\+\_\+\+GETTER}}(Name,  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\item 
+\#define \mbox{\hyperlink{api_8cc_a6e0a23b29b2ca3c9b3657fab7474a10e}{CALLBACK\+\_\+\+SETTER}}(External\+Name,  Type,  Internal\+Name)
+\item 
+\#define \mbox{\hyperlink{api_8cc_a2a6363beda984c8ed8d9beeeb99a96f8}{DEFINE\+\_\+\+ERROR}}(\mbox{\hyperlink{wasm-features_8h_a2d0852eb438b29a423ea08b97ab45fac}{NAME}},  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\item 
+\#define \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(Name)
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespacev8_a5776d62f75e829bcb16e421236cac025}{v8\+::\+RCCId}} = \mbox{\hyperlink{namespacev8_1_1internal_ab33dc61e815270401ca8cc04822c7142}{i\+::\+Runtime\+Call\+Counter\+Id}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacev8_1_1internal_a73a8ba64e39df5bbf40be8c85f5f777c}{v8\+::internal\+::\+Fast\+Iterate\+Result}} \{ \mbox{\hyperlink{namespacev8_1_1internal_a73a8ba64e39df5bbf40be8c85f5f777cabe983c3593be176ef3bfaacf4020e8b2}{v8\+::internal\+::k\+Exception}} = static\+\_\+cast$<$int$>$(v8\+::Array\+::Callback\+Result\+::k\+Exception)
+, \mbox{\hyperlink{namespacev8_1_1internal_a73a8ba64e39df5bbf40be8c85f5f777cab1cec4b5157c0bc35a95b44a2c1a36f0}{v8\+::internal\+::k\+Break}} = static\+\_\+cast$<$int$>$(v8\+::Array\+::Callback\+Result\+::k\+Break)
+, \mbox{\hyperlink{namespacev8_1_1internal_a73a8ba64e39df5bbf40be8c85f5f777ca34cff14b3167974bf350c7114a1458e2}{v8\+::internal\+::k\+Slow\+Path}}
+, \mbox{\hyperlink{namespacev8_1_1internal_a73a8ba64e39df5bbf40be8c85f5f777ca16b903606caf0e3128389431c392faf3}{v8\+::internal\+::k\+Finished}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacev8_abdf4da37591592a62c82185b67d78036}{v8\+::\+Register\+Extension}} (std\+::unique\+\_\+ptr$<$ Extension $>$ \mbox{\hyperlink{intl-objects_8cc_a110d0f63b1860324c40bae0391908f88}{extension}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_a28fbb7c9fd867f01a79621713ea478d1}{v8\+::internal\+::\+Verify\+Handle\+Is\+Non\+Empty}} (bool \mbox{\hyperlink{c-api_8cc_a3ad9c88c4fd2e5273cf3ebf453162011}{is\+\_\+empty}})
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} $\ast$ \mbox{\hyperlink{namespacev8_1_1internal_aec434a2346df65cbfe661a18331aa472}{v8\+::internal\+::\+Globalize\+Traced\+Reference}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{i\+::\+Isolate}} $\ast$i\+\_\+isolate, \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} \mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}}, internal\+::\+Address $\ast$slot, Traced\+Reference\+Store\+Mode store\+\_\+mode, Traced\+Reference\+Handling reference\+\_\+handling)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_a771a9589bf80c645e46b0f2c45ee9ee9}{v8\+::internal\+::\+Move\+Traced\+Reference}} (internal\+::\+Address $\ast$$\ast$\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}}, internal\+::\+Address $\ast$$\ast$\mbox{\hyperlink{liveedit-diff_8cc_ae6324a19c41601d6f20f5e95f0bcec12}{to}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_a37d21c2fa2512d8fb58b29a3eb39230b}{v8\+::internal\+::\+Copy\+Traced\+Reference}} (const internal\+::\+Address $\ast$const $\ast$\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}}, internal\+::\+Address $\ast$$\ast$\mbox{\hyperlink{liveedit-diff_8cc_ae6324a19c41601d6f20f5e95f0bcec12}{to}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_ad34c5656b7a2c99fcb478be0db8562c8}{v8\+::internal\+::\+Dispose\+Traced\+Reference}} (internal\+::\+Address $\ast$location)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} $\ast$ \mbox{\hyperlink{namespacev8_1_1api__internal_ac850b65ac10c599a64b2bcc4fc7193b0}{v8\+::api\+\_\+internal\+::\+Globalize\+Reference}} (\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{i\+::\+Isolate}} $\ast$i\+\_\+isolate, \mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} \mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} $\ast$ \mbox{\hyperlink{namespacev8_1_1api__internal_a51dcf5a85ead53f0d3a9af210ea04c68}{v8\+::api\+\_\+internal\+::\+Copy\+Global\+Reference}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} $\ast$\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1api__internal_a19d5498d6c2bfaf666bed2fb783d7ec2}{v8\+::api\+\_\+internal\+::\+Move\+Global\+Reference}} (internal\+::\+Address $\ast$$\ast$\mbox{\hyperlink{liveedit-diff_8cc_a04c639350347f4e8fc657f49d82eb9ec}{from}}, internal\+::\+Address $\ast$$\ast$\mbox{\hyperlink{liveedit-diff_8cc_ae6324a19c41601d6f20f5e95f0bcec12}{to}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1api__internal_a9e074fd14d49a086f5705fcf122e13c3}{v8\+::api\+\_\+internal\+::\+Make\+Weak}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} $\ast$location, void $\ast$parameter, Weak\+Callback\+Info$<$ void $>$\+::Callback weak\+\_\+callback, Weak\+Callback\+Type \mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1api__internal_ab14252c274568e94b3a095ff3eba90c1}{v8\+::api\+\_\+internal\+::\+Make\+Weak}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} $\ast$$\ast$location\+\_\+addr)
+\item 
+void $\ast$ \mbox{\hyperlink{namespacev8_1_1api__internal_a424ede7f3667e3b49ebe3d89f4421c44}{v8\+::api\+\_\+internal\+::\+Clear\+Weak}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} $\ast$location)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1api__internal_ac60caff0b510ca795c3c9f272e0ad4d8}{v8\+::api\+\_\+internal\+::\+Annotate\+Strong\+Retainer}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} $\ast$location, const char $\ast$\mbox{\hyperlink{liftoff-compiler_8cc_aedf95fdd9ecf2d62bc8f547b6f17b213}{label}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1api__internal_a5e737d4689dc3f62aeb9e09f04c0cac3}{v8\+::api\+\_\+internal\+::\+Dispose\+Global}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} $\ast$location)
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} $\ast$ \mbox{\hyperlink{namespacev8_1_1api__internal_aac3998cd31b748a6f97580be077ac59f}{v8\+::api\+\_\+internal\+::\+Eternalize}} (Isolate $\ast$v8\+\_\+isolate, Value $\ast$\mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1api__internal_aebeb3fd192c06c100aeb3ab572a7eda0}{v8\+::api\+\_\+internal\+::\+From\+Just\+Is\+Nothing}} ()
+\item 
+void \mbox{\hyperlink{namespacev8_1_1api__internal_a289b306a243b3b0727cecab4fe5507d5}{v8\+::api\+\_\+internal\+::\+To\+Local\+Empty}} ()
+\item 
+void \mbox{\hyperlink{namespacev8_1_1api__internal_aad55d35425893387251b6edaf1482301}{v8\+::api\+\_\+internal\+::\+Internal\+Field\+Out\+Of\+Bounds}} (int \mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}})
+\item 
+\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} \mbox{\hyperlink{namespacev8_1_1api__internal_a33eccfe260e0f8d6ce4159bc6d3addd5}{v8\+::api\+\_\+internal\+::\+Convert\+To\+JSGlobal\+Proxy\+If\+Necessary}} (\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i\+::\+Address}} holder\+\_\+ptr)
+\item 
+Local$<$ Context $>$ \mbox{\hyperlink{namespacev8_a4a140aa5d5358fa680ced14fa58ceb2d}{v8\+::\+New\+Context}} (\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$external\+\_\+isolate, \mbox{\hyperlink{classv8_1_1ExtensionConfiguration}{v8\+::\+Extension\+Configuration}} $\ast$extensions, \mbox{\hyperlink{classv8_1_1MaybeLocal}{v8\+::\+Maybe\+Local}}$<$ Object\+Template $>$ global\+\_\+template, \mbox{\hyperlink{classv8_1_1MaybeLocal}{v8\+::\+Maybe\+Local}}$<$ Value $>$ global\+\_\+object, size\+\_\+t context\+\_\+snapshot\+\_\+index, \mbox{\hyperlink{structv8_1_1internal_1_1DeserializeEmbedderFieldsCallback}{i\+::\+Deserialize\+Embedder\+Fields\+Callback}} embedder\+\_\+fields\+\_\+deserializer, \mbox{\hyperlink{classv8_1_1MicrotaskQueue}{v8\+::\+Microtask\+Queue}} $\ast$\mbox{\hyperlink{execution_8cc_a078b9ae475719f4db961256d7ddded65}{microtask\+\_\+queue}})
+\item 
+\mbox{\hyperlink{namespacev8_a8a08d76ad777282f9482658235f5209a}{v8\+::\+REGEXP\+\_\+\+FLAG\+\_\+\+ASSERT\+\_\+\+EQ}} (k\+None)
+\item 
+\mbox{\hyperlink{namespacev8_a8ab96ef7b8a36fa3e069c81c128a6cb7}{v8\+::\+REGEXP\+\_\+\+FLAG\+\_\+\+ASSERT\+\_\+\+EQ}} (k\+Global)
+\item 
+\mbox{\hyperlink{namespacev8_ac0145e0ba5074b759e96df7a01051cbe}{v8\+::\+REGEXP\+\_\+\+FLAG\+\_\+\+ASSERT\+\_\+\+EQ}} (k\+Ignore\+Case)
+\item 
+\mbox{\hyperlink{namespacev8_ad7c4bff176fa0251caf22607a9280dd6}{v8\+::\+REGEXP\+\_\+\+FLAG\+\_\+\+ASSERT\+\_\+\+EQ}} (k\+Multiline)
+\item 
+\mbox{\hyperlink{namespacev8_a671d3cd55030dd0b4b94f6e31441b810}{v8\+::\+REGEXP\+\_\+\+FLAG\+\_\+\+ASSERT\+\_\+\+EQ}} (k\+Sticky)
+\item 
+\mbox{\hyperlink{namespacev8_a443c7f18c53e23476315c3fe7b57bb4d}{v8\+::\+REGEXP\+\_\+\+FLAG\+\_\+\+ASSERT\+\_\+\+EQ}} (k\+Unicode)
+\item 
+\mbox{\hyperlink{namespacev8_a25ca652c0298c8c319af6e62bd98c0c6}{v8\+::\+REGEXP\+\_\+\+FLAG\+\_\+\+ASSERT\+\_\+\+EQ}} (k\+Has\+Indices)
+\item 
+\mbox{\hyperlink{namespacev8_a50c622b82be53051934649753c8bb89d}{v8\+::\+REGEXP\+\_\+\+FLAG\+\_\+\+ASSERT\+\_\+\+EQ}} (k\+Linear)
+\item 
+\mbox{\hyperlink{namespacev8_af926578a0d43e8dfc9fdf8bbb55501ac}{v8\+::\+REGEXP\+\_\+\+FLAG\+\_\+\+ASSERT\+\_\+\+EQ}} (k\+Unicode\+Sets)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_aef03d64e6cb050f98a4f7a375837e5db}{v8\+::internal\+::\+Get\+Length}} (Tagged$<$ JSArray $>$ array)
+\item 
+bool \mbox{\hyperlink{namespacev8_1_1internal_a02762786e289b9660dc93d3725f4ffa0}{v8\+::internal\+::\+Can\+Use\+Fast\+Iteration}} (Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, Direct\+Handle$<$ JSArray $>$ array)
+\item 
+Fast\+Iterate\+Result \mbox{\hyperlink{namespacev8_1_1internal_aeaba92f62348dee4aa16c267fb627edf}{v8\+::internal\+::\+Fast\+Iterate\+Array}} (Direct\+Handle$<$ JSArray $>$ array, Isolate $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1Array_adfd46ea5e610d3511ea6013f2d15df44}{v8\+::\+Array\+::\+Iteration\+Callback}} \mbox{\hyperlink{js-call-reducer_8cc_ad83e8682ed733ee0cf359fa4f48441b0}{callback}}, void $\ast$callback\+\_\+data)
+\item 
+\mbox{\hyperlink{namespacev8_a78204d30fac8751adb3e4af37c24d8af}{v8\+::\+CALLBACK\+\_\+\+SETTER}} (Modify\+Code\+Generation\+From\+Strings\+Callback, Modify\+Code\+Generation\+From\+Strings\+Callback2, modify\+\_\+code\+\_\+gen\+\_\+callback) CALLBACK\+\_\+\+SETTER(Allow\+Wasm\+Code\+Generation\+Callback
+\item 
+allow\+\_\+wasm\+\_\+code\+\_\+gen\+\_\+callback \mbox{\hyperlink{namespacev8_a4dc4e7cb72a9336c21ae861d72359794}{v8\+::\+CALLBACK\+\_\+\+SETTER}} (Wasm\+Streaming\+Callback, Wasm\+Streaming\+Callback, wasm\+\_\+streaming\+\_\+callback) CALLBACK\+\_\+\+SETTER(Wasm\+Async\+Resolve\+Promise\+Callback
+\item 
+allow\+\_\+wasm\+\_\+code\+\_\+gen\+\_\+callback wasm\+\_\+async\+\_\+resolve\+\_\+promise\+\_\+callback \mbox{\hyperlink{namespacev8_a113c680f5fbd700eeae433a5f84f502f}{v8\+::\+CALLBACK\+\_\+\+SETTER}} (Wasm\+Load\+Source\+Map\+Callback, Wasm\+Load\+Source\+Map\+Callback, wasm\+\_\+load\+\_\+source\+\_\+map\+\_\+callback) CALLBACK\+\_\+\+SETTER(Wasm\+Imported\+Strings\+Enabled\+Callback
+\item 
+allow\+\_\+wasm\+\_\+code\+\_\+gen\+\_\+callback wasm\+\_\+async\+\_\+resolve\+\_\+promise\+\_\+callback wasm\+\_\+imported\+\_\+strings\+\_\+enabled\+\_\+callback \mbox{\hyperlink{namespacev8_aa3c564198557fe7bb0364f2da08239f9}{v8\+::\+CALLBACK\+\_\+\+SETTER}} (Wasm\+JSPIEnabled\+Callback, Wasm\+JSPIEnabled\+Callback, wasm\+\_\+jspi\+\_\+enabled\+\_\+callback) CALLBACK\+\_\+\+SETTER(Shared\+Array\+Buffer\+Constructor\+Enabled\+Callback
+\item 
+allow\+\_\+wasm\+\_\+code\+\_\+gen\+\_\+callback wasm\+\_\+async\+\_\+resolve\+\_\+promise\+\_\+callback wasm\+\_\+imported\+\_\+strings\+\_\+enabled\+\_\+callback sharedarraybuffer\+\_\+constructor\+\_\+enabled\+\_\+callback \mbox{\hyperlink{namespacev8_aedb78745047e097360f53ba4036d8e44}{v8\+::\+CALLBACK\+\_\+\+SETTER}} (Is\+JSApi\+Wrapper\+Native\+Error\+Callback, Is\+JSApi\+Wrapper\+Native\+Error\+Callback, is\+\_\+js\+\_\+api\+\_\+wrapper\+\_\+native\+\_\+error\+\_\+callback) void Isolate
+\item 
+\mbox{\hyperlink{v8config_8h_a18b08424f4be6fab745092c7c5dad9f5}{V8\+\_\+\+EXPORT}} \mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ \mbox{\hyperlink{namespacev8_1_1api__internal_a8061ccf455fa00e6ced64ffebc063bac}{v8\+::api\+\_\+internal\+::\+Get\+Function\+Template\+Data}} (\mbox{\hyperlink{classv8_1_1Isolate}{v8\+::\+Isolate}} $\ast$\mbox{\hyperlink{graph-builder_8cc_a9990dda08de44f6aee0aaf44c50da7d9}{isolate}}, \mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Data}{v8\+::\+Data}} $>$ raw\+\_\+target)
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_ae6603313a57576cf75f3ea1ea29f6260}{v8\+::internal\+::\+Invoke\+Accessor\+Getter\+Callback}} (\mbox{\hyperlink{classv8_1_1Local}{v8\+::\+Local}}$<$ \mbox{\hyperlink{classv8_1_1Name}{v8\+::\+Name}} $>$ \mbox{\hyperlink{js-date-time-format_8cc_ac39d2404ce6c995d104d7fe2f185a2b3}{property}}, const \mbox{\hyperlink{classv8_1_1PropertyCallbackInfo}{v8\+::\+Property\+Callback\+Info}}$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ \&\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_aa1b4a00e8c40ededa4e0bfbc7b91db41}{v8\+::internal\+::\+Invoke\+Function\+Callback\+Generic}} (const \mbox{\hyperlink{classv8_1_1FunctionCallbackInfo}{v8\+::\+Function\+Callback\+Info}}$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ \&\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_a4c2c1f4056bb348705ec7d29865cfad4}{v8\+::internal\+::\+Invoke\+Function\+Callback\+Optimized}} (const \mbox{\hyperlink{classv8_1_1FunctionCallbackInfo}{v8\+::\+Function\+Callback\+Info}}$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ \&\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}})
+\item 
+void \mbox{\hyperlink{namespacev8_1_1internal_a0d16f5dabb1061155802eb4c707c0530}{v8\+::internal\+::\+Invoke\+Finalization\+Registry\+Cleanup\+From\+Task}} (Direct\+Handle$<$ Native\+Context $>$ native\+\_\+context, Direct\+Handle$<$ JSFinalization\+Registry $>$ finalization\+\_\+registry)
+\item 
+template$<$$>$ int32\+\_\+t \mbox{\hyperlink{namespacev8_1_1internal_a546578525ae357f7322d1e874c5c039a}{v8\+::internal\+::\+Convert\+Double}} (double d)
+\item 
+{\footnotesize template$<$typename T $>$ }\\bool \mbox{\hyperlink{namespacev8_1_1internal_a3df96024e97ac8a4f1abeabd5477a684}{v8\+::internal\+::\+Validate\+Function\+Callback\+Info}} (const Function\+Callback\+Info$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$ \&\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}})
+\item 
+{\footnotesize template$<$typename T $>$ }\\bool \mbox{\hyperlink{namespacev8_1_1internal_a4fde4541aa7e48f6809bdffe4f8beb4f}{v8\+::internal\+::\+Validate\+Property\+Callback\+Info}} (const Property\+Callback\+Info$<$ \mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} $>$ \&\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}})
+\item 
+template$<$$>$ bool \mbox{\hyperlink{v8config_8h_a18b08424f4be6fab745092c7c5dad9f5}{V8\+\_\+\+EXPORT}} \mbox{\hyperlink{namespacev8_1_1internal_a84fbbdbd472303acde12e2cc65e316f3}{v8\+::internal\+::\+Validate\+Callback\+Info}} (const Function\+Callback\+Info$<$ void $>$ \&\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}})
+\item 
+template$<$$>$ bool \mbox{\hyperlink{v8config_8h_a18b08424f4be6fab745092c7c5dad9f5}{V8\+\_\+\+EXPORT}} \mbox{\hyperlink{namespacev8_1_1internal_a5069c782bb0d768c0fdf8f9bca64bfd1}{v8\+::internal\+::\+Validate\+Callback\+Info}} (const Function\+Callback\+Info$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ \&\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}})
+\item 
+template$<$$>$ bool \mbox{\hyperlink{v8config_8h_a18b08424f4be6fab745092c7c5dad9f5}{V8\+\_\+\+EXPORT}} \mbox{\hyperlink{namespacev8_1_1internal_acd708db2de5f2478bbd0535c9c2b37e4}{v8\+::internal\+::\+Validate\+Callback\+Info}} (const Property\+Callback\+Info$<$ \mbox{\hyperlink{classv8_1_1Value}{v8\+::\+Value}} $>$ \&\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}})
+\item 
+template$<$$>$ bool \mbox{\hyperlink{v8config_8h_a18b08424f4be6fab745092c7c5dad9f5}{V8\+\_\+\+EXPORT}} \mbox{\hyperlink{namespacev8_1_1internal_abfc656a2df70b1419cb4d2342162b36d}{v8\+::internal\+::\+Validate\+Callback\+Info}} (const Property\+Callback\+Info$<$ \mbox{\hyperlink{classv8_1_1Array}{v8\+::\+Array}} $>$ \&\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}})
+\item 
+template$<$$>$ bool \mbox{\hyperlink{v8config_8h_a18b08424f4be6fab745092c7c5dad9f5}{V8\+\_\+\+EXPORT}} \mbox{\hyperlink{namespacev8_1_1internal_a7931dd602e85a2c6f73a2e03deb95b28}{v8\+::internal\+::\+Validate\+Callback\+Info}} (const Property\+Callback\+Info$<$ \mbox{\hyperlink{classv8_1_1Boolean}{v8\+::\+Boolean}} $>$ \&\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}})
+\item 
+template$<$$>$ bool \mbox{\hyperlink{v8config_8h_a18b08424f4be6fab745092c7c5dad9f5}{V8\+\_\+\+EXPORT}} \mbox{\hyperlink{namespacev8_1_1internal_a60fb28474642dbe8ff282f84c42ed993}{v8\+::internal\+::\+Validate\+Callback\+Info}} (const Property\+Callback\+Info$<$ \mbox{\hyperlink{classv8_1_1Integer}{v8\+::\+Integer}} $>$ \&\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}})
+\item 
+template$<$$>$ bool \mbox{\hyperlink{v8config_8h_a18b08424f4be6fab745092c7c5dad9f5}{V8\+\_\+\+EXPORT}} \mbox{\hyperlink{namespacev8_1_1internal_a59122381e0a822e366195770c687e79c}{v8\+::internal\+::\+Validate\+Callback\+Info}} (const Property\+Callback\+Info$<$ void $>$ \&\mbox{\hyperlink{debug-coverage_8cc_aa28b37bd003d1724a468ca0cfa8478d2}{info}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{api_8cc_a6e0a23b29b2ca3c9b3657fab7474a10e}\label{api_8cc_a6e0a23b29b2ca3c9b3657fab7474a10e}} 
+\index{api.cc@{api.cc}!CALLBACK\_SETTER@{CALLBACK\_SETTER}}
+\index{CALLBACK\_SETTER@{CALLBACK\_SETTER}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{CALLBACK\_SETTER}{CALLBACK\_SETTER}}
+{\footnotesize\ttfamily \#define CALLBACK\+\_\+\+SETTER(\begin{DoxyParamCaption}\item[{}]{External\+Name,  }\item[{}]{Type,  }\item[{}]{Internal\+Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} Isolate::Set\#\#ExternalName(Type \mbox{\hyperlink{js-call-reducer_8cc_ad83e8682ed733ee0cf359fa4f48441b0}{callback}}) \{               \(\backslash\)}
+\DoxyCodeLine{    i::Isolate* i\_isolate = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{i::Isolate}}*\textcolor{keyword}{>}(\textcolor{keyword}{this}); \(\backslash\)}
+\DoxyCodeLine{    i\_isolate-\/>set\_\#\#InternalName(\mbox{\hyperlink{js-call-reducer_8cc_ad83e8682ed733ee0cf359fa4f48441b0}{callback}});                     \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{api_8cc_a8be9ce2ed6cd7a7aa0d148f1806a968f}\label{api_8cc_a8be9ce2ed6cd7a7aa0d148f1806a968f}} 
+\index{api.cc@{api.cc}!CHECK\_TYPED\_ARRAY\_CAST@{CHECK\_TYPED\_ARRAY\_CAST}}
+\index{CHECK\_TYPED\_ARRAY\_CAST@{CHECK\_TYPED\_ARRAY\_CAST}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{CHECK\_TYPED\_ARRAY\_CAST}{CHECK\_TYPED\_ARRAY\_CAST}}
+{\footnotesize\ttfamily \#define CHECK\+\_\+\+TYPED\+\_\+\+ARRAY\+\_\+\+CAST(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{type\+Name,  }\item[{}]{TYPE,  }\item[{}]{ctype }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} v8::Type\#\#Array::CheckCast(Value* that) \{                           \(\backslash\)}
+\DoxyCodeLine{    auto obj = *Utils::OpenDirectHandle(that);                             \(\backslash\)}
+\DoxyCodeLine{    Utils::ApiCheck(                                                       \(\backslash\)}
+\DoxyCodeLine{        i::IsJSTypedArray(obj) \&\& i::Cast<i::JSTypedArray>(obj)-\/>\mbox{\hyperlink{wasm-inlining-into-js_8cc_a66874a4e937e4192b2b42e57f55251e8}{type}}() == \(\backslash\)}
+\DoxyCodeLine{                                      i::kExternal\#\#Type\#\#Array,           \(\backslash\)}
+\DoxyCodeLine{        \textcolor{stringliteral}{"{}v8::"{}} \#Type \textcolor{stringliteral}{"{}Array::Cast()"{}}, \textcolor{stringliteral}{"{}Value is not a "{}} \#Type \textcolor{stringliteral}{"{}Array"{}});    \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{api_8cc_a2a6363beda984c8ed8d9beeeb99a96f8}\label{api_8cc_a2a6363beda984c8ed8d9beeeb99a96f8}} 
+\index{api.cc@{api.cc}!DEFINE\_ERROR@{DEFINE\_ERROR}}
+\index{DEFINE\_ERROR@{DEFINE\_ERROR}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{DEFINE\_ERROR}{DEFINE\_ERROR}}
+{\footnotesize\ttfamily \#define DEFINE\+\_\+\+ERROR(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{wasm-features_8h_a2d0852eb438b29a423ea08b97ab45fac}{NAME}},  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  Local<Value> \mbox{\hyperlink{wasm-features_8h_a2d0852eb438b29a423ea08b97ab45fac}{Exception::NAME}}(\mbox{\hyperlink{classv8_1_1Local}{v8::Local<v8::String>}} raw\_message,             \(\backslash\)}
+\DoxyCodeLine{                               \mbox{\hyperlink{classv8_1_1Local}{v8::Local<v8::Value>}} raw\_options) \{            \(\backslash\)}
+\DoxyCodeLine{    i::Isolate* i\_isolate = \mbox{\hyperlink{classv8_1_1internal_1_1Isolate_a251df9c3f38a245b81376b0858a4e320}{i::Isolate::Current}}();                            \(\backslash\)}
+\DoxyCodeLine{    ApiRuntimeCallStatsScope rcs\_scope(i\_isolate, RCCId::kAPI\_\#\#\mbox{\hyperlink{wasm-features_8h_a2d0852eb438b29a423ea08b97ab45fac}{NAME}}\#\#\_New);  \(\backslash\)}
+\DoxyCodeLine{    EnterV8NoScriptNoExceptionScope api\_scope(i\_isolate);                     \(\backslash\)}
+\DoxyCodeLine{    i::Tagged<i::Object> error;                                               \(\backslash\)}
+\DoxyCodeLine{    \{                                                                         \(\backslash\)}
+\DoxyCodeLine{      i::HandleScope scope(i\_isolate);                                        \(\backslash\)}
+\DoxyCodeLine{      i::DirectHandle<i::Object> options;                                     \(\backslash\)}
+\DoxyCodeLine{      if (!raw\_options.\mbox{\hyperlink{classv8_1_1api__internal_1_1IndirectHandleBase_ab47674f3d6e790dd25110c1d34b60179}{IsEmpty}}()) \{                                           \(\backslash\)}
+\DoxyCodeLine{        options = Utils::OpenDirectHandle(*raw\_options);                      \(\backslash\)}
+\DoxyCodeLine{      \}                                                                       \(\backslash\)}
+\DoxyCodeLine{      auto message = Utils::OpenDirectHandle(*raw\_message);                   \(\backslash\)}
+\DoxyCodeLine{      i::DirectHandle<i::JSFunction> constructor =                            \(\backslash\)}
+\DoxyCodeLine{          i\_isolate-\/>name\#\#\_function();                                       \(\backslash\)}
+\DoxyCodeLine{      error = *i\_isolate-\/>factory()-\/>NewError(constructor, message, options); \(\backslash\)}
+\DoxyCodeLine{    \}                                                                         \(\backslash\)}
+\DoxyCodeLine{    return Utils::ToLocal(\mbox{\hyperlink{namespacev8_1_1internal_a042e0b8e5619abcdb6b9cc08f43c437c}{i::direct\_handle}}(error, i\_isolate));                \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{api_8cc_aaf477b687bd30680fc8cc52279113ab0}\label{api_8cc_aaf477b687bd30680fc8cc52279113ab0}} 
+\index{api.cc@{api.cc}!NEW\_STRING@{NEW\_STRING}}
+\index{NEW\_STRING@{NEW\_STRING}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{NEW\_STRING}{NEW\_STRING}}
+{\footnotesize\ttfamily \#define NEW\+\_\+\+STRING(\begin{DoxyParamCaption}\item[{}]{v8\+\_\+isolate,  }\item[{}]{class\+\_\+name,  }\item[{}]{function\+\_\+name,  }\item[{}]{Char,  }\item[{}]{\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}},  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_aebb70c2aab3407a9f05334c47131a43b}{length}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  MaybeLocal<String> \mbox{\hyperlink{jump-threading_8cc_a41f8c58d2c01bf65b8ee199c3f87fc80}{result}};                                                  \(\backslash\)}
+\DoxyCodeLine{  if (\mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}} == 0) \{                                                          \(\backslash\)}
+\DoxyCodeLine{    result = String::Empty(v8\_isolate);                                       \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}} > 0 \&\&                                                    \(\backslash\)}
+\DoxyCodeLine{             \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(\mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}}) > \mbox{\hyperlink{classv8_1_1internal_1_1String_a1f86b7d22f551041980cd92683718802}{i::String::kMaxLength}}) \{         \(\backslash\)}
+\DoxyCodeLine{    result = MaybeLocal<String>();                                            \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{else} \{                                                                    \(\backslash\)}
+\DoxyCodeLine{    i::Isolate* i\_isolate = \textcolor{keyword}{reinterpret\_cast<}internal::Isolate*\textcolor{keyword}{>}(v8\_isolate); \(\backslash\)}
+\DoxyCodeLine{    EnterV8NoScriptNoExceptionScope api\_scope(i\_isolate);                     \(\backslash\)}
+\DoxyCodeLine{    ApiRuntimeCallStatsScope rcs\_scope(                                       \(\backslash\)}
+\DoxyCodeLine{        i\_isolate, RCCId::kAPI\_\#\#class\_name\#\#\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\_}}\#\#function\_name);               \(\backslash\)}
+\DoxyCodeLine{    if (\mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}} < 0) \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}} = StringLength(\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}});                              \(\backslash\)}
+\DoxyCodeLine{    \mbox{\hyperlink{namespacev8_1_1internal}{i}}::DirectHandle<\mbox{\hyperlink{namespacev8_1_1internal}{i}}::\mbox{\hyperlink{namespacev8__inspector_1_1protocol_ac8ed50aa76b93614e1ba611280b7b911}{String}}> handle\_result =                                \(\backslash\)}
+\DoxyCodeLine{        NewString(i\_isolate-\/>factory(), \mbox{\hyperlink{wasm-inlining-into-js_8cc_a66874a4e937e4192b2b42e57f55251e8}{type}},                                 \(\backslash\)}
+\DoxyCodeLine{                  \mbox{\hyperlink{instruction-selector-ia32_8cc_a7971003206f2f3d97ca8b90452bc2d92}{base}}::Vector<const Char>(\mbox{\hyperlink{builtins_8cc_ad2a98ce8e8b889a9843d6839653a11a1}{data}}, \mbox{\hyperlink{namespacev8_1_1internal_afa9ea55d792121fba92b4cfc8ef8c9d7}{length}}))                     \(\backslash\)}
+\DoxyCodeLine{            .ToHandleChecked();                                               \(\backslash\)}
+\DoxyCodeLine{    \mbox{\hyperlink{jump-threading_8cc_a41f8c58d2c01bf65b8ee199c3f87fc80}{result}} = Utils::ToLocal(handle\_result);                                   \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{api_8cc_ae8e0739c28480cf580ef4af4c54b3178}\label{api_8cc_ae8e0739c28480cf580ef4af4c54b3178}} 
+\index{api.cc@{api.cc}!REGEXP\_FLAG\_ASSERT\_EQ@{REGEXP\_FLAG\_ASSERT\_EQ}}
+\index{REGEXP\_FLAG\_ASSERT\_EQ@{REGEXP\_FLAG\_ASSERT\_EQ}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{REGEXP\_FLAG\_ASSERT\_EQ}{REGEXP\_FLAG\_ASSERT\_EQ}}
+{\footnotesize\ttfamily \#define REGEXP\+\_\+\+FLAG\+\_\+\+ASSERT\+\_\+\+EQ(\begin{DoxyParamCaption}\item[{}]{flag }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  static\_assert(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(v8::RegExp::flag) == \(\backslash\)}
+\DoxyCodeLine{                \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(i::JSRegExp::flag))}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{api_8cc_ac77989ba29bca10a14e55d096f043350}\label{api_8cc_ac77989ba29bca10a14e55d096f043350}} 
+\index{api.cc@{api.cc}!SET\_CALLBACK\_FIELD@{SET\_CALLBACK\_FIELD}}
+\index{SET\_CALLBACK\_FIELD@{SET\_CALLBACK\_FIELD}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{SET\_CALLBACK\_FIELD}{SET\_CALLBACK\_FIELD}}
+{\footnotesize\ttfamily \#define SET\+\_\+\+CALLBACK\+\_\+\+FIELD(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}} != \textcolor{keyword}{nullptr}) \{                                                      \(\backslash\)}
+\DoxyCodeLine{    if constexpr (property\_type == PropertyType::kNamed) \{                    \(\backslash\)}
+\DoxyCodeLine{      obj-\/>set\_named\_\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}(i\_isolate, \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i::Address}}\textcolor{keyword}{>}(\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}));   \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                                  \(\backslash\)}
+\DoxyCodeLine{      obj-\/>set\_indexed\_\#\#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}(i\_isolate, \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{namespacev8_1_1internal_ab4955debfb9384e59e3d4e9fcab5b0a0}{i::Address}}\textcolor{keyword}{>}(\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}})); \(\backslash\)}
+\DoxyCodeLine{    \}                                                                         \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{api_8cc_a65262cd5d60d53300cf89e59372912e5}\label{api_8cc_a65262cd5d60d53300cf89e59372912e5}} 
+\index{api.cc@{api.cc}!SET\_FIELD\_WRAPPED@{SET\_FIELD\_WRAPPED}}
+\index{SET\_FIELD\_WRAPPED@{SET\_FIELD\_WRAPPED}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{SET\_FIELD\_WRAPPED}{SET\_FIELD\_WRAPPED}}
+{\footnotesize\ttfamily \#define SET\+\_\+\+FIELD\+\_\+\+WRAPPED(\begin{DoxyParamCaption}\item[{}]{i\+\_\+isolate,  }\item[{}]{obj,  }\item[{}]{\mbox{\hyperlink{bytecode-generator_8cc_a601701bd0c1baf808e0c9677ce65408c}{setter}},  }\item[{}]{cdata,  }\item[{}]{tag }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{do} \{                                                        \(\backslash\)}
+\DoxyCodeLine{    i::DirectHandle<i::UnionOf<i::Smi, i::Foreign>> foreign = \(\backslash\)}
+\DoxyCodeLine{        FromCData<tag>(i\_isolate, cdata);                     \(\backslash\)}
+\DoxyCodeLine{    (obj)-\/>\mbox{\hyperlink{bytecode-generator_8cc_a601701bd0c1baf808e0c9677ce65408c}{setter}}(*foreign);                                  \(\backslash\)}
+\DoxyCodeLine{  \} \textcolor{keywordflow}{while} (\textcolor{keyword}{false})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{api_8cc_a67a495f04550eed5377c5b00c9142595}\label{api_8cc_a67a495f04550eed5377c5b00c9142595}} 
+\index{api.cc@{api.cc}!SYMBOL\_GETTER@{SYMBOL\_GETTER}}
+\index{SYMBOL\_GETTER@{SYMBOL\_GETTER}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{SYMBOL\_GETTER}{SYMBOL\_GETTER}}
+{\footnotesize\ttfamily \#define SYMBOL\+\_\+\+GETTER(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  Local<Symbol> \mbox{\hyperlink{namespacev8_1_1internal_1_1compiler_1_1turboshaft_a2b5e79bd829824237e784a6cde29309e}{v8::Symbol::Get}}\#\#Name(Isolate* v8\_isolate) \{           \(\backslash\)}
+\DoxyCodeLine{    i::Isolate* i\_isolate = \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{classv8_1_1internal_1_1Isolate}{i::Isolate}}*\textcolor{keyword}{>}(v8\_isolate); \(\backslash\)}
+\DoxyCodeLine{    return Utils::ToLocal(i\_isolate-\/>factory()-\/>name\#\#\_symbol());      \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{api_8cc_a9662e5eb56be13404408a33ec4ede361}\label{api_8cc_a9662e5eb56be13404408a33ec4ede361}} 
+\index{api.cc@{api.cc}!TIME\_ZONE\_DETECTION\_ASSERT\_EQ@{TIME\_ZONE\_DETECTION\_ASSERT\_EQ}}
+\index{TIME\_ZONE\_DETECTION\_ASSERT\_EQ@{TIME\_ZONE\_DETECTION\_ASSERT\_EQ}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{TIME\_ZONE\_DETECTION\_ASSERT\_EQ}{TIME\_ZONE\_DETECTION\_ASSERT\_EQ}}
+{\footnotesize\ttfamily \#define TIME\+\_\+\+ZONE\+\_\+\+DETECTION\+\_\+\+ASSERT\+\_\+\+EQ(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{instance-type-generator_8cc_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  static\_assert(                                                 \(\backslash\)}
+\DoxyCodeLine{      \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{v8::Isolate::TimeZoneDetection::value}}) == \(\backslash\)}
+\DoxyCodeLine{      \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{value-mirror_8cc_a1ca88ee8dc0e8e51d60cf01ab8e8702a}{base::TimezoneCache::TimeZoneDetection::value}}));}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{api_8cc_a572dd685ddbfe9f50630f494b10dc032}\label{api_8cc_a572dd685ddbfe9f50630f494b10dc032}} 
+\index{api.cc@{api.cc}!TYPED\_ARRAY\_CASE@{TYPED\_ARRAY\_CASE}}
+\index{TYPED\_ARRAY\_CASE@{TYPED\_ARRAY\_CASE}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{TYPED\_ARRAY\_CASE}{TYPED\_ARRAY\_CASE}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+ARRAY\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  }\item[{}]{TYPE,  }\item[{}]{ctype }\end{DoxyParamCaption})~case TYPE\#\#\+\_\+\+ELEMENTS\+:}
+
+\mbox{\Hypertarget{api_8cc_added4443eb6d8f4718f2afcf4ae90676}\label{api_8cc_added4443eb6d8f4718f2afcf4ae90676}} 
+\index{api.cc@{api.cc}!TYPED\_ARRAY\_NEW@{TYPED\_ARRAY\_NEW}}
+\index{TYPED\_ARRAY\_NEW@{TYPED\_ARRAY\_NEW}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{TYPED\_ARRAY\_NEW}{TYPED\_ARRAY\_NEW}}
+{\footnotesize\ttfamily \#define TYPED\+\_\+\+ARRAY\+\_\+\+NEW(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_a916393eb4f9fcc06a8cdfe791dfb1ed8}{type}},  }\item[{}]{TYPE,  }\item[{}]{ctype }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{api_8cc_a681a57b69471dedb99b36abb7f2cb544}\label{api_8cc_a681a57b69471dedb99b36abb7f2cb544}} 
+\index{api.cc@{api.cc}!V@{V}}
+\index{V@{V}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{V}{V}}
+{\footnotesize\ttfamily \#define V(\begin{DoxyParamCaption}\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} k\#\#Name\#\#Type: \(\backslash\)}
+\DoxyCodeLine{    return \#Name;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{api_8cc_a61959ec3bf55aa11e90ab0fae5130d3d}\label{api_8cc_a61959ec3bf55aa11e90ab0fae5130d3d}} 
+\index{api.cc@{api.cc}!VALUE\_IS\_SPECIFIC\_TYPE@{VALUE\_IS\_SPECIFIC\_TYPE}}
+\index{VALUE\_IS\_SPECIFIC\_TYPE@{VALUE\_IS\_SPECIFIC\_TYPE}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{VALUE\_IS\_SPECIFIC\_TYPE}{VALUE\_IS\_SPECIFIC\_TYPE}}
+{\footnotesize\ttfamily \#define VALUE\+\_\+\+IS\+\_\+\+SPECIFIC\+\_\+\+TYPE(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{Check }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacev8_1_1internal_a2d7df811163e1b32e949af92992e5c1b}{Value::Is}}\#\#Type()\textcolor{keyword}{ const }\{                         \(\backslash\)}
+\DoxyCodeLine{    return \mbox{\hyperlink{namespacev8_1_1internal_a2d7df811163e1b32e949af92992e5c1b}{i::Is}}\#\#Check(*Utils::OpenDirectHandle(\textcolor{keyword}{this})); \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{api_8cc_aa3672cbc881a27992152032268ce505a}\label{api_8cc_aa3672cbc881a27992152032268ce505a}} 
+\index{api.cc@{api.cc}!VALUE\_IS\_TYPED\_ARRAY@{VALUE\_IS\_TYPED\_ARRAY}}
+\index{VALUE\_IS\_TYPED\_ARRAY@{VALUE\_IS\_TYPED\_ARRAY}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{VALUE\_IS\_TYPED\_ARRAY}{VALUE\_IS\_TYPED\_ARRAY}}
+{\footnotesize\ttfamily \#define VALUE\+\_\+\+IS\+\_\+\+TYPED\+\_\+\+ARRAY(\begin{DoxyParamCaption}\item[{}]{Type,  }\item[{}]{type\+Name,  }\item[{}]{TYPE,  }\item[{}]{ctype }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{bool} \mbox{\hyperlink{namespacev8_1_1internal_a2d7df811163e1b32e949af92992e5c1b}{Value::Is}}\#\#Type\#\#Array()\textcolor{keyword}{ const }\{                                        \(\backslash\)}
+\DoxyCodeLine{    auto obj = *Utils::OpenDirectHandle(\textcolor{keyword}{this});                                 \(\backslash\)}
+\DoxyCodeLine{    return i::IsJSTypedArray(obj) \&\&                                           \(\backslash\)}
+\DoxyCodeLine{           i::Cast<i::JSTypedArray>(obj)-\/>type() == i::kExternal\#\#Type\#\#Array; \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{api_8cc_a7c3b5cfb66d196d4956312bc8018a9bf}\label{api_8cc_a7c3b5cfb66d196d4956312bc8018a9bf}} 
+\index{api.cc@{api.cc}!WELL\_KNOWN\_SYMBOLS@{WELL\_KNOWN\_SYMBOLS}}
+\index{WELL\_KNOWN\_SYMBOLS@{WELL\_KNOWN\_SYMBOLS}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{WELL\_KNOWN\_SYMBOLS}{WELL\_KNOWN\_SYMBOLS}}
+{\footnotesize\ttfamily \#define WELL\+\_\+\+KNOWN\+\_\+\+SYMBOLS(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{v8-profiler_8h_a681a57b69471dedb99b36abb7f2cb544}{V}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{api_8cc_a681a57b69471dedb99b36abb7f2cb544}{V}}(AsyncIterator, async\_iterator)            \(\backslash\)}
+\DoxyCodeLine{  V(HasInstance, has\_instance)                \(\backslash\)}
+\DoxyCodeLine{  V(IsConcatSpreadable, is\_concat\_spreadable) \(\backslash\)}
+\DoxyCodeLine{  V(Iterator, iterator)                       \(\backslash\)}
+\DoxyCodeLine{  V(Match, match)                             \(\backslash\)}
+\DoxyCodeLine{  V(Replace, replace)                         \(\backslash\)}
+\DoxyCodeLine{  V(Search, search)                           \(\backslash\)}
+\DoxyCodeLine{  V(Split, \mbox{\hyperlink{namespacev8_1_1internal_1_1libvtune_a85908a2ac6abdcec9ee9c4f7e51e795f}{split}})                             \(\backslash\)}
+\DoxyCodeLine{  V(ToPrimitive, to\_primitive)                \(\backslash\)}
+\DoxyCodeLine{  V(ToStringTag, to\_string\_tag)               \(\backslash\)}
+\DoxyCodeLine{  V(Unscopables, unscopables)                 \(\backslash\)}
+\DoxyCodeLine{  V(Dispose, dispose)                         \(\backslash\)}
+\DoxyCodeLine{  V(AsyncDispose, async\_dispose)}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{api_8cc_a5b5646ea73e8c4cd86aeab2f004c5f16}\label{api_8cc_a5b5646ea73e8c4cd86aeab2f004c5f16}} 
+\index{api.cc@{api.cc}!msg\_id@{msg\_id}}
+\index{msg\_id@{msg\_id}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{msg\_id}{msg\_id}}
+{\footnotesize\ttfamily \mbox{\hyperlink{namespacev8_1_1internal_a1c7888272df599e45fcab531e38f9523}{i\+::\+Message\+Template}} msg\+\_\+id}
+
+\mbox{\Hypertarget{api_8cc_a0b79990e09c5971befdb526ccfb8deed}\label{api_8cc_a0b79990e09c5971befdb526ccfb8deed}} 
+\index{api.cc@{api.cc}!name@{name}}
+\index{name@{name}!api.cc@{api.cc}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classv8_1_1internal_1_1DirectHandle}{i\+::\+Direct\+Handle}}$<$\mbox{\hyperlink{classv8_1_1internal_1_1String}{i\+::\+String}}$>$ name}
+

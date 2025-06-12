@@ -1,0 +1,25 @@
+var classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction =
+[
+    [ "Mode", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a8673ec2785fc26b96c4d57fe9f78e3bd", [
+      [ "kNoProfiling", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a8673ec2785fc26b96c4d57fe9f78e3bdadd494e0a115dcb7c4c33fab6e27eb85f", null ],
+      [ "kNoProfilingInlined", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a8673ec2785fc26b96c4d57fe9f78e3bdaa1dac965cc0f96f56d4798df595bae38", null ],
+      [ "kGeneric", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a8673ec2785fc26b96c4d57fe9f78e3bda9d2ca309125e6d75dc323e68546e0885", null ]
+    ] ],
+    [ "CallKnownApiFunction", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#ad46dea2960c948c5c08b3cde83a443a0", null ],
+    [ "arg", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a441c7c8a03d2e90dc810e1b45a651295", null ],
+    [ "args", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a6982b1eae0c8f912cdf9ca664446e923", null ],
+    [ "context", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a3901d369edf1f8778a420cb129a62ff6", null ],
+    [ "context", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a1f57d4fe40d426f0a77528ab0e1a67bd", null ],
+    [ "function_template_info", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a4c28635cba44d0e8a46b94afd7c8e1a4", null ],
+    [ "GenerateCode", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#af5eaf1fdb12dfedb90c5101513b70b24", null ],
+    [ "inline_builtin", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a8aece6062e0d8df5c98feb035def48fd", null ],
+    [ "MaxCallStackArgs", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a8b2dc3b7361d06a2879e17438fc18329", null ],
+    [ "mode", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a5ca229f9e25bd634ae99bb5eedad662d", null ],
+    [ "num_args", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#ac294b0e16f0399f1152c8cfc712c8520", null ],
+    [ "PrintParams", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#afa06003e3e67628f9ef1c1d203a57fbf", null ],
+    [ "receiver", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a2db8d88075664b5cad48ad60c4ed416f", null ],
+    [ "receiver", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a5fb69a2ef36252f43c76e19445ffc46a", null ],
+    [ "set_arg", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a0f288c7691c7a82f5c24420487898afc", null ],
+    [ "SetValueLocationConstraints", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#a6bad23119fc32b21c7dc36c53b11dfa9", null ],
+    [ "VerifyInputs", "classv8_1_1internal_1_1maglev_1_1CallKnownApiFunction.html#ad73f019ea841d95bc2403afee229cc5d", null ]
+];

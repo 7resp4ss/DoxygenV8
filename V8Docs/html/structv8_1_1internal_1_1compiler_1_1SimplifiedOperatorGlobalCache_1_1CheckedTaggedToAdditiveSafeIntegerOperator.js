@@ -1,0 +1,4 @@
+var structv8_1_1internal_1_1compiler_1_1SimplifiedOperatorGlobalCache_1_1CheckedTaggedToAdditiveSafeIntegerOperator =
+[
+    [ "CheckedTaggedToAdditiveSafeIntegerOperator", "structv8_1_1internal_1_1compiler_1_1SimplifiedOperatorGlobalCache_1_1CheckedTaggedToAdditiveSafeIntegerOperator.html#a6a5f16b24c2fa62862968c8153c750fb", null ]
+];

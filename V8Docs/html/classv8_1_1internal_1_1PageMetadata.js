@@ -1,0 +1,24 @@
+var classv8_1_1internal_1_1PageMetadata =
+[
+    [ "PageMetadata", "classv8_1_1internal_1_1PageMetadata.html#a7f1fd64afab6bf68d4fb8442d53158e2", null ],
+    [ "active_system_pages", "classv8_1_1internal_1_1PageMetadata.html#abe15feba256468023fe7055080981f4d", null ],
+    [ "AllocateFreeListCategories", "classv8_1_1internal_1_1PageMetadata.html#a26e1c78c6cf5dc9ef09a235739a1ceaa", null ],
+    [ "AssertNoTypedSlotsInFreeMemory", "classv8_1_1internal_1_1PageMetadata.html#a45441f939fdfe8e3cfcee01b7a88303e", null ],
+    [ "AvailableInFreeList", "classv8_1_1internal_1_1PageMetadata.html#a16187efe8d004c8bc2f53e911a5bdd36", null ],
+    [ "AvailableInFreeListFromAllocatedBytes", "classv8_1_1internal_1_1PageMetadata.html#a1a999ac184a5f4ed1c03e8ea0188d840", null ],
+    [ "ClearEvacuationCandidate", "classv8_1_1internal_1_1PageMetadata.html#a82aabcbc982e4f258da99870e4896bf6", null ],
+    [ "ClearTypedSlotsInFreeMemory", "classv8_1_1internal_1_1PageMetadata.html#a78328ea0b131728ec925c2da0579ce48", null ],
+    [ "CreateBlackArea", "classv8_1_1internal_1_1PageMetadata.html#af5c3c6a9e4e22f30835f078877981a68", null ],
+    [ "DestroyBlackArea", "classv8_1_1internal_1_1PageMetadata.html#ae092508b0b40b2ef445cfba1e4c9cb99", null ],
+    [ "ForAllFreeListCategories", "classv8_1_1internal_1_1PageMetadata.html#a3cfa65489eb3f1cb086a91bf368bc7dd", null ],
+    [ "free_list_category", "classv8_1_1internal_1_1PageMetadata.html#a2b898dd672bd670c41352097bdbd74bd", null ],
+    [ "InitializeFreeListCategories", "classv8_1_1internal_1_1PageMetadata.html#aa84edafcd101a063aa1db08c32f81781", null ],
+    [ "MarkEvacuationCandidate", "classv8_1_1internal_1_1PageMetadata.html#a1b6da13a34e2984a618db74bda54dd3a", null ],
+    [ "MarkNeverAllocateForTesting", "classv8_1_1internal_1_1PageMetadata.html#aa3db60fdd65f901bda0a07d8b4f3ce18", null ],
+    [ "next_page", "classv8_1_1internal_1_1PageMetadata.html#ae6ba5b401b14ecf9ed9e08f85d66c86f", null ],
+    [ "next_page", "classv8_1_1internal_1_1PageMetadata.html#a7e696204d27d47a652bf1bc798b72926", null ],
+    [ "prev_page", "classv8_1_1internal_1_1PageMetadata.html#a8918f9d31355dc176b09974eb1c0d675", null ],
+    [ "prev_page", "classv8_1_1internal_1_1PageMetadata.html#ae1354927a08a8903437c9e456b06e7b2", null ],
+    [ "ReleaseFreeListCategories", "classv8_1_1internal_1_1PageMetadata.html#ab2cb38cf5a86ac4d9db01210b8c5fea9", null ],
+    [ "MemoryAllocator", "classv8_1_1internal_1_1PageMetadata.html#aea1126d5a764b0d074d2d6edb5a09f23", null ]
+];

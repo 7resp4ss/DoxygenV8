@@ -1,0 +1,26 @@
+var wasm_compiler_8cc =
+[
+    [ "WasmDecorator", "classv8_1_1internal_1_1compiler_1_1WasmDecorator.html", "classv8_1_1internal_1_1compiler_1_1WasmDecorator" ],
+    [ "LOAD_ROOT", "wasm-compiler_8cc.html#ab4058e88187f0001a2c6bb1c91ca8044", null ],
+    [ "TRACE", "wasm-compiler_8cc.html#a494d31903e7b0333dfa03b0778679113", null ],
+    [ "TRAPREASON_TO_TRAPID", "wasm-compiler_8cc.html#a5c4c427f3a3193b0aff579734aef0fb3", null ],
+    [ "BuildInlinedJSToWasmWrapper", "wasm-compiler_8cc.html#a9b21de30261fbc278600d0d3f6833e70", null ],
+    [ "CompileCWasmEntry", "wasm-compiler_8cc.html#ac7d458d7e85f4af133e75272fc646f46", null ],
+    [ "CompileWasmCapiCallWrapper", "wasm-compiler_8cc.html#a50bcd95a7391f11ea798d7b747922901", null ],
+    [ "CompileWasmImportCallWrapper", "wasm-compiler_8cc.html#a150b8a9ff28bf34f132764224b9ea6ef", null ],
+    [ "CompileWasmJSFastCallWrapper", "wasm-compiler_8cc.html#ac7487375c580f916b38504dc43380233", null ],
+    [ "CreateMachineSignature", "wasm-compiler_8cc.html#a211904a4b17ba40e32957fba56e0ebd4", null ],
+    [ "CreateMachineSignature", "wasm-compiler_8cc.html#a8bb9221415d5f1032713ac0ba33ef171", null ],
+    [ "CreateMachineSignature", "wasm-compiler_8cc.html#a310bea397fe607e4e0ac0c446753f86a", null ],
+    [ "IsFastCallSupportedSignature", "wasm-compiler_8cc.html#a3d082ec6dc91b47b987ca21e4069fa99", null ],
+    [ "NewJSToWasmCompilationJob", "wasm-compiler_8cc.html#a16a2598f1862499d458ce243235f2f30", null ],
+    [ "WasmAssemblerOptions", "wasm-compiler_8cc.html#a0e1fee49f1d42509685dd346e71caf90", null ],
+    [ "WasmStubAssemblerOptions", "wasm-compiler_8cc.html#a2e9650bb57b1a87639a7cf79673aed9f", null ],
+    [ "float32_to_number_operator_", "wasm-compiler_8cc.html#ab7a9dde7e9b12492eb7a538d7a88ab6f", null ],
+    [ "float64_to_number_operator_", "wasm-compiler_8cc.html#a9a6ffd1867e698110680204eabbb785b", null ],
+    [ "int32_to_heapnumber_operator_", "wasm-compiler_8cc.html#a3f2d132803415d58bcbbad263aa25b44", null ],
+    [ "tagged_non_smi_to_int32_operator_", "wasm-compiler_8cc.html#abaece73909fd89e76eab6a6981409ee9", null ],
+    [ "tagged_to_float64_operator_", "wasm-compiler_8cc.html#a75b1bffc1c9f4c41d45d670dd63ae424", null ],
+    [ "thread_in_wasm_flag_address_", "wasm-compiler_8cc.html#a1183c7d8cef00075874648fc838a22f3", null ],
+    [ "wasm_wrapper_graph_builder_", "wasm-compiler_8cc.html#acc33ccee115e5680727aa70b2eff36e8", null ]
+];

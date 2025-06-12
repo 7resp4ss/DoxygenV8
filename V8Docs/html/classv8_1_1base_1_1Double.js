@@ -1,0 +1,20 @@
+var classv8_1_1base_1_1Double =
+[
+    [ "Double", "classv8_1_1base_1_1Double.html#a4d6a997c5b47a4e9b5b3d2d053a0871c", null ],
+    [ "Double", "classv8_1_1base_1_1Double.html#ae33c235cee78345e12a9ee15103fc22a", null ],
+    [ "Double", "classv8_1_1base_1_1Double.html#ac7f5e2fcb9880e332bf0c825dba22a7e", null ],
+    [ "Double", "classv8_1_1base_1_1Double.html#af0133bfd2157b466ec9013d5385a83c6", null ],
+    [ "AsDiyFp", "classv8_1_1base_1_1Double.html#aa9f07c288d60d1529fd6b02af51233a6", null ],
+    [ "AsNormalizedDiyFp", "classv8_1_1base_1_1Double.html#a0bb553edd302cd70f12b9bf00a14b20e", null ],
+    [ "AsUint64", "classv8_1_1base_1_1Double.html#a0665436f14314809738a608112f4bdd8", null ],
+    [ "Exponent", "classv8_1_1base_1_1Double.html#ad045f7d4ab8c7625dc0f0f0f2635da4e", null ],
+    [ "IsDenormal", "classv8_1_1base_1_1Double.html#a4383d49bc766fa08055634d760603237", null ],
+    [ "IsInfinite", "classv8_1_1base_1_1Double.html#ab4abe84127426c9534538d4361801b4f", null ],
+    [ "IsSpecial", "classv8_1_1base_1_1Double.html#a12e1f7d743a5d1c0289cf4ad5a15ddf4", null ],
+    [ "NextDouble", "classv8_1_1base_1_1Double.html#a03768c44013395466ce0973ff9571190", null ],
+    [ "NormalizedBoundaries", "classv8_1_1base_1_1Double.html#a6ed21152e9f40f53fefe29c50e8e12a6", null ],
+    [ "Sign", "classv8_1_1base_1_1Double.html#a3199049174a457c6378d3978f8205ac0", null ],
+    [ "Significand", "classv8_1_1base_1_1Double.html#adb31c0451099b7d8c5ff25a2d8d08572", null ],
+    [ "UpperBoundary", "classv8_1_1base_1_1Double.html#aca3409ded75fab2dd028ba811763dfa5", null ],
+    [ "value", "classv8_1_1base_1_1Double.html#ae08c7df92058d638456bd8a612c4bc81", null ]
+];

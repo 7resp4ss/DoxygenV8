@@ -1,0 +1,147 @@
+\hypertarget{heap-snapshot-generator_8cc}{}\doxysection{heap-\/snapshot-\/generator.cc File Reference}
+\label{heap-snapshot-generator_8cc}\index{heap-\/snapshot-\/generator.cc@{heap-\/snapshot-\/generator.cc}}
+{\ttfamily \#include \char`\"{}src/profiler/heap-\/snapshot-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/assembler-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/assert-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/debug/debug.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/global-\/handles.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/combined-\/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/layout-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/safepoint.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/visit-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/numbers/conversions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/allocation-\/site-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/api-\/callbacks.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/cell-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/feedback-\/cell-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/hash-\/table-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/buffer-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/array-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/collection-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/disposable-\/stack-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/generator-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/objects.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/promise-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/regexp-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/weak-\/refs-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/literal-\/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/prototype.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/slots-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/struct-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/transitions-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/visitors.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/profiler/allocation-\/tracker.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/profiler/heap-\/profiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/profiler/heap-\/snapshot-\/generator-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/profiler/output-\/stream-\/writer.\+h\char`\"{}}\newline
+Include dependency graph for heap-\/snapshot-\/generator.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{heap-snapshot-generator_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1IndexedReferencesExtractor}{v8\+::internal\+::\+Indexed\+References\+Extractor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1RootsReferencesExtractor}{v8\+::internal\+::\+Roots\+References\+Extractor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1GlobalObjectsEnumerator}{v8\+::internal\+::\+Global\+Objects\+Enumerator}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1EmbedderGraphImpl}{v8\+::internal\+::\+Embedder\+Graph\+Impl}}
+\item 
+struct \mbox{\hyperlink{structv8_1_1internal_1_1EmbedderGraphImpl_1_1Edge}{v8\+::internal\+::\+Embedder\+Graph\+Impl\+::\+Edge}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1EmbedderGraphImpl_1_1V8NodeImpl}{v8\+::internal\+::\+Embedder\+Graph\+Impl\+::\+V8\+Node\+Impl}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1EmbedderGraphEntriesAllocator}{v8\+::internal\+::\+Embedder\+Graph\+Entries\+Allocator}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{heap-snapshot-generator_8cc_aeb503f3b214afb0512456ea22e2dd8e4}{MAKE\+\_\+\+STRING\+\_\+\+MAP\+\_\+\+CASE}}(instance\+\_\+type,  \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}},  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  Name)
+\item 
+\#define \mbox{\hyperlink{heap-snapshot-generator_8cc_a44912b5e340b4756bb362993146c3571}{MAKE\+\_\+\+TORQUE\+\_\+\+CASE}}(Name,  TYPE)
+\item 
+\#define \mbox{\hyperlink{heap-snapshot-generator_8cc_a9eaa3021fa1b37a2020160ae831c2be5}{MAKE\+\_\+\+STRING\+\_\+\+CASE}}(instance\+\_\+type,  \mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}},  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  Name)
+\item 
+\#define \mbox{\hyperlink{heap-snapshot-generator_8cc_a1da15f2c69c685747a49bd13a729631b}{CONTEXT\+\_\+\+FIELD\+\_\+\+INDEX\+\_\+\+NAME}}(\mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}},  \mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  \mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})~\{\mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{Context\+::index}}, \#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}\},
+\item 
+\#define \mbox{\hyperlink{heap-snapshot-generator_8cc_a79f258dd92b6f396587e63b8f844eecc}{JSON\+\_\+A}}(\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}})~\char`\"{}\mbox{[}\char`\"{} \mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} \char`\"{}\mbox{]}\char`\"{}
+\item 
+\#define \mbox{\hyperlink{heap-snapshot-generator_8cc_a0108dd82138a5137f7093687f4222882}{JSON\+\_\+S}}(\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}})~\char`\"{}\textbackslash{}\char`\"{}\char`\"{} s \char`\"{}\textbackslash{}\char`\"{}\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{heap-snapshot-generator_8cc_a1da15f2c69c685747a49bd13a729631b}\label{heap-snapshot-generator_8cc_a1da15f2c69c685747a49bd13a729631b}} 
+\index{heap-\/snapshot-\/generator.cc@{heap-\/snapshot-\/generator.cc}!CONTEXT\_FIELD\_INDEX\_NAME@{CONTEXT\_FIELD\_INDEX\_NAME}}
+\index{CONTEXT\_FIELD\_INDEX\_NAME@{CONTEXT\_FIELD\_INDEX\_NAME}!heap-\/snapshot-\/generator.cc@{heap-\/snapshot-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{CONTEXT\_FIELD\_INDEX\_NAME}{CONTEXT\_FIELD\_INDEX\_NAME}}
+{\footnotesize\ttfamily \#define CONTEXT\+\_\+\+FIELD\+\_\+\+INDEX\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{index}},  }\item[{}]{\mbox{\hyperlink{js-call-reducer_8cc_ae4dfd7b0d66121016d6466d2ff10e8ba}{\+\_\+}},  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})~\{\mbox{\hyperlink{random-module-generation_8cc_aafd95f8c7a99b9189ede7cdf0871ebe8}{Context\+::index}}, \#\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}}\},}
+
+\mbox{\Hypertarget{heap-snapshot-generator_8cc_a79f258dd92b6f396587e63b8f844eecc}\label{heap-snapshot-generator_8cc_a79f258dd92b6f396587e63b8f844eecc}} 
+\index{heap-\/snapshot-\/generator.cc@{heap-\/snapshot-\/generator.cc}!JSON\_A@{JSON\_A}}
+\index{JSON\_A@{JSON\_A}!heap-\/snapshot-\/generator.cc@{heap-\/snapshot-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{JSON\_A}{JSON\_A}}
+{\footnotesize\ttfamily \#define JSON\+\_\+A(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} }\end{DoxyParamCaption})~\char`\"{}\mbox{[}\char`\"{} \mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} \char`\"{}\mbox{]}\char`\"{}}
+
+\mbox{\Hypertarget{heap-snapshot-generator_8cc_a0108dd82138a5137f7093687f4222882}\label{heap-snapshot-generator_8cc_a0108dd82138a5137f7093687f4222882}} 
+\index{heap-\/snapshot-\/generator.cc@{heap-\/snapshot-\/generator.cc}!JSON\_S@{JSON\_S}}
+\index{JSON\_S@{JSON\_S}!heap-\/snapshot-\/generator.cc@{heap-\/snapshot-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{JSON\_S}{JSON\_S}}
+{\footnotesize\ttfamily \#define JSON\+\_\+S(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} }\end{DoxyParamCaption})~\char`\"{}\textbackslash{}\char`\"{}\char`\"{} s \char`\"{}\textbackslash{}\char`\"{}\char`\"{}}
+
+\mbox{\Hypertarget{heap-snapshot-generator_8cc_a9eaa3021fa1b37a2020160ae831c2be5}\label{heap-snapshot-generator_8cc_a9eaa3021fa1b37a2020160ae831c2be5}} 
+\index{heap-\/snapshot-\/generator.cc@{heap-\/snapshot-\/generator.cc}!MAKE\_STRING\_CASE@{MAKE\_STRING\_CASE}}
+\index{MAKE\_STRING\_CASE@{MAKE\_STRING\_CASE}!heap-\/snapshot-\/generator.cc@{heap-\/snapshot-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{MAKE\_STRING\_CASE}{MAKE\_STRING\_CASE}}
+{\footnotesize\ttfamily \#define MAKE\+\_\+\+STRING\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{instance\+\_\+type,  }\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}},  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} instance\_type:                                     \(\backslash\)}
+\DoxyCodeLine{    UNREACHABLE();}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{heap-snapshot-generator_8cc_aeb503f3b214afb0512456ea22e2dd8e4}\label{heap-snapshot-generator_8cc_aeb503f3b214afb0512456ea22e2dd8e4}} 
+\index{heap-\/snapshot-\/generator.cc@{heap-\/snapshot-\/generator.cc}!MAKE\_STRING\_MAP\_CASE@{MAKE\_STRING\_MAP\_CASE}}
+\index{MAKE\_STRING\_MAP\_CASE@{MAKE\_STRING\_MAP\_CASE}!heap-\/snapshot-\/generator.cc@{heap-\/snapshot-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{MAKE\_STRING\_MAP\_CASE}{MAKE\_STRING\_MAP\_CASE}}
+{\footnotesize\ttfamily \#define MAKE\+\_\+\+STRING\+\_\+\+MAP\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{instance\+\_\+type,  }\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a3df0b28b666e942ffb9d7d04acdb9715}{size}},  }\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}},  }\item[{}]{Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} instance\_type:                                         \(\backslash\)}
+\DoxyCodeLine{    return \textcolor{stringliteral}{"{}system / Map ("{}} \#Name \textcolor{stringliteral}{"{})"{}};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{heap-snapshot-generator_8cc_a44912b5e340b4756bb362993146c3571}\label{heap-snapshot-generator_8cc_a44912b5e340b4756bb362993146c3571}} 
+\index{heap-\/snapshot-\/generator.cc@{heap-\/snapshot-\/generator.cc}!MAKE\_TORQUE\_CASE@{MAKE\_TORQUE\_CASE}}
+\index{MAKE\_TORQUE\_CASE@{MAKE\_TORQUE\_CASE}!heap-\/snapshot-\/generator.cc@{heap-\/snapshot-\/generator.cc}}
+\doxysubsubsection{\texorpdfstring{MAKE\_TORQUE\_CASE}{MAKE\_TORQUE\_CASE}}
+{\footnotesize\ttfamily \#define MAKE\+\_\+\+TORQUE\+\_\+\+CASE(\begin{DoxyParamCaption}\item[{}]{Name,  }\item[{}]{TYPE }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} TYPE:                         \(\backslash\)}
+\DoxyCodeLine{    return \textcolor{stringliteral}{"{}system / "{}} \#Name;}
+
+\end{DoxyCode}

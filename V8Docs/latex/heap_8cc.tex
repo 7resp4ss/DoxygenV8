@@ -1,0 +1,291 @@
+\hypertarget{heap_8cc}{}\doxysection{heap.\+cc File Reference}
+\label{heap_8cc}\index{heap.cc@{heap.cc}}
+{\ttfamily \#include \char`\"{}src/heap/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$atomic$>$}\newline
+{\ttfamily \#include $<$cinttypes$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+set$>$}\newline
+{\ttfamily \#include \char`\"{}include/v8-\/locker.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/api/api-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/bits.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/macros.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/once.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/platform/memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/platform/mutex.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/platform/time.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/base/utils/random-\/number-\/generator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/builtins/accessors.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/assembler-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/compilation-\/cache.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/assert-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/common/globals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/compiler-\/dispatcher/optimizing-\/compile-\/dispatcher.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/debug/debug.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/deoptimizer/deoptimizer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/embedder-\/state.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/isolate-\/utils-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/microtask-\/queue.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/v8threads.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/execution/vm-\/state-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/flags/flags.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/global-\/handles-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/handles/traced-\/handles.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/allocation-\/observer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/array-\/buffer-\/sweeper.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/base/stack.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/base/worklist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/code-\/range.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/code-\/stats.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/collection-\/barrier.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/combined-\/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/concurrent-\/marking.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/conservative-\/stack-\/visitor-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/cppgc-\/js/cpp-\/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/ephemeron-\/remembered-\/set.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/evacuation-\/verifier-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/finalization-\/registry-\/cleanup-\/task.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/gc-\/callbacks.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/gc-\/tracer-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/gc-\/tracer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/allocator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/controller.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/layout-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/layout-\/tracer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/utils-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/visitor-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/visitor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/heap-\/write-\/barrier-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/incremental-\/marking.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/large-\/spaces.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/local-\/heap-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/mark-\/compact-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/mark-\/compact.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/marking-\/barrier-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/marking-\/barrier.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/marking-\/state-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/marking-\/state.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/memory-\/balancer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/memory-\/chunk-\/layout.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/memory-\/chunk-\/metadata.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/memory-\/measurement.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/memory-\/reducer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/minor-\/gc-\/job.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/minor-\/mark-\/sweep.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/mutable-\/page-\/metadata-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/new-\/spaces.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/object-\/lock.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/object-\/stats.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/page-\/pool.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/paged-\/spaces-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/parked-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/pretenuring-\/handler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/read-\/only-\/heap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/remembered-\/set.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/safepoint.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/scavenger-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/stress-\/scavenge-\/observer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/sweeper.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/trusted-\/range.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/visit-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/heap/zapping.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/init/bootstrapper.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/init/v8.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/interpreter/interpreter.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/log.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/logging/runtime-\/call-\/stats-\/scope.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/numbers/conversions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/allocation-\/site.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/data-\/handler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/free-\/space-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/hash-\/table-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/hash-\/table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/instance-\/type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/maybe-\/object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/objects.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/slots-\/atomic-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/slots-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/slots.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/visitors.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/profiler/heap-\/profiler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/regexp/regexp.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/embedded/embedded-\/data.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/serializer-\/deserializer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/snapshot/snapshot.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/string-\/hasher.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/string-\/stream.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/strings/unicode-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/tasks/cancelable-\/task.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/tracing/trace-\/event.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/utils-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/utils/utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/object-\/macros.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/object-\/macros-\/undef.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1Heap_1_1AllocationTrackerForDebugging}{v8\+::internal\+::\+Heap\+::\+Allocation\+Tracker\+For\+Debugging}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1IdleTaskOnContextDispose}{v8\+::internal\+::\+Idle\+Task\+On\+Context\+Dispose}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1ActivateMemoryReducerTask}{v8\+::internal\+::\+Activate\+Memory\+Reducer\+Task}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1MemoryPressureInterruptTask}{v8\+::internal\+::\+Memory\+Pressure\+Interrupt\+Task}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1StressConcurrentAllocationTask}{v8\+::internal\+::\+Stress\+Concurrent\+Allocation\+Task}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1StressConcurrentAllocationObserver}{v8\+::internal\+::\+Stress\+Concurrent\+Allocation\+Observer}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1CheckHandleCountVisitor}{v8\+::internal\+::\+Check\+Handle\+Count\+Visitor}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1HeapObjectsFilter}{v8\+::internal\+::\+Heap\+Objects\+Filter}}
+\item 
+class \mbox{\hyperlink{classv8_1_1internal_1_1UnreachableObjectsFilter}{v8\+::internal\+::\+Unreachable\+Objects\+Filter}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{heap_8cc_aaf085c883cc00254a2f9908613586764}{DICT}}(\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}})~\char`\"{}\{\char`\"{} $<$$<$ \mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} $<$$<$ \char`\"{}\}\char`\"{}
+\item 
+\#define \mbox{\hyperlink{heap_8cc_acdaff9d13f766739085c7eed06ffac65}{LIST}}(\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}})~\char`\"{}\mbox{[}\char`\"{} $<$$<$ \mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} $<$$<$ \char`\"{}\mbox{]}\char`\"{}
+\item 
+\#define \mbox{\hyperlink{heap_8cc_ad8d5ae679a29f40d24ca0f0031f1d242}{QUOTE}}(\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}})~\char`\"{}\textbackslash{}\char`\"{}\char`\"{} $<$$<$ s $<$$<$ \char`\"{}\textbackslash{}\char`\"{}\char`\"{}
+\item 
+\#define \mbox{\hyperlink{heap_8cc_a574269ef7c9ceebb66f8ec8b6fee9e58}{MEMBER}}(\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}})~\mbox{\hyperlink{heap_8cc_ad8d5ae679a29f40d24ca0f0031f1d242}{QUOTE}}(\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}}) $<$$<$ \char`\"{}\+:\char`\"{}
+\item 
+\#define \mbox{\hyperlink{heap_8cc_af146858350af9fc0cf496d48fef16650}{UPDATE\+\_\+\+COUNTERS\+\_\+\+FOR\+\_\+\+SPACE}}(\mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}})
+\item 
+\#define \mbox{\hyperlink{heap_8cc_a35c4376fdd233dbf30cfe2c8f068912b}{UPDATE\+\_\+\+FRAGMENTATION\+\_\+\+FOR\+\_\+\+SPACE}}(\mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}})
+\item 
+\#define \mbox{\hyperlink{heap_8cc_adda7a77e52ce585aac7a8ae6c2515c72}{UPDATE\+\_\+\+COUNTERS\+\_\+\+AND\+\_\+\+FRAGMENTATION\+\_\+\+FOR\+\_\+\+SPACE}}(\mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}})
+\item 
+\#define \mbox{\hyperlink{heap_8cc_a8ae035266dfbdbcd3ea2321c3613edba}{DEF\+\_\+\+RIGHT\+\_\+\+TRIM}}(\mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}})
+\item 
+\#define \mbox{\hyperlink{heap_8cc_aa49301537070c78140f67d891cee7661}{COMPARE\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+NAME}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\item 
+\#define \mbox{\hyperlink{heap_8cc_aa49301537070c78140f67d891cee7661}{COMPARE\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+NAME}}(\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{heap_8cc_aa49301537070c78140f67d891cee7661}\label{heap_8cc_aa49301537070c78140f67d891cee7661}} 
+\index{heap.cc@{heap.cc}!COMPARE\_AND\_RETURN\_NAME@{COMPARE\_AND\_RETURN\_NAME}}
+\index{COMPARE\_AND\_RETURN\_NAME@{COMPARE\_AND\_RETURN\_NAME}!heap.cc@{heap.cc}}
+\doxysubsubsection{\texorpdfstring{COMPARE\_AND\_RETURN\_NAME}{COMPARE\_AND\_RETURN\_NAME}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \#define COMPARE\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} \mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}}:                          \(\backslash\)}
+\DoxyCodeLine{    *object\_type = \#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}};             \(\backslash\)}
+\DoxyCodeLine{    *object\_sub\_type = \textcolor{stringliteral}{"{}"{}};            \(\backslash\)}
+\DoxyCodeLine{    return \textcolor{keyword}{true};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{heap_8cc_aa49301537070c78140f67d891cee7661}\label{heap_8cc_aa49301537070c78140f67d891cee7661}} 
+\index{heap.cc@{heap.cc}!COMPARE\_AND\_RETURN\_NAME@{COMPARE\_AND\_RETURN\_NAME}}
+\index{COMPARE\_AND\_RETURN\_NAME@{COMPARE\_AND\_RETURN\_NAME}!heap.cc@{heap.cc}}
+\doxysubsubsection{\texorpdfstring{COMPARE\_AND\_RETURN\_NAME}{COMPARE\_AND\_RETURN\_NAME}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \#define COMPARE\+\_\+\+AND\+\_\+\+RETURN\+\_\+\+NAME(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{torque-parser_8cc_a8cf8d62de950c828d4a2c2c5c7a753b9}{name}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{case} ObjectStats::FIRST\_VIRTUAL\_TYPE +                        \(\backslash\)}
+\DoxyCodeLine{      static\_cast<int>(\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{ObjectStats::VirtualInstanceType::name}}): \(\backslash\)}
+\DoxyCodeLine{    *object\_type = \#\mbox{\hyperlink{api_8cc_a0b79990e09c5971befdb526ccfb8deed}{name}};                                       \(\backslash\)}
+\DoxyCodeLine{    *object\_sub\_type = \textcolor{stringliteral}{"{}"{}};                                      \(\backslash\)}
+\DoxyCodeLine{    return \textcolor{keyword}{true};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{heap_8cc_a8ae035266dfbdbcd3ea2321c3613edba}\label{heap_8cc_a8ae035266dfbdbcd3ea2321c3613edba}} 
+\index{heap.cc@{heap.cc}!DEF\_RIGHT\_TRIM@{DEF\_RIGHT\_TRIM}}
+\index{DEF\_RIGHT\_TRIM@{DEF\_RIGHT\_TRIM}!heap.cc@{heap.cc}}
+\doxysubsubsection{\texorpdfstring{DEF\_RIGHT\_TRIM}{DEF\_RIGHT\_TRIM}}
+{\footnotesize\ttfamily \#define DEF\+\_\+\+RIGHT\+\_\+\+TRIM(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{token_8h_aeb3b320679bdd784c8fc3b5f2aa813a9}{T}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keyword}{template} \mbox{\hyperlink{export-template_8h_a8687a18b601021d53d8f4417c60584c5}{EXPORT\_TEMPLATE\_DEFINE}}(\mbox{\hyperlink{src_2base_2macros_8h_ab08e353943a53678ac6baafc678f2d81}{V8\_EXPORT\_PRIVATE}}) void     \(\backslash\)}
+\DoxyCodeLine{  Heap::RightTrimArray<T>(Tagged<T> \textcolor{keywordtype}{object}, \textcolor{keywordtype}{int} new\_capacity, \(\backslash\)}
+\DoxyCodeLine{                          \textcolor{keywordtype}{int} old\_capacity);}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{heap_8cc_aaf085c883cc00254a2f9908613586764}\label{heap_8cc_aaf085c883cc00254a2f9908613586764}} 
+\index{heap.cc@{heap.cc}!DICT@{DICT}}
+\index{DICT@{DICT}!heap.cc@{heap.cc}}
+\doxysubsubsection{\texorpdfstring{DICT}{DICT}}
+{\footnotesize\ttfamily \#define DICT(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} }\end{DoxyParamCaption})~\char`\"{}\{\char`\"{} $<$$<$ \mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} $<$$<$ \char`\"{}\}\char`\"{}}
+
+\mbox{\Hypertarget{heap_8cc_acdaff9d13f766739085c7eed06ffac65}\label{heap_8cc_acdaff9d13f766739085c7eed06ffac65}} 
+\index{heap.cc@{heap.cc}!LIST@{LIST}}
+\index{LIST@{LIST}!heap.cc@{heap.cc}}
+\doxysubsubsection{\texorpdfstring{LIST}{LIST}}
+{\footnotesize\ttfamily \#define LIST(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} }\end{DoxyParamCaption})~\char`\"{}\mbox{[}\char`\"{} $<$$<$ \mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} $<$$<$ \char`\"{}\mbox{]}\char`\"{}}
+
+\mbox{\Hypertarget{heap_8cc_a574269ef7c9ceebb66f8ec8b6fee9e58}\label{heap_8cc_a574269ef7c9ceebb66f8ec8b6fee9e58}} 
+\index{heap.cc@{heap.cc}!MEMBER@{MEMBER}}
+\index{MEMBER@{MEMBER}!heap.cc@{heap.cc}}
+\doxysubsubsection{\texorpdfstring{MEMBER}{MEMBER}}
+{\footnotesize\ttfamily \#define MEMBER(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} }\end{DoxyParamCaption})~\mbox{\hyperlink{heap_8cc_ad8d5ae679a29f40d24ca0f0031f1d242}{QUOTE}}(\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}}) $<$$<$ \char`\"{}\+:\char`\"{}}
+
+\mbox{\Hypertarget{heap_8cc_ad8d5ae679a29f40d24ca0f0031f1d242}\label{heap_8cc_ad8d5ae679a29f40d24ca0f0031f1d242}} 
+\index{heap.cc@{heap.cc}!QUOTE@{QUOTE}}
+\index{QUOTE@{QUOTE}!heap.cc@{heap.cc}}
+\doxysubsubsection{\texorpdfstring{QUOTE}{QUOTE}}
+{\footnotesize\ttfamily \#define QUOTE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{mul-fft_8cc_a339d22b3e442946380f98ed19e320db2}{s}} }\end{DoxyParamCaption})~\char`\"{}\textbackslash{}\char`\"{}\char`\"{} $<$$<$ s $<$$<$ \char`\"{}\textbackslash{}\char`\"{}\char`\"{}}
+
+\mbox{\Hypertarget{heap_8cc_adda7a77e52ce585aac7a8ae6c2515c72}\label{heap_8cc_adda7a77e52ce585aac7a8ae6c2515c72}} 
+\index{heap.cc@{heap.cc}!UPDATE\_COUNTERS\_AND\_FRAGMENTATION\_FOR\_SPACE@{UPDATE\_COUNTERS\_AND\_FRAGMENTATION\_FOR\_SPACE}}
+\index{UPDATE\_COUNTERS\_AND\_FRAGMENTATION\_FOR\_SPACE@{UPDATE\_COUNTERS\_AND\_FRAGMENTATION\_FOR\_SPACE}!heap.cc@{heap.cc}}
+\doxysubsubsection{\texorpdfstring{UPDATE\_COUNTERS\_AND\_FRAGMENTATION\_FOR\_SPACE}{UPDATE\_COUNTERS\_AND\_FRAGMENTATION\_FOR\_SPACE}}
+{\footnotesize\ttfamily \#define UPDATE\+\_\+\+COUNTERS\+\_\+\+AND\+\_\+\+FRAGMENTATION\+\_\+\+FOR\+\_\+\+SPACE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{heap_8cc_af146858350af9fc0cf496d48fef16650}{UPDATE\_COUNTERS\_FOR\_SPACE}}(\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}})                         \(\backslash\)}
+\DoxyCodeLine{  UPDATE\_FRAGMENTATION\_FOR\_SPACE(\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}})}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{heap_8cc_af146858350af9fc0cf496d48fef16650}\label{heap_8cc_af146858350af9fc0cf496d48fef16650}} 
+\index{heap.cc@{heap.cc}!UPDATE\_COUNTERS\_FOR\_SPACE@{UPDATE\_COUNTERS\_FOR\_SPACE}}
+\index{UPDATE\_COUNTERS\_FOR\_SPACE@{UPDATE\_COUNTERS\_FOR\_SPACE}!heap.cc@{heap.cc}}
+\doxysubsubsection{\texorpdfstring{UPDATE\_COUNTERS\_FOR\_SPACE}{UPDATE\_COUNTERS\_FOR\_SPACE}}
+{\footnotesize\ttfamily \#define UPDATE\+\_\+\+COUNTERS\+\_\+\+FOR\+\_\+\+SPACE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{compilation-cache-table_8cc_a68072bca3fef7bd8b0d3cbac971cbf4b}{isolate\_}}-\/>counters()-\/>space\#\#\_bytes\_available()-\/>Set( \(\backslash\)}
+\DoxyCodeLine{      \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}()-\/>Available()));          \(\backslash\)}
+\DoxyCodeLine{  isolate\_-\/>counters()-\/>space\#\#\_bytes\_committed()-\/>Set( \(\backslash\)}
+\DoxyCodeLine{      \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}()-\/>CommittedMemory()));    \(\backslash\)}
+\DoxyCodeLine{  isolate\_-\/>counters()-\/>space\#\#\_bytes\_used()-\/>Set(      \(\backslash\)}
+\DoxyCodeLine{      \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}()-\/>SizeOfObjects()));}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{heap_8cc_a35c4376fdd233dbf30cfe2c8f068912b}\label{heap_8cc_a35c4376fdd233dbf30cfe2c8f068912b}} 
+\index{heap.cc@{heap.cc}!UPDATE\_FRAGMENTATION\_FOR\_SPACE@{UPDATE\_FRAGMENTATION\_FOR\_SPACE}}
+\index{UPDATE\_FRAGMENTATION\_FOR\_SPACE@{UPDATE\_FRAGMENTATION\_FOR\_SPACE}!heap.cc@{heap.cc}}
+\doxysubsubsection{\texorpdfstring{UPDATE\_FRAGMENTATION\_FOR\_SPACE}{UPDATE\_FRAGMENTATION\_FOR\_SPACE}}
+{\footnotesize\ttfamily \#define UPDATE\+\_\+\+FRAGMENTATION\+\_\+\+FOR\+\_\+\+SPACE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{flag-definitions_8h_a1d8cf0775c94df78b63812966a84395c}{space}} }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordflow}{if} (\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}()-\/>CommittedMemory() > 0) \{                                \(\backslash\)}
+\DoxyCodeLine{    isolate\_-\/>counters()-\/>external\_fragmentation\_\#\#\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}()-\/>AddSample( \(\backslash\)}
+\DoxyCodeLine{        \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(100 -\/ (\mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}()-\/>SizeOfObjects() * 100.0) /    \(\backslash\)}
+\DoxyCodeLine{                                   \mbox{\hyperlink{flag-definitions_8h_a087fd0337c14e102a4a2abccd41a39ad}{space}}()-\/>CommittedMemory()));       \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}

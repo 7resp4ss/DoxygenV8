@@ -1,0 +1,111 @@
+\hypertarget{maglev-ir-riscv_8cc}{}\doxysection{maglev-\/ir-\/riscv.cc File Reference}
+\label{maglev-ir-riscv_8cc}\index{maglev-\/ir-\/riscv.cc@{maglev-\/ir-\/riscv.cc}}
+{\ttfamily \#include \char`\"{}src/base/logging.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/interface-\/descriptors-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/riscv/assembler-\/riscv-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/codegen/riscv/register-\/riscv.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/assembler-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/graph-\/processor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/graph.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/ir-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/maglev-\/ir.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/maglev/riscv/maglev-\/assembler-\/riscv-\/inl.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/feedback-\/cell.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}src/objects/js-\/function.\+h\char`\"{}}\newline
+Include dependency graph for maglev-\/ir-\/riscv.cc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maglev-ir-riscv_8cc__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacev8}{v8}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal}{v8\+::internal}}
+\item 
+ \mbox{\hyperlink{namespacev8_1_1internal_1_1maglev}{v8\+::internal\+::maglev}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{maglev-ir-riscv_8cc_a0a87998f4e8cee4888f2a89df3d5639b}{\+\_\+\+\_\+}}~masm-\/$>$
+\item 
+\#define \mbox{\hyperlink{maglev-ir-riscv_8cc_aa55e60a38dcc24d0b4063354442b81f8}{DEF\+\_\+\+BITWISE\+\_\+\+BINOP}}(Instruction,  opcode)
+\item 
+\#define \mbox{\hyperlink{maglev-ir-riscv_8cc_a37a82e6bf96739581ac8343802e69b32}{DEF\+\_\+\+SHIFT\+\_\+\+BINOP}}(Instruction,  opcode)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{maglev-ir-riscv_8cc_a0a87998f4e8cee4888f2a89df3d5639b}\label{maglev-ir-riscv_8cc_a0a87998f4e8cee4888f2a89df3d5639b}} 
+\index{maglev-\/ir-\/riscv.cc@{maglev-\/ir-\/riscv.cc}!\_\_@{\_\_}}
+\index{\_\_@{\_\_}!maglev-\/ir-\/riscv.cc@{maglev-\/ir-\/riscv.cc}}
+\doxysubsubsection{\texorpdfstring{\_\_}{\_\_}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+~masm-\/$>$}
+
+\mbox{\Hypertarget{maglev-ir-riscv_8cc_aa55e60a38dcc24d0b4063354442b81f8}\label{maglev-ir-riscv_8cc_aa55e60a38dcc24d0b4063354442b81f8}} 
+\index{maglev-\/ir-\/riscv.cc@{maglev-\/ir-\/riscv.cc}!DEF\_BITWISE\_BINOP@{DEF\_BITWISE\_BINOP}}
+\index{DEF\_BITWISE\_BINOP@{DEF\_BITWISE\_BINOP}!maglev-\/ir-\/riscv.cc@{maglev-\/ir-\/riscv.cc}}
+\doxysubsubsection{\texorpdfstring{DEF\_BITWISE\_BINOP}{DEF\_BITWISE\_BINOP}}
+{\footnotesize\ttfamily \#define DEF\+\_\+\+BITWISE\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{Instruction,  }\item[{}]{opcode }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} Instruction::SetValueLocationConstraints() \{              \(\backslash\)}
+\DoxyCodeLine{    UseRegister(left\_input());                                   \(\backslash\)}
+\DoxyCodeLine{    UseRegister(right\_input());                                  \(\backslash\)}
+\DoxyCodeLine{    DefineAsRegister(\textcolor{keyword}{this});                                      \(\backslash\)}
+\DoxyCodeLine{  \}                                                              \(\backslash\)}
+\DoxyCodeLine{                                                                 \(\backslash\)}
+\DoxyCodeLine{  void Instruction::GenerateCode(MaglevAssembler* masm,          \(\backslash\)}
+\DoxyCodeLine{                                 \textcolor{keyword}{const} ProcessingState\& \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}) \{ \(\backslash\)}
+\DoxyCodeLine{    Register lhs = \mbox{\hyperlink{namespacev8_1_1internal_1_1baseline_1_1detail_a450f5b361fd7a23e53871dbcc351422e}{ToRegister}}(left\_input());                     \(\backslash\)}
+\DoxyCodeLine{    Register rhs = \mbox{\hyperlink{namespacev8_1_1internal_1_1baseline_1_1detail_a450f5b361fd7a23e53871dbcc351422e}{ToRegister}}(right\_input());                    \(\backslash\)}
+\DoxyCodeLine{    Register out = \mbox{\hyperlink{namespacev8_1_1internal_1_1baseline_1_1detail_a450f5b361fd7a23e53871dbcc351422e}{ToRegister}}(\mbox{\hyperlink{jump-threading_8cc_a41f8c58d2c01bf65b8ee199c3f87fc80}{result}}());                         \(\backslash\)}
+\DoxyCodeLine{    \_\_ opcode(out, lhs, Operand(rhs));                           \(\backslash\)}
+\DoxyCodeLine{    \textcolor{comment}{/* TODO: is zero extension really needed here? */}            \(\backslash\)}
+\DoxyCodeLine{    \_\_ ZeroExtendWord(out, out);                                 \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{maglev-ir-riscv_8cc_a37a82e6bf96739581ac8343802e69b32}\label{maglev-ir-riscv_8cc_a37a82e6bf96739581ac8343802e69b32}} 
+\index{maglev-\/ir-\/riscv.cc@{maglev-\/ir-\/riscv.cc}!DEF\_SHIFT\_BINOP@{DEF\_SHIFT\_BINOP}}
+\index{DEF\_SHIFT\_BINOP@{DEF\_SHIFT\_BINOP}!maglev-\/ir-\/riscv.cc@{maglev-\/ir-\/riscv.cc}}
+\doxysubsubsection{\texorpdfstring{DEF\_SHIFT\_BINOP}{DEF\_SHIFT\_BINOP}}
+{\footnotesize\ttfamily \#define DEF\+\_\+\+SHIFT\+\_\+\+BINOP(\begin{DoxyParamCaption}\item[{}]{Instruction,  }\item[{}]{opcode }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \textcolor{keywordtype}{void} Instruction::SetValueLocationConstraints() \{              \(\backslash\)}
+\DoxyCodeLine{    UseRegister(left\_input());                                   \(\backslash\)}
+\DoxyCodeLine{    if (right\_input().\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}()-\/>Is<Int32Constant>()) \{             \(\backslash\)}
+\DoxyCodeLine{      UseAny(right\_input());                                     \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                     \(\backslash\)}
+\DoxyCodeLine{      UseRegister(right\_input());                                \(\backslash\)}
+\DoxyCodeLine{    \}                                                            \(\backslash\)}
+\DoxyCodeLine{    DefineAsRegister(\textcolor{keyword}{this});                                      \(\backslash\)}
+\DoxyCodeLine{  \}                                                              \(\backslash\)}
+\DoxyCodeLine{                                                                 \(\backslash\)}
+\DoxyCodeLine{  void Instruction::GenerateCode(MaglevAssembler* masm,          \(\backslash\)}
+\DoxyCodeLine{                                 \textcolor{keyword}{const} ProcessingState\& \mbox{\hyperlink{liftoff-compiler_8cc_ab600894d6947e13cf9b2a5a775e70324}{state}}) \{ \(\backslash\)}
+\DoxyCodeLine{    Register out = \mbox{\hyperlink{namespacev8_1_1internal_1_1baseline_1_1detail_a450f5b361fd7a23e53871dbcc351422e}{ToRegister}}(\mbox{\hyperlink{jump-threading_8cc_a41f8c58d2c01bf65b8ee199c3f87fc80}{result}}());                         \(\backslash\)}
+\DoxyCodeLine{    Register lhs = \mbox{\hyperlink{namespacev8_1_1internal_1_1baseline_1_1detail_a450f5b361fd7a23e53871dbcc351422e}{ToRegister}}(left\_input());                     \(\backslash\)}
+\DoxyCodeLine{    if (Int32Constant* constant =                                \(\backslash\)}
+\DoxyCodeLine{            right\_input().\mbox{\hyperlink{js-inlining-heuristic_8cc_ab88cd70dad2e152cea983610f2a16e68}{node}}()-\/>TryCast<Int32Constant>()) \{    \(\backslash\)}
+\DoxyCodeLine{      uint32\_t shift = constant-\/>value() \& 31;                   \(\backslash\)}
+\DoxyCodeLine{      if (shift == 0) \{                                          \(\backslash\)}
+\DoxyCodeLine{        \_\_ ZeroExtendWord(out, lhs);                             \(\backslash\)}
+\DoxyCodeLine{        return;                                                  \(\backslash\)}
+\DoxyCodeLine{      \}                                                          \(\backslash\)}
+\DoxyCodeLine{      \_\_ opcode(out, lhs, Operand(shift));                       \(\backslash\)}
+\DoxyCodeLine{    \} \textcolor{keywordflow}{else} \{                                                     \(\backslash\)}
+\DoxyCodeLine{      Register rhs = \mbox{\hyperlink{namespacev8_1_1internal_1_1baseline_1_1detail_a450f5b361fd7a23e53871dbcc351422e}{ToRegister}}(right\_input());                  \(\backslash\)}
+\DoxyCodeLine{      \_\_ opcode(out, lhs, Operand(rhs));                         \(\backslash\)}
+\DoxyCodeLine{    \}                                                            \(\backslash\)}
+\DoxyCodeLine{  \}}
+
+\end{DoxyCode}
