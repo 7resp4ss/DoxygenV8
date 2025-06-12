@@ -1,0 +1,65 @@
+# This is a basic workflow to help you get started with Actions
+name: Create
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      V8Version:
+        description: Version or Commit
+        type: string
+        required: true
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE
+      - uses: actions/checkout@v4
+
+      # Download doxygen
+      - name: Download doxygen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz
+
+      - name: Download V8 Source Code
+        run: |
+          mkdir /tmp/V8SourceCode
+          git clone --depth 1 https://github.com/v8/v8 /tmp/V8SourceCode
+
+      # Create V8Docs
+      - name: Create V8Docs
+        run: |
+          mkdir /tmp/V8Docs
+          doxygen Doxyfile
+
+      # Copy V8Docs to repository and push
+      - name: Commit and Push V8Docs
+        run: |
+          # Copy generated docs to a directory in the repository
+          mkdir -p $GITHUB_WORKSPACE/V8Docs
+          cp -r /tmp/V8Docs/* $GITHUB_WORKSPACE/V8Docs/
+
+          # Configure git user
+          git config --global user.name '7resp4ss'
+          git config --global user.email '81899344+7resp4ss@users.noreply.github.com'
+
+          # Add and commit changes
+          git add V8Docs/
+          git commit -m "Add V8Docs for V8 version ${{ inputs.V8Version }}"
+
+          # Push changes to the repository
+          git push
+        env:
+          # Use the GitHub token for authentication
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
